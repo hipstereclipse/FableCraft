@@ -410,9 +410,9 @@ def plan_jack():
     parts = plan_humanoid(
         head=8, torso_w=8, torso_h=12, torso_d=4, arm_w=4, arm_len=12,
         leg_h=12, skirt=True, cape=True, boots=True, belt=True, hands=True,
-          roles={"body": "dark", "arms": "cloth", "legs": "dark",
+        roles={"body": "dark", "arms": "cloth", "legs": "steel",
                "head": "cloth", "cape": "cape"},
-          decor={"head": ["jack_mask"],
+        decor={"head": ["jack_mask"],
                "cape": ["trim"], "arms": ["trim_cuff"]})
     head = next(p for p in parts if p["name"] == "head")
     # Smooth hood shell: no horned/pointed silhouette.
@@ -454,7 +454,22 @@ def plan_jack():
     arm_l = next(p for p in parts if p["name"] == "arm_l")
     arm_r.setdefault("cube_roles", {})[1] = "dark"
     arm_l.setdefault("cube_roles", {})[1] = "dark"
+    for leg_name in ("leg_r", "leg_l"):
+        leg = next(p for p in parts if p["name"] == leg_name)
+        leg["role"] = "steel"
+        leg["decor"] = ["steel_plates"]
+        for cube_index in range(len(leg["cubes"])):
+            leg.setdefault("cube_roles", {})[cube_index] = "steel"
     # Raised outfit details so they read from gameplay distance.
+    parts.append({"name": "jack_chestplate", "pivot": [0, 18, -3.55], "rot": [0, 0, 0], "parent": "body",
+                  "cubes": [_cube([-3.9, 14.2, -4.25], [7.8, 7.4, 0.65], inflate=0.04)],
+                  "role": "steel", "decor": ["steel_chestplate"]})
+    parts.append({"name": "jack_sabaton_r", "pivot": [-3, 2, -2.3], "rot": [0, 0, 0], "parent": "leg_r",
+                  "cubes": [_cube([-5.1, 0.0, -3.25], [4.2, 2.4, 2.2], inflate=0.08)],
+                  "role": "steel", "decor": []})
+    parts.append({"name": "jack_sabaton_l", "pivot": [3, 2, -2.3], "rot": [0, 0, 0], "parent": "leg_l",
+                  "cubes": [_cube([0.9, 0.0, -3.25], [4.2, 2.4, 2.2], inflate=0.08)],
+                  "role": "steel", "decor": []})
     parts.append({"name": "jack_bandolier", "pivot": [0, 17.8, -2.55], "rot": [0, 0, -28], "parent": "body",
                   "cubes": [_cube([-0.45, 10.5, -3.95], [0.9, 16.5, 0.55], inflate=0.03)],
                   "role": "belt", "decor": []})
@@ -479,6 +494,34 @@ def plan_jack():
                             _cube([-3.4, 12.2, 4.35], [6.8, 1.0, 0.9]),
                             _cube([-0.7, 7.0, 4.35], [1.4, 5.0, 0.9])],
                   "cube_roles": {1: "metal", 2: "dark"}, "role": "metal", "decor": []})
+    return parts
+
+
+def plan_theresa():
+    """Theresa: hooded seeress with a visible blindfolded face and layered crimson robes."""
+    parts = plan_humanoid(
+        head=8, torso_w=8, torso_h=12, torso_d=4, arm_w=4, arm_len=12,
+        leg_h=12, hat="hood", cape=True, skirt=True, boots=True, belt=True, hands=True,
+        roles={"body": "cloth", "arms": "cloth", "legs": "cloth", "head": "skin", "cape": "cape"},
+        decor={"head": ["theresa_face"], "body": ["theresa_robe"], "cape": ["trim"], "arms": ["trim_cuff"]})
+    body = next(p for p in parts if p["name"] == "body")
+    body["cubes"].append(_cube([-4.6, 20.5, -2.6], [9.2, 3.2, 5.2], inflate=0.14))
+    body.setdefault("cube_roles", {})[len(body["cubes"]) - 1] = "cloth"
+    parts.append({"name": "theresa_front_panel", "pivot": [0, 16, -2.8], "rot": [0, 0, 0], "parent": "body",
+                  "cubes": [_cube([-3.25, 9.0, -3.05], [6.5, 13.4, 0.55], inflate=0.02)],
+                  "role": "cloth", "decor": ["theresa_robe"]})
+    parts.append({"name": "theresa_sash", "pivot": [0, 15.5, -3.2], "rot": [0, 0, -24], "parent": "body",
+                  "cubes": [_cube([-0.45, 9.8, -3.58], [0.9, 13.6, 0.45], inflate=0.02)],
+                  "role": "belt", "decor": []})
+    parts.append({"name": "theresa_trim_l", "pivot": [0, 12, 0], "rot": [0, 0, 0], "parent": "body",
+                  "cubes": [_cube([-3.65, 8.8, -3.42], [0.55, 13.2, 0.45])],
+                  "role": "belt", "decor": []})
+    parts.append({"name": "theresa_trim_r", "pivot": [0, 12, 0], "rot": [0, 0, 0], "parent": "body",
+                  "cubes": [_cube([3.1, 8.8, -3.42], [0.55, 13.2, 0.45])],
+                  "role": "belt", "decor": []})
+    parts.append({"name": "theresa_pendant", "pivot": [0, 18.5, -3.4], "rot": [0, 0, 0], "parent": "body",
+                  "cubes": [_cube([-0.65, 17.8, -3.72], [1.3, 1.3, 0.45])],
+                  "role": "belt", "decor": []})
     return parts
 
 
@@ -559,8 +602,20 @@ def plan_demon_door():
         {"name": "nose", "pivot": [0, 24, -4], "rot": [0, 0, 0],
          "cubes": [_cube([-3, 17, -6, ], [6, 12, 2.5])],
          "role": "rock", "decor": []},
-        {"name": "jaw", "pivot": [0, 10, -1], "rot": [0, 0, 0],
-         "cubes": [_cube([-11, 2, -8], [22, 14, 5])],
+        {"name": "upper_lip", "pivot": [0, 13, -4], "rot": [0, 0, 0],
+         "cubes": [_cube([-10.5, 12.0, -8], [21, 3.8, 4])],
+         "role": "rock", "decor": []},
+        {"name": "lower_lip", "pivot": [0, 6, -4], "rot": [0, 0, 0],
+         "cubes": [_cube([-9.5, 4.2, -8], [19, 3.4, 4])],
+         "role": "rock", "decor": []},
+        {"name": "mouth_corner_r", "pivot": [-8.5, 8.2, -4], "rot": [0, 0, -10],
+         "cubes": [_cube([-11.4, 6.0, -8], [3.4, 7.6, 3.5])],
+         "role": "rock", "decor": []},
+        {"name": "mouth_corner_l", "pivot": [8.5, 8.2, -4], "rot": [0, 0, 10],
+         "cubes": [_cube([8.0, 6.0, -8], [3.4, 7.6, 3.5])],
+         "role": "rock", "decor": []},
+        {"name": "mouth_cavity", "pivot": [0, 9.2, -6], "rot": [0, 0, 0],
+         "cubes": [_cube([-7.6, 7.2, -8.65], [15.2, 5.5, 1.1])],
          "role": "rock", "decor": ["door_mouth"]},
     ]
 
@@ -593,7 +648,7 @@ PAL = {
     "minion": {"skin": (110, 70, 80), "metal": (74, 70, 82), "cloth": (60, 40, 50), "glowcol": (255, 90, 60)},
     "arachanox": {"chitin": (78, 52, 110), "dark": (40, 26, 56), "glowcol": (200, 120, 255)},
     "assassin": {"cloth": (48, 44, 56), "skin": (180, 150, 130), "metal": (90, 30, 36), "glowcol": (255, 120, 90)},
-    "jack_of_blades": {"cloth": (150, 22, 26), "dark": (34, 28, 30), "metal": (170, 150, 118), "skin": (235, 232, 224), "cape": (96, 14, 20), "boots": (24, 20, 22), "belt": (92, 54, 28), "glowcol": (255, 60, 45)},
+    "jack_of_blades": {"cloth": (150, 22, 26), "dark": (34, 28, 30), "metal": (170, 150, 118), "steel": (164, 170, 176), "skin": (235, 232, 224), "cape": (96, 14, 20), "boots": (24, 20, 22), "belt": (92, 54, 28), "glowcol": (255, 60, 45)},
     "jack_dragon": {"scale": (96, 26, 30), "wing_leather": (60, 18, 22), "glowcol": (255, 200, 90)},
     "villager_albion": {"skin": (208, 168, 130), "cloth": (110, 90, 64), "hair": (112, 78, 46), "boots": (112, 80, 50), "belt": (58, 42, 28), "glowcol": (255, 240, 200)},
     "villager_woman": {"skin": (212, 172, 134), "cloth": (104, 118, 74), "hair": (86, 58, 34), "boots": (50, 38, 32), "belt": (62, 44, 30), "glowcol": (255, 240, 200)},
@@ -822,17 +877,17 @@ MOBS = [
      "spawn": None, "drops": [], "scale": 1.0, "dialogue": "guildmaster"},
     {"id": "guild_apprentice_might", "name": "Guild Apprentice (Might)", "plan": ("humanoid", {"hat": "hood", "skirt": True, "boots": True, "belt": True, "hands": True,
                                                                                               "roles": {"body": "tunic", "arms": "sleeves", "legs": "pants"},
-                                                                                              "decor": {"head": ["face"], "body": ["guild_crest", "robe_trim", "training_sash"], "arms": ["trim_cuff"]}}),
+                                                                                              "decor": {"head": ["apprentice_hood_face"], "body": ["guild_crest", "robe_trim", "training_sash"], "arms": ["trim_cuff"]}}),
      "behavior": "npc", "hp": 24, "dmg": 2, "speed": 0.32, "family": ["fc_guild", "fc_villager", "fc_friendly"],
      "spawn": None, "drops": [], "scale": 0.98, "dialogue": "apprentice"},
     {"id": "guild_apprentice_skill", "name": "Guild Apprentice (Skill)", "plan": ("humanoid", {"hat": "hood", "skirt": True, "boots": True, "belt": True, "hands": True,
                                                                                               "roles": {"body": "tunic", "arms": "sleeves", "legs": "pants"},
-                                                                                              "decor": {"head": ["lady_face"], "body": ["guild_crest", "robe_trim", "quiver"], "arms": ["trim_cuff"]}}),
+                                                                                              "decor": {"head": ["hood_lady_face"], "body": ["guild_crest", "robe_trim", "quiver"], "arms": ["trim_cuff"]}}),
      "behavior": "npc", "hp": 22, "dmg": 1, "speed": 0.34, "family": ["fc_guild", "fc_villager", "fc_friendly"],
      "spawn": None, "drops": [], "scale": 0.96, "dialogue": "apprentice"},
     {"id": "guild_apprentice_will", "name": "Guild Apprentice (Will)", "plan": ("humanoid", {"hat": "hood", "skirt": True, "boots": True, "belt": True, "hands": True,
                                                                                             "roles": {"body": "tunic", "arms": "sleeves", "legs": "pants"},
-                                                                                            "decor": {"head": ["maze_face"], "body": ["guild_crest", "robe_trim", "runes"], "arms": ["trim_cuff"]}}),
+                                                                                            "decor": {"head": ["hood_will_face"], "body": ["guild_crest", "robe_trim", "runes"], "arms": ["trim_cuff"]}}),
      "behavior": "npc", "hp": 20, "dmg": 1, "speed": 0.3, "family": ["fc_guild", "fc_villager", "fc_friendly"],
      "spawn": None, "drops": [], "scale": 0.96, "dialogue": "apprentice"},
     {"id": "maze", "name": "Maze", "plan": ("humanoid", {"hair": True, "cape": True, "boots": True, "belt": True,
@@ -840,9 +895,7 @@ MOBS = [
                                                          "decor": {"head": ["maze_face"], "body": ["runes"], "cape": ["trim"]}}),
      "behavior": "npc", "hp": 120, "dmg": 1, "speed": 0.3, "family": ["fc_maze", "fc_friendly"],
      "spawn": None, "drops": [], "scale": 1.08, "dialogue": "maze"},
-    {"id": "theresa", "name": "Theresa", "plan": ("humanoid", {"hat": "hood", "cape": True, "skirt": True, "boots": True, "belt": True,
-                                                               "roles": {"cape": "cape"},
-                                                               "decor": {"head": ["theresa_face"], "body": ["theresa_robe"], "cape": ["trim"]}}),
+    {"id": "theresa", "name": "Theresa", "plan": ("theresa", {}),
      "behavior": "npc", "hp": 100, "dmg": 1, "speed": 0.3, "family": ["fc_theresa", "fc_friendly"],
      "spawn": None, "drops": [], "scale": 0.98, "dialogue": "theresa"},
     {"id": "lady_grey", "name": "Lady Grey", "plan": ("humanoid", {"hair": "long", "skirt": True, "boots": True, "belt": True,
@@ -893,6 +946,7 @@ PLAN_BUILDERS = {
     "dragon": plan_dragon,
     "nymph": plan_nymph,
     "jack": plan_jack,
+    "theresa": plan_theresa,
     "twinblade": plan_twinblade,
     "demon_door": plan_demon_door,
 }

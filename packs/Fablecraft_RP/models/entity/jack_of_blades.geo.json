@@ -5,7 +5,7 @@
       "description": {
         "identifier": "geometry.fc.jack_of_blades",
         "texture_width": 128,
-        "texture_height": 64,
+        "texture_height": 128,
         "visible_bounds_width": 4,
         "visible_bounds_height": 4,
         "visible_bounds_offset": [
@@ -153,7 +153,7 @@
                 4
               ],
               "uv": [
-                72,
+                91,
                 52
               ],
               "inflate": 0.4
@@ -288,7 +288,7 @@
                 4
               ],
               "uv": [
-                19,
+                38,
                 52
               ],
               "inflate": 0.08
@@ -331,7 +331,7 @@
                 4
               ],
               "uv": [
-                36,
+                55,
                 52
               ],
               "inflate": 0.08
@@ -569,7 +569,7 @@
                 0.55
               ],
               "uv": [
-                0,
+                52,
                 61
               ]
             }
@@ -596,13 +596,97 @@
                 0.7
               ],
               "uv": [
-                53,
+                72,
                 52
               ],
               "inflate": 0.02
             }
           ],
           "parent": "body"
+        },
+        {
+          "name": "jack_chestplate",
+          "pivot": [
+            0,
+            18,
+            -3.55
+          ],
+          "cubes": [
+            {
+              "origin": [
+                -3.9,
+                14.2,
+                -4.25
+              ],
+              "size": [
+                7.8,
+                7.4,
+                0.65
+              ],
+              "uv": [
+                19,
+                52
+              ],
+              "inflate": 0.04
+            }
+          ],
+          "parent": "body"
+        },
+        {
+          "name": "jack_sabaton_r",
+          "pivot": [
+            -3,
+            2,
+            -2.3
+          ],
+          "cubes": [
+            {
+              "origin": [
+                -5.1,
+                0.0,
+                -3.25
+              ],
+              "size": [
+                4.2,
+                2.4,
+                2.2
+              ],
+              "uv": [
+                0,
+                61
+              ],
+              "inflate": 0.08
+            }
+          ],
+          "parent": "leg_r"
+        },
+        {
+          "name": "jack_sabaton_l",
+          "pivot": [
+            3,
+            2,
+            -2.3
+          ],
+          "cubes": [
+            {
+              "origin": [
+                0.9,
+                0.0,
+                -3.25
+              ],
+              "size": [
+                4.2,
+                2.4,
+                2.2
+              ],
+              "uv": [
+                13,
+                61
+              ],
+              "inflate": 0.08
+            }
+          ],
+          "parent": "leg_l"
         },
         {
           "name": "jack_bandolier",
@@ -711,8 +795,8 @@
                 0.45
               ],
               "uv": [
-                102,
-                52
+                26,
+                61
               ]
             }
           ],
@@ -738,8 +822,8 @@
                 0.42
               ],
               "uv": [
-                109,
-                52
+                33,
+                61
               ]
             }
           ],
@@ -813,7 +897,7 @@
                 0.9
               ],
               "uv": [
-                11,
+                63,
                 61
               ]
             },
@@ -829,7 +913,7 @@
                 0.9
               ],
               "uv": [
-                97,
+                116,
                 52
               ]
             }

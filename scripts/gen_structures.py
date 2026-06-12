@@ -632,6 +632,296 @@ def focus_site():
     v.save("focus_site")
 
 
+def power_guild_courtyard():
+    """Heroes' Guild-inspired Place of Power: chalk stream crossing the court,
+    twin bridges to a Will island, grave stones, training ring and a cullis
+    focus circle anchored by Old Kingdom pillars."""
+    r = rng("struct", "power_guild")
+    W, H, D = 27, 13, 27
+    v = Vox(W, H, D)
+    cx, cz = W // 2, D // 2
+    # base greens + paths
+    for x in range(W):
+        for z in range(D):
+            roll = r.random()
+            v.set(x, 0, z, "minecraft:grass_block" if roll < 0.66 else (PATH if roll < 0.87 else GRAVEL))
+    # stream slices through the grounds (west-east)
+    for x in range(2, W - 2):
+        for z in range(cz - 2, cz + 3):
+            edge = abs(z - cz)
+            if edge == 2:
+                v.set(x, 0, z, MCOBBLE if r.random() < 0.45 else STONE)
+            else:
+                v.set(x, 0, z, "minecraft:water")
+                if r.random() < 0.12:
+                    v.set(x, 1, z, "minecraft:seagrass")
+    # will island in the stream
+    for x in range(cx - 3, cx + 4):
+        for z in range(cz - 1, cz + 2):
+            v.set(x, 0, z, "minecraft:grass_block")
+    # twin bridges to the island
+    for bx in (cx - 6, cx + 6):
+        for x in range(min(bx, cx - 3), max(bx, cx + 3) + 1):
+            v.set(x, 1, cz - 1, SPRUCE)
+            v.set(x, 1, cz, SPRUCE)
+            v.set(x, 1, cz + 1, SPRUCE)
+        for fx in (bx, cx - 3 if bx < cx else cx + 3):
+            v.set(fx, 2, cz - 2, SPRUCE_FENCE)
+            v.set(fx, 2, cz + 2, SPRUCE_FENCE)
+            v.set(fx, 3, cz - 2, LANTERN)
+            v.set(fx, 3, cz + 2, LANTERN)
+    # cullis focus circle on the island
+    for ang in range(0, 360, 45):
+        px = cx + round(math.cos(math.radians(ang)) * 2)
+        pz = cz + round(math.sin(math.radians(ang)) * 1)
+        v.set(px, 1, pz, CHISELED if ang % 90 == 0 else DEEP_TILES)
+    v.set(cx, 1, cz, "minecraft:beacon")
+    for px, pz in ((cx - 3, cz), (cx + 3, cz), (cx, cz - 2), (cx, cz + 2)):
+        for y in range(1, 5):
+            v.set(px, y, pz, OBSIDIAN if y < 3 else "minecraft:crying_obsidian")
+        v.set(px, 5, pz, "minecraft:end_rod")
+    # melee ring + dummy
+    rx, rz = 6, 7
+    for x in range(rx - 3, rx + 4):
+        for z in range(rz - 3, rz + 4):
+            d = math.hypot(x - rx, z - rz)
+            if d <= 3.3:
+                v.set(x, 0, z, "minecraft:coarse_dirt" if r.random() < 0.7 else GRAVEL)
+            if 2.4 < d <= 3.3:
+                v.set(x, 1, z, SPRUCE_FENCE)
+    v.set(rx, 1, rz, "minecraft:hay_block")
+    v.set(rx, 2, rz, "minecraft:hay_block")
+    v.set(rx, 3, rz, "minecraft:carved_pumpkin", {"minecraft:cardinal_direction": "south"})
+    # old hero standing stones (grave markers)
+    for gx, gz in ((20, 5), (22, 8), (19, 10), (23, 12), (21, 15)):
+        h = 2 + r.randrange(0, 3)
+        for y in range(1, h + 1):
+            v.set(gx, y, gz, CHISELED if y == h else rnd_stone(r))
+        if r.random() < 0.4:
+            v.set(gx + 1, 1, gz, CANDLE, {"lit": True})
+    # low perimeter ruins and approach path
+    for x in range(W):
+        for z in (0, D - 1):
+            if z == 0 and abs(x - cx) <= 1:
+                continue
+            v.set(x, 1, z, rnd_stone(r))
+    for z in range(D):
+        for x in (0, W - 1):
+            v.set(x, 1, z, rnd_stone(r))
+    for z in range(0, 8):
+        v.set(cx, 0, z, PATH)
+        v.set(cx - 1, 0, z, PATH if r.random() < 0.7 else GRAVEL)
+        v.set(cx + 1, 0, z, PATH if r.random() < 0.7 else GRAVEL)
+    v.save("power_guild_courtyard")
+
+
+def power_oakvale_quay():
+    """Oakvale-inspired Place of Power: cliffside village green around a great
+    tree and well, with a guarded timber quay and barns below."""
+    r = rng("struct", "power_oakvale")
+    W, H, D = 29, 15, 29
+    v = Vox(W, H, D)
+    cx = W // 2
+    # terrain: village rise in north, beach/quay in south
+    for x in range(W):
+        for z in range(D):
+            rise = 1 if z < 11 else (2 if z < 7 else 0)
+            mat = "minecraft:grass_block" if z < 16 else ("minecraft:sand" if z < 24 else "minecraft:water")
+            v.set(x, 0, z, mat)
+            for y in range(1, rise + 1):
+                v.set(x, y, z, "minecraft:dirt")
+            if rise:
+                v.set(x, rise + 1, z, "minecraft:grass_block")
+    # central oak tree + well ring
+    tx, tz, gy = cx, 8, 3
+    for y in range(gy, gy + 5):
+        v.set(tx, y, tz, "minecraft:oak_log")
+    for ox in (-2, -1, 0, 1, 2):
+        for oz in (-2, -1, 0, 1, 2):
+            if abs(ox) + abs(oz) <= 3:
+                v.set(tx + ox, gy + 5, tz + oz, "minecraft:oak_leaves")
+    wx, wz = cx + 4, 9
+    for x in range(wx - 2, wx + 3):
+        for z in range(wz - 2, wz + 3):
+            if x in (wx - 2, wx + 2) or z in (wz - 2, wz + 2):
+                v.set(x, 3, z, COBBLE)
+    v.set(wx, 2, wz, "minecraft:water")
+    v.set(wx, 3, wz, "minecraft:water")
+    # clustered cottages
+    houses = [(6, 4, 6, 5), (18, 4, 6, 5), (11, 10, 7, 5)]
+    for hx, hz, hw, hd in houses:
+        for x in range(hx, hx + hw):
+            for z in range(hz, hz + hd):
+                v.set(x, 3, z, DARKOAK)
+                for y in range(4, 7):
+                    if x in (hx, hx + hw - 1) or z in (hz, hz + hd - 1):
+                        v.set(x, y, z, COBBLE if r.random() < 0.6 else rnd_stone(r))
+        v.fill(hx + 1, 4, hz, hx + hw - 2, 5, hz, "minecraft:air")
+        gable_roof_z(v, hx - 1, hx + hw, hz, hz + hd - 1, 7, "minecraft:oak_planks", COBBLE)
+        v.set(hx + 1, 4, hz + hd - 2, GLASS)
+        v.set(hx + hw - 2, 4, hz + 1, GLASS)
+    # steps down to quay
+    for z in range(12, 18):
+        v.set(cx, 2, z, COBBLE)
+        v.set(cx, 1, z + 1, COBBLE)
+    # timber quay and mooring posts
+    for x in range(cx - 4, cx + 5):
+        for z in range(20, 26):
+            v.set(x, 1, z, SPRUCE)
+    for px in (cx - 3, cx + 3):
+        for y in range(2, 5):
+            v.set(px, y, 24, SPRUCE_LOG)
+        v.set(px, 5, 24, LANTERN)
+    # barns and scarecrow field
+    for x in range(3, 9):
+        for z in range(14, 20):
+            v.set(x, 2, z, "minecraft:hay_block" if (x + z) % 2 else SPRUCE)
+    v.set(10, 2, 15, "minecraft:oak_fence")
+    v.set(10, 3, 15, "minecraft:hay_block")
+    v.set(10, 4, 15, "minecraft:carved_pumpkin", {"minecraft:cardinal_direction": "south"})
+    # cullis circle near the tree, like a reclaimed old kingdom site
+    gx, gz = cx, 12
+    for ang in range(0, 360, 45):
+        x = gx + round(math.cos(math.radians(ang)) * 2)
+        z = gz + round(math.sin(math.radians(ang)) * 2)
+        v.set(x, 3, z, CHISELED if ang % 90 == 0 else QUARTZ)
+    v.set(gx, 3, gz, "minecraft:beacon")
+    v.save("power_oakvale_quay")
+
+
+def power_snowspire_oracle():
+    """Northern Wastes Place of Power: Snowspire lanes leading to a colossal
+    Oracle monolith face, with frozen cullis stones and shrine braziers."""
+    r = rng("struct", "power_snowspire")
+    W, H, D = 29, 18, 31
+    v = Vox(W, H, D)
+    cx = W // 2
+    # packed snow field
+    for x in range(W):
+        for z in range(D):
+            mat = "minecraft:snow_block" if r.random() < 0.82 else "minecraft:packed_ice"
+            v.set(x, 0, z, mat)
+            if r.random() < 0.35:
+                v.set(x, 1, z, "minecraft:snow_layer")
+    # village lane and small houses
+    for z in range(4, 20):
+        for x in range(cx - 2, cx + 3):
+            v.set(x, 0, z, PATH if (x + z) % 3 else GRAVEL)
+    for hx, hz in ((4, 6), (20, 7), (5, 13), (19, 14)):
+        for x in range(hx, hx + 5):
+            for z in range(hz, hz + 4):
+                v.set(x, 1, z, COBBLE)
+                for y in range(2, 5):
+                    if x in (hx, hx + 4) or z in (hz, hz + 3):
+                        v.set(x, y, z, DEEPSLATE_W if r.random() < 0.5 else STONE)
+        gable_roof_z(v, hx - 1, hx + 5, hz, hz + 3, 5, DEEP_TILES, STONE)
+        v.fill(hx + 1, 2, hz, hx + 3, 3, hz, "minecraft:air")
+        v.set(hx + 2, 3, hz, SOUL_LANTERN)
+    # Oracle monolith at north end
+    mz0 = 22
+    for x in range(cx - 6, cx + 7):
+        for z in range(mz0, D - 1):
+            rise = 5 + max(0, 5 - abs(x - cx))
+            for y in range(1, min(H - 2, rise + (z - mz0) // 2)):
+                v.set(x, y, z, DEEPSLATE_W if r.random() < 0.55 else STONE)
+    # carve Oracle face relief
+    face_z = mz0
+    for y in range(5, 12):
+        for x in range(cx - 4, cx + 5):
+            v.set(x, y, face_z, "minecraft:air")
+    # brow + eyes
+    for x in range(cx - 4, cx + 5):
+        v.set(x, 12, face_z, CHISELED)
+    for ex in (cx - 2, cx + 2):
+        v.set(ex, 9, face_z, "minecraft:crying_obsidian")
+        v.set(ex, 8, face_z, "minecraft:sea_lantern")
+    # nose + mouth
+    v.set(cx, 8, face_z, CHISELED)
+    v.set(cx, 7, face_z, CHISELED)
+    for x in range(cx - 2, cx + 3):
+        v.set(x, 6, face_z, "minecraft:deepslate_tiles")
+    # cullis dais before the oracle
+    gx, gz = cx, 19
+    for x in range(gx - 3, gx + 4):
+        for z in range(gz - 3, gz + 4):
+            d = math.hypot(x - gx, z - gz)
+            if d <= 3.4:
+                v.set(x, 1, z, DEEPSLATE_W if (x + z) % 2 else CHISELED)
+            if 2.5 < d <= 3.4:
+                v.set(x, 2, z, OBSIDIAN)
+    v.set(gx, 2, gz, "minecraft:beacon")
+    for bx, bz in ((gx - 4, gz), (gx + 4, gz), (gx, gz - 4), (gx, gz + 4)):
+        for y in range(1, 5):
+            v.set(bx, y, bz, OBSIDIAN)
+        v.set(bx, 5, bz, SOUL_LANTERN)
+    v.save("power_snowspire_oracle")
+
+
+def power_necropolis():
+    """Necropolis Place of Power: collapsed old-kingdom cemetery with broken
+    bridge, ruined crypt blocks, glyph pillars and a dead cullis nexus."""
+    r = rng("struct", "power_necropolis")
+    W, H, D = 29, 14, 29
+    v = Vox(W, H, D)
+    cx, cz = W // 2, D // 2
+    for x in range(W):
+        for z in range(D):
+            roll = r.random()
+            v.set(x, 0, z, "minecraft:podzol" if roll < 0.5 else (GRAVEL if roll < 0.75 else "minecraft:coarse_dirt"))
+    # cracked city ring walls
+    for x in range(2, W - 2):
+        for z in (2, D - 3):
+            h = 2 + r.randrange(0, 3)
+            for y in range(1, h + 1):
+                if r.random() < 0.88:
+                    v.set(x, y, z, rnd_stone(r))
+    for z in range(2, D - 2):
+        for x in (2, W - 3):
+            h = 2 + r.randrange(0, 3)
+            for y in range(1, h + 1):
+                if r.random() < 0.88:
+                    v.set(x, y, z, rnd_stone(r))
+    # ravine + broken bridge
+    for x in range(cx - 6, cx + 7):
+        for z in range(cz - 1, cz + 2):
+            v.set(x, 0, z, "minecraft:air")
+            v.set(x, 1, z, "minecraft:air")
+    for x in range(cx - 6, cx - 1):
+        v.set(x, 1, cz, COBBLE)
+    for x in range(cx + 2, cx + 7):
+        v.set(x, 1, cz, COBBLE)
+    for x in (cx - 1, cx + 1):
+        v.set(x, 2, cz, "minecraft:cobblestone_wall")
+    # glyph pillars (Inquiry stones)
+    for gx, gz in ((7, 8), (21, 8), (8, 21), (21, 21)):
+        for y in range(1, 6):
+            v.set(gx, y, gz, OBSIDIAN if y < 4 else "minecraft:crying_obsidian")
+        v.set(gx, 6, gz, "minecraft:chiseled_deepslate")
+        v.set(gx, 7, gz, SOUL_LANTERN)
+    # dead cullis nexus
+    for ang in range(0, 360, 30):
+        px = cx + round(math.cos(math.radians(ang)) * 4)
+        pz = cz + round(math.sin(math.radians(ang)) * 4)
+        v.set(px, 1, pz, CHISELED if ang % 60 == 0 else STONE)
+        if ang % 60 == 0:
+            v.set(px, 2, pz, "minecraft:soul_torch")
+    v.set(cx, 1, cz, "minecraft:beacon")
+    v.set(cx, 2, cz, "minecraft:chiseled_deepslate")
+    # crypt fragments + graves
+    for hx, hz in ((5, 5), (20, 5), (6, 19), (19, 19), (13, 6), (14, 22)):
+        v.set(hx, 1, hz, CRACK)
+        v.set(hx, 2, hz, "minecraft:cobblestone_wall")
+        if r.random() < 0.35:
+            v.set(hx + 1, 1, hz, CANDLE, {"lit": True})
+    for t in ((4, 13), (24, 12), (12, 25)):
+        tx, tz = t
+        h = 3 + r.randrange(0, 3)
+        for y in range(1, h + 1):
+            v.set(tx, y, tz, DARKLOG)
+        v.set(tx, h + 1, tz, "minecraft:dark_oak_fence")
+    v.save("power_necropolis")
+
+
 def bandit_camp():
     """Twinblade's war-camp: a 33-block double-staked palisade ring, skull
     totem gate, TWO watchtowers, the Bandit King's great red pavilion on a
@@ -1168,6 +1458,10 @@ def main():
     guild_hall()
     silver_chest_ruin()
     focus_site()
+    power_guild_courtyard()
+    power_oakvale_quay()
+    power_snowspire_oracle()
+    power_necropolis()
     bandit_camp()
     graveyard()
     temple_avo()

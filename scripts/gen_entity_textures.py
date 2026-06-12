@@ -25,6 +25,7 @@ ROLE_TEXTURE = {
     "cloth": ("cloth", "cloth"),
     "bone": ("bone", "bone"),
     "metal": ("metal", "metal"),
+    "steel": ("steel", "metal"),
     "rock": ("rock", "rock"),
     "chitin": ("chitin", "chitin"),
     "wing": ("wing", "wing"),
@@ -224,27 +225,65 @@ def decorate_front(p, x, y, w, h, decor, pal, glow, r):
             my = y + (2 * h) // 3 + 1
             p.px(cx - 1, my, (150, 96, 84, 255))
             p.px(cx, my, (150, 96, 84, 255))
-        elif d == "theresa_face":
-            # hooded seeress: shadowed cowl opening, crimson blindfold with
-            # gold thread, pale chin, blue Will-marks on the cheeks
-            ey = y + max(2, h // 2)
+        elif d in ("apprentice_hood_face", "hood_lady_face", "hood_will_face"):
+            skin = pal.get("skin", (204, 164, 124)) + (255,)
+            skin_dk = shade(skin, 0.82)
+            hood_shadow = shade(pal.get("cloth", (226, 228, 234)) + (255,), 0.48)
+            fx0, fx1 = x + max(1, w // 4), x + w - max(1, w // 4) - 1
+            fy0, fy1 = y + max(2, h // 4), y + h - 2
             for yy in range(y + 1, y + h - 1):
                 for xx in range(x + 1, x + w - 1):
-                    p.px(xx, yy, (172, 138, 110, 255))   # face in shadow
-            for xx in range(x + 1, x + w - 1):
-                p.px(xx, y + 1, (60, 16, 18, 255))       # cowl shadow rim
-            for xx in range(x, x + w):
-                p.px(xx, ey, (140, 26, 30, 255))         # blindfold band
-                p.px(xx, ey + 1, (104, 20, 24, 255))
-            p.px(cx - 2, ey, (196, 158, 80, 255))        # gold thread glints
-            p.px(cx + 2, ey + 1, (196, 158, 80, 255))
-            # will-tattoo marks under the band
-            p.px(x + 1, ey + 2, (96, 150, 196, 230))
-            p.px(x + 2, ey + 3, (96, 150, 196, 200))
-            p.px(x + w - 2, ey + 2, (96, 150, 196, 230))
-            p.px(x + w - 3, ey + 3, (96, 150, 196, 200))
+                    if fx0 <= xx <= fx1 and fy0 <= yy <= fy1:
+                        p.px(xx, yy, skin if (xx + yy) % 5 else skin_dk)
+                    elif yy > fy0 - 1 and abs(xx - cx) <= max(2, w // 3):
+                        p.px(xx, yy, hood_shadow)
+            ey = y + h // 2
+            if d == "hood_lady_face":
+                eyes(ey, iris=(80, 110, 150, 255))
+                p.px(cx - w // 4 - 2, ey, (64, 46, 34, 255))
+                p.px(cx + w // 4 + 2, ey, (64, 46, 34, 255))
+                lip = (190, 86, 88, 255)
+            elif d == "hood_will_face":
+                eyes(ey, iris=(86, 170, 220, 255))
+                p.px(cx - 2, ey + 2, with_alpha(glow + (255,), 210))
+                p.px(cx + 2, ey + 2, with_alpha(glow + (255,), 210))
+                lip = (132, 78, 74, 255)
+            else:
+                eyes(ey, iris=(76, 96, 118, 255))
+                lip = (142, 84, 72, 255)
+            p.px(cx, ey + 2, (0, 0, 0, 45))
             my = y + (3 * h) // 4 + 1
-            p.px(cx - 1, my, (150, 88, 80, 255))         # lips
+            p.px(cx - 1, my, lip)
+            p.px(cx, my, shade(lip, 1.1))
+        elif d == "theresa_face":
+            # hooded seeress: normal blindfolded face inside a crimson cowl.
+            ey = y + max(2, h // 2)
+            skin = pal.get("skin", (192, 156, 124)) + (255,)
+            skin_dk = shade(skin, 0.84)
+            cowl_shadow = (50, 12, 16, 255)
+            fx0, fx1 = x + max(1, w // 4), x + w - max(1, w // 4) - 1
+            fy0, fy1 = y + max(2, h // 4), y + h - 2
+            for yy in range(y, y + h):
+                for xx in range(x, x + w):
+                    edge = min(xx - x, x + w - 1 - xx, yy - y, y + h - 1 - yy)
+                    if fx0 <= xx <= fx1 and fy0 <= yy <= fy1:
+                        p.px(xx, yy, skin if (xx + yy) % 5 else skin_dk)
+                    elif edge <= 1 or yy < fy0:
+                        p.px(xx, yy, cowl_shadow)
+            for xx in range(fx0 - 1, fx1 + 2):
+                if x <= xx < x + w:
+                    p.px(xx, ey, (142, 30, 34, 255))
+                    p.px(xx, ey + 1, (104, 22, 26, 255))
+            p.px(fx0, ey, (196, 158, 80, 255))
+            p.px(fx1, ey + 1, (196, 158, 80, 255))
+            # will-tattoo marks under the band
+            p.px(fx0, ey + 2, (96, 150, 196, 230))
+            p.px(fx0 + 1, ey + 3, (96, 150, 196, 200))
+            p.px(fx1, ey + 2, (96, 150, 196, 230))
+            p.px(fx1 - 1, ey + 3, (96, 150, 196, 200))
+            my = y + (3 * h) // 4 + 1
+            p.px(cx, ey + 2, (0, 0, 0, 45))
+            p.px(cx - 1, my, (150, 88, 80, 255))
             p.px(cx, my, (160, 94, 84, 255))
         elif d == "theresa_robe":
             # crimson seeress robe: gold sash, rune stitching, clasp
@@ -710,6 +749,36 @@ def decorate_front(p, x, y, w, h, decor, pal, glow, r):
                 p.px(xx, y + h - 1, (154, 118, 48, 255) if xx % 2 else fold_dark)
                 if xx % 3 == 0:
                     p.px(xx, y + h - 3, fold_hi)
+        elif d == "steel_chestplate":
+            hi = (214, 220, 224, 255)
+            mid = (154, 162, 170, 255)
+            dk = (82, 88, 96, 255)
+            for yy in range(y, y + h):
+                for xx in range(x, x + w):
+                    shoulder_cut = yy < y + 2 and abs(xx - cx) > max(2, w // 3)
+                    if shoulder_cut:
+                        p.px(xx, yy, (0, 0, 0, 0))
+                    elif abs(xx - cx) <= 1:
+                        p.px(xx, yy, dk)
+                    elif yy < y + 2 or yy > y + h - 3:
+                        p.px(xx, yy, mid)
+            for yy in range(y + 1, y + h - 1, 3):
+                p.px(x + 1, yy, hi)
+                p.px(x + w - 2, yy, dk)
+            p.px(cx - 1, y + 2, hi)
+            p.px(cx + 1, y + 2, dk)
+            for xx in (x + 2, x + w - 3):
+                for yy in range(y + 2, y + h - 2, 3):
+                    p.px(xx, yy, hi if xx < cx else dk)
+        elif d == "steel_plates":
+            hi = (210, 216, 222, 255)
+            dk = (86, 92, 100, 255)
+            for yy in range(y + 1, y + h - 1, 4):
+                for xx in range(x, x + w):
+                    p.px(xx, yy, dk)
+                p.px(x + 1, yy - 1 if yy > y else yy, hi)
+            for xx in range(x + 1, x + w - 1, 3):
+                p.px(xx, y + h - 2, hi)
         elif d == "trim_cuff":
             for xx in range(x, x + w):
                 p.px(xx, y + h - 2, (212, 172, 84, 255) if xx % 2 else (180, 140, 60, 255))
@@ -822,50 +891,32 @@ def decorate_front(p, x, y, w, h, decor, pal, glow, r):
             # weather streak under the eye
             p.px(cx - 1, y + h - 1, (96, 100, 86, 220))
         elif d == "door_mouth":
-            # carved stone mouth: recessed shadow with worn lip ridges, not teeth
-            stone = (116, 110, 100, 255)
-            stone_hi = (152, 146, 134, 255)
+            # arched recessed stone mouth; the separate lip geometry carries the shape.
+            stone_hi = (150, 144, 134, 255)
             stone_mid = (92, 86, 78, 255)
-            stone_dark = (48, 42, 36, 255)
+            stone_dark = (52, 46, 40, 255)
             for yy in range(y, y + h):
                 for xx in range(x, x + w):
-                    t = (yy - y) / max(1, h - 1)
-                    col = stone_mid if 0.18 < t < 0.82 else stone
-                    if r.random() < 0.28:
-                        col = shade(col, r.choice((0.82, 0.92, 1.08)))
-                    p.px(xx, yy, col)
-            inner_top = y + max(3, h // 3)
-            inner_bot = y + h - max(3, h // 4)
-            for yy in range(inner_top, inner_bot):
-                for xx in range(x + 3, x + w - 3):
-                    edge_dist = min(xx - (x + 3), x + w - 4 - xx, yy - inner_top, inner_bot - 1 - yy)
-                    col = stone_dark if edge_dist > 1 else (64, 58, 50, 255)
-                    if r.random() < 0.16:
-                        col = shade(col, 1.12)
-                    p.px(xx, yy, col)
-            # heavy upper and lower lips are continuous stone shelves
-            for xx in range(x, x + w):
-                p.px(xx, y, stone_hi)
-                p.px(xx, y + 1, stone)
-                p.px(xx, y + 2, stone_mid)
-                p.px(xx, y + h - 1, stone_hi)
-                p.px(xx, y + h - 2, stone)
-                p.px(xx, y + h - 3, stone_mid)
-            # vertical cracks and chipped notches read as weathered masonry
-            for xx in range(x + 2, x + w - 2, 4):
-                notch = 1 + ((xx + w) % 3)
-                for t in range(notch):
-                    p.px(xx, y + 1 + t, stone_mid)
-                    p.px(xx, y + h - 2 - t, stone_mid)
-                if xx % 8 == 2:
-                    for yy in range(y + 2, min(y + h - 2, y + 7)):
-                        p.px(xx, yy, stone_dark)
-            # mouth corners are carved into the same stone block
+                    nx = (xx - cx) / max(1, w / 2)
+                    ny = (yy - (y + h * 0.50)) / max(1, h * 0.58)
+                    if nx * nx + ny * ny <= 1.0:
+                        edge = abs(1.0 - (nx * nx + ny * ny))
+                        col = stone_dark if edge > 0.36 else stone_mid
+                        if r.random() < 0.12:
+                            col = shade(col, 1.18)
+                        p.px(xx, yy, col)
+                    else:
+                        p.px(xx, yy, (0, 0, 0, 0))
+            for xx in range(x + 2, x + w - 2):
+                if xx % 2 == 0:
+                    p.px(xx, y + 1, stone_hi)
+                    p.px(xx, y + h - 2, stone_mid)
             for yy in range(y + 1, y + h - 1):
-                p.px(x, yy, stone_dark)
-                p.px(x + 1, yy, stone_mid)
-                p.px(x + w - 2, yy, stone_mid)
-                p.px(x + w - 1, yy, stone_dark)
+                if yy % 2 == 0:
+                    p.px(x + 1, yy, stone_mid)
+                    p.px(x + w - 2, yy, stone_hi)
+            for xx in range(cx - 2, cx + 3):
+                p.px(xx, y + h // 2, stone_dark if xx != cx else shade(stone_dark, 1.2))
         elif d == "brow":
             for xx in range(x, x + w):
                 p.px(xx, y + h - 1, (40, 34, 30, 255))

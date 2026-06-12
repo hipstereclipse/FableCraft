@@ -356,6 +356,7 @@ def emit_entity(mob):
         comp.pop("minecraft:behavior.random_stroll", None)
         comp.pop("minecraft:despawn", None)
         comp["minecraft:movement"] = {"value": 0.0}
+        comp["minecraft:variant"] = {"value": 0}
         comp["minecraft:knockback_resistance"] = {"value": 1.0}
         comp["minecraft:damage_sensor"] = {"triggers": [
             {"cause": "all", "deals_damage": False}]}
@@ -363,6 +364,8 @@ def emit_entity(mob):
         comp["minecraft:persistent"] = {}
         comp["minecraft:is_stackable"] = {}
         comp["minecraft:body_rotation_blocked"] = {}
+        cgroups["fc:door_open"] = {"minecraft:variant": {"value": 1}}
+        events["fc:open"] = {"add": {"component_groups": ["fc:door_open"]}}
 
     if mob.get("despawn"):
         comp["minecraft:timer"] = {"looping": False, "time": mob["despawn"] / 20.0,

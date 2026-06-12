@@ -175,6 +175,33 @@ def emit_animations():
                     "jaw": {"rotation": ["math.sin(query.life_time * 25) * 2", 0, 0]},
                 },
             },
+            "animation.fc.door.open": {
+                "animation_length": 1.3,
+                "bones": {
+                    "jaw": {
+                        "rotation": {
+                            "0.0": [0, 0, 0],
+                            "0.45": [10, 0, 0],
+                            "0.9": [22, 0, 0],
+                            "1.3": [30, 0, 0]
+                        }
+                    },
+                    "brow": {
+                        "position": {
+                            "0.0": [0, 0, 0],
+                            "0.8": [0, 0.28, 0],
+                            "1.3": [0, 0.35, 0]
+                        }
+                    }
+                }
+            },
+            "animation.fc.door.open_hold": {
+                "loop": True,
+                "bones": {
+                    "jaw": {"rotation": ["28 + math.sin(query.life_time * 30) * 1.5", 0, 0]},
+                    "brow": {"position": [0, "0.32 + math.sin(query.life_time * 50) * 0.06", 0]}
+                }
+            },
         },
     }
     write_json(RP / "animations" / "fc_shared.animation.json", anims)
@@ -220,6 +247,22 @@ def emit_animation_controllers():
                             "transitions": [{"calm": "!query.has_target"}]},
                 },
             },
+            "controller.animation.fc.door": {
+                "initial_state": "closed",
+                "states": {
+                    "closed": {
+                        "animations": ["idle"],
+                        "transitions": [{"opening": "query.variant == 1"}]
+                    },
+                    "opening": {
+                        "animations": ["open"],
+                        "transitions": [{"open": "query.any_animation_finished"}]
+                    },
+                    "open": {
+                        "animations": ["open_hold"]
+                    }
+                }
+            },
         },
     }
     write_json(RP / "animation_controllers" / "fc.animation_controllers.json", ctrl)
@@ -246,7 +289,9 @@ PLAN_ANIMS = {
     "nymph": [("fly", "animation.fc.fly"), ("hover", "animation.fc.hover")],
     "jack": [("walk", "animation.fc.biped.walk"), ("idle", "animation.fc.biped.idle"),
              ("attack", "animation.fc.biped.attack")],
-    "demon_door": [("idle", "animation.fc.door.idle")],
+    "demon_door": [("idle", "animation.fc.door.idle"),
+                   ("open", "animation.fc.door.open"),
+                   ("open_hold", "animation.fc.door.open_hold")],
 }
 
 # plans driven by the biped state machines instead of always-on layers
@@ -299,6 +344,9 @@ def emit_client_entity(mob):
         scripts = {"animate": animate}
     else:
         scripts = {"animate": [k for k, _ in anims]}
+    if plan == "demon_door":
+        anim_map["ctrl_door"] = "controller.animation.fc.door"
+        scripts = {"animate": ["ctrl_door"]}
     ghost = plan in GHOST_PLANS or eid == "oracle"
     material = "entity_alphatest"
     ce = {

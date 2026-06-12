@@ -1039,15 +1039,43 @@ function doorRiddle(p, door, d) {
 
 function openDemonDoor(p, door, d) {
   door.setDynamicProperty("fc_door_open", true);
+  try { door.triggerEvent("fc:open"); } catch { }
   p.sendMessage(`§5${d.name}: §a"${d.success}"`);
   const dim = door.dimension, loc = door.location;
   dim.spawnParticle("minecraft:huge_explosion_emitter", loc);
   p.playSound("fc.door_rumble", { volume: 0.9 });
+  animateDoorOpening(door);
   for (const it of d.reward.items) giveItem(p, it.id, it.count);
   giveXp(p, "general", d.reward.xp);
   addRep(p, "guild", 5);
   addTitle(p, "Door-Speaker");
   p.onScreenDisplay.setTitle("§5Demon Door Opened", { fadeInDuration: 8, stayDuration: 60, fadeOutDuration: 15, subtitle: `§7${d.name}` });
+}
+
+function animateDoorOpening(door) {
+  const base = { ...door.location };
+  const steps = 18;
+  for (let i = 0; i <= steps; i++) {
+    system.runTimeout(() => {
+      try {
+        const t = i / steps;
+        const zOff = 1.45 * t;
+        const yOff = Math.sin(t * Math.PI) * 0.14;
+        door.teleport({ x: base.x, y: base.y + yOff, z: base.z + zOff });
+        door.dimension.spawnParticle("minecraft:basic_smoke_particle",
+          { x: base.x + (Math.random() - 0.5) * 1.4, y: base.y + 1.1 + Math.random() * 1.2, z: base.z + 0.2 + zOff });
+        if (i % 3 === 0) {
+          door.dimension.spawnParticle("minecraft:soul_particle",
+            { x: base.x + (Math.random() - 0.5) * 1.2, y: base.y + 1.3, z: base.z + zOff });
+        }
+        if (i % 4 === 0) {
+          for (const pl of world.getPlayers({ location: door.location, maxDistance: 22 })) {
+            pl.playSound("fc.door_rumble", { volume: 0.25, pitch: 0.7 + Math.random() * 0.2 });
+          }
+        }
+      } catch { }
+    }, i * 2);
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -1279,9 +1307,39 @@ function registerCullis(name, loc) {
 }
 
 const cullisCd = new Map();
+let cullisPhase = 0;
 system.runInterval(() => {
+  cullisPhase++;
   const sites = JSON.parse(world.getDynamicProperty("fc_cullis") ?? "[]");
   if (!sites.length) return;
+  for (const s of sites) {
+    const dim = OW();
+    for (let i = 0; i < 6; i++) {
+      const ang = (cullisPhase * 0.18) + (Math.PI * 2 * i) / 6;
+      const rad = 1.8 + 0.35 * Math.sin(cullisPhase * 0.1 + i);
+      const x = s.x + Math.cos(ang) * rad;
+      const y = s.y + 0.7 + (i % 2) * 0.3 + Math.sin(cullisPhase * 0.08 + i) * 0.15;
+      const z = s.z + Math.sin(ang) * rad;
+      try { dim.spawnParticle("minecraft:enchanting_table_particle", { x, y, z }); } catch { }
+    }
+    if (cullisPhase % 8 === 0) {
+      try { dim.spawnParticle("minecraft:end_chest", { x: s.x + 0.5, y: s.y + 1.1, z: s.z + 0.5 }); } catch { }
+    }
+  }
+
+  // Demon Doors breathe and whisper in the hills.
+  const dim = OW();
+  for (const door of dim.getEntities({ type: "fc:demon_door" })) {
+    const o = door.location;
+    try {
+      dim.spawnParticle("minecraft:basic_smoke_particle",
+        { x: o.x + (Math.random() - 0.5) * 0.9, y: o.y + 1.2 + Math.random() * 0.9, z: o.z + 0.3 });
+      if (cullisPhase % 4 === 0) {
+        dim.spawnParticle("minecraft:soul_particle", { x: o.x, y: o.y + 1.4, z: o.z + 0.2 });
+      }
+    } catch { }
+  }
+
   for (const p of world.getPlayers()) {
     const near = sites.find((s) => Math.hypot(p.location.x - s.x, p.location.z - s.z) < 2.4
       && Math.abs(p.location.y - s.y) < 4);
@@ -1421,9 +1479,17 @@ const STRUCTS = [
   { id: "fc:bandit_camp", w: 33, chance: 0.50, mobs: ["fc:bandit", "fc:bandit", "fc:bandit_archer", "fc:twinblade"] },
   { id: "fc:graveyard", w: 25, chance: 0.62, mobs: ["fc:undead", "fc:undead_soldier", "fc:undead_knight"] },
   { id: "fc:focus_site", w: 13, chance: 0.70, cullis: true },
-  { id: "fc:temple_avo", w: 17, chance: 0.76 },
-  { id: "fc:chapel_skorm", w: 15, chance: 0.82 },
-  { id: "fc:arena_ring", w: 27, chance: 0.86, mobs: ["fc:hobbe", "fc:hobbe", "fc:beetle"] },
+  { id: "fc:power_guild_courtyard", w: 27, chance: 0.75, cullis: true,
+    mobs: ["fc:guild_apprentice_might", "fc:guild_apprentice_skill", "fc:guild_apprentice_will"] },
+  { id: "fc:power_oakvale_quay", w: 29, chance: 0.80, cullis: true,
+    mobs: ["fc:villager_farmer", "fc:villager_fisher", "fc:guard_oakvale"] },
+  { id: "fc:power_snowspire_oracle", w: 31, chance: 0.85, cullis: true,
+    mobs: ["fc:oracle", "fc:guard_snowspire", "fc:villager_woman"] },
+  { id: "fc:power_necropolis", w: 29, chance: 0.90, cullis: true,
+    mobs: ["fc:wraith", "fc:undead_knight", "fc:frost_balverine"] },
+  { id: "fc:temple_avo", w: 17, chance: 0.94 },
+  { id: "fc:chapel_skorm", w: 15, chance: 0.97 },
+  { id: "fc:arena_ring", w: 27, chance: 0.99, mobs: ["fc:hobbe", "fc:hobbe", "fc:beetle"] },
 ];
 
 // themed loot rolled into every chest found inside a placed structure
@@ -1443,6 +1509,14 @@ const CHEST_LOOT = {
   ["fc:experience_augment", 1, 1, 0.2], ["fc:orb_skill", 1, 3, 0.5]],
   "fc:temple_avo": [["fc:health_potion", 1, 2, 0.8], ["fc:elixir_of_life", 1, 1, 0.1]],
   "fc:chapel_skorm": [["fc:will_potion", 1, 2, 0.8], ["fc:crunchy_chick", 1, 2, 0.5]],
+  "fc:power_guild_courtyard": [["fc:quest_card", 1, 1, 0.8], ["fc:will_potion", 1, 2, 0.8],
+  ["fc:orb_will", 1, 2, 0.6], ["fc:silver_key", 1, 1, 0.2]],
+  "fc:power_oakvale_quay": [["fc:gold_coin", 2, 8, 0.9], ["fc:apple_pie", 1, 3, 0.8],
+  ["fc:health_potion", 1, 2, 0.6], ["fc:orb_general", 1, 2, 0.5]],
+  "fc:power_snowspire_oracle": [["fc:will_shard", 1, 3, 0.9], ["fc:ages_of_will_potion", 1, 1, 0.35],
+  ["fc:will_potion", 1, 2, 0.7], ["fc:silver_key", 1, 1, 0.3]],
+  "fc:power_necropolis": [["fc:ectoplasm", 2, 6, 0.9], ["fc:banshees_tear", 1, 1, 0.3],
+  ["fc:orb_will", 1, 3, 0.7], ["fc:silver_key", 1, 1, 0.25]],
 };
 
 function fillLootChests(dim, x0, y0, z0, w, h, d, themeId) {
