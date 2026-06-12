@@ -772,23 +772,150 @@ def paint_phial(p, color):
 
 
 def paint_tome(p, color, r):
-    cover = color + (255,)
-    hi = shade(cover, 1.3)
-    dk = shade(cover, 0.55)
-    p.rect(3, 2, 10, 12, cover)
-    p.rect(3, 2, 2, 12, dk)         # spine
-    p.rect_outline(3, 2, 10, 12, dk)
-    p.rect(12, 3, 1, 10, (235, 228, 200, 255))  # pages
-    # rune emblem
-    cx, cy = 8, 8
-    p.px(cx, cy - 2, hi)
-    p.px(cx - 1, cy - 1, hi)
-    p.px(cx + 1, cy - 1, hi)
-    p.px(cx, cy, hi)
-    p.px(cx, cy + 1, hi)
-    p.px(cx - 1, cy + 2, hi)
-    p.px(cx + 1, cy + 2, hi)
-    p.glow(color, 45)
+    paint_grimoire(p, color, r, sigil="circle")
+
+
+# ---------------------------------------------------------------------------
+# Grimoire chassis + spell sigils (replaces the old flat "book cover" look)
+# ---------------------------------------------------------------------------
+
+def _sigil_pts(kind):
+    """Pixel offsets (dx, dy) around the sigil centre for each spell school.
+    Geometric glyphs — deliberately NOT letterforms."""
+    S = {
+        # licking teardrop flame
+        "flame": [(0, -3), (1, -2), (0, -2), (-1, -1), (0, -1), (1, -1),
+                  (-1, 0), (0, 0), (1, 0), (-1, 1), (0, 1), (1, 1), (0, 2)],
+        # jagged stormbolt
+        "bolt": [(1, -3), (0, -2), (1, -2), (0, -1), (-1, 0), (0, 0),
+                 (-1, 1), (-2, 2), (-1, 2), (-2, 3)],
+        # concussion ring bursting outward
+        "burst": [(0, -2), (2, -2), (-2, -2), (-1, -1), (1, -1), (-2, 0),
+                  (2, 0), (0, 0), (-1, 1), (1, 1), (0, 2), (-2, 2), (2, 2)],
+        # grinning drain-skull
+        "skull": [(-1, -2), (0, -2), (1, -2), (-2, -1), (-1, -1), (0, -1), (1, -1), (2, -1),
+                  (-2, 0), (0, 0), (2, 0), (-1, 1), (0, 1), (1, 1), (-1, 2), (1, 2)],
+        # mending heart
+        "heart": [(-2, -1), (-1, -2), (0, -1), (1, -2), (2, -1),
+                  (-2, 0), (-1, 0), (0, 0), (1, 0), (2, 0),
+                  (-1, 1), (0, 1), (1, 1), (0, 2)],
+        # kite shield
+        "shield": [(-2, -2), (-1, -2), (0, -2), (1, -2), (2, -2),
+                   (-2, -1), (2, -1), (-2, 0), (0, 0), (2, 0),
+                   (-1, 1), (1, 1), (0, 2)],
+        # hourglass of stilled sand
+        "hourglass": [(-2, -2), (-1, -2), (0, -2), (1, -2), (2, -2),
+                      (-1, -1), (1, -1), (0, 0),
+                      (-1, 1), (1, 1),
+                      (-2, 2), (-1, 2), (0, 2), (1, 2), (2, 2)],
+        # assassin's downward dagger
+        "dagger": [(0, -3), (0, -2), (-2, -1), (-1, -1), (0, -1), (1, -1), (2, -1),
+                   (0, 0), (0, 1), (-1, 2), (0, 2), (1, 2)],
+        # turncoat spiral
+        "swirl": [(0, -2), (1, -2), (2, -1), (2, 0), (1, 1), (0, 1), (-1, 0),
+                  (-1, -1), (0, 0), (-2, 2), (-1, 2)],
+        # triple arrow volley
+        "arrows": [(-2, -1), (-2, 0), (-2, 1), (-3, 0),
+                   (0, -2), (0, -1), (0, 0), (0, 1), (-1, -1), (1, -1),
+                   (2, -1), (2, 0), (2, 1), (3, 0)],
+        # crossed sword-strokes
+        "blades": [(-2, -2), (-1, -1), (0, 0), (1, 1), (2, 2),
+                   (2, -2), (1, -1), (-1, 1), (-2, 2), (0, -2), (0, 2)],
+        # charging double chevron
+        "charge": [(-2, -2), (-1, -1), (-2, 0), (-1, 1), (-2, 2),
+                   (0, -2), (1, -1), (0, 0), (1, 1), (0, 2), (2, 0)],
+        # berserker claw rakes
+        "claws": [(-2, -3), (-2, -1), (-2, 1), (0, -2), (0, 0), (0, 2),
+                  (2, -1), (2, 1), (2, 3), (-1, -2), (1, -1), (-1, 0), (1, 2)],
+        # radiant sunburst
+        "sun": [(0, 0), (0, -3), (0, 3), (-3, 0), (3, 0),
+                (-2, -2), (2, -2), (-2, 2), (2, 2), (0, -1), (0, 1), (-1, 0), (1, 0)],
+        # summoning ring with caller stones
+        "ring": [(-1, -2), (0, -2), (1, -2), (-2, -1), (2, -1), (-2, 0), (2, 0),
+                 (-2, 1), (2, 1), (-1, 2), (0, 2), (1, 2), (0, 0)],
+        # generic arcane circle
+        "circle": [(0, -2), (-1, -1), (1, -1), (-2, 0), (2, 0), (-1, 1), (1, 1),
+                   (0, 2), (0, 0)],
+    }
+    return S.get(kind, S["circle"])
+
+
+SPELL_SIGILS = {
+    "spell_enflame": "flame", "spell_fireball": "flame", "spell_infernal_wrath": "claws",
+    "spell_lightning": "bolt", "spell_force_push": "burst", "spell_drain_life": "skull",
+    "spell_heal_life": "heart", "spell_physical_shield": "shield",
+    "spell_slow_time": "hourglass", "spell_assassin_rush": "dagger",
+    "spell_turncoat": "swirl", "spell_multi_arrow": "arrows",
+    "spell_multi_strike": "blades", "spell_battle_charge": "charge",
+    "spell_berserk": "claws", "spell_divine_fury": "sun", "spell_summon": "ring",
+}
+
+
+def paint_grimoire(p, color, r, sigil="circle"):
+    """A proper leather grimoire: tooled cover, brass corner caps and clasp,
+    parchment page block, and a glowing geometric school-sigil."""
+    cover = shade(color + (255,), 0.55)
+    cover_hi = shade(color + (255,), 0.85)
+    cover_dk = shade(color + (255,), 0.34)
+    brass = (216, 172, 88, 255)
+    brass_hi = (255, 228, 138, 255)
+    brass_dk = (140, 104, 48, 255)
+    parch = (236, 222, 188, 255)
+    # cover slab
+    p.rect(2, 1, 12, 14, cover)
+    # tooled leather mottle
+    for yy in range(2, 14):
+        for xx in range(3, 13):
+            if (xx * 7 + yy * 5) % 9 == 0:
+                p.px(xx, yy, cover_hi)
+            elif (xx * 3 + yy * 11) % 13 == 0:
+                p.px(xx, yy, shade(cover, 0.8))
+    # raised spine with brass bands
+    p.rect(2, 1, 2, 14, cover_dk)
+    p.rect(3, 2, 1, 12, shade(cover, 0.7))
+    for yy in (3, 12):
+        p.px(2, yy, brass)
+        p.px(3, yy, brass_dk)
+    # parchment page block along the fore-edge
+    p.rect(13, 2, 1, 12, parch)
+    p.px(13, 2, (250, 244, 222, 255))
+    p.px(13, 6, shade(parch, 0.85))
+    p.px(13, 10, shade(parch, 0.85))
+    p.px(13, 13, shade(parch, 0.7))
+    # brass corner caps
+    for cx_, cy_, hi_ in ((4, 1, False), (12, 1, True), (4, 14, False), (12, 14, False)):
+        p.px(cx_, cy_, brass_hi if hi_ else brass)
+    p.px(12, 2, brass)
+    p.px(4, 2, brass_dk)
+    p.px(12, 13, brass_dk)
+    p.px(4, 13, brass)
+    # clasp + strap reaching from the fore-edge
+    p.px(12, 7, brass_dk)
+    p.px(13, 7, brass)
+    p.px(14, 7, brass_hi)
+    p.px(14, 8, brass_dk)
+    # embossed frame line
+    for xx in range(5, 12):
+        p.px(xx, 2, cover_hi)
+        p.px(xx, 13, shade(cover, 0.72))
+    # glowing school sigil
+    cx, cy = 8, 7
+    sig = mix(color, (255, 255, 255), 0.55)
+    core = mix(color, (255, 255, 255), 0.85)
+    halo = with_alpha(shade(color + (255,), 1.2), 120)
+    pts = _sigil_pts(sigil)
+    for dx, dy in pts:
+        p.px(cx + dx, cy + dy, sig)
+    # bright core + soft halo around the glyph
+    p.px(cx, cy, core)
+    for dx, dy in pts:
+        for ox, oy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            tx, ty = cx + dx + ox, cy + dy + oy
+            cur = p.get(tx, ty)
+            if cur[3] > 0 and (tx, ty) not in [(cx + a, cy + b) for a, b in pts]:
+                if 3 <= tx <= 12 and 2 <= ty <= 13 and r.random() < 0.3:
+                    p.px(tx, ty, halo)
+    p.glow(color, 50)
 
 
 def paint_augment(p, color, r):
@@ -1158,7 +1285,7 @@ def paint_armor_icon(item):
     base = pal["base"] + (255,)
     trim = pal["trim"] + (255,)
     dark_set = max(pal["base"]) < 110
-    hi = mix(base, (255, 255, 255), 0.4) if dark_set else shade(base, 1.3)
+    hi = mix(base, (255, 255, 255), 0.58) if dark_set else shade(base, 1.3)
     dk = shade(base, 0.55)
     mid = shade(base, 0.85)
     r = rng("armor", item["id"])
@@ -1200,7 +1327,11 @@ def paint_armor_icon(item):
                 p.px(8, 1, hi)
                 p.px(8, 0, hi)
                 p.rect(5, 8, 6, 1, trim)
+                p.px(7, 8, (236, 198, 112, 255))    # gold band buckle
+                p.px(8, 8, shade((236, 198, 112, 255), 0.72))
                 p.px(10, 4, trim)  # star stud
+                p.px(4, 2, mix(trim, (255, 255, 255), 0.55))   # drifting sparks
+                p.px(12, 6, mix(trim, (255, 255, 255), 0.4))
             if item["id"] == "pimp_hat":
                 plume = (226, 64, 176, 255)
                 p.px(10, 2, plume)
@@ -1279,8 +1410,422 @@ def paint_armor_icon(item):
         p.rect(9, 11, 5, 1, trim)
         p.px(3, 13, shade(dk, 0.7))
         p.px(13, 13, shade(dk, 0.7))
+    if dark_set:
+        # bright fittings so dark sets still read clearly
+        silver = (208, 214, 228, 255)
+        brass = (212, 168, 92, 255)
+        if slot == "helm":
+            if pal.get("hood"):
+                p.px(6, 3, silver)                  # moonlit sheen on the cowl
+                p.px(8, 12, brass)                  # clasp catch-light
+            elif item.get("brim"):
+                p.px(6, 10, silver)
+            else:
+                p.px(6, 4, silver)
+                p.px(8, 7, brass)                   # brow stud
+        elif slot == "torso":
+            p.px(5, 3, silver)
+            p.px(11, 3, silver)                     # shoulder studs
+            p.px(8, 10, brass)                      # belt buckle
+            p.px(7, 10, shade(brass, 0.7))
+        elif slot == "legs":
+            p.px(5, 10, silver)
+            p.px(10, 10, silver)                    # knee rivets
+            p.px(8, 4, brass)                       # belt stud
+        else:
+            p.px(4, 11, silver)
+            p.px(12, 11, silver)                    # toe caps
+            p.px(5, 8, brass)
+            p.px(10, 8, brass)                      # ankle buckles
     p.outline(DARKLINE)
     p.save(OUT / f"{item['id']}.png")
+
+
+# ---------------------------------------------------------------------------
+# Smithing material painters (recipe sub-components)
+# ---------------------------------------------------------------------------
+
+def paint_ingot(p, item, r):
+    """Two freshly-cast bars stacked at an angle, with per-metal character."""
+    c = item["color"] + (255,)
+    iid = item["id"]
+    hi = shade(c, 1.45)
+    top = shade(c, 1.18)
+    bevel = shade(c, 1.05)
+    side = shade(c, 0.72)
+    dk = shade(c, 0.5)
+
+    def bar(x, y, glint=True):
+        for i in range(7):                      # slanted top face
+            p.px(x + 2 + i, y, top)
+            p.px(x + 1 + i, y + 1, top)
+        if glint:
+            p.px(x + 2, y, hi)
+            p.px(x + 3, y, hi)
+        p.rect(x, y + 2, 8, 1, bevel)           # front face
+        p.rect(x, y + 3, 8, 2, c)
+        for yy in range(2, 5):                  # right end face
+            p.px(x + 8, y + yy, side)
+        p.px(x + 9, y + 1, side)
+        p.rect(x, y + 5, 9, 1, dk)              # underside shadow
+
+    bar(4, 2)
+    bar(3, 7)
+    if iid == "steel_ingot":
+        # brushed-finish striations + cold white glint
+        for xx in range(4, 11, 2):
+            p.px(xx, 11, shade(c, 0.88))
+        p.px(5, 10, shade(c, 1.3))
+        p.px(6, 3, (255, 255, 255, 230))
+    elif iid == "obsidian_ingot":
+        # glassy volcanic sheen: violet depths + icy glint streak
+        p.px(5, 10, (170, 150, 220, 255))
+        p.px(6, 11, (200, 190, 240, 255))
+        p.px(7, 12, (140, 120, 190, 255))
+        p.px(6, 3, (235, 230, 255, 240))
+        p.px(9, 11, shade(c, 0.36))
+        p.px(10, 4, shade(c, 0.4))
+    elif iid == "master_ingot":
+        # forge-blessed: etched will-runes shimmering on the face
+        rune = (120, 215, 255, 255)
+        p.px(5, 10, rune)
+        p.px(7, 11, rune)
+        p.px(9, 10, rune)
+        p.px(7, 4, (150, 230, 255, 255))
+        p.px(5, 3, (255, 255, 255, 235))
+        p.glow((150, 215, 255), 30)
+
+
+def paint_will_shard(p, color, r):
+    """A faceted will-crystal spire growing from a rock chip, with motes."""
+    c = color + (255,)
+    lit = shade(c, 1.22)
+    hi = shade(c, 1.5)
+    dk = shade(c, 0.58)
+    deep = shade(c, 0.4)
+    rock = (88, 84, 96, 255)
+    # rock base
+    p.rect(4, 12, 9, 2, rock)
+    p.px(3, 13, shade(rock, 0.8))
+    p.px(13, 13, shade(rock, 0.66))
+    p.px(5, 12, shade(rock, 1.25))
+    p.px(10, 12, shade(rock, 0.85))
+    # main spire (left facet lit, right facet shadowed)
+    spans = {2: (8, 8), 3: (7, 8), 4: (7, 9), 5: (7, 9), 6: (6, 9),
+             7: (6, 10), 8: (6, 10), 9: (6, 10), 10: (6, 10), 11: (6, 10)}
+    for y, (x0, x1) in spans.items():
+        for x in range(x0, x1 + 1):
+            if x < 8:
+                p.px(x, y, lit)
+            elif x == 8:
+                p.px(x, y, c)
+            else:
+                p.px(x, y, dk)
+    for y in range(4, 11):                       # edge gleam + dark fissure
+        p.px(spans[y][0], y, hi)
+        p.px(spans[y][1], y, deep)
+    p.px(8, 2, (255, 255, 255, 245))             # tip flash
+    # flanking shardlets
+    for y, x in ((9, 4), (10, 4), (11, 4)):
+        p.px(x, y, lit if y < 11 else dk)
+    p.px(4, 8, hi)
+    for y, x in ((8, 12), (9, 12), (10, 12), (11, 12)):
+        p.px(x, y, dk if y > 9 else c)
+    p.px(12, 7, lit)
+    # drifting motes
+    p.px(3, 4, with_alpha(hi, 200))
+    p.px(13, 4, with_alpha(lit, 180))
+    p.glow(color, 55)
+
+
+def paint_leather_roll(p, color, r):
+    """A cured hide rolled and strapped, spiral end showing."""
+    c = color + (255,)
+    lit = shade(c, 1.12)
+    hi = shade(c, 1.32)
+    dk = shade(c, 0.62)
+    deep = shade(c, 0.44)
+    cream = (216, 182, 132, 255)
+    strap = (70, 44, 28, 255)
+    # cylinder body
+    p.rect(2, 5, 10, 7, c)
+    p.rect(2, 5, 10, 1, lit)
+    p.rect(2, 6, 10, 1, hi)
+    p.rect(2, 10, 10, 1, dk)
+    p.rect(2, 11, 10, 1, deep)
+    # supple grain
+    for xx in range(3, 11, 3):
+        p.px(xx, 8, shade(c, 0.9))
+        p.px(xx + 1, 9, shade(c, 1.05))
+    # spiral end cap
+    p.disc(12, 8, 3.4, dk)
+    p.disc(12, 8, 2.4, cream)
+    p.disc(12, 8, 1.4, shade(cream, 0.76))
+    p.px(12, 8, deep)
+    p.px(11, 7, shade(cream, 1.18))
+    # binding strap + brass buckle
+    p.rect(5, 4, 2, 9, strap)
+    p.px(5, 4, shade(strap, 1.35))
+    p.px(6, 12, shade(strap, 0.7))
+    p.px(5, 8, (212, 172, 92, 255))
+    p.px(6, 8, (255, 226, 132, 255))
+    # loose flap corner
+    p.px(2, 12, c)
+    p.px(3, 12, dk)
+
+
+def paint_straps(p, color, r):
+    """Cut straps hanging from a wooden rail, one buckled."""
+    c = color + (255,)
+    lit = shade(c, 1.15)
+    hi = shade(c, 1.4)
+    dk = shade(c, 0.6)
+    deep = shade(c, 0.4)
+    wood = (122, 88, 52, 255)
+    brass = (216, 176, 90, 255)
+    # rail
+    p.rect(1, 2, 14, 2, wood)
+    p.rect(1, 2, 14, 1, shade(wood, 1.25))
+    p.px(2, 3, shade(wood, 0.7))
+    p.px(13, 3, shade(wood, 0.7))
+    # three hanging straps of differing lengths
+    for i, (x, ln) in enumerate(((3, 8), (7, 10), (11, 7))):
+        end = 4 + ln
+        for yy in range(4, end):
+            p.px(x, yy, lit if yy % 2 else c)
+            p.px(x + 1, yy, dk if yy % 3 else shade(c, 0.82))
+        p.px(x, 4, hi)
+        for yy in range(6, end - 1, 3):          # punched holes
+            p.px(x + (i % 2), yy, deep)
+        p.px(x, end, dk)                          # tapered tip
+        p.px(x + 1, end, deep)
+    # buckle on the centre strap
+    p.rect_outline(6, 8, 4, 3, brass)
+    p.px(6, 8, shade(brass, 1.3))
+    p.px(9, 10, shade(brass, 0.65))
+    p.px(7, 9, shade(brass, 1.15))
+
+
+def paint_cloth_bolt(p, color, r):
+    """Folded bolt of guild cloth with blue trim and gold thread."""
+    c = color + (255,)
+    hi = shade(c, 1.16)
+    white = shade(c, 1.3)
+    dk = shade(c, 0.74)
+    deep = shade(c, 0.52)
+    trim = (62, 96, 170, 255)
+    trim_hi = (110, 146, 216, 255)
+    gold = (224, 188, 110, 255)
+    folds = ((4, 3, 10), (3, 6, 11), (2, 9, 12))
+    for i, (x, y, w) in enumerate(folds):
+        p.rect(x, y, w, 3, c)
+        p.rect(x, y, w, 1, hi)
+        p.rect(x, y + 2, w, 1, dk)
+        p.px(x, y, deep)                          # rolled left edge
+        p.px(x, y + 1, shade(c, 0.86))
+        p.px(x + w - 1, y, dk)                    # rounded right corner
+        p.px(x + w - 1, y + 2, deep)
+        p.px(x + w - 2, y + 1, trim)              # trim band at the hem
+        p.px(x + w - 3, y + 1, trim_hi)
+    # sheen across the top fold
+    p.px(6, 3, white)
+    p.px(7, 3, white)
+    p.px(5, 4, white)
+    # gold thread stitches on the middle fold
+    for xx in range(4, 12, 3):
+        p.px(xx, 7, gold)
+    # selvage stitching bottom
+    p.px(4, 11, gold)
+    p.px(9, 11, gold)
+
+
+def paint_chain_links(p, color, r):
+    """Interlocked riveted mail rings (4-in-1 patch) with spares."""
+    c = color + (255,)
+    lit = shade(c, 1.12)
+    hi = shade(c, 1.45)
+    dk = shade(c, 0.55)
+    deep = shade(c, 0.38)
+
+    def ring(cx, cy, bright=False):
+        for dx, dy in ((-1, -2), (0, -2), (1, -2), (-2, -1), (2, -1), (-2, 0),
+                       (2, 0), (-2, 1), (2, 1), (-1, 2), (0, 2), (1, 2)):
+            p.px(cx + dx, cy + dy, c)
+        p.px(cx - 1, cy - 2, hi if bright else lit)
+        p.px(cx - 2, cy - 1, hi)
+        p.px(cx + 1, cy + 2, dk)
+        p.px(cx + 2, cy + 1, deep)
+        p.px(cx + 2, cy - 1, lit if bright else dk)
+
+    ring(5, 4)
+    ring(11, 4, True)
+    ring(5, 10)
+    ring(11, 10)
+    ring(8, 7, True)        # centre ring threads through all four
+    # spare rivets in the corner
+    p.px(2, 13, lit)
+    p.px(3, 14, dk)
+    p.px(14, 13, dk)
+
+
+def paint_tempered_plate(p, color, r):
+    """A convex tempered breastplate blank: specular band, dimples, rivets."""
+    c = color + (255,)
+    hi = shade(c, 1.42)
+    lit = shade(c, 1.15)
+    mid = shade(c, 0.9)
+    dk = shade(c, 0.62)
+    deep = shade(c, 0.45)
+    gold = (218, 178, 96, 255)
+    rows = {3: (4, 11), 4: (3, 12), 5: (3, 12), 6: (3, 12), 7: (3, 12),
+            8: (4, 11), 9: (4, 11), 10: (4, 11), 11: (5, 10), 12: (5, 10)}
+    for y, (x0, x1) in rows.items():
+        for x in range(x0, x1 + 1):
+            if x == x0:
+                col = dk
+            elif x == x1:
+                col = deep
+            elif 6 <= x <= 7:
+                col = lit
+            elif x >= 10:
+                col = mid
+            else:
+                col = c
+            p.px(x, y, col)
+    # neck notch
+    p.px(7, 3, (0, 0, 0, 0))
+    p.px(8, 3, (0, 0, 0, 0))
+    p.px(7, 4, deep)
+    p.px(8, 4, deep)
+    # specular streak down the keel
+    p.px(6, 4, hi)
+    p.px(6, 5, hi)
+    p.px(7, 6, hi)
+    p.px(6, 7, lit)
+    p.px(7, 9, lit)
+    # hammered dimples
+    p.px(9, 5, mid)
+    p.px(10, 8, dk)
+    p.px(5, 9, dk)
+    p.px(9, 11, mid)
+    # gold rivets
+    for rx, ry in ((4, 4), (11, 4), (5, 11), (10, 11)):
+        p.px(rx, ry, gold)
+    p.px(4, 4, shade(gold, 1.25))
+    # rolled bottom edge
+    p.rect(5, 12, 6, 1, deep)
+
+
+def paint_runed_hilt(p, color, r):
+    """Blade-less hilt: tang socket, swept gold guard with glowing runes,
+    wrapped grip, gem pommel."""
+    gold = (226, 186, 98, 255)
+    gold_hi = (255, 232, 150, 255)
+    gold_dk = (152, 118, 54, 255)
+    grip = (94, 56, 36, 255)
+    grip_hi = shade(grip, 1.35)
+    grip_dk = shade(grip, 0.6)
+    steel = (190, 198, 212, 255)
+    steel_dk = shade(steel, 0.58)
+    rune = (110, 205, 255, 255)
+    gem = (208, 64, 76, 255)
+    # bare tang stub awaiting its blade
+    p.rect(7, 1, 2, 4, steel)
+    p.px(7, 1, shade(steel, 1.3))
+    p.px(8, 1, steel_dk)
+    p.px(8, 4, steel_dk)
+    p.px(7, 0, shade(steel, 1.12))
+    # swept crossguard
+    p.rect(3, 5, 10, 2, gold)
+    p.rect(3, 5, 10, 1, gold_hi)
+    p.px(2, 4, gold)
+    p.px(2, 5, gold_hi)
+    p.px(13, 4, gold)
+    p.px(13, 5, gold_dk)
+    p.px(3, 6, gold_dk)
+    p.px(12, 6, gold_dk)
+    # etched will-runes
+    p.px(5, 5, rune)
+    p.px(8, 6, rune)
+    p.px(10, 5, rune)
+    # wrapped grip
+    for yy in range(7, 12):
+        p.px(7, yy, grip_hi if yy % 2 else grip)
+        p.px(8, yy, grip if yy % 2 else grip_dk)
+    # pommel ring + gem
+    p.disc(8, 13, 1.6, gold)
+    p.px(7, 12, gold_hi)
+    p.px(8, 13, gem)
+    p.px(9, 13, shade(gem, 0.7))
+    p.px(9, 14, gold_dk)
+    p.glow((110, 190, 255), 26)
+
+
+def paint_bow_stave(p, color, r):
+    """Seasoned recurve stave: dark bark back, pale shaved belly, cord wraps."""
+    c = color + (255,)
+    bark = shade(c, 0.55)
+    belly = (218, 190, 142, 255)
+    belly_hi = (240, 216, 170, 255)
+    cord = (70, 46, 30, 255)
+    cord_hi = shade(cord, 1.3)
+    pts = []
+    for t in range(13):
+        x = 2 + t
+        y = 13 - t - round(math.sin(t / 12 * math.pi) * 2.2)
+        pts.append((x, y))
+    for i, (x, y) in enumerate(pts):
+        p.px(x, y - 1, bark)                      # back (outer)
+        p.px(x, y, shade(c, 1.12) if i % 3 == 0 else c)   # core w/ grain
+        p.px(x, y + 1, belly_hi if i % 4 == 2 else belly)  # shaved belly
+    # cord whipping at the tips and grip
+    for idx in (0, 1, 11, 12):
+        x, y = pts[idx]
+        p.px(x, y - 1, cord)
+        p.px(x, y, cord_hi if idx in (0, 12) else cord)
+        p.px(x, y + 1, shade(cord, 0.7))
+    for idx in (5, 6, 7):
+        x, y = pts[idx]
+        p.px(x, y - 1, cord)
+        p.px(x, y, cord_hi if idx == 6 else cord)
+        p.px(x, y + 1, shade(cord, 0.7))
+    # nock notches
+    x0, y0 = pts[0]
+    x1, y1 = pts[12]
+    p.px(x0 - 1, y0, shade(c, 0.7))
+    p.px(x1 + 1, y1, shade(c, 0.7))
+
+
+def paint_bowstring_hank(p, color, r):
+    """Coiled hank of waxed cord: sheened loops, leather binding, loose end."""
+    c = color + (255,)
+    wax = (255, 252, 234, 255)
+    dk = shade(c, 0.72)
+    deep = shade(c, 0.5)
+    bind = (96, 60, 36, 255)
+    for rx, ry in ((5.0, 3.6), (3.4, 2.3)):       # two visible coil loops
+        for a in range(0, 360, 7):
+            x = 8 + round(math.cos(math.radians(a)) * rx)
+            y = 7 + round(math.sin(math.radians(a)) * ry)
+            if a <= 180:
+                col = shade(c, 0.78)              # lower arc in shadow
+            else:
+                col = shade(c, 1.15)              # upper arc catches light
+            p.px(x, y, col)
+    # wax glints along the top
+    p.px(6, 3, wax)
+    p.px(10, 4, wax)
+    p.px(11, 5, shade(c, 1.25))
+    # leather binding wrap on the left arc
+    p.rect(3, 6, 2, 3, bind)
+    p.px(3, 6, shade(bind, 1.3))
+    p.px(4, 8, shade(bind, 0.7))
+    # loose tail with whipped end
+    p.px(11, 10, dk)
+    p.px(12, 11, dk)
+    p.px(13, 12, deep)
+    p.px(13, 13, bind)
+    p.px(12, 13, shade(bind, 0.75))
 
 
 # ---------------------------------------------------------------------------
@@ -1308,14 +1853,17 @@ def paint_misc(item):
     elif kind in ("fang", "chitin"):
         paint_fang(p, color, r)
     elif kind == "hide":
-        c = color + (255,)
-        p.rect(3, 4, 10, 9, c)
-        p.px(3, 4, (0, 0, 0, 0))
-        p.px(12, 4, (0, 0, 0, 0))
-        p.px(3, 12, (0, 0, 0, 0))
-        p.px(12, 12, (0, 0, 0, 0))
-        p.noise_rect(4, 5, 8, 7, ramp(c, 4, 0.8, 1.15), r, 0.4)
-        p.rect_outline(3, 4, 10, 9, shade(c, 0.7))
+        if item["id"] == "cured_leather":
+            paint_leather_roll(p, color, r)
+        else:
+            c = color + (255,)
+            p.rect(3, 4, 10, 9, c)
+            p.px(3, 4, (0, 0, 0, 0))
+            p.px(12, 4, (0, 0, 0, 0))
+            p.px(3, 12, (0, 0, 0, 0))
+            p.px(12, 12, (0, 0, 0, 0))
+            p.noise_rect(4, 5, 8, 7, ramp(c, 4, 0.8, 1.15), r, 0.4)
+            p.rect_outline(3, 4, 10, 9, shade(c, 0.7))
     elif kind == "trophy":
         paint_trophy(p, color, r)
     elif kind == "wing":
@@ -1356,94 +1904,23 @@ def paint_misc(item):
     elif kind == "mask":
         paint_mask(p, color, r)
     elif kind == "ingot":
-        c = color + (255,)
-        hi, dk = shade(c, 1.35), shade(c, 0.6)
-        # classic stacked ingot silhouette
-        p.rect(3, 8, 9, 4, c)
-        p.rect(2, 9, 9, 4, shade(c, 0.85))
-        p.rect(5, 5, 9, 4, shade(c, 1.05))
-        p.rect(5, 5, 9, 1, hi)
-        p.rect(3, 8, 9, 1, hi)
-        p.px(6, 6, (255, 255, 255, 200))
-        p.rect(2, 12, 9, 1, dk)
-        p.rect(13, 6, 1, 3, dk)
+        paint_ingot(p, item, r)
     elif kind == "shard":
-        c = color + (255,)
-        # jagged azure crystal shard
-        p.line(8, 2, 5, 9, c, 2)
-        p.line(6, 9, 9, 13, shade(c, 0.8), 2)
-        p.line(9, 3, 11, 8, shade(c, 1.1), 1)
-        p.line(11, 8, 9, 12, shade(c, 0.7), 1)
-        p.px(7, 4, (255, 255, 255, 230))
-        p.px(6, 6, shade(c, 1.4))
-        p.px(9, 10, shade(c, 0.55))
-        p.glow(color, 50)
+        paint_will_shard(p, color, r)
     elif kind == "straps":
-        c = color + (255,)
-        dk = shade(c, 0.58)
-        hi = shade(c, 1.28)
-        for yy in (5, 8, 11):
-            p.line(3, yy, 12, yy - 3, c, 2)
-            p.px(5, yy - 1, hi)
-            p.px(11, yy - 3, dk)
-        p.px(8, 6, (186, 150, 80, 255))
-        p.px(9, 6, shade((186, 150, 80, 255), 0.7))
+        paint_straps(p, color, r)
     elif kind == "cloth":
-        c = color + (255,)
-        p.rect(3, 4, 10, 9, c)
-        for yy in range(4, 13, 2):
-            for xx in range(3, 13):
-                p.px(xx, yy, shade(c, 0.88 if xx % 2 else 1.08))
-        p.rect_outline(3, 4, 10, 9, shade(c, 0.62))
-        p.px(5, 5, shade(c, 1.35))
+        paint_cloth_bolt(p, color, r)
     elif kind == "links":
-        c = color + (255,)
-        dk = shade(c, 0.55)
-        hi = shade(c, 1.35)
-        for cx, cy in ((5, 5), (9, 5), (7, 8), (5, 11), (9, 11)):
-            p.rect_outline(cx - 2, cy - 1, 4, 3, c)
-            p.px(cx - 1, cy - 1, hi)
-            p.px(cx + 1, cy + 1, dk)
+        paint_chain_links(p, color, r)
     elif kind == "plate":
-        c = color + (255,)
-        hi = shade(c, 1.3)
-        dk = shade(c, 0.55)
-        p.rect(3, 5, 10, 7, c)
-        p.px(3, 5, (0, 0, 0, 0))
-        p.px(12, 5, (0, 0, 0, 0))
-        p.rect(4, 5, 8, 1, hi)
-        p.rect(3, 11, 10, 1, dk)
-        p.px(6, 7, hi)
-        p.px(10, 10, dk)
-        p.rect_outline(3, 5, 10, 7, dk)
+        paint_tempered_plate(p, color, r)
     elif kind == "hilt":
-        metal = color + (255,)
-        grip = (74, 46, 34, 255)
-        p.line(8, 3, 8, 13, grip, 2)
-        for yy in range(5, 12, 2):
-            p.px(7, yy, shade(grip, 1.35))
-            p.px(8, yy, shade(grip, 0.65))
-        p.line(3, 7, 13, 7, metal, 2)
-        p.px(3, 6, shade(metal, 1.25))
-        p.px(12, 8, shade(metal, 0.65))
-        p.disc(8, 13, 1.5, metal)
-        p.px(8, 7, (90, 170, 250, 255))
+        paint_runed_hilt(p, color, r)
     elif kind == "stave":
-        c = color + (255,)
-        for t in range(2, 14):
-            x = 8 + round(math.sin((t - 2) / 11 * math.pi - math.pi / 2) * 4)
-            y = t
-            p.px(x, y, shade(c, 0.92 if t % 2 else 1.12))
-            p.px(x + 1, y, shade(c, 0.65))
-        p.px(4, 2, shade(c, 1.25))
-        p.px(4, 13, shade(c, 0.65))
+        paint_bow_stave(p, color, r)
     elif kind == "cord":
-        c = color + (255,)
-        for yy in range(4, 13, 3):
-            for xx in range(3, 13):
-                p.px(xx, yy + ((xx + yy) % 2), shade(c, 1.15 if xx % 2 else 0.78))
-        p.disc(4, 5, 1.2, shade(c, 0.7))
-        p.disc(12, 11, 1.2, shade(c, 0.75))
+        paint_bowstring_hank(p, color, r)
     elif kind == "orb":
         c = color + (255,)
         p.disc(8, 8, 5, shade(c, 0.55))
@@ -1476,13 +1953,40 @@ def main():
         elif cat == "augment":
             p = Px(16, 16)
             if item["id"] == "augment_remover":
-                # pliers-like tool
-                c = item["color"] + (255,)
-                p.line(4, 12, 11, 5, shade(c, 0.8), 2)
-                p.line(11, 5, 13, 3, c, 1)
-                p.line(10, 4, 12, 6, shade(c, 1.3), 1)
-                p.px(4, 12, (90, 70, 50, 255))
-                p.px(3, 13, (90, 70, 50, 255))
+                # blacksmith's tongs prising a gem from its socket
+                steel = (176, 182, 196, 255)
+                s_hi = shade(steel, 1.32)
+                s_dk = shade(steel, 0.55)
+                wood = (112, 78, 46, 255)
+                gem = (186, 96, 230, 255)
+                gold = (236, 196, 110, 255)
+                # scissoring arms (each doubled for weight)
+                p.line(4, 14, 10, 4, steel, 1)
+                p.line(5, 14, 11, 4, s_dk, 1)
+                p.line(12, 14, 7, 4, shade(steel, 0.88), 1)
+                p.line(11, 14, 6, 4, s_dk, 1)
+                p.px(5, 12, s_hi)
+                p.px(7, 9, s_hi)
+                p.px(8, 6, s_hi)
+                # pivot rivet
+                p.px(8, 9, gold)
+                p.px(9, 9, shade(gold, 0.7))
+                # jaws gripping the freed augmentation
+                p.px(6, 3, steel)
+                p.px(11, 3, s_dk)
+                p.px(8, 2, gem)
+                p.px(9, 2, shade(gem, 0.7))
+                p.px(8, 1, shade(gem, 1.3))
+                p.px(9, 1, gem)
+                p.px(7, 1, (255, 255, 255, 225))
+                # wooden grips
+                p.px(3, 14, wood)
+                p.px(4, 14, shade(wood, 1.2))
+                p.px(5, 15, shade(wood, 0.75))
+                p.px(12, 14, wood)
+                p.px(13, 14, shade(wood, 0.75))
+                p.px(11, 15, shade(wood, 1.2))
+                p.glow((186, 96, 230), 26)
                 p.outline(DARKLINE)
             else:
                 paint_augment(p, item["color"], rng("aug", item["id"]))
@@ -1503,7 +2007,8 @@ def main():
             p.save(OUT / f"{item['id']}.png")
         elif cat == "spell":
             p = Px(16, 16)
-            paint_tome(p, item["color"], rng("spell", item["id"]))
+            sig = SPELL_SIGILS.get(item["id"], "circle")
+            paint_grimoire(p, item["color"], rng("spell", item["id"]), sigil=sig)
             p.outline(DARKLINE)
             p.save(OUT / f"{item['id']}.png")
         else:

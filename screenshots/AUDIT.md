@@ -129,14 +129,18 @@ Grades: S (≥90) A (≥75) B (≥60) C (≥45) D (<45)
 | Bright Leather Torso | **S** | 100 | 51.6 | 6 | 0.69 | 0.39 | — |
 | Bright Leather Legs | **S** | 100 | 48.4 | 6 | 0.69 | 0.35 | — |
 | Bright Leather Boots | **S** | 100 | 41.0 | 7 | 0.69 | 0.3 | — |
+| Dark Leather Helm | **S** | 100 | 49.2 | 7 | 0.76 | 0.17 | — |
+| Dark Leather Torso | **S** | 100 | 51.6 | 8 | 0.75 | 0.19 | — |
+| Dark Leather Legs | **S** | 100 | 48.4 | 7 | 0.75 | 0.18 | — |
+| Dark Leather Boots | **S** | 100 | 41.0 | 7 | 0.75 | 0.17 | — |
 | Bright Chainmail Helm | **S** | 100 | 49.2 | 6 | 0.82 | 0.44 | — |
 | Bright Chainmail Torso | **S** | 100 | 51.6 | 6 | 0.82 | 0.5 | — |
 | Bright Chainmail Legs | **S** | 100 | 48.4 | 6 | 0.82 | 0.45 | — |
 | Bright Chainmail Boots | **S** | 100 | 41.0 | 7 | 0.82 | 0.37 | — |
-| Dark Chainmail Helm | **S** | 100 | 49.2 | 6 | 0.53 | 0.22 | — |
-| Dark Chainmail Torso | **S** | 100 | 51.6 | 6 | 0.53 | 0.25 | — |
-| Dark Chainmail Legs | **S** | 100 | 48.4 | 6 | 0.53 | 0.23 | — |
-| Dark Chainmail Boots | **S** | 100 | 41.0 | 6 | 0.53 | 0.19 | — |
+| Dark Chainmail Helm | **S** | 100 | 49.2 | 8 | 0.76 | 0.23 | — |
+| Dark Chainmail Torso | **S** | 100 | 51.6 | 9 | 0.75 | 0.27 | — |
+| Dark Chainmail Legs | **S** | 100 | 48.4 | 8 | 0.75 | 0.25 | — |
+| Dark Chainmail Boots | **S** | 100 | 41.0 | 8 | 0.75 | 0.21 | — |
 | Platemail Helm | **S** | 100 | 49.2 | 6 | 0.91 | 0.44 | — |
 | Platemail Torso | **S** | 100 | 51.6 | 6 | 0.91 | 0.5 | — |
 | Platemail Legs | **S** | 100 | 48.4 | 6 | 0.91 | 0.46 | — |
@@ -153,13 +157,24 @@ Grades: S (≥90) A (≥75) B (≥60) C (≥45) D (<45)
 | Snowspire Guard Torso | **S** | 100 | 51.6 | 6 | 0.82 | 0.39 | — |
 | Snowspire Guard Legs | **S** | 100 | 48.4 | 6 | 0.82 | 0.34 | — |
 | Snowspire Guard Boots | **S** | 100 | 41.0 | 7 | 0.82 | 0.3 | — |
-| Fire Assassin Boots | **S** | 100 | 41.0 | 6 | 0.5 | 0.15 | — |
+| Assassin Helm | **S** | 100 | 60.2 | 7 | 0.76 | 0.14 | — |
+| Assassin Torso | **S** | 100 | 51.6 | 8 | 0.75 | 0.16 | — |
+| Assassin Legs | **S** | 100 | 48.4 | 7 | 0.75 | 0.15 | — |
+| Assassin Boots | **S** | 100 | 41.0 | 8 | 0.78 | 0.15 | — |
+| Fire Assassin Helm | **S** | 100 | 60.2 | 8 | 0.76 | 0.17 | — |
+| Fire Assassin Torso | **S** | 100 | 51.6 | 9 | 0.76 | 0.19 | — |
+| Fire Assassin Legs | **S** | 100 | 48.4 | 8 | 0.76 | 0.17 | — |
+| Fire Assassin Boots | **S** | 100 | 41.0 | 8 | 0.78 | 0.17 | — |
 | Archon's Battle Armour Helm | **S** | 100 | 49.2 | 6 | 0.92 | 0.52 | — |
 | Archon's Battle Armour Torso | **S** | 100 | 51.6 | 6 | 0.92 | 0.59 | — |
 | Archon's Battle Armour Legs | **S** | 100 | 48.4 | 6 | 0.92 | 0.54 | — |
 | Archon's Battle Armour Boots | **S** | 100 | 41.0 | 7 | 0.92 | 0.45 | — |
 | Holy Warrior Helm | **S** | 100 | 49.2 | 6 | 0.92 | 0.53 | — |
+| Demon Helm | **S** | 100 | 53.9 | 8 | 0.76 | 0.15 | — |
 | Pimp Hat | **S** | 100 | 45.3 | 12 | 0.89 | 0.24 | — |
+| Wizard Hat | **S** | 100 | 46.9 | 7 | 0.79 | 0.25 | — |
+| Bright Wizard Hat | **S** | 100 | 46.9 | 8 | 0.9 | 0.54 | — |
+| Dark Wizard Hat | **S** | 100 | 46.9 | 9 | 0.75 | 0.23 | — |
 | Sharpening Augmentation | **S** | 100 | 75.0 | 10 | 0.53 | 0.34 | — |
 | Piercing Augmentation | **S** | 100 | 75.0 | 11 | 0.61 | 0.74 | — |
 | Health Augmentation | **S** | 100 | 75.0 | 11 | 0.53 | 0.25 | — |
@@ -168,6 +183,7 @@ Grades: S (≥90) A (≥75) B (≥60) C (≥45) D (<45)
 | Lightning Augmentation | **S** | 100 | 75.0 | 12 | 0.58 | 0.62 | — |
 | Flame Augmentation | **S** | 100 | 75.0 | 11 | 0.52 | 0.55 | — |
 | Silver Augmentation | **S** | 100 | 75.0 | 8 | 0.53 | 0.87 | — |
+| Augment Remover | **S** | 100 | 20.3 | 13 | 0.75 | 0.53 | — |
 | Health Potion | **S** | 100 | 37.1 | 6 | 0.92 | 0.36 | — |
 | Great Health Potion | **S** | 100 | 49.6 | 6 | 0.92 | 0.39 | — |
 | Will Potion | **S** | 100 | 37.1 | 6 | 0.92 | 0.39 | — |
@@ -179,6 +195,23 @@ Grades: S (≥90) A (≥75) B (≥60) C (≥45) D (<45)
 | Elixir of Life | **S** | 100 | 21.1 | 8 | 0.53 | 0.81 | — |
 | Red Meat | **S** | 100 | 41.0 | 6 | 0.82 | 0.35 | — |
 | Apple Pie | **S** | 100 | 53.5 | 6 | 0.78 | 0.49 | — |
+| Will: Enflame | **S** | 100 | 100.0 | 16 | 0.77 | 0.46 | — |
+| Will: Fireball | **S** | 100 | 100.0 | 16 | 0.8 | 0.4 | — |
+| Will: Lightning | **S** | 100 | 100.0 | 16 | 0.73 | 0.53 | — |
+| Will: Force Push | **S** | 100 | 100.0 | 16 | 0.7 | 0.6 | — |
+| Will: Drain Life | **S** | 100 | 100.0 | 15 | 0.87 | 0.27 | — |
+| Will: Heal Life | **S** | 100 | 100.0 | 16 | 0.69 | 0.65 | — |
+| Will: Physical Shield | **S** | 100 | 100.0 | 16 | 0.75 | 0.5 | — |
+| Will: Slow Time | **S** | 100 | 100.0 | 16 | 0.69 | 0.67 | — |
+| Will: Assassin Rush | **S** | 100 | 100.0 | 16 | 0.79 | 0.43 | — |
+| Will: Summon | **S** | 100 | 100.0 | 16 | 0.7 | 0.61 | — |
+| Will: Turncoat | **S** | 100 | 100.0 | 16 | 0.73 | 0.53 | — |
+| Will: Multi Arrow | **S** | 100 | 100.0 | 16 | 0.69 | 0.65 | — |
+| Will: Multi Strike | **S** | 100 | 100.0 | 15 | 0.7 | 0.62 | — |
+| Will: Battle Charge | **S** | 100 | 100.0 | 16 | 0.72 | 0.56 | — |
+| Will: Berserk | **S** | 100 | 100.0 | 16 | 0.82 | 0.36 | — |
+| Will: Divine Fury | **S** | 100 | 100.0 | 16 | 0.67 | 0.71 | — |
+| Will: Infernal Wrath | **S** | 100 | 100.0 | 16 | 0.85 | 0.31 | — |
 | Gold Coin | **S** | 100 | 47.3 | 6 | 0.87 | 0.6 | — |
 | Septimal Key | **S** | 100 | 20.3 | 6 | 0.63 | 0.44 | — |
 | Guild Seal | **S** | 100 | 44.9 | 6 | 0.66 | 0.65 | — |
@@ -192,13 +225,19 @@ Grades: S (≥90) A (≥75) B (≥60) C (≥45) D (<45)
 | Ectoplasm | **S** | 100 | 36.7 | 6 | 0.52 | 0.8 | — |
 | Banshee's Tear | **S** | 100 | 12.5 | 6 | 0.51 | 0.78 | — |
 | Minion Flesh | **S** | 100 | 36.7 | 6 | 0.8 | 0.3 | — |
-| Steel Ingot | **S** | 100 | 44.1 | 6 | 0.92 | 0.5 | — |
-| Obsidian Ingot | **S** | 100 | 44.1 | 7 | 0.92 | 0.2 | — |
-| Master Ingot | **S** | 100 | 44.1 | 6 | 0.92 | 0.58 | — |
-| Will Shard | **S** | 100 | 55.9 | 7 | 0.65 | 0.61 | — |
-| Leather Straps | **S** | 100 | 49.2 | 6 | 0.51 | 0.19 | — |
-| Guild Cloth | **S** | 100 | 50.0 | 6 | 0.92 | 0.52 | — |
-| Runed Hilt | **S** | 100 | 37.9 | 8 | 0.78 | 0.32 | — |
+| Summoner's Grimoire | **S** | 100 | 100.0 | 15 | 0.89 | 0.23 | — |
+| Steel Ingot | **S** | 100 | 52.7 | 8 | 0.92 | 0.52 | — |
+| Obsidian Ingot | **S** | 100 | 52.7 | 12 | 0.83 | 0.21 | — |
+| Master Ingot | **S** | 100 | 37.1 | 8 | 0.56 | 0.84 | — |
+| Will Shard | **S** | 100 | 78.5 | 11 | 0.78 | 0.59 | — |
+| Cured Leather | **S** | 100 | 52.3 | 14 | 0.8 | 0.29 | — |
+| Leather Straps | **S** | 100 | 64.8 | 14 | 0.8 | 0.21 | — |
+| Guild Cloth | **S** | 100 | 54.3 | 10 | 0.92 | 0.55 | — |
+| Chain Links | **S** | 100 | 58.2 | 6 | 0.87 | 0.28 | — |
+| Tempered Plate | **S** | 100 | 45.3 | 9 | 0.91 | 0.47 | — |
+| Runed Hilt | **S** | 100 | 20.3 | 13 | 0.85 | 0.64 | — |
+| Seasoned Bow Stave | **S** | 100 | 28.9 | 10 | 0.77 | 0.21 | — |
+| Waxed Bowstring | **S** | 100 | 43.8 | 9 | 0.91 | 0.39 | — |
 | Strength Orb | **S** | 100 | 74.6 | 6 | 0.76 | 0.39 | — |
 | Will Orb | **S** | 100 | 74.6 | 6 | 0.72 | 0.48 | — |
 | Obsidian Cleaver | **A** | 85 | 28.9 | 6 | 0.45 | 0.22 | — |
@@ -214,84 +253,53 @@ Grades: S (≥90) A (≥75) B (≥60) C (≥45) D (<45)
 | Wellow's Pickhammer | **A** | 85 | 9.6 | 12 | 0.68 | 0.58 | sparse silhouette |
 | Katana Hiryu | **A** | 85 | 5.9 | 7 | 0.77 | 0.65 | sparse silhouette |
 | Stick | **A** | 85 | 16.0 | 7 | 0.41 | 0.19 | — |
-| Assassin Boots | **A** | 85 | 41.0 | 6 | 0.44 | 0.12 | — |
-| Fire Assassin Helm | **A** | 85 | 60.2 | 6 | 0.48 | 0.17 | — |
-| Fire Assassin Torso | **A** | 85 | 51.6 | 6 | 0.48 | 0.17 | — |
-| Fire Assassin Legs | **A** | 85 | 48.4 | 6 | 0.48 | 0.15 | — |
-| Demon Helm | **A** | 85 | 53.9 | 6 | 0.41 | 0.14 | — |
-| Cured Leather | **A** | 85 | 50.0 | 6 | 0.32 | 0.24 | — |
-| Wizard Hat | **A** | 83 | 44.1 | 4 | 0.63 | 0.25 | — |
-| Bright Wizard Hat | **A** | 83 | 44.1 | 4 | 0.9 | 0.55 | — |
 | Crunchy Chick | **A** | 83 | 32.4 | 4 | 0.76 | 0.56 | — |
 | Tofu | **A** | 83 | 32.8 | 5 | 0.91 | 0.56 | — |
 | Hobbe Tooth Ale | **A** | 83 | 37.9 | 4 | 0.83 | 0.35 | — |
-| Will: Enflame | **A** | 83 | 85.9 | 4 | 0.59 | 0.53 | — |
-| Will: Fireball | **A** | 83 | 85.9 | 4 | 0.63 | 0.45 | — |
-| Will: Lightning | **A** | 83 | 85.9 | 4 | 0.52 | 0.64 | — |
-| Will: Force Push | **A** | 83 | 85.9 | 4 | 0.55 | 0.72 | — |
-| Will: Drain Life | **A** | 83 | 85.9 | 4 | 0.76 | 0.26 | — |
-| Will: Physical Shield | **A** | 83 | 85.9 | 4 | 0.56 | 0.58 | — |
-| Will: Slow Time | **A** | 83 | 85.9 | 4 | 0.53 | 0.79 | — |
-| Will: Assassin Rush | **A** | 83 | 85.9 | 4 | 0.61 | 0.49 | — |
-| Will: Turncoat | **A** | 83 | 85.9 | 4 | 0.52 | 0.63 | — |
-| Will: Multi Arrow | **A** | 83 | 85.9 | 4 | 0.51 | 0.79 | — |
-| Will: Multi Strike | **A** | 83 | 85.9 | 4 | 0.52 | 0.74 | — |
-| Will: Battle Charge | **A** | 83 | 85.9 | 4 | 0.51 | 0.66 | — |
-| Will: Berserk | **A** | 83 | 85.9 | 4 | 0.68 | 0.38 | — |
-| Will: Infernal Wrath | **A** | 83 | 85.9 | 4 | 0.72 | 0.32 | — |
 | Silver Key | **A** | 83 | 30.9 | 4 | 0.92 | 0.46 | — |
 | Wedding Ring | **A** | 83 | 35.2 | 5 | 0.92 | 0.49 | — |
 | Queen's Stinger | **A** | 83 | 16.0 | 5 | 0.53 | 0.72 | — |
 | Troll Bones | **A** | 83 | 31.6 | 4 | 0.91 | 0.52 | — |
 | Arachanox Stinger | **A** | 83 | 16.0 | 5 | 0.74 | 0.42 | — |
 | Giant's Core | **A** | 83 | 84.4 | 5 | 0.73 | 0.48 | — |
-| Summoner's Grimoire | **A** | 83 | 85.9 | 4 | 0.77 | 0.23 | — |
 | Mask of Jack of Blades | **A** | 83 | 37.1 | 5 | 0.83 | 0.28 | — |
-| Chain Links | **A** | 83 | 38.3 | 4 | 0.8 | 0.37 | — |
-| Tempered Plate | **A** | 83 | 40.6 | 4 | 0.85 | 0.42 | — |
-| Waxed Bowstring | **A** | 83 | 35.9 | 5 | 0.86 | 0.33 | — |
 | Experience Orb | **A** | 83 | 74.6 | 5 | 0.58 | 0.72 | — |
 | Skill Orb | **A** | 83 | 74.6 | 5 | 0.55 | 0.76 | — |
-| Dark Leather Helm | **B** | 68 | 49.2 | 5 | 0.46 | 0.16 | — |
-| Dark Leather Torso | **B** | 68 | 51.6 | 5 | 0.46 | 0.17 | — |
-| Dark Leather Legs | **B** | 68 | 48.4 | 5 | 0.46 | 0.17 | — |
-| Dark Leather Boots | **B** | 68 | 41.0 | 5 | 0.46 | 0.14 | — |
-| Assassin Helm | **B** | 68 | 60.2 | 5 | 0.42 | 0.14 | — |
-| Assassin Torso | **B** | 68 | 51.6 | 5 | 0.41 | 0.14 | — |
-| Assassin Legs | **B** | 68 | 48.4 | 5 | 0.41 | 0.13 | — |
-| Dark Wizard Hat | **B** | 68 | 44.1 | 4 | 0.4 | 0.19 | — |
-| Augment Remover | **B** | 68 | 22.3 | 5 | 0.47 | 0.23 | — |
-| Will: Heal Life | **B** | 68 | 85.9 | 4 | 0.43 | 0.79 | — |
-| Will: Summon | **B** | 68 | 85.9 | 4 | 0.48 | 0.74 | — |
-| Will: Divine Fury | **B** | 68 | 85.9 | 4 | 0.47 | 0.85 | — |
-| Seasoned Bow Stave | **B** | 68 | 23.0 | 5 | 0.39 | 0.18 | — |
 
-**Category average: 93.5**
+**Category average: 97.9**
 
 ## Structures
 
 | Asset | Grade | Score | Coverage % | Colours | Contrast | Brightness | Notes |
 |---|---|---|---|---|---|---|---|
 | Demon Door | **S** | 100 | 27.0 | 45 | 0.9 | 0.37 | — |
-| Heroes' Guild | **S** | 100 | 14.7 | 48 | 0.94 | 0.35 | — |
+| Heroes' Guild | **S** | 100 | 14.7 | 60 | 0.94 | 0.35 | — |
 | Chamber of Fate | **S** | 100 | 29.8 | 21 | 0.84 | 0.37 | — |
-| Oakvale | **S** | 100 | 11.2 | 27 | 0.8 | 0.49 | — |
-| Bowerstone Market | **S** | 100 | 12.7 | 26 | 0.89 | 0.32 | — |
-| Knothole Glade | **S** | 100 | 12.8 | 32 | 0.84 | 0.33 | — |
-| Hook Coast | **S** | 100 | 13.1 | 23 | 0.8 | 0.44 | — |
+| Oakvale | **S** | 100 | 11.3 | 53 | 0.83 | 0.53 | — |
+| Bowerstone Market | **S** | 100 | 14.1 | 40 | 0.89 | 0.37 | — |
+| Knothole Glade | **S** | 100 | 12.7 | 46 | 0.87 | 0.35 | — |
+| Hook Coast | **S** | 100 | 12.9 | 39 | 0.9 | 0.66 | — |
 | Silver Key Ruin | **S** | 100 | 13.9 | 33 | 0.78 | 0.4 | — |
 | Focus Site | **S** | 100 | 24.5 | 23 | 0.94 | 0.47 | — |
 | Guild Courtyard | **S** | 100 | 12.2 | 42 | 0.94 | 0.48 | — |
-| Oakvale Quay | **S** | 100 | 12.2 | 35 | 0.82 | 0.48 | — |
-| Snowspire Oracle | **S** | 100 | 14.0 | 25 | 0.91 | 0.4 | — |
-| Necropolis Ruin | **S** | 100 | 12.5 | 34 | 0.94 | 0.37 | — |
+| Oakvale Quay | **S** | 100 | 12.2 | 39 | 0.82 | 0.47 | — |
+| Snowspire Oracle | **S** | 100 | 14.0 | 29 | 0.94 | 0.52 | — |
+| Necropolis Ruin | **S** | 100 | 12.5 | 31 | 0.94 | 0.37 | — |
 | Bandit Camp | **S** | 100 | 22.3 | 37 | 0.92 | 0.27 | — |
 | Lychfield Graveyard | **S** | 100 | 13.7 | 35 | 0.89 | 0.36 | — |
-| The Arena | **S** | 100 | 26.9 | 30 | 0.83 | 0.42 | — |
-| Temple of Avo | **A** | 77 | 22.9 | 12 | 0.72 | 0.78 | — |
-| Chapel of Skorm | **A** | 77 | 23.2 | 13 | 0.87 | 0.16 | — |
+| The Arena | **S** | 100 | 27.1 | 32 | 0.83 | 0.44 | — |
+| Lookout Point | **S** | 100 | 11.9 | 32 | 0.79 | 0.5 | — |
+| Orchard Farm | **S** | 100 | 12.3 | 42 | 0.83 | 0.45 | — |
+| Fisher Creek | **S** | 100 | 11.5 | 33 | 0.84 | 0.44 | — |
+| Rose Cottage | **S** | 100 | 11.8 | 33 | 0.85 | 0.45 | — |
+| Witchwood Stones | **S** | 100 | 12.0 | 38 | 0.89 | 0.35 | — |
+| Darkwood Camp | **S** | 100 | 11.9 | 28 | 0.89 | 0.36 | — |
+| Hobbe Cave | **S** | 100 | 13.6 | 34 | 0.8 | 0.42 | — |
+| Windmill Hill | **S** | 100 | 15.1 | 29 | 0.88 | 0.46 | — |
+| Temple of Avo | **S** | 92 | 22.9 | 15 | 0.72 | 0.78 | — |
+| Chapel of Skorm | **S** | 92 | 23.2 | 16 | 0.88 | 0.17 | — |
 
-**Category average: 97.4**
+**Category average: 99.4**
 
 ## Verdict
 

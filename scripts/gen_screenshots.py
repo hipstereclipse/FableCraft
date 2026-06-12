@@ -370,13 +370,32 @@ BLOCK_COLORS = {
     "minecraft:amethyst_cluster": (180, 140, 240),
     "minecraft:fern": (92, 132, 72), "minecraft:tallgrass": (102, 142, 76),
     "minecraft:dark_oak_leaves": (52, 82, 42),
+    "minecraft:white_terracotta": (224, 214, 196), "minecraft:calcite": (228, 226, 220),
+    "minecraft:diorite": (200, 198, 196), "minecraft:polished_diorite": (212, 210, 208),
+    "minecraft:hay_bale": (200, 170, 70), "minecraft:dirt": (134, 96, 62),
+    "minecraft:farmland": (96, 64, 40), "minecraft:wheat": (208, 186, 96),
+    "minecraft:oak_leaves": (66, 104, 48), "minecraft:azalea_leaves_flowered": (150, 110, 170),
+    "minecraft:sweet_berry_bush": (80, 110, 60), "minecraft:composter": (120, 90, 52),
+    "minecraft:beehive": (196, 160, 96), "minecraft:cauldron": (60, 58, 62),
+    "minecraft:rose_bush": (190, 50, 60), "minecraft:peony": (228, 170, 200),
+    "minecraft:lilac": (196, 150, 210), "minecraft:poppy": (210, 50, 40),
+    "minecraft:cornflower": (90, 110, 210), "minecraft:oxeye_daisy": (230, 230, 210),
+    "minecraft:red_tulip": (220, 70, 50), "minecraft:allium": (180, 120, 220),
+    "minecraft:birch_fence": (206, 192, 150), "minecraft:stripped_oak_log": (178, 144, 90),
+    "minecraft:snow_layer": (240, 244, 250), "minecraft:snow_block": (236, 240, 248),
+    "minecraft:ice": (160, 200, 240), "minecraft:waterlily": (60, 130, 60),
+    "minecraft:deadbush": (148, 108, 60), "minecraft:bell": (240, 200, 90),
+    "minecraft:light_blue_stained_glass_pane": (140, 200, 240),
+    "minecraft:glowstone": (255, 220, 130), "minecraft:soul_torch": (120, 220, 220),
+    "minecraft:stone": (128, 126, 124), "minecraft:mud": (88, 70, 60),
+    "minecraft:mud_bricks": (140, 110, 86), "minecraft:enchanting_table": (60, 40, 70),
 }
 
 GLOW_BLOCKS = {"minecraft:lantern", "minecraft:soul_lantern", "minecraft:sea_lantern",
                "minecraft:campfire", "minecraft:soul_campfire", "minecraft:torch",
                "minecraft:beacon", "minecraft:magma", "minecraft:end_rod",
                "minecraft:gold_block", "minecraft:emerald_block", "minecraft:crying_obsidian",
-               "minecraft:amethyst_cluster", "minecraft:soul_torch"}
+               "minecraft:amethyst_cluster", "minecraft:soul_torch", "minecraft:glowstone"}
 
 
 def render_structure(vox, size=(1100, 900), extra_quads=None):
@@ -733,6 +752,10 @@ def main():
         "bandit_camp": GS.bandit_camp, "graveyard": GS.graveyard,
         "temple_avo": GS.temple_avo, "chapel_skorm": GS.chapel_skorm,
         "arena_ring": GS.arena_ring,
+        "lookout_point": GS.lookout_point, "orchard_farm": GS.orchard_farm,
+        "fisher_creek": GS.fisher_creek, "rose_cottage": GS.rose_cottage,
+        "witchwood_stones": GS.witchwood_stones, "darkwood_camp": GS.darkwood_camp,
+        "hobbe_cave": GS.hobbe_cave, "windmill_hill": GS.windmill_hill,
     }
     # rebuild Vox objects without saving by monkeypatching save
     struct_thumbs = []
@@ -748,7 +771,7 @@ def main():
         "demon_door_arch": ("Demon Door", "Carved arch · dialogue-locked vault", "dark"),
         "guild_hall": ("Heroes' Guild", "Map Room · dormitories · training", "holy"),
         "chamber_of_fate": ("Chamber of Fate", "Domed fresco hall · central dais", "royal"),
-        "oakvale_village": ("Oakvale", "Coastal village green · quay · barns", "forest"),
+        "oakvale_village": ("Oakvale", "Thatched green · wheat field · quay", "forest"),
         "bowerstone_market": ("Bowerstone Market", "Urban bridge district · walled square", "stone"),
         "knothole_glade": ("Knothole Glade", "Hidden timber village in Witchwood", "forest"),
         "hook_coast": ("Hook Coast", "Snowy port, lighthouse and abbey ruin", "frost"),
@@ -760,9 +783,17 @@ def main():
         "power_necropolis": ("Necropolis Ruin", "Glyph stones and broken bridge", "dark"),
         "bandit_camp": ("Bandit Camp", "Twinblade's raiders · tents · loot", "stone"),
         "graveyard": ("Lychfield Graveyard", "Hollow Men rise at dusk", "swamp"),
-        "temple_avo": ("Temple of Avo", "Sanctum of light · sword in the stone", "holy"),
+        "temple_avo": ("Temple of Avo", "Donation fountain · sword in the stone", "holy"),
         "chapel_skorm": ("Chapel of Skorm", "Dark sacrifices welcome", "fire"),
         "arena_ring": ("The Arena", "Round-based gladiator combat", "fire"),
+        "lookout_point": ("Lookout Point", "Standing stones · the pointing hero", "forest"),
+        "orchard_farm": ("Orchard Farm", "Apple rows · cider barn · beehive", "forest"),
+        "fisher_creek": ("Fisher Creek", "Stilt hut · jetty · drying nets", "forest"),
+        "rose_cottage": ("Rose Cottage", "Walled rose garden · wishing well", "forest"),
+        "witchwood_stones": ("Witchwood Stones", "Monolith ring · dolmen altar", "dark"),
+        "darkwood_camp": ("Darkwood Camp", "Trader waystation · watch fire", "stone"),
+        "hobbe_cave": ("Hobbe Cave", "Bone-strewn warren · skull totem", "swamp"),
+        "windmill_hill": ("Windmill Hill", "Sail arms · millstone · grain field", "forest"),
     }
     for name, vox in captured.items():
         extra = None

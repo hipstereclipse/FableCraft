@@ -409,6 +409,32 @@ def guild_hall():
         v.set(px_, 1, pz_, CANDLE, {"lit": True, "candles": 1 + ang % 3})
     v.set(wx, 0, wz, "minecraft:crying_obsidian")
 
+    # ================= NW CORNER: APPLE ORCHARD =================
+    for ox_, oz_ in ((3, 29), (7, 32), (4, 36)):
+        for y in range(1, 4):
+            v.set(ox_, y, oz_, "minecraft:oak_log")
+        for dx in (-1, 0, 1):
+            for dz in (-1, 0, 1):
+                if abs(dx) + abs(dz) <= 1:
+                    v.set(ox_ + dx, 4, oz_ + dz, "minecraft:azalea_leaves_flowered")
+        v.set(ox_, 5, oz_, "minecraft:azalea_leaves_flowered")
+        v.set(ox_ + 1, 3, oz_, "minecraft:oak_leaves")
+        v.set(ox_ - 1, 3, oz_, "minecraft:oak_leaves")
+    v.set(5, 1, 33, "minecraft:composter")
+    v.set(8, 1, 36, "minecraft:beehive")
+    v.set(6, 1, 30, "minecraft:sweet_berry_bush", {"growth": 3})
+
+    # ================= SE CORNER: GRAVES OF THE OLD HEROES =================
+    for i, (gvx, gvz) in enumerate(((33, 36), (36, 37), (39, 36), (41, 38))):
+        v.set(gvx, 1, gvz, MOSSY if i % 2 else CRACK)
+        v.set(gvx, 2, gvz, "minecraft:stone_brick_wall")
+        if i == 1:
+            v.set(gvx, 3, gvz, CHISELED)  # the founder's taller marker
+        if i % 2 == 0:
+            v.set(gvx + 1, 1, gvz, "minecraft:poppy")
+    v.set(37, 1, 35, SOUL_LANTERN)
+    v.set(34, 1, 38, "minecraft:cobblestone_wall")
+
     # ================= GREAT HALL (x 11..W-12, z 12..32) =================
     hx0, hx1, hz0, hz1 = 11, W - 12, 12, 32
     for x in range(hx0, hx1 + 1):
@@ -1280,6 +1306,22 @@ def temple_avo():
     v.set(ax - 2, deck + 1, az, CANDLE, {"lit": True, "candles": 3})
     v.set(ax + 2, deck + 1, az, CANDLE, {"lit": True, "candles": 3})
     v.set(ax, deck + 1, az - 3, "minecraft:sea_lantern")
+    # circular donation fountain in the nave — coins glitter under the water
+    fx, fz = W // 2, 9
+    for x in range(fx - 2, fx + 3):
+        for z in range(fz - 2, fz + 3):
+            d = math.hypot(x - fx, z - fz)
+            if 1.4 < d <= 2.5:
+                v.set(x, deck + 1, z, "minecraft:smooth_quartz")
+            elif d <= 1.4:
+                v.set(x, deck, z, GOLD)          # offerings on the basin floor
+                v.set(x, deck + 1, z, "minecraft:water")
+    v.set(fx, deck + 1, fz, "minecraft:sea_lantern")
+    v.set(fx - 2, deck + 2, fz - 2, CANDLE, {"lit": True, "candles": 2})
+    v.set(fx + 2, deck + 2, fz + 2, CANDLE, {"lit": True, "candles": 2})
+    # flower offerings at the fountain rim
+    v.set(fx - 3, deck + 1, fz, "minecraft:oxeye_daisy")
+    v.set(fx + 3, deck + 1, fz, "minecraft:cornflower")
     # statue of Avo (rear centre): pillar body, out-stretched arms, halo
     sx, sz2 = W // 2, L - 3
     for y in range(deck + 1, deck + 5):
@@ -1343,14 +1385,25 @@ def chapel_skorm():
     v.set(mx, 5, L - 2, "minecraft:chiseled_deepslate")
     v.set(mx - 3, 3, L - 2, SOUL_LANTERN)
     v.set(mx + 3, 3, L - 2, SOUL_LANTERN)
-    # rose window (north end): glowing ring
-    for dy in range(-1, 2):
-        for dxx in range(-1, 2):
-            if abs(dxx) + abs(dy) == 1:
+    # rose window (north end): great glowing wheel ringed in gold
+    for dy in range(-2, 3):
+        for dxx in range(-2, 3):
+            ad = abs(dxx) + abs(dy)
+            if ad == 2:
                 v.set(mx + dxx, 4 + dy, 2, "minecraft:crying_obsidian")
-    v.set(mx, 4, 2, "minecraft:magma")
+            elif ad == 1:
+                v.set(mx + dxx, 4 + dy, 2, "minecraft:magma")
+    v.set(mx, 4, 2, "minecraft:glowstone")
+    for dxx, dy in ((-2, -2), (2, -2), (-2, 2), (2, 2)):
+        v.set(mx + dxx, 4 + dy, 2, "minecraft:gilded_blackstone")
     # steep gable roof
     gable_roof_z(v, 1, W - 2, 2, L - 2, 7, "minecraft:polished_blackstone", "minecraft:polished_blackstone_bricks")
+    # gilded ridge seam + soul-fire sconces along the eaves
+    for z in range(3, L - 2, 3):
+        v.set(mx, 7 + (W - 4) // 2, z, "minecraft:gilded_blackstone")
+    for z in range(5, L - 4, 6):
+        v.set(1, 4, z, "minecraft:soul_torch")
+        v.set(W - 2, 4, z, "minecraft:soul_torch")
     # spire over the altar end + soul beacon
     cylinder(v, mx, 5, 2, 7, 12, "minecraft:polished_blackstone_bricks")
     cone_roof(v, mx, 5, 3, 13, "minecraft:polished_blackstone")
@@ -1442,6 +1495,21 @@ def arena_ring():
                 v.set(px_, y, pz_, SPRUCE_FENCE)
             v.set(px_, 10, pz_, "minecraft:red_wool")
             v.set(px_, 9, pz_, "minecraft:red_wool")
+    # champion statues on the rim at the compass points, gazing into the pit
+    for ang in range(0, 360, 90):
+        sx_ = c + round(math.cos(math.radians(ang)) * (c - 2))
+        sz_ = c + round(math.sin(math.radians(ang)) * (c - 2))
+        if not (1 <= sx_ < D - 1 and 1 <= sz_ < D - 1):
+            continue
+        v.set(sx_, 7, sz_, CHISELED)                      # plinth
+        v.set(sx_, 8, sz_, "minecraft:quartz_pillar")     # body
+        v.set(sx_, 9, sz_, "minecraft:quartz_pillar")
+        v.set(sx_, 10, sz_, "minecraft:smooth_quartz")    # head
+        # raised sword arm toward the sand
+        ix = c + round(math.cos(math.radians(ang)) * (c - 3))
+        iz = c + round(math.sin(math.radians(ang)) * (c - 3))
+        v.set(ix, 9, iz, "minecraft:stone_brick_wall")
+        v.set(ix, 10, iz, "minecraft:end_rod")
     # blood stains + shattered shield props in the pit
     for i in range(6):
         x = c + r.randrange(-6, 7)
@@ -1520,12 +1588,14 @@ def chamber_of_fate():
 
 
 def oakvale_village():
-    """Oakvale-style coastal village with central tree/well, cottage ring,
-    barns and a timber quay descending to the water."""
+    """Oakvale: whitewashed plaster-and-timber cottages under hay thatch,
+    a guarded gate, the great oak and well green, a working wheat field with
+    scarecrow, a memorial garden for the raided dead, and a timber quay."""
     r = rng("struct", "oakvale_village")
     W, H, L = 35, 14, 35
     v = Vox(W, H, L)
     c = W // 2
+    PLASTER = "minecraft:white_terracotta"
     # terrain gradient to coast
     for x in range(W):
         for z in range(L):
@@ -1535,14 +1605,27 @@ def oakvale_village():
                 v.set(x, 0, z, "minecraft:sand")
             else:
                 v.set(x, 0, z, "minecraft:grass_block" if r.random() < 0.8 else "minecraft:coarse_dirt")
-    # central tree and well
+    # guarded north gate: cobble piers, lantern arch, fence wings
+    for gx_ in (c - 3, c + 3):
+        for y in range(1, 5):
+            v.set(gx_, y, 2, COBBLE if y < 4 else MCOBBLE)
+        v.set(gx_, 5, 2, LANTERN, {"hanging": False})
+    for x in range(c - 2, c + 3):
+        v.set(x, 4, 2, SPRUCE_LOG)
+    for x in list(range(3, c - 3)) + list(range(c + 4, W - 3)):
+        v.set(x, 1, 2, SPRUCE_FENCE)
+    # lane from the gate to the green
+    for z in range(2, c + 2):
+        for x in (c - 1, c, c + 1):
+            v.set(x, 0, z, PATH if r.random() < 0.8 else GRAVEL)
+    # central great oak and well
     tx, tz = c + 4, c
-    for y in range(1, 7):
+    for y in range(1, 8):
         v.set(tx, y, tz, "minecraft:oak_log")
-    for x in range(tx - 2, tx + 3):
-        for y in range(6, 9):
-            for z in range(tz - 2, tz + 3):
-                if math.hypot(x - tx, z - tz) + abs(y - 7) <= 3.3:
+    for x in range(tx - 3, tx + 4):
+        for y in range(6, 10):
+            for z in range(tz - 3, tz + 4):
+                if math.hypot(x - tx, z - tz) + abs(y - 7.5) <= 3.8:
                     v.set(x, y, z, "minecraft:oak_leaves")
     wx, wz = c - 3, c + 1
     for x in range(wx - 2, wx + 3):
@@ -1550,38 +1633,90 @@ def oakvale_village():
             if x in (wx - 2, wx + 2) or z in (wz - 2, wz + 2):
                 v.set(x, 1, z, COBBLE)
     v.set(wx, 1, wz, "minecraft:water")
-    # ring path
+    for px_, pz_ in ((wx - 2, wz - 2), (wx + 2, wz + 2)):  # well roof posts
+        v.set(px_, 2, pz_, SPRUCE_FENCE)
+        v.set(px_, 3, pz_, SPRUCE_FENCE)
+    for x in range(wx - 2, wx + 3):
+        for z in range(wz - 2, wz + 3):
+            v.set(x, 4, z, SPRUCE if (x + z) % 2 else "minecraft:hay_block")
+    # ring path around the green
     for x in range(c - 8, c + 9):
         for z in range(c - 8, c + 9):
             d = math.hypot(x - c, z - c)
             if 6.1 < d <= 7.2:
                 v.set(x, 0, z, PATH)
-    # cottages
-    cottages = [(6, 8), (24, 8), (7, 18), (24, 18), (14, 23)]
-    for bx, bz in cottages:
-        for x in range(bx, bx + 6):
-            for z in range(bz, bz + 5):
+
+    def cottage(bx, bz, bw=6, bd=5):
+        """Whitewashed plaster walls, spruce-log frame, hay thatch roof."""
+        for x in range(bx, bx + bw):
+            for z in range(bz, bz + bd):
                 v.set(x, 0, z, COBBLE)
                 for y in range(1, 4):
-                    if x in (bx, bx + 5) or z in (bz, bz + 4):
-                        v.set(x, y, z, STONE if (x + y) % 2 else MCOBBLE)
-        v.fill(bx + 1, 1, bz + 1, bx + 4, 3, bz + 3, "minecraft:air")
-        gable_roof_z(v, bx, bx + 5, bz, bz + 4, 4, SPRUCE, STONE)
-        v.set(bx + 3, 1, bz, "minecraft:air")
-        v.set(bx + 2, 2, bz, GLASS)
-        v.set(bx + 4, 2, bz, GLASS)
-        v.set(bx + 2, 1, bz + 3, "minecraft:chest", {"minecraft:cardinal_direction": "south"})
-    # barns
-    for bx, bz in ((26, 24), (30, 24)):
-        for x in range(bx, min(W, bx + 4)):
-            for z in range(bz, min(L, bz + 5)):
-                v.set(x, 0, z, "minecraft:coarse_dirt")
-                if x in (bx, min(W - 1, bx + 3)) or z in (bz, min(L - 1, bz + 4)):
-                    v.set(x, 1, z, SPRUCE_LOG)
-                    v.set(x, 2, z, SPRUCE_FENCE)
-        v.set(min(W - 1, bx + 1), 1, min(L - 1, bz + 1), "minecraft:hay_block")
-        v.set(min(W - 1, bx + 2), 1, min(L - 1, bz + 1), "minecraft:hay_block")
-    # quay
+                    if x in (bx, bx + bw - 1) or z in (bz, bz + bd - 1):
+                        v.set(x, y, z, PLASTER)
+        for px_, pz_ in ((bx, bz), (bx + bw - 1, bz), (bx, bz + bd - 1),
+                         (bx + bw - 1, bz + bd - 1)):
+            for y in range(1, 4):
+                v.set(px_, y, pz_, SPRUCE_LOG)       # corner frame
+        v.fill(bx + 1, 1, bz + 1, bx + bw - 2, 3, bz + bd - 2, "minecraft:air")
+        gable_roof_z(v, bx - 1, bx + bw, bz, bz + bd - 1, 4, "minecraft:hay_block", PLASTER)
+        v.set(bx + bw // 2, 4 + bw // 2, bz + bd // 2, SPRUCE)  # ridge cap
+        v.set(bx + 2, 1, bz, "minecraft:air")        # door
+        v.set(bx + 2, 2, bz, "minecraft:air")
+        v.set(bx + 1, 2, bz, GLASS)
+        v.set(bx + bw - 2, 2, bz, GLASS)
+        v.set(bx + 1, 1, bz + bd - 2, "minecraft:bed", {"direction": 0})
+        v.set(bx + bw - 2, 1, bz + bd - 2, "minecraft:chest",
+              {"minecraft:cardinal_direction": "south"})
+        v.set(bx + bw - 2, 1, bz + 1, "minecraft:barrel")
+        # window-box flowers
+        v.set(bx, 1, bz - 1, r.choice(("minecraft:poppy", "minecraft:cornflower",
+                                       "minecraft:oxeye_daisy")))
+    cottage(6, 8)
+    cottage(24, 8)
+    cottage(7, 18)
+    cottage(24, 18)
+    cottage(14, 23)
+    # working wheat field with scarecrow (west)
+    fx0, fz0 = 3, 13
+    for x in range(fx0, fx0 + 7):
+        for z in range(fz0, fz0 + 6):
+            if x == fx0 + 3:
+                v.set(x, 0, z, "minecraft:water")     # irrigation channel
+            else:
+                v.set(x, 0, z, "minecraft:farmland", {"moisturized_amount": 7})
+                v.set(x, 1, z, "minecraft:wheat", {"growth": 5 + r.randrange(3)})
+    for x in range(fx0 - 1, fx0 + 8):                  # picket fence
+        v.set(x, 1, fz0 - 1, "minecraft:oak_fence")
+        v.set(x, 1, fz0 + 6, "minecraft:oak_fence")
+    scx, scz = fx0 + 3, fz0 + 2
+    v.set(scx, 1, scz, "minecraft:oak_fence")
+    v.set(scx, 2, scz, "minecraft:hay_block")
+    v.set(scx, 3, scz, "minecraft:carved_pumpkin", {"minecraft:cardinal_direction": "south"})
+    v.set(scx - 1, 2, scz, "minecraft:oak_fence")
+    v.set(scx + 1, 2, scz, "minecraft:oak_fence")
+    v.set(fx0, 1, fz0 + 7, "minecraft:composter")
+    # memorial garden for the raid dead (east): statue + graves + roses
+    mx0, mz0 = 28, 13
+    v.set(mx0, 1, mz0, CHISELED)                       # plinth
+    v.set(mx0, 2, mz0, STONE)                          # the axe-hero
+    v.set(mx0, 3, mz0, STONE)
+    v.set(mx0, 4, mz0, "minecraft:smooth_quartz")      # head
+    v.set(mx0 + 1, 3, mz0, "minecraft:stone_brick_wall")  # raised arm
+    v.set(mx0 + 1, 4, mz0, DEEPSLATE_W)                # the axe
+    for gvx, gvz in ((mx0 - 2, mz0 + 2), (mx0, mz0 + 3), (mx0 + 2, mz0 + 2)):
+        v.set(gvx, 1, gvz, "minecraft:cobblestone_wall")
+        if r.random() < 0.6:
+            v.set(gvx + 1, 1, gvz, "minecraft:rose_bush")
+    v.set(mx0 - 1, 1, mz0 - 1, CANDLE, {"lit": True, "candles": 2})
+    # flower borders along the green
+    for i in range(10):
+        fx_, fz_ = 4 + r.randrange(W - 8), 5 + r.randrange(18)
+        if v.grid[v.idx(fx_, 1, fz_)] == v._pid("minecraft:air"):
+            if v.grid[v.idx(fx_, 0, fz_)] == v._pid("minecraft:grass_block"):
+                v.set(fx_, 1, fz_, r.choice(("minecraft:poppy", "minecraft:cornflower",
+                                             "minecraft:oxeye_daisy", "minecraft:red_tulip")))
+    # quay with smoke-rack and moored boat
     for x in range(c - 4, c + 5):
         for z in range(25, 32):
             v.set(x, 1, z, SPRUCE)
@@ -1589,61 +1724,143 @@ def oakvale_village():
         for y in range(2, 5):
             v.set(x, y, 29, SPRUCE_FENCE)
         v.set(x, 5, 29, LANTERN)
+    v.set(c - 3, 2, 26, "minecraft:barrel")
+    v.set(c - 2, 2, 26, "minecraft:campfire")          # fish smoker
+    v.set(c + 2, 2, 27, "minecraft:chest", {"minecraft:cardinal_direction": "west"})
+    # little rowing boat off the quay
+    for bz_ in (32, 33):
+        v.set(c + 6, 1, bz_, SPRUCE)
+    v.set(c + 6, 1, 31, SPRUCE_FENCE)
     v.save("oakvale_village")
 
 
 def bowerstone_market():
-    """Dense walled market district inspired by Bowerstone South with river,
-    bridge, stalls, gatehouse and mixed timber-stone blocks."""
+    """Bowerstone South: crenellated wall and twin-tower gatehouse, jettied
+    Tudor townhouses (dark-oak frame over white plaster), river and bridge,
+    market stalls, street lamps, a clock tower — and the class-divide gate
+    to the richer quartz-trimmed North bank."""
     r = rng("struct", "bowerstone_market")
     W, H, L = 37, 16, 37
     v = Vox(W, H, L)
     c = W // 2
-    # river band
+    PLASTER = "minecraft:white_terracotta"
+    # paving + river band
     for x in range(W):
         for z in range(L):
             if 16 <= z <= 20:
                 v.set(x, 0, z, "minecraft:water")
             else:
                 v.set(x, 0, z, DEEP_TILES if (x + z) % 4 else GRAVEL)
-    # bridge
+    # river embankment walls
+    for x in range(W):
+        v.set(x, 0, 16, STONE)
+        v.set(x, 0, 20, STONE)
+    # arched stone bridge
     for x in range(c - 3, c + 4):
         for z in range(15, 22):
             v.set(x, 1, z, STONE)
             if x in (c - 3, c + 3):
                 v.set(x, 2, z, "minecraft:stone_brick_wall")
-    # gate wall north side
-    for x in range(3, W - 3):
+    v.set(c - 3, 3, 18, LANTERN, {"hanging": False})
+    v.set(c + 3, 3, 18, LANTERN, {"hanging": False})
+    # ==== crenellated south wall + twin-tower gatehouse ====
+    for x in range(2, W - 2):
         if abs(x - c) <= 3:
             continue
         for y in range(1, 5):
-            v.set(x, y, 7, STONE if y < 4 else "minecraft:stone_brick_wall")
-    for gx in (c - 4, c + 4):
-        for y in range(1, 7):
-            v.set(gx, y, 7, CHISELED if y > 4 else STONE)
-        v.set(gx, 7, 7, LANTERN)
-    for x in range(c - 4, c + 5):
-        v.set(x, 7, 7, STONE)
-    # market court
-    for x in range(6, W - 6):
-        for z in range(8, 31):
-            v.set(x, 0, z, GRAVEL if (x + z) % 3 else DEEP_TILES)
-    # townhouses
-    blocks = [(5, 9, 7, 8), (25, 9, 7, 8), (4, 20, 8, 10), (24, 20, 9, 10), (13, 25, 11, 8)]
-    for bx, bz, bw, bd in blocks:
+            v.set(x, y, 33, rnd_stone(r))
+        if x % 2 == 0:
+            v.set(x, 5, 33, STONE)                     # merlons
+    for gx in (c - 4, c + 4):                           # round gate towers
+        cylinder(v, gx, 33, 2, 1, 7, STONE)
+        cone_roof(v, gx, 33, 3, 8, DEEP_TILES, tip="minecraft:end_rod")
+        v.set(gx, 4, 31, GLASS)
+    for x in range(c - 3, c + 4):                       # gate arch
+        v.set(x, 5, 33, CHISELED)
+        v.set(x, 6, 33, STONE)
+    for y in range(1, 5):
+        v.set(c - 3, y, 33, CHISELED)
+        v.set(c + 3, y, 33, CHISELED)
+    v.set(c, 6, 32, GOLD)                               # city crest
+    v.set(c - 2, 4, 33, LANTERN, {"hanging": True})
+    v.set(c + 2, 4, 33, LANTERN, {"hanging": True})
+    # lane from gate to bridge
+    for z in range(21, 33):
+        for x in (c - 1, c, c + 1):
+            v.set(x, 0, z, DEEP_TILES)
+
+    def townhouse(bx, bz, bw, bd, rich=False):
+        """Two-storey Tudor: stone ground floor, jettied plaster upper floor
+        with dark-oak cross-frame, steep slate roof."""
+        trim = QUARTZ if rich else DARKLOG
+        # ground floor
         for x in range(bx, bx + bw):
             for z in range(bz, bz + bd):
                 v.set(x, 0, z, COBBLE)
-                for y in range(1, 6):
+                for y in (1, 2):
                     if x in (bx, bx + bw - 1) or z in (bz, bz + bd - 1):
-                        v.set(x, y, z, STONE if (x + y) % 2 else DARKLOG)
-        v.fill(bx + 1, 1, bz + 1, bx + bw - 2, 5, bz + bd - 2, "minecraft:air")
-        gable_roof_z(v, bx, bx + bw - 1, bz, bz + bd - 1, 6, DEEP_TILES, STONE)
+                        v.set(x, y, z, rnd_stone(r))
+        # jettied upper floor (overhangs by 1 on the front)
+        for x in range(bx - 1, bx + bw + 1):
+            for z in range(bz - 1, bz + bd):
+                v.set(x, 3, z, SPRUCE)                  # jetty floor band
+        for x in range(bx - 1, bx + bw + 1):
+            for z in range(bz - 1, bz + bd):
+                for y in (4, 5):
+                    if x in (bx - 1, bx + bw) or z in (bz - 1, bz + bd - 1):
+                        v.set(x, y, z, PLASTER)
+        # dark-oak frame: corner posts + mid studs
+        for px_, pz_ in ((bx - 1, bz - 1), (bx + bw, bz - 1), (bx - 1, bz + bd - 1),
+                         (bx + bw, bz + bd - 1)):
+            for y in (3, 4, 5):
+                v.set(px_, y, pz_, trim)
+        for x in range(bx + 1, bx + bw - 1, 2):
+            v.set(x, 4, bz - 1, trim)
+        # hollow interiors
+        v.fill(bx + 1, 1, bz + 1, bx + bw - 2, 2, bz + bd - 2, "minecraft:air")
+        v.fill(bx, 4, bz, bx + bw - 1, 5, bz + bd - 2, "minecraft:air")
+        # roof
+        gable_roof_z(v, bx - 2, bx + bw + 1, bz - 1, bz + bd - 1, 6, DEEP_TILES, PLASTER)
+        # door + leaded windows
         v.set(bx + bw // 2, 1, bz, "minecraft:air")
-        v.set(bx + 1, 3, bz, GLASS)
-        v.set(bx + bw - 2, 3, bz, GLASS)
-    # stalls
-    for sx, sz, col in ((14, 12, "red"), (20, 12, "blue"), (17, 18, "white")):
+        v.set(bx + bw // 2, 2, bz, "minecraft:air")
+        v.set(bx + 1, 2, bz, GLASS)
+        v.set(bx + bw - 2, 2, bz, GLASS)
+        v.set(bx, 5, bz - 1, GLASS)
+        v.set(bx + bw - 1, 5, bz - 1, GLASS)
+        v.set(bx + bw // 2, 4, bz - 1, GLASS)
+        # furnishing + chest
+        v.set(bx + 1, 1, bz + bd - 2, "minecraft:chest",
+              {"minecraft:cardinal_direction": "south"})
+        v.set(bx + bw - 2, 1, bz + bd - 2, "minecraft:barrel")
+        if rich:
+            v.set(bx + bw // 2, 6 + (bw + 2) // 2, bz + bd // 2, GOLD)  # gilt finial
+    # south bank (working quarter)
+    townhouse(5, 23, 7, 7)
+    townhouse(25, 23, 7, 7)
+    # north bank (rich quarter, quartz-trimmed)
+    townhouse(4, 6, 8, 8, rich=True)
+    townhouse(25, 6, 8, 8, rich=True)
+    # class-divide gate on the bridge: iron gate + guard braziers
+    for x in (c - 2, c + 2):
+        for y in range(2, 6):
+            v.set(x, y, 15, CHISELED)
+        v.set(x, 6, 15, LANTERN, {"hanging": False})
+    for x in range(c - 1, c + 2):
+        v.set(x, 5, 15, STONE)
+        v.set(x, 4, 15, IRON_BARS)
+    # clock tower on the north market square
+    ckx, ckz = c, 4
+    for y in range(1, 10):
+        v.set(ckx, y, ckz, STONE if y % 3 else CHISELED)
+        v.set(ckx - 1, y, ckz, STONE if y < 8 else "minecraft:air")
+        v.set(ckx + 1, y, ckz, STONE if y < 8 else "minecraft:air")
+    v.set(ckx, 8, ckz - 1, GOLD)                        # clock face
+    v.set(ckx, 7, ckz - 1, "minecraft:stone_brick_wall")
+    v.set(ckx, 10, ckz, CHISELED)
+    v.set(ckx, 11, ckz, "minecraft:end_rod")
+    # market stalls (south square)
+    for sx, sz, col in ((9, 21, "red"), (24, 21, "blue"), (16, 28, "white")):
         for x in (sx, sx + 3):
             for z in (sz, sz + 2):
                 v.set(x, 1, z, SPRUCE_FENCE)
@@ -1653,12 +1870,23 @@ def bowerstone_market():
                 v.set(x, 3, z, f"minecraft:{col}_wool")
         v.set(sx + 1, 1, sz + 1, "minecraft:barrel")
         v.set(sx + 2, 1, sz + 1, "minecraft:chest", {"minecraft:cardinal_direction": "south"})
+    # street lamps along the lanes
+    for lx_, lz_ in ((c - 5, 25), (c + 5, 30), (c - 6, 10), (c + 6, 12), (4, 21), (32, 22)):
+        v.set(lx_, 1, lz_, DARKLOG)
+        v.set(lx_, 2, lz_, "minecraft:dark_oak_fence")
+        v.set(lx_, 3, lz_, "minecraft:dark_oak_fence")
+        v.set(lx_, 4, lz_, LANTERN, {"hanging": False})
+    # dockside crates on the river walk
+    v.set(3, 1, 15, "minecraft:barrel")
+    v.set(4, 1, 15, "minecraft:barrel")
+    v.set(3, 2, 15, "minecraft:hay_block")
     v.save("bowerstone_market")
 
 
 def knothole_glade():
-    """Wood-heavy hidden glade settlement with cliff ring, gate palisade,
-    totems and a central hero statue plaza."""
+    """Knothole Glade: a hidden forest settlement of round timber huts under
+    conical spruce roofs, carved guardian totems, the Scarlet Robe memorial
+    statue and an archery range, ringed by a cliff wall."""
     r = rng("struct", "knothole_glade")
     W, H, L = 35, 15, 35
     v = Vox(W, H, L)
@@ -1691,46 +1919,70 @@ def knothole_glade():
             continue
         v.set(x, 1, 6, SPRUCE_LOG)
         v.set(x, 2, 6, SPRUCE_FENCE)
-    # statue square
+    # the Scarlet Robe memorial: red-robed heroine on a chiseled plinth
     sx, sz = c, c
     v.fill(sx - 1, 1, sz - 1, sx + 1, 1, sz + 1, CHISELED)
     v.set(sx, 2, sz, STONE)
-    v.set(sx, 3, sz, "minecraft:red_wool")
+    v.set(sx, 3, sz, "minecraft:red_wool")             # the scarlet robe
     v.set(sx, 4, sz, "minecraft:red_wool")
-    v.set(sx, 5, sz, QUARTZ)
+    v.set(sx, 5, sz, "minecraft:smooth_quartz")        # head
+    v.set(sx - 1, 4, sz, "minecraft:stone_brick_wall")  # bow arm
+    v.set(sx - 1, 5, sz, "minecraft:dark_oak_fence")    # the longbow
     v.set(sx + 1, 4, sz, "minecraft:end_rod")
-    # longhouses
-    huts = [(7, 10, 8, 6), (20, 10, 8, 6), (10, 22, 14, 7)]
-    for bx, bz, bw, bd in huts:
-        for x in range(bx, bx + bw):
-            for z in range(bz, bz + bd):
-                v.set(x, 0, z, COBBLE)
-                for y in range(1, 5):
-                    if x in (bx, bx + bw - 1) or z in (bz, bz + bd - 1):
-                        v.set(x, y, z, SPRUCE_LOG if (x + z + y) % 2 else STRIPPED_SPRUCE)
-        v.fill(bx + 1, 1, bz + 1, bx + bw - 2, 4, bz + bd - 2, "minecraft:air")
-        gable_roof_z(v, bx, bx + bw - 1, bz, bz + bd - 1, 5, SPRUCE, STRIPPED_SPRUCE)
-        v.set(bx + bw // 2, 1, bz, "minecraft:air")
-    # target range and totems
-    for i in range(3):
-        z = 24 + i * 2
-        v.set(30, 1, z, "minecraft:hay_block")
-        v.set(30, 2, z, "minecraft:target")
-    for tx, tz in ((8, 7), (27, 7), (7, 27), (28, 28)):
+    for fx_, fz_ in ((sx - 2, sz), (sx + 2, sz), (sx, sz - 2), (sx, sz + 2)):
+        v.set(fx_, 1, fz_, "minecraft:poppy")
+
+    def roundhut(hx, hz, rad=3):
+        """Round timber hut with a conical spruce roof and fire inside."""
+        cylinder(v, hx, hz, rad, 1, 3, SPRUCE_LOG)
+        cone_roof(v, hx, hz, rad + 1, 4, SPRUCE, tip=LANTERN)
+        # door gap (south) + window
+        v.set(hx, 1, hz - rad, "minecraft:air")
+        v.set(hx, 2, hz - rad, "minecraft:air")
+        v.set(hx + rad, 2, hz, GLASS)
+        v.set(hx - rad, 2, hz, GLASS)
+        # hearth + bunk + storage
+        v.set(hx, 1, hz + 1, "minecraft:campfire")
+        v.set(hx - 1, 1, hz, "minecraft:bed", {"direction": 0})
+        v.set(hx + 1, 1, hz, "minecraft:chest", {"minecraft:cardinal_direction": "west"})
+    roundhut(9, 12)
+    roundhut(25, 12)
+    roundhut(9, 24, rad=4)
+    roundhut(24, 25)
+    # carved guardian totems at the corners
+    for tx, tz in ((8, 7), (27, 7), (7, 28), (28, 28)):
         for y in range(1, 5):
-            v.set(tx, y, tz, SPRUCE_LOG)
+            v.set(tx, y, tz, SPRUCE_LOG if y % 2 else STRIPPED_SPRUCE)
         v.set(tx, 5, tz, "minecraft:carved_pumpkin", {"minecraft:cardinal_direction": "south"})
         v.set(tx, 6, tz, SOUL_LANTERN)
+        v.set(tx + 1, 4, tz, SPRUCE_FENCE)             # totem wings
+        v.set(tx - 1, 4, tz, SPRUCE_FENCE)
+    # archery range along the east cliff
+    for i in range(3):
+        z = 18 + i * 3
+        v.set(30, 1, z, "minecraft:hay_block")
+        v.set(30, 2, z, "minecraft:target")
+        for lx in range(25, 29):
+            v.set(lx, 0, z, GRAVEL)
+    v.set(26, 1, 16, "minecraft:barrel")               # arrow stock
+    # fire circle on the green
+    v.set(c, 1, c + 6, "minecraft:campfire")
+    for bz_ in (c + 4, c + 8):
+        for x in range(c - 2, c + 3):
+            v.set(x, 1, bz_, STRIPPED_SPRUCE)
     v.save("knothole_glade")
 
 
 def hook_coast():
-    """Hook Coast-inspired snowy outpost with tiered homes, quay, abbey ruin
-    marker and lighthouse landmark."""
+    """Hook Coast: pale diorite-and-calcite port under snow — lighthouse with
+    a glazed lamp room, snow-capped cottages, the ruined abbey with stained
+    glass and its bell, an icy quay."""
     r = rng("struct", "hook_coast")
     W, H, L = 37, 20, 37
     v = Vox(W, H, L)
     c = W // 2
+    PALE = "minecraft:polished_diorite"
+    CALC = "minecraft:calcite"
     for x in range(W):
         for z in range(L):
             if z > 30:
@@ -1738,46 +1990,628 @@ def hook_coast():
                 if r.random() < 0.4:
                     v.set(x, 1, z, "minecraft:ice")
             else:
-                v.set(x, 0, z, "minecraft:snow_block" if (x + z) % 3 else STONE)
-    # lighthouse
+                v.set(x, 0, z, "minecraft:snow_block" if (x + z) % 3 else CALC)
+                if r.random() < 0.12:
+                    v.set(x, 1, z, "minecraft:snow_layer")
+    # cleared cobble lanes
+    for z in range(6, 28):
+        for x in (c - 1, c, c + 1):
+            v.set(x, 0, z, DEEP_TILES if (x + z) % 4 else GRAVEL)
+            v.set(x, 1, z, "minecraft:air")
+    # ==== lighthouse with glazed lamp room ====
     lx, lz = 6, 28
-    cylinder(v, lx, lz, 4, 1, 13, STONE)
-    cone_roof(v, lx, lz, 5, 14, DEEP_TILES, tip="minecraft:end_rod")
-    for y in range(3, 13, 3):
-        v.set(lx + 4, y, lz, GLASS)
+    cylinder(v, lx, lz, 4, 1, 11, PALE)
+    for y in (4, 8):                                    # red signal bands
+        for ang in range(0, 360, 20):
+            bx_ = lx + round(math.cos(math.radians(ang)) * 4)
+            bz_ = lz + round(math.sin(math.radians(ang)) * 4)
+            v.set(bx_, y, bz_, "minecraft:red_wool")
+    # lamp room: glass drum + sea lantern beacon
+    cylinder(v, lx, lz, 3, 12, 13, GLASS)
+    v.set(lx, 12, lz, "minecraft:sea_lantern")
     v.set(lx, 13, lz, "minecraft:sea_lantern")
-    v.set(lx, 14, lz, "minecraft:campfire")
-    # houses
+    cone_roof(v, lx, lz, 4, 14, DEEP_TILES, tip="minecraft:end_rod")
+    v.set(lx, 1, lz - 4, "minecraft:air")               # door
+    v.set(lx, 2, lz - 4, "minecraft:air")
+    for y in range(3, 11, 3):
+        v.set(lx + 4, y, lz, GLASS)                     # stair slits
+    # ==== snow-capped cottages ====
     for bx, bz in ((12, 8), (20, 8), (12, 16), (20, 16)):
         for x in range(bx, bx + 6):
             for z in range(bz, bz + 6):
-                v.set(x, 0, z, STONE)
+                v.set(x, 0, z, CALC)
                 for y in range(1, 5):
                     if x in (bx, bx + 5) or z in (bz, bz + 5):
-                        v.set(x, y, z, STONE if (x + y) % 2 else MCOBBLE)
+                        v.set(x, y, z, PALE if (x + y) % 2 else CALC)
         v.fill(bx + 1, 1, bz + 1, bx + 4, 4, bz + 4, "minecraft:air")
-        gable_roof_z(v, bx, bx + 5, bz, bz + 5, 5, DEEP_TILES, STONE)
+        gable_roof_z(v, bx, bx + 5, bz, bz + 5, 5, DEEP_TILES, PALE)
+        # snow drifts settled on the roof
+        for x in range(bx, bx + 6):
+            for z in range(bz, bz + 6):
+                if r.random() < 0.4:
+                    yy = 5 + min(x - bx, bx + 5 - x)
+                    v.set(x, yy + 1, z, "minecraft:snow_layer")
         v.set(bx + 3, 1, bz, "minecraft:air")
         v.set(bx + 2, 3, bz, GLASS)
-    # quay
+        v.set(bx + 1, 1, bz + 4, "minecraft:campfire")  # hearth glow
+        v.set(bx + 4, 1, bz + 4, "minecraft:chest", {"minecraft:cardinal_direction": "north"})
+    # ==== ruined abbey with stained glass + bell ====
+    ax0, az0 = 27, 16
+    aw, ad = 8, 10
+    for x in range(ax0, ax0 + aw):
+        for z in range(az0, az0 + ad):
+            v.set(x, 0, z, PALE if (x + z) % 3 else CALC)
+    for z in range(az0, az0 + ad):                      # side walls, ragged
+        for x in (ax0, ax0 + aw - 1):
+            h = 6 - abs(z - (az0 + ad // 2)) // 2 + r.randrange(-1, 2)
+            for y in range(1, max(2, h)):
+                if r.random() < 0.85:
+                    v.set(x, y, z, PALE if r.random() < 0.6 else CRACK)
+    for x in range(ax0, ax0 + aw):                      # gable ends
+        for y in range(1, 7 - abs(x - (ax0 + aw // 2))):
+            if r.random() < 0.8:
+                v.set(x, y, az0, PALE)
+    # stained-glass lancets in the surviving north gable
+    for wx_ in (ax0 + 2, ax0 + 4, ax0 + 6):
+        v.set(wx_, 2, az0, "minecraft:light_blue_stained_glass_pane")
+        v.set(wx_, 3, az0, "minecraft:light_blue_stained_glass_pane")
+    v.set(ax0 + 3, 5, az0, "minecraft:light_blue_stained_glass_pane")
+    # altar, soul lanterns and the abbey bell
+    v.set(ax0 + 3, 1, az0 + 2, "minecraft:beacon")
+    v.set(ax0 + 3, 2, az0 + 2, IRON_BARS)
+    v.set(ax0 + 1, 1, az0 + 3, SOUL_LANTERN)
+    v.set(ax0 + 6, 1, az0 + 3, SOUL_LANTERN)
+    bfx, bfz = ax0 + 5, az0 + 7                         # belfry frame
+    for y in range(1, 5):
+        v.set(bfx - 1, y, bfz, PALE)
+        v.set(bfx + 1, y, bfz, PALE)
+    v.set(bfx - 1, 5, bfz, PALE)
+    v.set(bfx + 1, 5, bfz, PALE)
+    v.set(bfx, 5, bfz, PALE)
+    v.set(bfx, 4, bfz, "minecraft:bell")
+    # pews half-buried in snow
+    for z in range(az0 + 4, az0 + 8, 2):
+        v.set(ax0 + 2, 1, z, "minecraft:blackstone_wall")
+        v.set(ax0 + 5, 1, z, "minecraft:blackstone_wall")
+    # ==== icy quay ====
     for x in range(13, 25):
         for z in range(27, 31):
             v.set(x, 1, z, SPRUCE)
+            if r.random() < 0.2:
+                v.set(x, 2, z, "minecraft:snow_layer")
     for x in (13, 24):
-        for z in range(27, 31):
+        for z in (27, 30):
             v.set(x, 2, z, SPRUCE_FENCE)
-    # abbey ruin marker
-    ax0, az0 = 27, 24
-    for x in range(ax0, 36):
-        for z in range(18, az0 + 1):
-            if (x in (ax0, 35) or z in (18, az0)) and r.random() < 0.75:
-                for y in range(1, 6):
-                    if r.random() < 0.85:
-                        v.set(x, y, z, STONE if r.random() < 0.6 else CRACK)
-    v.set(31, 1, 21, "minecraft:beacon")
-    v.set(31, 2, 21, "minecraft:iron_bars")
-    v.set(31, 3, 21, SOUL_LANTERN)
+        v.set(x, 3, 30, LANTERN)
+    v.set(15, 2, 28, "minecraft:barrel")
+    v.set(22, 2, 29, "minecraft:chest", {"minecraft:cardinal_direction": "west"})
     v.save("hook_coast")
+
+
+# ===========================================================================
+# Wilderness encounters — small repeatable set dressing for the open world
+# ===========================================================================
+
+def lookout_point():
+    """A grassy knoll crowned by a ring of standing stones and a pointing
+    hero statue — a picnic landmark with benches and lanterns."""
+    r = rng("struct", "lookout_point")
+    D = 21
+    v = Vox(D, 12, D)
+    c = D // 2
+    # the knoll: layered dome of grass
+    for x in range(D):
+        for z in range(D):
+            d = math.hypot(x - c, z - c)
+            h = max(0, int(3.2 - d * 0.34))
+            v.set(x, 0, z, "minecraft:grass_block")
+            for y in range(1, h + 1):
+                v.set(x, y, z, "minecraft:dirt" if y < h else "minecraft:grass_block")
+            if d > 4 and r.random() < 0.08:
+                v.set(x, h + 1, z, "minecraft:tallgrass")
+    top = 3
+    # crown of weathered standing stones
+    for ang in range(0, 360, 45):
+        sx_ = c + round(math.cos(math.radians(ang)) * 4)
+        sz_ = c + round(math.sin(math.radians(ang)) * 4)
+        hh = 2 + (ang // 45) % 2
+        for y in range(top + 1, top + 1 + hh):
+            v.set(sx_, y, sz_, rnd_stone(r))
+        if ang % 90 == 0:
+            v.set(sx_, top + 1 + hh, sz_, "minecraft:cobblestone_wall")
+    # pointing statue on a plinth at the summit
+    v.set(c, top + 1, c, CHISELED)
+    v.set(c, top + 2, c, STONE)
+    v.set(c, top + 3, c, STONE)
+    v.set(c, top + 4, c, "minecraft:smooth_quartz")
+    v.set(c + 1, top + 3, c, "minecraft:stone_brick_wall")   # pointing arm
+    v.set(c + 2, top + 3, c, "minecraft:end_rod")
+    # benches and lanterns for travellers
+    for bx_, bz_ in ((c - 3, c + 3), (c + 3, c - 3)):
+        v.set(bx_, top + 1, bz_, SPRUCE)
+        v.set(bx_ + 1, top + 1, bz_, SPRUCE)
+        v.set(bx_ - 1, top + 1, bz_, SPRUCE_FENCE)
+    for ang in (90, 270):
+        lx_ = c + round(math.cos(math.radians(ang)) * 6)
+        lz_ = c + round(math.sin(math.radians(ang)) * 6)
+        v.set(lx_, 1, lz_, "minecraft:oak_fence")
+        v.set(lx_, 2, lz_, "minecraft:oak_fence")
+        v.set(lx_, 3, lz_, LANTERN, {"hanging": False})
+    # radiating gravel footpaths
+    for ang in range(0, 360, 90):
+        for i in range(5, c + 1):
+            px_ = c + round(math.cos(math.radians(ang + 45)) * i)
+            pz_ = c + round(math.sin(math.radians(ang + 45)) * i)
+            v.set(px_, 0, pz_, PATH)
+    # a traveller's cache
+    v.set(c - 4, top + 1, c, "minecraft:chest", {"minecraft:cardinal_direction": "east"})
+    v.set(c + 4, 1, c + 7, "minecraft:campfire")
+    v.save("lookout_point")
+
+
+def orchard_farm():
+    """A smallholding: apple orchard rows, a thatched farmhouse, a cider barn
+    full of barrels, beehive, and a picket fence."""
+    r = rng("struct", "orchard_farm")
+    D = 29
+    v = Vox(D, 12, D)
+    PLASTER = "minecraft:white_terracotta"
+    for x in range(D):
+        for z in range(D):
+            v.set(x, 0, z, "minecraft:grass_block" if r.random() < 0.85 else "minecraft:coarse_dirt")
+    # picket fence ring with gate
+    for x in range(1, D - 1):
+        for z in (1, D - 2):
+            if abs(x - D // 2) > 1:
+                v.set(x, 1, z, "minecraft:oak_fence")
+    for z in range(1, D - 1):
+        for x in (1, D - 2):
+            v.set(x, 1, z, "minecraft:oak_fence")
+    # orchard rows (west half)
+    for gx in (4, 9):
+        for gz in (5, 11, 17, 23):
+            tx, tz = gx + (gz // 7) % 2, gz
+            for y in range(1, 4):
+                v.set(tx, y, tz, "minecraft:oak_log")
+            for dx in (-1, 0, 1):
+                for dz in (-1, 0, 1):
+                    if abs(dx) + abs(dz) <= 1:
+                        v.set(tx + dx, 4, tz + dz, "minecraft:azalea_leaves_flowered")
+            v.set(tx, 5, tz, "minecraft:oak_leaves")
+            if r.random() < 0.5:
+                v.set(tx + 1, 1, tz, "minecraft:sweet_berry_bush", {"growth": 3})
+    # farmhouse (NE): plaster + thatch
+    bx, bz = 17, 4
+    for x in range(bx, bx + 8):
+        for z in range(bz, bz + 6):
+            v.set(x, 0, z, COBBLE)
+            for y in range(1, 4):
+                if x in (bx, bx + 7) or z in (bz, bz + 5):
+                    v.set(x, y, z, PLASTER)
+    for px_, pz_ in ((bx, bz), (bx + 7, bz), (bx, bz + 5), (bx + 7, bz + 5)):
+        for y in range(1, 4):
+            v.set(px_, y, pz_, SPRUCE_LOG)
+    v.fill(bx + 1, 1, bz + 1, bx + 6, 3, bz + 4, "minecraft:air")
+    gable_roof_z(v, bx - 1, bx + 8, bz, bz + 5, 4, "minecraft:hay_block", PLASTER)
+    v.set(bx + 3, 1, bz + 5, "minecraft:air")
+    v.set(bx + 3, 2, bz + 5, "minecraft:air")
+    v.set(bx + 1, 2, bz + 5, GLASS)
+    v.set(bx + 6, 2, bz + 5, GLASS)
+    v.set(bx + 1, 1, bz + 1, "minecraft:bed", {"direction": 2})
+    v.set(bx + 6, 1, bz + 1, "minecraft:chest", {"minecraft:cardinal_direction": "south"})
+    # brick chimney with ember glow
+    v.set(bx + 7, 4, bz + 2, COBBLE)
+    v.set(bx + 7, 5, bz + 2, COBBLE)
+    v.set(bx + 7, 6, bz + 2, "minecraft:campfire")
+    # cider barn (SE): open front stacked with barrels
+    cx0, cz0 = 18, 18
+    for x in range(cx0, cx0 + 7):
+        for z in range(cz0, cz0 + 6):
+            v.set(x, 0, z, "minecraft:coarse_dirt")
+            for y in range(1, 4):
+                if z == cz0 + 5 or x in (cx0, cx0 + 6):
+                    v.set(x, y, z, SPRUCE_LOG if (x + y) % 3 == 0 else SPRUCE)
+    gable_roof_z(v, cx0 - 1, cx0 + 7, cz0, cz0 + 5, 4, SPRUCE, SPRUCE)
+    for i, (dx, dz) in enumerate(((1, 4), (2, 4), (3, 4), (1, 3), (5, 4))):
+        v.set(cx0 + dx, 1, cz0 + dz, "minecraft:barrel")
+        if i < 2:
+            v.set(cx0 + dx, 2, cz0 + dz, "minecraft:barrel")
+    v.set(cx0 + 5, 1, cz0 + 1, "minecraft:composter")
+    v.set(cx0 + 1, 1, cz0 + 1, "minecraft:hay_block")
+    # beehive on a post near the orchard
+    v.set(14, 1, 14, "minecraft:oak_fence")
+    v.set(14, 2, 14, "minecraft:beehive")
+    # flowers for the bees
+    for _ in range(8):
+        fx_, fz_ = 3 + r.randrange(11), 3 + r.randrange(23)
+        v.set(fx_, 1, fz_, r.choice(("minecraft:poppy", "minecraft:oxeye_daisy",
+                                     "minecraft:cornflower", "minecraft:red_tulip")))
+    # cart track to the gate
+    for z in range(2, 15):
+        v.set(D // 2, 0, z, PATH)
+    v.save("orchard_farm")
+
+
+def fisher_creek():
+    """A stilted fisher's hut over a reedy creek: jetty, drying nets, a
+    beached coracle and a smoking rack."""
+    r = rng("struct", "fisher_creek")
+    D = 23
+    v = Vox(D, 12, D)
+    # creek running diagonally
+    for x in range(D):
+        for z in range(D):
+            d = abs((x + z) - D) / 1.41
+            if d < 3.2:
+                v.set(x, 0, z, "minecraft:water")
+                if r.random() < 0.18:
+                    v.set(x, 1, z, "minecraft:waterlily")
+            elif d < 4.6:
+                v.set(x, 0, z, "minecraft:sand" if r.random() < 0.7 else "minecraft:gravel")
+                if r.random() < 0.2:
+                    v.set(x, 1, z, "minecraft:tallgrass")
+            else:
+                v.set(x, 0, z, "minecraft:grass_block")
+                if r.random() < 0.07:
+                    v.set(x, 1, z, "minecraft:fern")
+    # stilted hut on the north bank, decked over the water
+    hx, hz = 6, 4
+    for sx_, sz_ in ((hx, hz), (hx + 5, hz), (hx, hz + 4), (hx + 5, hz + 4)):
+        for y in range(1, 3):
+            v.set(sx_, y, sz_, SPRUCE_LOG)            # stilts
+    for x in range(hx - 1, hx + 7):
+        for z in range(hz - 1, hz + 6):
+            v.set(x, 3, z, SPRUCE)                    # raised deck
+    for x in range(hx, hx + 6):
+        for z in range(hz, hz + 5):
+            for y in (4, 5):
+                if x in (hx, hx + 5) or z in (hz, hz + 4):
+                    v.set(x, y, z, SPRUCE if (x + z) % 3 else SPRUCE_LOG)
+    v.fill(hx + 1, 4, hz + 1, hx + 4, 5, hz + 3, "minecraft:air")
+    gable_roof_z(v, hx - 1, hx + 6, hz, hz + 4, 6, DEEP_TILES, SPRUCE)
+    v.set(hx + 2, 4, hz + 4, "minecraft:air")          # door to jetty
+    v.set(hx + 2, 5, hz + 4, "minecraft:air")
+    v.set(hx + 1, 5, hz, GLASS)
+    v.set(hx + 4, 5, hz, GLASS)
+    v.set(hx + 1, 4, hz + 1, "minecraft:bed", {"direction": 0})
+    v.set(hx + 4, 4, hz + 1, "minecraft:chest", {"minecraft:cardinal_direction": "south"})
+    v.set(hx + 6, 4, hz + 2, LANTERN, {"hanging": False})
+    # ladder-stair of slabs down to the jetty
+    v.set(hx + 2, 2, hz + 5, SPRUCE)
+    v.set(hx + 2, 1, hz + 6, SPRUCE)
+    # jetty out across the creek
+    jx = hx + 2
+    for z in range(hz + 6, hz + 14):
+        v.set(jx, 1, z, SPRUCE)
+        v.set(jx + 1, 1, z, SPRUCE)
+    v.set(jx, 2, hz + 13, SPRUCE_FENCE)
+    v.set(jx + 1, 2, hz + 13, LANTERN, {"hanging": False})
+    # drying nets: fence frames hung with wool
+    for nx_, nz_ in ((13, 6), (16, 8)):
+        for i in range(3):
+            v.set(nx_ + i, 1, nz_, SPRUCE_FENCE)
+            v.set(nx_ + i, 2, nz_, SPRUCE_FENCE)
+            v.set(nx_ + i, 3, nz_, "minecraft:white_wool" if i % 2 else "minecraft:brown_wool")
+    # beached coracle on the south bank
+    bx_, bz_ = 16, 16
+    v.set(bx_, 1, bz_, SPRUCE)
+    v.set(bx_ + 1, 1, bz_, SPRUCE)
+    v.set(bx_ + 2, 1, bz_, SPRUCE)
+    v.set(bx_ - 1, 1, bz_, SPRUCE_FENCE)
+    v.set(bx_ + 3, 1, bz_, SPRUCE_FENCE)
+    # smoking rack + catch barrels
+    v.set(18, 1, 13, "minecraft:campfire")
+    v.set(19, 1, 13, "minecraft:barrel")
+    v.set(19, 1, 14, "minecraft:barrel")
+    v.set(4, 1, 13, "minecraft:barrel")
+    v.save("fisher_creek")
+
+
+def rose_cottage():
+    """Grandmother's rose cottage: chimney smoke, a walled rose garden,
+    a birch arbour and a wishing well."""
+    r = rng("struct", "rose_cottage")
+    D = 21
+    v = Vox(D, 12, D)
+    PLASTER = "minecraft:white_terracotta"
+    for x in range(D):
+        for z in range(D):
+            v.set(x, 0, z, "minecraft:grass_block")
+    # cottage
+    bx, bz = 3, 3
+    for x in range(bx, bx + 8):
+        for z in range(bz, bz + 6):
+            v.set(x, 0, z, COBBLE)
+            for y in range(1, 4):
+                if x in (bx, bx + 7) or z in (bz, bz + 5):
+                    v.set(x, y, z, PLASTER)
+    for px_, pz_ in ((bx, bz), (bx + 7, bz), (bx, bz + 5), (bx + 7, bz + 5)):
+        for y in range(1, 4):
+            v.set(px_, y, pz_, DARKLOG)
+    v.fill(bx + 1, 1, bz + 1, bx + 6, 3, bz + 4, "minecraft:air")
+    gable_roof_z(v, bx - 1, bx + 8, bz, bz + 5, 4, DEEP_TILES, PLASTER)
+    # chimney with campfire smoke
+    v.set(bx + 6, 4, bz + 1, COBBLE)
+    v.set(bx + 6, 5, bz + 1, COBBLE)
+    v.set(bx + 6, 6, bz + 1, COBBLE)
+    v.set(bx + 6, 7, bz + 1, "minecraft:campfire")
+    # door, windows, interior
+    v.set(bx + 3, 1, bz + 5, "minecraft:air")
+    v.set(bx + 3, 2, bz + 5, "minecraft:air")
+    v.set(bx + 1, 2, bz + 5, GLASS)
+    v.set(bx + 5, 2, bz + 5, GLASS)
+    v.set(bx + 7, 2, bz + 2, GLASS)
+    v.set(bx + 1, 1, bz + 1, "minecraft:bed", {"direction": 2})
+    v.set(bx + 5, 1, bz + 1, "minecraft:bookshelf")
+    v.set(bx + 6, 1, bz + 4, "minecraft:chest", {"minecraft:cardinal_direction": "west"})
+    v.set(bx + 3, 1, bz + 1, "minecraft:cauldron")
+    # walled rose garden (south half)
+    gx0, gz0, gx1, gz1 = 3, 11, 17, 18
+    for x in range(gx0, gx1 + 1):
+        for z in (gz0, gz1):
+            v.set(x, 1, z, "minecraft:cobblestone_wall")
+    for z in range(gz0, gz1 + 1):
+        for x in (gx0, gx1):
+            v.set(x, 1, z, "minecraft:cobblestone_wall")
+    v.set(10, 1, gz0, "minecraft:air")                 # garden gate
+    for x in range(gx0 + 2, gx1 - 1, 3):
+        for z in range(gz0 + 2, gz1, 2):
+            v.set(x, 1, z, r.choice(("minecraft:rose_bush", "minecraft:peony",
+                                     "minecraft:lilac", "minecraft:rose_bush")))
+    for z in range(gz0 + 1, gz1):                      # central path
+        v.set(10, 0, z, PATH)
+    # birch arbour over the path
+    for az_ in (gz0 + 3, gz0 + 4):
+        v.set(9, 1, az_, "minecraft:birch_fence")
+        v.set(11, 1, az_, "minecraft:birch_fence")
+        v.set(9, 2, az_, "minecraft:birch_fence")
+        v.set(11, 2, az_, "minecraft:birch_fence")
+    for x in (9, 10, 11):
+        v.set(x, 3, gz0 + 3, "minecraft:azalea_leaves_flowered")
+        v.set(x, 3, gz0 + 4, "minecraft:azalea_leaves_flowered")
+    # wishing well (east)
+    wx, wz = 17, 6
+    for x in range(wx - 1, wx + 2):
+        for z in range(wz - 1, wz + 2):
+            if x != wx or z != wz:
+                v.set(x, 1, z, COBBLE)
+    v.set(wx, 1, wz, "minecraft:water")
+    v.set(wx - 1, 2, wz - 1, SPRUCE_FENCE)
+    v.set(wx + 1, 2, wz + 1, SPRUCE_FENCE)
+    v.set(wx - 1, 3, wz - 1, SPRUCE_FENCE)
+    v.set(wx + 1, 3, wz + 1, SPRUCE_FENCE)
+    for x in range(wx - 1, wx + 2):
+        for z in range(wz - 1, wz + 2):
+            v.set(x, 4, z, SPRUCE)
+    # stray flowers + lantern post by the door
+    for _ in range(6):
+        v.set(1 + r.randrange(D - 2), 1, 1 + r.randrange(8),
+              r.choice(("minecraft:poppy", "minecraft:oxeye_daisy", "minecraft:lilac")))
+    v.set(bx + 5, 1, bz + 7, "minecraft:oak_fence")
+    v.set(bx + 5, 2, bz + 7, LANTERN, {"hanging": False})
+    v.save("rose_cottage")
+
+
+def witchwood_stones():
+    """A haunted ring of mossy monoliths around a dolmen altar, soul fire
+    flickering, dead trees clawing at the sky."""
+    r = rng("struct", "witchwood_stones")
+    D = 25
+    v = Vox(D, 14, D)
+    c = D // 2
+    for x in range(D):
+        for z in range(D):
+            v.set(x, 0, z, "minecraft:podzol" if (x + z) % 3 else "minecraft:coarse_dirt")
+            if r.random() < 0.12:
+                v.set(x, 1, z, "minecraft:fern" if r.random() < 0.6 else "minecraft:brown_mushroom")
+    # monolith ring
+    for ang in range(0, 360, 40):
+        sx_ = c + round(math.cos(math.radians(ang)) * 8)
+        sz_ = c + round(math.sin(math.radians(ang)) * 8)
+        hh = 3 + (ang // 40) % 3
+        for y in range(1, hh + 1):
+            v.set(sx_, y, sz_, MOSSY if y <= 2 else rnd_stone(r))
+        if ang % 120 == 0:
+            v.set(sx_, hh + 1, sz_, "minecraft:soul_torch")
+    # dolmen: two upright slabs + capstone over the altar
+    for dx in (-2, 2):
+        for y in range(1, 4):
+            v.set(c + dx, y, c, CHISELED if y == 1 else MOSSY)
+    for x in range(c - 2, c + 3):
+        v.set(x, 4, c, DEEPSLATE_W)
+    v.set(c, 1, c, "minecraft:chiseled_deepslate")     # the altar
+    v.set(c, 2, c, "minecraft:soul_campfire")
+    # offering chest tucked under the capstone
+    v.set(c, 1, c + 1, "minecraft:chest", {"minecraft:cardinal_direction": "south"})
+    # candle shrine stones
+    for ang in (45, 135, 225, 315):
+        px_ = c + round(math.cos(math.radians(ang)) * 4)
+        pz_ = c + round(math.sin(math.radians(ang)) * 4)
+        v.set(px_, 1, pz_, MCOBBLE)
+        v.set(px_, 2, pz_, CANDLE, {"lit": True, "candles": 1 + (ang // 90) % 3})
+    # dead trees on the rim
+    for tx, tz in ((3, 4), (20, 3), (4, 20), (21, 20)):
+        th = 4 + r.randrange(2)
+        for y in range(1, th + 1):
+            v.set(tx, y, tz, DARKLOG)
+        v.set(tx + 1, th, tz, "minecraft:dark_oak_fence")   # bare branches
+        v.set(tx - 1, th - 1, tz, "minecraft:dark_oak_fence")
+        v.set(tx, th + 1, tz, "minecraft:dark_oak_fence")
+    # scattered bones of the unlucky
+    v.set(c - 5, 1, c + 5, "minecraft:bone_block")
+    v.set(c + 6, 1, c - 4, "minecraft:bone_block")
+    v.save("witchwood_stones")
+
+
+def darkwood_camp():
+    """A trader waystation deep in Darkwood: spruce palisade, covered wagon,
+    tents and a watch fire — safety in numbers."""
+    r = rng("struct", "darkwood_camp")
+    D = 25
+    v = Vox(D, 12, D)
+    c = D // 2
+    for x in range(D):
+        for z in range(D):
+            v.set(x, 0, z, "minecraft:podzol" if r.random() < 0.6 else "minecraft:coarse_dirt")
+            if r.random() < 0.05:
+                v.set(x, 1, z, "minecraft:fern")
+    # spruce palisade ring with south gate
+    for x in range(D):
+        for z in range(D):
+            d = math.hypot(x - c, z - c)
+            if 10.0 < d <= 11.2:
+                if abs(x - c) <= 2 and z < c:
+                    continue                            # gate gap
+                v.set(x, 1, z, SPRUCE_LOG)
+                v.set(x, 2, z, SPRUCE_LOG if (x + z) % 2 else SPRUCE_FENCE)
+                if (x + z) % 5 == 0:
+                    v.set(x, 3, z, SPRUCE_FENCE)
+    for gx in (c - 3, c + 3):                           # gate posts
+        for y in range(1, 5):
+            v.set(gx, y, 2, SPRUCE_LOG)
+        v.set(gx, 5, 2, LANTERN, {"hanging": False})
+    # covered trader wagon: plank bed, wool canopy, log wheels
+    wx, wz = c + 3, c + 2
+    for x in range(wx, wx + 5):
+        for z in range(wz, wz + 3):
+            v.set(x, 1, z, SPRUCE)
+    for x in (wx, wx + 4):
+        for z in (wz, wz + 2):
+            v.set(x, 1, z, DARKLOG)                     # wheels
+    for x in range(wx, wx + 5):
+        for z in range(wz, wz + 3):
+            v.set(x, 3, z, "minecraft:white_wool")      # canopy
+    v.set(wx + 1, 2, wz + 1, "minecraft:chest", {"minecraft:cardinal_direction": "west"})
+    v.set(wx + 3, 2, wz + 1, "minecraft:barrel")
+    v.set(wx - 1, 1, wz + 1, SPRUCE_FENCE)              # wagon tongue
+    # tents
+    tent(v, c - 8, c - 2, 5, 2, "white", r)
+    tent(v, c - 3, c + 5, 5, 2, "brown", r)
+    # central watch fire ring + log seats
+    v.set(c, 1, c - 2, "minecraft:campfire")
+    for sx_, sz_ in ((c - 2, c - 2), (c + 2, c - 2), (c, c - 4)):
+        v.set(sx_, 1, sz_, STRIPPED_SPRUCE)
+    # supply crates + lantern posts
+    v.set(c - 6, 1, c + 6, "minecraft:barrel")
+    v.set(c - 6, 1, c + 7, "minecraft:barrel")
+    v.set(c - 6, 2, c + 6, "minecraft:hay_block")
+    for lx_, lz_ in ((c - 5, c - 5), (c + 5, c + 5)):
+        v.set(lx_, 1, lz_, SPRUCE_FENCE)
+        v.set(lx_, 2, lz_, SPRUCE_FENCE)
+        v.set(lx_, 3, lz_, LANTERN, {"hanging": False})
+    v.save("darkwood_camp")
+
+
+def hobbe_cave():
+    """A rocky hobbe warren: gaping cave mouth in a boulder mound, bone
+    litter, skull totem and mushroom filth."""
+    r = rng("struct", "hobbe_cave")
+    D = 23
+    v = Vox(D, 14, D)
+    c = D // 2
+    for x in range(D):
+        for z in range(D):
+            v.set(x, 0, z, "minecraft:coarse_dirt" if (x + z) % 3 else GRAVEL)
+            if r.random() < 0.08:
+                v.set(x, 1, z, "minecraft:brown_mushroom")
+    # boulder mound (rear two-thirds), hollowed
+    mz0 = 8
+    for x in range(2, D - 2):
+        for z in range(mz0, D - 1):
+            d = math.hypot(x - c, z - (D - 4))
+            h = max(0, int(8.5 - d * 0.8 + r.random() * 1.2))
+            for y in range(1, min(h + 1, 11)):
+                v.set(x, y, z, r.choice((COBBLE, "minecraft:stone", "minecraft:stone", MCOBBLE)))
+    # hollow chamber + cave mouth tunnel (south-facing)
+    v.fill(c - 3, 1, mz0 + 3, c + 3, 4, D - 4, "minecraft:air")
+    for y in range(1, 4):
+        for x in range(c - 2, c + 3):
+            v.set(x, y, mz0, "minecraft:air")
+            v.set(x, y, mz0 + 1, "minecraft:air")
+            v.set(x, y, mz0 + 2, "minecraft:air")
+    # jagged teeth over the mouth
+    for x in range(c - 3, c + 4):
+        v.set(x, 4, mz0, "minecraft:cobblestone_wall" if x % 2 else COBBLE)
+    # warren furnishings: filth, bones, loot
+    v.set(c, 1, D - 5, "minecraft:chest", {"minecraft:cardinal_direction": "south"})
+    v.set(c - 2, 1, D - 6, "minecraft:bone_block")
+    v.set(c + 2, 1, D - 7, "minecraft:brown_mushroom")
+    v.set(c - 2, 1, mz0 + 4, "minecraft:campfire")     # cook fire
+    v.set(c + 2, 1, mz0 + 4, "minecraft:bone_block")
+    v.set(c, 1, mz0 + 5, "minecraft:hay_block")        # stolen bedding
+    # skull totem warning outside
+    v.set(c - 4, 1, 4, SPRUCE_LOG)
+    v.set(c - 4, 2, 4, SPRUCE_LOG)
+    v.set(c - 4, 3, 4, "minecraft:carved_pumpkin", {"minecraft:cardinal_direction": "south"})
+    v.set(c - 4, 4, 4, "minecraft:soul_torch")
+    # bone litter strewn down the approach
+    for _ in range(5):
+        bx_, bz_ = c - 3 + r.randrange(7), 2 + r.randrange(6)
+        v.set(bx_, 1, bz_, "minecraft:bone_block" if r.random() < 0.5 else "minecraft:deadbush")
+    v.save("hobbe_cave")
+
+
+def windmill_hill():
+    """A round stone windmill on a grassy rise — white sail arms, grain
+    field, millstone and hay store."""
+    r = rng("struct", "windmill_hill")
+    D = 21
+    v = Vox(D, 20, D)
+    c = D // 2
+    # gentle rise
+    for x in range(D):
+        for z in range(D):
+            d = math.hypot(x - c, z - c)
+            h = max(0, int(2.4 - d * 0.26))
+            v.set(x, 0, z, "minecraft:grass_block")
+            for y in range(1, h + 1):
+                v.set(x, y, z, "minecraft:dirt" if y < h else "minecraft:grass_block")
+            if d > 5 and r.random() < 0.07:
+                v.set(x, h + 1, z, "minecraft:tallgrass")
+    base = 2
+    # tapering round tower
+    cylinder(v, c, c, 4, base + 1, base + 5, STONE)
+    cylinder(v, c, c, 3, base + 6, base + 10, STONE)
+    cone_roof(v, c, c, 4, base + 11, SPRUCE, tip=LANTERN)
+    # door + windows
+    v.set(c, base + 1, c - 4, "minecraft:air")
+    v.set(c, base + 2, c - 4, "minecraft:air")
+    v.set(c - 4, base + 4, c, GLASS)
+    v.set(c + 4, base + 4, c, GLASS)
+    v.set(c, base + 8, c - 3, GLASS)
+    # hub + four sail arms on the south face (fence lattice + wool cloth)
+    hy = base + 9
+    hz = c - 3
+    v.set(c, hy, hz, DARKLOG)
+    for i in range(1, 5):                               # vertical arms
+        v.set(c, hy + i, hz, "minecraft:oak_fence")
+        v.set(c, hy - i, hz, "minecraft:oak_fence")
+        v.set(c + i, hy, hz, "minecraft:oak_fence")     # horizontal arms
+        v.set(c - i, hy, hz, "minecraft:oak_fence")
+    for i in range(2, 5):                               # sail cloth panels
+        v.set(c + 1, hy + i, hz, "minecraft:white_wool")
+        v.set(c - 1, hy - i, hz, "minecraft:white_wool")
+        v.set(c + i, hy - 1, hz, "minecraft:white_wool")
+        v.set(c - i, hy + 1, hz, "minecraft:white_wool")
+    # interior: millstone, grain sacks, flour chest
+    v.set(c, base + 1, c + 1, CHISELED)                 # millstone
+    v.set(c - 1, base + 1, c + 1, "minecraft:hay_block")
+    v.set(c + 1, base + 1, c + 1, "minecraft:chest", {"minecraft:cardinal_direction": "north"})
+    # wheat patch on the south slope
+    for x in range(c - 5, c - 1):
+        for z in range(3, 7):
+            v.set(x, 0, z, "minecraft:farmland", {"moisturized_amount": 7})
+            v.set(x, 1, z, "minecraft:wheat", {"growth": 4 + r.randrange(4)})
+    v.set(c - 3, 0, 7, "minecraft:water")
+    # hay cart + millstone yard
+    v.set(c + 4, 1, 4, "minecraft:hay_block")
+    v.set(c + 5, 1, 4, "minecraft:hay_block")
+    v.set(c + 4, 2, 4, "minecraft:hay_block")
+    v.set(c + 6, 1, 4, SPRUCE_FENCE)
+    # path from door down the rise
+    for z in range(2, c - 3):
+        v.set(c, 0, z, PATH)
+    v.save("windmill_hill")
 
 
 def main():
@@ -1800,6 +2634,14 @@ def main():
     temple_avo()
     chapel_skorm()
     arena_ring()
+    lookout_point()
+    orchard_farm()
+    fisher_creek()
+    rose_cottage()
+    witchwood_stones()
+    darkwood_camp()
+    hobbe_cave()
+    windmill_hill()
 
 
 if __name__ == "__main__":

@@ -148,6 +148,7 @@ function placeGuildNear(p) {
   try {
     world.structureManager.place("fc:guild_hall", dim, { x: base.x, y, z: base.z });
     world.setDynamicProperty("fc_guild_placed", true);
+    world.setDynamicProperty("fc_guild_base", JSON.stringify({ x: base.x, y, z: base.z }));
     // recall point: the nave; training yard + cullis gate flank the hall
     world.setDynamicProperty("fc_guild_loc", JSON.stringify({ x: base.x + 22, y, z: base.z + 20 }));
     world.setDynamicProperty("fc_guild_train", JSON.stringify({ x: base.x + 38, y, z: base.z + 22 }));
@@ -163,6 +164,8 @@ function placeGuildNear(p) {
     trySpawn(dim, "fc:guild_apprentice_will", { x: base.x + 17, y: y + 1, z: base.z + 29 });
     fillLootChests(dim, base.x, y, base.z, 45, 26, 41, "fc:guild_hall");
     blendTerrain(dim, base.x, y, base.z, 45, 41);
+    dressSurroundings(dim, base.x, y, base.z, 45, "holy");
+    placeGuildAnnexes(dim);
     // wake the new Hero inside the Guild forecourt
     system.runTimeout(() => {
       try {
@@ -172,6 +175,40 @@ function placeGuildNear(p) {
       } catch { }
     }, 10);
   } catch { /* chunk not ready; retried by the structure sweep */ }
+}
+
+// The Guild is a one-time composite: the hall above, the courtyard approach
+// before its gate, and the Chamber of Fate buried beneath. Each piece keeps
+// its own flag so chunk-edge failures retry on later sweeps.
+function placeGuildAnnexes(dim) {
+  const raw = world.getDynamicProperty("fc_guild_base");
+  if (!raw) return;
+  let base;
+  try { base = JSON.parse(raw); } catch { return; }
+  if (!world.getDynamicProperty("fc_guild_court_placed")) {
+    // courtyard centred on the gate axis, just south of the perimeter wall
+    const cx0 = base.x + 9, cz0 = base.z - 28;
+    const cy = groundY(dim, cx0 + 13, cz0 + 13) ?? groundY(dim, cx0, cz0);
+    if (cy !== null) {
+      try {
+        world.structureManager.place("fc:power_guild_courtyard", dim, { x: cx0, y: cy - 1, z: cz0 });
+        world.setDynamicProperty("fc_guild_court_placed", true);
+        fillLootChests(dim, cx0, cy - 1, cz0, 27, 13, 27, "fc:power_guild_courtyard");
+        blendTerrain(dim, cx0, cy - 1, cz0, 27, 27);
+        dressSurroundings(dim, cx0, cy - 1, cz0, 27, "holy");
+      } catch { }
+    }
+  }
+  if (!world.getDynamicProperty("fc_guild_chamber_placed")) {
+    // the Chamber of Fate sleeps beneath the hall
+    const chx = base.x + 7, chy = base.y - 22, chz = base.z + 5;
+    try {
+      world.structureManager.place("fc:chamber_of_fate", dim, { x: chx, y: chy, z: chz });
+      world.setDynamicProperty("fc_guild_chamber_placed", true);
+      registerCullis("Chamber of Fate", { x: chx + 15.5, y: chy + 3, z: chz + 11.5 });
+      fillLootChests(dim, chx, chy, chz, 31, 18, 31, "fc:chamber_of_fate");
+    } catch { }
+  }
 }
 
 function trySpawn(dim, type, loc) { try { return dim.spawnEntity(type, loc); } catch { return undefined; } }
@@ -1470,36 +1507,53 @@ const ORB_XP = {
 };
 
 // ---------------------------------------------------------------------------
-// World decoration: deterministic region structures
+// World decoration: deterministic, biome-aware region structures
 // ---------------------------------------------------------------------------
 const REGION = 160;
+// Each entry: weight = relative pick frequency; surf = ground categories the
+// structure may settle on; theme = surrounding set-dressing flavour.
+// The Heroes' Guild complex (hall, courtyard, Chamber of Fate) is placed
+// exactly once by placeGuildNear and never appears in this pool.
 const STRUCTS = [
-  { id: "fc:demon_door_arch", w: 23, chance: 0.16, door: true },
-  { id: "fc:silver_chest_ruin", w: 13, chance: 0.34, loot: "ruin" },
-  { id: "fc:bandit_camp", w: 33, chance: 0.48, mobs: ["fc:bandit", "fc:bandit", "fc:bandit_archer", "fc:twinblade"] },
-  { id: "fc:graveyard", w: 25, chance: 0.58, mobs: ["fc:undead", "fc:undead_soldier", "fc:undead_knight"] },
-  { id: "fc:focus_site", w: 13, chance: 0.64, cullis: true },
-  { id: "fc:chamber_of_fate", w: 31, chance: 0.69, cullis: true,
-    mobs: ["fc:maze", "fc:theresa"] },
-  { id: "fc:oakvale_village", w: 35, chance: 0.74, cullis: true,
+  { id: "fc:demon_door_arch", w: 23, weight: 10, surf: ["grass", "dark", "rock", "snow"], theme: "dark", door: true },
+  { id: "fc:silver_chest_ruin", w: 13, weight: 11, surf: ["grass", "dark", "rock", "sand", "snow"], theme: "forest", loot: "ruin" },
+  { id: "fc:bandit_camp", w: 33, weight: 9, surf: ["grass", "dark", "rock"], theme: "dark", mobs: ["fc:bandit", "fc:bandit", "fc:bandit_archer", "fc:twinblade"] },
+  { id: "fc:graveyard", w: 25, weight: 7, surf: ["grass", "dark"], theme: "dark", mobs: ["fc:undead", "fc:undead_soldier", "fc:undead_knight"] },
+  { id: "fc:focus_site", w: 13, weight: 7, surf: ["grass", "dark", "rock", "sand", "snow"], theme: "dark", cullis: true },
+  { id: "fc:oakvale_village", w: 35, weight: 8, surf: ["grass", "sand"], theme: "village", cullis: true,
     mobs: ["fc:villager_farmer", "fc:villager_fisher", "fc:guard_oakvale"] },
-  { id: "fc:bowerstone_market", w: 37, chance: 0.79, cullis: true,
+  { id: "fc:bowerstone_market", w: 37, weight: 7, surf: ["grass"], theme: "village", cullis: true,
     mobs: ["fc:guard_bowerstone", "fc:trader", "fc:barkeep", "fc:villager_albion"] },
-  { id: "fc:knothole_glade", w: 35, chance: 0.84, cullis: true,
+  { id: "fc:knothole_glade", w: 35, weight: 7, surf: ["dark", "grass"], theme: "forest", cullis: true,
     mobs: ["fc:villager_woman", "fc:guard_oakvale", "fc:mercenary"] },
-  { id: "fc:hook_coast", w: 37, chance: 0.88, cullis: true,
+  { id: "fc:hook_coast", w: 37, weight: 7, surf: ["snow", "sand", "rock"], theme: "snow", cullis: true,
     mobs: ["fc:oracle", "fc:guard_snowspire", "fc:villager_woman"] },
-  { id: "fc:power_guild_courtyard", w: 27, chance: 0.90, cullis: true,
-    mobs: ["fc:guild_apprentice_might", "fc:guild_apprentice_skill", "fc:guild_apprentice_will"] },
-  { id: "fc:power_oakvale_quay", w: 29, chance: 0.92, cullis: true,
+  { id: "fc:power_oakvale_quay", w: 29, weight: 5, surf: ["grass", "sand"], theme: "village", cullis: true,
     mobs: ["fc:villager_farmer", "fc:villager_fisher", "fc:guard_oakvale"] },
-  { id: "fc:power_snowspire_oracle", w: 31, chance: 0.94, cullis: true,
+  { id: "fc:power_snowspire_oracle", w: 31, weight: 6, surf: ["snow", "rock"], theme: "snow", cullis: true,
     mobs: ["fc:oracle", "fc:guard_snowspire", "fc:villager_woman"] },
-  { id: "fc:power_necropolis", w: 29, chance: 0.96, cullis: true,
+  { id: "fc:power_necropolis", w: 29, weight: 5, surf: ["dark", "rock", "grass"], theme: "dark", cullis: true,
     mobs: ["fc:wraith", "fc:undead_knight", "fc:frost_balverine"] },
-  { id: "fc:temple_avo", w: 17, chance: 0.98 },
-  { id: "fc:chapel_skorm", w: 15, chance: 0.99 },
-  { id: "fc:arena_ring", w: 27, chance: 0.99, mobs: ["fc:hobbe", "fc:hobbe", "fc:beetle"] },
+  { id: "fc:temple_avo", w: 17, weight: 6, surf: ["grass"], theme: "holy" },
+  { id: "fc:chapel_skorm", w: 15, weight: 6, surf: ["dark", "grass", "rock"], theme: "dark" },
+  { id: "fc:arena_ring", w: 27, weight: 5, surf: ["sand", "rock", "grass"], theme: "dark", mobs: ["fc:hobbe", "fc:hobbe", "fc:beetle"] },
+  // wilderness encounters — small, common, keep the road alive
+  { id: "fc:lookout_point", w: 21, weight: 9, surf: ["grass", "rock", "snow"], theme: "village",
+    mobs: ["fc:villager_albion", "fc:villager_albion", "fc:guard_bowerstone"] },
+  { id: "fc:orchard_farm", w: 29, weight: 9, surf: ["grass"], theme: "farm",
+    mobs: ["fc:villager_farmer", "fc:villager_farmer", "fc:villager_woman"] },
+  { id: "fc:fisher_creek", w: 23, weight: 8, surf: ["grass", "sand"], theme: "village",
+    mobs: ["fc:villager_fisher", "fc:villager_fisher"] },
+  { id: "fc:rose_cottage", w: 21, weight: 8, surf: ["grass"], theme: "farm",
+    mobs: ["fc:briar_rose", "fc:villager_woman"] },
+  { id: "fc:witchwood_stones", w: 25, weight: 8, surf: ["dark", "grass", "rock"], theme: "dark",
+    mobs: ["fc:nymph", "fc:balverine"] },
+  { id: "fc:darkwood_camp", w: 25, weight: 8, surf: ["dark", "grass"], theme: "forest",
+    mobs: ["fc:trader", "fc:trader", "fc:mercenary"] },
+  { id: "fc:hobbe_cave", w: 23, weight: 8, surf: ["dark", "rock", "grass"], theme: "dark",
+    mobs: ["fc:hobbe", "fc:hobbe", "fc:hobbe", "fc:hobbe_scout"] },
+  { id: "fc:windmill_hill", w: 21, weight: 8, surf: ["grass"], theme: "farm",
+    mobs: ["fc:villager_farmer"] },
 ];
 
 // themed loot rolled into every chest found inside a placed structure
@@ -1537,6 +1591,22 @@ const CHEST_LOOT = {
   ["fc:will_potion", 1, 2, 0.7], ["fc:silver_key", 1, 1, 0.3]],
   "fc:power_necropolis": [["fc:ectoplasm", 2, 6, 0.9], ["fc:banshees_tear", 1, 1, 0.3],
   ["fc:orb_will", 1, 3, 0.7], ["fc:silver_key", 1, 1, 0.25]],
+  "fc:lookout_point": [["fc:gold_coin", 2, 6, 0.9], ["fc:apple_pie", 1, 2, 0.7],
+  ["fc:health_potion", 1, 1, 0.5], ["fc:silver_key", 1, 1, 0.15]],
+  "fc:orchard_farm": [["fc:apple_pie", 1, 3, 1], ["fc:golden_carrot_brew", 1, 2, 0.6],
+  ["fc:gold_coin", 2, 6, 0.8], ["fc:orb_general", 1, 2, 0.4]],
+  "fc:fisher_creek": [["fc:gold_coin", 2, 6, 0.8], ["fc:health_potion", 1, 2, 0.6],
+  ["fc:silver_key", 1, 1, 0.2], ["fc:orb_skill", 1, 2, 0.4]],
+  "fc:rose_cottage": [["fc:health_potion", 1, 2, 0.8], ["fc:gold_coin", 2, 6, 0.7],
+  ["fc:elixir_of_life", 1, 1, 0.05], ["fc:orb_general", 1, 2, 0.4]],
+  "fc:witchwood_stones": [["fc:ectoplasm", 1, 4, 0.9], ["fc:will_shard", 1, 2, 0.7],
+  ["fc:will_potion", 1, 2, 0.6], ["fc:orb_will", 1, 2, 0.5], ["fc:banshees_tear", 1, 1, 0.15]],
+  "fc:darkwood_camp": [["fc:gold_coin", 3, 9, 0.9], ["fc:steel_ingot", 1, 3, 0.5],
+  ["fc:health_potion", 1, 2, 0.6], ["fc:sharpening_augment", 1, 1, 0.12], ["fc:silver_key", 1, 1, 0.2]],
+  "fc:hobbe_cave": [["fc:gold_coin", 2, 8, 0.9], ["fc:crunchy_chick", 1, 2, 0.6],
+  ["fc:orb_strength", 1, 2, 0.5], ["fc:silver_key", 1, 1, 0.25]],
+  "fc:windmill_hill": [["fc:apple_pie", 1, 3, 0.9], ["fc:gold_coin", 2, 6, 0.7],
+  ["fc:golden_carrot_brew", 1, 2, 0.5]],
 };
 
 function fillLootChests(dim, x0, y0, z0, w, h, d, themeId) {
@@ -1604,9 +1674,69 @@ function hash2(x, z) {
   return ((h >>> 0) % 100000) / 100000;
 }
 
+// classify the ground so structures land where they belong
+function surfaceCategory(dim, x, z) {
+  const y = groundY(dim, x, z);
+  if (y === null) return null;
+  let b;
+  try { b = dim.getBlock({ x, y: y - 1, z }); } catch { return null; }
+  if (!b) return null;
+  const t = b.typeId;
+  if (t.includes("snow") || t.includes("ice")) return "snow";
+  if (t.includes("sand")) return "sand";
+  if (t === "minecraft:podzol" || t === "minecraft:mycelium" || t === "minecraft:mud"
+    || t === "minecraft:coarse_dirt") return "dark";
+  if (t === "minecraft:grass_block" || t === "minecraft:dirt" || t === "minecraft:grass_path"
+    || t === "minecraft:dirt_path" || t === "minecraft:moss_block") return "grass";
+  if (t.includes("stone") || t.includes("gravel") || t.includes("deepslate")
+    || t.includes("andesite") || t.includes("diorite") || t.includes("granite")
+    || t.includes("tuff") || t.includes("calcite")) return "rock";
+  return "grass";
+}
+
+// scatter themed set-dressing in a ring around a placed structure so each
+// site bleeds naturally into the surrounding terrain
+const THEME_DECOR = {
+  forest: ["minecraft:fern", "minecraft:mossy_cobblestone", "minecraft:tallgrass", "minecraft:oak_leaves"],
+  village: ["minecraft:poppy", "minecraft:oxeye_daisy", "minecraft:grass_path", "minecraft:cornflower"],
+  farm: ["minecraft:hay_block", "minecraft:poppy", "minecraft:oxeye_daisy", "minecraft:grass_path"],
+  dark: ["minecraft:deadbush", "minecraft:brown_mushroom", "minecraft:soul_torch", "minecraft:mossy_cobblestone"],
+  snow: ["minecraft:snow_layer", "minecraft:snow_layer", "minecraft:spruce_fence", "minecraft:lantern"],
+  holy: ["minecraft:oxeye_daisy", "minecraft:white_candle", "minecraft:smooth_quartz", "minecraft:cornflower"],
+};
+
+function dressSurroundings(dim, x0, y0, z0, w, theme) {
+  const deco = THEME_DECOR[theme];
+  if (!deco) return;
+  const cx = x0 + w / 2, cz = z0 + w / 2;
+  const work = function* () {
+    const n = 26;
+    for (let i = 0; i < n; i++) {
+      const ang = (i / n) * Math.PI * 2 + Math.random() * 0.4;
+      const rad = w / 2 + 2 + Math.random() * 8;
+      const px = Math.floor(cx + Math.cos(ang) * rad);
+      const pz = Math.floor(cz + Math.sin(ang) * rad);
+      const py = groundY(dim, px, pz);
+      if (py === null) { yield; continue; }
+      try {
+        const ground = dim.getBlock({ x: px, y: py - 1, z: pz });
+        const slot = dim.getBlock({ x: px, y: py, z: pz });
+        if (!ground || !slot || !slot.isAir || ground.isLiquid) { yield; continue; }
+        const id = deco[Math.floor(Math.random() * deco.length)];
+        if (id === "minecraft:grass_path") ground.setType(id);
+        else slot.setType(id);
+      } catch { }
+      yield;
+    }
+  };
+  try { system.runJob(work()); } catch { }
+}
+
 system.runInterval(() => {
   for (const p of world.getPlayers()) {
     if (!world.getDynamicProperty("fc_guild_placed")) placeGuildNear(p);
+    else if (!world.getDynamicProperty("fc_guild_court_placed")
+      || !world.getDynamicProperty("fc_guild_chamber_placed")) placeGuildAnnexes(p.dimension);
     const rx = Math.floor(p.location.x / REGION), rz = Math.floor(p.location.z / REGION);
     for (let dx = -1; dx <= 1; dx++) {
       for (let dz = -1; dz <= 1; dz++) {
@@ -1619,10 +1749,6 @@ system.runInterval(() => {
 function maybePlace(p, rx, rz) {
   const key = `fc_s_${rx}_${rz}`;
   if (world.getDynamicProperty(key)) return;
-  const h = hash2(rx, rz);
-  let pick = null;
-  for (const s of STRUCTS) { if (h < s.chance) { pick = s; break; } }
-  if (!pick) { world.setDynamicProperty(key, 1); return; }
   const jx = Math.floor(hash2(rx * 7 + 1, rz) * (REGION - 40)) + 20;
   const jz = Math.floor(hash2(rx, rz * 7 + 1) * (REGION - 40)) + 20;
   let x = rx * REGION + jx, z = rz * REGION + jz;
@@ -1630,6 +1756,19 @@ function maybePlace(p, rx, rz) {
   const dist = Math.hypot(dx, dz);
   if (dist > 96 || dist < 20) return; // wait until in sweet placement range
   const dim = p.dimension;
+  // what ground are we standing on? (null = chunk not ready — retry later)
+  const surf = surfaceCategory(dim, x + 11, z + 11);
+  if (surf === null) return;
+  // deterministic weighted pick among structures suited to this terrain,
+  // with a slice of "nothing here" so the world keeps breathing room
+  const pool = STRUCTS.filter((s) => s.surf.includes(surf));
+  if (!pool.length) { world.setDynamicProperty(key, 1); return; }
+  const total = pool.reduce((a, s) => a + s.weight, 0);
+  const noneSlice = Math.max(12, Math.round(total * 0.18));
+  let roll = hash2(rx * 13 + 5, rz * 7 + 3) * (total + noneSlice);
+  let pick = null;
+  for (const s of pool) { if (roll < s.weight) { pick = s; break; } roll -= s.weight; }
+  if (!pick) { world.setDynamicProperty(key, 1); return; }
   // Demon Doors seek rising ground so the carved hillside meets a real slope
   if (pick.door) {
     let best = null, bestSlope = -1;
@@ -1661,6 +1800,7 @@ function maybePlace(p, rx, rz) {
     }
     fillLootChests(dim, x, y - 1, z, pick.w, 28, pick.w, pick.id);
     blendTerrain(dim, x, y - 1, z, pick.w, pick.w);
+    dressSurroundings(dim, x, y - 1, z, pick.w, pick.theme);
   } catch { /* chunk edge; try next sweep */ }
 }
 
