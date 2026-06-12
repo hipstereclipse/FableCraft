@@ -1,0 +1,57 @@
+{
+  "format_version": "1.8.0",
+  "minecraft:spawn_rules": {
+    "description": {
+      "identifier": "fc:earth_troll",
+      "population_control": "monster"
+    },
+    "conditions": [
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:weight": {
+          "default": 4
+        },
+        "minecraft:herd": {
+          "min_size": 1,
+          "max_size": 1
+        },
+        "minecraft:biome_filter": {
+          "test": "has_biome_tag",
+          "operator": "==",
+          "value": "extreme_hills"
+        },
+        "minecraft:density_limit": {
+          "surface": 4
+        },
+        "minecraft:brightness_filter": {
+          "min": 8,
+          "max": 15,
+          "adjust_for_weather": false
+        }
+      },
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:weight": {
+          "default": 4
+        },
+        "minecraft:herd": {
+          "min_size": 1,
+          "max_size": 1
+        },
+        "minecraft:biome_filter": {
+          "test": "has_biome_tag",
+          "operator": "==",
+          "value": "swamp"
+        },
+        "minecraft:density_limit": {
+          "surface": 4
+        },
+        "minecraft:brightness_filter": {
+          "min": 8,
+          "max": 15,
+          "adjust_for_weather": false
+        }
+      }
+    ]
+  }
+}

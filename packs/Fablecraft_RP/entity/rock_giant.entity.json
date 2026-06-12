@@ -1,0 +1,36 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "fc:rock_giant",
+      "materials": {
+        "default": "entity_alphatest",
+        "ghost": "entity_alphablend"
+      },
+      "textures": {
+        "default": "textures/entity/rock_giant"
+      },
+      "geometry": {
+        "default": "geometry.fc.rock_giant"
+      },
+      "animations": {
+        "walk": "animation.fc.biped.walk",
+        "idle": "animation.fc.biped.idle"
+      },
+      "scripts": {
+        "animate": [
+          "walk",
+          "idle"
+        ],
+        "scale": "2.0"
+      },
+      "render_controllers": [
+        "controller.render.fc_default"
+      ],
+      "spawn_egg": {
+        "base_color": "#605a56",
+        "overlay_color": "#222222"
+      }
+    }
+  }
+}

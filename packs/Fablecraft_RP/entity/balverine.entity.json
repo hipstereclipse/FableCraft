@@ -1,0 +1,35 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "fc:balverine",
+      "materials": {
+        "default": "entity_alphatest",
+        "ghost": "entity_alphablend"
+      },
+      "textures": {
+        "default": "textures/entity/balverine"
+      },
+      "geometry": {
+        "default": "geometry.fc.balverine"
+      },
+      "animations": {
+        "walk": "animation.fc.quadruped.walk",
+        "idle": "animation.fc.biped.idle"
+      },
+      "scripts": {
+        "animate": [
+          "walk",
+          "idle"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.fc_default"
+      ],
+      "spawn_egg": {
+        "base_color": "#42342c",
+        "overlay_color": "#222222"
+      }
+    }
+  }
+}

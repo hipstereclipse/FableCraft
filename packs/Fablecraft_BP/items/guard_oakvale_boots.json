@@ -1,0 +1,47 @@
+{
+  "format_version": "1.21.30",
+  "minecraft:item": {
+    "description": {
+      "identifier": "fc:guard_oakvale_boots",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:icon": "guard_oakvale_boots",
+      "minecraft:display_name": {
+        "value": "\u00a7fOakvale Guard Boots"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:wearable": {
+        "slot": "slot.armor.feet",
+        "protection": 2
+      },
+      "minecraft:durability": {
+        "max_durability": 600
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "minecraft:leather",
+              "minecraft:iron_ingot"
+            ],
+            "repair_amount": 150
+          }
+        ]
+      },
+      "minecraft:enchantable": {
+        "slot": "armor_feet",
+        "value": 10
+      },
+      "minecraft:tags": {
+        "tags": [
+          "fc:armor",
+          "fc:set_guard_oakvale",
+          "fc:align_0"
+        ]
+      }
+    }
+  }
+}

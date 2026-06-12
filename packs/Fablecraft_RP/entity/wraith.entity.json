@@ -1,0 +1,33 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "fc:wraith",
+      "materials": {
+        "default": "entity_alphatest",
+        "ghost": "entity_alphablend"
+      },
+      "textures": {
+        "default": "textures/entity/wraith"
+      },
+      "geometry": {
+        "default": "geometry.fc.wraith"
+      },
+      "animations": {
+        "float": "animation.fc.ghost.float"
+      },
+      "scripts": {
+        "animate": [
+          "float"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.fc_ghost"
+      ],
+      "spawn_egg": {
+        "base_color": "#60787c",
+        "overlay_color": "#222222"
+      }
+    }
+  }
+}

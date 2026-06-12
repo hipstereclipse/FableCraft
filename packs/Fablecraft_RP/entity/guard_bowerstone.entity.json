@@ -1,0 +1,38 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "fc:guard_bowerstone",
+      "materials": {
+        "default": "entity_alphatest",
+        "ghost": "entity_alphablend"
+      },
+      "textures": {
+        "default": "textures/entity/guard_bowerstone"
+      },
+      "geometry": {
+        "default": "geometry.fc.guard_bowerstone"
+      },
+      "animations": {
+        "walk": "animation.fc.biped.walk",
+        "idle": "animation.fc.biped.idle",
+        "attack": "animation.fc.biped.attack"
+      },
+      "scripts": {
+        "animate": [
+          "walk",
+          "idle",
+          "attack"
+        ],
+        "scale": "1.05"
+      },
+      "render_controllers": [
+        "controller.render.fc_default"
+      ],
+      "spawn_egg": {
+        "base_color": "#c8a27c",
+        "overlay_color": "#222222"
+      }
+    }
+  }
+}

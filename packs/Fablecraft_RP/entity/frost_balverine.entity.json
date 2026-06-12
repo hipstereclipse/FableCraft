@@ -1,0 +1,36 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "fc:frost_balverine",
+      "materials": {
+        "default": "entity_alphatest",
+        "ghost": "entity_alphablend"
+      },
+      "textures": {
+        "default": "textures/entity/frost_balverine"
+      },
+      "geometry": {
+        "default": "geometry.fc.frost_balverine"
+      },
+      "animations": {
+        "walk": "animation.fc.quadruped.walk",
+        "idle": "animation.fc.biped.idle"
+      },
+      "scripts": {
+        "animate": [
+          "walk",
+          "idle"
+        ],
+        "scale": "1.1"
+      },
+      "render_controllers": [
+        "controller.render.fc_default"
+      ],
+      "spawn_egg": {
+        "base_color": "#a4c4d8",
+        "overlay_color": "#222222"
+      }
+    }
+  }
+}

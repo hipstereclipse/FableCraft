@@ -1,0 +1,24 @@
+{
+  "format_version": "1.21.30",
+  "minecraft:item": {
+    "description": {
+      "identifier": "fc:spell_battle_charge",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:icon": "spell_battle_charge",
+      "minecraft:display_name": {
+        "value": "\u00a7fWill: Battle Charge"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:tags": {
+        "tags": [
+          "fc:spell"
+        ]
+      },
+      "minecraft:foil": true
+    }
+  }
+}

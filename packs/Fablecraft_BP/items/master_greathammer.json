@@ -1,0 +1,45 @@
+{
+  "format_version": "1.21.30",
+  "minecraft:item": {
+    "description": {
+      "identifier": "fc:master_greathammer",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.sword"
+      }
+    },
+    "components": {
+      "minecraft:icon": "master_greathammer",
+      "minecraft:display_name": {
+        "value": "\u00a7fMaster Greathammer"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:hand_equipped": true,
+      "minecraft:damage": 23,
+      "minecraft:durability": {
+        "max_durability": 1401
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "minecraft:iron_ingot"
+            ],
+            "repair_amount": 350
+          }
+        ]
+      },
+      "minecraft:enchantable": {
+        "slot": "sword",
+        "value": 10
+      },
+      "minecraft:tags": {
+        "tags": [
+          "fc:weapon",
+          "fc:melee",
+          "fc:slots_3"
+        ]
+      }
+    }
+  }
+}

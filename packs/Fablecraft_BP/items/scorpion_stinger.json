@@ -1,0 +1,23 @@
+{
+  "format_version": "1.21.30",
+  "minecraft:item": {
+    "description": {
+      "identifier": "fc:scorpion_stinger",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:icon": "scorpion_stinger",
+      "minecraft:display_name": {
+        "value": "\u00a7fArachanox Stinger"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:tags": {
+        "tags": [
+          "fc:misc"
+        ]
+      }
+    }
+  }
+}

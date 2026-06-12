@@ -1,0 +1,47 @@
+{
+  "format_version": "1.21.30",
+  "minecraft:item": {
+    "description": {
+      "identifier": "fc:leather_bright_boots",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:icon": "leather_bright_boots",
+      "minecraft:display_name": {
+        "value": "\u00a7fBright Leather Boots"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:wearable": {
+        "slot": "slot.armor.feet",
+        "protection": 1
+      },
+      "minecraft:durability": {
+        "max_durability": 400
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "minecraft:leather",
+              "minecraft:iron_ingot"
+            ],
+            "repair_amount": 100
+          }
+        ]
+      },
+      "minecraft:enchantable": {
+        "slot": "armor_feet",
+        "value": 10
+      },
+      "minecraft:tags": {
+        "tags": [
+          "fc:armor",
+          "fc:set_leather_bright",
+          "fc:align_1"
+        ]
+      }
+    }
+  }
+}

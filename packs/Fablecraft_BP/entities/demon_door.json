@@ -1,0 +1,61 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "fc:demon_door",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "spawn_category": "creature"
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "fc_demon_door"
+        ]
+      },
+      "minecraft:health": {
+        "value": 10000,
+        "max": 10000
+      },
+      "minecraft:movement": {
+        "value": 0.0
+      },
+      "minecraft:collision_box": {
+        "width": 0.7,
+        "height": 1.9
+      },
+      "minecraft:loot": {
+        "table": "loot_tables/entities/demon_door.json"
+      },
+      "minecraft:physics": {},
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:jump.static": {},
+      "minecraft:movement.basic": {},
+      "minecraft:navigation.walk": {
+        "can_path_over_water": true,
+        "avoid_water": true,
+        "can_walk": true
+      },
+      "minecraft:knockback_resistance": {
+        "value": 1.0
+      },
+      "minecraft:nameable": {},
+      "minecraft:leashable": {},
+      "minecraft:damage_sensor": {
+        "triggers": [
+          {
+            "cause": "all",
+            "deals_damage": false
+          }
+        ]
+      },
+      "minecraft:fire_immune": {},
+      "minecraft:persistent": {},
+      "minecraft:is_stackable": {},
+      "minecraft:body_rotation_blocked": {}
+    }
+  }
+}

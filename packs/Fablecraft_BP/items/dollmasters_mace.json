@@ -1,0 +1,45 @@
+{
+  "format_version": "1.21.30",
+  "minecraft:item": {
+    "description": {
+      "identifier": "fc:dollmasters_mace",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.sword"
+      }
+    },
+    "components": {
+      "minecraft:icon": "dollmasters_mace",
+      "minecraft:display_name": {
+        "value": "\u00a7fDollmaster's Mace"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:hand_equipped": true,
+      "minecraft:damage": 19,
+      "minecraft:durability": {
+        "max_durability": 2201
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "minecraft:iron_ingot"
+            ],
+            "repair_amount": 550
+          }
+        ]
+      },
+      "minecraft:enchantable": {
+        "slot": "sword",
+        "value": 10
+      },
+      "minecraft:tags": {
+        "tags": [
+          "fc:weapon",
+          "fc:melee",
+          "fc:slots_0"
+        ]
+      }
+    }
+  }
+}

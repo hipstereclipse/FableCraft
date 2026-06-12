@@ -1,0 +1,35 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "fc:nymph",
+      "materials": {
+        "default": "entity_alphatest",
+        "ghost": "entity_alphablend"
+      },
+      "textures": {
+        "default": "textures/entity/nymph"
+      },
+      "geometry": {
+        "default": "geometry.fc.nymph"
+      },
+      "animations": {
+        "fly": "animation.fc.fly",
+        "hover": "animation.fc.hover"
+      },
+      "scripts": {
+        "animate": [
+          "fly",
+          "hover"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.fc_default"
+      ],
+      "spawn_egg": {
+        "base_color": "#96e6c8",
+        "overlay_color": "#222222"
+      }
+    }
+  }
+}

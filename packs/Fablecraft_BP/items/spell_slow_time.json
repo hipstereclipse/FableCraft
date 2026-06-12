@@ -1,0 +1,24 @@
+{
+  "format_version": "1.21.30",
+  "minecraft:item": {
+    "description": {
+      "identifier": "fc:spell_slow_time",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:icon": "spell_slow_time",
+      "minecraft:display_name": {
+        "value": "\u00a7fWill: Slow Time"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:tags": {
+        "tags": [
+          "fc:spell"
+        ]
+      },
+      "minecraft:foil": true
+    }
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "format_version": "1.8.0",
+  "minecraft:spawn_rules": {
+    "description": {
+      "identifier": "fc:bandit_archer",
+      "population_control": "monster"
+    },
+    "conditions": [
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:weight": {
+          "default": 10
+        },
+        "minecraft:herd": {
+          "min_size": 1,
+          "max_size": 2
+        },
+        "minecraft:biome_filter": {
+          "test": "has_biome_tag",
+          "operator": "==",
+          "value": "plains"
+        },
+        "minecraft:density_limit": {
+          "surface": 4
+        },
+        "minecraft:brightness_filter": {
+          "min": 8,
+          "max": 15,
+          "adjust_for_weather": false
+        }
+      },
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:weight": {
+          "default": 10
+        },
+        "minecraft:herd": {
+          "min_size": 1,
+          "max_size": 2
+        },
+        "minecraft:biome_filter": {
+          "test": "has_biome_tag",
+          "operator": "==",
+          "value": "savanna"
+        },
+        "minecraft:density_limit": {
+          "surface": 4
+        },
+        "minecraft:brightness_filter": {
+          "min": 8,
+          "max": 15,
+          "adjust_for_weather": false
+        }
+      },
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:weight": {
+          "default": 10
+        },
+        "minecraft:herd": {
+          "min_size": 1,
+          "max_size": 2
+        },
+        "minecraft:biome_filter": {
+          "test": "has_biome_tag",
+          "operator": "==",
+          "value": "extreme_hills"
+        },
+        "minecraft:density_limit": {
+          "surface": 4
+        },
+        "minecraft:brightness_filter": {
+          "min": 8,
+          "max": 15,
+          "adjust_for_weather": false
+        }
+      },
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:weight": {
+          "default": 10
+        },
+        "minecraft:herd": {
+          "min_size": 1,
+          "max_size": 2
+        },
+        "minecraft:biome_filter": {
+          "test": "has_biome_tag",
+          "operator": "==",
+          "value": "mesa"
+        },
+        "minecraft:density_limit": {
+          "surface": 4
+        },
+        "minecraft:brightness_filter": {
+          "min": 8,
+          "max": 15,
+          "adjust_for_weather": false
+        }
+      }
+    ]
+  }
+}

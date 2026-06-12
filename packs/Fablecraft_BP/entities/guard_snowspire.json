@@ -1,0 +1,88 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "fc:guard_snowspire",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "spawn_category": "creature"
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "fc_guard",
+          "fc_friendly"
+        ]
+      },
+      "minecraft:health": {
+        "value": 46,
+        "max": 46
+      },
+      "minecraft:movement": {
+        "value": 0.34
+      },
+      "minecraft:collision_box": {
+        "width": 0.735,
+        "height": 1.9949999999999999
+      },
+      "minecraft:loot": {
+        "table": "loot_tables/entities/guard_snowspire.json"
+      },
+      "minecraft:physics": {},
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:jump.static": {},
+      "minecraft:movement.basic": {},
+      "minecraft:navigation.walk": {
+        "can_path_over_water": true,
+        "avoid_water": true,
+        "can_walk": true
+      },
+      "minecraft:knockback_resistance": {
+        "value": 0.0
+      },
+      "minecraft:nameable": {},
+      "minecraft:leashable": {},
+      "minecraft:despawn": {
+        "despawn_from_distance": {}
+      },
+      "minecraft:attack": {
+        "damage": 9
+      },
+      "minecraft:behavior.nearest_attackable_target": {
+        "priority": 2,
+        "must_see": true,
+        "within_radius": 20.0,
+        "entity_types": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "other",
+              "value": "monster"
+            },
+            "max_dist": 20
+          }
+        ]
+      },
+      "minecraft:behavior.melee_box_attack": {
+        "priority": 3,
+        "speed_multiplier": 1.2,
+        "track_target": true
+      },
+      "minecraft:behavior.hurt_by_target": {
+        "priority": 1
+      },
+      "minecraft:behavior.random_stroll": {
+        "priority": 6,
+        "speed_multiplier": 0.7
+      },
+      "minecraft:behavior.look_at_player": {
+        "priority": 8,
+        "look_distance": 8.0
+      },
+      "minecraft:persistent": {}
+    }
+  }
+}

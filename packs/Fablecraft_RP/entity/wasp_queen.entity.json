@@ -1,0 +1,35 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "fc:wasp_queen",
+      "materials": {
+        "default": "entity_alphatest",
+        "ghost": "entity_alphablend"
+      },
+      "textures": {
+        "default": "textures/entity/wasp_queen"
+      },
+      "geometry": {
+        "default": "geometry.fc.wasp_queen"
+      },
+      "animations": {
+        "fly": "animation.fc.fly",
+        "hover": "animation.fc.hover"
+      },
+      "scripts": {
+        "animate": [
+          "fly",
+          "hover"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.fc_default"
+      ],
+      "spawn_egg": {
+        "base_color": "#e69628",
+        "overlay_color": "#222222"
+      }
+    }
+  }
+}

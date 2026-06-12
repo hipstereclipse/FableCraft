@@ -1,0 +1,68 @@
+{
+  "format_version": "1.14.0",
+  "sound_definitions": {
+    "fc.door_rumble": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/fc/door_rumble",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.door_speak": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/fc/door_speak",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.banshee_shriek": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/fc/banshee_shriek",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.spell_cast": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/fc/spell_cast",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.level_up": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/fc/level_up",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.guild_pad": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/fc/guild_pad",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.sword_clash": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/fc/sword_clash",
+          "volume": 0.9
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "format_version": "1.21.30",
+  "minecraft:item": {
+    "description": {
+      "identifier": "fc:giants_core",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:icon": "giants_core",
+      "minecraft:display_name": {
+        "value": "\u00a7fGiant's Core"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:tags": {
+        "tags": [
+          "fc:misc"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "format_version": "1.10.0",
+  "render_controllers": {
+    "controller.render.fc_default": {
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ]
+    },
+    "controller.render.fc_ghost": {
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.ghost"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ],
+      "is_hurt_color": {
+        "r": 0.5,
+        "g": 1.0,
+        "b": 0.8,
+        "a": 0.5
+      }
+    }
+  }
+}

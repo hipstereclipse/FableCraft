@@ -1,0 +1,37 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "fc:assassin",
+      "materials": {
+        "default": "entity_alphatest",
+        "ghost": "entity_alphablend"
+      },
+      "textures": {
+        "default": "textures/entity/assassin"
+      },
+      "geometry": {
+        "default": "geometry.fc.assassin"
+      },
+      "animations": {
+        "walk": "animation.fc.biped.walk",
+        "idle": "animation.fc.biped.idle",
+        "attack": "animation.fc.biped.attack"
+      },
+      "scripts": {
+        "animate": [
+          "walk",
+          "idle",
+          "attack"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.fc_default"
+      ],
+      "spawn_egg": {
+        "base_color": "#302c38",
+        "overlay_color": "#222222"
+      }
+    }
+  }
+}

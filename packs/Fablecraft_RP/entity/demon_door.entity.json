@@ -1,0 +1,33 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "fc:demon_door",
+      "materials": {
+        "default": "entity_alphatest",
+        "ghost": "entity_alphablend"
+      },
+      "textures": {
+        "default": "textures/entity/demon_door"
+      },
+      "geometry": {
+        "default": "geometry.fc.demon_door"
+      },
+      "animations": {
+        "idle": "animation.fc.door.idle"
+      },
+      "scripts": {
+        "animate": [
+          "idle"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.fc_default"
+      ],
+      "spawn_egg": {
+        "base_color": "#6e645c",
+        "overlay_color": "#222222"
+      }
+    }
+  }
+}

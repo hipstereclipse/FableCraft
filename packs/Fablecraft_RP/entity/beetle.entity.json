@@ -1,0 +1,33 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "fc:beetle",
+      "materials": {
+        "default": "entity_alphatest",
+        "ghost": "entity_alphablend"
+      },
+      "textures": {
+        "default": "textures/entity/beetle"
+      },
+      "geometry": {
+        "default": "geometry.fc.beetle"
+      },
+      "animations": {
+        "walk": "animation.fc.scorpion.walk"
+      },
+      "scripts": {
+        "animate": [
+          "walk"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.fc_default"
+      ],
+      "spawn_egg": {
+        "base_color": "#7c8a54",
+        "overlay_color": "#222222"
+      }
+    }
+  }
+}

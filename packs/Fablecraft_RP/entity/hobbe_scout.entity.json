@@ -1,0 +1,36 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "fc:hobbe_scout",
+      "materials": {
+        "default": "entity_alphatest",
+        "ghost": "entity_alphablend"
+      },
+      "textures": {
+        "default": "textures/entity/hobbe_scout"
+      },
+      "geometry": {
+        "default": "geometry.fc.hobbe_scout"
+      },
+      "animations": {
+        "walk": "animation.fc.biped.walk",
+        "idle": "animation.fc.biped.idle"
+      },
+      "scripts": {
+        "animate": [
+          "walk",
+          "idle"
+        ],
+        "scale": "0.8"
+      },
+      "render_controllers": [
+        "controller.render.fc_default"
+      ],
+      "spawn_egg": {
+        "base_color": "#788256",
+        "overlay_color": "#222222"
+      }
+    }
+  }
+}

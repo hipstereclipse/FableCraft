@@ -1,0 +1,23 @@
+{
+  "format_version": "1.21.30",
+  "minecraft:item": {
+    "description": {
+      "identifier": "fc:balverine_trophy",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:icon": "balverine_trophy",
+      "minecraft:display_name": {
+        "value": "\u00a7fBalverine Summoning Trophy"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:tags": {
+        "tags": [
+          "fc:misc"
+        ]
+      }
+    }
+  }
+}

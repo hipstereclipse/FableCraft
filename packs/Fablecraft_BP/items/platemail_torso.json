@@ -1,0 +1,47 @@
+{
+  "format_version": "1.21.30",
+  "minecraft:item": {
+    "description": {
+      "identifier": "fc:platemail_torso",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:icon": "platemail_torso",
+      "minecraft:display_name": {
+        "value": "\u00a7fPlatemail Torso"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:wearable": {
+        "slot": "slot.armor.chest",
+        "protection": 6
+      },
+      "minecraft:durability": {
+        "max_durability": 800
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "minecraft:leather",
+              "minecraft:iron_ingot"
+            ],
+            "repair_amount": 200
+          }
+        ]
+      },
+      "minecraft:enchantable": {
+        "slot": "armor_torso",
+        "value": 10
+      },
+      "minecraft:tags": {
+        "tags": [
+          "fc:armor",
+          "fc:set_platemail",
+          "fc:align_0"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "format_version": "1.21.30",
+  "minecraft:item": {
+    "description": {
+      "identifier": "fc:piercing_augment",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:icon": "piercing_augment",
+      "minecraft:display_name": {
+        "value": "\u00a7fPiercing Augmentation"
+      },
+      "minecraft:max_stack_size": 16,
+      "minecraft:tags": {
+        "tags": [
+          "fc:augment"
+        ]
+      }
+    }
+  }
+}

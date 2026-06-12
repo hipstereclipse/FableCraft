@@ -1,0 +1,38 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "fc:jack_of_blades",
+      "materials": {
+        "default": "entity_alphatest",
+        "ghost": "entity_alphablend"
+      },
+      "textures": {
+        "default": "textures/entity/jack_of_blades"
+      },
+      "geometry": {
+        "default": "geometry.fc.jack_of_blades"
+      },
+      "animations": {
+        "walk": "animation.fc.biped.walk",
+        "idle": "animation.fc.biped.idle",
+        "attack": "animation.fc.biped.attack"
+      },
+      "scripts": {
+        "animate": [
+          "walk",
+          "idle",
+          "attack"
+        ],
+        "scale": "1.2"
+      },
+      "render_controllers": [
+        "controller.render.fc_default"
+      ],
+      "spawn_egg": {
+        "base_color": "#8a1a1e",
+        "overlay_color": "#222222"
+      }
+    }
+  }
+}

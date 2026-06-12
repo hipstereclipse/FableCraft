@@ -1,0 +1,16 @@
+# Build outputs kept out of git except final dist
+build/
+.gradle/
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+
+# Dead remnants of the abandoned Java/Gradle prototype
+src/
+gradle/
+gradlew
+gradlew.bat
+settings.gradle
+build.gradle
