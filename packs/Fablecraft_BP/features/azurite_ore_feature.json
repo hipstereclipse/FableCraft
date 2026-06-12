@@ -1,0 +1,22 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:ore_feature": {
+    "description": {
+      "identifier": "fc:azurite_ore_feature"
+    },
+    "count": 7,
+    "replace_rules": [
+      {
+        "places_block": "fc:azurite_ore",
+        "may_replace": [
+          "minecraft:stone",
+          "minecraft:deepslate",
+          "minecraft:granite",
+          "minecraft:diorite",
+          "minecraft:andesite",
+          "minecraft:tuff"
+        ]
+      }
+    ]
+  }
+}

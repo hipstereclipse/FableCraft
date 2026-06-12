@@ -1,0 +1,32 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "fc:craft_pimp_hat"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "XYX",
+      "X X"
+    ],
+    "key": {
+      "X": {
+        "item": "minecraft:purple_wool"
+      },
+      "Y": {
+        "item": "minecraft:gold_nugget"
+      }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:purple_wool"
+      }
+    ],
+    "result": {
+      "item": "fc:pimp_hat",
+      "count": 1
+    }
+  }
+}

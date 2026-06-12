@@ -220,6 +220,78 @@ def decorate_front(p, x, y, w, h, decor, pal, glow, r):
             my = y + (2 * h) // 3 + 1
             p.px(cx - 1, my, (150, 96, 84, 255))
             p.px(cx, my, (150, 96, 84, 255))
+        elif d == "theresa_face":
+            # hooded seeress: shadowed cowl opening, crimson blindfold with
+            # gold thread, pale chin, blue Will-marks on the cheeks
+            ey = y + max(2, h // 2)
+            for yy in range(y + 1, y + h - 1):
+                for xx in range(x + 1, x + w - 1):
+                    p.px(xx, yy, (172, 138, 110, 255))   # face in shadow
+            for xx in range(x + 1, x + w - 1):
+                p.px(xx, y + 1, (60, 16, 18, 255))       # cowl shadow rim
+            for xx in range(x, x + w):
+                p.px(xx, ey, (140, 26, 30, 255))         # blindfold band
+                p.px(xx, ey + 1, (104, 20, 24, 255))
+            p.px(cx - 2, ey, (196, 158, 80, 255))        # gold thread glints
+            p.px(cx + 2, ey + 1, (196, 158, 80, 255))
+            # will-tattoo marks under the band
+            p.px(x + 1, ey + 2, (96, 150, 196, 230))
+            p.px(x + 2, ey + 3, (96, 150, 196, 200))
+            p.px(x + w - 2, ey + 2, (96, 150, 196, 230))
+            p.px(x + w - 3, ey + 3, (96, 150, 196, 200))
+            my = y + (3 * h) // 4 + 1
+            p.px(cx - 1, my, (150, 88, 80, 255))         # lips
+            p.px(cx, my, (160, 94, 84, 255))
+        elif d == "theresa_robe":
+            # crimson seeress robe: gold sash, rune stitching, clasp
+            for i in range(min(w, h)):
+                xx, yy = x + i, y + i
+                if xx < x + w and yy < y + h:
+                    p.px(xx, yy, (176, 140, 72, 255))
+                    if xx + 1 < x + w:
+                        p.px(xx + 1, yy, (132, 102, 50, 255))
+            for yy in range(y + 1, y + h - 1, 3):
+                p.px(x + 1, yy, (196, 158, 80, 200))
+                p.px(x + w - 2, yy + 1 if yy + 1 < y + h else yy, (196, 158, 80, 200))
+            p.px(cx, y + 1, (220, 186, 110, 255))        # throat clasp
+        elif d == "twinblade_face":
+            # the Bandit King: heavy brow, eyepatch, scar, weathered glare
+            ey = y + max(2, h // 2) - 1
+            for xx in range(x, x + w):
+                p.px(xx, ey - 1, (74, 56, 42, 255))      # heavy brow ridge
+            # right eye (his good one): narrow glare
+            p.px(cx - w // 4 - 1, ey, (236, 230, 220, 255))
+            p.px(cx - w // 4, ey, (60, 48, 36, 255))
+            # left eye: black leather patch + strap
+            p.px(cx + w // 4, ey, (24, 20, 18, 255))
+            p.px(cx + w // 4 + 1, ey, (24, 20, 18, 255))
+            p.px(cx + w // 4, ey + 1, (24, 20, 18, 255))
+            for xx in range(x, x + w):                    # strap across face
+                if (xx + ey) % 2 == 0:
+                    p.px(xx, ey - 2, (34, 28, 24, 255))
+            # scar down the patched side
+            p.px(cx + w // 4 + 1, ey - 3, (150, 96, 84, 255))
+            p.px(cx + w // 4 + 2, ey - 2, (150, 96, 84, 255))
+            p.px(cx + w // 4 + 1, ey + 2, (150, 96, 84, 255))
+            # nose shadow + snarl
+            p.px(cx, ey + 2, (0, 0, 0, 60))
+            my = y + (3 * h) // 4
+            for xx in range(cx - 2, cx + 3):
+                p.px(xx, my, (54, 40, 30, 255))
+        elif d == "straps":
+            # crossed leather chest straps with iron buckle
+            for i in range(h):
+                t = i / max(1, h - 1)
+                xx1 = x + 1 + int(t * (w - 3))
+                xx2 = x + w - 2 - int(t * (w - 3))
+                yy = y + i
+                for xo in (0, 1):
+                    if x <= xx1 + xo < x + w:
+                        p.px(xx1 + xo, yy, (56, 38, 28, 255))
+                    if x <= xx2 + xo < x + w:
+                        p.px(xx2 + xo, yy, (48, 32, 24, 255))
+            p.px(cx, y + h // 2, (180, 175, 170, 255))   # buckle
+            p.px(cx + 1, y + h // 2, (140, 134, 130, 255))
         elif d == "balverine_face":
             ey = y + max(1, h // 4)
             for ex in (cx - w // 4 - 1, cx + w // 4):
@@ -616,31 +688,48 @@ def decorate_front(p, x, y, w, h, decor, pal, glow, r):
                 for t in range(r.randrange(3, 7)):
                     p.px(xx, yy0 + t, (104, 108, 92, 200))
         elif d == "door_eye":
-            # dark carved socket with a blazing iris
+            # carved stone eye: weathered socket, pale stone iris, dark pupil
             for yy in range(y, y + h):
                 for xx in range(x, x + w):
-                    p.px(xx, yy, (42, 36, 30, 255))
+                    p.px(xx, yy, (52, 47, 42, 255))
             for yy in range(y + 1, y + h - 1):
                 for xx in range(x + 1, x + w - 1):
-                    p.px(xx, yy, glow + (255,))
-            p.px(cx - 1, y + h // 2, (255, 255, 230, 255))
-            p.px(cx, y + h // 2, (255, 255, 235, 255))
-            p.px(cx, y + h // 2 - 1, (255, 245, 200, 255))
+                    p.px(xx, yy, (188, 182, 170, 255))
+            # stone iris ring + recessed pupil
+            iy = y + h // 2
+            p.px(cx - 1, iy, (146, 140, 128, 255))
+            p.px(cx + 1, iy, (146, 140, 128, 255))
+            p.px(cx, iy - 1, (146, 140, 128, 255))
+            p.px(cx, iy + 1, (146, 140, 128, 255))
+            p.px(cx, iy, (38, 34, 30, 255))
+            # weather streak under the eye
+            p.px(cx - 1, y + h - 1, (96, 100, 86, 220))
         elif d == "door_mouth":
-            # cavernous mouth with irregular teeth
+            # pronounced mouth: heavy stone lips, cavernous dark, broken teeth
             for yy in range(y, y + h):
                 for xx in range(x, x + w):
-                    p.px(xx, yy, (16, 11, 9, 255))
-            for xx in range(x + 1, x + w - 1, 2):
-                deep = 2 if xx % 3 == 0 else 1
-                for t in range(deep):
-                    p.px(xx, y + 1 + t, (216, 210, 194, 255))
-                p.px(xx + 1, y + h - 2, (198, 190, 174, 255))
-                if xx % 4 == 1:
-                    p.px(xx + 1, y + h - 3, (198, 190, 174, 255))
+                    p.px(xx, yy, (14, 10, 8, 255))
+            # heavy upper + lower stone lips (2px ridges)
             for xx in range(x, x + w):
-                p.px(xx, y, (72, 64, 56, 255))
-                p.px(xx, y + h - 1, (72, 64, 56, 255))
+                p.px(xx, y, (96, 88, 78, 255))
+                p.px(xx, y + 1, (74, 68, 60, 255))
+                p.px(xx, y + h - 1, (96, 88, 78, 255))
+                p.px(xx, y + h - 2, (74, 68, 60, 255))
+            # big irregular stone teeth hanging from the upper lip
+            for xx in range(x + 1, x + w - 1, 2):
+                deep = 3 if xx % 3 == 0 else 2
+                for t in range(deep):
+                    p.px(xx, y + 2 + t, (212, 206, 190, 255))
+                p.px(xx, y + 2 + deep, (160, 152, 138, 255))
+            # lower teeth rising from the jaw
+            for xx in range(x + 2, x + w - 2, 3):
+                p.px(xx, y + h - 3, (198, 190, 174, 255))
+                if xx % 2 == 0:
+                    p.px(xx, y + h - 4, (170, 162, 146, 255))
+            # mouth corner shadows
+            for yy in range(y + 1, y + h - 1):
+                p.px(x, yy, (40, 34, 28, 255))
+                p.px(x + w - 1, yy, (40, 34, 28, 255))
         elif d == "brow":
             for xx in range(x, x + w):
                 p.px(xx, y + h - 1, (40, 34, 30, 255))
@@ -693,6 +782,105 @@ def main():
     for mob in MOBS:
         tw, th = paint_mob(mob)
     print(f"painted {len(MOBS)} entity textures -> {OUT}")
+    paint_all_armor_layers()
+
+
+# ---------------------------------------------------------------------------
+# WORN ARMOR LAYERS — 64x32 classic armor textures so equipped fc: armor is
+# actually visible on the player (consumed by attachables in gen_resources).
+# ---------------------------------------------------------------------------
+
+ARMOR_OUT = RP / "textures" / "models" / "armor"
+
+
+def _box_region(p, u, v, sx, sy, sz, base, style, r):
+    """Paint all six faces of a classic box-UV region."""
+    fill_face(p, u + sz, v, sx, sz, shade(base, 1.12)[:3], style, r)
+    fill_face(p, u + sz + sx, v, sx, sz, shade(base, 0.6)[:3], style, r)
+    fill_face(p, u, v + sz, sz, sy, shade(base, 0.82)[:3], style, r)
+    fill_face(p, u + sz, v + sz, sx, sy, base, style, r)
+    fill_face(p, u + sz + sx, v + sz, sz, sy, shade(base, 0.9)[:3], style, r)
+    fill_face(p, u + sz + sx + sz, v + sz, sx, sy, shade(base, 0.72)[:3], style, r)
+
+
+def _clear(p, x, y, w, h):
+    for yy in range(y, y + h):
+        for xx in range(x, x + w):
+            p.px(xx, yy, (0, 0, 0, 0))
+
+
+def paint_armor_set_layers(set_rec):
+    """layer_1: helmet + chest + arms + boots; layer_2: leggings."""
+    pal = set_rec["palette"]
+    base = pal["base"]
+    trim = pal["trim"] + (255,)
+    style = "metal" if pal.get("metal") else ("leather" if "leather" in set_rec["id"] else "cloth")
+    hood = pal.get("hood")
+    r = rng("armorlayer", set_rec["id"])
+
+    # ---- layer 1 ----
+    p1 = Px(64, 32)
+    # helmet head box at (0,0) 8x8x8
+    _box_region(p1, 0, 0, 8, 8, 8, base, style, r)
+    if hood:
+        # open cowl: clear the face, keep brow rim + sides
+        _clear(p1, 9, 11, 6, 5)
+        for xx in range(8, 16):
+            p1.px(xx, 10, shade(base, 0.7)[:3] + (255,))
+    elif set_rec.get("hat") and not pal.get("metal"):
+        # brimmed/cloth hat: keep crown band only, open face fully
+        _clear(p1, 8, 12, 8, 4)
+        for xx in range(8, 16):
+            p1.px(xx, 11, trim)
+    else:
+        # metal helm: open eye slot, keep nasal bar + cheeks
+        _clear(p1, 9, 12, 2, 2)
+        _clear(p1, 13, 12, 2, 2)
+        p1.px(11, 12, shade(base, 1.2)[:3] + (255,))
+        p1.px(12, 12, shade(base, 1.2)[:3] + (255,))
+        for xx in range(8, 16):
+            p1.px(xx, 8, trim)   # brow trim line
+    # chest body box at (16,16) 8x12x4
+    _box_region(p1, 16, 16, 8, 12, 4, base, style, r)
+    for xx in range(20, 28):
+        p1.px(xx, 30, trim)      # hem trim
+        p1.px(xx, 20, trim)      # collar trim
+    accent = pal.get("accent")
+    if accent:
+        for i in range(8):       # apprentice-style sash
+            p1.px(20 + i, 21 + i, accent + (255,))
+    # arms box at (40,16) 4x12x4
+    _box_region(p1, 40, 16, 4, 12, 4, shade(base, 0.95)[:3], style, r)
+    for xx in range(44, 48):
+        p1.px(xx, 27, trim)      # cuff
+    # boots: leg box at (0,16) 4x12x4 — geometry shows feet only
+    _box_region(p1, 0, 16, 4, 12, 4, shade(base, 0.85)[:3], style, r)
+    for xx in range(4, 8):
+        p1.px(xx, 26, trim)
+    p1.save(ARMOR_OUT / f"fc_{set_rec['id']}_layer_1.png")
+
+    # ---- layer 2 (leggings) ----
+    p2 = Px(64, 32)
+    _box_region(p2, 0, 16, 4, 12, 4, base, style, r)
+    _box_region(p2, 16, 16, 8, 12, 4, shade(base, 0.9)[:3], style, r)
+    for xx in range(20, 28):
+        p2.px(xx, 20, trim)      # belt line
+    p2.save(ARMOR_OUT / f"fc_{set_rec['id']}_layer_2.png")
+
+
+def paint_all_armor_layers():
+    import fc_data
+    ARMOR_OUT.mkdir(parents=True, exist_ok=True)
+    count = 0
+    for s in fc_data.ARMOR_SETS:
+        paint_armor_set_layers(s)
+        count += 1
+    for h in fc_data.HATS:
+        rec = dict(h)
+        rec["hat"] = True
+        paint_armor_set_layers(rec)
+        count += 1
+    print(f"painted {count} worn-armor layer sets -> {ARMOR_OUT}")
 
 
 if __name__ == "__main__":

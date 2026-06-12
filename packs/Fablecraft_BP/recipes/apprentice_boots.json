@@ -1,0 +1,29 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "fc:craft_apprentice_boots"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "X X",
+      "X X"
+    ],
+    "key": {
+      "X": {
+        "item": "minecraft:white_wool"
+      }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:white_wool"
+      }
+    ],
+    "result": {
+      "item": "fc:apprentice_boots",
+      "count": 1
+    }
+  }
+}

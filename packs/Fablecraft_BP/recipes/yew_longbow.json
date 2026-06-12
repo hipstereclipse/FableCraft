@@ -1,0 +1,36 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "fc:craft_yew_longbow"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " PT",
+      "PAT",
+      " PT"
+    ],
+    "key": {
+      "P": {
+        "item": "minecraft:spruce_planks"
+      },
+      "T": {
+        "item": "minecraft:string"
+      },
+      "A": {
+        "item": "minecraft:string"
+      }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:spruce_planks"
+      }
+    ],
+    "result": {
+      "item": "fc:yew_longbow",
+      "count": 1
+    }
+  }
+}

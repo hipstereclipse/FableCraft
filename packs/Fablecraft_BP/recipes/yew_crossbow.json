@@ -1,0 +1,39 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "fc:craft_yew_crossbow"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PAP",
+      "TST",
+      " P "
+    ],
+    "key": {
+      "P": {
+        "item": "minecraft:spruce_planks"
+      },
+      "T": {
+        "item": "minecraft:string"
+      },
+      "A": {
+        "item": "minecraft:string"
+      },
+      "S": {
+        "item": "minecraft:stick"
+      }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:spruce_planks"
+      }
+    ],
+    "result": {
+      "item": "fc:yew_crossbow",
+      "count": 1
+    }
+  }
+}

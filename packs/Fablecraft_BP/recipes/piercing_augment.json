@@ -1,0 +1,31 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "fc:craft_piercing_augment"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "fc:will_shard"
+      },
+      {
+        "item": "minecraft:arrow"
+      },
+      {
+        "item": "fc:obsidian_ingot"
+      }
+    ],
+    "unlock": [
+      {
+        "item": "fc:will_shard"
+      }
+    ],
+    "result": {
+      "item": "fc:piercing_augment",
+      "count": 1
+    }
+  }
+}

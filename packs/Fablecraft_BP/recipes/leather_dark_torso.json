@@ -1,0 +1,33 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "fc:craft_leather_dark_torso"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "X X",
+      "XYX",
+      "XXX"
+    ],
+    "key": {
+      "X": {
+        "item": "minecraft:leather"
+      },
+      "Y": {
+        "item": "minecraft:ink_sac"
+      }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:leather"
+      }
+    ],
+    "result": {
+      "item": "fc:leather_dark_torso",
+      "count": 1
+    }
+  }
+}

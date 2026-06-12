@@ -1,0 +1,32 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "fc:craft_holy_warrior_helm"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "XYX",
+      "X X"
+    ],
+    "key": {
+      "X": {
+        "item": "fc:steel_ingot"
+      },
+      "Y": {
+        "item": "minecraft:gold_ingot"
+      }
+    },
+    "unlock": [
+      {
+        "item": "fc:steel_ingot"
+      }
+    ],
+    "result": {
+      "item": "fc:holy_warrior_helm",
+      "count": 1
+    }
+  }
+}

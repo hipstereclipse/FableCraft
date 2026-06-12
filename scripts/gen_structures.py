@@ -188,144 +188,249 @@ def tent(v, x0, z0, depth, half, col, r, open_front=True):
 # ---------------------------------------------------------------------------
 
 def demon_door_arch():
-    """Demon Door site: a 17-wide cliff face of weathered masonry with a
-    deep-set carved arch, twin rune monoliths, brazier pedestals, stairs
-    and creeping overgrowth. The fc:demon_door entity (the living face)
-    is summoned centred in the arch by the placement script."""
+    """Demon Door site carved into a living hillside: a rocky crag rises and
+    widens behind the carved arch so the door always reads as set into a
+    mountainside. Rune monoliths, braziers, stairs and overgrowth out front.
+    The fc:demon_door entity (the living face) is summoned in the arch."""
     r = rng("struct", "demon_door")
-    W, H, D = 17, 14, 7
+    W, H, D = 23, 18, 13
     v = Vox(W, H, D)
     cx = W // 2
-    # foundation slab + approach steps
+    wall_z = 4  # the carved face sits here; everything behind is hillside
+    # foundation
     for x in range(W):
         for z in range(D):
             v.set(x, 0, z, MCOBBLE if r.random() < 0.3 else COBBLE)
-    # cliff wall the door is carved into (two blocks thick, ragged top)
-    for x in range(W):
-        crown = H - 2 - (abs(x - cx) // 3) + r.randrange(0, 2)
-        for y in range(1, crown):
-            for z in range(D - 2, D):
-                v.set(x, y, z, rnd_stone(r))
-    # carve the deep arch opening (5 wide, 8 high, rounded top)
-    v.fill(cx - 2, 1, D - 2, cx + 2, 7, D - 1, "minecraft:air")
-    v.fill(cx - 1, 8, D - 2, cx + 1, 8, D - 1, "minecraft:air")
+    # ---- the hillside crag: rises and widens toward the back ----
+    for z in range(wall_z, D):
+        t = (z - wall_z) / max(1, D - 1 - wall_z)
+        spread = int(t * 3)            # widens with depth
+        crest = 11 + int(t * 6)        # rises with depth
+        for x in range(W):
+            edge_fall = max(0, (abs(x - cx) - (7 + spread))) * 2
+            h = crest - edge_fall + r.randrange(0, 2)
+            for y in range(1, max(2, h)):
+                roll = r.random()
+                mat = STONE if roll < 0.45 else (MOSSY if roll < 0.65 else
+                                                 (CRACK if roll < 0.8 else COBBLE))
+                v.set(x, y, z, mat)
+            # grassy crown on the hill
+            if h > 3 and z > wall_z + 1:
+                v.set(x, max(2, h), z, "minecraft:grass_block" if r.random() < 0.75 else MCOBBLE)
+                if r.random() < 0.12:
+                    v.set(x, max(2, h) + 1, z, "minecraft:fern" if r.random() < 0.5 else "minecraft:tallgrass")
+    # a windswept tree atop the crag
+    tx = cx + r.choice((-5, 5))
+    ty = 0
+    for y in range(H - 1, 1, -1):
+        if v.grid[v.idx(tx, y, D - 3)] != v._pid("minecraft:air"):
+            ty = y + 1
+            break
+    if ty:
+        for y in range(ty, min(H - 2, ty + 3)):
+            v.set(tx, y, D - 3, DARKLOG)
+        v.set(tx, min(H - 2, ty + 3), D - 3, "minecraft:dark_oak_leaves")
+        v.set(tx - 1, min(H - 3, ty + 2), D - 3, "minecraft:dark_oak_leaves")
+        v.set(tx + 1, min(H - 3, ty + 2), D - 3, "minecraft:dark_oak_leaves")
+    # ---- carve the deep arch opening into the face (5 wide, 8 high) ----
+    v.fill(cx - 2, 1, wall_z, cx + 2, 7, wall_z + 2, "minecraft:air")
+    v.fill(cx - 1, 8, wall_z, cx + 1, 8, wall_z + 2, "minecraft:air")
     # tiered chiseled arch frame
     for y in range(1, 9):
-        v.set(cx - 3, y, D - 2, CHISELED)
-        v.set(cx + 3, y, D - 2, CHISELED)
+        v.set(cx - 3, y, wall_z, CHISELED)
+        v.set(cx + 3, y, wall_z, CHISELED)
     for x in range(cx - 3, cx + 4):
-        v.set(x, 9, D - 2, CHISELED)
-    v.set(cx - 2, 8, D - 2, CHISELED)
-    v.set(cx + 2, 8, D - 2, CHISELED)
+        v.set(x, 9, wall_z, CHISELED)
+    v.set(cx - 2, 8, wall_z, CHISELED)
+    v.set(cx + 2, 8, wall_z, CHISELED)
     # skull keystone + flanking carvings
-    v.set(cx, 10, D - 2, "minecraft:chiseled_deepslate")
-    v.set(cx - 1, 9, D - 2, "minecraft:chiseled_deepslate")
-    v.set(cx + 1, 9, D - 2, "minecraft:chiseled_deepslate")
+    v.set(cx, 10, wall_z, "minecraft:chiseled_deepslate")
+    v.set(cx - 1, 9, wall_z, "minecraft:chiseled_deepslate")
+    v.set(cx + 1, 9, wall_z, "minecraft:chiseled_deepslate")
     # rune monoliths flanking the approach
-    for mx in (1, W - 2):
+    for mx in (2, W - 3):
         for y in range(1, 6):
-            v.set(mx, y, 2, OBSIDIAN if y < 4 else "minecraft:crying_obsidian")
-        v.set(mx, 6, 2, SOUL_LANTERN)
+            v.set(mx, y, 1, OBSIDIAN if y < 4 else "minecraft:crying_obsidian")
+        v.set(mx, 6, 1, SOUL_LANTERN)
     # brazier pedestals at the arch
     for bx in (cx - 5, cx + 5):
-        v.set(bx, 1, D - 3, CHISELED)
-        v.set(bx, 2, D - 3, "minecraft:campfire")
-    # worn path + steps
-    for z in range(0, D - 2):
+        v.set(bx, 1, wall_z - 1, CHISELED)
+        v.set(bx, 2, wall_z - 1, "minecraft:campfire")
+    # worn path + steps to the door
+    for z in range(0, wall_z):
         for x in range(cx - 2, cx + 3):
             v.set(x, 0, z, PATH if r.random() < 0.7 else GRAVEL)
-    # rubble, moss and vines
-    for i in range(12):
+    # rubble + hanging vines on the face
+    for i in range(10):
         x = r.randrange(W)
         if r.random() < 0.5:
             v.set(x, 1, r.choice([0, 1, 2]), MCOBBLE if r.random() < 0.5 else "minecraft:cobblestone_wall")
     for x in range(0, W, 2):
         if abs(x - cx) > 3:
-            h = r.randrange(3, 9)
-            for y in range(max(1, H - 3 - h), H - 3):
-                v.set(x, y, D - 3, "minecraft:vine", {"vine_direction_bits": 8})
+            h = r.randrange(3, 8)
+            for y in range(max(1, 10 - h), 10):
+                v.set(x, y, wall_z - 1, "minecraft:vine", {"vine_direction_bits": 8})
     v.save("demon_door_arch")
 
 
 def guild_hall():
-    """The Heroes' Guild, modelled on Fable's academy: a walled forecourt
-    with hero statue and archery range, a great hall with columned nave,
-    east dining wing, west dormitory wing, library corner — and the round
-    MAP ROOM tower at the rear crowned with a cone roof, holding the glowing
-    map of Albion and the Guildmaster's quest table."""
+    """The Heroes' Guild, after the academy in Fable: walled grounds entered
+    through a twin-towered gatehouse; a grand pitched-roof great hall with
+    clerestory windows; the round Map Room tower at the rear; the CULLIS GATE
+    teleport circle in the west yard; and the training grounds (archery range,
+    sparring ring, Will circle) in the east yard. Loot chests included."""
     r = rng("struct", "guild")
-    W, H, L = 37, 20, 35
+    W, H, L = 45, 26, 41
     v = Vox(W, H, L)
-    mx = W // 2  # midline
+    mx = W // 2
 
-    # ======== FORECOURT (z 0..9): walls, statue, archery range ========
+    # ================= GROUNDS + PERIMETER WALL =================
     for x in range(W):
-        for z in range(0, 10):
+        for z in range(L):
             roll = r.random()
-            v.set(x, 0, z, DEEP_TILES if (x + z) % 6 == 0 else
-                  (PATH if roll < 0.25 else STONE))
-    # low courtyard wall with corner finials
+            v.set(x, 0, z, "minecraft:grass_block" if roll < 0.45 else
+                  (PATH if roll < 0.6 else STONE))
+    # perimeter wall with parapet
     for x in range(W):
-        for z in (0,):
-            if abs(x - mx) > 3:  # gate gap centre
-                v.set(x, 1, z, COBBLE)
-                v.set(x, 2, z, "minecraft:cobblestone_wall")
-    for z in range(0, 10):
-        v.set(0, 1, z, COBBLE)
-        v.set(0, 2, z, "minecraft:cobblestone_wall")
-        v.set(W - 1, 1, z, COBBLE)
-        v.set(W - 1, 2, z, "minecraft:cobblestone_wall")
-    # gate pillars + lanterns
-    for gx in (mx - 4, mx + 4):
-        for y in range(1, 5):
-            v.set(gx, y, 0, CHISELED)
-        v.set(gx, 5, 0, LANTERN, {"hanging": False})
-    # hero statue on plinth (west court)
-    sx, sz = mx - 9, 5
+        for z in (0, L - 1):
+            if z == 0 and abs(x - mx) <= 3:
+                continue  # gatehouse opening
+            v.set(x, 1, z, rnd_stone(r))
+            v.set(x, 2, z, rnd_stone(r))
+            v.set(x, 3, z, "minecraft:stone_brick_wall")
+    for z in range(L):
+        for x in (0, W - 1):
+            v.set(x, 1, z, rnd_stone(r))
+            v.set(x, 2, z, rnd_stone(r))
+            v.set(x, 3, z, "minecraft:stone_brick_wall")
+    # corner watch turrets
+    for cx_, cz_ in ((1, 1), (W - 2, 1), (1, L - 2), (W - 2, L - 2)):
+        for y in range(1, 6):
+            v.set(cx_, y, cz_, CHISELED if y > 3 else STONE)
+        v.set(cx_, 6, cz_, LANTERN, {"hanging": False})
+
+    # ================= GATEHOUSE (south) with twin round towers =================
+    for tx in (mx - 5, mx + 5):
+        cylinder(v, tx, 2, 2, 1, 8, STONE)
+        cone_roof(v, tx, 2, 3, 9, DEEP_TILES, tip="minecraft:end_rod")
+        v.set(tx, 5, 0, GLASS)  # arrow slit
+    for x in range(mx - 3, mx + 4):  # arch over the gate
+        v.set(x, 5, 0, CHISELED)
+        v.set(x, 6, 0, STONE)
+    for y in range(1, 5):
+        v.set(mx - 3, y, 0, CHISELED)
+        v.set(mx + 3, y, 0, CHISELED)
+    v.set(mx - 2, 4, 0, LANTERN, {"hanging": True})
+    v.set(mx + 2, 4, 0, LANTERN, {"hanging": True})
+    v.set(mx, 6, 1, "minecraft:gold_block")  # guild crest above gate
+    # path from the gate to the hall doors
+    for z in range(1, 13):
+        for x in range(mx - 2, mx + 3):
+            v.set(x, 0, z, DEEP_TILES if (x + z) % 5 == 0 else STONE)
+
+    # ================= FORECOURT: fountain + hero statue =================
+    v.fill(mx - 1, 0, 6, mx + 1, 0, 8, "minecraft:water")
+    for x in range(mx - 2, mx + 3):
+        for z in range(5, 10):
+            if x in (mx - 2, mx + 2) or z in (5, 9):
+                v.set(x, 1, z, "minecraft:smooth_quartz")
+    v.set(mx, 1, 7, "minecraft:sea_lantern")
+    sx, sz = mx - 8, 7  # hero statue
     v.fill(sx - 1, 1, sz - 1, sx + 1, 1, sz + 1, CHISELED)
     v.set(sx, 2, sz, STONE)
     v.set(sx, 3, sz, STONE)
-    v.set(sx, 4, sz, CHISELED)            # head
-    v.set(sx - 1, 3, sz, "minecraft:stone_brick_wall")   # arms
+    v.set(sx, 4, sz, CHISELED)
+    v.set(sx - 1, 3, sz, "minecraft:stone_brick_wall")
     v.set(sx + 1, 3, sz, "minecraft:stone_brick_wall")
-    v.set(sx + 1, 4, sz, "minecraft:end_rod")            # raised sword
-    # archery range (east court): 3 hay targets
-    for i in range(3):
-        ax, az = mx + 6 + i * 3, 2
-        v.set(ax, 1, az, "minecraft:hay_block")
-        v.set(ax, 2, az, "minecraft:hay_block")
-        v.set(ax, 2, az - 1, "minecraft:target")
-    # fountain pool centre court
-    v.fill(mx - 1, 0, 4, mx + 1, 0, 6, "minecraft:water")
-    for x in range(mx - 2, mx + 3):
-        for z in range(3, 8):
-            if x in (mx - 2, mx + 2) or z in (3, 7):
-                v.set(x, 1, z, "minecraft:smooth_quartz")
-    v.set(mx, 1, 5, "minecraft:sea_lantern")
+    v.set(sx + 1, 4, sz, "minecraft:end_rod")
 
-    # ======== GREAT HALL (z 10..26) ========
-    hz0, hz1 = 10, 26
-    for x in range(2, W - 2):
+    # ================= WEST YARD: THE CULLIS GATE =================
+    gx, gz = 6, 20  # portal centre
+    for x in range(gx - 4, gx + 5):
+        for z in range(gz - 4, gz + 5):
+            d = math.hypot(x - gx, z - gz)
+            if d <= 4.4:
+                v.set(x, 0, z, CHISELED if (x + z) % 2 else DEEP_TILES)
+            if 3.4 < d <= 4.4:
+                v.set(x, 1, z, OBSIDIAN if (x + z) % 3 else "minecraft:crying_obsidian")
+    # the glowing portal ring + heart
+    for ang in range(0, 360, 45):
+        px_ = gx + round(math.cos(math.radians(ang)) * 2)
+        pz_ = gz + round(math.sin(math.radians(ang)) * 2)
+        v.set(px_, 1, pz_, "minecraft:sea_lantern" if ang % 90 == 0 else QUARTZ)
+    v.set(gx, 1, gz, "minecraft:beacon")
+    # four rune pillars
+    for ang in range(45, 360, 90):
+        px_ = gx + round(math.cos(math.radians(ang)) * 4)
+        pz_ = gz + round(math.sin(math.radians(ang)) * 4)
+        for y in range(1, 5):
+            v.set(px_, y, pz_, OBSIDIAN if y < 3 else "minecraft:crying_obsidian")
+        v.set(px_, 5, pz_, "minecraft:amethyst_cluster")
+    # worn path from forecourt to the gate
+    for x in range(gx + 4, mx - 2):
+        v.set(x, 0, 14, PATH)
+        v.set(x, 0, 15, PATH)
+
+    # ================= EAST YARD: TRAINING GROUNDS =================
+    ty0 = W - 11
+    # archery range: 3 targets against the east wall
+    for i in range(3):
+        az = 12 + i * 4
+        v.set(W - 3, 1, az, "minecraft:hay_block")
+        v.set(W - 3, 2, az, "minecraft:hay_block")
+        v.set(W - 3, 2, az - 1, "minecraft:target")
+        v.set(W - 5, 0, az, GRAVEL)  # shooting lane
+        v.set(W - 6, 0, az, GRAVEL)
+        v.set(W - 7, 0, az, GRAVEL)
+    # sparring ring
+    rx, rz = ty0 + 4, 28
+    for x in range(rx - 3, rx + 4):
+        for z in range(rz - 3, rz + 4):
+            d = math.hypot(x - rx, z - rz)
+            if d <= 3.4:
+                v.set(x, 0, z, "minecraft:coarse_dirt" if r.random() < 0.7 else GRAVEL)
+            if 2.6 < d <= 3.4:
+                v.set(x, 1, z, SPRUCE_FENCE)
+    # melee dummies
+    for dx_, dz_ in ((rx - 1, rz), (rx + 1, rz + 1)):
+        v.set(dx_, 1, dz_, "minecraft:hay_block")
+        v.set(dx_, 2, dz_, "minecraft:hay_block")
+        v.set(dx_, 3, dz_, "minecraft:carved_pumpkin", {"minecraft:cardinal_direction": "south"})
+    # weapon rack + chest of practice gear
+    v.set(ty0 + 1, 1, 33, "minecraft:barrel")
+    v.set(ty0 + 1, 1, 34, "minecraft:chest", {"minecraft:cardinal_direction": "east"})
+    v.set(ty0 + 1, 2, 33, SPRUCE_FENCE)
+    # Will circle: candle ring for magic training
+    wx, wz = ty0 + 4, 16
+    for ang in range(0, 360, 60):
+        px_ = wx + round(math.cos(math.radians(ang)) * 2)
+        pz_ = wz + round(math.sin(math.radians(ang)) * 2)
+        v.set(px_, 0, pz_, DEEP_TILES)
+        v.set(px_, 1, pz_, CANDLE, {"lit": True, "candles": 1 + ang % 3})
+    v.set(wx, 0, wz, "minecraft:crying_obsidian")
+
+    # ================= GREAT HALL (x 11..W-12, z 12..32) =================
+    hx0, hx1, hz0, hz1 = 11, W - 12, 12, 32
+    for x in range(hx0, hx1 + 1):
         for z in range(hz0, hz1 + 1):
             v.set(x, 0, z, DEEP_TILES if (x + z) % 5 == 0 else STONE)
-    # outer walls with pilasters + tall windows
-    for x in range(2, W - 2):
+    wall_h = 9
+    # outer walls with dark-oak pilasters + tall glass
+    for x in range(hx0, hx1 + 1):
         for z in (hz0, hz1):
-            for y in range(1, 8):
+            for y in range(1, wall_h):
                 v.set(x, y, z, rnd_stone(r))
     for z in range(hz0, hz1 + 1):
-        for y in range(1, 8):
-            v.set(2, y, z, rnd_stone(r))
-            v.set(W - 3, y, z, rnd_stone(r))
-    # pilasters every 4 blocks + glass between
-    for z in range(hz0 + 2, hz1, 4):
-        for y in range(1, 9):
-            v.set(2, y, z, DARKLOG)
-            v.set(W - 3, y, z, DARKLOG)
-        for y in (3, 4, 5):
-            v.set(2, y, z + 2, GLASS)
-            v.set(W - 3, y, z + 2, GLASS)
-    # grand entrance: recessed arch, double doors of air, guild crest
+        for x in (hx0, hx1):
+            for y in range(1, wall_h):
+                v.set(x, y, z, rnd_stone(r))
+    for z in range(hz0 + 3, hz1 - 1, 5):
+        for x in (hx0, hx1):
+            for y in range(1, wall_h + 1):
+                v.set(x, y, z, DARKLOG)
+            for y in (3, 4, 5):
+                v.set(x, y, z + 2, GLASS)
+    # grand entrance (south face of hall): recessed arch + crest
     v.fill(mx - 2, 1, hz0, mx + 2, 4, hz0, "minecraft:air")
     for y in range(1, 6):
         v.set(mx - 3, y, hz0, CHISELED)
@@ -334,68 +439,87 @@ def guild_hall():
         v.set(x, 6, hz0, CHISELED)
     v.set(mx - 1, 5, hz0, CHISELED)
     v.set(mx + 1, 5, hz0, CHISELED)
-    v.set(mx, 5, hz0, GOLD)               # crest
+    v.set(mx, 5, hz0, GOLD)
     v.set(mx - 4, 4, hz0, LANTERN, {"hanging": False})
     v.set(mx + 4, 4, hz0, LANTERN, {"hanging": False})
-    # nave columns: two rows of dark-oak columns w/ gold caps
-    for z in range(hz0 + 3, hz1 - 2, 4):
+    # nave columns + red carpet
+    for z in range(hz0 + 4, hz1 - 3, 5):
         for cxp in (mx - 5, mx + 5):
-            for y in range(1, 7):
+            for y in range(1, wall_h - 1):
                 v.set(cxp, y, z, DARKLOG)
-            v.set(cxp, 7, z, GOLD)
-    # red carpet up the nave
+            v.set(cxp, wall_h - 1, z, GOLD)
     for z in range(hz0 + 1, hz1):
-        v.set(mx - 1, 0, z, "minecraft:red_wool")
-        v.set(mx, 0, z, "minecraft:red_wool")
-        v.set(mx + 1, 0, z, "minecraft:red_wool")
-    # second storey: gallery floor strips along walls
-    for z in range(hz0 + 1, hz1):
-        for x in list(range(3, 7)) + list(range(W - 7, W - 3)):
-            v.set(x, 8, z, SPRUCE)
-    # roof: grand gable across hall, ridge along z
-    gable_roof_z(v, 1, W - 2, hz0 - 1, hz1 + 1, 8, SPRUCE, STONE)
-    # hanging lanterns down the nave
-    for z in range(hz0 + 3, hz1, 4):
-        v.set(mx, 9, z, LANTERN, {"hanging": True})
-
-    # ======== WEST WING: dormitory (beds, chests, rugs) ========
+        for x in (mx - 1, mx, mx + 1):
+            v.set(x, 0, z, "minecraft:red_wool")
+    # west wing: dormitory
     for i in range(4):
-        z = hz0 + 3 + i * 4
-        v.set(4, 1, z, "minecraft:bed", {"direction": 1})
-        v.set(5, 1, z, "minecraft:bed", {"direction": 1, "head_piece_bit": True})
-        v.set(3, 1, z, "minecraft:chest", {"minecraft:cardinal_direction": "east"})
-        v.set(4, 0, z + 1, "minecraft:blue_wool")  # rug
-    # ======== EAST WING: dining + library ========
+        z = hz0 + 4 + i * 5
+        v.set(hx0 + 2, 1, z, "minecraft:bed", {"direction": 1})
+        v.set(hx0 + 3, 1, z, "minecraft:bed", {"direction": 1, "head_piece_bit": True})
+        v.set(hx0 + 1, 1, z, "minecraft:chest", {"minecraft:cardinal_direction": "east"})
+        v.set(hx0 + 2, 0, z + 1, "minecraft:blue_wool")
+    # east wing: feast tables + library
     for i in range(3):
-        z = hz0 + 3 + i * 5
-        # long table: stripped logs + lanterns + seats
+        z = hz0 + 4 + i * 6
         for tz in range(z, z + 3):
-            v.set(W - 6, 1, tz, STRIPPED_SPRUCE)
-        v.set(W - 6, 2, z + 1, CANDLE, {"lit": True, "candles": 2})
-        v.set(W - 7, 1, z + 1, SPRUCE_FENCE)  # stools
-        v.set(W - 5, 1, z + 1, SPRUCE_FENCE)
-    v.set(W - 4, 1, hz1 - 2, "minecraft:barrel")
-    v.set(W - 4, 2, hz1 - 2, "minecraft:barrel")
-    # library corner: bookshelf stacks
-    for x in range(W - 8, W - 3):
+            v.set(hx1 - 3, 1, tz, STRIPPED_SPRUCE)
+        v.set(hx1 - 3, 2, z + 1, CANDLE, {"lit": True, "candles": 2})
+        v.set(hx1 - 4, 1, z + 1, SPRUCE_FENCE)
+        v.set(hx1 - 2, 1, z + 1, SPRUCE_FENCE)
+    for x in range(hx1 - 6, hx1):
         for y in range(1, 4):
             if (x + y) % 2:
                 v.set(x, y, hz1 - 1, "minecraft:bookshelf")
-    v.set(W - 6, 1, hz1 - 4, "minecraft:lectern", {"minecraft:cardinal_direction": "south"})
+    v.set(hx1 - 3, 1, hz1 - 3, "minecraft:lectern", {"minecraft:cardinal_direction": "south"})
+    # storeroom loot chest + barrels
+    v.set(hx0 + 1, 1, hz1 - 2, "minecraft:chest", {"minecraft:cardinal_direction": "east"})
+    v.set(hx0 + 1, 1, hz1 - 3, "minecraft:barrel")
+    v.set(hx0 + 1, 2, hz1 - 3, "minecraft:barrel")
+    # gallery floors along the walls
+    for z in range(hz0 + 1, hz1):
+        for x in list(range(hx0 + 1, hx0 + 4)) + list(range(hx1 - 3, hx1)):
+            v.set(x, wall_h - 1, z, SPRUCE)
+    # ---- proper pitched roof: stepped gable with 1-block eave overhang ----
+    i = 0
+    rx0, rx1 = hx0 - 1, hx1 + 1
+    while rx0 + i <= rx1 - i:
+        y = wall_h + i
+        if y >= H - 1:
+            break
+        for z in range(hz0 - 1, hz1 + 2):
+            v.set(rx0 + i, y, z, DEEP_TILES)
+            v.set(rx1 - i, y, z, DEEP_TILES)
+        # gable end walls
+        if rx0 + i + 1 <= rx1 - i - 1:
+            for x in range(rx0 + i + 1, rx1 - i):
+                v.set(x, y, hz0, STONE)
+                v.set(x, y, hz1, STONE)
+        i += 1
+    ridge_y = min(H - 2, wall_h + i - 1)
+    for z in range(hz0 - 1, hz1 + 2, 4):   # ridge crest ornaments
+        v.set(mx, ridge_y + 1, z, "minecraft:stone_brick_wall")
+    # chimney with ember glow
+    chx, chz = hx1 - 2, hz0 + 6
+    for y in range(wall_h, ridge_y + 2):
+        v.set(chx, y, chz, COBBLE)
+    v.set(chx, ridge_y + 2, chz, "minecraft:campfire")
+    # hanging lanterns down the nave
+    for z in range(hz0 + 4, hz1 - 2, 5):
+        v.set(mx, wall_h - 1, z, LANTERN, {"hanging": True})
 
-    # ======== MAP ROOM TOWER (rear, round, cone roof) ========
-    tcx, tcz, trad = mx, 30, 6
+    # ================= MAP ROOM TOWER (rear) =================
+    tcx, tcz, trad = mx, L - 7, 6
     cylinder(v, tcx, tcz, trad, 0, 0, DEEP_TILES, fill_mat=DEEP_TILES)
-    cylinder(v, tcx, tcz, trad, 1, 10, STONE)
-    # tower windows
+    cylinder(v, tcx, tcz, trad, 1, 13, STONE)
     for ang in range(30, 360, 60):
         wx_ = tcx + round(math.cos(math.radians(ang)) * trad)
         wz_ = tcz + round(math.sin(math.radians(ang)) * trad)
-        v.set(wx_, 4, wz_, GLASS)
         v.set(wx_, 5, wz_, GLASS)
-    # doorway from hall into tower
+        v.set(wx_, 6, wz_, GLASS)
+        v.set(wx_, 10, wz_, GLASS)
+    # doorway from hall into the tower
     v.fill(tcx - 1, 1, hz1, tcx + 1, 3, tcz - trad + 1, "minecraft:air")
-    # THE MAP OF ALBION: circular glowing table
+    # THE MAP OF ALBION
     for x in range(tcx - 3, tcx + 4):
         for z in range(tcz - 3, tcz + 4):
             d = math.hypot(x - tcx, z - tcz)
@@ -406,18 +530,16 @@ def guild_hall():
                        "minecraft:lapis_block" if roll < 0.6 else
                        "minecraft:moss_block" if roll < 0.85 else GOLD)
                 v.set(x, 2, z, blk)
-    v.set(tcx, 2, tcz, "minecraft:sea_lantern")  # the Guild's heart-light
-    # quest table + lectern by the map
+    v.set(tcx, 2, tcz, "minecraft:sea_lantern")
     v.set(tcx - 4, 1, tcz + 2, "minecraft:lectern", {"minecraft:cardinal_direction": "east"})
     v.set(tcx + 4, 1, tcz + 2, "minecraft:bookshelf")
     v.set(tcx + 4, 2, tcz + 2, CANDLE, {"lit": True, "candles": 3})
-    # wall sconces inside tower
+    v.set(tcx + 4, 1, tcz - 2, "minecraft:chest", {"minecraft:cardinal_direction": "west"})
     for ang in range(0, 360, 90):
         sx_ = tcx + round(math.cos(math.radians(ang)) * (trad - 1))
         sz_ = tcz + round(math.sin(math.radians(ang)) * (trad - 1))
-        v.set(sx_, 6, sz_, LANTERN, {"hanging": True})
-    # cone roof + finial
-    cone_roof(v, tcx, tcz, trad + 1, 11, DEEP_TILES, tip="minecraft:end_rod")
+        v.set(sx_, 7, sz_, LANTERN, {"hanging": True})
+    cone_roof(v, tcx, tcz, trad + 1, 14, DEEP_TILES, tip="minecraft:end_rod")
     v.save("guild_hall")
 
 
@@ -511,132 +633,177 @@ def focus_site():
 
 
 def bandit_camp():
-    """Twinblade's raider camp: log palisade with a gate, watchtower,
-    three wool tents with bedrolls, supply cart, stacked barrels and crates,
-    spit-roast campfire, training dummy and a war banner."""
+    """Twinblade's war-camp: a 33-block double-staked palisade ring, skull
+    totem gate, TWO watchtowers, the Bandit King's great red pavilion on a
+    raised platform, crew tents, spit-roast fire, supply dump, prisoner cage,
+    war banners and loot chests."""
     r = rng("struct", "camp")
-    S = 21
-    v = Vox(S, 11, S)
+    S = 33
+    v = Vox(S, 13, S)
     cx = cz = S // 2
-    # trampled ground: coarse dirt / path / patches of grass gone bald
+    RAD = 15
+    # trampled ground
     for x in range(S):
         for z in range(S):
             d = math.hypot(x - cx, z - cz)
-            if d < 9.6:
+            if d < RAD + 0.8:
                 roll = r.random()
                 v.set(x, 0, z, "minecraft:coarse_dirt" if roll < 0.5 else
                       (PATH if roll < 0.8 else GRAVEL))
-    # ring palisade of spruce logs, gate to the south
+    # ring palisade, gate to the south (+z)
     for ang in range(0, 360, 2):
-        x = cx + round(math.cos(math.radians(ang)) * 9.5)
-        z = cz + round(math.sin(math.radians(ang)) * 9.5)
+        x = cx + round(math.cos(math.radians(ang)) * RAD)
+        z = cz + round(math.sin(math.radians(ang)) * RAD)
         if 0 <= x < S and 0 <= z < S:
-            if 80 <= ang <= 100:   # gate gap (south, +z)
-                continue
-            h = 3 + (1 if ang % 8 < 4 else 0)
+            if 78 <= ang <= 102:
+                continue  # gate gap
+            h = 4 + (1 if ang % 8 < 4 else 0)
             for y in range(1, h + 1):
                 v.set(x, y, z, SPRUCE_LOG)
-            v.set(x, h + 1, z, SPRUCE_FENCE)  # sharpened tips
-    # gate posts + lintel + lanterns
-    gx0, gx1 = cx - 2, cx + 2
-    gz = cz + 9
-    for y in range(1, 5):
+            v.set(x, h + 1, z, SPRUCE_FENCE)
+            # second inner stake row for heft
+            if ang % 6 < 3:
+                ix = cx + round(math.cos(math.radians(ang)) * (RAD - 1))
+                iz = cz + round(math.sin(math.radians(ang)) * (RAD - 1))
+                for y in range(1, 4):
+                    v.set(ix, y, iz, STRIPPED_SPRUCE)
+    # gate: posts, lintel, skull totems, lanterns
+    gz = cz + RAD
+    gx0, gx1 = cx - 3, cx + 3
+    for y in range(1, 6):
         v.set(gx0, y, gz, STRIPPED_SPRUCE)
         v.set(gx1, y, gz, STRIPPED_SPRUCE)
     for x in range(gx0, gx1 + 1):
-        v.set(x, 5, gz, STRIPPED_SPRUCE)
-    v.set(gx0 + 1, 4, gz, LANTERN, {"hanging": True})
-    v.set(gx1 - 1, 4, gz, LANTERN, {"hanging": True})
-    # watchtower (NE): 4 log legs, plank platform, fence rail, ladder void
-    tx, tz = cx + 5, cz - 5
-    for lx, lz in ((tx, tz), (tx + 2, tz), (tx, tz + 2), (tx + 2, tz + 2)):
-        for y in range(1, 6):
-            v.set(lx, y, lz, SPRUCE_LOG)
-    for x in range(tx - 1, tx + 4):
-        for z in range(tz - 1, tz + 4):
-            v.set(x, 6, z, SPRUCE)
-    for x in range(tx - 1, tx + 4):
-        for z in range(tz - 1, tz + 4):
-            if x in (tx - 1, tx + 3) or z in (tz - 1, tz + 3):
-                v.set(x, 7, z, SPRUCE_FENCE)
-    v.set(tx + 1, 7, tz + 1, "minecraft:campfire")  # signal fire
-    v.set(tx + 1, 1, tz + 1, "minecraft:barrel")
-    # three tents facing the fire
-    tent(v, cx - 8, cz - 3, 5, 3, "red", r)
-    tent(v, cx + 3, cz + 2, 5, 3, "brown", r)
-    tent(v, cx - 4, cz + 4, 4, 2, "black", r)
-    # central spit-roast fire pit
+        v.set(x, 6, gz, STRIPPED_SPRUCE)
+    v.set(gx0, 6, gz, "minecraft:chiseled_deepslate")   # skull totems
+    v.set(gx1, 6, gz, "minecraft:chiseled_deepslate")
+    v.set(gx0 + 1, 5, gz, LANTERN, {"hanging": True})
+    v.set(gx1 - 1, 5, gz, LANTERN, {"hanging": True})
+    # ==== TWINBLADE'S GREAT PAVILION (north, raised platform) ====
+    px0, pz0 = cx - 6, cz - RAD + 3
+    for x in range(px0 - 1, px0 + 13):       # platform
+        for z in range(pz0 - 1, pz0 + 9):
+            v.set(x, 0, z, SPRUCE)
+    half = 6
+    for i in range(half + 1):                # big red marquee, front open
+        for z in range(pz0, pz0 + 8):
+            v.set(px0 + i, 1 + i, z, "minecraft:red_wool")
+            v.set(px0 + 12 - i, 1 + i, z, "minecraft:red_wool")
+    for i in range(half):                     # close back wall
+        for x in range(px0 + i + 1, px0 + 12 - i):
+            v.set(x, 1 + i, pz0 + 7, "minecraft:red_wool")
+    # black trim stripe along the eaves
+    for z in range(pz0, pz0 + 8):
+        v.set(px0 + 1, 2, z, "minecraft:black_wool")
+        v.set(px0 + 11, 2, z, "minecraft:black_wool")
+    # throne of the Bandit King: stair throne + gold + war chest
+    tx, tz = px0 + 6, pz0 + 5
+    v.set(tx, 1, tz, GOLD)
+    v.set(tx, 2, tz, "minecraft:red_wool")
+    v.set(tx - 1, 1, tz, SPRUCE_FENCE)
+    v.set(tx + 1, 1, tz, SPRUCE_FENCE)
+    v.set(tx - 2, 1, tz, "minecraft:chest", {"minecraft:cardinal_direction": "south"})
+    v.set(tx + 2, 1, tz, "minecraft:barrel")
+    v.set(tx, 5, tz, LANTERN, {"hanging": True})
+    # twin blades crossed before the throne (end rods on fences)
+    v.set(tx - 1, 1, tz - 2, SPRUCE_FENCE)
+    v.set(tx - 1, 2, tz - 2, "minecraft:end_rod")
+    v.set(tx + 1, 1, tz - 2, SPRUCE_FENCE)
+    v.set(tx + 1, 2, tz - 2, "minecraft:end_rod")
+    # ==== two watchtowers (NE + SW) ====
+    for tx_, tz_ in ((cx + 8, cz - 8), (cx - 11, cz + 6)):
+        for lx, lz in ((tx_, tz_), (tx_ + 2, tz_), (tx_, tz_ + 2), (tx_ + 2, tz_ + 2)):
+            for y in range(1, 7):
+                v.set(lx, y, lz, SPRUCE_LOG)
+        for x in range(tx_ - 1, tx_ + 4):
+            for z in range(tz_ - 1, tz_ + 4):
+                v.set(x, 7, z, SPRUCE)
+                if x in (tx_ - 1, tx_ + 3) or z in (tz_ - 1, tz_ + 3):
+                    v.set(x, 8, z, SPRUCE_FENCE)
+        v.set(tx_ + 1, 8, tz_ + 1, "minecraft:campfire")
+        v.set(tx_ + 1, 1, tz_ + 1, "minecraft:barrel")
+    # ==== crew tents around the fire ====
+    tent(v, cx - 12, cz - 5, 5, 3, "brown", r)
+    tent(v, cx + 6, cz + 2, 5, 3, "black", r)
+    tent(v, cx - 7, cz + 6, 4, 2, "brown", r)
+    tent(v, cx + 2, cz - 9, 4, 2, "black", r)
+    # ==== central spit-roast fire pit ====
     for dx, dz in ((-1, 0), (1, 0), (0, -1), (0, 1)):
         v.set(cx + dx, 0, cz + dz, COBBLE)
     v.set(cx, 1, cz, "minecraft:campfire")
-    v.set(cx - 2, 1, cz, SPRUCE_FENCE)
-    v.set(cx + 2, 1, cz, SPRUCE_FENCE)
-    v.set(cx - 2, 2, cz, SPRUCE_FENCE)
-    v.set(cx + 2, 2, cz, SPRUCE_FENCE)
+    for sx_ in (cx - 2, cx + 2):
+        v.set(sx_, 1, cz, SPRUCE_FENCE)
+        v.set(sx_, 2, cz, SPRUCE_FENCE)
     for x in range(cx - 1, cx + 2):
-        v.set(x, 3, cz, SPRUCE_FENCE)  # spit bar
-    # log benches around the fire
-    for bz in (cz - 3, cz + 3):
+        v.set(x, 3, cz, SPRUCE_FENCE)
+    for bz in (cz - 3, cz + 3):              # log benches
         for x in range(cx - 2, cx + 3):
             v.set(x, 1, bz, STRIPPED_SPRUCE)
-    # supply cart: plank bed on log axles, stair shafts, cargo
-    wx, wz = cx + 6, cz + 5
-    v.set(wx, 1, wz, SPRUCE_LOG)          # axles
+    # ==== prisoner cage ====
+    cgx, cgz = cx + 9, cz + 7
+    for x in range(cgx, cgx + 4):
+        for z in range(cgz, cgz + 4):
+            if x in (cgx, cgx + 3) or z in (cgz, cgz + 3):
+                v.set(x, 1, z, IRON_BARS)
+                v.set(x, 2, z, IRON_BARS)
+            v.set(x, 3, z, SPRUCE)
+    v.set(cgx + 1, 1, cgz, "minecraft:air")  # cage door gap
+    # ==== supply dump + loot ====
+    sx, sz = cx - 10, cz - 1
+    v.set(sx, 1, sz, "minecraft:barrel")
+    v.set(sx + 1, 1, sz, "minecraft:barrel")
+    v.set(sx, 2, sz, "minecraft:barrel")
+    v.set(sx, 1, sz + 1, "minecraft:bookshelf")
+    v.set(sx + 1, 1, sz - 1, "minecraft:hay_block")
+    v.set(sx + 1, 2, sz - 1, "minecraft:hay_block")
+    v.set(sx - 1, 1, sz, "minecraft:chest", {"minecraft:cardinal_direction": "east"})
+    # supply cart by the gate
+    wx, wz = cx + 5, cz + 10
+    v.set(wx, 1, wz, SPRUCE_LOG)
     v.set(wx, 1, wz + 2, SPRUCE_LOG)
     for z in range(wz - 1, wz + 4):
         for x in range(wx - 1, wx + 2):
-            v.set(x, 2, z, SPRUCE)        # bed
+            v.set(x, 2, z, SPRUCE)
     for x in (wx - 1, wx + 1):
         for z in (wz - 1, wz + 3):
-            v.set(x, 3, z, SPRUCE_FENCE)  # corner rails
+            v.set(x, 3, z, SPRUCE_FENCE)
     v.set(wx, 3, wz, "minecraft:hay_block")
     v.set(wx, 3, wz + 1, "minecraft:barrel")
-    v.set(wx, 2, wz + 4, SPRUCE_FENCE)    # towing shaft
-    v.set(wx, 2, wz + 5, SPRUCE_FENCE)
-    # supply dump: stacked barrels + crates + hay
-    sx, sz = cx - 7, cz + 2
-    v.set(sx, 1, sz, "minecraft:barrel")
-    v.set(sx + 1, 1, sz, "minecraft:barrel")
-    v.set(sx, 1, sz + 1, "minecraft:bookshelf")   # crate stand-in
-    v.set(sx, 2, sz, "minecraft:barrel")
-    v.set(sx + 1, 1, sz - 1, "minecraft:hay_block")
-    # loot chest under tarp by north wall
-    v.set(cx, 1, cz - 7, "minecraft:chest", {"minecraft:cardinal_direction": "south"})
-    v.set(cx - 1, 1, cz - 7, "minecraft:barrel")
-    for x in range(cx - 1, cx + 2):
-        v.set(x, 2, cz - 7, "minecraft:brown_wool")  # tarp
     # training dummy
-    dx_, dz_ = cx - 5, cz - 5
+    dx_, dz_ = cx - 6, cz - 10
     v.set(dx_, 1, dz_, "minecraft:hay_block")
     v.set(dx_, 2, dz_, "minecraft:hay_block")
     v.set(dx_, 3, dz_, "minecraft:carved_pumpkin", {"minecraft:cardinal_direction": "south"})
     v.set(dx_ - 1, 2, dz_, SPRUCE_FENCE)
     v.set(dx_ + 1, 2, dz_, SPRUCE_FENCE)
-    # war banner pole by the gate
-    bx = cx + 3
-    for y in range(1, 6):
-        v.set(bx, y, gz - 1, SPRUCE_FENCE)
-    v.set(bx, 5, gz - 2, "minecraft:red_wool")
-    v.set(bx, 4, gz - 2, "minecraft:red_wool")
-    v.set(bx, 3, gz - 2, "minecraft:black_wool")
+    # war banner poles
+    for bx_, bz_ in ((cx + 4, gz - 2), (cx - 4, gz - 2), (px0 - 1, pz0 - 1), (px0 + 13, pz0 - 1)):
+        for y in range(1, 7):
+            v.set(bx_, y, bz_, SPRUCE_FENCE)
+        v.set(bx_, 6, bz_ - 1, "minecraft:red_wool")
+        v.set(bx_, 5, bz_ - 1, "minecraft:red_wool")
+        v.set(bx_, 4, bz_ - 1, "minecraft:black_wool")
     v.save("bandit_camp")
 
 
 def graveyard():
-    """Lychfield: iron-fenced burial ground with a gabled mausoleum,
-    varied headstones, an open exhumed grave, dead trees and soul-light."""
+    """Lychfield, grown to a proper burial ground: iron-fenced 25-block yard,
+    a grand gabled mausoleum with sunken crypt and loot, a ruined chapel
+    corner, rows of varied headstones, exhumed graves, dead trees, ossuary
+    and drifting soul-light."""
     r = rng("struct", "grave")
-    S = 15
-    v = Vox(S, 9, S)
+    S = 25
+    v = Vox(S, 13, S)
+    mid = S // 2
     for x in range(S):
         for z in range(S):
             roll = r.random()
             v.set(x, 0, z, "minecraft:podzol" if roll < 0.4 else
                   ("minecraft:coarse_dirt" if roll < 0.55 else "minecraft:grass_block"))
-    # perimeter: cobble base + iron bars, gate south
+    # perimeter: cobble base + iron bars, arched gate south
     for x in range(S):
         for z in (0, S - 1):
-            if z == S - 1 and abs(x - S // 2) <= 1:
+            if z == S - 1 and abs(x - mid) <= 1:
                 continue
             v.set(x, 1, z, COBBLE)
             v.set(x, 2, z, IRON_BARS)
@@ -644,63 +811,123 @@ def graveyard():
         for x in (0, S - 1):
             v.set(x, 1, z, COBBLE)
             v.set(x, 2, z, IRON_BARS)
-    for gx in (S // 2 - 2, S // 2 + 2):  # gate pillars + lanterns
-        v.set(gx, 1, S - 1, CHISELED)
-        v.set(gx, 2, S - 1, CHISELED)
-        v.set(gx, 3, S - 1, SOUL_LANTERN)
-    # gravel path from gate to mausoleum
-    for z in range(3, S - 1):
-        v.set(S // 2, 0, z, GRAVEL)
-    # headstone rows, varied shapes
-    for gx in range(2, S - 2, 3):
-        for gz in range(4, S - 3, 3):
-            if abs(gx - S // 2) < 1 or r.random() > 0.85:
+    for gx in (mid - 2, mid + 2):
+        for y in range(1, 4):
+            v.set(gx, y, S - 1, CHISELED)
+        v.set(gx, 4, S - 1, SOUL_LANTERN)
+    for x in range(mid - 2, mid + 3):
+        v.set(x, 4, S - 1, CHISELED)  # gate arch
+    # gravel path: gate -> mausoleum, with a fork to the chapel
+    for z in range(4, S - 1):
+        v.set(mid, 0, z, GRAVEL)
+        if r.random() < 0.4:
+            v.set(mid + r.choice((-1, 1)), 0, z, GRAVEL)
+    for x in range(4, mid):
+        v.set(x, 0, 8, GRAVEL if r.random() < 0.8 else "minecraft:coarse_dirt")
+    # ==== GRAND MAUSOLEUM (north centre) ====
+    mw, md = 11, 7
+    mx0, mz0 = mid - mw // 2, 1
+    for x in range(mx0, mx0 + mw):
+        for z in range(mz0, mz0 + md):
+            for y in range(1, 6):
+                if x in (mx0, mx0 + mw - 1) or z in (mz0, mz0 + md - 1):
+                    v.set(x, y, z, MOSSY if r.random() < 0.35 else STONE)
+            v.set(x, 0, z, DEEP_TILES if (x + z) % 3 else STONE)
+    # pilaster columns on the facade
+    for px_ in (mx0 + 1, mx0 + mw - 2):
+        for y in range(1, 6):
+            v.set(px_, y, mz0 + md - 1, CHISELED)
+    # entrance arch + iron gate
+    v.fill(mid - 1, 1, mz0 + md - 1, mid + 1, 3, mz0 + md - 1, "minecraft:air")
+    v.set(mid, 1, mz0 + md - 1, IRON_BARS)
+    v.set(mid - 1, 4, mz0 + md - 1, CHISELED)
+    v.set(mid + 1, 4, mz0 + md - 1, CHISELED)
+    v.set(mid, 4, mz0 + md - 1, "minecraft:chiseled_deepslate")  # skull keystone
+    # steep gabled roof with finials
+    i = 0
+    while mx0 - 1 + i <= mx0 + mw - i:
+        y = 6 + i
+        if y >= 12:
+            break
+        for z in range(mz0 - 1, mz0 + md + 1):
+            v.set(mx0 - 1 + i, y, z, DEEP_TILES)
+            v.set(mx0 + mw - i, y, z, DEEP_TILES)
+        if mx0 + i <= mx0 + mw - 1 - i:
+            for x in range(mx0 + i, mx0 + mw - i):
+                v.set(x, y, mz0, STONE)
+                v.set(x, y, mz0 + md - 1, STONE)
+        i += 1
+    v.set(mid, 6 + i, mz0 + md // 2, "minecraft:stone_brick_wall")
+    # interior: twin coffins, candles, soul lantern, crypt loot chest
+    v.set(mid - 2, 1, mz0 + 2, DARKOAK)
+    v.set(mid - 2, 1, mz0 + 3, DARKOAK)
+    v.set(mid + 2, 1, mz0 + 2, DARKOAK)
+    v.set(mid + 2, 1, mz0 + 3, DARKOAK)
+    v.set(mid, 1, mz0 + 1, "minecraft:chest", {"minecraft:cardinal_direction": "south"})
+    v.set(mid - 3, 1, mz0 + 1, CANDLE, {"lit": True, "candles": 2})
+    v.set(mid + 3, 1, mz0 + 1, CANDLE, {"lit": True})
+    v.set(mid, 4, mz0 + 3, SOUL_LANTERN, {"hanging": True})
+    # ==== ruined chapel corner (west) ====
+    chx, chz = 2, 6
+    for z in range(chz, chz + 7):
+        h = max(0, 5 - abs(z - (chz + 3)) + r.randrange(-1, 2))
+        for y in range(1, h + 1):
+            v.set(chx, y, z, rnd_stone(r))
+    for x in range(chx, chx + 5):
+        h = r.randrange(0, 3)
+        for y in range(1, h + 1):
+            v.set(x, y, chz, rnd_stone(r))
+    for y in range(1, 5):  # surviving lancet arch
+        v.set(chx, y, chz + 8, CHISELED)
+        v.set(chx + 2, y, chz + 8, CHISELED)
+    v.set(chx + 1, 4, chz + 8, CHISELED)
+    v.set(chx + 1, 1, chz + 6, "minecraft:lectern", {"minecraft:cardinal_direction": "east"})
+    v.set(chx + 1, 1, chz + 9, CANDLE, {"lit": True, "candles": 3})
+    # ==== headstone rows (varied) ====
+    for gx in range(4, S - 4, 3):
+        for gz in range(10, S - 4, 3):
+            if abs(gx - mid) < 2 or r.random() > 0.8:
                 continue
-            style = r.randrange(4)
-            if style == 0:   # slab + cross
+            style = r.randrange(5)
+            if style == 0:
                 v.set(gx, 1, gz, COBBLE)
                 v.set(gx, 2, gz, "minecraft:cobblestone_wall")
-            elif style == 1:  # tall stele
+            elif style == 1:
                 v.set(gx, 1, gz, CRACK)
                 v.set(gx, 2, gz, STONE)
                 v.set(gx, 3, gz, "minecraft:stone_brick_wall")
-            elif style == 2:  # toppled
+            elif style == 2:
                 v.set(gx, 1, gz, MOSSY)
                 v.set(gx + 1, 1, gz, "minecraft:cobblestone_wall")
-            else:            # humble marker
+            elif style == 3:  # table tomb
+                v.set(gx, 1, gz, STONE)
+                v.set(gx + 1, 1, gz, STONE)
+                v.set(gx, 2, gz, "minecraft:smooth_quartz")
+                v.set(gx + 1, 2, gz, "minecraft:smooth_quartz")
+            else:
                 v.set(gx, 1, gz, "minecraft:cobblestone_wall")
             if r.random() < 0.3:
                 v.set(gx, 1, gz + 1, "minecraft:brown_mushroom")
-    # open exhumed grave with dirt pile
-    ox, oz = 3, 3
-    v.fill(ox, 0, oz, ox + 1, 0, oz + 2, "minecraft:air")
-    v.set(ox + 2, 1, oz + 1, "minecraft:coarse_dirt")
-    v.set(ox + 2, 2, oz + 1, "minecraft:coarse_dirt")
-    v.set(ox, 1, oz - 1, "minecraft:cobblestone_wall")  # its headstone
-    # MAUSOLEUM (north): gabled crypt with iron door + coffin
-    mx0, mz0 = S // 2 - 3, 1
-    for x in range(mx0, mx0 + 7):
-        for z in range(mz0, mz0 + 5):
-            for y in range(1, 5):
-                if x in (mx0, mx0 + 6) or z in (mz0, mz0 + 4):
-                    v.set(x, y, z, MOSSY if r.random() < 0.35 else STONE)
-    # entrance arch + iron bars door
-    v.fill(mx0 + 3, 1, mz0 + 4, mx0 + 3, 2, mz0 + 4, "minecraft:air")
-    v.set(mx0 + 3, 1, mz0 + 4, IRON_BARS)
-    v.set(mx0 + 2, 3, mz0 + 4, CHISELED)
-    v.set(mx0 + 4, 3, mz0 + 4, CHISELED)
-    v.set(mx0 + 3, 3, mz0 + 4, "minecraft:chiseled_deepslate")  # skull keystone
-    # gable roof
-    gable_roof_z(v, mx0 - 1, mx0 + 7, mz0, mz0 + 4, 5, DEEP_TILES, STONE)
-    # coffin + candles inside
-    v.set(mx0 + 3, 1, mz0 + 2, DARKOAK)
-    v.set(mx0 + 3, 1, mz0 + 1, DARKOAK)
-    v.set(mx0 + 2, 1, mz0 + 1, CANDLE, {"lit": True})
-    v.set(mx0 + 4, 1, mz0 + 2, "minecraft:chest", {"minecraft:cardinal_direction": "west"})
-    v.set(mx0 + 3, 4, mz0 + 2, SOUL_LANTERN, {"hanging": True})
+            if r.random() < 0.18:
+                v.set(gx + 1, 1, gz - 1, SOUL_LANTERN)
+    # open exhumed graves with dirt piles
+    for ox, oz in ((4, 12), (S - 6, 16)):
+        v.fill(ox, 0, oz, ox + 1, 0, oz + 2, "minecraft:air")
+        v.set(ox + 2, 1, oz + 1, "minecraft:coarse_dirt")
+        v.set(ox + 2, 2, oz + 1, "minecraft:coarse_dirt")
+        v.set(ox, 1, oz - 1, "minecraft:cobblestone_wall")
+    # ossuary: stacked bone blocks under a lean-to
+    bx_, bz_ = S - 5, 6
+    v.set(bx_, 1, bz_, "minecraft:bone_block")
+    v.set(bx_ + 1, 1, bz_, "minecraft:bone_block")
+    v.set(bx_, 2, bz_, "minecraft:bone_block")
+    v.set(bx_ - 1, 1, bz_, DARKLOG)
+    v.set(bx_ + 2, 1, bz_, DARKLOG)
+    for x in range(bx_ - 1, bx_ + 3):
+        v.set(x, 3, bz_, SPRUCE)
     # dead trees
-    for tx, tz in ((2, S - 3), (S - 3, 4)):
-        h = r.randrange(3, 5)
+    for tx, tz in ((3, S - 4), (S - 4, S - 7), (S - 3, 11)):
+        h = r.randrange(3, 6)
         for y in range(1, h + 1):
             v.set(tx, y, tz, DARKLOG)
         v.set(tx, h + 1, tz, "minecraft:dark_oak_fence")

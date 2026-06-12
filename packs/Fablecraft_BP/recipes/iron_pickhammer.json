@@ -1,0 +1,33 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "fc:craft_iron_pickhammer"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "XXX",
+      " S ",
+      " S "
+    ],
+    "key": {
+      "X": {
+        "item": "minecraft:iron_ingot"
+      },
+      "S": {
+        "item": "minecraft:stick"
+      }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:iron_ingot"
+      }
+    ],
+    "result": {
+      "item": "fc:iron_pickhammer",
+      "count": 1
+    }
+  }
+}

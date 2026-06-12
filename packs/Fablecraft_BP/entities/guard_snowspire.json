@@ -7,6 +7,34 @@
       "is_summonable": true,
       "spawn_category": "creature"
     },
+    "component_groups": {
+      "fc:hostile": {
+        "minecraft:behavior.nearest_attackable_target": {
+          "priority": 1,
+          "must_see": false,
+          "reselect_targets": true,
+          "within_radius": 24.0,
+          "entity_types": [
+            {
+              "filters": {
+                "test": "is_family",
+                "subject": "other",
+                "value": "player"
+              },
+              "max_dist": 24
+            },
+            {
+              "filters": {
+                "test": "is_family",
+                "subject": "other",
+                "value": "monster"
+              },
+              "max_dist": 20
+            }
+          ]
+        }
+      }
+    },
     "components": {
       "minecraft:type_family": {
         "family": [
@@ -83,6 +111,22 @@
         "look_distance": 8.0
       },
       "minecraft:persistent": {}
+    },
+    "events": {
+      "fc:turn_hostile": {
+        "add": {
+          "component_groups": [
+            "fc:hostile"
+          ]
+        }
+      },
+      "fc:calm": {
+        "remove": {
+          "component_groups": [
+            "fc:hostile"
+          ]
+        }
+      }
     }
   }
 }

@@ -1,0 +1,33 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "fc:craft_obsidian_cleaver"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "XX",
+      "XX",
+      " S"
+    ],
+    "key": {
+      "X": {
+        "item": "fc:obsidian_ingot"
+      },
+      "S": {
+        "item": "minecraft:stick"
+      }
+    },
+    "unlock": [
+      {
+        "item": "fc:obsidian_ingot"
+      }
+    ],
+    "result": {
+      "item": "fc:obsidian_cleaver",
+      "count": 1
+    }
+  }
+}

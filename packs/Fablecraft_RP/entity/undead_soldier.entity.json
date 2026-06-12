@@ -1,0 +1,40 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "fc:undead_soldier",
+      "materials": {
+        "default": "entity_alphatest",
+        "ghost": "entity_alphablend"
+      },
+      "textures": {
+        "default": "textures/entity/undead_soldier"
+      },
+      "geometry": {
+        "default": "geometry.fc.undead_soldier"
+      },
+      "animations": {
+        "walk": "animation.fc.biped.walk",
+        "idle": "animation.fc.biped.idle",
+        "attack": "animation.fc.biped.attack",
+        "gesture": "animation.fc.biped.gesture",
+        "bow": "animation.fc.biped.bow",
+        "ctrl_move": "controller.animation.fc.biped_move",
+        "ctrl_attack": "controller.animation.fc.attack"
+      },
+      "scripts": {
+        "animate": [
+          "ctrl_move",
+          "ctrl_attack"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.fc_default"
+      ],
+      "spawn_egg": {
+        "base_color": "#ccc8b2",
+        "overlay_color": "#222222"
+      }
+    }
+  }
+}

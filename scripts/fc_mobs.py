@@ -415,6 +415,60 @@ def plan_jack():
     return parts
 
 
+def plan_twinblade():
+    """Twinblade, the Bandit King: a mountain of a man in dark-red leather,
+    spiked pauldrons, pale fur collar, plaited beard, eyepatch — and the two
+    great blades crossed on his back that earned the name."""
+    hip, tw, th, td = 13, 14, 14, 7
+    shoulder, top = hip + th - 2, hip + th
+    parts = [
+        {"name": "leg_r", "pivot": [-4, hip, 0], "rot": [0, 0, 0],
+         "cubes": [_cube([-7, 0, -2.5], [5, 13, 5]),
+                   _cube([-7, 0, -2.5], [5, 5, 5], inflate=0.4)],
+         "cube_roles": {1: "boots"}, "role": "cloth", "decor": []},
+        {"name": "leg_l", "pivot": [4, hip, 0], "rot": [0, 0, 0],
+         "cubes": [_cube([2, 0, -2.5], [5, 13, 5]),
+                   _cube([2, 0, -2.5], [5, 5, 5], inflate=0.4)],
+         "cube_roles": {1: "boots"}, "role": "cloth", "decor": []},
+        {"name": "body", "pivot": [0, hip, 0], "rot": [0, 0, 0],
+         "cubes": [_cube([-7, hip, -3.5], [tw, th, td]),
+                   _cube([-7, hip + 1, -3.5], [tw, 3, td], inflate=0.45)],
+         "cube_roles": {1: "belt"}, "role": "cloth", "decor": ["straps"]},
+        {"name": "collar", "pivot": [0, shoulder, 0], "rot": [0, 0, 0], "parent": "body",
+         "cubes": [_cube([-8, shoulder - 1, -4.5], [16, 4, 9], inflate=0.3)],
+         "role": "fur", "decor": []},
+        {"name": "pauldron_r", "pivot": [-8, shoulder, 0], "rot": [0, 0, 8], "parent": "body",
+         "cubes": [_cube([-13, shoulder - 2, -4], [6, 5, 8]),
+                   _cube([-12, shoulder + 3, -2], [2, 3, 2]),
+                   _cube([-10, shoulder + 3, 0], [2, 3, 2])],
+         "cube_roles": {1: "horn", 2: "horn"}, "role": "metal", "decor": ["spikes"]},
+        {"name": "pauldron_l", "pivot": [8, shoulder, 0], "rot": [0, 0, -8], "parent": "body",
+         "cubes": [_cube([7, shoulder - 2, -4], [6, 5, 8]),
+                   _cube([10, shoulder + 3, -2], [2, 3, 2]),
+                   _cube([8, shoulder + 3, 0], [2, 3, 2])],
+         "cube_roles": {1: "horn", 2: "horn"}, "role": "metal", "decor": ["spikes"]},
+        {"name": "arm_r", "pivot": [-8, shoulder, 0], "rot": [0, 0, 4],
+         "cubes": [_cube([-13, 12, -2.5], [5, 13, 5]),
+                   _cube([-13, 12, -2.5], [5, 4, 5], inflate=0.35)],
+         "cube_roles": {1: "metal"}, "role": "skin", "decor": []},
+        {"name": "arm_l", "pivot": [8, shoulder, 0], "rot": [0, 0, -4],
+         "cubes": [_cube([8, 12, -2.5], [5, 13, 5]),
+                   _cube([8, 12, -2.5], [5, 4, 5], inflate=0.35)],
+         "cube_roles": {1: "metal"}, "role": "skin", "decor": []},
+        {"name": "head", "pivot": [0, top, 0], "rot": [0, 0, 0],
+         "cubes": [_cube([-4.5, top, -4.5], [9, 9, 9]),
+                   _cube([-4.5, top + 5, -4.5], [9, 4, 9], inflate=0.3),
+                   _cube([-3, top - 4, -5.5], [6, 6, 2])],
+         "cube_roles": {1: "hair", 2: "hair"}, "role": "skin",
+         "decor": ["twinblade_face"]},
+        {"name": "blade_r", "pivot": [0, shoulder - 4, 4], "rot": [0, 0, 26], "parent": "body",
+         "cubes": [_cube([-1, hip + 2, 3.6], [2, 17, 1])], "role": "metal", "decor": []},
+        {"name": "blade_l", "pivot": [0, shoulder - 4, 4], "rot": [0, 0, -26], "parent": "body",
+         "cubes": [_cube([-1, hip + 2, 4.7], [2, 17, 1])], "role": "metal", "decor": []},
+    ]
+    return parts
+
+
 def plan_demon_door():
     """The carved living face of a Demon Door. Both eyes protrude further
     than the nose so the whole face reads from any angle."""
@@ -437,7 +491,7 @@ def plan_demon_door():
          "cubes": [_cube([-3, 17, -6, ], [6, 12, 2.5])],
          "role": "rock", "decor": []},
         {"name": "jaw", "pivot": [0, 10, -1], "rot": [0, 0, 0],
-         "cubes": [_cube([-10, 4, -7], [20, 11, 4])],
+         "cubes": [_cube([-11, 2, -8], [22, 14, 5])],
          "role": "rock", "decor": ["door_mouth"]},
     ]
 
@@ -454,7 +508,10 @@ PAL = {
     "hobbe_scout": {"skin": (120, 130, 86), "cloth": (70, 76, 60), "glowcol": (230, 200, 80)},
     "bandit": {"skin": (196, 154, 116), "cloth": (94, 60, 48), "metal": (130, 130, 140), "boots": (72, 50, 34), "belt": (44, 34, 26), "glowcol": (255, 220, 150)},
     "bandit_archer": {"skin": (186, 148, 112), "cloth": (62, 72, 52), "metal": (120, 120, 130), "boots": (58, 54, 42), "belt": (40, 36, 30), "glowcol": (255, 220, 150)},
+    "twinblade": {"skin": (190, 144, 104), "cloth": (116, 46, 38), "metal": (148, 142, 148), "fur": (212, 198, 180), "hair": (52, 40, 32), "horn": (208, 198, 182), "boots": (58, 40, 30), "belt": (40, 30, 24), "glowcol": (255, 200, 120)},
     "undead": {"skin": (148, 158, 132), "bone": (208, 206, 186), "cloth": (78, 84, 70), "glowcol": (140, 240, 170)},
+    "undead_soldier": {"bone": (204, 200, 178), "cloth": (96, 86, 66), "metal": (124, 98, 78), "tabard": (122, 108, 82), "crest": (70, 60, 46), "belt": (50, 42, 34), "glowcol": (140, 240, 170)},
+    "undead_knight": {"bone": (200, 196, 176), "cloth": (70, 64, 56), "metal": (98, 86, 76), "belt": (46, 38, 32), "glowcol": (140, 240, 170)},
     "wasp": {"chitin": (212, 168, 52), "dark": (52, 44, 30), "wing": (220, 230, 240), "glowcol": (255, 230, 120)},
     "wasp_queen": {"chitin": (230, 150, 40), "dark": (60, 30, 24), "wing": (235, 220, 245), "glowcol": (255, 200, 90)},
     "beetle": {"chitin": (124, 138, 84), "dark": (54, 60, 38), "glowcol": (200, 235, 140)},
@@ -479,13 +536,13 @@ PAL = {
     "barkeep": {"skin": (210, 170, 132), "cloth": (90, 60, 40), "boots": (64, 46, 32), "belt": (54, 40, 28), "glowcol": (255, 230, 170)},
     "guildmaster": {"skin": (190, 158, 128), "cloth": (70, 80, 120), "metal": (180, 170, 130), "hair": (176, 174, 168), "boots": (58, 56, 78), "belt": (52, 40, 30), "glowcol": (180, 220, 255)},
     "maze": {"skin": (216, 186, 152), "cloth": (58, 122, 130), "cape": (96, 60, 130), "metal": (208, 172, 88), "hair": (228, 226, 220), "boots": (46, 34, 56), "belt": (190, 156, 78), "glowcol": (120, 220, 255)},
-    "theresa": {"skin": (188, 152, 122), "cloth": (140, 40, 40), "hair": (88, 58, 38), "boots": (98, 48, 40), "glowcol": (255, 160, 160)},
+    "theresa": {"skin": (192, 156, 124), "cloth": (126, 30, 34), "cape": (88, 24, 28), "hair": (70, 48, 34), "boots": (58, 36, 32), "belt": (168, 134, 70), "glowcol": (255, 160, 160)},
     "lady_grey": {"skin": (214, 178, 144), "cloth": (90, 96, 110), "metal": (220, 200, 140), "hair": (208, 178, 116), "boots": (152, 152, 164), "belt": (180, 160, 110), "glowcol": (220, 220, 255)},
     "oracle": {"ghost": (130, 170, 190), "glowcol": (150, 230, 255)},
     "briar_rose": {"skin": (200, 160, 126), "cloth": (120, 40, 60), "hair": (140, 72, 48), "boots": (126, 66, 44), "belt": (58, 42, 28), "glowcol": (255, 180, 200)},
     "mercenary": {"skin": (192, 152, 118), "cloth": (80, 70, 60), "metal": (140, 140, 150), "boots": (92, 90, 96), "belt": (48, 36, 26), "glowcol": (255, 230, 170)},
     "nymph": {"glow": (150, 230, 200), "wing": (210, 245, 235), "glowcol": (180, 255, 220)},
-    "demon_door": {"rock": (120, 116, 110), "glowcol": (255, 190, 90)},
+    "demon_door": {"rock": (120, 116, 110), "glowcol": (210, 205, 192)},
 }
 
 # ---------------------------------------------------------------------------
@@ -533,12 +590,33 @@ MOBS = [
      "spawn": {"biomes": ["plains", "savanna", "extreme_hills", "mesa"], "night": False, "weight": 10, "herd": [1, 2]},
      "drops": [("fc:gold_coin", 2, 5, 1.0), ("fc:yew_longbow", 1, 1, 0.1)],
      "scale": 1.0},
+    {"id": "twinblade", "name": "Twinblade", "plan": ("twinblade", {}),
+     "behavior": "boss_melee", "hp": 280, "dmg": 13, "speed": 0.3,
+     "family": ["monster", "fc_twinblade", "fc_boss"],
+     "spawn": None,
+     "drops": [("fc:gold_coin", 10, 30, 1.0), ("fc:steel_greatsword", 1, 1, 0.5),
+               ("fc:obsidian_longsword", 1, 1, 0.3), ("fc:ages_of_might_potion", 1, 1, 0.4)],
+     "scale": 1.5, "knockback": True},
     {"id": "undead", "name": "Hollow Man", "plan": ("humanoid", {"roles": {"body": "bone", "arms": "bone", "legs": "bone", "head": "bone"},
                                                                  "decor": {"head": ["skull_face"], "body": ["ribs"]}, "hunch": 12}),
      "behavior": "melee", "hp": 22, "dmg": 5, "speed": 0.24, "family": ["monster", "undead", "fc_undead", "fc_supernatural"],
      "spawn": {"biomes": ["swamp", "plains", "roofed"], "night": True, "weight": 20, "herd": [2, 4]},
      "drops": [("fc:ectoplasm", 0, 2, 0.6), ("fc:gold_coin", 0, 3, 0.5)],
      "scale": 1.0, "poison": True},
+    {"id": "undead_soldier", "name": "Hollow Soldier", "plan": ("humanoid", {"helmet": True, "belt": True, "hunch": 8,
+                                                                             "roles": {"body": "cloth", "arms": "bone", "legs": "bone", "head": "bone"},
+                                                                             "decor": {"head": ["skull_face"], "body": ["tabard", "tatters"]}}),
+     "behavior": "melee", "hp": 30, "dmg": 6, "speed": 0.26, "family": ["monster", "undead", "fc_undead", "fc_supernatural"],
+     "spawn": {"biomes": ["swamp", "roofed"], "night": True, "weight": 9, "herd": [1, 3]},
+     "drops": [("fc:ectoplasm", 0, 2, 0.6), ("fc:iron_longsword", 1, 1, 0.12), ("fc:gold_coin", 0, 4, 0.5)],
+     "scale": 1.0, "poison": True},
+    {"id": "undead_knight", "name": "Hollow Knight", "plan": ("humanoid", {"helmet": True, "pauldrons": True, "belt": True, "hunch": 5,
+                                                                            "roles": {"body": "metal", "arms": "metal", "legs": "metal", "head": "bone"},
+                                                                            "decor": {"head": ["skull_face"], "body": ["plates"]}}),
+     "behavior": "melee", "hp": 44, "dmg": 8, "speed": 0.22, "family": ["monster", "undead", "fc_undead", "fc_supernatural"],
+     "spawn": {"biomes": ["swamp", "roofed"], "night": True, "weight": 5, "herd": [1, 2]},
+     "drops": [("fc:ectoplasm", 1, 3, 0.8), ("fc:steel_longsword", 1, 1, 0.15), ("fc:gold_coin", 1, 5, 0.6)],
+     "scale": 1.05, "poison": True},
     {"id": "wasp", "name": "Wasp", "plan": ("wasp", {}),
      "behavior": "flying", "hp": 10, "dmg": 3, "speed": 0.6, "family": ["monster", "fc_wasp", "arthropod"],
      "spawn": {"biomes": ["forest", "plains", "flower"], "night": False, "weight": 22, "herd": [2, 6]},
@@ -654,8 +732,9 @@ MOBS = [
                                                          "decor": {"head": ["maze_face"], "body": ["runes"], "cape": ["trim"]}}),
      "behavior": "npc", "hp": 120, "dmg": 1, "speed": 0.3, "family": ["fc_maze", "fc_friendly"],
      "spawn": None, "drops": [], "scale": 1.08, "dialogue": "maze"},
-    {"id": "theresa", "name": "Theresa", "plan": ("humanoid", {"hair": "long", "cape": True, "skirt": True, "boots": True,
-                                                               "decor": {"head": ["blindfold_face"], "body": []}}),
+    {"id": "theresa", "name": "Theresa", "plan": ("humanoid", {"hat": "hood", "cape": True, "skirt": True, "boots": True, "belt": True,
+                                                               "roles": {"cape": "cape"},
+                                                               "decor": {"head": ["theresa_face"], "body": ["theresa_robe"], "cape": ["trim"]}}),
      "behavior": "npc", "hp": 100, "dmg": 1, "speed": 0.3, "family": ["fc_theresa", "fc_friendly"],
      "spawn": None, "drops": [], "scale": 0.98, "dialogue": "theresa"},
     {"id": "lady_grey", "name": "Lady Grey", "plan": ("humanoid", {"hair": "long", "skirt": True, "boots": True, "belt": True,
@@ -706,6 +785,7 @@ PLAN_BUILDERS = {
     "dragon": plan_dragon,
     "nymph": plan_nymph,
     "jack": plan_jack,
+    "twinblade": plan_twinblade,
     "demon_door": plan_demon_door,
 }
 

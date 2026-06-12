@@ -29,6 +29,11 @@ const P = {
 const XP_KEYS = { general: "fc_xp_general", strength: "fc_xp_strength", skill: "fc_xp_skill", will: "fc_xp_will" };
 const XP_COLOR = { general: "§a", strength: "§c", skill: "§9", will: "§e" };
 
+// Fable: The Lost Chapters menu dressing
+const FABLE_RULE = "§8════════════§6❦§8════════════";
+const FABLE_DOT = "§6❖ ";
+function fableTitle(t) { return `§8‹§6❦§8› §6§l${t}§r §8‹§6❦§8›`; }
+
 function giveXp(p, type, amount) {
   if (amount <= 0) return;
   const mult = 1 + Math.min(25, P.get(p, "fc_mult", 0)) * 0.08;
@@ -138,20 +143,32 @@ function placeGuildNear(p) {
   if (world.getDynamicProperty("fc_guild_placed")) return;
   const dim = p.dimension;
   const base = { x: Math.floor(p.location.x) + 16, y: 0, z: Math.floor(p.location.z) + 16 };
-  const y = groundY(dim, base.x + 12, base.z + 12);
+  const y = groundY(dim, base.x + 22, base.z + 20);
   if (y === null) return;
   try {
     world.structureManager.place("fc:guild_hall", dim, { x: base.x, y, z: base.z });
     world.setDynamicProperty("fc_guild_placed", true);
-    world.setDynamicProperty("fc_guild_loc", JSON.stringify({ x: base.x + 18, y, z: base.z + 22 }));
-    // Guildmaster presides over the Map Room tower; Maze in the west wing,
-    // Theresa by the dining hall, a trader in the forecourt.
-    trySpawn(dim, "fc:guildmaster", { x: base.x + 18, y: y + 1, z: base.z + 27 });
-    trySpawn(dim, "fc:maze", { x: base.x + 6, y: y + 1, z: base.z + 18 });
-    trySpawn(dim, "fc:theresa", { x: base.x + 30, y: y + 1, z: base.z + 18 });
-    trySpawn(dim, "fc:trader", { x: base.x + 24, y: y + 1, z: base.z + 5 });
-    world.sendMessage("§6⚔ The Heroes' Guild stands nearby. Seek the Guildmaster.");
-  } catch { /* chunk not ready; retried on next spawn */ }
+    // recall point: the nave; training yard + cullis gate flank the hall
+    world.setDynamicProperty("fc_guild_loc", JSON.stringify({ x: base.x + 22, y, z: base.z + 20 }));
+    world.setDynamicProperty("fc_guild_train", JSON.stringify({ x: base.x + 38, y, z: base.z + 22 }));
+    registerCullis("Heroes' Guild", { x: base.x + 6, y: y + 1, z: base.z + 20 });
+    // Guildmaster presides over the Map Room; Maze studies by the Cullis
+    // Gate; Theresa haunts the feast hall; a trader works the forecourt.
+    trySpawn(dim, "fc:guildmaster", { x: base.x + 22, y: y + 1, z: base.z + 33 });
+    trySpawn(dim, "fc:maze", { x: base.x + 9, y: y + 1, z: base.z + 20 });
+    trySpawn(dim, "fc:theresa", { x: base.x + 30, y: y + 1, z: base.z + 20 });
+    trySpawn(dim, "fc:trader", { x: base.x + 26, y: y + 1, z: base.z + 6 });
+    fillLootChests(dim, base.x, y, base.z, 45, 26, 41, "fc:guild_hall");
+    blendTerrain(dim, base.x, y, base.z, 45, 41);
+    // wake the new Hero inside the Guild forecourt
+    system.runTimeout(() => {
+      try {
+        p.teleport({ x: base.x + 22.5, y: y + 1, z: base.z + 6.5 },
+          { facingLocation: { x: base.x + 22.5, y: y + 2, z: base.z + 20 } });
+        p.sendMessage("§6⚔ You awaken at the Heroes' Guild. The Cullis Gate hums in the west yard; the Training Grounds wait in the east.");
+      } catch { }
+    }, 10);
+  } catch { /* chunk not ready; retried by the structure sweep */ }
 }
 
 function trySpawn(dim, type, loc) { try { return dim.spawnEntity(type, loc); } catch { return undefined; } }
@@ -236,6 +253,11 @@ world.afterEvents.entityDie.subscribe((ev) => {
     const it = heldItem(p);
     if (it && weaponAugments(it).includes("experience")) giveXp(p, "general", Math.round(xp * 0.5));
     questKill(p, fam, dead.typeId);
+    factionKillHooks(p, dead, fam);
+    dropOrbs(dead.dimension, dead.location, src, fam);
+  }
+  if (dead.typeId === "fc:twinblade") {
+    world.sendMessage("§6§l⚔ Twinblade has fallen. The camps whisper of a new power in Albion.");
   }
   // Jack of Blades: phase 2 — the Dragon
   if (dead.typeId === "fc:jack_of_blades") {
@@ -343,6 +365,15 @@ world.afterEvents.itemUse.subscribe((ev) => {
   }
   if (id === "fc:quest_card") return questBoard(p);
   if (id.startsWith("fc:spell_")) return castSpell(p, id.substring("fc:spell_".length));
+  if (ORB_XP[id]) {
+    const [type, amt] = ORB_XP[id];
+    removeItem(p, id, 1);
+    giveXp(p, type, amt);
+    p.playSound("random.orb", { pitch: 1.2 });
+    try { p.dimension.spawnParticle("minecraft:villager_happy", { x: p.location.x, y: p.location.y + 1.6, z: p.location.z }); } catch { }
+    p.onScreenDisplay.setActionBar(`${XP_COLOR[type]}✦ +${amt} ${type} experience absorbed`);
+    return;
+  }
   if (DATA.augments[id]) return applyAugment(p, it, DATA.augments[id]);
   if (id === "fc:augment_remover") return removeAugments(p);
   if (id === "fc:summoners_grimoire") return castSpell(p, "summon", true);
@@ -621,16 +652,22 @@ function ringParticles(dim, loc, r, particle) {
 // ---------------------------------------------------------------------------
 function heroMenu(p) {
   const f = new ActionFormData()
-    .title("§6Hero of Albion")
-    .body(`§7"${moralityTitle(p)}§7 — that is what they call you."`)
-    .button("§2Stats & Personality", "textures/items/guild_seal")
-    .button("§eQuests", "textures/items/quest_card")
-    .button("§cGuild Training (Upgrades)", "textures/items/health_augment")
-    .button("§9Will Powers", "textures/items/spell_fireball")
-    .button("§dTitles & Renown", "textures/items/gold_coin");
+    .title(fableTitle("Hero of Albion"))
+    .body([
+      FABLE_RULE,
+      `§7"${moralityTitle(p)}§7 — that is what they call you."`,
+      `§8Renown §d${P.get(p, "fc_renown", 0)}  §8·  Gold §6${countItem(p, "fc:gold_coin")}`,
+      FABLE_RULE,
+    ].join("\n"))
+    .button("§2❖ Stats & Personality", "textures/items/guild_seal")
+    .button("§e❖ Quests", "textures/items/quest_card")
+    .button("§c❖ Guild Training (Upgrades)", "textures/items/health_augment")
+    .button("§9❖ Will Powers", "textures/items/spell_fireball")
+    .button("§d❖ Titles & Renown", "textures/items/gold_coin")
+    .button("§b❖ Factions & Standing", "textures/items/wedding_ring");
   f.show(p).then((r) => {
     if (r.canceled) return;
-    [statsMenu, questMenu, trainMenu, spellMenu, titlesMenu][r.selection]?.(p);
+    [statsMenu, questMenu, trainMenu, spellMenu, titlesMenu, factionMenu][r.selection]?.(p);
   });
 }
 
@@ -648,22 +685,44 @@ function statsMenu(p) {
     return s;
   })();
   const lines = [
-    `§lAlignment§r  ${moralityTitle(p)} §7(${m})`,
+    FABLE_RULE,
+    `${FABLE_DOT}§lAlignment§r  ${moralityTitle(p)} §7(${m})`,
     morBar,
+    FABLE_RULE,
+    `§a ◈ General XP: §f${P.get(p, "fc_xp_general", 0)}`,
+    `§c ◈ Strength XP: §f${P.get(p, "fc_xp_strength", 0)}`,
+    `§9 ◈ Skill XP: §f${P.get(p, "fc_xp_skill", 0)}`,
+    `§e ◈ Will XP: §f${P.get(p, "fc_xp_will", 0)}`,
     "",
-    `§a General XP: §f${P.get(p, "fc_xp_general", 0)}`,
-    `§c Strength XP: §f${P.get(p, "fc_xp_strength", 0)}`,
-    `§9 Skill XP: §f${P.get(p, "fc_xp_skill", 0)}`,
-    `§e Will XP: §f${P.get(p, "fc_xp_will", 0)}`,
-    "",
-    `§b Will Energy: ${bar(willEnergy(p), maxWill(p), "§b")} §f${willEnergy(p)}/${maxWill(p)}`,
-    `§6 Combat Multiplier: §f${P.get(p, "fc_mult", 0)}`,
-    `§d Renown: §f${P.get(p, "fc_renown", 0)}`,
-    "",
-    "§7Upgrades:",
+    `§b ◈ Will Energy: ${bar(willEnergy(p), maxWill(p), "§b")} §f${willEnergy(p)}/${maxWill(p)}`,
+    `§6 ◈ Combat Multiplier: §f${P.get(p, "fc_mult", 0)}`,
+    `§d ◈ Renown: §f${P.get(p, "fc_renown", 0)}`,
+    FABLE_RULE,
+    "§7Guild disciplines:",
     ...Object.values(DATA.upgrades).map((u) => `  §f${u.name}: §6${"◆".repeat(P.get(p, `fc_up_${u.id}`, 0))}§8${"◇".repeat(u.max - P.get(p, `fc_up_${u.id}`, 0))}`),
   ];
-  new ActionFormData().title("§2Stats — Personality — Hero").body(lines.join("\n")).button("§8Back")
+  new ActionFormData().title(fableTitle("Stats · Personality")).body(lines.join("\n")).button("§8❖ Back")
+    .show(p).then((r) => { if (!r.canceled) heroMenu(p); });
+}
+
+function factionMenu(p) {
+  const rows = Object.entries(FACTION_NAMES).map(([f, name]) => {
+    const v = rep(p, f);
+    const tier = repTier(v);
+    const col = { hostile: "§4", wary: "§c", neutral: "§7", friendly: "§a", revered: "§6" }[tier];
+    return ` ${col}◈ ${name}: ${tier.toUpperCase()} §8(${v})`;
+  });
+  const body = [
+    FABLE_RULE,
+    "§7Albion keeps score. Guards, traders and barkeeps",
+    "§7all treat you by your standing.",
+    FABLE_RULE,
+    ...rows,
+    "",
+    "§8Defend towns and finish quests to rise.",
+    "§8Murder and banditry are... remembered.",
+  ].join("\n");
+  new ActionFormData().title(fableTitle("Factions")).body(body).button("§8❖ Back")
     .show(p).then((r) => { if (!r.canceled) heroMenu(p); });
 }
 
@@ -671,19 +730,23 @@ function trainMenu(p) {
   const guild = world.getDynamicProperty("fc_guild_loc");
   if (guild) {
     const g = JSON.parse(guild);
-    const d = Math.hypot(p.location.x - g.x, p.location.z - g.z);
-    if (d > 40) return p.sendMessage("§7You must stand in the Guild Map Room to train. (Sneak+use the Seal to recall.)");
+    const t = world.getDynamicProperty("fc_guild_train");
+    const tr = t ? JSON.parse(t) : g;
+    const d = Math.min(
+      Math.hypot(p.location.x - g.x, p.location.z - g.z),
+      Math.hypot(p.location.x - tr.x, p.location.z - tr.z));
+    if (d > 46) return p.sendMessage("§7Training happens at the Guild — the Training Grounds in the east yard, or the Map Room. (Sneak+use the Seal to recall.)");
   }
-  const f = new ActionFormData().title("§cGuild Training");
+  const f = new ActionFormData().title(fableTitle("Guild Training"));
   const ups = Object.values(DATA.upgrades);
   for (const u of ups) {
     const lvl = P.get(p, `fc_up_${u.id}`, 0);
     const cost = (lvl + 1) * 120;
     const xpKey = XP_KEYS[u.xp];
     const have = P.get(p, xpKey, 0);
-    f.button(`${XP_COLOR[u.xp]}${u.name} §8[${lvl}/${u.max}]\n§7${cost} ${u.xp} XP ${have >= cost ? "§a✔" : "§c✘"}`);
+    f.button(`${XP_COLOR[u.xp]}❖ ${u.name} §8[${lvl}/${u.max}]\n§7${cost} ${u.xp} XP ${have >= cost ? "§a✔" : "§c✘"}`);
   }
-  f.button("§8Back");
+  f.button("§8❖ Back");
   f.show(p).then((r) => {
     if (r.canceled) return;
     if (r.selection >= ups.length) return heroMenu(p);
@@ -717,16 +780,16 @@ function applyUpgrades(p) {
 }
 
 function spellMenu(p) {
-  const f = new ActionFormData().title("§9Will Powers");
+  const f = new ActionFormData().title(fableTitle("Will Powers"));
   const ids = Object.keys(DATA.spells);
   for (const id of ids) {
     const s = DATA.spells[id];
     const lvl = spellLevel(p, id);
     const owned = countItem(p, `fc:spell_${id}`) > 0;
     const alignTag = s.align > 0 ? " §e[Good]" : s.align < 0 ? " §5[Evil]" : "";
-    f.button(`${owned ? "§b" : "§8"}${s.name}${alignTag} §7Lv${lvl}\n§8${s.will} Will · upgrade: ${lvl * 150} Will XP`);
+    f.button(`${owned ? "§b❖ " : "§8❖ "}${s.name}${alignTag} §7Lv${lvl}\n§8${s.will} Will · upgrade: ${lvl * 150} Will XP`);
   }
-  f.button("§8Back");
+  f.button("§8❖ Back");
   f.show(p).then((r) => {
     if (r.canceled) return;
     if (r.selection >= ids.length) return heroMenu(p);
@@ -746,12 +809,13 @@ function spellMenu(p) {
 function titlesMenu(p) {
   const titles = P.getJ(p, "fc_titles", []);
   const body = [
+    FABLE_RULE,
     `§dRenown: §f${P.get(p, "fc_renown", 0)}`,
-    "",
+    FABLE_RULE,
     titles.length ? "§6Titles:" : "§7No titles yet. Albion barely knows your name.",
     ...titles.map((t) => ` §e✦ ${t}`),
   ].join("\n");
-  new ActionFormData().title("§dTitles & Renown").body(body).button("§8Back")
+  new ActionFormData().title(fableTitle("Titles & Renown")).body(body).button("§8❖ Back")
     .show(p).then((r) => { if (!r.canceled) heroMenu(p); });
 }
 
@@ -774,11 +838,11 @@ function questBoard(p) {
     return true;
   });
   if (!avail.length) return p.sendMessage("§7No quest cards remain. Albion sleeps soundly... for now.");
-  const f = new ActionFormData().title("§eQuest Cards — Map Room")
-    .body("§7Choose a contract, Hero. Renown and gold await.");
+  const f = new ActionFormData().title(fableTitle("Quest Cards"))
+    .body(`${FABLE_RULE}\n§7Choose a contract, Hero. Renown and gold await.\n${FABLE_RULE}`);
   for (const q of avail) {
     const tag = q.chain === "main" ? "§6[MAIN]" : q.chain === "side" ? "§a[SIDE]" : "§b[JOB]";
-    f.button(`${tag} §f${q.name}\n§7${q.giver} · ${q.renown} renown`);
+    f.button(`${tag} §f${q.name}\n§7${q.giver} · ${q.renown} renown`, "textures/items/quest_card");
   }
   f.show(p).then((r) => {
     if (r.canceled) return;
@@ -832,6 +896,7 @@ function completeQuest(p, q) {
   if (rw.title) addTitle(p, rw.title);
   const done = doneQuests(p); done.push(q.id); P.setJ(p, "fc_quests_done", done);
   P.set(p, "fc_quest", undefined);
+  addRep(p, "guild", Math.max(2, Math.round(q.renown / 50)));
   p.playSound("fc.level_up");
   p.dimension.spawnParticle("minecraft:totem_particle", p.location);
   p.onScreenDisplay.setTitle("§6Quest Complete", { fadeInDuration: 5, stayDuration: 50, fadeOutDuration: 15, subtitle: `§e${q.name}` });
@@ -873,6 +938,7 @@ system.runInterval(() => {
         fc_wasp_queen: "fc:wasp_queen", fc_white_balverine: "fc:white_balverine",
         fc_jack: "fc:jack_of_blades", fc_jack_dragon: "fc:jack_dragon",
         fc_troll: "fc:earth_troll", fc_banshee: "fc:banshee",
+        fc_twinblade: "fc:twinblade",
       };
       const type = bossMap[o.family];
       if (!type) return;
@@ -975,6 +1041,7 @@ function openDemonDoor(p, door, d) {
   p.playSound("fc.door_rumble", { volume: 0.9 });
   for (const it of d.reward.items) giveItem(p, it.id, it.count);
   giveXp(p, "general", d.reward.xp);
+  addRep(p, "guild", 5);
   addTitle(p, "Door-Speaker");
   p.onScreenDisplay.setTitle("§5Demon Door Opened", { fadeInDuration: 8, stayDuration: 60, fadeOutDuration: 15, subtitle: `§7${d.name}` });
 }
@@ -986,6 +1053,9 @@ const SHOP_STOCK = [
   { id: "fc:health_potion", cost: 2, label: "Health Potion" },
   { id: "fc:will_potion", cost: 2, label: "Will Potion" },
   { id: "fc:great_health_potion", cost: 8, label: "Great Health Potion" },
+  { id: "fc:steel_ingot", cost: 3, label: "Steel Ingot" },
+  { id: "fc:will_shard", cost: 6, label: "Will Shard" },
+  { id: "fc:obsidian_ingot", cost: 10, label: "Obsidian Ingot" },
   { id: "fc:steel_longsword", cost: 12, label: "Steel Longsword" },
   { id: "fc:steel_greatsword", cost: 16, label: "Steel Greatsword" },
   { id: "fc:yew_longbow", cost: 8, label: "Yew Longbow" },
@@ -1103,31 +1173,69 @@ function npcTalk(p, npc) {
         } else p.sendMessage("§7Mercenary: \"Twenty. Gold. Coins. Counting is free, Hero.\"");
       });
   } else if (t.startsWith("fc:guard_")) {
-    if (m <= -700) p.sendMessage("§cGuard: \"YOU! Don't move— GUARDS! GUARDS!\"");
-    else if (m <= -200) p.sendMessage('§cGuard: "I\'ve got my eye on you, scoundrel."');
+    const town = GUARD_TOWN[t];
+    const v = rep(p, town);
+    const tier = repTier(v);
+    if (tier === "hostile") p.sendMessage("§cGuard: \"YOU! Don't move— GUARDS! GUARDS!\"");
+    else if (tier === "wary" || m <= -200) p.sendMessage('§cGuard: "I\'ve got my eye on you, scoundrel."');
+    else if (tier === "revered") p.sendMessage(`§6Guard: "§o${FACTION_NAMES[town]} sleeps easy with you about, Hero. An honour.§r§6"`);
+    else if (tier === "friendly") p.sendMessage(`§9Guard: "Good to see a friend of ${FACTION_NAMES[town]}. Mind the Hobbes after dark."`);
     else p.sendMessage('§9Guard: "All quiet, Hero. Mind the Hobbes after dark."');
   } else if (t === "fc:villager_albion" || t === "fc:villager_woman" || t === "fc:villager_farmer") {
+    const town = VILLAGER_TOWN[t] ?? "bowerstone";
+    const tier = repTier(rep(p, town));
     const att = P.get(p, "fc_renown", 0);
-    const lines = m > 300 ? ["Bless you, Hero!", "It's really you! The kind one!", "My chickens adore you. As do we all."]
-      : m < -300 ? ["P-please don't hurt me.", "*backs away slowly*", "I saw nothing. NOTHING."]
+    const lines = tier === "hostile" || m < -300 ? ["P-please don't hurt me.", "*backs away slowly*", "I saw nothing. NOTHING."]
+      : tier === "revered" || m > 300 ? ["Bless you, Hero!", "It's really you! The kind one!", "My chickens adore you. As do we all."]
         : att > 500 ? ["You're that Hero from the songs!", "Sign my pitchfork?"]
           : ["Lovely weather, if the wasps don't carry you off.", "Buy a pie, they said. Adventure, they said.", "Have you seen my cousin? Tall, screams at beetles?"];
-    p.sendMessage(`§fVillager: §o"${lines[Math.floor(Math.random() * lines.length)]}"`);
+    new ActionFormData().title(fableTitle("Villager"))
+      .body(`§f§o"${lines[Math.floor(Math.random() * lines.length)]}"§r\n\n§8Standing with ${FACTION_NAMES[town]}: ${repTier(rep(p, town))}`)
+      .button("§6❖ Give 1 gold (charity)")
+      .button("§7❖ Ask for rumours")
+      .button("§8❖ Leave")
+      .show(p).then((r) => {
+        if (r.canceled || r.selection === 2) return;
+        if (r.selection === 0) {
+          if (removeItem(p, "fc:gold_coin", 1)) {
+            addRep(p, town, 2);
+            addMorality(p, 3);
+            p.playSound("random.orb");
+            p.sendMessage('§fVillager: §o"Avo bless you, kind one!"');
+          } else p.sendMessage("§7Your purse is empty.");
+        } else {
+          const rum = [
+            "Twinblade's lot camp behind a palisade of whole trees. Cowards.",
+            "They say azurite veins glow blue in the deep dark. Will made stone.",
+            "The Cullis Gates hum when a storm is coming. Or a Hero.",
+            "Hollow Men wear whatever armour they died in. Some died rich.",
+          ];
+          p.sendMessage(`§fVillager: §o"${rum[Math.floor(Math.random() * rum.length)]}"`);
+        }
+      });
   }
 }
 
 function shopMenu(p, title) {
-  const f = new ActionFormData().title(title)
-    .body(`§7Your gold: §6${countItem(p, "fc:gold_coin")} coins`)
-    .button("§aBUY").button("§eSELL trophies").button("§8Leave");
+  const tier = repTier(townAvgRep(p));
+  if (tier === "hostile") {
+    p.sendMessage('§cTrader: "I don\'t serve YOUR kind. Out, before I call the guards."');
+    return;
+  }
+  const mult = { wary: 1.15, neutral: 1.0, friendly: 0.9, revered: 0.8 }[tier] ?? 1.0;
+  const tierNote = { wary: "§c(wary — prices up 15%)", neutral: "", friendly: "§a(friendly — 10% off)", revered: "§6(revered — 20% off)" }[tier] ?? "";
+  const f = new ActionFormData().title(fableTitle(title.replace(/§./g, "")))
+    .body(`${FABLE_RULE}\n§7Your gold: §6${countItem(p, "fc:gold_coin")} coins ${tierNote}\n${FABLE_RULE}`)
+    .button("§a❖ BUY").button("§e❖ SELL trophies").button("§8❖ Leave");
   f.show(p).then((r) => {
     if (r.canceled || r.selection === 2) return;
     if (r.selection === 0) {
-      const b = new ActionFormData().title("§aBuy");
-      for (const s of SHOP_STOCK) b.button(`§f${s.label}\n§6${s.cost} gold`, `textures/items/${s.id.replace("fc:", "")}`);
+      const b = new ActionFormData().title(fableTitle("Buy"));
+      const priced = SHOP_STOCK.map((s) => ({ ...s, cost: Math.max(1, Math.round(s.cost * mult)) }));
+      for (const s of priced) b.button(`§f${s.label}\n§6${s.cost} gold`, `textures/items/${s.id.replace("fc:", "")}`);
       b.show(p).then((res) => {
         if (res.canceled) return;
-        const s = SHOP_STOCK[res.selection];
+        const s = priced[res.selection];
         if (removeItem(p, "fc:gold_coin", s.cost)) {
           giveItem(p, s.id, 1);
           p.playSound("mob.villager.yes");
@@ -1141,6 +1249,7 @@ function shopMenu(p, title) {
         if (n > 0) { removeItem(p, id, n); sold += n * price; }
       }
       if (sold > 0) {
+        sold = tier === "friendly" || tier === "revered" ? Math.round(sold * 1.1) : sold;
         giveItem(p, "fc:gold_coin", Math.min(64, sold));
         p.playSound("random.orb");
         p.sendMessage(`§6Sold your trophies for ${sold} gold.`);
@@ -1151,19 +1260,238 @@ function shopMenu(p, title) {
 }
 
 // ---------------------------------------------------------------------------
+// CULLIS GATES — Fable's fast-travel network (Guild gate + Focus Sites)
+// ---------------------------------------------------------------------------
+function registerCullis(name, loc) {
+  const sites = JSON.parse(world.getDynamicProperty("fc_cullis") ?? "[]");
+  if (sites.some((s) => s.name === name)) return;
+  sites.push({ name, x: Math.floor(loc.x), y: Math.floor(loc.y), z: Math.floor(loc.z) });
+  world.setDynamicProperty("fc_cullis", JSON.stringify(sites));
+}
+
+const cullisCd = new Map();
+system.runInterval(() => {
+  const sites = JSON.parse(world.getDynamicProperty("fc_cullis") ?? "[]");
+  if (!sites.length) return;
+  for (const p of world.getPlayers()) {
+    const near = sites.find((s) => Math.hypot(p.location.x - s.x, p.location.z - s.z) < 2.4
+      && Math.abs(p.location.y - s.y) < 4);
+    if (!near) continue;
+    if (!p.isSneaking) {
+      p.onScreenDisplay.setActionBar("§b◈ Cullis Gate §7— sneak to focus your Will and travel");
+      continue;
+    }
+    const last = cullisCd.get(p.id) ?? -9999;
+    if (TICKS() - last < 80) continue;
+    cullisCd.set(p.id, TICKS());
+    cullisTravel(p, sites, near);
+  }
+}, 20);
+
+function cullisTravel(p, sites, here) {
+  const others = sites.filter((s) => s.name !== here.name);
+  if (!others.length) {
+    return p.sendMessage("§7The Gate hums, but no sister-gates answer. Discover Focus Sites to expand the lattice.");
+  }
+  const f = new ActionFormData().title("§b◈ Cullis Gate")
+    .body(`${FABLE_RULE}\n§7The lattice of Albion bends to your Will.\n§7Standing at: §b${here.name}\n${FABLE_RULE}`);
+  for (const s of others) {
+    f.button(`§b${s.name}\n§8${Math.round(Math.hypot(p.location.x - s.x, p.location.z - s.z))}m distant`,
+      "textures/items/septimal_key");
+  }
+  f.show(p).then((r) => {
+    if (r.canceled) return;
+    const s = others[r.selection];
+    try { p.dimension.spawnParticle("minecraft:huge_explosion_emitter", p.location); } catch { }
+    p.playSound("fc.spell_cast", { pitch: 0.6 });
+    p.teleport({ x: s.x + 0.5, y: s.y + 1, z: s.z + 0.5 });
+    p.playSound("mob.endermen.portal");
+    p.onScreenDisplay.setTitle("§b◈", { fadeInDuration: 2, stayDuration: 16, fadeOutDuration: 8, subtitle: `§f${s.name}` });
+  });
+}
+
+// ---------------------------------------------------------------------------
+// FACTIONS — per-player reputation that NPCs actually care about
+// ---------------------------------------------------------------------------
+const FACTION_NAMES = {
+  guild: "The Heroes' Guild", bowerstone: "Bowerstone", oakvale: "Oakvale",
+  snowspire: "Snowspire", bandits: "Twinblade's Bandits",
+};
+function rep(p, f) { return P.get(p, `fc_rep_${f}`, 0); }
+function addRep(p, f, dv) {
+  if (!dv) return;
+  const v = Math.max(-200, Math.min(200, rep(p, f) + dv));
+  P.set(p, `fc_rep_${f}`, v);
+  if (Math.abs(dv) >= 5) {
+    p.sendMessage(`§7✦ ${FACTION_NAMES[f]}: ${dv > 0 ? "§a+" : "§c"}${dv} §7reputation (${v})`);
+  }
+}
+function repTier(v) {
+  return v <= -100 ? "hostile" : v < 0 ? "wary" : v < 50 ? "neutral" : v < 150 ? "friendly" : "revered";
+}
+function townAvgRep(p) {
+  return (rep(p, "bowerstone") + rep(p, "oakvale") + rep(p, "snowspire")) / 3;
+}
+const GUARD_TOWN = {
+  "fc:guard_bowerstone": "bowerstone", "fc:guard_oakvale": "oakvale",
+  "fc:guard_snowspire": "snowspire",
+};
+const VILLAGER_TOWN = {
+  "fc:villager_albion": "bowerstone", "fc:villager_farmer": "oakvale",
+  "fc:villager_woman": "snowspire",
+};
+
+function factionKillHooks(p, dead, fam) {
+  const t = dead.typeId;
+  if (fam === "fc_twinblade") {
+    addRep(p, "bandits", -40);
+    addRep(p, "bowerstone", 15); addRep(p, "oakvale", 15); addRep(p, "snowspire", 10);
+    addRep(p, "guild", 20);
+  } else if (fam === "fc_bandit") {
+    addRep(p, "bandits", -2);
+    addRep(p, "bowerstone", 1); addRep(p, "oakvale", 1);
+  } else if (fam === "fc_guard") {
+    const town = GUARD_TOWN[t];
+    if (town) addRep(p, town, -30);
+    for (const o of ["bowerstone", "oakvale", "snowspire"]) if (o !== town) addRep(p, o, -8);
+    addRep(p, "bandits", 6);
+    addRep(p, "guild", -10);
+  } else if (fam === "fc_villager" || fam === "fc_trader") {
+    const town = VILLAGER_TOWN[t] ?? "bowerstone";
+    addRep(p, town, -15);
+    for (const o of ["bowerstone", "oakvale", "snowspire"]) if (o !== town) addRep(p, o, -4);
+    addRep(p, "bandits", 3);
+  } else if (["fc_balverine", "fc_undead", "fc_troll", "fc_banshee", "fc_wraith"].includes(fam)) {
+    if (Math.random() < 0.25) addRep(p, "guild", 1);
+  }
+}
+
+// guards remember: infamous players get attacked on sight
+system.runInterval(() => {
+  for (const p of world.getPlayers()) {
+    for (const g of p.dimension.getEntities({ location: p.location, maxDistance: 18, families: ["fc_guard"] })) {
+      const town = GUARD_TOWN[g.typeId];
+      if (!town) continue;
+      try {
+        g.triggerEvent(rep(p, town) <= -100 ? "fc:turn_hostile" : "fc:calm");
+      } catch { }
+    }
+  }
+}, 100);
+
+// ---------------------------------------------------------------------------
+// EXPERIENCE ORBS — slain foes shed coloured essence (use to absorb)
+// ---------------------------------------------------------------------------
+function dropOrbs(dim, loc, src, fam) {
+  const boss = fam === "fc_boss" || fam === "fc_twinblade";
+  if (!boss && Math.random() > 0.35) return;
+  const ranged = !!src?.damagingProjectile;
+  const cause = src?.cause ?? "";
+  const magic = ["magic", "lightning", "wither", "fireTick", "fire"].includes(cause);
+  const typed = magic ? "fc:orb_will" : ranged ? "fc:orb_skill" : "fc:orb_strength";
+  try {
+    const n = boss ? 3 + Math.floor(Math.random() * 3) : 1;
+    dim.spawnItem(new ItemStack(typed, n), loc);
+    if (boss || Math.random() < 0.4) dim.spawnItem(new ItemStack("fc:orb_general", boss ? 2 : 1), loc);
+  } catch { }
+}
+
+const ORB_XP = {
+  "fc:orb_general": ["general", 60], "fc:orb_strength": ["strength", 60],
+  "fc:orb_skill": ["skill", 60], "fc:orb_will": ["will", 60],
+};
+
+// ---------------------------------------------------------------------------
 // World decoration: deterministic region structures
 // ---------------------------------------------------------------------------
 const REGION = 160;
 const STRUCTS = [
-  { id: "fc:demon_door_arch", w: 17, chance: 0.16, door: true },
+  { id: "fc:demon_door_arch", w: 23, chance: 0.16, door: true },
   { id: "fc:silver_chest_ruin", w: 13, chance: 0.34, loot: "ruin" },
-  { id: "fc:bandit_camp", w: 21, chance: 0.50, mobs: ["fc:bandit", "fc:bandit", "fc:bandit_archer"] },
-  { id: "fc:graveyard", w: 15, chance: 0.62, mobs: ["fc:undead", "fc:undead"] },
-  { id: "fc:focus_site", w: 13, chance: 0.70 },
+  { id: "fc:bandit_camp", w: 33, chance: 0.50, mobs: ["fc:bandit", "fc:bandit", "fc:bandit_archer", "fc:twinblade"] },
+  { id: "fc:graveyard", w: 25, chance: 0.62, mobs: ["fc:undead", "fc:undead_soldier", "fc:undead_knight"] },
+  { id: "fc:focus_site", w: 13, chance: 0.70, cullis: true },
   { id: "fc:temple_avo", w: 17, chance: 0.76 },
   { id: "fc:chapel_skorm", w: 15, chance: 0.82 },
   { id: "fc:arena_ring", w: 27, chance: 0.86, mobs: ["fc:hobbe", "fc:hobbe", "fc:beetle"] },
 ];
+
+// themed loot rolled into every chest found inside a placed structure
+const CHEST_LOOT = {
+  "fc:bandit_camp": [["fc:gold_coin", 4, 12, 1], ["fc:steel_longsword", 1, 1, 0.4],
+  ["fc:health_potion", 1, 2, 0.6], ["fc:golden_carrot_brew", 1, 3, 0.5],
+  ["fc:sharpening_augment", 1, 1, 0.15], ["fc:silver_key", 1, 1, 0.2],
+  ["fc:orb_strength", 1, 2, 0.4]],
+  "fc:graveyard": [["fc:ectoplasm", 2, 5, 1], ["fc:will_potion", 1, 2, 0.6],
+  ["fc:silver_key", 1, 1, 0.3], ["fc:banshees_tear", 1, 1, 0.2],
+  ["fc:orb_will", 1, 2, 0.5]],
+  "fc:silver_chest_ruin": [["fc:silver_key", 1, 2, 1], ["fc:gold_coin", 3, 10, 0.8],
+  ["fc:mana_augment", 1, 1, 0.2], ["fc:will_shard", 1, 2, 0.4]],
+  "fc:guild_hall": [["fc:health_potion", 1, 2, 1], ["fc:will_potion", 1, 2, 1],
+  ["fc:quest_card", 1, 1, 1], ["fc:steel_ingot", 2, 4, 0.7], ["fc:gold_coin", 3, 8, 0.6]],
+  "fc:arena_ring": [["fc:gold_coin", 6, 16, 1], ["fc:ages_of_skill_potion", 1, 1, 0.3],
+  ["fc:experience_augment", 1, 1, 0.2], ["fc:orb_skill", 1, 3, 0.5]],
+  "fc:temple_avo": [["fc:health_potion", 1, 2, 0.8], ["fc:elixir_of_life", 1, 1, 0.1]],
+  "fc:chapel_skorm": [["fc:will_potion", 1, 2, 0.8], ["fc:crunchy_chick", 1, 2, 0.5]],
+};
+
+function fillLootChests(dim, x0, y0, z0, w, h, d, themeId) {
+  const loot = CHEST_LOOT[themeId];
+  if (!loot) return;
+  const work = function* () {
+    for (let x = x0; x < x0 + w; x++) {
+      for (let z = z0; z < z0 + d; z++) {
+        for (let y = y0 - 1; y < y0 + h; y++) {
+          let b;
+          try { b = dim.getBlock({ x, y, z }); } catch { continue; }
+          if (!b || b.typeId !== "minecraft:chest") continue;
+          const cont = b.getComponent("minecraft:inventory")?.container;
+          if (!cont) continue;
+          for (const [id, lo, hi, chance] of loot) {
+            if (Math.random() > chance) continue;
+            const n = lo + Math.floor(Math.random() * (hi - lo + 1));
+            try { cont.addItem(new ItemStack(id, n)); } catch { }
+          }
+          yield;
+        }
+        yield;
+      }
+    }
+  };
+  try { system.runJob(work()); } catch { for (const _ of work()) { } }
+}
+
+function blendTerrain(dim, x0, y0, z0, w, d) {
+  // foundation skirt: fill below the structure rim so it meets the land
+  const work = function* () {
+    for (let x = x0 - 1; x <= x0 + w; x++) {
+      for (const z of [z0 - 1, z0 + d]) {
+        yield* skirtColumn(dim, x, y0, z);
+      }
+      yield;
+    }
+    for (let z = z0 - 1; z <= z0 + d; z++) {
+      for (const x of [x0 - 1, x0 + w]) {
+        yield* skirtColumn(dim, x, y0, z);
+      }
+      yield;
+    }
+  };
+  try { system.runJob(work()); } catch { /* skip blending if jobs unavailable */ }
+}
+
+function* skirtColumn(dim, x, yTop, z) {
+  for (let y = yTop - 1; y > yTop - 9; y--) {
+    let b;
+    try { b = dim.getBlock({ x, y, z }); } catch { return; }
+    if (!b) return;
+    if (!b.isAir && !b.isLiquid) return; // reached ground
+    try {
+      b.setType(Math.random() < 0.5 ? "minecraft:cobblestone" : "minecraft:dirt");
+    } catch { return; }
+    yield;
+  }
+}
 
 function hash2(x, z) {
   let h = (x * 374761393 + z * 668265263) ^ 1407;
@@ -1174,6 +1502,7 @@ function hash2(x, z) {
 
 system.runInterval(() => {
   for (const p of world.getPlayers()) {
+    if (!world.getDynamicProperty("fc_guild_placed")) placeGuildNear(p);
     const rx = Math.floor(p.location.x / REGION), rz = Math.floor(p.location.z / REGION);
     for (let dx = -1; dx <= 1; dx++) {
       for (let dz = -1; dz <= 1; dz++) {
@@ -1192,29 +1521,42 @@ function maybePlace(p, rx, rz) {
   if (!pick) { world.setDynamicProperty(key, 1); return; }
   const jx = Math.floor(hash2(rx * 7 + 1, rz) * (REGION - 40)) + 20;
   const jz = Math.floor(hash2(rx, rz * 7 + 1) * (REGION - 40)) + 20;
-  const x = rx * REGION + jx, z = rz * REGION + jz;
+  let x = rx * REGION + jx, z = rz * REGION + jz;
   const dx = x - p.location.x, dz = z - p.location.z;
   const dist = Math.hypot(dx, dz);
   if (dist > 96 || dist < 20) return; // wait until in sweet placement range
   const dim = p.dimension;
-  const y = groundY(dim, x, z);
+  // Demon Doors seek rising ground so the carved hillside meets a real slope
+  if (pick.door) {
+    let best = null, bestSlope = -1;
+    for (let probe = 0; probe < 6; probe++) {
+      const px = x + (probe % 3 - 1) * 14, pz = z + (Math.floor(probe / 3) - 0.5) * 28;
+      const fy = groundY(dim, px + 11, pz + 1);
+      const by = groundY(dim, px + 11, pz + 11);
+      if (fy === null || by === null) continue;
+      const slope = by - fy;
+      if (slope > bestSlope) { bestSlope = slope; best = { x: px, z: pz }; }
+    }
+    if (best) { x = Math.floor(best.x); z = Math.floor(best.z); }
+  }
+  const y = groundY(dim, x + Math.floor(pick.w / 2), z + Math.floor(pick.w / 2)) ?? groundY(dim, x, z);
   if (y === null) return;
   try {
     world.structureManager.place(pick.id, dim, { x, y: y - 1, z });
     world.setDynamicProperty(key, 1);
     if (pick.door) {
-      const door = trySpawn(dim, "fc:demon_door", { x: x + 8.5, y: y, z: z + 4.3 });
+      const door = trySpawn(dim, "fc:demon_door", { x: x + 11.5, y: y, z: z + 4.6 });
       if (door) doorPersona(door);
     }
+    if (pick.cullis) registerCullis(`Focus Site ${rx},${rz}`, { x: x + 6.5, y, z: z + 6.5 });
     for (const mtype of pick.mobs ?? []) {
-      trySpawn(dim, mtype, { x: x + 3 + Math.random() * 6, y: y + 1, z: z + 3 + Math.random() * 6 });
+      trySpawn(dim, mtype, { x: x + 5 + Math.random() * (pick.w - 10), y: y + 1, z: z + 5 + Math.random() * (pick.w - 10) });
     }
     if (pick.loot === "ruin") {
-      // silver key on the dais
-      const c = dim.getBlock({ x: x + 4, y: y + 2, z: z + 4 });
-      // chest fill omitted — players loot via key drop
       trySpawn(dim, "fc:wraith", { x: x + 4, y: y + 1, z: z + 6 });
     }
+    fillLootChests(dim, x, y - 1, z, pick.w, 28, pick.w, pick.id);
+    blendTerrain(dim, x, y - 1, z, pick.w, pick.w);
   } catch { /* chunk edge; try next sweep */ }
 }
 

@@ -1,0 +1,33 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "fc:craft_obsidian_mace"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " X ",
+      "XXX",
+      " S "
+    ],
+    "key": {
+      "X": {
+        "item": "fc:obsidian_ingot"
+      },
+      "S": {
+        "item": "minecraft:stick"
+      }
+    },
+    "unlock": [
+      {
+        "item": "fc:obsidian_ingot"
+      }
+    ],
+    "result": {
+      "item": "fc:obsidian_mace",
+      "count": 1
+    }
+  }
+}

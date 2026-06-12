@@ -1,0 +1,33 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "fc:craft_apprentice_torso"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "X X",
+      "XYX",
+      "XXX"
+    ],
+    "key": {
+      "X": {
+        "item": "minecraft:white_wool"
+      },
+      "Y": {
+        "item": "minecraft:string"
+      }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:white_wool"
+      }
+    ],
+    "result": {
+      "item": "fc:apprentice_torso",
+      "count": 1
+    }
+  }
+}

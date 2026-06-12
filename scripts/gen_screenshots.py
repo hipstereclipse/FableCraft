@@ -261,7 +261,8 @@ MOOD = {
 MOB_MOOD = {
     "balverine": "forest", "white_balverine": "frost", "frost_balverine": "frost",
     "hobbe": "forest", "hobbe_scout": "forest", "bandit": "stone", "bandit_archer": "stone",
-    "undead": "swamp", "wasp": "forest", "wasp_queen": "fire", "beetle": "forest",
+    "twinblade": "fire", "undead": "swamp", "undead_soldier": "swamp", "undead_knight": "dark",
+    "wasp": "forest", "wasp_queen": "fire", "beetle": "forest",
     "earth_troll": "swamp", "ice_troll": "frost", "rock_giant": "fire",
     "summoner": "dark", "wraith": "dark", "banshee": "swamp", "minion": "fire",
     "arachanox": "dark", "assassin": "dark", "jack_of_blades": "fire",
@@ -367,6 +368,8 @@ BLOCK_COLORS = {
     "minecraft:red_sand": (172, 96, 50), "minecraft:white_wool": (234, 234, 230),
     "minecraft:blue_wool": (60, 80, 160), "minecraft:amethyst_block": (140, 100, 200),
     "minecraft:amethyst_cluster": (180, 140, 240),
+    "minecraft:fern": (92, 132, 72), "minecraft:tallgrass": (102, 142, 76),
+    "minecraft:dark_oak_leaves": (52, 82, 42),
 }
 
 GLOW_BLOCKS = {"minecraft:lantern", "minecraft:soul_lantern", "minecraft:sea_lantern",
@@ -499,6 +502,153 @@ def contact_sheet(images, cols, cell, title, path):
 
 
 # ---------------------------------------------------------------------------
+# Recipe cards
+# ---------------------------------------------------------------------------
+
+# simple colour chips + monograms for vanilla ingredients
+VANILLA_CHIPS = {
+    "minecraft:iron_ingot": ((178, 182, 192), "Fe"),
+    "minecraft:gold_ingot": ((248, 208, 92), "Au"),
+    "minecraft:gold_nugget": ((240, 200, 100), "au"),
+    "minecraft:gold_block": ((250, 214, 80), "AU"),
+    "minecraft:coal": ((48, 46, 44), "C"),
+    "minecraft:coal_block": ((34, 32, 30), "CC"),
+    "minecraft:stick": ((140, 104, 60), "/"),
+    "minecraft:string": ((228, 226, 220), "~"),
+    "minecraft:leather": ((164, 110, 62), "L"),
+    "minecraft:chain": ((128, 132, 140), "oo"),
+    "minecraft:obsidian": ((38, 28, 58), "Ob"),
+    "minecraft:white_wool": ((235, 235, 230), "W"),
+    "minecraft:black_wool": ((42, 40, 40), "W"),
+    "minecraft:blue_wool": ((64, 84, 168), "W"),
+    "minecraft:red_wool": ((164, 50, 46), "W"),
+    "minecraft:orange_wool": ((216, 130, 44), "W"),
+    "minecraft:purple_wool": ((128, 60, 152), "W"),
+    "minecraft:ink_sac": ((30, 32, 40), "Ink"),
+    "minecraft:fire_charge": ((240, 130, 40), "Fz"),
+    "minecraft:bone": ((226, 220, 200), "B"),
+    "minecraft:flint": ((70, 68, 66), "Fl"),
+    "minecraft:arrow": ((190, 186, 176), "➹"),
+    "minecraft:glass_bottle": ((196, 220, 230), "U"),
+    "minecraft:red_mushroom": ((196, 60, 50), "M"),
+    "minecraft:sugar": ((240, 240, 238), "S"),
+    "minecraft:wheat": ((212, 180, 94), "Wh"),
+    "minecraft:egg": ((238, 224, 196), "E"),
+    "minecraft:apple": ((210, 60, 50), "A"),
+    "minecraft:paper": ((240, 238, 230), "P"),
+    "minecraft:lapis_lazuli": ((48, 84, 188), "La"),
+    "minecraft:spruce_planks": ((114, 84, 50), "Pl"),
+    "minecraft:oak_planks": ((162, 130, 78), "Pl"),
+    "minecraft:dark_oak_planks": ((78, 56, 34), "Pl"),
+}
+
+
+def ingredient_icon(item_id, cell):
+    """Returns an RGBA tile for an ingredient: fc icons from the RP,
+    vanilla items as colour chips with monograms."""
+    tile = Image.new("RGBA", (cell, cell), (0, 0, 0, 0))
+    d = ImageDraw.Draw(tile)
+    if item_id.startswith("fc:"):
+        path = ITEM_TEX / f"{item_id[3:]}.png"
+        if path.exists():
+            ic = Image.open(path).convert("RGBA").resize((cell - 10, cell - 10), Image.NEAREST)
+            tile.alpha_composite(ic, (5, 5))
+            return tile
+    col, mono = VANILLA_CHIPS.get(item_id, ((150, 120, 160), "?"))
+    d.rounded_rectangle([6, 6, cell - 6, cell - 6], radius=10,
+                        fill=col + (255,), outline=(28, 22, 18, 255), width=2)
+    lum = 0.2126 * col[0] + 0.7152 * col[1] + 0.0722 * col[2]
+    ink = (24, 20, 16, 255) if lum > 120 else (235, 228, 210, 255)
+    d.text((cell / 2, cell / 2), mono, font=load_font(cell // 3), fill=ink, anchor="mm")
+    return tile
+
+
+# recipes worth a showcase card
+SHOWCASE_RECIPES = [
+    "steel_ingot", "obsidian_ingot", "master_ingot", "fc_stick",
+    "iron_longsword", "steel_greatsword", "obsidian_katana", "master_greathammer",
+    "ebony_longbow", "master_crossbow",
+    "platemail_torso", "archon_torso", "assassin_torso", "guard_bowerstone_torso",
+    "wizard_hat", "health_potion", "resurrection_phial",
+    "silver_augment", "flame_augment", "apple_pie",
+]
+
+
+def render_recipe_card(rec, items_by_id):
+    cell = 96
+    inner = Image.new("RGBA", (860, 560), (0, 0, 0, 0))
+    d = ImageDraw.Draw(inner)
+    gx0, gy0 = 120, 120
+    # slot grid background
+    for ry in range(3):
+        for rx_ in range(3):
+            x0 = gx0 + rx_ * (cell + 8)
+            y0 = gy0 + ry * (cell + 8)
+            d.rounded_rectangle([x0, y0, x0 + cell, y0 + cell], radius=8,
+                                fill=(30, 24, 20, 200), outline=(118, 94, 58, 255), width=2)
+    if rec["type"] == "shaped":
+        for ry, row in enumerate(rec["pattern"]):
+            for rx_, ch in enumerate(row):
+                if ch == " " or ch not in rec["key"]:
+                    continue
+                icon = ingredient_icon(rec["key"][ch], cell)
+                inner.alpha_composite(icon, (gx0 + rx_ * (cell + 8), gy0 + ry * (cell + 8)))
+    elif rec["type"] == "shapeless":
+        for i, ing in enumerate(rec["ingredients"][:9]):
+            rx_, ry = i % 3, i // 3
+            icon = ingredient_icon(ing, cell)
+            inner.alpha_composite(icon, (gx0 + rx_ * (cell + 8), gy0 + ry * (cell + 8)))
+    else:  # furnace
+        icon = ingredient_icon(rec["input"], cell)
+        inner.alpha_composite(icon, (gx0 + (cell + 8), gy0))
+        # drawn flame under the input slot
+        fx = gx0 + cell + 56
+        fy = gy0 + cell + 70
+        d.polygon([(fx, fy - 34), (fx - 22, fy + 14), (fx + 22, fy + 14)],
+                  fill=(244, 138, 42, 255))
+        d.polygon([(fx, fy - 14), (fx - 11, fy + 12), (fx + 11, fy + 12)],
+                  fill=(255, 214, 96, 255))
+        d.text((fx, fy + 44), "furnace",
+               font=load_font(26), fill=(220, 170, 110, 255), anchor="mm")
+    # arrow
+    ax = gx0 + 3 * (cell + 8) + 50
+    ay = gy0 + (cell + 8) * 1.5 - 6
+    d.line([ax, ay, ax + 90, ay], fill=(238, 218, 170, 255), width=8)
+    d.polygon([(ax + 90, ay - 18), (ax + 90, ay + 18), (ax + 122, ay)],
+              fill=(238, 218, 170, 255))
+    # result
+    res_id = rec["output"]
+    res_icon = ingredient_icon(res_id, 168)
+    rx0 = ax + 150
+    d.rounded_rectangle([rx0, ay - 84, rx0 + 168, ay + 84], radius=12,
+                        fill=(40, 32, 24, 220), outline=(196, 160, 92, 255), width=3)
+    inner.alpha_composite(res_icon, (rx0, int(ay) - 84))
+    if rec.get("count", 1) > 1:
+        d.text((rx0 + 150, ay + 58), f"x{rec['count']}", font=load_font(34),
+               fill=(255, 235, 180, 255), anchor="mm")
+    return inner
+
+
+def render_recipe_cards(items):
+    items_by_id = {f"fc:{i['id']}": i for i in items}
+    thumbs = []
+    all_recipes = {r["id"]: r for r in fc_data.build_recipes()}
+    for rid in SHOWCASE_RECIPES:
+        rec = all_recipes.get(rid)
+        if not rec:
+            continue
+        res = items_by_id.get(rec["output"])
+        title = res["name"] if res else rid.replace("_", " ").title()
+        kind = {"shaped": "Crafting Table", "shapeless": "Crafting Table (shapeless)",
+                "furnace": "Furnace Smelting"}[rec["type"]]
+        inner = render_recipe_card(rec, items_by_id)
+        card = frame_card(inner, title, f"Recipe · {kind}", "stone", size=(1000, 760))
+        card.convert("RGB").save(SHOTS / "recipes" / f"{rid}.png", quality=92)
+        thumbs.append((card, title))
+    return thumbs
+
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -514,7 +664,11 @@ def main():
     for mob in MOBS:
         quads = mob_quads(mob)
         mood = MOB_MOOD.get(mob["id"], "stone")
-        render = render_quads(quads, size=(860, 760))
+        if mob["id"] == "demon_door":
+            # near-frontal so the carved face (eyes + mouth) reads fully
+            render = render_quads(quads, size=(860, 760), yaw=math.pi - 0.22, pitch=0.12)
+        else:
+            render = render_quads(quads, size=(860, 760))
         sub = {
             "boss_melee": "Boss · Melee Titan", "flying_boss": "Boss · Airborne Terror",
             "melee": "Hostile · Melee", "ranged": "Hostile · Ranged", "caster": "Hostile · Will-user",
@@ -601,11 +755,11 @@ def main():
     for name, vox in captured.items():
         extra = None
         if name == "demon_door_arch":
-            # composite the living door face into the carved arch
+            # composite the living door face into the carved hillside arch
             dd = next(m for m in MOBS if m["id"] == "demon_door")
             dq = mob_quads(dd)
             s = 0.16  # model units -> blocks, slightly oversized to fill arch
-            ox, oy, oz = 8.5, 0.6, 4.55
+            ox, oy, oz = 11.5, 0.6, 5.5
             extra = [([(c[0] * s + ox, c[1] * s + oy, c[2] * s + oz) for c in corners],
                       tex, uvs, glow) for corners, tex, uvs, glow in dq]
         render = render_structure(vox, extra_quads=extra)
@@ -617,6 +771,11 @@ def main():
         audit_rows.append(("structure", title, m, letter, score, notes))
         struct_thumbs.append((card, title))
         print(f"  struct {name:22s} {letter} ({score})")
+
+    # ---- crafting recipe cards ----
+    (SHOTS / "recipes").mkdir(parents=True, exist_ok=True)
+    recipe_thumbs = render_recipe_cards(items)
+    print(f"  {len(recipe_thumbs)} recipe cards rendered")
 
     # ---- galleries ----
     contact_sheet(mob_thumbs, 5, 250, "FABLECRAFT — Bestiary of Albion",
@@ -630,6 +789,8 @@ def main():
                   SHOTS / "gallery" / "reliquary.png")
     contact_sheet(struct_thumbs, 3, 360, "FABLECRAFT — Places of Power",
                   SHOTS / "gallery" / "places.png")
+    contact_sheet(recipe_thumbs, 4, 300, "FABLECRAFT — The Forge of Albion",
+                  SHOTS / "gallery" / "forge.png")
     print("  galleries written")
 
     # ---- audit report ----

@@ -74,6 +74,9 @@ def emit_animations():
                     "leg_l": {"rotation": ["-math.cos(query.anim_time * 38) * 28 * query.modified_move_speed", 0, 0]},
                     "arm_r": {"rotation": ["-math.cos(query.anim_time * 38) * 24 * query.modified_move_speed", 0, 0]},
                     "arm_l": {"rotation": ["math.cos(query.anim_time * 38) * 24 * query.modified_move_speed", 0, 0]},
+                    "body": {"rotation": [0, 0, "math.cos(query.anim_time * 38) * 2 * query.modified_move_speed"],
+                              "position": [0, "math.abs(math.cos(query.anim_time * 19)) * 0.5 * query.modified_move_speed", 0]},
+                    "head": {"rotation": ["query.target_x_rotation", "query.target_y_rotation", 0]},
                 },
             },
             "animation.fc.biped.idle": {
@@ -81,13 +84,34 @@ def emit_animations():
                 "bones": {
                     "arm_r": {"rotation": ["math.sin(query.life_time * 67) * 2.5", 0, 2]},
                     "arm_l": {"rotation": ["-math.sin(query.life_time * 67) * 2.5", 0, -2]},
+                    "body": {"position": [0, "math.sin(query.life_time * 50) * 0.18", 0]},
                     "head": {"rotation": ["query.target_x_rotation", "query.target_y_rotation", 0]},
                 },
             },
             "animation.fc.biped.attack": {
                 "loop": True,
                 "bones": {
-                    "arm_r": {"rotation": ["query.attack_time > 0 ? (-110 * math.sin(query.attack_time * 180)) : 0", 0, 0]},
+                    "arm_r": {"rotation": ["-130 * math.sin(query.attack_time * 180)", "-8 * math.sin(query.attack_time * 180)", 0]},
+                    "arm_l": {"rotation": ["-20 * math.sin(query.attack_time * 180)", 0, 0]},
+                    "body": {"rotation": ["6 * math.sin(query.attack_time * 180)", "-10 * math.sin(query.attack_time * 180)", 0]},
+                },
+            },
+            "animation.fc.biped.gesture": {
+                "loop": True,
+                "bones": {
+                    "arm_r": {"rotation": ["-46 + math.sin(query.life_time * 160) * 14", 0,
+                                            "10 + math.sin(query.life_time * 90) * 6"]},
+                    "arm_l": {"rotation": ["-12 + math.sin(query.life_time * 130) * 8", 0, -6]},
+                    "head": {"rotation": ["math.sin(query.life_time * 140) * 6",
+                                           "query.target_y_rotation", 0]},
+                    "body": {"rotation": [0, "math.sin(query.life_time * 70) * 3", 0]},
+                },
+            },
+            "animation.fc.biped.bow": {
+                "loop": True,
+                "bones": {
+                    "arm_r": {"rotation": ["-90 + query.target_x_rotation", "query.target_y_rotation - 12", 0]},
+                    "arm_l": {"rotation": ["-86 + query.target_x_rotation", "query.target_y_rotation + 14", 0]},
                 },
             },
             "animation.fc.quadruped.walk": {
@@ -156,12 +180,63 @@ def emit_animations():
     write_json(RP / "animations" / "fc_shared.animation.json", anims)
 
 
+def emit_animation_controllers():
+    """State machines: idle<->walk blending, attack overlay, NPC gestures."""
+    ctrl = {
+        "format_version": "1.10.0",
+        "animation_controllers": {
+            "controller.animation.fc.biped_move": {
+                "initial_state": "idle",
+                "states": {
+                    "idle": {"animations": ["idle"], "blend_transition": 0.25,
+                             "transitions": [{"walk": "query.modified_move_speed > 0.04"}]},
+                    "walk": {"animations": ["walk"], "blend_transition": 0.2,
+                             "transitions": [{"idle": "query.modified_move_speed <= 0.04"}]},
+                },
+            },
+            "controller.animation.fc.attack": {
+                "initial_state": "calm",
+                "states": {
+                    "calm": {"transitions": [{"strike": "query.attack_time > 0.0"}]},
+                    "strike": {"animations": ["attack"], "blend_transition": 0.1,
+                               "transitions": [{"calm": "query.attack_time <= 0.0"}]},
+                },
+            },
+            "controller.animation.fc.gesture": {
+                "initial_state": "quiet",
+                "states": {
+                    "quiet": {"transitions": [
+                        {"chat": "math.mod(query.life_time, 16) < 4 && query.modified_move_speed < 0.04"}]},
+                    "chat": {"animations": ["gesture"], "blend_transition": 0.4,
+                             "transitions": [
+                                 {"quiet": "math.mod(query.life_time, 16) >= 4 || query.modified_move_speed >= 0.04"}]},
+                },
+            },
+            "controller.animation.fc.ranged": {
+                "initial_state": "calm",
+                "states": {
+                    "calm": {"transitions": [{"aim": "query.has_target"}]},
+                    "aim": {"animations": ["bow"], "blend_transition": 0.2,
+                            "transitions": [{"calm": "!query.has_target"}]},
+                },
+            },
+        },
+    }
+    write_json(RP / "animation_controllers" / "fc.animation_controllers.json", ctrl)
+
+
 PLAN_ANIMS = {
     "humanoid": [("walk", "animation.fc.biped.walk"), ("idle", "animation.fc.biped.idle"),
-                 ("attack", "animation.fc.biped.attack")],
-    "hobbe": [("walk", "animation.fc.biped.walk"), ("idle", "animation.fc.biped.idle")],
-    "balverine": [("walk", "animation.fc.quadruped.walk"), ("idle", "animation.fc.biped.idle")],
-    "troll": [("walk", "animation.fc.biped.walk"), ("idle", "animation.fc.biped.idle")],
+                 ("attack", "animation.fc.biped.attack"), ("gesture", "animation.fc.biped.gesture"),
+                 ("bow", "animation.fc.biped.bow")],
+    "hobbe": [("walk", "animation.fc.biped.walk"), ("idle", "animation.fc.biped.idle"),
+              ("attack", "animation.fc.biped.attack")],
+    "twinblade": [("walk", "animation.fc.biped.walk"), ("idle", "animation.fc.biped.idle"),
+                  ("attack", "animation.fc.biped.attack")],
+    "balverine": [("walk", "animation.fc.quadruped.walk"), ("idle", "animation.fc.biped.idle"),
+                  ("attack", "animation.fc.biped.attack")],
+    "troll": [("walk", "animation.fc.biped.walk"), ("idle", "animation.fc.biped.idle"),
+              ("attack", "animation.fc.biped.attack")],
     "wasp": [("fly", "animation.fc.fly"), ("hover", "animation.fc.hover")],
     "beetle": [("walk", "animation.fc.scorpion.walk")],
     "wraith": [("float", "animation.fc.ghost.float")],
@@ -169,8 +244,13 @@ PLAN_ANIMS = {
     "scorpion": [("walk", "animation.fc.scorpion.walk")],
     "dragon": [("fly", "animation.fc.dragon.fly")],
     "nymph": [("fly", "animation.fc.fly"), ("hover", "animation.fc.hover")],
+    "jack": [("walk", "animation.fc.biped.walk"), ("idle", "animation.fc.biped.idle"),
+             ("attack", "animation.fc.biped.attack")],
     "demon_door": [("idle", "animation.fc.door.idle")],
 }
+
+# plans driven by the biped state machines instead of always-on layers
+BIPED_PLANS = {"humanoid", "hobbe", "twinblade", "jack", "troll", "balverine"}
 
 
 # ---------------------------------------------------------------------------
@@ -205,7 +285,20 @@ def emit_client_entity(mob):
     plan = mob["plan"][0]
     anims = PLAN_ANIMS.get(plan, PLAN_ANIMS["humanoid"])
     anim_map = {k: v for k, v in anims}
-    scripts = {"animate": [k for k, _ in anims]}
+    if plan in BIPED_PLANS:
+        # animation controllers: blended idle/walk + attack overlay (+NPC gestures)
+        anim_map["ctrl_move"] = "controller.animation.fc.biped_move"
+        anim_map["ctrl_attack"] = "controller.animation.fc.attack"
+        animate = ["ctrl_move", "ctrl_attack"]
+        if mob.get("behavior") == "npc":
+            anim_map["ctrl_gesture"] = "controller.animation.fc.gesture"
+            animate.append("ctrl_gesture")
+        if mob.get("behavior") == "ranged" and "bow" in anim_map:
+            anim_map["ctrl_ranged"] = "controller.animation.fc.ranged"
+            animate.append("ctrl_ranged")
+        scripts = {"animate": animate}
+    else:
+        scripts = {"animate": [k for k, _ in anims]}
     ghost = plan in GHOST_PLANS or eid == "oracle"
     material = "entity_alphatest"
     ce = {
@@ -248,6 +341,59 @@ def emit_item_atlas(items):
     write_json(RP / "textures" / "item_texture.json", atlas)
 
 
+def emit_terrain_atlas():
+    write_json(RP / "textures" / "terrain_texture.json", {
+        "resource_pack_name": "fablecraft",
+        "texture_name": "atlas.terrain",
+        "padding": 8, "num_mip_levels": 4,
+        "texture_data": {
+            "fc_azurite_ore": {"textures": "textures/blocks/azurite_ore"},
+        },
+    })
+    write_json(RP / "blocks.json", {
+        "format_version": "1.21.40",
+        "fc:azurite_ore": {"sound": "stone"},
+    })
+
+
+ARMOR_GEO = {
+    "helm": ("geometry.humanoid.armor.helmet", "variable.helmet_layer_visible", 1),
+    "torso": ("geometry.humanoid.armor.chest", "variable.chest_layer_visible", 1),
+    "legs": ("geometry.humanoid.armor.legs", "variable.leg_layer_visible", 2),
+    "boots": ("geometry.humanoid.armor.boots", "variable.boot_layer_visible", 1),
+}
+
+
+def emit_attachables(items):
+    """Visible worn armor: every fc armor piece renders on the player using
+    the painted layer textures."""
+    count = 0
+    for i in items:
+        if i["cat"] != "armor":
+            continue
+        geo, layer_var, layer_n = ARMOR_GEO[i["slot"]]
+        set_id = i["set"]
+        att = {
+            "format_version": FV_ATTACH,
+            "minecraft:attachable": {
+                "description": {
+                    "identifier": f"{NAMESPACE}:{i['id']}",
+                    "materials": {"default": "armor", "enchanted": "armor_enchanted"},
+                    "textures": {
+                        "default": f"textures/models/armor/fc_{set_id}_layer_{layer_n}",
+                        "enchanted": "textures/misc/enchanted_item_glint",
+                    },
+                    "geometry": {"default": geo},
+                    "scripts": {"parent_setup": f"{layer_var} = 0.0;"},
+                    "render_controllers": ["controller.render.armor"],
+                },
+            },
+        }
+        write_json(RP / "attachables" / f"{i['id']}.json", att)
+        count += 1
+    return count
+
+
 def emit_lang(items):
     lines = ["## Fablecraft: Reforged — generated lang", ""]
     for i in items:
@@ -269,10 +415,14 @@ def main():
         emit_geometry(mob)
         emit_client_entity(mob)
     emit_animations()
+    emit_animation_controllers()
     emit_render_controller()
     emit_item_atlas(items)
+    emit_terrain_atlas()
+    n_att = emit_attachables(items)
     emit_lang(items)
-    print(f"emitted RP: {len(MOBS)} geometries + client entities, atlas({len(items)}), lang")
+    print(f"emitted RP: {len(MOBS)} geometries + client entities, atlas({len(items)}), "
+          f"{n_att} armor attachables, anim controllers, lang")
 
 
 if __name__ == "__main__":

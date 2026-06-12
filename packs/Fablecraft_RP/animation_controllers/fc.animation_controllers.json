@@ -1,0 +1,101 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.fc.biped_move": {
+      "initial_state": "idle",
+      "states": {
+        "idle": {
+          "animations": [
+            "idle"
+          ],
+          "blend_transition": 0.25,
+          "transitions": [
+            {
+              "walk": "query.modified_move_speed > 0.04"
+            }
+          ]
+        },
+        "walk": {
+          "animations": [
+            "walk"
+          ],
+          "blend_transition": 0.2,
+          "transitions": [
+            {
+              "idle": "query.modified_move_speed <= 0.04"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.fc.attack": {
+      "initial_state": "calm",
+      "states": {
+        "calm": {
+          "transitions": [
+            {
+              "strike": "query.attack_time > 0.0"
+            }
+          ]
+        },
+        "strike": {
+          "animations": [
+            "attack"
+          ],
+          "blend_transition": 0.1,
+          "transitions": [
+            {
+              "calm": "query.attack_time <= 0.0"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.fc.gesture": {
+      "initial_state": "quiet",
+      "states": {
+        "quiet": {
+          "transitions": [
+            {
+              "chat": "math.mod(query.life_time, 16) < 4 && query.modified_move_speed < 0.04"
+            }
+          ]
+        },
+        "chat": {
+          "animations": [
+            "gesture"
+          ],
+          "blend_transition": 0.4,
+          "transitions": [
+            {
+              "quiet": "math.mod(query.life_time, 16) >= 4 || query.modified_move_speed >= 0.04"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.fc.ranged": {
+      "initial_state": "calm",
+      "states": {
+        "calm": {
+          "transitions": [
+            {
+              "aim": "query.has_target"
+            }
+          ]
+        },
+        "aim": {
+          "animations": [
+            "bow"
+          ],
+          "blend_transition": 0.2,
+          "transitions": [
+            {
+              "calm": "!query.has_target"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

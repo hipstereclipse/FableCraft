@@ -1,0 +1,29 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:block": {
+    "description": {
+      "identifier": "fc:azurite_ore",
+      "menu_category": {
+        "category": "nature"
+      }
+    },
+    "components": {
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 4.0
+      },
+      "minecraft:destructible_by_explosion": {
+        "explosion_resistance": 6
+      },
+      "minecraft:map_color": "#3F66B0",
+      "minecraft:light_dampening": 15,
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "fc_azurite_ore",
+          "render_method": "opaque"
+        }
+      },
+      "minecraft:loot": "loot_tables/blocks/azurite_ore.json"
+    }
+  }
+}

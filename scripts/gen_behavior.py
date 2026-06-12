@@ -320,6 +320,19 @@ def emit_entity(mob):
         comp["minecraft:behavior.hurt_by_target"] = {"priority": 1}
         comp["minecraft:behavior.random_stroll"] = {"priority": 6, "speed_multiplier": 0.7}
         comp["minecraft:behavior.look_at_player"] = {"priority": 8, "look_distance": 8.0}
+        # faction system: guards turn on infamous players (driven by main.js)
+        cgroups["fc:hostile"] = {
+            "minecraft:behavior.nearest_attackable_target": {
+                "priority": 1, "must_see": False, "reselect_targets": True,
+                "within_radius": 24.0,
+                "entity_types": [
+                    {"filters": {"test": "is_family", "subject": "other", "value": "player"},
+                     "max_dist": 24},
+                    {"filters": {"test": "is_family", "subject": "other", "value": "monster"},
+                     "max_dist": 20}]},
+        }
+        events["fc:turn_hostile"] = {"add": {"component_groups": ["fc:hostile"]}}
+        events["fc:calm"] = {"remove": {"component_groups": ["fc:hostile"]}}
     elif behavior in ("ally",):
         comp["minecraft:behavior.nearest_attackable_target"] = {
             "priority": 2, "must_see": True, "within_radius": 18.0,
@@ -475,6 +488,119 @@ def emit_script_data():
                "export const DATA = " + json.dumps(data, indent=1) + ";\n")
 
 
+# ---------------------------------------------------------------------------
+# RECIPES + AZURITE ORE BLOCK
+# ---------------------------------------------------------------------------
+
+def emit_recipes():
+    recipes = fc_data.build_recipes()
+    for rec in recipes:
+        rid = rec["id"]
+        if rec["type"] == "shaped":
+            data = {
+                "format_version": "1.20.10",
+                "minecraft:recipe_shaped": {
+                    "description": {"identifier": f"{NAMESPACE}:craft_{rid}"},
+                    "tags": ["crafting_table"],
+                    "pattern": rec["pattern"],
+                    "key": {k: {"item": v} for k, v in rec["key"].items()},
+                    "unlock": [{"item": rec["unlock"]}],
+                    "result": {"item": rec["output"], "count": rec.get("count", 1)},
+                },
+            }
+        elif rec["type"] == "shapeless":
+            data = {
+                "format_version": "1.20.10",
+                "minecraft:recipe_shapeless": {
+                    "description": {"identifier": f"{NAMESPACE}:craft_{rid}"},
+                    "tags": ["crafting_table"],
+                    "ingredients": [{"item": i} for i in rec["ingredients"]],
+                    "unlock": [{"item": rec["unlock"]}],
+                    "result": {"item": rec["output"], "count": rec.get("count", 1)},
+                },
+            }
+        else:  # furnace
+            data = {
+                "format_version": "1.20.10",
+                "minecraft:recipe_furnace": {
+                    "description": {"identifier": f"{NAMESPACE}:smelt_{rid}"},
+                    "tags": ["furnace", "blast_furnace"],
+                    "input": rec["input"],
+                    "output": rec["output"],
+                },
+            }
+        write_json(BP / "recipes" / f"{rid}.json", data)
+    return len(recipes)
+
+
+def emit_azurite():
+    """Mineable azurite ore: drops Will Shards; veins seed underground."""
+    write_json(BP / "blocks" / "azurite_ore.json", {
+        "format_version": "1.21.0",
+        "minecraft:block": {
+            "description": {
+                "identifier": f"{NAMESPACE}:azurite_ore",
+                "menu_category": {"category": "nature"},
+            },
+            "components": {
+                "minecraft:destructible_by_mining": {"seconds_to_destroy": 4.0},
+                "minecraft:destructible_by_explosion": {"explosion_resistance": 6},
+                "minecraft:map_color": "#3F66B0",
+                "minecraft:light_dampening": 15,
+                "minecraft:geometry": "minecraft:geometry.full_block",
+                "minecraft:material_instances": {
+                    "*": {"texture": "fc_azurite_ore", "render_method": "opaque"}
+                },
+                "minecraft:loot": "loot_tables/blocks/azurite_ore.json",
+            },
+        },
+    })
+    write_json(BP / "loot_tables" / "blocks" / "azurite_ore.json", {
+        "pools": [{
+            "rolls": 1,
+            "entries": [{
+                "type": "item", "name": "fc:will_shard", "weight": 1,
+                "functions": [{"function": "set_count", "count": {"min": 1, "max": 3}}],
+            }],
+        }],
+    })
+    write_json(BP / "features" / "azurite_ore_feature.json", {
+        "format_version": "1.13.0",
+        "minecraft:ore_feature": {
+            "description": {"identifier": "fc:azurite_ore_feature"},
+            "count": 7,
+            "replace_rules": [
+                {"places_block": "fc:azurite_ore",
+                 "may_replace": ["minecraft:stone", "minecraft:deepslate",
+                                 "minecraft:granite", "minecraft:diorite",
+                                 "minecraft:andesite", "minecraft:tuff"]},
+            ],
+        },
+    })
+    write_json(BP / "feature_rules" / "azurite_placement.json", {
+        "format_version": "1.13.0",
+        "minecraft:feature_rules": {
+            "description": {
+                "identifier": "fc:azurite_placement",
+                "places_feature": "fc:azurite_ore_feature",
+            },
+            "conditions": {
+                "placement_pass": "underground_pass",
+                "minecraft:biome_filter": [
+                    {"test": "has_biome_tag", "operator": "==", "value": "overworld"},
+                ],
+            },
+            "distribution": {
+                "iterations": 9,
+                "coordinate_eval_order": "zyx",
+                "x": {"distribution": "uniform", "extent": [0, 16]},
+                "z": {"distribution": "uniform", "extent": [0, 16]},
+                "y": {"distribution": "uniform", "extent": [4, 54]},
+            },
+        },
+    })
+
+
 def main():
     items = fc_data.all_items()
     for item in items:
@@ -492,7 +618,10 @@ def main():
         emit_loot(mob)
         emit_spawn_rules(mob)
     emit_script_data()
-    print(f"emitted {len(items)} items, {len(MOBS)} entities + loot + spawn rules")
+    n_rec = emit_recipes()
+    emit_azurite()
+    print(f"emitted {len(items)} items, {len(MOBS)} entities + loot + spawn rules, "
+          f"{n_rec} recipes, azurite ore (block+feature)")
 
 
 if __name__ == "__main__":

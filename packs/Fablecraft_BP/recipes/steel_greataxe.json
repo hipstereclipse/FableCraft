@@ -1,0 +1,33 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "fc:craft_steel_greataxe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "XXX",
+      "XSX",
+      " S "
+    ],
+    "key": {
+      "X": {
+        "item": "fc:steel_ingot"
+      },
+      "S": {
+        "item": "minecraft:stick"
+      }
+    },
+    "unlock": [
+      {
+        "item": "fc:steel_ingot"
+      }
+    ],
+    "result": {
+      "item": "fc:steel_greataxe",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "fc:craft_steel_ingot"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:iron_ingot"
+      },
+      {
+        "item": "minecraft:iron_ingot"
+      },
+      {
+        "item": "minecraft:coal"
+      }
+    ],
+    "unlock": [
+      {
+        "item": "minecraft:iron_ingot"
+      }
+    ],
+    "result": {
+      "item": "fc:steel_ingot",
+      "count": 1
+    }
+  }
+}

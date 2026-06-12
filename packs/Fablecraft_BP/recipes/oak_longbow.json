@@ -1,0 +1,36 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "fc:craft_oak_longbow"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " PT",
+      "PAT",
+      " PT"
+    ],
+    "key": {
+      "P": {
+        "item": "minecraft:oak_planks"
+      },
+      "T": {
+        "item": "minecraft:string"
+      },
+      "A": {
+        "item": "fc:steel_ingot"
+      }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:oak_planks"
+      }
+    ],
+    "result": {
+      "item": "fc:oak_longbow",
+      "count": 1
+    }
+  }
+}

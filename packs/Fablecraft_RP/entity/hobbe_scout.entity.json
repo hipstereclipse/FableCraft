@@ -15,12 +15,15 @@
       },
       "animations": {
         "walk": "animation.fc.biped.walk",
-        "idle": "animation.fc.biped.idle"
+        "idle": "animation.fc.biped.idle",
+        "attack": "animation.fc.biped.attack",
+        "ctrl_move": "controller.animation.fc.biped_move",
+        "ctrl_attack": "controller.animation.fc.attack"
       },
       "scripts": {
         "animate": [
-          "walk",
-          "idle"
+          "ctrl_move",
+          "ctrl_attack"
         ],
         "scale": "0.8"
       },

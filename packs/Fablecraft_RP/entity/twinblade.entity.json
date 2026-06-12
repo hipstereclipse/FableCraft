@@ -1,0 +1,39 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "fc:twinblade",
+      "materials": {
+        "default": "entity_alphatest",
+        "ghost": "entity_alphablend"
+      },
+      "textures": {
+        "default": "textures/entity/twinblade"
+      },
+      "geometry": {
+        "default": "geometry.fc.twinblade"
+      },
+      "animations": {
+        "walk": "animation.fc.biped.walk",
+        "idle": "animation.fc.biped.idle",
+        "attack": "animation.fc.biped.attack",
+        "ctrl_move": "controller.animation.fc.biped_move",
+        "ctrl_attack": "controller.animation.fc.attack"
+      },
+      "scripts": {
+        "animate": [
+          "ctrl_move",
+          "ctrl_attack"
+        ],
+        "scale": "1.5"
+      },
+      "render_controllers": [
+        "controller.render.fc_default"
+      ],
+      "spawn_egg": {
+        "base_color": "#be9068",
+        "overlay_color": "#222222"
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "fc:craft_master_greataxe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "XXX",
+      "XSX",
+      " S "
+    ],
+    "key": {
+      "X": {
+        "item": "fc:master_ingot"
+      },
+      "S": {
+        "item": "minecraft:stick"
+      }
+    },
+    "unlock": [
+      {
+        "item": "fc:master_ingot"
+      }
+    ],
+    "result": {
+      "item": "fc:master_greataxe",
+      "count": 1
+    }
+  }
+}

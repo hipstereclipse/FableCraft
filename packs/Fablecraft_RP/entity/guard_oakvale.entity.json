@@ -16,13 +16,16 @@
       "animations": {
         "walk": "animation.fc.biped.walk",
         "idle": "animation.fc.biped.idle",
-        "attack": "animation.fc.biped.attack"
+        "attack": "animation.fc.biped.attack",
+        "gesture": "animation.fc.biped.gesture",
+        "bow": "animation.fc.biped.bow",
+        "ctrl_move": "controller.animation.fc.biped_move",
+        "ctrl_attack": "controller.animation.fc.attack"
       },
       "scripts": {
         "animate": [
-          "walk",
-          "idle",
-          "attack"
+          "ctrl_move",
+          "ctrl_attack"
         ],
         "scale": "1.05"
       },

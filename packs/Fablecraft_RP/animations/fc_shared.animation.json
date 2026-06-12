@@ -32,6 +32,25 @@
             0,
             0
           ]
+        },
+        "body": {
+          "rotation": [
+            0,
+            0,
+            "math.cos(query.anim_time * 38) * 2 * query.modified_move_speed"
+          ],
+          "position": [
+            0,
+            "math.abs(math.cos(query.anim_time * 19)) * 0.5 * query.modified_move_speed",
+            0
+          ]
+        },
+        "head": {
+          "rotation": [
+            "query.target_x_rotation",
+            "query.target_y_rotation",
+            0
+          ]
         }
       }
     },
@@ -52,6 +71,13 @@
             -2
           ]
         },
+        "body": {
+          "position": [
+            0,
+            "math.sin(query.life_time * 50) * 0.18",
+            0
+          ]
+        },
         "head": {
           "rotation": [
             "query.target_x_rotation",
@@ -66,8 +92,74 @@
       "bones": {
         "arm_r": {
           "rotation": [
-            "query.attack_time > 0 ? (-110 * math.sin(query.attack_time * 180)) : 0",
+            "-130 * math.sin(query.attack_time * 180)",
+            "-8 * math.sin(query.attack_time * 180)",
+            0
+          ]
+        },
+        "arm_l": {
+          "rotation": [
+            "-20 * math.sin(query.attack_time * 180)",
             0,
+            0
+          ]
+        },
+        "body": {
+          "rotation": [
+            "6 * math.sin(query.attack_time * 180)",
+            "-10 * math.sin(query.attack_time * 180)",
+            0
+          ]
+        }
+      }
+    },
+    "animation.fc.biped.gesture": {
+      "loop": true,
+      "bones": {
+        "arm_r": {
+          "rotation": [
+            "-46 + math.sin(query.life_time * 160) * 14",
+            0,
+            "10 + math.sin(query.life_time * 90) * 6"
+          ]
+        },
+        "arm_l": {
+          "rotation": [
+            "-12 + math.sin(query.life_time * 130) * 8",
+            0,
+            -6
+          ]
+        },
+        "head": {
+          "rotation": [
+            "math.sin(query.life_time * 140) * 6",
+            "query.target_y_rotation",
+            0
+          ]
+        },
+        "body": {
+          "rotation": [
+            0,
+            "math.sin(query.life_time * 70) * 3",
+            0
+          ]
+        }
+      }
+    },
+    "animation.fc.biped.bow": {
+      "loop": true,
+      "bones": {
+        "arm_r": {
+          "rotation": [
+            "-90 + query.target_x_rotation",
+            "query.target_y_rotation - 12",
+            0
+          ]
+        },
+        "arm_l": {
+          "rotation": [
+            "-86 + query.target_x_rotation",
+            "query.target_y_rotation + 14",
             0
           ]
         }

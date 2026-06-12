@@ -1,0 +1,28 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "fc:craft_lightning_augment"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "fc:will_shard"
+      },
+      {
+        "item": "fc:banshees_tear"
+      }
+    ],
+    "unlock": [
+      {
+        "item": "fc:will_shard"
+      }
+    ],
+    "result": {
+      "item": "fc:lightning_augment",
+      "count": 1
+    }
+  }
+}

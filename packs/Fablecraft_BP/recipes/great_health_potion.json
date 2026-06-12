@@ -1,0 +1,31 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "fc:craft_great_health_potion"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "fc:health_potion"
+      },
+      {
+        "item": "fc:health_potion"
+      },
+      {
+        "item": "minecraft:gold_ingot"
+      }
+    ],
+    "unlock": [
+      {
+        "item": "fc:health_potion"
+      }
+    ],
+    "result": {
+      "item": "fc:great_health_potion",
+      "count": 1
+    }
+  }
+}

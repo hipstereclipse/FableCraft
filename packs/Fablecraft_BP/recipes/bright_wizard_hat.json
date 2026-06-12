@@ -1,0 +1,32 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "fc:craft_bright_wizard_hat"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "XYX",
+      "X X"
+    ],
+    "key": {
+      "X": {
+        "item": "minecraft:white_wool"
+      },
+      "Y": {
+        "item": "minecraft:gold_nugget"
+      }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:white_wool"
+      }
+    ],
+    "result": {
+      "item": "fc:bright_wizard_hat",
+      "count": 1
+    }
+  }
+}

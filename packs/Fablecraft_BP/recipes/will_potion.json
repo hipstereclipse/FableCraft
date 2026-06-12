@@ -1,0 +1,31 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "fc:craft_will_potion"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:glass_bottle"
+      },
+      {
+        "item": "minecraft:lapis_lazuli"
+      },
+      {
+        "item": "minecraft:sugar"
+      }
+    ],
+    "unlock": [
+      {
+        "item": "minecraft:glass_bottle"
+      }
+    ],
+    "result": {
+      "item": "fc:will_potion",
+      "count": 1
+    }
+  }
+}

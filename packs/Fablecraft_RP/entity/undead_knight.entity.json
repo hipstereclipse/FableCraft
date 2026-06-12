@@ -1,0 +1,41 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "fc:undead_knight",
+      "materials": {
+        "default": "entity_alphatest",
+        "ghost": "entity_alphablend"
+      },
+      "textures": {
+        "default": "textures/entity/undead_knight"
+      },
+      "geometry": {
+        "default": "geometry.fc.undead_knight"
+      },
+      "animations": {
+        "walk": "animation.fc.biped.walk",
+        "idle": "animation.fc.biped.idle",
+        "attack": "animation.fc.biped.attack",
+        "gesture": "animation.fc.biped.gesture",
+        "bow": "animation.fc.biped.bow",
+        "ctrl_move": "controller.animation.fc.biped_move",
+        "ctrl_attack": "controller.animation.fc.attack"
+      },
+      "scripts": {
+        "animate": [
+          "ctrl_move",
+          "ctrl_attack"
+        ],
+        "scale": "1.05"
+      },
+      "render_controllers": [
+        "controller.render.fc_default"
+      ],
+      "spawn_egg": {
+        "base_color": "#c8c4b0",
+        "overlay_color": "#222222"
+      }
+    }
+  }
+}

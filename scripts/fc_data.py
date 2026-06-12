@@ -367,6 +367,32 @@ MISC_ITEMS = [
     {"id": "jack_of_blades_mask", "name": "Mask of Jack of Blades", "kind": "mask", "stack": 1,
      "color": (190, 40, 40), "value": 66666,
      "desc": "It whispers. Do not listen."},
+    # --- smithing materials (mined / smelted / forged) ---
+    {"id": "steel_ingot", "name": "Steel Ingot", "kind": "ingot", "stack": 64,
+     "color": (176, 182, 194), "value": 60,
+     "desc": "Iron folded twice over guild coals. Craft: 2 Iron Ingots + Coal."},
+    {"id": "obsidian_ingot", "name": "Obsidian Ingot", "kind": "ingot", "stack": 64,
+     "color": (74, 58, 110), "value": 280,
+     "desc": "Volcanic glass drawn molten from the furnace. Smelt an Obsidian block."},
+    {"id": "master_ingot", "name": "Master Ingot", "kind": "ingot", "stack": 64,
+     "color": (235, 224, 180), "value": 1500,
+     "desc": "Steel quenched in liquid Will. Craft: Steel Ingot + 2 Will Shards."},
+    {"id": "will_shard", "name": "Will Shard", "kind": "shard", "stack": 64,
+     "color": (90, 170, 250), "value": 120,
+     "desc": "Crystallised Will energy, mined from azurite veins deep underground."},
+    # --- experience orbs (Fable-style; use to absorb) ---
+    {"id": "orb_general", "name": "Experience Orb", "kind": "orb", "stack": 64,
+     "color": (110, 230, 110), "value": 50,
+     "desc": "A drifting green mote of experience. Use to absorb (+60 General XP)."},
+    {"id": "orb_strength", "name": "Strength Orb", "kind": "orb", "stack": 64,
+     "color": (235, 70, 60), "value": 50,
+     "desc": "Red battle-essence shed by slain foes. Use to absorb (+60 Strength XP)."},
+    {"id": "orb_skill", "name": "Skill Orb", "kind": "orb", "stack": 64,
+     "color": (240, 210, 70), "value": 50,
+     "desc": "Yellow finesse-essence from precise kills. Use to absorb (+60 Skill XP)."},
+    {"id": "orb_will", "name": "Will Orb", "kind": "orb", "stack": 64,
+     "color": (80, 130, 250), "value": 50,
+     "desc": "Blue arcane residue of spell-slain foes. Use to absorb (+60 Will XP)."},
 ]
 
 # ---------------------------------------------------------------------------
@@ -443,7 +469,7 @@ def upgrade_cost(level):
 # ---------------------------------------------------------------------------
 
 KILL_XP = {
-    "fc_wasp": 6, "fc_beetle": 4, "fc_hobbe": 12, "fc_bandit": 18,
+    "fc_wasp": 6, "fc_beetle": 4, "fc_hobbe": 12, "fc_twinblade": 400, "fc_bandit": 18,
     "fc_undead": 15, "fc_balverine": 35, "fc_frost_balverine": 80,
     "fc_troll": 120, "fc_wraith": 45, "fc_banshee": 60, "fc_minion": 30,
     "fc_summoner": 55, "fc_assassin": 50, "fc_boss": 400, "fc_guard": 10,
@@ -452,10 +478,22 @@ KILL_XP = {
 
 KILL_MORALITY = {
     "fc_balverine": 8, "fc_frost_balverine": 12, "fc_undead": 6,
-    "fc_wasp": 1, "fc_beetle": 0, "fc_hobbe": 3, "fc_bandit": 5,
+    "fc_wasp": 1, "fc_beetle": 0, "fc_hobbe": 3, "fc_twinblade": 25, "fc_bandit": 5,
     "fc_troll": 10, "fc_wraith": 6, "fc_banshee": 8, "fc_minion": 5,
     "fc_summoner": 6, "fc_assassin": 6, "fc_boss": 50,
     "fc_villager": -100, "fc_guard": -150, "fc_trader": -120, "fc_nymph": -20,
+}
+
+# ---------------------------------------------------------------------------
+# FACTIONS (reputation tracked per player in main.js)
+# ---------------------------------------------------------------------------
+
+FACTIONS = {
+    "guild": {"name": "The Heroes' Guild", "color": "§6"},
+    "bowerstone": {"name": "Bowerstone", "color": "§9"},
+    "oakvale": {"name": "Oakvale", "color": "§c"},
+    "snowspire": {"name": "Snowspire", "color": "§b"},
+    "bandits": {"name": "Twinblade's Bandits", "color": "§4"},
 }
 
 # ---------------------------------------------------------------------------
@@ -483,6 +521,7 @@ QUESTS = [
      "giver": "Guildmaster", "renown": 300,
      "desc": "Twinblade's camp shelters a seeress who knows your sister's fate. Cut your way to the truth.",
      "objectives": [{"type": "kill", "family": "fc_bandit", "count": 15, "label": "Defeat 15 of Twinblade's bandits"},
+                    {"type": "kill", "family": "fc_twinblade", "count": 1, "label": "Defeat Twinblade, the Bandit King"},
                     {"type": "collect", "item": "fc:quest_card", "count": 1, "label": "Recover the camp orders"}],
      "rewards": {"gold": 800, "xp": {"general": 500, "skill": 150}, "morality": 0,
                  "items": [{"id": "fc:obsidian_longsword", "count": 1}]},
@@ -645,6 +684,171 @@ DEMON_DOORS = [
      "reward": {"items": [{"id": "fc:solus_greatsword", "count": 1},
                           {"id": "fc:elixir_of_life", "count": 1}], "xp": 500}},
 ]
+
+# ---------------------------------------------------------------------------
+# CRAFTING RECIPES — every outfit, weapon and tool is obtainable.
+# Tiers: iron (vanilla) -> steel (folded iron) -> obsidian (smelted glass)
+#        -> master (steel quenched in Will).
+# ---------------------------------------------------------------------------
+
+INGOT_FOR = {
+    "iron": "minecraft:iron_ingot",
+    "steel": "fc:steel_ingot",
+    "obsidian": "fc:obsidian_ingot",
+    "master": "fc:master_ingot",
+}
+
+PLANK_FOR = {  # bow woods
+    "yew": "minecraft:spruce_planks",
+    "oak": "minecraft:oak_planks",
+    "ebony": "minecraft:dark_oak_planks",
+    "master": "minecraft:dark_oak_planks",
+}
+BOW_ACCENT = {  # tier accent binding the stave
+    "yew": "minecraft:string",
+    "oak": "fc:steel_ingot",
+    "ebony": "fc:obsidian_ingot",
+    "master": "fc:master_ingot",
+}
+
+WEAPON_PATTERNS = {
+    # X = material ingot, S = stick
+    "longsword":   ["X", "X", "S"],
+    "katana":      ["  X", " X ", "S  "],
+    "cleaver":     ["XX", "XX", " S"],
+    "axe":         ["XX", "XS", " S"],
+    "mace":        [" X ", "XXX", " S "],
+    "pickhammer":  ["XXX", " S ", " S "],
+    "greataxe":    ["XXX", "XSX", " S "],
+    "greatsword":  [" X ", " X ", "XSX"],
+    "greathammer": ["XXX", "XXX", " S "],
+}
+
+ARMOR_PATTERNS = {
+    "helm":  ["XXX", "X X"],
+    "torso": ["X X", "XYX", "XXX"],
+    "legs":  ["XXX", "X X", "X X"],
+    "boots": ["X X", "X X"],
+}
+
+# per-set crafting material (X) and chest accent (Y)
+ARMOR_MATERIALS = {
+    "apprentice":       ("minecraft:white_wool", "minecraft:string"),
+    "villager":         ("minecraft:leather", "minecraft:string"),
+    "leather_bright":   ("minecraft:leather", "minecraft:gold_nugget"),
+    "leather_dark":     ("minecraft:leather", "minecraft:ink_sac"),
+    "chainmail_bright": ("minecraft:chain", "minecraft:gold_nugget"),
+    "chainmail_dark":   ("minecraft:chain", "minecraft:ink_sac"),
+    "platemail":        ("fc:steel_ingot", "fc:steel_ingot"),
+    "guard_bowerstone": ("fc:steel_ingot", "minecraft:blue_wool"),
+    "guard_oakvale":    ("fc:steel_ingot", "minecraft:red_wool"),
+    "guard_snowspire":  ("fc:steel_ingot", "minecraft:orange_wool"),
+    "assassin":         ("minecraft:leather", "minecraft:black_wool"),
+    "fire_assassin":    ("minecraft:leather", "minecraft:fire_charge"),
+    "archon":           ("fc:master_ingot", "minecraft:gold_ingot"),
+}
+
+HAT_MATERIALS = {  # helm pattern with Y at crown centre: ["XYX", "X X"]
+    "holy_warrior_helm": ("fc:steel_ingot", "minecraft:gold_ingot"),
+    "demon_helm":        ("fc:obsidian_ingot", "minecraft:bone"),
+    "pimp_hat":          ("minecraft:purple_wool", "minecraft:gold_nugget"),
+    "wizard_hat":        ("minecraft:blue_wool", "fc:will_shard"),
+    "bright_wizard_hat": ("minecraft:white_wool", "minecraft:gold_nugget"),
+    "dark_wizard_hat":   ("minecraft:black_wool", "fc:will_shard"),
+}
+
+
+def build_recipes():
+    """Recipe records consumed by gen_behavior.emit_recipes."""
+    rec = []
+
+    def shaped(rid, pattern, key, out, count=1, unlock=None):
+        rec.append({"id": rid, "type": "shaped", "pattern": pattern, "key": key,
+                    "output": out, "count": count,
+                    "unlock": unlock or list(key.values())[0]})
+
+    def shapeless(rid, ingredients, out, count=1, unlock=None):
+        rec.append({"id": rid, "type": "shapeless", "ingredients": ingredients,
+                    "output": out, "count": count,
+                    "unlock": unlock or ingredients[0]})
+
+    def furnace(rid, inp, out):
+        rec.append({"id": rid, "type": "furnace", "input": inp, "output": out,
+                    "unlock": inp})
+
+    # --- smithing chain ---
+    shapeless("steel_ingot", ["minecraft:iron_ingot", "minecraft:iron_ingot",
+                              "minecraft:coal"], "fc:steel_ingot")
+    furnace("obsidian_ingot", "minecraft:obsidian", "fc:obsidian_ingot")
+    shapeless("master_ingot", ["fc:steel_ingot", "fc:will_shard", "fc:will_shard"],
+              "fc:master_ingot")
+    shapeless("fc_stick", ["minecraft:stick"], "fc:stick")
+
+    # --- melee weapons (every material x type) ---
+    for mat in MATERIALS:
+        ingot = INGOT_FOR[mat]
+        for wtype, pattern in WEAPON_PATTERNS.items():
+            shaped(f"{mat}_{wtype}", pattern,
+                   {"X": ingot, "S": "minecraft:stick"},
+                   f"fc:{mat}_{wtype}", unlock=ingot)
+    shaped("scimitar", ["  X", " X ", "S  "],
+           {"X": "fc:steel_ingot", "S": "minecraft:stick"}, "fc:scimitar")
+
+    # --- ranged ---
+    for mat in RANGED_MATERIALS:
+        plank, accent = PLANK_FOR[mat], BOW_ACCENT[mat]
+        shaped(f"{mat}_longbow", [" PT", "PAT", " PT"],
+               {"P": plank, "T": "minecraft:string", "A": accent},
+               f"fc:{mat}_longbow", unlock=plank)
+        shaped(f"{mat}_crossbow", ["PAP", "TST", " P "],
+               {"P": plank, "T": "minecraft:string", "A": accent,
+                "S": "minecraft:stick"},
+               f"fc:{mat}_crossbow", unlock=plank)
+
+    # --- armor sets ---
+    for set_id, (x, y) in ARMOR_MATERIALS.items():
+        for slot, pattern in ARMOR_PATTERNS.items():
+            key = {"X": x}
+            if "Y" in "".join(pattern):
+                key["Y"] = y
+            shaped(f"{set_id}_{slot}", pattern, key, f"fc:{set_id}_{slot}",
+                   unlock=x)
+    for hat_id, (x, y) in HAT_MATERIALS.items():
+        shaped(hat_id, ["XYX", "X X"], {"X": x, "Y": y}, f"fc:{hat_id}",
+               unlock=x)
+
+    # --- consumables ---
+    shapeless("health_potion", ["minecraft:glass_bottle", "minecraft:red_mushroom",
+                                "minecraft:sugar"], "fc:health_potion")
+    shapeless("will_potion", ["minecraft:glass_bottle", "minecraft:lapis_lazuli",
+                              "minecraft:sugar"], "fc:will_potion")
+    shapeless("great_health_potion", ["fc:health_potion", "fc:health_potion",
+                                      "minecraft:gold_ingot"], "fc:great_health_potion")
+    shapeless("great_will_potion", ["fc:will_potion", "fc:will_potion",
+                                    "fc:will_shard"], "fc:great_will_potion")
+    shapeless("apple_pie", ["minecraft:apple", "minecraft:sugar", "minecraft:wheat",
+                            "minecraft:wheat", "minecraft:egg"], "fc:apple_pie")
+    shapeless("resurrection_phial", ["minecraft:glass_bottle", "fc:will_shard",
+                                     "fc:ectoplasm", "minecraft:gold_block"],
+              "fc:resurrection_phial")
+
+    # --- augmentations (will shard binds a trophy into a gem) ---
+    AUG_RECIPES = {
+        "sharpening_augment": ["fc:will_shard", "minecraft:flint", "fc:steel_ingot"],
+        "piercing_augment":   ["fc:will_shard", "minecraft:arrow", "fc:obsidian_ingot"],
+        "health_augment":     ["fc:will_shard", "fc:troll_heart"],
+        "mana_augment":       ["fc:will_shard", "fc:ectoplasm", "fc:ectoplasm"],
+        "experience_augment": ["fc:will_shard", "fc:beetle_chitin", "minecraft:gold_ingot"],
+        "lightning_augment":  ["fc:will_shard", "fc:banshees_tear"],
+        "flame_augment":      ["fc:will_shard", "minecraft:coal_block", "minecraft:flint"],
+        "silver_augment":     ["fc:will_shard", "minecraft:iron_ingot", "fc:balverine_fang"],
+        "augment_remover":    ["fc:will_shard", "minecraft:paper", "fc:ectoplasm"],
+    }
+    for rid, ing in AUG_RECIPES.items():
+        shapeless(rid, ing, f"fc:{rid}")
+
+    return rec
+
 
 # ---------------------------------------------------------------------------
 # Convenience aggregations

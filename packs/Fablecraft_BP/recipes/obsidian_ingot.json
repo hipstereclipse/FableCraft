@@ -1,0 +1,14 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_furnace": {
+    "description": {
+      "identifier": "fc:smelt_obsidian_ingot"
+    },
+    "tags": [
+      "furnace",
+      "blast_furnace"
+    ],
+    "input": "minecraft:obsidian",
+    "output": "fc:obsidian_ingot"
+  }
+}

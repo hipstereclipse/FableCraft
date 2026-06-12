@@ -1,0 +1,36 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "fc:craft_master_longbow"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " PT",
+      "PAT",
+      " PT"
+    ],
+    "key": {
+      "P": {
+        "item": "minecraft:dark_oak_planks"
+      },
+      "T": {
+        "item": "minecraft:string"
+      },
+      "A": {
+        "item": "fc:master_ingot"
+      }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:dark_oak_planks"
+      }
+    ],
+    "result": {
+      "item": "fc:master_longbow",
+      "count": 1
+    }
+  }
+}

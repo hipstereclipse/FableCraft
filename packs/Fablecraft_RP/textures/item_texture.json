@@ -532,6 +532,30 @@
     },
     "jack_of_blades_mask": {
       "textures": "textures/items/jack_of_blades_mask"
+    },
+    "steel_ingot": {
+      "textures": "textures/items/steel_ingot"
+    },
+    "obsidian_ingot": {
+      "textures": "textures/items/obsidian_ingot"
+    },
+    "master_ingot": {
+      "textures": "textures/items/master_ingot"
+    },
+    "will_shard": {
+      "textures": "textures/items/will_shard"
+    },
+    "orb_general": {
+      "textures": "textures/items/orb_general"
+    },
+    "orb_strength": {
+      "textures": "textures/items/orb_strength"
+    },
+    "orb_skill": {
+      "textures": "textures/items/orb_skill"
+    },
+    "orb_will": {
+      "textures": "textures/items/orb_will"
     }
   }
 }

@@ -1,0 +1,31 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "fc:craft_augment_remover"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "fc:will_shard"
+      },
+      {
+        "item": "minecraft:paper"
+      },
+      {
+        "item": "fc:ectoplasm"
+      }
+    ],
+    "unlock": [
+      {
+        "item": "fc:will_shard"
+      }
+    ],
+    "result": {
+      "item": "fc:augment_remover",
+      "count": 1
+    }
+  }
+}

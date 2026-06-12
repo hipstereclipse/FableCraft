@@ -1310,6 +1310,43 @@ def paint_misc(item):
         paint_book(p, color, r)
     elif kind == "mask":
         paint_mask(p, color, r)
+    elif kind == "ingot":
+        c = color + (255,)
+        hi, dk = shade(c, 1.35), shade(c, 0.6)
+        # classic stacked ingot silhouette
+        p.rect(3, 8, 9, 4, c)
+        p.rect(2, 9, 9, 4, shade(c, 0.85))
+        p.rect(5, 5, 9, 4, shade(c, 1.05))
+        p.rect(5, 5, 9, 1, hi)
+        p.rect(3, 8, 9, 1, hi)
+        p.px(6, 6, (255, 255, 255, 200))
+        p.rect(2, 12, 9, 1, dk)
+        p.rect(13, 6, 1, 3, dk)
+    elif kind == "shard":
+        c = color + (255,)
+        # jagged azure crystal shard
+        p.line(8, 2, 5, 9, c, 2)
+        p.line(6, 9, 9, 13, shade(c, 0.8), 2)
+        p.line(9, 3, 11, 8, shade(c, 1.1), 1)
+        p.line(11, 8, 9, 12, shade(c, 0.7), 1)
+        p.px(7, 4, (255, 255, 255, 230))
+        p.px(6, 6, shade(c, 1.4))
+        p.px(9, 10, shade(c, 0.55))
+        p.glow(color, 50)
+    elif kind == "orb":
+        c = color + (255,)
+        p.disc(8, 8, 5, shade(c, 0.55))
+        p.disc(8, 8, 4, c)
+        p.disc(7, 7, 2, shade(c, 1.35))
+        p.px(6, 6, (255, 255, 255, 235))
+        p.px(7, 6, (255, 255, 255, 180))
+        # orbital wisp
+        for a in range(0, 360, 45):
+            x = 8 + round(math.cos(math.radians(a)) * 6)
+            y = 8 + round(math.sin(math.radians(a)) * 6)
+            if 0 <= x < 16 and 0 <= y < 16:
+                p.px(x, y, with_alpha(shade(c, 1.2), 110))
+        p.glow(color, 60)
     else:
         p.disc(8, 8, 4, color + (255,))
     p.outline(DARKLINE)
@@ -1362,6 +1399,33 @@ def main():
             paint_misc(item)
         count += 1
     print(f"painted {count} item icons -> {OUT}")
+    paint_azurite_block()
+
+
+def paint_azurite_block():
+    """16x16 terrain texture: deepslate-grey stone shot through with glowing
+    azure Will crystals (the mineable source of Will Shards)."""
+    from fc_lib import RP
+    out = RP / "textures" / "blocks"
+    out.mkdir(parents=True, exist_ok=True)
+    p = Px(16, 16)
+    r = rng("block", "azurite")
+    stone = ramp((96, 94, 98), 5, 0.6, 1.2)
+    for y in range(16):
+        for x in range(16):
+            v = r.random()
+            p.px(x, y, stone[1] if v < 0.25 else stone[2] if v < 0.8 else stone[3])
+    # crystal clusters
+    crys = (90, 170, 250, 255)
+    for cx_, cy_ in ((4, 4), (11, 6), (6, 11), (12, 12), (3, 13)):
+        p.px(cx_, cy_, (170, 215, 255, 255))
+        p.px(cx_ + 1, cy_, crys)
+        p.px(cx_, cy_ + 1, crys)
+        p.px(cx_ - 1, cy_, shade(crys, 0.7))
+        p.px(cx_, cy_ - 1, shade(crys, 0.8))
+        p.px(cx_ + 1, cy_ + 1, shade(crys, 0.55))
+    p.save(out / "azurite_ore.png")
+    print("painted azurite_ore block texture")
 
 
 if __name__ == "__main__":

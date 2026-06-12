@@ -1,0 +1,29 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "fc:craft_villager_boots"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "X X",
+      "X X"
+    ],
+    "key": {
+      "X": {
+        "item": "minecraft:leather"
+      }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:leather"
+      }
+    ],
+    "result": {
+      "item": "fc:villager_boots",
+      "count": 1
+    }
+  }
+}

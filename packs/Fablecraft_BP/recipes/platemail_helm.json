@@ -1,0 +1,29 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "fc:craft_platemail_helm"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "XXX",
+      "X X"
+    ],
+    "key": {
+      "X": {
+        "item": "fc:steel_ingot"
+      }
+    },
+    "unlock": [
+      {
+        "item": "fc:steel_ingot"
+      }
+    ],
+    "result": {
+      "item": "fc:platemail_helm",
+      "count": 1
+    }
+  }
+}

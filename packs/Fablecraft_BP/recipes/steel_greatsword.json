@@ -1,0 +1,33 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "fc:craft_steel_greatsword"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " X ",
+      " X ",
+      "XSX"
+    ],
+    "key": {
+      "X": {
+        "item": "fc:steel_ingot"
+      },
+      "S": {
+        "item": "minecraft:stick"
+      }
+    },
+    "unlock": [
+      {
+        "item": "fc:steel_ingot"
+      }
+    ],
+    "result": {
+      "item": "fc:steel_greatsword",
+      "count": 1
+    }
+  }
+}

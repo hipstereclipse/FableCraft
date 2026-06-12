@@ -1,0 +1,33 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "fc:craft_leather_bright_torso"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "X X",
+      "XYX",
+      "XXX"
+    ],
+    "key": {
+      "X": {
+        "item": "minecraft:leather"
+      },
+      "Y": {
+        "item": "minecraft:gold_nugget"
+      }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:leather"
+      }
+    ],
+    "result": {
+      "item": "fc:leather_bright_torso",
+      "count": 1
+    }
+  }
+}

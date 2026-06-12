@@ -1200,6 +1200,12 @@ export const DATA = {
      "label": "Defeat 15 of Twinblade's bandits"
     },
     {
+     "type": "kill",
+     "family": "fc_twinblade",
+     "count": 1,
+     "label": "Defeat Twinblade, the Bandit King"
+    },
+    {
      "type": "collect",
      "item": "fc:quest_card",
      "count": 1,
@@ -1855,6 +1861,7 @@ export const DATA = {
   "fc_wasp": 6,
   "fc_beetle": 4,
   "fc_hobbe": 12,
+  "fc_twinblade": 400,
   "fc_bandit": 18,
   "fc_undead": 15,
   "fc_balverine": 35,
@@ -1877,6 +1884,7 @@ export const DATA = {
   "fc_wasp": 1,
   "fc_beetle": 0,
   "fc_hobbe": 3,
+  "fc_twinblade": 25,
   "fc_bandit": 5,
   "fc_troll": 10,
   "fc_wraith": 6,

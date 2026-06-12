@@ -1,0 +1,30 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "fc:craft_leather_bright_legs"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "XXX",
+      "X X",
+      "X X"
+    ],
+    "key": {
+      "X": {
+        "item": "minecraft:leather"
+      }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:leather"
+      }
+    ],
+    "result": {
+      "item": "fc:leather_bright_legs",
+      "count": 1
+    }
+  }
+}

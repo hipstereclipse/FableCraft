@@ -1,0 +1,32 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "fc:craft_wizard_hat"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "XYX",
+      "X X"
+    ],
+    "key": {
+      "X": {
+        "item": "minecraft:blue_wool"
+      },
+      "Y": {
+        "item": "fc:will_shard"
+      }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:blue_wool"
+      }
+    ],
+    "result": {
+      "item": "fc:wizard_hat",
+      "count": 1
+    }
+  }
+}

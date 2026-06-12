@@ -1,0 +1,29 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "fc:craft_chainmail_dark_boots"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "X X",
+      "X X"
+    ],
+    "key": {
+      "X": {
+        "item": "minecraft:chain"
+      }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:chain"
+      }
+    ],
+    "result": {
+      "item": "fc:chainmail_dark_boots",
+      "count": 1
+    }
+  }
+}

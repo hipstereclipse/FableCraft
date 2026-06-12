@@ -1,0 +1,11 @@
+{
+  "resource_pack_name": "fablecraft",
+  "texture_name": "atlas.terrain",
+  "padding": 8,
+  "num_mip_levels": 4,
+  "texture_data": {
+    "fc_azurite_ore": {
+      "textures": "textures/blocks/azurite_ore"
+    }
+  }
+}

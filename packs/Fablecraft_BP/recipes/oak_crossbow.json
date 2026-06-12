@@ -1,0 +1,39 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "fc:craft_oak_crossbow"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PAP",
+      "TST",
+      " P "
+    ],
+    "key": {
+      "P": {
+        "item": "minecraft:oak_planks"
+      },
+      "T": {
+        "item": "minecraft:string"
+      },
+      "A": {
+        "item": "fc:steel_ingot"
+      },
+      "S": {
+        "item": "minecraft:stick"
+      }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:oak_planks"
+      }
+    ],
+    "result": {
+      "item": "fc:oak_crossbow",
+      "count": 1
+    }
+  }
+}
