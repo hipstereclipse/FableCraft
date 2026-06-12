@@ -699,6 +699,7 @@ def paint_key(p, color, ornate=False):
     c = color + (255,)
     hi = shade(c, 1.3)
     dk = shade(c, 0.6)
+    mid = shade(c, 0.85)
     # bow (ring)
     p.disc(4, 4, 2.8, c)
     p.disc(4, 4, 1.2, (0, 0, 0, 0))
@@ -708,15 +709,28 @@ def paint_key(p, color, ornate=False):
         p.px(7, 4, dk)
         p.px(4, 1, dk)
         p.px(4, 7, dk)
+        # filigree crown + inset gem to avoid a placeholder look.
+        p.px(2, 1, mid)
+        p.px(3, 0, hi)
+        p.px(4, 0, (220, 90, 180, 255))
+        p.px(5, 0, hi)
+        p.px(6, 1, mid)
+        p.px(4, 2, (255, 220, 245, 255))
     # shaft
     for t in range(6, 13):
         p.px(t, t, c)
         p.px(t + 1, t, hi if t % 2 else c)
+        if ornate and t > 7:
+            p.px(t, t + 1, mid if t % 2 else dk)
     # teeth
     p.px(12, 13, c)
     p.px(13, 13, c)
     p.px(11, 14, c)
     p.px(13, 11, dk)
+    if ornate:
+        p.px(12, 12, hi)
+        p.px(14, 12, dk)
+        p.px(10, 14, mid)
 
 
 def paint_flask(p, color, large=False):
@@ -782,6 +796,8 @@ def paint_augment(p, color, r):
     c = color + (255,)
     hi = shade(c, 1.45)
     dk = shade(c, 0.5)
+    mid = shade(c, 0.82)
+    spark = mix(c, (255, 255, 255, 255), 0.55)
     pts = [(8, 2), (13, 6), (11, 13), (5, 13), (3, 6)]
     # fill polygon (scanline-ish, small enough to brute force)
     for y in range(2, 14):
@@ -789,14 +805,22 @@ def paint_augment(p, color, r):
             # inside check via winding of pentagon approx with circle blend
             d = math.hypot(x - 8, y - 8)
             if d < 5.4 - (1.2 if y < 5 else 0):
-                p.px(x, y, c)
+                ang = math.atan2(y - 8, x - 8)
+                face = c if ang > 0 else mid
+                p.px(x, y, face if (x + y) % 3 else shade(face, 1.08))
     for (x0, y0), (x1, y1) in zip(pts, pts[1:] + pts[:1]):
         p.line(x0, y0, x1, y1, dk)
+    p.line(8, 2, 13, 6, shade(c, 1.15))
+    p.line(8, 2, 5, 13, shade(c, 1.05))
+    p.line(13, 6, 5, 13, shade(c, 0.72))
     p.line(8, 2, 8, 8, hi)
     p.line(3, 6, 8, 8, hi)
     p.line(13, 6, 8, 8, shade(c, 0.8))
     p.px(8, 8, hi)
     p.px(7, 5, hi)
+    p.px(10, 5, spark)
+    p.px(9, 8, spark)
+    p.px(6, 10, shade(spark, 0.85))
     p.glow(color, 50)
 
 
@@ -866,17 +890,27 @@ def paint_fang(p, color, r):
 
 
 def paint_wing(p, color, r):
-    c = color + (210,)
-    vein = shade(color + (255,), 0.7)
+    base = color + (220,)
+    c = shade(base, 1.08)
+    c_dk = shade(base, 0.74)
+    vein = shade(color + (255,), 0.62)
+    edge = shade(color + (255,), 1.22)
     for t in range(11):
         a = t / 10
         x0 = 2 + t
         y0 = 12 - round(math.sin(a * math.pi) * 7)
         h = max(1, round(math.sin(a * math.pi) * 6))
         for y in range(y0, min(14, y0 + h)):
-            p.px(x0, y, c)
+            p.px(x0, y, c if (x0 + y) % 2 else c_dk)
+            if y == y0:
+                p.px(x0, y, edge)
     p.line(2, 12, 12, 5, vein)
     p.line(2, 12, 10, 8, vein)
+    p.line(3, 11, 11, 6, shade(vein, 1.25))
+    p.px(4, 10, edge)
+    p.px(6, 8, with_alpha(edge, 180))
+    p.px(8, 7, with_alpha(edge, 170))
+    p.px(9, 11, shade(c_dk, 0.6))
 
 
 def paint_goo(p, color, r):
@@ -1167,6 +1201,17 @@ def paint_armor_icon(item):
                 p.px(8, 0, hi)
                 p.rect(5, 8, 6, 1, trim)
                 p.px(10, 4, trim)  # star stud
+            if item["id"] == "pimp_hat":
+                plume = (226, 64, 176, 255)
+                p.px(10, 2, plume)
+                p.px(11, 1, shade(plume, 1.2))
+                p.px(12, 1, shade(plume, 0.75))
+                p.px(13, 0, shade(plume, 1.35))
+                p.rect(5, 8, 6, 1, trim)
+                p.px(8, 8, shade(trim, 1.25))
+                p.px(9, 8, shade(trim, 0.7))
+                p.px(10, 7, (235, 210, 120, 255))
+                p.px(10, 6, (255, 240, 180, 255))
         else:
             p.disc(8, 8, 5, base)
             p.rect(3, 8, 11, 4, base)

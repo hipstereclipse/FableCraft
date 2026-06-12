@@ -159,6 +159,15 @@ Grades: S (≥90) A (≥75) B (≥60) C (≥45) D (<45)
 | Archon's Battle Armour Legs | **S** | 100 | 48.4 | 6 | 0.92 | 0.54 | — |
 | Archon's Battle Armour Boots | **S** | 100 | 41.0 | 7 | 0.92 | 0.45 | — |
 | Holy Warrior Helm | **S** | 100 | 49.2 | 6 | 0.92 | 0.53 | — |
+| Pimp Hat | **S** | 100 | 45.3 | 12 | 0.89 | 0.24 | — |
+| Sharpening Augmentation | **S** | 100 | 75.0 | 10 | 0.53 | 0.34 | — |
+| Piercing Augmentation | **S** | 100 | 75.0 | 11 | 0.61 | 0.74 | — |
+| Health Augmentation | **S** | 100 | 75.0 | 11 | 0.53 | 0.25 | — |
+| Mana Augmentation | **S** | 100 | 75.0 | 11 | 0.53 | 0.34 | — |
+| Experience Augmentation | **S** | 100 | 75.0 | 11 | 0.52 | 0.61 | — |
+| Lightning Augmentation | **S** | 100 | 75.0 | 12 | 0.58 | 0.62 | — |
+| Flame Augmentation | **S** | 100 | 75.0 | 11 | 0.52 | 0.55 | — |
+| Silver Augmentation | **S** | 100 | 75.0 | 8 | 0.53 | 0.87 | — |
 | Health Potion | **S** | 100 | 37.1 | 6 | 0.92 | 0.36 | — |
 | Great Health Potion | **S** | 100 | 49.6 | 6 | 0.92 | 0.39 | — |
 | Will Potion | **S** | 100 | 37.1 | 6 | 0.92 | 0.39 | — |
@@ -171,11 +180,13 @@ Grades: S (≥90) A (≥75) B (≥60) C (≥45) D (<45)
 | Red Meat | **S** | 100 | 41.0 | 6 | 0.82 | 0.35 | — |
 | Apple Pie | **S** | 100 | 53.5 | 6 | 0.78 | 0.49 | — |
 | Gold Coin | **S** | 100 | 47.3 | 6 | 0.87 | 0.6 | — |
+| Septimal Key | **S** | 100 | 20.3 | 6 | 0.63 | 0.44 | — |
 | Guild Seal | **S** | 100 | 44.9 | 6 | 0.66 | 0.65 | — |
 | Quest Card | **S** | 100 | 85.9 | 7 | 0.76 | 0.51 | — |
 | Balverine Fang | **S** | 100 | 18.4 | 6 | 0.92 | 0.37 | — |
 | Frost Balverine Hide | **S** | 100 | 50.0 | 7 | 0.88 | 0.55 | — |
 | Balverine Summoning Trophy | **S** | 100 | 48.0 | 6 | 0.7 | 0.39 | — |
+| Wasp Wing | **S** | 100 | 32.4 | 7 | 0.92 | 0.49 | — |
 | Beetle Chitin | **S** | 100 | 18.4 | 6 | 0.92 | 0.21 | — |
 | Troll Heart | **S** | 100 | 39.1 | 7 | 0.92 | 0.25 | — |
 | Ectoplasm | **S** | 100 | 36.7 | 6 | 0.52 | 0.8 | — |
@@ -211,10 +222,6 @@ Grades: S (≥90) A (≥75) B (≥60) C (≥45) D (<45)
 | Cured Leather | **A** | 85 | 50.0 | 6 | 0.32 | 0.24 | — |
 | Wizard Hat | **A** | 83 | 44.1 | 4 | 0.63 | 0.25 | — |
 | Bright Wizard Hat | **A** | 83 | 44.1 | 4 | 0.9 | 0.55 | — |
-| Piercing Augmentation | **A** | 83 | 75.0 | 4 | 0.61 | 0.74 | — |
-| Experience Augmentation | **A** | 83 | 75.0 | 4 | 0.51 | 0.61 | — |
-| Lightning Augmentation | **A** | 83 | 75.0 | 4 | 0.58 | 0.61 | — |
-| Silver Augmentation | **A** | 83 | 75.0 | 4 | 0.53 | 0.87 | — |
 | Crunchy Chick | **A** | 83 | 32.4 | 4 | 0.76 | 0.56 | — |
 | Tofu | **A** | 83 | 32.8 | 5 | 0.91 | 0.56 | — |
 | Hobbe Tooth Ale | **A** | 83 | 37.9 | 4 | 0.83 | 0.35 | — |
@@ -253,20 +260,13 @@ Grades: S (≥90) A (≥75) B (≥60) C (≥45) D (<45)
 | Assassin Torso | **B** | 68 | 51.6 | 5 | 0.41 | 0.14 | — |
 | Assassin Legs | **B** | 68 | 48.4 | 5 | 0.41 | 0.13 | — |
 | Dark Wizard Hat | **B** | 68 | 44.1 | 4 | 0.4 | 0.19 | — |
-| Mana Augmentation | **B** | 68 | 75.0 | 4 | 0.31 | 0.33 | — |
-| Flame Augmentation | **B** | 68 | 75.0 | 4 | 0.46 | 0.55 | — |
 | Augment Remover | **B** | 68 | 22.3 | 5 | 0.47 | 0.23 | — |
 | Will: Heal Life | **B** | 68 | 85.9 | 4 | 0.43 | 0.79 | — |
 | Will: Summon | **B** | 68 | 85.9 | 4 | 0.48 | 0.74 | — |
 | Will: Divine Fury | **B** | 68 | 85.9 | 4 | 0.47 | 0.85 | — |
 | Seasoned Bow Stave | **B** | 68 | 23.0 | 5 | 0.39 | 0.18 | — |
-| Pimp Hat | **C** | 56 | 41.4 | 4 | 0.23 | 0.19 | — |
-| Sharpening Augmentation | **C** | 56 | 75.0 | 4 | 0.29 | 0.33 | — |
-| Health Augmentation | **C** | 56 | 75.0 | 4 | 0.23 | 0.24 | — |
-| Wasp Wing | **C** | 53 | 32.0 | 3 | 0.81 | 0.49 | possible placeholder art |
-| Septimal Key | **D** | 38 | 16.0 | 3 | 0.3 | 0.44 | possible placeholder art |
 
-**Category average: 91.6**
+**Category average: 93.5**
 
 ## Structures
 
@@ -295,4 +295,4 @@ Grades: S (≥90) A (≥75) B (≥60) C (≥45) D (<45)
 
 ## Verdict
 
-5 asset(s) flagged below B grade — listed above with notes.
+All assets graded B or above. Ship it to Bowerstone.

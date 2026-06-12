@@ -1,5 +1,15 @@
 # ⚔ Fablecraft: Reforged
 
+## ❤️ Support Development
+
+If you are enjoying Fablecraft and want to help keep development moving, please consider supporting the project through Buy Me a Coffee:
+
+[buymeacoffee.com/k8ffh48yvke](https://buymeacoffee.com/k8ffh48yvke)
+
+Development costs have started to rise, and I want to keep improving this project to give players the experience I always dreamed of when I first started it almost fifteen years ago. Any contribution is deeply appreciated and goes directly toward funding the tools needed to continue active development of this mod project.
+
+---
+
 **Transform Minecraft Bedrock into Albion.** A complete recreation of *Fable: The Lost Chapters* as a single `.mcaddon` — Hero XP paths with coloured experience orbs, a living morality system, faction reputation, Will powers, Cullis Gate fast travel, a full mining-and-smithing economy, Demon Doors that talk back, legendary weapons, visible armour, quest chains, Twinblade's war-camps, and Jack of Blades waiting at the end of it all.
 
 > Every texture, model, structure, sound and screenshot in this repository is **procedurally generated from code** — Python paints the pixels, builds the geometry, synthesizes the audio and renders the showcase gallery you see below.
@@ -84,7 +94,7 @@ Weapons follow classic patterns (longswords, katanas, cleavers, axes, maces, pic
 
 ![The Forge of Albion](screenshots/gallery/forge.png)
 
-All 20 showcase recipe diagrams live in [screenshots/recipes](screenshots/recipes).
+All 130 recipe diagrams live in [screenshots/recipes](screenshots/recipes).
 
 ---
 
