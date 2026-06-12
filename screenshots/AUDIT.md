@@ -10,14 +10,6 @@ directly from the rendered RGBA buffers:
 
 Grades: S (≥90) A (≥75) B (≥60) C (≥45) D (<45)
 
-## Documentation Showcase QA
-
-- **screenshots checked:** 22
-- **dimensions:** 1920x1080
-- **contrast floor:** 18.7 RGB stddev
-- **palette floor:** 1033 sampled colours
-- **missing asset tokens:** 0; scripts/gen_doc_screenshots.py exits non-zero if a scene references missing mob or item art
-
 ## Mobs & NPCs
 
 | Asset | Grade | Score | Coverage % | Colours | Contrast | Brightness | Notes |
@@ -290,8 +282,8 @@ Grades: S (≥90) A (≥75) B (≥60) C (≥45) D (<45)
 | Silver Key Ruin | **S** | 100 | 13.9 | 33 | 0.78 | 0.4 | — |
 | Focus Site | **S** | 100 | 24.5 | 23 | 0.94 | 0.47 | — |
 | Guild Courtyard | **S** | 100 | 12.2 | 42 | 0.94 | 0.48 | — |
-| Oakvale Quay | **S** | 100 | 12.2 | 39 | 0.82 | 0.47 | — |
-| Snowspire Oracle | **S** | 100 | 14.0 | 29 | 0.94 | 0.52 | — |
+| Oakvale Quay | **S** | 100 | 12.2 | 37 | 0.82 | 0.47 | — |
+| Snowspire Oracle | **S** | 100 | 14.0 | 29 | 0.94 | 0.53 | — |
 | Necropolis Ruin | **S** | 100 | 12.5 | 31 | 0.94 | 0.37 | — |
 | Bandit Camp | **S** | 100 | 22.3 | 37 | 0.92 | 0.27 | — |
 | Lychfield Graveyard | **S** | 100 | 13.7 | 35 | 0.89 | 0.36 | — |
@@ -308,6 +300,14 @@ Grades: S (≥90) A (≥75) B (≥60) C (≥45) D (<45)
 | Chapel of Skorm | **S** | 92 | 23.2 | 16 | 0.88 | 0.17 | — |
 
 **Category average: 99.4**
+
+## Documentation Showcase QA
+
+- **screenshots checked:** 22
+- **dimensions:** 1920x1080
+- **contrast floor:** 18.7 RGB stddev
+- **palette floor:** 1033 sampled colours
+- **missing asset tokens:** 0; scripts/gen_doc_screenshots.py exits non-zero if a scene references missing mob or item art
 
 ## Verdict
 

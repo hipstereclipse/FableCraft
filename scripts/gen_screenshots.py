@@ -427,6 +427,8 @@ BLOCK_COLORS = {
     "minecraft:glowstone": (255, 220, 130), "minecraft:soul_torch": (120, 220, 220),
     "minecraft:stone": (128, 126, 124), "minecraft:mud": (88, 70, 60),
     "minecraft:mud_bricks": (140, 110, 86), "minecraft:enchanting_table": (60, 40, 70),
+    "minecraft:oak_planks": (162, 130, 78), "minecraft:packed_ice": (148, 192, 232),
+    "minecraft:seagrass": (66, 124, 70),
 }
 
 GLOW_BLOCKS = {"minecraft:lantern", "minecraft:soul_lantern", "minecraft:sea_lantern",
@@ -436,7 +438,8 @@ GLOW_BLOCKS = {"minecraft:lantern", "minecraft:soul_lantern", "minecraft:sea_lan
                "minecraft:amethyst_cluster", "minecraft:soul_torch", "minecraft:glowstone"}
 
 
-def render_structure(vox, size=(1100, 900), extra_quads=None):
+def render_structure(vox, size=(1100, 900), extra_quads=None,
+                      yaw=math.pi - 0.72, pitch=0.50):
     """vox: gen_structures.Vox (re-built). Isometric painter render."""
     flat = Image.new("RGBA", (4, 4), (255, 255, 255, 255))
     quads = list(extra_quads) if extra_quads else []
@@ -471,7 +474,7 @@ def render_structure(vox, size=(1100, 900), extra_quads=None):
                         corners, _, _, g = fq[i]
                         keep.append((corners, tex, [(0, 0), (2, 0), (2, 2), (0, 2)], g))
                 quads += keep
-    return render_quads(quads, size=size, yaw=math.pi - 0.72, pitch=0.50, shadow=False)
+    return render_quads(quads, size=size, yaw=yaw, pitch=pitch, shadow=False)
 
 
 # ---------------------------------------------------------------------------

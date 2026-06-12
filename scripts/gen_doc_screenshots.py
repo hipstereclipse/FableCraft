@@ -1,191 +1,216 @@
 """gen_doc_screenshots.py - render documentation showcase screenshots.
 
-Builds a deterministic set of README-ready promo images by compositing
-already-generated screenshots and texture assets into scene cards that map
-to the long-form documentation sections.
+Builds a deterministic set of README-ready promo images. Most scenes are real
+3D renders of the addon's structures with mob models and spell-effect quads
+composited directly into the voxel scene (via the same painter's-algorithm
+renderer used for the gallery); a handful of UI/inventory mockups and the
+recipe/collage scenes round out the set.
 """
-from pathlib import Path
+import math
 
-from PIL import Image, ImageDraw, ImageFilter, ImageFont
+from PIL import Image, ImageDraw, ImageFont
 
-from fc_lib import ROOT, SHOTS
+from fc_lib import ROOT, SHOTS, rng
+from gen_screenshots import (
+    backdrop, render_structure, mob_quads, cube_quads, rot_y,
+    ENT_TEX, ITEM_TEX,
+)
+from fc_mobs import MOBS
+import gen_structures as GS
 
 DOC_DIR = SHOTS / "docs"
-MOBS_DIR = SHOTS / "mobs"
-STRUCT_DIR = SHOTS / "structures"
-ITEM_TEX_DIR = ROOT / "packs" / "Fablecraft_RP" / "textures" / "items"
+ITEM_TEX_DIR = ITEM_TEX
 SOUND_DIR = ROOT / "sound_preview"
 MISSING_ASSETS = []
 TITLE_BAND_H = 132
 CONTENT_BOTTOM_PAD = TITLE_BAND_H + 26
+OUT_SIZE = (1920, 1080)
+RENDER_SIZE = 2560
+
+MOB_BY_ID = {m["id"]: m for m in MOBS}
+
+STRUCTURE_BUILDERS = {
+    "guild_hall": GS.guild_hall,
+    "witchwood_stones": GS.witchwood_stones,
+    "graveyard": GS.graveyard,
+    "darkwood_camp": GS.darkwood_camp,
+    "bandit_camp": GS.bandit_camp,
+    "temple_avo": GS.temple_avo,
+    "bowerstone_market": GS.bowerstone_market,
+    "focus_site": GS.focus_site,
+    "demon_door_arch": GS.demon_door_arch,
+}
+
+STRUCT_MOOD = {
+    "guild_hall": "holy",
+    "witchwood_stones": "dark",
+    "graveyard": "swamp",
+    "darkwood_camp": "forest",
+    "bandit_camp": "fire",
+    "temple_avo": "holy",
+    "bowerstone_market": "stone",
+    "focus_site": "dark",
+    "demon_door_arch": "dark",
+}
+
+_VOX_CACHE = {}
+_BACKDROP_CACHE = {}
 
 
-SCENES = [
-    {
-        "id": "01_hero_guild_gate",
-        "title": "Hero at Heroes' Guild",
-        "subtitle": "Guild entrance with Cullis Gate glow in foreground",
-        "bg": "structure:guild_hall",
-        "entities": ["mob:guildmaster", "item:guild_seal", "item:stick"],
-    },
-    {
-        "id": "02_balverine_night_fight",
-        "title": "Balverine Night Hunt",
-        "subtitle": "Forest fight under moonlight",
-        "bg": "mood:forest_night",
-        "entities": ["mob:balverine", "mob:white_balverine", "item:sword_of_aeons"],
-    },
-    {
-        "id": "03_roster_group_shot",
-        "title": "Creature Roster",
-        "subtitle": "Hobbes, Hollow Men, and Trolls",
-        "bg": "mood:swamp_dusk",
-        "entities": ["mob:hobbe", "mob:hobbe_scout", "mob:undead", "mob:undead_knight", "mob:earth_troll"],
-    },
-    {
-        "id": "04_inventory_weapon_armor",
-        "title": "Item Compendium",
-        "subtitle": "Weapon tiers and armor sets",
-        "bg": "ui:grid",
-        "entities": [
-            "item:iron_longsword", "item:steel_longsword", "item:obsidian_longsword", "item:master_longsword",
-            "item:apprentice_torso", "item:guild_cloth", "item:platemail_torso", "item:archon_torso",
-        ],
-    },
-    {
-        "id": "05_archon_with_aeons",
-        "title": "Archon Endgame Kit",
-        "subtitle": "Full Archon armor with Sword of Aeons",
-        "bg": "mood:holy",
-        "entities": ["item:archon_helm", "item:archon_torso", "item:archon_legs", "item:archon_boots", "item:sword_of_aeons"],
-    },
-    {
-        "id": "06_master_katana_recipe",
-        "title": "Crafting Progression",
-        "subtitle": "Master Katana recipe at the table",
-        "bg": "recipe:master_katana",
-        "entities": ["item:master_ingot", "item:will_shard", "item:master_katana"],
-    },
-    {
-        "id": "07_fireball_vs_hobbes",
-        "title": "Will Power - Fireball",
-        "subtitle": "Explosive cast against a hobbe pack",
-        "bg": "mood:fire",
-        "entities": ["item:spell_fireball", "mob:hobbe", "mob:hobbe_scout", "mob:hobbe"],
-    },
-    {
-        "id": "08_slow_time_bandit_camp",
-        "title": "Will Power - Slow Time",
-        "subtitle": "Temporal field in Twinblade's camp",
-        "bg": "structure:bandit_camp",
-        "entities": ["item:spell_slow_time", "mob:bandit", "mob:bandit_archer", "mob:twinblade"],
-    },
-    {
-        "id": "09_quest_log_ui",
-        "title": "Quest Log",
-        "subtitle": "Main chain and side quest progress",
-        "bg": "ui:quest",
-        "entities": ["item:quest_card", "item:guild_seal"],
-    },
-    {
-        "id": "10_twinblade_boss_fight",
-        "title": "Twinblade Boss Fight",
-        "subtitle": "War camp confrontation",
-        "bg": "structure:bandit_camp",
-        "entities": ["mob:twinblade", "mob:bandit", "mob:bandit_archer", "item:master_greatsword"],
-    },
-    {
-        "id": "11_demon_door_closeup",
-        "title": "Demon Door Encounter",
-        "subtitle": "Living stone face in a carved crag",
-        "bg": "structure:demon_door_arch",
-        "entities": ["mob:demon_door"],
-    },
-    {
-        "id": "12_guild_wide_lake_view",
-        "title": "Heroes' Guild Exterior",
-        "subtitle": "Walled complex from across the water",
-        "bg": "structure:guild_hall",
-        "entities": ["item:guild_seal"],
-    },
-    {
-        "id": "13_temple_avo_donation",
-        "title": "Temple of Avo",
-        "subtitle": "Donation bowl and blessing altar",
-        "bg": "structure:temple_avo",
-        "entities": ["item:gold_coin", "item:gold_coin", "item:gold_coin"],
-    },
-    {
-        "id": "14_guard_low_rep_dialogue",
-        "title": "Faction Reputation",
-        "subtitle": "Low reputation guard warning",
-        "bg": "ui:dialogue",
-        "entities": ["mob:guard_bowerstone", "item:jack_of_blades_mask"],
-    },
-    {
-        "id": "15_hero_menu_xp_morality",
-        "title": "Hero Menu",
-        "subtitle": "XP bars, morality meter, and title",
-        "bg": "ui:hero",
-        "entities": ["item:orb_general", "item:orb_strength", "item:orb_skill", "item:orb_will"],
-    },
-    {
-        "id": "16_cullis_gate_travel_ui",
-        "title": "Cullis Gate Fast Travel",
-        "subtitle": "Attuned destinations in travel menu",
-        "bg": "structure:focus_site",
-        "entities": ["item:guild_seal", "item:septimal_key"],
-    },
-    {
-        "id": "17_visible_armor_sets",
-        "title": "Visible Armor System",
-        "subtitle": "Apprentice, Guild, Plate, Archon",
-        "bg": "ui:grid",
-        "entities": [
-            "item:apprentice_torso", "item:guild_cloth", "item:platemail_torso", "item:archon_torso",
-            "item:apprentice_helm", "item:wizard_hat", "item:platemail_helm", "item:archon_helm",
-        ],
-    },
-    {
-        "id": "18_anvil_augments",
-        "title": "Weapon Augmentation",
-        "subtitle": "Sword of Aeons with three augments",
-        "bg": "ui:anvil",
-        "entities": ["item:sword_of_aeons", "item:sharpening_augment", "item:lightning_augment", "item:silver_augment"],
-    },
-    {
-        "id": "19_sound_files_overview",
-        "title": "Synthesized Sound Design",
-        "subtitle": "Procedural WAV set in repository",
-        "bg": "ui:files",
-        "entities": [
-            "text:door_rumble.wav", "text:door_speak.wav", "text:banshee_shriek.wav", "text:spell_cast.wav",
-            "text:level_up.wav", "text:guild_pad.wav", "text:sword_clash.wav",
-        ],
-    },
-    {
-        "id": "20_starter_inventory",
-        "title": "Quick Start Loadout",
-        "subtitle": "Guild Seal and Stick on spawn",
-        "bg": "ui:grid",
-        "entities": ["item:guild_seal", "item:stick", "item:apprentice_torso", "item:apprentice_helm"],
-    },
-    {
-        "id": "21_roadmap_progress",
-        "title": "Known Issues and Future Plans",
-        "subtitle": "Current status and planned updates",
-        "bg": "ui:roadmap",
-        "entities": ["item:quest_card"],
-    },
-    {
-        "id": "22_media_collage",
-        "title": "Gallery and Media",
-        "subtitle": "Procedural assets and gameplay collage",
-        "bg": "collage:core",
-        "entities": [],
-    },
-]
+# ---------------------------------------------------------------------------
+# 3D scene compositing
+# ---------------------------------------------------------------------------
 
+def get_vox(name):
+    if name not in _VOX_CACHE:
+        builder = STRUCTURE_BUILDERS[name]
+        captured = {}
+        orig_save = GS.Vox.save
+        GS.Vox.save = lambda self, nm: captured.setdefault(nm, self)
+        try:
+            builder()
+        finally:
+            GS.Vox.save = orig_save
+        _VOX_CACHE[name] = next(iter(captured.values()))
+    return _VOX_CACHE[name]
+
+
+def cached_backdrop(size, mood):
+    key = (size, mood)
+    if key not in _BACKDROP_CACHE:
+        _BACKDROP_CACHE[key] = backdrop(size, mood)
+    return _BACKDROP_CACHE[key].copy()
+
+
+def place_mob(mob_id, pos, scale=0.062, yaw=0.0):
+    """Return extra_quads for a mob model placed in structure block-space."""
+    mob = MOB_BY_ID.get(mob_id)
+    tex_path = ENT_TEX / f"{mob_id}.png"
+    if mob is None or not tex_path.exists():
+        MISSING_ASSETS.append(f"mob:{mob_id}")
+        return []
+    px, py, pz = pos
+    out = []
+    for corners, tex, uvs, glow in mob_quads(mob):
+        new_corners = []
+        for c in corners:
+            p = (c[0] * scale, c[1] * scale, c[2] * scale)
+            if yaw:
+                p = rot_y(p, yaw)
+            new_corners.append((p[0] + px, p[1] + py, p[2] + pz))
+        out.append((new_corners, tex, uvs, glow))
+    return out
+
+
+def _flat_tex(color):
+    return Image.new("RGBA", (2, 2), color)
+
+
+def fireball_fx(center, target=None, seed="fireball"):
+    """Layered glowing core + embers + a streak toward a target."""
+    r = rng("docfx", seed)
+    cx, cy, cz = center
+    quads = []
+    for color, size in (((255, 224, 140, 255), 0.55), ((255, 150, 50, 255), 0.85),
+                         ((220, 70, 24, 235), 1.15)):
+        tex = _flat_tex(color)
+        quads += cube_quads((cx - size / 2, cy - size / 2, cz - size / 2),
+                             (size, size, size), (0, 0), tex, glow=True)
+    for _ in range(12):
+        ang = r.uniform(0, 2 * math.pi)
+        dist = r.uniform(0.5, 1.6)
+        ex = cx + math.cos(ang) * dist
+        ez = cz + math.sin(ang) * dist
+        ey = cy + r.uniform(-0.4, 1.1)
+        s = r.uniform(0.08, 0.22)
+        tex = _flat_tex((255, r.randint(110, 210), r.randint(20, 90), 255))
+        quads += cube_quads((ex - s / 2, ey - s / 2, ez - s / 2), (s, s, s), (0, 0), tex, glow=True)
+    if target:
+        tx, ty, tz = target
+        steps = 5
+        for i in range(steps):
+            t = (i + 1) / (steps + 1)
+            sx = cx + (tx - cx) * t
+            sy = cy + (ty - cy) * t
+            sz = cz + (tz - cz) * t
+            s = 0.5 - 0.3 * t
+            tex = _flat_tex((255, 190 - int(60 * t), 60, 255))
+            quads += cube_quads((sx - s / 2, sy - s / 2, sz - s / 2), (s, s, s), (0, 0), tex, glow=True)
+    return quads
+
+
+def slow_time_fx(center, radius=4.0):
+    """A ring of pale-blue glowing motes at ground level plus a sparser dome."""
+    cx, cy, cz = center
+    quads = []
+    ring_tex = _flat_tex((210, 235, 255, 230))
+    for i in range(28):
+        ang = math.radians(i * (360 / 28))
+        x = cx + math.cos(ang) * radius
+        z = cz + math.sin(ang) * radius
+        s = 0.4
+        quads += cube_quads((x - s / 2, cy - 0.45, z - s / 2), (s, 0.12, s), (0, 0), ring_tex, glow=True)
+    dome_tex = _flat_tex((225, 242, 255, 130))
+    for i in range(16):
+        ang = math.radians(i * (360 / 16) + 11)
+        x = cx + math.cos(ang) * radius * 0.78
+        z = cz + math.sin(ang) * radius * 0.78
+        s = 0.32
+        quads += cube_quads((x - s / 2, cy + radius * 0.55, z - s / 2), (s, s, s), (0, 0), dome_tex, glow=True)
+    return quads
+
+
+def holy_glow_fx(center, height=4.5):
+    """A vertical column of pale-gold light plus radiating rays."""
+    cx, cy, cz = center
+    quads = []
+    beam_tex = _flat_tex((255, 244, 200, 210))
+    steps = int(height * 2)
+    for i in range(steps):
+        y = cy + i * 0.5
+        s = max(0.18, 0.6 - 0.5 * (i / steps))
+        quads += cube_quads((cx - s / 2, y, cz - s / 2), (s, 0.42, s), (0, 0), beam_tex, glow=True)
+    ray_tex = _flat_tex((255, 250, 215, 150))
+    for i in range(6):
+        ang = math.radians(i * 60)
+        dx, dz = math.cos(ang) * 1.6, math.sin(ang) * 1.6
+        x0, x1 = sorted((cx, cx + dx))
+        z0, z1 = sorted((cz, cz + dz))
+        quads += cube_quads((x0, cy + 0.3, z0), (max(0.18, x1 - x0), 0.12, max(0.18, z1 - z0)), (0, 0), ray_tex, glow=True)
+    return quads
+
+
+def compose_structure_scene(struct_name, mobs=(), effects=(), mood=None, veil=None,
+                             yaw=None, pitch=None, crop_offset=(0, 0)):
+    """Render a real structure with mobs/effects composited in, cropped to a
+    16:9 close-up so creatures read clearly (not a tiny dollhouse view)."""
+    vox = get_vox(struct_name)
+    extra = []
+    for mob_id, pos, kwargs in mobs:
+        extra += place_mob(mob_id, pos, **kwargs)
+    for fx in effects:
+        extra += fx
+    kw = {}
+    if yaw is not None:
+        kw["yaw"] = yaw
+    if pitch is not None:
+        kw["pitch"] = pitch
+    render = render_structure(vox, size=(RENDER_SIZE, RENDER_SIZE), extra_quads=extra, **kw)
+    canvas = cached_backdrop((RENDER_SIZE, RENDER_SIZE), mood or STRUCT_MOOD.get(struct_name, "stone"))
+    canvas.alpha_composite(render)
+    if veil:
+        canvas.alpha_composite(Image.new("RGBA", canvas.size, veil))
+    ow, oh = OUT_SIZE
+    cx = (RENDER_SIZE - ow) // 2 + crop_offset[0] + 0
+    cy = (RENDER_SIZE - oh) // 2 + crop_offset[1] + 220
+    cx = max(0, min(RENDER_SIZE - ow, cx))
+    cy = max(0, min(RENDER_SIZE - oh, cy))
+    return canvas.crop((cx, cy, cx + ow, cy + oh))
+
+
+# ---------------------------------------------------------------------------
+# Overlays
+# ---------------------------------------------------------------------------
 
 def load_font(size, bold=False):
     names = ["seguisb.ttf", "segoeuib.ttf", "arialbd.ttf"] if bold else ["segoeui.ttf", "arial.ttf"]
@@ -197,26 +222,6 @@ def load_font(size, bold=False):
     return ImageFont.load_default()
 
 
-def asset_image(token):
-    kind, value = token.split(":", 1)
-    if kind == "mob":
-        p = MOBS_DIR / f"{value}.png"
-    elif kind == "item":
-        p = ITEM_TEX_DIR / f"{value}.png"
-    else:
-        return None
-    if p.exists():
-        img = Image.open(p).convert("RGBA")
-        if kind == "mob":
-            margin_x = int(img.width * 0.10)
-            top = int(img.height * 0.04)
-            bottom = int(img.height * 0.68)
-            img = img.crop((margin_x, top, img.width - margin_x, bottom))
-        return img
-    MISSING_ASSETS.append(token)
-    return None
-
-
 def fit_image(img, max_size, resample=Image.Resampling.LANCZOS):
     w, h = img.size
     scale = min(max_size[0] / max(1, w), max_size[1] / max(1, h))
@@ -224,38 +229,74 @@ def fit_image(img, max_size, resample=Image.Resampling.LANCZOS):
     return img.resize(target, resample)
 
 
-def structure_bg(name, size):
-    p = STRUCT_DIR / f"{name}.png"
-    if p.exists():
-        img = Image.open(p).convert("RGBA").resize(size, Image.Resampling.LANCZOS)
-        veil = Image.new("RGBA", size, (14, 14, 18, 90))
-        img.alpha_composite(veil)
-        return img
-    return mood_bg("stone", size)
-
-
-def mood_bg(name, size):
-    palettes = {
-        "forest_night": ((12, 20, 22), (34, 68, 52)),
-        "swamp_dusk": ((18, 24, 20), (68, 82, 62)),
-        "holy": ((44, 36, 22), (164, 126, 72)),
-        "fire": ((42, 18, 14), (160, 72, 42)),
-        "stone": ((24, 24, 26), (84, 84, 88)),
+def add_item_tray(canvas, item_ids, label=None, corner="br"):
+    """Small inset panel showing relevant item icons over a 3D scene."""
+    items = []
+    for iid in item_ids:
+        p = ITEM_TEX_DIR / f"{iid}.png"
+        if p.exists():
+            items.append(Image.open(p).convert("RGBA"))
+        else:
+            MISSING_ASSETS.append(f"item:{iid}")
+    if not items:
+        return
+    cell, pad = 108, 16
+    w = len(items) * cell + pad * (len(items) + 1)
+    h = cell + pad * 2 + (32 if label else 0)
+    panel = Image.new("RGBA", (w, h), (24, 20, 16, 215))
+    d = ImageDraw.Draw(panel)
+    d.rectangle([0, 0, w - 1, h - 1], outline=(196, 160, 100, 255), width=2)
+    y0 = pad + (30 if label else 0)
+    if label:
+        d.text((pad, 6), label, fill=(232, 210, 168, 255), font=load_font(20, bold=True))
+    for i, icon in enumerate(items):
+        ic = icon.resize((cell, cell), Image.NEAREST)
+        panel.alpha_composite(ic, (pad + i * (cell + pad), y0))
+    W, H = canvas.size
+    positions = {
+        "br": (W - w - 36, H - h - TITLE_BAND_H - 24),
+        "tr": (W - w - 36, 36),
+        "bl": (36, H - h - TITLE_BAND_H - 24),
+        "tl": (36, 36),
     }
-    lo, hi = palettes.get(name, palettes["stone"])
-    w, h = size
-    img = Image.new("RGBA", size, (0, 0, 0, 255))
-    px = img.load()
-    cx, cy = w / 2, h * 0.4
-    maxd = (cx * cx + cy * cy) ** 0.5 * 1.15
-    for y in range(h):
-        for x in range(w):
-            d = (((x - cx) ** 2 + (y - cy) ** 2) ** 0.5) / maxd
-            t = max(0.0, 1.0 - d)
-            c = tuple(int(lo[i] + (hi[i] - lo[i]) * t * t) for i in range(3))
-            px[x, y] = c + (255,)
-    return img
+    x, y = positions.get(corner, positions["br"])
+    canvas.alpha_composite(panel, (x, y))
 
+
+def apply_veil(canvas, color):
+    canvas.alpha_composite(Image.new("RGBA", canvas.size, color))
+
+
+def dialogue_overlay(canvas, speaker, lines):
+    w, h = canvas.size
+    box_h = 70 + len(lines) * 38
+    d = ImageDraw.Draw(canvas)
+    top = h - TITLE_BAND_H - box_h - 24
+    d.rounded_rectangle([40, top, w - 40, top + box_h], radius=14,
+                        fill=(22, 18, 16, 232), outline=(196, 160, 100, 255), width=3)
+    d.text((64, top + 16), speaker, fill=(246, 220, 178, 255), font=load_font(30, bold=True))
+    for i, line in enumerate(lines):
+        d.text((64, top + 60 + i * 38), line, fill=(222, 198, 160, 255), font=load_font(24))
+
+
+def travel_overlay(canvas, destinations):
+    w, h = canvas.size
+    panel_w, panel_h = 480, 56 + len(destinations) * 46
+    x0 = w - panel_w - 60
+    y0 = 60
+    d = ImageDraw.Draw(canvas)
+    d.rounded_rectangle([x0, y0, x0 + panel_w, y0 + panel_h], radius=14,
+                        fill=(22, 18, 16, 228), outline=(196, 160, 100, 255), width=3)
+    d.text((x0 + 24, y0 + 14), "Cullis Gate — Attuned Sites", fill=(240, 222, 182, 255), font=load_font(26, bold=True))
+    for i, dest in enumerate(destinations):
+        y = y0 + 56 + i * 46
+        d.text((x0 + 36, y), dest, fill=(222, 198, 160, 255), font=load_font(24))
+        d.text((x0 + panel_w - 36, y), ">", anchor="ra", fill=(196, 160, 100, 255), font=load_font(24, bold=True))
+
+
+# ---------------------------------------------------------------------------
+# UI mockups / inventory grids / recipe / collage
+# ---------------------------------------------------------------------------
 
 def ui_bg(kind, size):
     w, h = size
@@ -264,18 +305,7 @@ def ui_bg(kind, size):
     frame = (186, 148, 92, 255)
     panel = (42, 34, 28, 235)
 
-    if kind == "grid":
-        d.rectangle([24, 24, w - 24, h - CONTENT_BOTTOM_PAD], fill=panel, outline=frame, width=3)
-        cols, rows = 4, 2
-        cw = (w - 80) // cols
-        ch = (h - CONTENT_BOTTOM_PAD - 92) // rows
-        for ry in range(rows):
-            for rx in range(cols):
-                x0 = 40 + rx * cw
-                y0 = 70 + ry * ch
-                d.rounded_rectangle([x0, y0, x0 + cw - 10, y0 + ch - 10], radius=8,
-                                    fill=(56, 46, 38, 255), outline=(112, 90, 62, 255), width=2)
-    elif kind == "quest":
+    if kind == "quest":
         d.rectangle([20, 20, w - 20, h - 20], fill=panel, outline=frame, width=3)
         d.text((36, 44), "Quest Log", fill=(236, 214, 174, 255), font=load_font(34, bold=True))
         quests = [
@@ -285,15 +315,6 @@ def ui_bg(kind, size):
         ]
         for i, q in enumerate(quests):
             d.text((44, 100 + i * 42), q, fill=(224, 196, 146, 255), font=load_font(24, bold=False))
-    elif kind == "dialogue":
-        img = mood_bg("stone", size)
-        box_h = 180
-        d = ImageDraw.Draw(img)
-        d.rounded_rectangle([30, h - box_h - 24, w - 30, h - 24], radius=18,
-                            fill=(24, 20, 18, 236), outline=frame, width=3)
-        d.text((54, h - box_h), "Bowerstone Guard", fill=(246, 220, 178, 255), font=load_font(30, bold=True))
-        d.text((54, h - 112), "I've got my eye on you.", fill=(232, 204, 164, 255), font=load_font(30, bold=False))
-        d.text((54, h - 74), "One wrong move and you'll answer to the law.", fill=(196, 170, 132, 255), font=load_font(22, bold=False))
     elif kind == "hero":
         d.rectangle([20, 20, w - 20, h - 20], fill=panel, outline=frame, width=3)
         d.text((34, 36), "Hero Menu", fill=(240, 218, 176, 255), font=load_font(34, bold=True))
@@ -310,15 +331,6 @@ def ui_bg(kind, size):
             d.rectangle([264, y + 12, 264 + int((w - 328) * v), y + 34], fill=col + (255,))
         d.text((40, 450), "Morality: +58", fill=(148, 232, 156, 255), font=load_font(28, bold=True))
         d.text((40, 494), "Title: Hero", fill=(236, 214, 172, 255), font=load_font(28, bold=True))
-    elif kind == "anvil":
-        d.rectangle([20, 20, w - 20, h - 20], fill=panel, outline=frame, width=3)
-        d.text((36, 38), "Augmentation Forge", fill=(240, 218, 176, 255), font=load_font(34, bold=True))
-        slots = [(120, 130), (290, 130), (460, 130), (690, 130)]
-        for x, y in slots:
-            d.rounded_rectangle([x, y, x + 150, y + 150], radius=10,
-                                fill=(58, 46, 38, 255), outline=(128, 102, 72, 255), width=2)
-        d.line([(620, 205), (680, 205)], fill=(236, 214, 172, 255), width=8)
-        d.polygon([(680, 182), (680, 228), (716, 205)], fill=(236, 214, 172, 255))
     elif kind == "files":
         d.rectangle([20, 20, w - 20, h - 20], fill=(22, 28, 36, 255), outline=(80, 130, 170, 255), width=2)
         d.rectangle([20, 20, w - 20, 72], fill=(30, 42, 56, 255))
@@ -345,18 +357,72 @@ def ui_bg(kind, size):
         for i, line in enumerate(status):
             d.text((44, 102 + i * 44), line, fill=(222, 198, 162, 255), font=load_font(24, bold=False))
     else:
-        return mood_bg("stone", size)
+        return cached_backdrop(size, "stone")
     return img
 
 
-def recipe_bg(recipe_id, size):
+def anvil_scene(item_ids, size=OUT_SIZE):
+    w, h = size
+    img = Image.new("RGBA", size, (26, 22, 18, 255))
+    d = ImageDraw.Draw(img)
+    frame = (186, 148, 92, 255)
+    panel = (42, 34, 28, 235)
+    d.rectangle([20, 20, w - 20, h - 20], fill=panel, outline=frame, width=3)
+    d.text((36, 38), "Augmentation Forge", fill=(240, 218, 176, 255), font=load_font(34, bold=True))
+    slots = [(120, 130), (290, 130), (460, 130), (690, 130)]
+    for x, y in slots:
+        d.rounded_rectangle([x, y, x + 150, y + 150], radius=10,
+                            fill=(58, 46, 38, 255), outline=(128, 102, 72, 255), width=2)
+    d.line([(620, 205), (680, 205)], fill=(236, 214, 172, 255), width=8)
+    d.polygon([(680, 182), (680, 228), (716, 205)], fill=(236, 214, 172, 255))
+    for (x, y), iid in zip(slots, item_ids):
+        p = ITEM_TEX_DIR / f"{iid}.png"
+        if not p.exists():
+            MISSING_ASSETS.append(f"item:{iid}")
+            continue
+        icon = Image.open(p).convert("RGBA")
+        icon = fit_image(icon, (120, 120), Image.NEAREST)
+        img.alpha_composite(icon, (x + (150 - icon.width) // 2, y + (150 - icon.height) // 2))
+    return img
+
+
+def inventory_scene(item_ids, size=OUT_SIZE):
+    w, h = size
+    img = Image.new("RGBA", size, (26, 22, 18, 255))
+    d = ImageDraw.Draw(img)
+    frame = (186, 148, 92, 255)
+    panel = (42, 34, 28, 235)
+    d.rectangle([24, 24, w - 24, h - CONTENT_BOTTOM_PAD], fill=panel, outline=frame, width=3)
+    cols, rows = 4, 2
+    cw = (w - 80) // cols
+    ch = (h - CONTENT_BOTTOM_PAD - 92) // rows
+    for i, iid in enumerate(item_ids):
+        rx, ry = i % cols, i // cols
+        x0 = 40 + rx * cw
+        y0 = 70 + ry * ch
+        d.rounded_rectangle([x0, y0, x0 + cw - 10, y0 + ch - 10], radius=8,
+                            fill=(56, 46, 38, 255), outline=(112, 90, 62, 255), width=2)
+        p = ITEM_TEX_DIR / f"{iid}.png"
+        if not p.exists():
+            MISSING_ASSETS.append(f"item:{iid}")
+            continue
+        icon = Image.open(p).convert("RGBA")
+        icon = fit_image(icon, (int((cw - 30) * 0.7), int((ch - 30) * 0.7)), Image.NEAREST)
+        cx = x0 + (cw - 10 - icon.width) // 2
+        cy = y0 + (ch - 10 - icon.height) // 2
+        img.alpha_composite(icon, (cx, cy))
+    return img
+
+
+def recipe_scene(recipe_id, size=OUT_SIZE):
     p = SHOTS / "recipes" / f"{recipe_id}.png"
     if p.exists():
         return Image.open(p).convert("RGBA").resize(size, Image.Resampling.LANCZOS)
-    return ui_bg("grid", size)
+    MISSING_ASSETS.append(f"recipe:{recipe_id}")
+    return cached_backdrop(size, "stone")
 
 
-def collage_bg(size):
+def collage_scene(size=OUT_SIZE):
     w, h = size
     tiles = [
         SHOTS / "gallery" / "bosses.png",
@@ -379,142 +445,11 @@ def collage_bg(size):
                 t = Image.open(tiles[i]).convert("RGBA")
                 t = t.resize((tw, th), Image.Resampling.LANCZOS)
             else:
-                t = mood_bg("stone", (tw, th))
+                t = cached_backdrop((tw, th), "stone")
             img.alpha_composite(t, (x, y))
             i += 1
-    veil = Image.new("RGBA", size, (0, 0, 0, 72))
-    img.alpha_composite(veil)
+    apply_veil(img, (0, 0, 0, 72))
     return img
-
-
-def base_for_scene(scene, size):
-    bg = scene["bg"]
-    kind, value = bg.split(":", 1)
-    if kind == "structure":
-        return structure_bg(value, size)
-    if kind == "mood":
-        return mood_bg(value, size)
-    if kind == "ui":
-        return ui_bg(value, size)
-    if kind == "recipe":
-        return recipe_bg(value, size)
-    if kind == "collage":
-        return collage_bg(size)
-    return mood_bg("stone", size)
-
-
-def grid_slots(size, count):
-    w, h = size
-    cols = 4
-    rows = 2
-    cw = (w - 80) // cols
-    ch = (h - CONTENT_BOTTOM_PAD - 92) // rows
-    slots = []
-    for ry in range(rows):
-        for rx in range(cols):
-            x0 = 40 + rx * cw
-            y0 = 70 + ry * ch
-            slots.append((x0, y0, x0 + cw - 10, y0 + ch - 10))
-    if count <= len(slots):
-        return slots[:count]
-    return slots
-
-
-def flow_slots(size, count, bg_kind, bg_value):
-    w, h = size
-    content_h = h - CONTENT_BOTTOM_PAD
-    if count <= 0:
-        return []
-    if count == 1:
-        cx = w * 0.72 if bg_kind == "ui" else w * 0.50
-        return [(cx, content_h * 0.50, w * 0.30, content_h * 0.46)]
-    if bg_kind == "ui":
-        left = w * 0.45
-        right = w * 0.86
-        if bg_value in ("quest", "hero", "files", "roadmap"):
-            left = w * 0.52
-            right = w * 0.84
-        top = content_h * 0.34
-        bottom = content_h * 0.70
-        slot_w = (right - left) / count
-        slots = []
-        for i in range(count):
-            cx = left + slot_w * (i + 0.5)
-            cy = top + (bottom - top) * (0.42 if i % 2 == 0 else 0.58)
-            slots.append((cx, cy, slot_w * 0.72, content_h * 0.34))
-        return slots
-    top = content_h * (0.19 if bg_kind == "structure" else 0.24)
-    bottom = content_h * (0.82 if bg_kind == "structure" else 0.78)
-    slot_w = w / count
-    slots = []
-    for i in range(count):
-        cx = slot_w * (i + 0.5)
-        cy = top + (bottom - top) * (0.38 if i % 2 == 0 else 0.62)
-        slots.append((cx, cy, slot_w * 0.72, content_h * 0.52))
-    return slots
-
-
-def paste_asset(canvas, img, cx, cy, max_w, max_h, token):
-    resample = Image.Resampling.LANCZOS if token.startswith("mob:") else Image.Resampling.NEAREST
-    img = fit_image(img, (int(max_w), int(max_h)), resample)
-    x = int(cx - img.width / 2)
-    y = int(cy - img.height / 2)
-    shadow = Image.new("RGBA", (img.width + 24, img.height + 24), (0, 0, 0, 0))
-    sd = ImageDraw.Draw(shadow)
-    sd.ellipse([6, img.height - 4, img.width + 18, img.height + 18], fill=(0, 0, 0, 95))
-    shadow = shadow.filter(ImageFilter.GaussianBlur(6))
-    canvas.alpha_composite(shadow, (x - 12, y - 10))
-    canvas.alpha_composite(img, (x, y))
-
-
-def paste_missing_marker(canvas, draw, token, cx, cy):
-    x = int(cx)
-    y = int(cy)
-    draw.rectangle([x - 90, y - 90, x + 90, y + 90], fill=(80, 24, 64, 180), outline=(245, 96, 210, 255), width=4)
-    draw.text((x, y), token, anchor="mm", fill=(255, 220, 246, 255), font=load_font(24, bold=True))
-
-
-def paste_entities(canvas, entities, bg):
-    w, h = canvas.size
-    draw = ImageDraw.Draw(canvas)
-    bg_kind, bg_value = bg.split(":", 1)
-    visual = [e for e in entities if not e.startswith("text:")]
-    if visual and bg == "ui:grid":
-        slots = grid_slots(canvas.size, len(visual))
-        for i, token in enumerate(visual):
-            x0, y0, x1, y1 = slots[i]
-            img = asset_image(token)
-            if img is None:
-                paste_missing_marker(canvas, draw, token, (x0 + x1) / 2, (y0 + y1) / 2)
-                continue
-            paste_asset(canvas, img, (x0 + x1) / 2, (y0 + y1) / 2, (x1 - x0) * 0.56, (y1 - y0) * 0.56, token)
-    elif visual:
-        slots = flow_slots(canvas.size, len(visual), bg_kind, bg_value)
-        for i, token in enumerate(visual):
-            cx, cy, max_w, max_h = slots[i]
-            img = asset_image(token)
-            if img is None:
-                paste_missing_marker(canvas, draw, token, cx, cy)
-                continue
-            if token.startswith("item:") and bg_kind != "ui":
-                max_w *= 0.48
-                max_h *= 0.48
-            elif token.startswith("item:"):
-                max_w *= 0.78
-                max_h *= 0.78
-            elif bg_kind == "structure":
-                max_w *= 0.50
-                max_h *= 0.50
-            elif bg_kind == "mood":
-                max_w *= 0.72
-                max_h *= 0.72
-            paste_asset(canvas, img, cx, cy, max_w, max_h, token)
-
-    text_rows = [e.split(":", 1)[1] for e in entities if e.startswith("text:")]
-    if text_rows:
-        y0 = int((h - CONTENT_BOTTOM_PAD) * 0.24)
-        for i, row in enumerate(text_rows):
-            draw.text((int(w * 0.12), y0 + i * 38), row, fill=(218, 232, 246, 255), font=load_font(24, bold=False))
 
 
 def add_frame_and_titles(img, title, subtitle):
@@ -529,10 +464,217 @@ def add_frame_and_titles(img, title, subtitle):
     return card
 
 
-def render_scene(scene, size=(1920, 1080)):
-    base = base_for_scene(scene, size)
-    paste_entities(base, scene["entities"], scene["bg"])
-    return add_frame_and_titles(base, scene["title"], scene["subtitle"])
+# ---------------------------------------------------------------------------
+# Scene definitions
+# ---------------------------------------------------------------------------
+
+SCENES = [
+    {
+        "id": "01_hero_guild_gate", "kind": "scene3d", "struct": "guild_hall",
+        "title": "Hero at Heroes' Guild",
+        "subtitle": "Stepping through the gate, Guild Seal in hand",
+        "mobs": [("guildmaster", (22, 1, 4), {"yaw": 0.0})],
+        "items": (["guild_seal", "stick"], "Starting Gear"),
+    },
+    {
+        "id": "02_balverine_night_fight", "kind": "scene3d", "struct": "witchwood_stones",
+        "title": "Balverine Night Hunt",
+        "subtitle": "Moonlit ambush among the monoliths",
+        "mobs": [
+            ("balverine", (8, 1, 14), {"scale": 0.078, "yaw": 0.5}),
+            ("white_balverine", (16, 1, 9), {"scale": 0.078, "yaw": -0.9}),
+        ],
+        "veil": (8, 10, 30, 130),
+    },
+    {
+        "id": "03_roster_group_shot", "kind": "scene3d", "struct": "graveyard",
+        "title": "Creature Roster",
+        "subtitle": "Hobbes, Hollow Men, and an Earth Troll among the headstones",
+        "mobs": [
+            ("hobbe", (7, 1, 16), {"yaw": 0.3}),
+            ("hobbe_scout", (17, 1, 15), {"yaw": -0.6}),
+            ("undead", (12, 1, 20), {"yaw": 3.0}),
+            ("undead_knight", (9, 1, 20), {"yaw": 2.6}),
+            ("earth_troll", (16, 1, 18), {"scale": 0.085, "yaw": -0.2}),
+        ],
+    },
+    {
+        "id": "04_inventory_weapon_armor", "kind": "inventory",
+        "title": "Item Compendium",
+        "subtitle": "Weapon tiers and armour sets, crafted in order",
+        "items": ["iron_longsword", "steel_longsword", "obsidian_longsword", "master_longsword",
+                  "apprentice_torso", "guild_cloth", "platemail_torso", "archon_torso"],
+    },
+    {
+        "id": "05_archon_with_aeons", "kind": "scene3d", "struct": "temple_avo",
+        "title": "Archon Endgame Kit",
+        "subtitle": "Full Archon armour blessed at the Temple of Avo",
+        "mobs": [],
+        "effects": [holy_glow_fx((8, 3, 14))],
+        "items": (["archon_helm", "archon_torso", "archon_legs", "archon_boots", "sword_of_aeons"], "Archon Set + Sword of Aeons"),
+    },
+    {
+        "id": "06_master_katana_recipe", "kind": "recipe", "recipe": "master_katana",
+        "title": "Crafting Progression",
+        "subtitle": "Master Katana recipe at the table",
+    },
+    {
+        "id": "07_fireball_vs_hobbes", "kind": "scene3d", "struct": "darkwood_camp",
+        "title": "Will Power — Fireball",
+        "subtitle": "An explosive sphere of flame bursts over a hobbe pack",
+        "mobs": [
+            ("hobbe", (9, 1, 13), {"yaw": 0.4}),
+            ("hobbe_scout", (15, 1, 9), {"yaw": -0.7}),
+            ("hobbe", (12, 1, 17), {"yaw": 2.2}),
+        ],
+        "effects": [fireball_fx((13, 2.4, 13), target=(10, 1.2, 13))],
+        "items": (["spell_fireball"], "Will Power"),
+    },
+    {
+        "id": "08_slow_time_bandit_camp", "kind": "scene3d", "struct": "bandit_camp",
+        "title": "Will Power — Slow Time",
+        "subtitle": "The world crawls around Twinblade's raiders",
+        "mobs": [
+            ("twinblade", (16, 1, 19), {"scale": 0.082, "yaw": 3.1}),
+            ("bandit", (11, 1, 21), {"yaw": 2.6}),
+            ("bandit_archer", (21, 1, 21), {"yaw": 3.6}),
+        ],
+        "effects": [slow_time_fx((16, 1.4, 19), radius=4.5)],
+        "items": (["spell_slow_time"], "Will Power"),
+    },
+    {
+        "id": "09_quest_log_ui", "kind": "ui", "ui": "quest",
+        "title": "Quest Log",
+        "subtitle": "Main chain and side quest progress",
+    },
+    {
+        "id": "10_twinblade_boss_fight", "kind": "scene3d", "struct": "bandit_camp",
+        "title": "Twinblade Boss Fight",
+        "subtitle": "The Bandit King makes his stand at the war-camp pavilion",
+        "mobs": [
+            ("twinblade", (16, 1, 11), {"scale": 0.085, "yaw": 3.14}),
+            ("bandit", (11, 1, 15), {"yaw": 2.7}),
+            ("bandit_archer", (21, 1, 15), {"yaw": 3.5}),
+        ],
+        "items": (["master_greatsword"], "Loot"),
+    },
+    {
+        "id": "11_demon_door_closeup", "kind": "scene3d", "struct": "demon_door_arch",
+        "title": "Demon Door Encounter",
+        "subtitle": "A living stone face carved into the hillside",
+        "mobs": [("demon_door", (11.5, 0.6, 5.5), {"scale": 0.16})],
+    },
+    {
+        "id": "12_guild_wide_lake_view", "kind": "scene3d", "struct": "guild_hall",
+        "title": "Heroes' Guild — Walled Grounds",
+        "subtitle": "The academy seen across its training yards",
+        "mobs": [
+            ("guildmaster", (22, 1, 20), {"yaw": 1.0}),
+            ("guard_bowerstone", (28, 1, 22), {"yaw": -1.2}),
+        ],
+        "pitch": 0.64,
+    },
+    {
+        "id": "13_temple_avo_donation", "kind": "scene3d", "struct": "temple_avo",
+        "title": "Temple of Avo",
+        "subtitle": "Villagers leave coin offerings at the donation fountain",
+        "mobs": [("villager_albion", (5, 3, 9), {"yaw": 0.9})],
+        "effects": [holy_glow_fx((8, 4, 9), height=3.0)],
+        "items": (["gold_coin"], "Offerings"),
+    },
+    {
+        "id": "14_guard_low_rep_dialogue", "kind": "scene3d", "struct": "bowerstone_market",
+        "title": "Faction Reputation",
+        "subtitle": "A low-reputation Bowerstone Guard keeps watch",
+        "mobs": [("guard_bowerstone", (18, 1, 10), {"yaw": 3.14})],
+        "dialogue": ("Bowerstone Guard", [
+            "I've got my eye on you.",
+            "One wrong move and you'll answer to the law.",
+        ]),
+    },
+    {
+        "id": "15_hero_menu_xp_morality", "kind": "ui", "ui": "hero",
+        "title": "Hero Menu",
+        "subtitle": "XP bars, morality meter, and title",
+    },
+    {
+        "id": "16_cullis_gate_travel_ui", "kind": "scene3d", "struct": "focus_site",
+        "title": "Cullis Gate Fast Travel",
+        "subtitle": "Attuned focus sites join the teleport network",
+        "mobs": [],
+        "effects": [holy_glow_fx((6, 3, 6), height=3.5)],
+        "items": (["guild_seal", "septimal_key"], "Attunement"),
+        "travel": ["Heroes' Guild", "Oakvale", "Bowerstone", "Snowspire Oracle"],
+    },
+    {
+        "id": "17_visible_armor_sets", "kind": "inventory",
+        "title": "Visible Armour System",
+        "subtitle": "Apprentice, Guild, Plate, and Archon — worn on the hero",
+        "items": ["apprentice_torso", "guild_cloth", "platemail_torso", "archon_torso",
+                  "apprentice_helm", "wizard_hat", "platemail_helm", "archon_helm"],
+    },
+    {
+        "id": "18_anvil_augments", "kind": "anvil",
+        "title": "Weapon Augmentation",
+        "subtitle": "Sword of Aeons with three augments bound",
+        "items": ["sword_of_aeons", "sharpening_augment", "lightning_augment", "silver_augment"],
+    },
+    {
+        "id": "19_sound_files_overview", "kind": "ui", "ui": "files",
+        "title": "Synthesized Sound Design",
+        "subtitle": "Procedural WAV set in the repository",
+    },
+    {
+        "id": "20_starter_inventory", "kind": "inventory",
+        "title": "Quick Start Loadout",
+        "subtitle": "Guild Seal and Stick on spawn",
+        "items": ["guild_seal", "stick", "apprentice_torso", "apprentice_helm"],
+    },
+    {
+        "id": "21_roadmap_progress", "kind": "ui", "ui": "roadmap",
+        "title": "Known Issues and Future Plans",
+        "subtitle": "Current status and planned updates",
+    },
+    {
+        "id": "22_media_collage", "kind": "collage",
+        "title": "Gallery and Media",
+        "subtitle": "Procedural assets and gameplay collage",
+    },
+]
+
+
+# ---------------------------------------------------------------------------
+# Render dispatch
+# ---------------------------------------------------------------------------
+
+def render_scene(scene):
+    kind = scene["kind"]
+    if kind == "scene3d":
+        img = compose_structure_scene(
+            scene["struct"], mobs=scene.get("mobs", ()), effects=scene.get("effects", ()),
+            veil=scene.get("veil"), yaw=scene.get("yaw"), pitch=scene.get("pitch"),
+        )
+        if "items" in scene:
+            ids, label = scene["items"]
+            add_item_tray(img, ids, label=label)
+        if "dialogue" in scene:
+            speaker, lines = scene["dialogue"]
+            dialogue_overlay(img, speaker, lines)
+        if "travel" in scene:
+            travel_overlay(img, scene["travel"])
+    elif kind == "inventory":
+        img = inventory_scene(scene["items"])
+    elif kind == "anvil":
+        img = anvil_scene(scene["items"])
+    elif kind == "ui":
+        img = ui_bg(scene["ui"], OUT_SIZE)
+    elif kind == "recipe":
+        img = recipe_scene(scene["recipe"])
+    elif kind == "collage":
+        img = collage_scene()
+    else:
+        raise ValueError(f"unknown scene kind: {kind}")
+    return add_frame_and_titles(img, scene["title"], scene["subtitle"])
 
 
 def write_index(rows):
