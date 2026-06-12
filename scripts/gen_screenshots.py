@@ -528,61 +528,189 @@ def contact_sheet(images, cols, cell, title, path):
 # Recipe cards
 # ---------------------------------------------------------------------------
 
-# simple colour chips + monograms for vanilla ingredients
-VANILLA_CHIPS = {
-    "minecraft:iron_ingot": ((178, 182, 192), "Fe"),
-    "minecraft:gold_ingot": ((248, 208, 92), "Au"),
-    "minecraft:gold_nugget": ((240, 200, 100), "au"),
-    "minecraft:gold_block": ((250, 214, 80), "AU"),
-    "minecraft:coal": ((48, 46, 44), "C"),
-    "minecraft:coal_block": ((34, 32, 30), "CC"),
-    "minecraft:stick": ((140, 104, 60), "/"),
-    "minecraft:string": ((228, 226, 220), "~"),
-    "minecraft:leather": ((164, 110, 62), "L"),
-    "minecraft:chain": ((128, 132, 140), "oo"),
-    "minecraft:obsidian": ((38, 28, 58), "Ob"),
-    "minecraft:white_wool": ((235, 235, 230), "W"),
-    "minecraft:black_wool": ((42, 40, 40), "W"),
-    "minecraft:blue_wool": ((64, 84, 168), "W"),
-    "minecraft:red_wool": ((164, 50, 46), "W"),
-    "minecraft:orange_wool": ((216, 130, 44), "W"),
-    "minecraft:purple_wool": ((128, 60, 152), "W"),
-    "minecraft:ink_sac": ((30, 32, 40), "Ink"),
-    "minecraft:fire_charge": ((240, 130, 40), "Fz"),
-    "minecraft:bone": ((226, 220, 200), "B"),
-    "minecraft:flint": ((70, 68, 66), "Fl"),
-    "minecraft:arrow": ((190, 186, 176), "➹"),
-    "minecraft:glass_bottle": ((196, 220, 230), "U"),
-    "minecraft:red_mushroom": ((196, 60, 50), "M"),
-    "minecraft:sugar": ((240, 240, 238), "S"),
-    "minecraft:wheat": ((212, 180, 94), "Wh"),
-    "minecraft:egg": ((238, 224, 196), "E"),
-    "minecraft:apple": ((210, 60, 50), "A"),
-    "minecraft:paper": ((240, 238, 230), "P"),
-    "minecraft:lapis_lazuli": ((48, 84, 188), "La"),
-    "minecraft:spruce_planks": ((114, 84, 50), "Pl"),
-    "minecraft:oak_planks": ((162, 130, 78), "Pl"),
-    "minecraft:dark_oak_planks": ((78, 56, 34), "Pl"),
+# palette tuples are (base, accent) and drive small procedural icon painting.
+VANILLA_PALETTES = {
+    "minecraft:iron_ingot": ((172, 178, 188), (218, 224, 236)),
+    "minecraft:iron_nugget": ((168, 172, 180), (218, 222, 230)),
+    "minecraft:gold_ingot": ((236, 198, 78), (254, 228, 122)),
+    "minecraft:gold_nugget": ((230, 188, 72), (250, 220, 112)),
+    "minecraft:gold_block": ((232, 194, 66), (255, 232, 120)),
+    "minecraft:coal": ((58, 56, 58), (100, 98, 104)),
+    "minecraft:coal_block": ((36, 34, 38), (80, 78, 84)),
+    "minecraft:stick": ((142, 98, 54), (186, 140, 88)),
+    "minecraft:string": ((222, 220, 214), (246, 244, 238)),
+    "minecraft:leather": ((154, 98, 56), (198, 142, 94)),
+    "minecraft:chain": ((124, 130, 138), (170, 176, 184)),
+    "minecraft:obsidian": ((46, 34, 64), (96, 70, 136)),
+    "minecraft:ink_sac": ((28, 30, 38), (70, 74, 88)),
+    "minecraft:fire_charge": ((236, 126, 46), (255, 208, 104)),
+    "minecraft:flint": ((74, 72, 74), (122, 118, 124)),
+    "minecraft:arrow": ((178, 172, 160), (220, 214, 196)),
+    "minecraft:glass_bottle": ((184, 214, 224), (224, 244, 248)),
+    "minecraft:red_mushroom": ((194, 58, 52), (246, 220, 196)),
+    "minecraft:sugar": ((236, 236, 234), (255, 255, 255)),
+    "minecraft:wheat": ((210, 172, 86), (242, 212, 126)),
+    "minecraft:egg": ((236, 220, 194), (252, 242, 224)),
+    "minecraft:apple": ((198, 54, 48), (246, 116, 94)),
+    "minecraft:paper": ((236, 232, 218), (252, 248, 236)),
+    "minecraft:lapis_lazuli": ((52, 86, 190), (102, 146, 238)),
+    "minecraft:blue_dye": ((42, 78, 182), (88, 134, 234)),
+    "minecraft:honeycomb": ((224, 158, 56), (252, 214, 112)),
+    "minecraft:spruce_planks": ((112, 80, 50), (156, 118, 74)),
+    "minecraft:oak_planks": ((158, 126, 76), (206, 166, 108)),
+    "minecraft:dark_oak_planks": ((78, 56, 36), (126, 92, 62)),
+    "minecraft:white_wool": ((232, 232, 226), (252, 252, 248)),
+    "minecraft:black_wool": ((52, 50, 52), (94, 92, 96)),
+    "minecraft:blue_wool": ((72, 92, 172), (122, 146, 226)),
+    "minecraft:red_wool": ((164, 56, 52), (212, 104, 92)),
+    "minecraft:purple_wool": ((126, 64, 152), (174, 112, 204)),
 }
+
+
+def _mix(a, b, t):
+    return tuple(int(a[i] * (1.0 - t) + b[i] * t) for i in range(3))
+
+
+def _slot_tile(cell, base):
+    tile = Image.new("RGBA", (cell, cell), (0, 0, 0, 0))
+    d = ImageDraw.Draw(tile)
+    rim = _mix(base, (20, 18, 16), 0.75)
+    inner = _mix(base, (255, 255, 255), 0.12)
+    d.rounded_rectangle([6, 6, cell - 6, cell - 6], radius=10,
+                        fill=inner + (255,), outline=rim + (255,), width=2)
+    d.rounded_rectangle([9, 9, cell - 9, 20], radius=7,
+                        fill=_mix(base, (255, 255, 255), 0.30) + (70,))
+    return tile, d
+
+
+def _draw_ingot(d, cell, base, accent):
+    x0, y0 = 20, cell // 2 - 10
+    x1, y1 = cell - 20, cell // 2 + 12
+    d.polygon([(x0 + 6, y0), (x1 - 6, y0), (x1, y0 + 7), (x1 - 8, y1), (x0 + 8, y1), (x0, y0 + 7)],
+              fill=base + (255,), outline=(24, 20, 18, 255))
+    d.polygon([(x0 + 12, y0 + 4), (x1 - 12, y0 + 4), (x1 - 18, y0 + 10), (x0 + 18, y0 + 10)],
+              fill=accent + (230,))
+
+
+def _draw_nugget(d, cell, base, accent):
+    d.polygon([(cell // 2 - 12, cell // 2 + 12), (cell // 2 - 22, cell // 2 - 2), (cell // 2 - 6, cell // 2 - 16),
+               (cell // 2 + 14, cell // 2 - 10), (cell // 2 + 22, cell // 2 + 8), (cell // 2 + 4, cell // 2 + 18)],
+              fill=base + (255,), outline=(24, 20, 18, 255))
+    d.polygon([(cell // 2 - 8, cell // 2 - 6), (cell // 2 + 8, cell // 2 - 4), (cell // 2 + 3, cell // 2 + 6),
+               (cell // 2 - 10, cell // 2 + 5)], fill=accent + (230,))
+
+
+def _draw_motif(d, item_id, cell, base, accent):
+    if item_id in ("minecraft:iron_ingot", "minecraft:gold_ingot", "minecraft:gold_block"):
+        _draw_ingot(d, cell, base, accent)
+    elif item_id in ("minecraft:iron_nugget", "minecraft:gold_nugget"):
+        _draw_nugget(d, cell, base, accent)
+    elif item_id in ("minecraft:coal", "minecraft:coal_block"):
+        d.polygon([(24, 62), (18, 46), (30, 30), (50, 26), (62, 38), (56, 58), (38, 66)],
+                  fill=base + (255,), outline=(16, 14, 14, 255))
+        d.polygon([(42, 58), (36, 42), (48, 34), (56, 42), (52, 54)], fill=accent + (180,))
+    elif item_id == "minecraft:stick":
+        d.polygon([(24, 64), (30, 70), (70, 30), (64, 24)], fill=base + (255,), outline=(42, 26, 14, 255))
+        d.line([(34, 62), (62, 34)], fill=accent + (220,), width=2)
+    elif item_id == "minecraft:string":
+        d.arc([24, 24, 72, 72], 16, 340, fill=base + (255,), width=4)
+        d.arc([28, 30, 68, 68], 28, 350, fill=accent + (220,), width=2)
+    elif item_id == "minecraft:chain":
+        d.ellipse([30, 26, 52, 48], outline=base + (255,), width=4)
+        d.ellipse([44, 40, 66, 62], outline=accent + (255,), width=4)
+    elif item_id == "minecraft:obsidian":
+        d.polygon([(46, 18), (62, 36), (56, 70), (36, 74), (22, 52), (30, 28)],
+                  fill=base + (255,), outline=(12, 10, 18, 255))
+        d.line([(40, 28), (52, 44)], fill=accent + (200,), width=2)
+        d.line([(34, 44), (48, 60)], fill=accent + (160,), width=2)
+    elif item_id.endswith("_wool"):
+        d.ellipse([22, 24, 74, 76], fill=base + (255,), outline=(26, 22, 20, 255), width=2)
+        for off in (30, 40, 50):
+            d.arc([24, off - 8, 72, off + 14], 190, 350, fill=accent + (200,), width=2)
+    elif item_id in ("minecraft:ink_sac", "minecraft:blue_dye", "minecraft:lapis_lazuli"):
+        d.polygon([(26, 60), (22, 46), (32, 30), (44, 28), (58, 36), (64, 52), (54, 66), (40, 68)],
+                  fill=base + (255,), outline=(16, 14, 18, 255))
+        d.polygon([(42, 54), (36, 44), (46, 36), (54, 44), (50, 54)], fill=accent + (220,))
+    elif item_id == "minecraft:fire_charge":
+        d.ellipse([24, 24, 72, 72], fill=_mix(base, (52, 22, 18), 0.3) + (255,), outline=(40, 18, 12, 255), width=2)
+        d.polygon([(48, 26), (34, 52), (46, 70), (64, 48)], fill=base + (255,))
+        d.polygon([(49, 36), (43, 52), (50, 62), (58, 48)], fill=accent + (255,))
+    elif item_id == "minecraft:flint":
+        d.polygon([(30, 68), (22, 44), (36, 24), (54, 22), (66, 36), (58, 58), (44, 70)],
+                  fill=base + (255,), outline=(20, 18, 18, 255))
+        d.line([(34, 38), (54, 52)], fill=accent + (180,), width=2)
+    elif item_id == "minecraft:arrow":
+        d.line([(26, 66), (66, 26)], fill=base + (255,), width=4)
+        d.polygon([(68, 22), (74, 34), (62, 30)], fill=accent + (255,))
+        d.polygon([(24, 68), (20, 74), (30, 70)], fill=(180, 132, 86, 255))
+    elif item_id == "minecraft:glass_bottle":
+        d.rounded_rectangle([38, 22, 58, 34], radius=3, fill=_mix(base, (255, 255, 255), 0.2) + (220,))
+        d.rounded_rectangle([30, 32, 66, 72], radius=10, fill=base + (120,), outline=accent + (210,), width=2)
+        d.rounded_rectangle([35, 46, 61, 67], radius=7, fill=_mix(base, accent, 0.2) + (120,))
+    elif item_id == "minecraft:red_mushroom":
+        d.polygon([(34, 62), (38, 44), (50, 44), (54, 62)], fill=(228, 216, 196, 255))
+        d.ellipse([22, 24, 66, 52], fill=base + (255,), outline=(70, 20, 18, 255), width=2)
+        for px, py in ((34, 34), (44, 30), (54, 36)):
+            d.ellipse([px - 3, py - 3, px + 3, py + 3], fill=accent + (255,))
+    elif item_id == "minecraft:sugar":
+        for bx, by in ((30, 52), (42, 40), (52, 50)):
+            d.polygon([(bx, by), (bx + 8, by - 6), (bx + 16, by), (bx + 8, by + 6)],
+                      fill=accent + (240,), outline=(190, 190, 190, 255))
+    elif item_id == "minecraft:wheat":
+        d.line([(34, 70), (48, 26)], fill=(174, 138, 66, 255), width=3)
+        for i in range(5):
+            y = 58 - i * 7
+            d.polygon([(48, y), (58, y - 4), (50, y + 1)], fill=base + (255,))
+            d.polygon([(46, y + 1), (36, y - 3), (44, y + 3)], fill=accent + (220,))
+    elif item_id == "minecraft:egg":
+        d.ellipse([30, 24, 66, 70], fill=base + (255,), outline=(130, 116, 92, 255), width=2)
+        d.ellipse([38, 32, 48, 42], fill=accent + (160,))
+    elif item_id == "minecraft:apple":
+        d.ellipse([26, 30, 70, 72], fill=base + (255,), outline=(78, 24, 20, 255), width=2)
+        d.rectangle([46, 20, 50, 32], fill=(124, 84, 44, 255))
+        d.ellipse([50, 18, 62, 30], fill=(78, 132, 60, 255))
+        d.ellipse([34, 40, 44, 50], fill=accent + (120,))
+    elif item_id == "minecraft:paper":
+        d.polygon([(28, 24), (60, 24), (68, 32), (68, 70), (28, 70)], fill=base + (255,), outline=(140, 130, 110, 255))
+        d.polygon([(60, 24), (60, 32), (68, 32)], fill=accent + (220,))
+        d.line([(34, 42), (62, 42)], fill=(186, 176, 152, 255), width=2)
+        d.line([(34, 50), (60, 50)], fill=(186, 176, 152, 255), width=2)
+    elif item_id == "minecraft:honeycomb":
+        for row in range(3):
+            for col in range(3 - (row % 2)):
+                cx = 30 + col * 14 + (7 if row % 2 else 0)
+                cy = 30 + row * 12
+                hexp = [(cx - 5, cy), (cx - 2, cy - 5), (cx + 2, cy - 5), (cx + 5, cy), (cx + 2, cy + 5), (cx - 2, cy + 5)]
+                d.polygon(hexp, fill=base + (255,), outline=(126, 80, 22, 255))
+    elif item_id.endswith("_planks"):
+        d.rounded_rectangle([20, 24, 76, 70], radius=6, fill=base + (255,), outline=(54, 34, 20, 255), width=2)
+        for y in (34, 46, 58):
+            d.line([(24, y), (72, y)], fill=accent + (190,), width=2)
+        d.line([(44, 26), (44, 68)], fill=_mix(base, (40, 26, 16), 0.35) + (170,), width=2)
+    elif item_id == "minecraft:leather":
+        d.polygon([(24, 60), (22, 42), (32, 28), (56, 26), (70, 38), (68, 62), (46, 70)],
+                  fill=base + (255,), outline=(80, 46, 24, 255))
+        d.line([(34, 36), (60, 56)], fill=accent + (180,), width=2)
+    else:
+        # Safe fallback for any future vanilla ingredient IDs.
+        d.ellipse([24, 24, 72, 72], fill=base + (255,), outline=(28, 22, 18, 255), width=2)
+        d.polygon([(48, 30), (54, 44), (70, 48), (54, 52), (48, 66), (42, 52), (26, 48), (42, 44)],
+                  fill=accent + (210,))
 
 
 def ingredient_icon(item_id, cell):
     """Returns an RGBA tile for an ingredient: fc icons from the RP,
-    vanilla items as colour chips with monograms."""
-    tile = Image.new("RGBA", (cell, cell), (0, 0, 0, 0))
-    d = ImageDraw.Draw(tile)
+    vanilla items as mini painted glyph-free icons."""
     if item_id.startswith("fc:"):
         path = ITEM_TEX / f"{item_id[3:]}.png"
         if path.exists():
+            tile = Image.new("RGBA", (cell, cell), (0, 0, 0, 0))
             ic = Image.open(path).convert("RGBA").resize((cell - 10, cell - 10), Image.NEAREST)
             tile.alpha_composite(ic, (5, 5))
             return tile
-    col, mono = VANILLA_CHIPS.get(item_id, ((150, 120, 160), "?"))
-    d.rounded_rectangle([6, 6, cell - 6, cell - 6], radius=10,
-                        fill=col + (255,), outline=(28, 22, 18, 255), width=2)
-    lum = 0.2126 * col[0] + 0.7152 * col[1] + 0.0722 * col[2]
-    ink = (24, 20, 16, 255) if lum > 120 else (235, 228, 210, 255)
-    d.text((cell / 2, cell / 2), mono, font=load_font(cell // 3), fill=ink, anchor="mm")
+    base, accent = VANILLA_PALETTES.get(item_id, ((138, 106, 154), (202, 162, 220)))
+    tile, d = _slot_tile(cell, base)
+    _draw_motif(d, item_id, cell, base, accent)
     return tile
 
 
