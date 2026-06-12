@@ -13,7 +13,7 @@
     ],
     "key": {
       "X": {
-        "item": "minecraft:white_wool"
+        "item": "fc:guild_cloth"
       },
       "Y": {
         "item": "minecraft:gold_nugget"
@@ -21,7 +21,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:white_wool"
+        "item": "fc:guild_cloth"
       }
     ],
     "result": {

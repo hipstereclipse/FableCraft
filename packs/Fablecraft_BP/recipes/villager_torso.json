@@ -14,7 +14,7 @@
     ],
     "key": {
       "X": {
-        "item": "minecraft:leather"
+        "item": "fc:cured_leather"
       },
       "Y": {
         "item": "minecraft:string"
@@ -22,7 +22,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:leather"
+        "item": "fc:cured_leather"
       }
     ],
     "result": {

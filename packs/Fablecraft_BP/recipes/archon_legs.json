@@ -14,12 +14,12 @@
     ],
     "key": {
       "X": {
-        "item": "fc:master_ingot"
+        "item": "fc:tempered_plate"
       }
     },
     "unlock": [
       {
-        "item": "fc:master_ingot"
+        "item": "fc:tempered_plate"
       }
     ],
     "result": {

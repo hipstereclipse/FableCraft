@@ -13,12 +13,12 @@
     ],
     "key": {
       "X": {
-        "item": "minecraft:white_wool"
+        "item": "fc:guild_cloth"
       }
     },
     "unlock": [
       {
-        "item": "minecraft:white_wool"
+        "item": "fc:guild_cloth"
       }
     ],
     "result": {

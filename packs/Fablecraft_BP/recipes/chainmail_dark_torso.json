@@ -14,15 +14,15 @@
     ],
     "key": {
       "X": {
-        "item": "minecraft:chain"
+        "item": "fc:chain_links"
       },
       "Y": {
-        "item": "minecraft:ink_sac"
+        "item": "fc:ectoplasm"
       }
     },
     "unlock": [
       {
-        "item": "minecraft:chain"
+        "item": "fc:chain_links"
       }
     ],
     "result": {

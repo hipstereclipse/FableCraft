@@ -158,6 +158,9 @@ function placeGuildNear(p) {
     trySpawn(dim, "fc:maze", { x: base.x + 9, y: y + 1, z: base.z + 20 });
     trySpawn(dim, "fc:theresa", { x: base.x + 30, y: y + 1, z: base.z + 20 });
     trySpawn(dim, "fc:trader", { x: base.x + 26, y: y + 1, z: base.z + 6 });
+    trySpawn(dim, "fc:guild_apprentice_might", { x: base.x + 35, y: y + 1, z: base.z + 23 });
+    trySpawn(dim, "fc:guild_apprentice_skill", { x: base.x + 37, y: y + 1, z: base.z + 19 });
+    trySpawn(dim, "fc:guild_apprentice_will", { x: base.x + 17, y: y + 1, z: base.z + 29 });
     fillLootChests(dim, base.x, y, base.z, 45, 26, 41, "fc:guild_hall");
     blendTerrain(dim, base.x, y, base.z, 45, 41);
     // wake the new Hero inside the Guild forecourt
@@ -967,7 +970,8 @@ world.beforeEvents.playerInteractWithEntity.subscribe((ev) => {
   if (t === "fc:demon_door") { ev.cancel = true; system.run(() => demonDoorTalk(p, target)); return; }
   const NPC_TYPES = ["fc:guildmaster", "fc:maze", "fc:theresa", "fc:lady_grey", "fc:oracle",
     "fc:briar_rose", "fc:trader", "fc:barkeep", "fc:villager_albion", "fc:villager_woman",
-    "fc:villager_farmer", "fc:mercenary",
+    "fc:villager_farmer", "fc:villager_tailor", "fc:villager_blacksmith", "fc:villager_fisher",
+    "fc:guild_apprentice_might", "fc:guild_apprentice_skill", "fc:guild_apprentice_will", "fc:mercenary",
     "fc:guard_bowerstone", "fc:guard_oakvale", "fc:guard_snowspire"];
   if (NPC_TYPES.includes(t)) { ev.cancel = true; system.run(() => npcTalk(p, target)); }
 });
@@ -1181,7 +1185,12 @@ function npcTalk(p, npc) {
     else if (tier === "revered") p.sendMessage(`§6Guard: "§o${FACTION_NAMES[town]} sleeps easy with you about, Hero. An honour.§r§6"`);
     else if (tier === "friendly") p.sendMessage(`§9Guard: "Good to see a friend of ${FACTION_NAMES[town]}. Mind the Hobbes after dark."`);
     else p.sendMessage('§9Guard: "All quiet, Hero. Mind the Hobbes after dark."');
-  } else if (t === "fc:villager_albion" || t === "fc:villager_woman" || t === "fc:villager_farmer") {
+  } else if (t === "fc:guild_apprentice_might" || t === "fc:guild_apprentice_skill" || t === "fc:guild_apprentice_will") {
+    const lines = t.endsWith("might") ? ["The Guildmaster says footwork wins duels. My bruises agree.", "One day I'll take Twinblade's measure myself."]
+      : t.endsWith("skill") ? ["Maze says patience is an arrow loosed before the bow is drawn.", "I can hit the yard post nine times out of ten now."]
+        : ["The Will hums louder near the Cullis Gate.", "I saw blue fire in my sleep. Theresa said not to panic."];
+    p.sendMessage(`§6Guild Apprentice: §f"${lines[Math.floor(Math.random() * lines.length)]}"`);
+  } else if (t === "fc:villager_albion" || t === "fc:villager_woman" || t === "fc:villager_farmer" || t === "fc:villager_tailor" || t === "fc:villager_blacksmith" || t === "fc:villager_fisher") {
     const town = VILLAGER_TOWN[t] ?? "bowerstone";
     const tier = repTier(rep(p, town));
     const att = P.get(p, "fc_renown", 0);
@@ -1338,7 +1347,8 @@ const GUARD_TOWN = {
 };
 const VILLAGER_TOWN = {
   "fc:villager_albion": "bowerstone", "fc:villager_farmer": "oakvale",
-  "fc:villager_woman": "snowspire",
+  "fc:villager_woman": "snowspire", "fc:villager_tailor": "bowerstone",
+  "fc:villager_blacksmith": "bowerstone", "fc:villager_fisher": "oakvale",
 };
 
 function factionKillHooks(p, dead, fam) {

@@ -14,10 +14,10 @@
     ],
     "key": {
       "P": {
-        "item": "minecraft:oak_planks"
+        "item": "fc:bow_stave"
       },
       "T": {
-        "item": "minecraft:string"
+        "item": "fc:waxed_bowstring"
       },
       "A": {
         "item": "fc:steel_ingot"
@@ -25,7 +25,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:oak_planks"
+        "item": "fc:bow_stave"
       }
     ],
     "result": {

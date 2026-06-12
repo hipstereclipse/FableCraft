@@ -14,15 +14,15 @@
     ],
     "key": {
       "X": {
-        "item": "minecraft:white_wool"
+        "item": "fc:guild_cloth"
       },
       "Y": {
-        "item": "minecraft:string"
+        "item": "fc:leather_straps"
       }
     },
     "unlock": [
       {
-        "item": "minecraft:white_wool"
+        "item": "fc:guild_cloth"
       }
     ],
     "result": {

@@ -14,21 +14,21 @@
     ],
     "key": {
       "P": {
-        "item": "minecraft:spruce_planks"
+        "item": "fc:bow_stave"
       },
       "T": {
-        "item": "minecraft:string"
+        "item": "fc:waxed_bowstring"
       },
       "A": {
-        "item": "minecraft:string"
+        "item": "fc:waxed_bowstring"
       },
       "S": {
-        "item": "minecraft:stick"
+        "item": "fc:leather_straps"
       }
     },
     "unlock": [
       {
-        "item": "minecraft:spruce_planks"
+        "item": "fc:bow_stave"
       }
     ],
     "result": {

@@ -10,7 +10,7 @@
     "pattern": [
       " X ",
       "XXX",
-      " S "
+      "BHS"
     ],
     "key": {
       "X": {
@@ -18,6 +18,12 @@
       },
       "S": {
         "item": "minecraft:stick"
+      },
+      "H": {
+        "item": "minecraft:iron_nugget"
+      },
+      "B": {
+        "item": "fc:leather_straps"
       }
     },
     "unlock": [

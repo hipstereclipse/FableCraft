@@ -17,13 +17,13 @@
         "item": "minecraft:dark_oak_planks"
       },
       "T": {
-        "item": "minecraft:string"
+        "item": "fc:waxed_bowstring"
       },
       "A": {
         "item": "fc:obsidian_ingot"
       },
       "S": {
-        "item": "minecraft:stick"
+        "item": "fc:leather_straps"
       }
     },
     "unlock": [

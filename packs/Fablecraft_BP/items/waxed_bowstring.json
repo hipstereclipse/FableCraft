@@ -1,0 +1,23 @@
+{
+  "format_version": "1.21.30",
+  "minecraft:item": {
+    "description": {
+      "identifier": "fc:waxed_bowstring",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:icon": "waxed_bowstring",
+      "minecraft:display_name": {
+        "value": "\u00a7fWaxed Bowstring"
+      },
+      "minecraft:max_stack_size": 64,
+      "minecraft:tags": {
+        "tags": [
+          "fc:misc"
+        ]
+      }
+    }
+  }
+}

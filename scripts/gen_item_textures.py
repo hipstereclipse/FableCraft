@@ -1333,6 +1333,72 @@ def paint_misc(item):
         p.px(6, 6, shade(c, 1.4))
         p.px(9, 10, shade(c, 0.55))
         p.glow(color, 50)
+    elif kind == "straps":
+        c = color + (255,)
+        dk = shade(c, 0.58)
+        hi = shade(c, 1.28)
+        for yy in (5, 8, 11):
+            p.line(3, yy, 12, yy - 3, c, 2)
+            p.px(5, yy - 1, hi)
+            p.px(11, yy - 3, dk)
+        p.px(8, 6, (186, 150, 80, 255))
+        p.px(9, 6, shade((186, 150, 80, 255), 0.7))
+    elif kind == "cloth":
+        c = color + (255,)
+        p.rect(3, 4, 10, 9, c)
+        for yy in range(4, 13, 2):
+            for xx in range(3, 13):
+                p.px(xx, yy, shade(c, 0.88 if xx % 2 else 1.08))
+        p.rect_outline(3, 4, 10, 9, shade(c, 0.62))
+        p.px(5, 5, shade(c, 1.35))
+    elif kind == "links":
+        c = color + (255,)
+        dk = shade(c, 0.55)
+        hi = shade(c, 1.35)
+        for cx, cy in ((5, 5), (9, 5), (7, 8), (5, 11), (9, 11)):
+            p.rect_outline(cx - 2, cy - 1, 4, 3, c)
+            p.px(cx - 1, cy - 1, hi)
+            p.px(cx + 1, cy + 1, dk)
+    elif kind == "plate":
+        c = color + (255,)
+        hi = shade(c, 1.3)
+        dk = shade(c, 0.55)
+        p.rect(3, 5, 10, 7, c)
+        p.px(3, 5, (0, 0, 0, 0))
+        p.px(12, 5, (0, 0, 0, 0))
+        p.rect(4, 5, 8, 1, hi)
+        p.rect(3, 11, 10, 1, dk)
+        p.px(6, 7, hi)
+        p.px(10, 10, dk)
+        p.rect_outline(3, 5, 10, 7, dk)
+    elif kind == "hilt":
+        metal = color + (255,)
+        grip = (74, 46, 34, 255)
+        p.line(8, 3, 8, 13, grip, 2)
+        for yy in range(5, 12, 2):
+            p.px(7, yy, shade(grip, 1.35))
+            p.px(8, yy, shade(grip, 0.65))
+        p.line(3, 7, 13, 7, metal, 2)
+        p.px(3, 6, shade(metal, 1.25))
+        p.px(12, 8, shade(metal, 0.65))
+        p.disc(8, 13, 1.5, metal)
+        p.px(8, 7, (90, 170, 250, 255))
+    elif kind == "stave":
+        c = color + (255,)
+        for t in range(2, 14):
+            x = 8 + round(math.sin((t - 2) / 11 * math.pi - math.pi / 2) * 4)
+            y = t
+            p.px(x, y, shade(c, 0.92 if t % 2 else 1.12))
+            p.px(x + 1, y, shade(c, 0.65))
+        p.px(4, 2, shade(c, 1.25))
+        p.px(4, 13, shade(c, 0.65))
+    elif kind == "cord":
+        c = color + (255,)
+        for yy in range(4, 13, 3):
+            for xx in range(3, 13):
+                p.px(xx, yy + ((xx + yy) % 2), shade(c, 1.15 if xx % 2 else 0.78))
+        p.disc(4, 5, 1.2, shade(c, 0.7))
+        p.disc(12, 11, 1.2, shade(c, 0.75))
     elif kind == "orb":
         c = color + (255,)
         p.disc(8, 8, 5, shade(c, 0.55))

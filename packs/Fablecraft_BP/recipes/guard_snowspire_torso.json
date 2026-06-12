@@ -14,15 +14,15 @@
     ],
     "key": {
       "X": {
-        "item": "fc:steel_ingot"
+        "item": "fc:tempered_plate"
       },
       "Y": {
-        "item": "minecraft:orange_wool"
+        "item": "fc:frost_balverine_hide"
       }
     },
     "unlock": [
       {
-        "item": "fc:steel_ingot"
+        "item": "fc:tempered_plate"
       }
     ],
     "result": {

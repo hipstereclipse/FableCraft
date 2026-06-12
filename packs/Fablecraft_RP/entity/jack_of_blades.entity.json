@@ -25,13 +25,13 @@
           "ctrl_move",
           "ctrl_attack"
         ],
-        "scale": "1.2"
+        "scale": "1.05"
       },
       "render_controllers": [
         "controller.render.fc_default"
       ],
       "spawn_egg": {
-        "base_color": "#941618",
+        "base_color": "#96161a",
         "overlay_color": "#222222"
       }
     }

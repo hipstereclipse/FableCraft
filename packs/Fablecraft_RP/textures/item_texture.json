@@ -545,6 +545,30 @@
     "will_shard": {
       "textures": "textures/items/will_shard"
     },
+    "cured_leather": {
+      "textures": "textures/items/cured_leather"
+    },
+    "leather_straps": {
+      "textures": "textures/items/leather_straps"
+    },
+    "guild_cloth": {
+      "textures": "textures/items/guild_cloth"
+    },
+    "chain_links": {
+      "textures": "textures/items/chain_links"
+    },
+    "tempered_plate": {
+      "textures": "textures/items/tempered_plate"
+    },
+    "runed_hilt": {
+      "textures": "textures/items/runed_hilt"
+    },
+    "bow_stave": {
+      "textures": "textures/items/bow_stave"
+    },
+    "waxed_bowstring": {
+      "textures": "textures/items/waxed_bowstring"
+    },
     "orb_general": {
       "textures": "textures/items/orb_general"
     },

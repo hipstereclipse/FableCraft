@@ -1,0 +1,31 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "fc:craft_runed_hilt"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "fc:steel_ingot"
+      },
+      {
+        "item": "fc:leather_straps"
+      },
+      {
+        "item": "fc:will_shard"
+      }
+    ],
+    "unlock": [
+      {
+        "item": "fc:will_shard"
+      }
+    ],
+    "result": {
+      "item": "fc:runed_hilt",
+      "count": 1
+    }
+  }
+}

@@ -13,12 +13,12 @@
     ],
     "key": {
       "X": {
-        "item": "minecraft:chain"
+        "item": "fc:chain_links"
       }
     },
     "unlock": [
       {
-        "item": "minecraft:chain"
+        "item": "fc:chain_links"
       }
     ],
     "result": {

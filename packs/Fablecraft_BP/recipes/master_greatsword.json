@@ -10,14 +10,20 @@
     "pattern": [
       " X ",
       " X ",
-      "XSX"
+      "HBH"
     ],
     "key": {
       "X": {
         "item": "fc:master_ingot"
       },
       "S": {
-        "item": "minecraft:stick"
+        "item": "fc:master_ingot"
+      },
+      "H": {
+        "item": "fc:runed_hilt"
+      },
+      "B": {
+        "item": "fc:will_shard"
       }
     },
     "unlock": [

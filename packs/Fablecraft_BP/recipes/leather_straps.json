@@ -1,0 +1,25 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "fc:craft_leather_straps"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "fc:cured_leather"
+      }
+    ],
+    "unlock": [
+      {
+        "item": "fc:cured_leather"
+      }
+    ],
+    "result": {
+      "item": "fc:leather_straps",
+      "count": 4
+    }
+  }
+}

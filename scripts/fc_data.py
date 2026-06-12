@@ -380,6 +380,30 @@ MISC_ITEMS = [
     {"id": "will_shard", "name": "Will Shard", "kind": "shard", "stack": 64,
      "color": (90, 170, 250), "value": 120,
      "desc": "Crystallised Will energy, mined from azurite veins deep underground."},
+    {"id": "cured_leather", "name": "Cured Leather", "kind": "hide", "stack": 64,
+     "color": (128, 82, 50), "value": 35,
+     "desc": "Tanned hide ready for armour panels and weapon grips."},
+    {"id": "leather_straps", "name": "Leather Straps", "kind": "straps", "stack": 64,
+     "color": (96, 58, 34), "value": 12,
+     "desc": "Cut bindings for hilts, buckles and layered armour."},
+    {"id": "guild_cloth", "name": "Guild Cloth", "kind": "cloth", "stack": 64,
+     "color": (206, 212, 224), "value": 28,
+     "desc": "Heavy woven cloth used by Heroes' Guild tailors."},
+    {"id": "chain_links", "name": "Chain Links", "kind": "links", "stack": 64,
+     "color": (164, 168, 176), "value": 42,
+     "desc": "Riveted rings for mail hauberks and reinforced gloves."},
+    {"id": "tempered_plate", "name": "Tempered Plate", "kind": "plate", "stack": 64,
+     "color": (178, 184, 196), "value": 90,
+     "desc": "Hammered steel plate shaped for Albion armour."},
+    {"id": "runed_hilt", "name": "Runed Hilt", "kind": "hilt", "stack": 64,
+     "color": (210, 176, 96), "value": 180,
+     "desc": "A guarded weapon hilt etched to hold augment channels."},
+    {"id": "bow_stave", "name": "Seasoned Bow Stave", "kind": "stave", "stack": 64,
+     "color": (128, 92, 54), "value": 45,
+     "desc": "Dried, shaped wood for longbows and crossbow stocks."},
+    {"id": "waxed_bowstring", "name": "Waxed Bowstring", "kind": "cord", "stack": 64,
+     "color": (220, 210, 180), "value": 30,
+     "desc": "Tightly twisted cord strong enough for Albion war bows."},
     # --- experience orbs (Fable-style; use to absorb) ---
     {"id": "orb_general", "name": "Experience Orb", "kind": "orb", "stack": 64,
      "color": (110, 230, 110), "value": 50,
@@ -704,24 +728,37 @@ PLANK_FOR = {  # bow woods
     "ebony": "minecraft:dark_oak_planks",
     "master": "minecraft:dark_oak_planks",
 }
+BOW_STAVE_FOR = {
+    "yew": "fc:bow_stave",
+    "oak": "fc:bow_stave",
+    "ebony": "minecraft:dark_oak_planks",
+    "master": "fc:bow_stave",
+}
 BOW_ACCENT = {  # tier accent binding the stave
-    "yew": "minecraft:string",
+    "yew": "fc:waxed_bowstring",
     "oak": "fc:steel_ingot",
     "ebony": "fc:obsidian_ingot",
     "master": "fc:master_ingot",
 }
 
 WEAPON_PATTERNS = {
-    # X = material ingot, S = stick
-    "longsword":   ["X", "X", "S"],
-    "katana":      ["  X", " X ", "S  "],
-    "cleaver":     ["XX", "XX", " S"],
-    "axe":         ["XX", "XS", " S"],
-    "mace":        [" X ", "XXX", " S "],
-    "pickhammer":  ["XXX", " S ", " S "],
-    "greataxe":    ["XXX", "XSX", " S "],
-    "greatsword":  [" X ", " X ", "XSX"],
-    "greathammer": ["XXX", "XXX", " S "],
+    # X = blade/head material, S = shaft, H = hilt/guard, B = binding
+    "longsword":   [" X ", " X ", "HBS"],
+    "katana":      ["  X", " X ", "SBH"],
+    "cleaver":     ["XX ", "XX ", "BHS"],
+    "axe":         ["XX ", "XHS", " BS"],
+    "mace":        [" X ", "XXX", "BHS"],
+    "pickhammer":  ["XXX", "BHB", " S "],
+    "greataxe":    ["XXX", "XHX", "BSB"],
+    "greatsword":  [" X ", " X ", "HBH"],
+    "greathammer": ["XXX", "XXX", "BHB"],
+}
+
+WEAPON_BINDINGS = {
+    "iron":     {"H": "minecraft:iron_nugget", "B": "fc:leather_straps", "S": "minecraft:stick"},
+    "steel":    {"H": "fc:runed_hilt", "B": "fc:leather_straps", "S": "minecraft:stick"},
+    "obsidian": {"H": "fc:runed_hilt", "B": "fc:will_shard", "S": "minecraft:stick"},
+    "master":   {"H": "fc:runed_hilt", "B": "fc:will_shard", "S": "fc:master_ingot"},
 }
 
 ARMOR_PATTERNS = {
@@ -733,28 +770,28 @@ ARMOR_PATTERNS = {
 
 # per-set crafting material (X) and chest accent (Y)
 ARMOR_MATERIALS = {
-    "apprentice":       ("minecraft:white_wool", "minecraft:string"),
-    "villager":         ("minecraft:leather", "minecraft:string"),
-    "leather_bright":   ("minecraft:leather", "minecraft:gold_nugget"),
-    "leather_dark":     ("minecraft:leather", "minecraft:ink_sac"),
-    "chainmail_bright": ("minecraft:chain", "minecraft:gold_nugget"),
-    "chainmail_dark":   ("minecraft:chain", "minecraft:ink_sac"),
-    "platemail":        ("fc:steel_ingot", "fc:steel_ingot"),
-    "guard_bowerstone": ("fc:steel_ingot", "minecraft:blue_wool"),
-    "guard_oakvale":    ("fc:steel_ingot", "minecraft:red_wool"),
-    "guard_snowspire":  ("fc:steel_ingot", "minecraft:orange_wool"),
-    "assassin":         ("minecraft:leather", "minecraft:black_wool"),
-    "fire_assassin":    ("minecraft:leather", "minecraft:fire_charge"),
-    "archon":           ("fc:master_ingot", "minecraft:gold_ingot"),
+    "apprentice":       ("fc:guild_cloth", "fc:leather_straps"),
+    "villager":         ("fc:cured_leather", "minecraft:string"),
+    "leather_bright":   ("fc:cured_leather", "minecraft:gold_nugget"),
+    "leather_dark":     ("fc:cured_leather", "minecraft:ink_sac"),
+    "chainmail_bright": ("fc:chain_links", "minecraft:gold_nugget"),
+    "chainmail_dark":   ("fc:chain_links", "fc:ectoplasm"),
+    "platemail":        ("fc:tempered_plate", "fc:steel_ingot"),
+    "guard_bowerstone": ("fc:tempered_plate", "minecraft:blue_wool"),
+    "guard_oakvale":    ("fc:tempered_plate", "minecraft:red_wool"),
+    "guard_snowspire":  ("fc:tempered_plate", "fc:frost_balverine_hide"),
+    "assassin":         ("fc:cured_leather", "minecraft:black_wool"),
+    "fire_assassin":    ("fc:cured_leather", "minecraft:fire_charge"),
+    "archon":           ("fc:tempered_plate", "fc:will_shard"),
 }
 
 HAT_MATERIALS = {  # helm pattern with Y at crown centre: ["XYX", "X X"]
-    "holy_warrior_helm": ("fc:steel_ingot", "minecraft:gold_ingot"),
-    "demon_helm":        ("fc:obsidian_ingot", "minecraft:bone"),
+    "holy_warrior_helm": ("fc:tempered_plate", "minecraft:gold_ingot"),
+    "demon_helm":        ("fc:obsidian_ingot", "fc:minion_flesh"),
     "pimp_hat":          ("minecraft:purple_wool", "minecraft:gold_nugget"),
-    "wizard_hat":        ("minecraft:blue_wool", "fc:will_shard"),
-    "bright_wizard_hat": ("minecraft:white_wool", "minecraft:gold_nugget"),
-    "dark_wizard_hat":   ("minecraft:black_wool", "fc:will_shard"),
+    "wizard_hat":        ("fc:guild_cloth", "fc:will_shard"),
+    "bright_wizard_hat": ("fc:guild_cloth", "minecraft:gold_nugget"),
+    "dark_wizard_hat":   ("minecraft:black_wool", "fc:ectoplasm"),
 }
 
 
@@ -782,27 +819,43 @@ def build_recipes():
     furnace("obsidian_ingot", "minecraft:obsidian", "fc:obsidian_ingot")
     shapeless("master_ingot", ["fc:steel_ingot", "fc:will_shard", "fc:will_shard"],
               "fc:master_ingot")
+    shapeless("cured_leather", ["minecraft:leather", "minecraft:honeycomb"],
+              "fc:cured_leather", count=2, unlock="minecraft:leather")
+    shapeless("leather_straps", ["fc:cured_leather"], "fc:leather_straps", count=4)
+    shapeless("guild_cloth", ["minecraft:white_wool", "minecraft:string", "minecraft:blue_dye"],
+              "fc:guild_cloth", count=2, unlock="minecraft:white_wool")
+    shapeless("chain_links", ["minecraft:iron_ingot", "minecraft:iron_nugget", "minecraft:iron_nugget"],
+              "fc:chain_links", count=3, unlock="minecraft:iron_ingot")
+    shapeless("tempered_plate", ["fc:steel_ingot", "fc:steel_ingot", "minecraft:coal"],
+              "fc:tempered_plate", count=2, unlock="fc:steel_ingot")
+    shapeless("runed_hilt", ["fc:steel_ingot", "fc:leather_straps", "fc:will_shard"],
+              "fc:runed_hilt", unlock="fc:will_shard")
+    shapeless("bow_stave", ["minecraft:spruce_planks", "minecraft:oak_planks", "fc:leather_straps"],
+              "fc:bow_stave", count=2, unlock="minecraft:spruce_planks")
+    shapeless("waxed_bowstring", ["minecraft:string", "minecraft:string", "minecraft:honeycomb"],
+              "fc:waxed_bowstring", count=2, unlock="minecraft:string")
     shapeless("fc_stick", ["minecraft:stick"], "fc:stick")
 
     # --- melee weapons (every material x type) ---
     for mat in MATERIALS:
         ingot = INGOT_FOR[mat]
+        binding = WEAPON_BINDINGS[mat]
         for wtype, pattern in WEAPON_PATTERNS.items():
             shaped(f"{mat}_{wtype}", pattern,
-                   {"X": ingot, "S": "minecraft:stick"},
+               {"X": ingot, "S": binding["S"], "H": binding["H"], "B": binding["B"]},
                    f"fc:{mat}_{wtype}", unlock=ingot)
     shaped("scimitar", ["  X", " X ", "S  "],
            {"X": "fc:steel_ingot", "S": "minecraft:stick"}, "fc:scimitar")
 
     # --- ranged ---
     for mat in RANGED_MATERIALS:
-        plank, accent = PLANK_FOR[mat], BOW_ACCENT[mat]
+        plank, accent = BOW_STAVE_FOR[mat], BOW_ACCENT[mat]
         shaped(f"{mat}_longbow", [" PT", "PAT", " PT"],
-               {"P": plank, "T": "minecraft:string", "A": accent},
+               {"P": plank, "T": "fc:waxed_bowstring", "A": accent},
                f"fc:{mat}_longbow", unlock=plank)
         shaped(f"{mat}_crossbow", ["PAP", "TST", " P "],
-               {"P": plank, "T": "minecraft:string", "A": accent,
-                "S": "minecraft:stick"},
+               {"P": plank, "T": "fc:waxed_bowstring", "A": accent,
+            "S": "fc:leather_straps"},
                f"fc:{mat}_crossbow", unlock=plank)
 
     # --- armor sets ---

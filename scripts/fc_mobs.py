@@ -29,7 +29,7 @@ def plan_humanoid(head=8, torso_w=8, torso_h=12, torso_d=4, arm_w=4, arm_len=12,
                   leg_h=12, leg_w=4, hunch=0.0, belly=0, hat=None, hair=False,
                   skirt=False, cape=False, pauldrons=False, horns=False,
                   boots=False, belt=False, helmet=False,
-                  roles=None, decor=None):
+                  hands=False, roles=None, decor=None):
     roles = roles or {}
     decor = decor or {}
     hip = leg_h
@@ -133,17 +133,24 @@ def plan_humanoid(head=8, torso_w=8, torso_h=12, torso_d=4, arm_w=4, arm_len=12,
     arm_y = shoulder - arm_len + 2
     r_cubes = [_cube([-half_t - arm_w, arm_y, -arm_w / 2], [arm_w, arm_len, arm_w])]
     l_cubes = [_cube([half_t, arm_y, -arm_w / 2], [arm_w, arm_len, arm_w])]
+    arm_roles = {}
     if pauldrons:
         r_cubes.append(_cube([-half_t - arm_w - 1, shoulder - 2, -arm_w / 2 - 1],
                              [arm_w + 2, 4, arm_w + 2]))
         l_cubes.append(_cube([half_t - 1, shoulder - 2, -arm_w / 2 - 1],
                              [arm_w + 2, 4, arm_w + 2]))
+    if hands:
+        r_cubes.append(_cube([-half_t - arm_w, arm_y - 2, -arm_w / 2], [arm_w, 3, arm_w], inflate=0.08))
+        l_cubes.append(_cube([half_t, arm_y - 2, -arm_w / 2], [arm_w, 3, arm_w], inflate=0.08))
+        arm_roles[len(r_cubes) - 1] = "skin"
     parts.append({
         "name": "arm_r", "pivot": [-half_t - 1, shoulder, 0], "rot": [0, 0, 0],
-        "cubes": r_cubes, "role": role("arms", "cloth"), "decor": dec("arms")})
+        "cubes": r_cubes, "cube_roles": dict(arm_roles),
+        "role": role("arms", "cloth"), "decor": dec("arms")})
     parts.append({
         "name": "arm_l", "pivot": [half_t + 1, shoulder, 0], "rot": [0, 0, 0],
-        "cubes": l_cubes, "role": role("arms", "cloth"), "decor": dec("arms")})
+        "cubes": l_cubes, "cube_roles": dict(arm_roles),
+        "role": role("arms", "cloth"), "decor": dec("arms")})
     return parts
 
 
@@ -398,26 +405,86 @@ def plan_nymph():
 
 
 def plan_jack():
-    """Jack of Blades: red three-point cowl, white mask, gold-trimmed robes,
-    pauldrons, skirted robe and a long cape."""
+    """Jack of Blades: normal robed figure with crimson hood, bandolier,
+    white mask and a sword mounted across his back."""
     parts = plan_humanoid(
-        head=8, torso_w=9, torso_h=12, torso_d=5, arm_w=4, arm_len=13,
-        leg_h=12, skirt=True, cape=True, pauldrons=True,
-        roles={"body": "cloth", "arms": "cloth", "legs": "dark",
-               "head": "cloth", "cape": "cloth"},
-        decor={"head": ["jack_mask"], "body": ["jack_robe"],
+        head=8, torso_w=8, torso_h=12, torso_d=4, arm_w=4, arm_len=12,
+        leg_h=12, skirt=True, cape=True, boots=True, belt=True, hands=True,
+          roles={"body": "dark", "arms": "cloth", "legs": "dark",
+               "head": "cloth", "cape": "cape"},
+          decor={"head": ["jack_mask"],
                "cape": ["trim"], "arms": ["trim_cuff"]})
     head = next(p for p in parts if p["name"] == "head")
-    # three-pointed cowl (the iconic silhouette)
-    head["cubes"].append(_cube([-4.5, 30, -1], [2, 5, 2]))
-    head["cubes"].append(_cube([2.5, 30, -1], [2, 5, 2]))
-    head["cubes"].append(_cube([-1, 31.5, -1], [2, 6, 2]))
+    # Smooth hood shell: no horned/pointed silhouette.
+    head["cubes"].append(_cube([-4.3, 24.0, -4.3], [8.6, 8.6, 8.6], inflate=0.35))
+    head["cube_roles"] = {1: "cloth"}
+    head["decor"] = []
+    parts.append({"name": "mask", "pivot": [0, 24, 0], "rot": [0, 0, 0], "parent": "head",
+                  "cubes": [_cube([-3.8, 24.4, -5.8], [7.6, 7.2, 0.7], inflate=0.02)],
+                  "role": "skin", "decor": ["jack_mask"]})
+    body = next(p for p in parts if p["name"] == "body")
+    # Robe mantle and front panel to break up the body without bulky armour.
+    body["cubes"].append(_cube([-4.5, 21.0, -2.5], [9.0, 3.0, 5.0], inflate=0.12))
+    body.setdefault("cube_roles", {})[len(body["cubes"]) - 1] = "cloth"
+    parts.append({"name": "robe_front", "pivot": [0, 18, -2.8], "rot": [0, 0, 0], "parent": "body",
+                  "cubes": [_cube([-3.5, 11.2, -2.95], [7.0, 12.8, 0.7], inflate=0.02)],
+                  "role": "cloth", "decor": ["jack_robe"]})
+    parts.append({"name": "jack_underrobe", "pivot": [0, 17, -3.1], "rot": [0, 0, 0], "parent": "body",
+                  "cubes": [_cube([-1.7, 11.6, -3.45], [3.4, 10.8, 0.45])],
+                  "role": "dark", "decor": []})
+    parts.append({"name": "jack_lapel_l", "pivot": [0, 17, -3.2], "rot": [0, 0, -6], "parent": "body",
+                  "cubes": [_cube([-3.55, 11.8, -3.62], [2.25, 10.6, 0.5])],
+                  "role": "cloth", "decor": []})
+    parts.append({"name": "jack_lapel_r", "pivot": [0, 17, -3.2], "rot": [0, 0, 6], "parent": "body",
+                  "cubes": [_cube([1.3, 11.8, -3.62], [2.25, 10.6, 0.5])],
+                  "role": "cloth", "decor": []})
+    parts.append({"name": "jack_inner_trim_l", "pivot": [0, 17, -3.3], "rot": [0, 0, -6], "parent": "body",
+                  "cubes": [_cube([-1.4, 12.1, -3.76], [0.45, 9.8, 0.38])],
+                  "role": "metal", "decor": []})
+    parts.append({"name": "jack_inner_trim_r", "pivot": [0, 17, -3.3], "rot": [0, 0, 6], "parent": "body",
+                  "cubes": [_cube([0.95, 12.1, -3.76], [0.45, 9.8, 0.38])],
+                  "role": "metal", "decor": []})
+    parts.append({"name": "jack_collar_shadow", "pivot": [0, 22, -3.2], "rot": [0, 0, 0], "parent": "body",
+                  "cubes": [_cube([-2.2, 21.0, -3.72], [4.4, 1.2, 0.55])],
+                  "role": "dark", "decor": []})
+    parts.append({"name": "robe_skirt_front", "pivot": [0, 10, -2.9], "rot": [0, 0, 0], "parent": "body",
+                  "cubes": [_cube([-4.1, 6.8, -3.0], [8.2, 6.0, 0.7], inflate=0.02)],
+                  "role": "cloth", "decor": ["robe_split"]})
+    arm_r = next(p for p in parts if p["name"] == "arm_r")
+    arm_l = next(p for p in parts if p["name"] == "arm_l")
+    arm_r.setdefault("cube_roles", {})[1] = "dark"
+    arm_l.setdefault("cube_roles", {})[1] = "dark"
+    # Raised outfit details so they read from gameplay distance.
+    parts.append({"name": "jack_bandolier", "pivot": [0, 17.8, -2.55], "rot": [0, 0, -28], "parent": "body",
+                  "cubes": [_cube([-0.45, 10.5, -3.95], [0.9, 16.5, 0.55], inflate=0.03)],
+                  "role": "belt", "decor": []})
+    parts.append({"name": "jack_robe_trim_l", "pivot": [0, 12, 0], "rot": [0, 0, 0], "parent": "body",
+                  "cubes": [_cube([-3.35, 12.0, -3.05], [0.65, 11.5, 0.7])],
+                  "role": "metal", "decor": []})
+    parts.append({"name": "jack_robe_trim_r", "pivot": [0, 12, 0], "rot": [0, 0, 0], "parent": "body",
+                  "cubes": [_cube([2.7, 12.0, -3.05], [0.65, 11.5, 0.7])],
+                  "role": "metal", "decor": []})
+    parts.append({"name": "jack_buckle", "pivot": [0, 15, -3.0], "rot": [0, 0, 0], "parent": "body",
+                  "cubes": [_cube([-1.2, 13.3, -4.05], [2.4, 1.7, 0.45])],
+                  "role": "metal", "decor": []})
+    parts.append({"name": "jack_waist_sash", "pivot": [0, 14, -3.3], "rot": [0, 0, 0], "parent": "body",
+                  "cubes": [_cube([-4.1, 13.0, -3.86], [8.2, 1.55, 0.42])],
+                  "role": "belt", "decor": []})
+    parts.append({"name": "scabbard_strap", "pivot": [0, 18, 3.7], "rot": [0, 0, 32], "parent": "body",
+                  "cubes": [_cube([-0.5, 8.4, 4.0], [1.0, 18.0, 0.55])],
+                  "role": "belt", "decor": []})
+    # Sword mounted diagonally across the back.
+    parts.append({"name": "back_sword", "pivot": [0, 18, 4.25], "rot": [0, 0, -34], "parent": "body",
+                  "cubes": [_cube([-0.45, 11.0, 4.45], [0.9, 20.0, 0.7]),
+                            _cube([-3.4, 12.2, 4.35], [6.8, 1.0, 0.9]),
+                            _cube([-0.7, 7.0, 4.35], [1.4, 5.0, 0.9])],
+                  "cube_roles": {1: "metal", 2: "dark"}, "role": "metal", "decor": []})
     return parts
 
 
 def plan_twinblade():
     """Twinblade, the Bandit King: a mountain of a man in dark-red leather,
-    spiked pauldrons, pale fur collar, plaited beard, eyepatch — and the two
+    spiked pauldrons, pale fur collar, bald head, black beard, eyepatch — and the two
     great blades crossed on his back that earned the name."""
     hip, tw, th, td = 13, 14, 14, 7
     shoulder, top = hip + th - 2, hip + th
@@ -457,9 +524,11 @@ def plan_twinblade():
          "cube_roles": {1: "metal"}, "role": "skin", "decor": []},
         {"name": "head", "pivot": [0, top, 0], "rot": [0, 0, 0],
          "cubes": [_cube([-4.5, top, -4.5], [9, 9, 9]),
-                   _cube([-4.5, top + 5, -4.5], [9, 4, 9], inflate=0.3),
-                   _cube([-3, top - 4, -5.5], [6, 6, 2])],
-         "cube_roles": {1: "hair", 2: "hair"}, "role": "skin",
+                   _cube([-3.2, top - 3.5, -5.7], [6.4, 6.4, 2.2]),
+                   _cube([-4.0, top + 0.2, -5.0], [8.0, 3.8, 1.2]),
+                   _cube([-4.8, top - 1.2, -3.8], [1.5, 5.5, 2.2]),
+                   _cube([3.3, top - 1.2, -3.8], [1.5, 5.5, 2.2])],
+         "cube_roles": {1: "hair", 2: "hair", 3: "hair", 4: "hair"}, "role": "skin",
          "decor": ["twinblade_face"]},
         {"name": "blade_r", "pivot": [0, shoulder - 4, 4], "rot": [0, 0, 26], "parent": "body",
          "cubes": [_cube([-1, hip + 2, 3.6], [2, 17, 1])], "role": "metal", "decor": []},
@@ -508,7 +577,7 @@ PAL = {
     "hobbe_scout": {"skin": (120, 130, 86), "cloth": (70, 76, 60), "glowcol": (230, 200, 80)},
     "bandit": {"skin": (196, 154, 116), "cloth": (94, 60, 48), "metal": (130, 130, 140), "boots": (72, 50, 34), "belt": (44, 34, 26), "glowcol": (255, 220, 150)},
     "bandit_archer": {"skin": (186, 148, 112), "cloth": (62, 72, 52), "metal": (120, 120, 130), "boots": (58, 54, 42), "belt": (40, 36, 30), "glowcol": (255, 220, 150)},
-    "twinblade": {"skin": (190, 144, 104), "cloth": (116, 46, 38), "metal": (148, 142, 148), "fur": (212, 198, 180), "hair": (52, 40, 32), "horn": (208, 198, 182), "boots": (58, 40, 30), "belt": (40, 30, 24), "glowcol": (255, 200, 120)},
+    "twinblade": {"skin": (190, 144, 104), "cloth": (116, 46, 38), "metal": (148, 142, 148), "fur": (212, 198, 180), "hair": (34, 24, 18), "horn": (208, 198, 182), "boots": (58, 40, 30), "belt": (40, 30, 24), "glowcol": (255, 200, 120)},
     "undead": {"skin": (148, 158, 132), "bone": (208, 206, 186), "cloth": (78, 84, 70), "glowcol": (140, 240, 170)},
     "undead_soldier": {"bone": (204, 200, 178), "cloth": (96, 86, 66), "metal": (124, 98, 78), "tabard": (122, 108, 82), "crest": (70, 60, 46), "belt": (50, 42, 34), "glowcol": (140, 240, 170)},
     "undead_knight": {"bone": (200, 196, 176), "cloth": (70, 64, 56), "metal": (98, 86, 76), "belt": (46, 38, 32), "glowcol": (140, 240, 170)},
@@ -524,17 +593,23 @@ PAL = {
     "minion": {"skin": (110, 70, 80), "metal": (74, 70, 82), "cloth": (60, 40, 50), "glowcol": (255, 90, 60)},
     "arachanox": {"chitin": (78, 52, 110), "dark": (40, 26, 56), "glowcol": (200, 120, 255)},
     "assassin": {"cloth": (48, 44, 56), "skin": (180, 150, 130), "metal": (90, 30, 36), "glowcol": (255, 120, 90)},
-    "jack_of_blades": {"cloth": (148, 22, 24), "dark": (34, 26, 28), "metal": (212, 172, 84), "skin": (220, 200, 180), "glowcol": (255, 120, 60)},
+    "jack_of_blades": {"cloth": (150, 22, 26), "dark": (34, 28, 30), "metal": (170, 150, 118), "skin": (235, 232, 224), "cape": (96, 14, 20), "boots": (24, 20, 22), "belt": (92, 54, 28), "glowcol": (255, 60, 45)},
     "jack_dragon": {"scale": (96, 26, 30), "wing_leather": (60, 18, 22), "glowcol": (255, 200, 90)},
     "villager_albion": {"skin": (208, 168, 130), "cloth": (110, 90, 64), "hair": (112, 78, 46), "boots": (112, 80, 50), "belt": (58, 42, 28), "glowcol": (255, 240, 200)},
     "villager_woman": {"skin": (212, 172, 134), "cloth": (104, 118, 74), "hair": (86, 58, 34), "boots": (50, 38, 32), "belt": (62, 44, 30), "glowcol": (255, 240, 200)},
     "villager_farmer": {"skin": (204, 162, 122), "cloth": (126, 98, 62), "straw": (208, 182, 108), "boots": (138, 106, 64), "belt": (56, 40, 28), "glowcol": (255, 240, 200)},
+    "villager_tailor": {"skin": (188, 132, 92), "tunic": (92, 56, 118), "sleeves": (176, 150, 116), "pants": (70, 54, 48), "apron": (220, 210, 190), "hair": (42, 32, 28), "boots": (44, 34, 28), "belt": (86, 58, 34), "glowcol": (255, 230, 190)},
+    "villager_blacksmith": {"skin": (126, 86, 60), "tunic": (78, 74, 68), "sleeves": (154, 126, 92), "pants": (54, 48, 44), "apron": (72, 58, 48), "hair": (28, 24, 22), "boots": (34, 30, 28), "belt": (92, 62, 36), "metal": (150, 154, 160), "glowcol": (255, 200, 130)},
+    "villager_fisher": {"skin": (220, 178, 132), "tunic": (58, 108, 126), "sleeves": (196, 178, 138), "pants": (64, 82, 72), "hair": (150, 98, 46), "boots": (50, 42, 34), "belt": (70, 48, 32), "glowcol": (190, 230, 255)},
+    "guild_apprentice_might": {"skin": (198, 150, 106), "tunic": (226, 228, 234), "sleeves": (146, 156, 172), "pants": (214, 218, 226), "cloth": (226, 228, 234), "hair": (76, 48, 28), "boots": (92, 58, 34), "belt": (82, 54, 30), "crest": (148, 190, 224), "glowcol": (180, 220, 255)},
+    "guild_apprentice_skill": {"skin": (216, 172, 126), "tunic": (226, 228, 234), "sleeves": (146, 156, 172), "pants": (214, 218, 226), "cloth": (226, 228, 234), "hair": (108, 68, 40), "boots": (92, 58, 34), "belt": (82, 54, 30), "crest": (148, 190, 224), "glowcol": (180, 220, 255)},
+    "guild_apprentice_will": {"skin": (176, 126, 98), "tunic": (226, 228, 234), "sleeves": (146, 156, 172), "pants": (214, 218, 226), "cloth": (226, 228, 234), "hair": (32, 26, 24), "boots": (92, 58, 34), "belt": (82, 54, 30), "crest": (148, 190, 224), "glowcol": (180, 220, 255)},
     "guard_bowerstone": {"skin": (200, 162, 124), "cloth": (52, 70, 140), "metal": (150, 155, 168), "tabard": (204, 182, 92), "crest": (60, 84, 170), "boots": (40, 44, 64), "belt": (48, 36, 26), "glowcol": (200, 220, 255)},
     "guard_oakvale": {"skin": (204, 166, 126), "cloth": (150, 44, 40), "metal": (150, 150, 160), "tabard": (232, 222, 198), "crest": (170, 50, 44), "boots": (92, 40, 34), "belt": (50, 38, 26), "glowcol": (255, 200, 180)},
     "guard_snowspire": {"skin": (198, 160, 124), "cloth": (200, 110, 36), "metal": (170, 180, 195), "tabard": (240, 235, 224), "crest": (216, 124, 44), "boots": (146, 112, 72), "belt": (54, 40, 28), "glowcol": (255, 220, 160)},
     "trader": {"skin": (202, 164, 128), "cloth": (140, 100, 50), "boots": (122, 62, 40), "belt": (60, 44, 30), "glowcol": (255, 230, 170)},
     "barkeep": {"skin": (210, 170, 132), "cloth": (90, 60, 40), "boots": (64, 46, 32), "belt": (54, 40, 28), "glowcol": (255, 230, 170)},
-    "guildmaster": {"skin": (190, 158, 128), "cloth": (70, 80, 120), "metal": (180, 170, 130), "hair": (176, 174, 168), "boots": (58, 56, 78), "belt": (52, 40, 30), "glowcol": (180, 220, 255)},
+    "guildmaster": {"skin": (190, 158, 128), "tunic": (64, 76, 132), "sleeves": (178, 188, 210), "pants": (46, 52, 86), "cloth": (70, 80, 120), "metal": (180, 170, 130), "hair": (176, 174, 168), "boots": (38, 34, 48), "belt": (76, 54, 34), "crest": (220, 190, 90), "glowcol": (180, 220, 255)},
     "maze": {"skin": (216, 186, 152), "cloth": (58, 122, 130), "cape": (96, 60, 130), "metal": (208, 172, 88), "hair": (228, 226, 220), "boots": (46, 34, 56), "belt": (190, 156, 78), "glowcol": (120, 220, 255)},
     "theresa": {"skin": (192, 156, 124), "cloth": (126, 30, 34), "cape": (88, 24, 28), "hair": (70, 48, 34), "boots": (58, 36, 32), "belt": (168, 134, 70), "glowcol": (255, 160, 160)},
     "lady_grey": {"skin": (214, 178, 144), "cloth": (90, 96, 110), "metal": (220, 200, 140), "hair": (208, 178, 116), "boots": (152, 152, 164), "belt": (180, 160, 110), "glowcol": (220, 220, 255)},
@@ -681,23 +756,41 @@ MOBS = [
     {"id": "jack_of_blades", "name": "Jack of Blades", "plan": ("jack", {}),
      "behavior": "boss_melee", "hp": 500, "dmg": 16, "speed": 0.38, "family": ["monster", "fc_jack", "fc_boss"],
      "spawn": None, "drops": [("fc:jack_of_blades_mask", 1, 1, 1.0)],
-     "scale": 1.2, "boss_summons": "fc:undead"},
+        "scale": 1.05, "boss_summons": "fc:undead"},
     {"id": "jack_dragon", "name": "Dragon of Blades", "plan": ("dragon", {}),
      "behavior": "flying_boss", "hp": 700, "dmg": 22, "speed": 0.5, "family": ["monster", "fc_jack_dragon", "fc_boss"],
      "spawn": None, "drops": [("fc:sword_of_aeons", 1, 1, 1.0), ("fc:gold_coin", 30, 60, 1.0)],
      "scale": 2.2, "fire": True},
     # --- friendly ---
-    {"id": "villager_albion", "name": "Albion Villager", "plan": ("humanoid", {"hair": True, "boots": True, "belt": True,
-                                                                               "decor": {"head": ["face"], "body": ["apron"]}}),
+    {"id": "villager_albion", "name": "Albion Villager", "plan": ("humanoid", {"hair": True, "boots": True, "belt": True, "hands": True,
+                                                                               "roles": {"body": "tunic", "arms": "sleeves", "legs": "pants"},
+                                                                               "decor": {"head": ["face"], "body": ["vest", "apron"]}}),
      "behavior": "npc", "hp": 20, "dmg": 1, "speed": 0.3, "family": ["fc_villager", "fc_friendly"],
      "spawn": None, "drops": [], "scale": 1.0, "dialogue": "villager"},
-    {"id": "villager_woman", "name": "Albion Villager (Woman)", "plan": ("humanoid", {"hair": "long", "skirt": True, "boots": True, "belt": True,
-                                                                                      "decor": {"head": ["lady_face"], "body": ["apron"]}}),
+    {"id": "villager_woman", "name": "Albion Villager (Woman)", "plan": ("humanoid", {"hair": "long", "skirt": True, "boots": True, "belt": True, "hands": True,
+                                                                                      "roles": {"body": "tunic", "arms": "sleeves", "legs": "pants"},
+                                                                                      "decor": {"head": ["lady_face"], "body": ["bodice", "embroidered_hem"]}}),
      "behavior": "npc", "hp": 20, "dmg": 1, "speed": 0.3, "family": ["fc_villager", "fc_friendly"],
      "spawn": None, "drops": [], "scale": 0.98, "dialogue": "villager"},
-    {"id": "villager_farmer", "name": "Albion Farmer", "plan": ("humanoid", {"hat": "straw", "boots": True, "belt": True,
-                                                                             "decor": {"head": ["face", "beard"], "body": ["apron"]}}),
+    {"id": "villager_farmer", "name": "Albion Farmer", "plan": ("humanoid", {"hat": "straw", "boots": True, "belt": True, "hands": True,
+                                                                             "roles": {"body": "tunic", "arms": "sleeves", "legs": "pants"},
+                                                                             "decor": {"head": ["face", "beard"], "body": ["apron", "tool_belt"]}}),
      "behavior": "npc", "hp": 22, "dmg": 1, "speed": 0.3, "family": ["fc_villager", "fc_friendly"],
+     "spawn": None, "drops": [], "scale": 1.0, "dialogue": "villager"},
+    {"id": "villager_tailor", "name": "Bowerstone Tailor", "plan": ("humanoid", {"hair": "long", "boots": True, "belt": True, "hands": True,
+                                                                                 "roles": {"body": "tunic", "arms": "sleeves", "legs": "pants"},
+                                                                                 "decor": {"head": ["lady_face"], "body": ["apron", "embroidered_hem"], "arms": ["trim_cuff"]}}),
+     "behavior": "npc", "hp": 20, "dmg": 1, "speed": 0.3, "family": ["fc_villager", "fc_friendly"],
+     "spawn": None, "drops": [], "scale": 0.98, "dialogue": "villager"},
+    {"id": "villager_blacksmith", "name": "Albion Blacksmith", "plan": ("humanoid", {"hair": True, "boots": True, "belt": True, "hands": True,
+                                                                                   "roles": {"body": "tunic", "arms": "sleeves", "legs": "pants"},
+                                                                                   "decor": {"head": ["face", "moustache"], "body": ["apron", "tool_belt"], "arms": ["rolled_sleeves"]}}),
+     "behavior": "npc", "hp": 26, "dmg": 2, "speed": 0.28, "family": ["fc_villager", "fc_friendly"],
+     "spawn": None, "drops": [], "scale": 1.04, "dialogue": "villager"},
+    {"id": "villager_fisher", "name": "Oakvale Fisher", "plan": ("humanoid", {"hair": True, "boots": True, "belt": True, "hands": True,
+                                                                             "roles": {"body": "tunic", "arms": "sleeves", "legs": "pants"},
+                                                                             "decor": {"head": ["face"], "body": ["vest", "net_sash"]}}),
+     "behavior": "npc", "hp": 20, "dmg": 1, "speed": 0.3, "family": ["fc_villager", "fc_friendly"],
      "spawn": None, "drops": [], "scale": 1.0, "dialogue": "villager"},
     {"id": "guard_bowerstone", "name": "Bowerstone Guard", "plan": ("humanoid", {"helmet": True, "boots": True, "belt": True, "pauldrons": True,
                                                                                  "roles": {"body": "metal", "legs": "cloth", "arms": "metal", "head": "skin"},
@@ -722,11 +815,26 @@ MOBS = [
                                                                "decor": {"head": ["face", "moustache"], "body": ["apron"]}}),
      "behavior": "npc", "hp": 25, "dmg": 1, "speed": 0.28, "family": ["fc_barkeep", "fc_friendly"],
      "spawn": None, "drops": [], "scale": 1.0, "dialogue": "barkeep"},
-    {"id": "guildmaster", "name": "Guildmaster", "plan": ("humanoid", {"boots": True, "belt": True,
-                                                                       "roles": {"body": "cloth", "head": "skin"},
-                                                                       "decor": {"head": ["face", "moustache"], "body": ["guild_crest"]}}),
+    {"id": "guildmaster", "name": "Guildmaster", "plan": ("humanoid", {"boots": True, "belt": True, "hands": True,
+                                                                       "roles": {"body": "tunic", "arms": "sleeves", "legs": "pants", "head": "skin"},
+                                                                       "decor": {"head": ["face", "moustache"], "body": ["guild_crest", "robe_trim"], "arms": ["trim_cuff"]}}),
      "behavior": "npc", "hp": 100, "dmg": 1, "speed": 0.28, "family": ["fc_guildmaster", "fc_friendly"],
      "spawn": None, "drops": [], "scale": 1.0, "dialogue": "guildmaster"},
+    {"id": "guild_apprentice_might", "name": "Guild Apprentice (Might)", "plan": ("humanoid", {"hat": "hood", "skirt": True, "boots": True, "belt": True, "hands": True,
+                                                                                              "roles": {"body": "tunic", "arms": "sleeves", "legs": "pants"},
+                                                                                              "decor": {"head": ["face"], "body": ["guild_crest", "robe_trim", "training_sash"], "arms": ["trim_cuff"]}}),
+     "behavior": "npc", "hp": 24, "dmg": 2, "speed": 0.32, "family": ["fc_guild", "fc_villager", "fc_friendly"],
+     "spawn": None, "drops": [], "scale": 0.98, "dialogue": "apprentice"},
+    {"id": "guild_apprentice_skill", "name": "Guild Apprentice (Skill)", "plan": ("humanoid", {"hat": "hood", "skirt": True, "boots": True, "belt": True, "hands": True,
+                                                                                              "roles": {"body": "tunic", "arms": "sleeves", "legs": "pants"},
+                                                                                              "decor": {"head": ["lady_face"], "body": ["guild_crest", "robe_trim", "quiver"], "arms": ["trim_cuff"]}}),
+     "behavior": "npc", "hp": 22, "dmg": 1, "speed": 0.34, "family": ["fc_guild", "fc_villager", "fc_friendly"],
+     "spawn": None, "drops": [], "scale": 0.96, "dialogue": "apprentice"},
+    {"id": "guild_apprentice_will", "name": "Guild Apprentice (Will)", "plan": ("humanoid", {"hat": "hood", "skirt": True, "boots": True, "belt": True, "hands": True,
+                                                                                            "roles": {"body": "tunic", "arms": "sleeves", "legs": "pants"},
+                                                                                            "decor": {"head": ["maze_face"], "body": ["guild_crest", "robe_trim", "runes"], "arms": ["trim_cuff"]}}),
+     "behavior": "npc", "hp": 20, "dmg": 1, "speed": 0.3, "family": ["fc_guild", "fc_villager", "fc_friendly"],
+     "spawn": None, "drops": [], "scale": 0.96, "dialogue": "apprentice"},
     {"id": "maze", "name": "Maze", "plan": ("humanoid", {"hair": True, "cape": True, "boots": True, "belt": True,
                                                          "roles": {"cape": "cape"},
                                                          "decor": {"head": ["maze_face"], "body": ["runes"], "cape": ["trim"]}}),

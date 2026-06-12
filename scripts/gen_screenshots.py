@@ -667,6 +667,9 @@ def main():
         if mob["id"] == "demon_door":
             # near-frontal so the carved face (eyes + mouth) reads fully
             render = render_quads(quads, size=(860, 760), yaw=math.pi - 0.22, pitch=0.12)
+        elif mob["id"] == "jack_of_blades":
+            # near-frontal so mask linework and hood silhouette can be judged
+            render = render_quads(quads, size=(860, 760), yaw=math.pi - 0.20, pitch=0.24)
         else:
             render = render_quads(quads, size=(860, 760))
         sub = {

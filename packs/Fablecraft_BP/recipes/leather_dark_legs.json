@@ -14,12 +14,12 @@
     ],
     "key": {
       "X": {
-        "item": "minecraft:leather"
+        "item": "fc:cured_leather"
       }
     },
     "unlock": [
       {
-        "item": "minecraft:leather"
+        "item": "fc:cured_leather"
       }
     ],
     "result": {

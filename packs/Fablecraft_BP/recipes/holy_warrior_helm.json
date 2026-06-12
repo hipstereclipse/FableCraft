@@ -13,7 +13,7 @@
     ],
     "key": {
       "X": {
-        "item": "fc:steel_ingot"
+        "item": "fc:tempered_plate"
       },
       "Y": {
         "item": "minecraft:gold_ingot"
@@ -21,7 +21,7 @@
     },
     "unlock": [
       {
-        "item": "fc:steel_ingot"
+        "item": "fc:tempered_plate"
       }
     ],
     "result": {
