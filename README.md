@@ -20,32 +20,16 @@ Development costs have started to rise, and I want to keep improving this projec
 
 ## 📸 Documentation Showcase
 
-These screenshots are generated specifically for repository documentation and map directly to the major systems in Fablecraft: Reforged.
+These generated screenshots are tuned for GitHub's README width: large subjects, minimal dead space, and no tiny placeholder dots masquerading as a showcase.
 
-![Hero at Heroes' Guild](screenshots/docs/01_hero_guild_gate.png)
-![Balverine Fight at Night](screenshots/docs/02_balverine_night_fight.png)
-![Creature Roster Group Shot](screenshots/docs/03_roster_group_shot.png)
-![Inventory Tiers and Armour](screenshots/docs/04_inventory_weapon_armor.png)
-![Archon Armour with Sword of Aeons](screenshots/docs/05_archon_with_aeons.png)
-![Master Katana Crafting Recipe](screenshots/docs/06_master_katana_recipe.png)
-![Fireball Against Hobbes](screenshots/docs/07_fireball_vs_hobbes.png)
-![Slow Time at Bandit Camp](screenshots/docs/08_slow_time_bandit_camp.png)
-![Quest Log UI](screenshots/docs/09_quest_log_ui.png)
-![Twinblade Boss Fight](screenshots/docs/10_twinblade_boss_fight.png)
-![Demon Door Close-up](screenshots/docs/11_demon_door_closeup.png)
-![Heroes' Guild Wide Exterior](screenshots/docs/12_guild_wide_lake_view.png)
-![Temple of Avo Donation Bowl](screenshots/docs/13_temple_avo_donation.png)
-![Low Reputation Guard Dialogue](screenshots/docs/14_guard_low_rep_dialogue.png)
-![Hero XP and Morality Menu](screenshots/docs/15_hero_menu_xp_morality.png)
-![Cullis Gate Travel UI](screenshots/docs/16_cullis_gate_travel_ui.png)
-![Visible Armour Set Comparison](screenshots/docs/17_visible_armor_sets.png)
-![Anvil Augmentation View](screenshots/docs/18_anvil_augments.png)
-![Synthesized Sound Files Overview](screenshots/docs/19_sound_files_overview.png)
-![Starter Inventory](screenshots/docs/20_starter_inventory.png)
-![Roadmap and Known Issues](screenshots/docs/21_roadmap_progress.png)
-![Gameplay Media Collage](screenshots/docs/22_media_collage.png)
+| World & Encounters | Systems & Progression |
+|---|---|
+| ![Hero at Heroes' Guild](screenshots/docs/01_hero_guild_gate.png) | ![Inventory Tiers and Armour](screenshots/docs/04_inventory_weapon_armor.png) |
+| ![Twinblade Boss Fight](screenshots/docs/10_twinblade_boss_fight.png) | ![Hero XP and Morality Menu](screenshots/docs/15_hero_menu_xp_morality.png) |
+| ![Demon Door Close-up](screenshots/docs/11_demon_door_closeup.png) | ![Visible Armour Set Comparison](screenshots/docs/17_visible_armor_sets.png) |
+| ![Gameplay Media Collage](screenshots/docs/22_media_collage.png) | ![Master Katana Crafting Recipe](screenshots/docs/06_master_katana_recipe.png) |
 
-Shot manifest: [screenshots/docs/INDEX.md](screenshots/docs/INDEX.md)
+Full generated set and shot manifest: [screenshots/docs/INDEX.md](screenshots/docs/INDEX.md)
 
 ---
 
@@ -123,16 +107,26 @@ Everything you can wear or swing is **craftable**, with a smithing chain that ma
 
 Weapons follow classic patterns (longswords, katanas, cleavers, axes, maces, pickhammers, greatweapons), bows are bound from planks, string and a tier ingot, and all 13 armour sets craft from themed materials — chainmail from chains, guard uniforms from steel and town-colour wool, the Archon's set from Master ingots and gold. **Augmentations** are forged by binding monster trophies to Will Shards: a Balverine fang and silver-bright iron make a Silver augmentation; a Troll heart makes Health; a Banshee's tear crackles into Lightning.
 
-### Forge Breakdown
+### Forge Overview
 
-- Core materials and refinement chain
-![Forge Core Materials](screenshots/gallery/forge_smithing_core.png)
+![The Forge of Albion](screenshots/gallery/forge.png)
 
-- Weapon progression across tiers (iron → steel → obsidian → master)
+### Smithing Chain, Weapons, and Armour Progression
+
+![Forge Core Smithing Chain](screenshots/gallery/forge_smithing_core.png)
 ![Forge Weapon Progression](screenshots/gallery/forge_weapon_progression.png)
+![Forge Armour and Augments](screenshots/gallery/forge_armor_augments.png)
 
-- Armour and augmentation crafting paths
-![Forge Armor and Augments](screenshots/gallery/forge_armor_augments.png)
+### Complete Crafted Tier Progression (All Lines)
+
+![Full Weapon Tier Progression](screenshots/gallery/progression_weapons.png)
+![Full Armour Set Progression](screenshots/gallery/progression_armor.png)
+
+### Recipe Category Galleries
+
+![Forge Weapons Recipes](screenshots/gallery/forge_weapons.png)
+![Forge Armour Recipes](screenshots/gallery/forge_armor.png)
+![Forge Components and Augments Recipes](screenshots/gallery/forge_systems.png)
 
 All 130 recipe diagrams live in [screenshots/recipes](screenshots/recipes).
 
@@ -162,19 +156,34 @@ Eight ancient doors are scattered across the world, each a living stone face car
 
 ### Boss Encounters
 
-![Rogues Bosses](screenshots/gallery/rogues_bosses.png)
+![Boss Encounters](screenshots/gallery/bosses.png)
+![Bosses Panel](screenshots/gallery/rogues_bosses.png)
 
-### Undead and Beasts
+### Hostile Factions and Creature Families
 
-![Rogues Undead and Beasts](screenshots/gallery/rogues_undead_beasts.png)
+![Hostile Creature Roster](screenshots/gallery/mobs_hostile.png)
+![Undead and Beasts Panel](screenshots/gallery/rogues_undead_beasts.png)
+![Raiders and Casters Panel](screenshots/gallery/rogues_raiders_casters.png)
 
-### Raiders and Casters
-
-![Rogues Raiders and Casters](screenshots/gallery/rogues_raiders_casters.png)
-
-**Twinblade**, the bandit king himself, holds court in his great red pavilion at the heart of every palisaded war-camp — 280 HP of spiked pauldrons, fur collar, eyepatch and the two crossed blades that named him. The dead of Lychfield rise in three states: bare **Hollow Men**, rusted **Hollow Soldiers** in rotting tabards, and armoured **Hollow Knights** still wearing the plate they were buried in.
+Twinblade anchors the bandit-camp quest line as a dedicated boss encounter, backed by raiders, archers, camp loot and a palisaded arena built for the fight. Lychfield's undead appear as three readable variants — Hollow Men, Hollow Soldiers and Hollow Knights — so the threat level is clear before you get close.
 
 Full bestiary renders live in [screenshots/mobs](screenshots/mobs), with a measured appearance report in [screenshots/AUDIT.md](screenshots/AUDIT.md) — every asset is auto-graded on silhouette, palette richness, contrast and brightness.
+
+---
+
+## 👥 NPCs, Allies, and Interesting Systems
+
+Fablecraft is not only a bestiary and loot overhaul. Albion is populated with townsfolk, guild staff, guards, traders, quest-givers, summonable allies, and reactive faction logic.
+
+![NPCs and Features](screenshots/gallery/npcs_features.png)
+
+Highlights:
+
+- Distinct NPC archetypes: guards, villagers, blacksmiths, barkeeps, traders, Guildmaster, Maze, Theresa, Lady Grey, and Oracle.
+- Dialogue and reactions tied to morality and faction reputation.
+- Summoned ally ecosystem (mercenary, summoned hobbe/wasp/balverine) integrated with Will powers.
+- Demon Door interactions and world structures tied directly into quest, loot, and travel systems.
+- Hero systems (XP paths, morality title shifts, Cullis attunement) reflected in both UI and world behavior.
 
 ---
 
@@ -209,7 +218,6 @@ python -m venv .venv
 .venv/Scripts/python scripts/build_addon.py --full   # regen + validate + package
 .venv/Scripts/python scripts/gen_screenshots.py      # re-render the gallery + audit
 .venv/Scripts/python scripts/gen_doc_screenshots.py  # build documentation showcase screenshots
-.venv/Scripts/python scripts/gen_readme_panels.py    # build organized Forge and Rogues README panels
 ```
 
 | Script | Role |
@@ -224,7 +232,6 @@ python -m venv .venv
 | [scripts/gen_sounds.py](scripts/gen_sounds.py) | Synthesizes the soundscape from raw math |
 | [scripts/gen_screenshots.py](scripts/gen_screenshots.py) | Offline 3D renderer + recipe cards + automated visual audit |
 | [scripts/gen_doc_screenshots.py](scripts/gen_doc_screenshots.py) | Documentation scene screenshot compositor for README/GitHub showcases |
-| [scripts/gen_readme_panels.py](scripts/gen_readme_panels.py) | Curated panel builder for organized Forge and Rogues sections in README |
 | [scripts/build_addon.py](scripts/build_addon.py) | Validation + `.mcaddon` packaging |
 
 Gameplay logic lives in [packs/Fablecraft_BP/scripts/main.js](packs/Fablecraft_BP/scripts/main.js) — XP, morality, multiplier, 17 spells, quests, Demon Door dialogue, faction reputation, Cullis Gate travel, structure loot chests, terrain blending, NPC conversations, shops, world decoration and the two-phase Jack of Blades fight.
