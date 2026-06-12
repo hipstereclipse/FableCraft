@@ -28,13 +28,13 @@
 
 | | |
 |---|---|
-| **40 creatures** | Balverines (standard/White/Frost), Trolls (Earth/Ice/Rock Giant), Hobbes, Bandits, Hollow Men, Wasps & Wasp Queen, Wraiths, Banshees, Summoners, Minions, Arachanox, Assassins, Nymphs, summoned allies — plus a full NPC cast |
+| **42 creatures** | Balverines (standard/White/Frost), Trolls (Earth/Ice/Rock Giant), Hobbes, Bandits, Hollow Men, Wasps & Wasp Queen, Wraiths, Banshees, Summoners, Minions, Arachanox, Assassins, Nymphs, summoned allies — plus a full NPC cast with helmeted town guards and villager men, women and farmers |
 | **177 items** | 58 weapons across Iron→Steel→Obsidian→Master tiers, 14 legendaries, 58 armour pieces in 13 sets, 9 augmentations, potions, trophies, keys and relics |
 | **17 Will powers** | Fireball, Enflame, Lightning, Slow Time, Assassin Rush, Summon, Berserk, Divine Fury, Infernal Wrath and more — each with 4 upgrade levels |
 | **14 quests** | The full main chain (Wasp Menace → Jack of Blades) plus side quests, bounty jobs and the Silver Key treasure hunt |
 | **8 Demon Doors** | Each with its own personality, demands and hoard — pies, gold, combat multipliers, moonlight, riddles, fame, purity or wickedness |
 | **9 structures** | Heroes' Guild, the Arena, Temple of Avo, Chapel of Skorm, bandit camps, graveyards, focus sites, silver-chest ruins, Demon Door arches |
-| **7 synthesized sounds** | Door rumbles and speech, banshee shriek, spell shimmer, level-up chime, guild ambience, sword clash |
+| **7 synthesized sounds** | Door rumbles and speech, banshee shriek, spell shimmer, level-up chime, guild ambience, sword clash — audition them in [sound_preview/index.html](sound_preview/index.html) |
 
 ![Places of Power](screenshots/gallery/places.png)
 

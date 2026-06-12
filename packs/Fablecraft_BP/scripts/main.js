@@ -899,7 +899,8 @@ world.beforeEvents.playerInteractWithEntity.subscribe((ev) => {
   const p = ev.player, target = ev.target;
   if (t === "fc:demon_door") { ev.cancel = true; system.run(() => demonDoorTalk(p, target)); return; }
   const NPC_TYPES = ["fc:guildmaster", "fc:maze", "fc:theresa", "fc:lady_grey", "fc:oracle",
-    "fc:briar_rose", "fc:trader", "fc:barkeep", "fc:villager_albion", "fc:mercenary",
+    "fc:briar_rose", "fc:trader", "fc:barkeep", "fc:villager_albion", "fc:villager_woman",
+    "fc:villager_farmer", "fc:mercenary",
     "fc:guard_bowerstone", "fc:guard_oakvale", "fc:guard_snowspire"];
   if (NPC_TYPES.includes(t)) { ev.cancel = true; system.run(() => npcTalk(p, target)); }
 });
@@ -1103,7 +1104,7 @@ function npcTalk(p, npc) {
     if (m <= -700) p.sendMessage("§cGuard: \"YOU! Don't move— GUARDS! GUARDS!\"");
     else if (m <= -200) p.sendMessage('§cGuard: "I\'ve got my eye on you, scoundrel."');
     else p.sendMessage('§9Guard: "All quiet, Hero. Mind the Hobbes after dark."');
-  } else if (t === "fc:villager_albion") {
+  } else if (t === "fc:villager_albion" || t === "fc:villager_woman" || t === "fc:villager_farmer") {
     const att = P.get(p, "fc_renown", 0);
     const lines = m > 300 ? ["Bless you, Hero!", "It's really you! The kind one!", "My chickens adore you. As do we all."]
       : m < -300 ? ["P-please don't hurt me.", "*backs away slowly*", "I saw nothing. NOTHING."]

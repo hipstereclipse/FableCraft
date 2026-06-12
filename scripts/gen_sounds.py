@@ -11,7 +11,7 @@ import math
 import struct
 import wave
 
-from fc_lib import RP, rng, write_json
+from fc_lib import ROOT, RP, rng, write_json
 
 OUT = RP / "sounds" / "fc"
 SR = 22050
@@ -120,6 +120,53 @@ SOUNDS = {
     "sword_clash": sword_clash,
 }
 
+SOUND_DESC = {
+    "door_rumble": "Demon Door awakening — deep stone grinding with sub-bass wobble",
+    "door_speak": "Demon Door voice — gravelly modulated speech-like drone",
+    "banshee_shriek": "Banshee shriek — swooping dissonant wail",
+    "spell_cast": "Will power cast — rising shimmer with sparkle overtones",
+    "level_up": "Level-up chime — G-C-E-G bell arpeggio",
+    "guild_pad": "Heroes' Guild ambience — slow C-major drone pad",
+    "sword_clash": "Sword clash — metallic ring with impact noise",
+}
+
+PREVIEW = ROOT / "sound_preview"
+
+
+def write_preview():
+    """Copy WAVs into sound_preview/ with an HTML player for auditioning."""
+    PREVIEW.mkdir(exist_ok=True)
+    rows = []
+    for name in SOUNDS:
+        src = OUT / f"{name}.wav"
+        dst = PREVIEW / f"{name}.wav"
+        dst.write_bytes(src.read_bytes())
+        rows.append(
+            f'<tr><td class="n">{name}</td>'
+            f'<td>{SOUND_DESC[name]}</td>'
+            f'<td><audio controls preload="none" src="{name}.wav"></audio></td></tr>')
+    html = f"""<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Fablecraft: Reforged — Sound Test</title>
+<style>
+  body {{ background:#1d1610; color:#e6d8b8; font-family:Georgia,serif;
+         max-width:860px; margin:2rem auto; padding:0 1rem; }}
+  h1 {{ color:#f0c75e; border-bottom:2px solid #6b5530; padding-bottom:.4rem; }}
+  table {{ width:100%; border-collapse:collapse; }}
+  td {{ padding:.55rem .6rem; border-bottom:1px solid #3a2f1f; vertical-align:middle; }}
+  td.n {{ color:#f0c75e; font-weight:bold; white-space:nowrap; }}
+  audio {{ width:240px; }}
+  p {{ color:#a89572; }}
+</style></head><body>
+<h1>⚔ Fablecraft: Reforged — Sound Test</h1>
+<p>All {len(SOUNDS)} sounds are pure-math synthesis (no samples). The same WAVs ship
+inside the resource pack under <code>sounds/fc/</code>. Open this file in any browser to audition.</p>
+<table>{''.join(rows)}</table>
+</body></html>
+"""
+    (PREVIEW / "index.html").write_text(html, encoding="utf-8")
+    print(f"sound preview -> {PREVIEW} ({len(SOUNDS)} wavs + index.html)")
+
 
 def main():
     for name, fn in SOUNDS.items():
@@ -136,6 +183,7 @@ def main():
     }
     write_json(RP / "sounds" / "sound_definitions.json", defs)
     print("sound_definitions.json written")
+    write_preview()
 
 
 if __name__ == "__main__":

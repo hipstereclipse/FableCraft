@@ -35,6 +35,11 @@ ROLE_TEXTURE = {
     "moss": ("moss", "rock"),
     "hair": ("hair", "fur"),
     "horn": ("horn", "bone"),
+    "boots": ("boots", "leather"),
+    "belt": ("belt", "leather"),
+    "tabard": ("tabard", "cloth"),
+    "crest": ("crest", "metal"),
+    "straw": ("straw", "straw"),
 }
 
 
@@ -135,6 +140,27 @@ def fill_face(p, x, y, w, h, base, style, r):
     elif style == "glow":
         p.rect(x, y, w, h, shade(base, 1.15))
         p.noise_rect(x, y, w, h, [shade(base, 1.35), shade(base, 0.95)], r, 0.4)
+    elif style == "leather":
+        # worn leather: warm mid-tone, stitch row, scuffed highlights
+        p.rect(x, y, w, h, pal[2])
+        p.noise_rect(x, y, w, h, [pal[1], pal[2], pal[3]], r, 0.3)
+        for xx in range(x, x + w, 2):
+            p.px(xx, y, pal[3])           # top stitching
+        for xx in range(x, x + w):
+            p.px(xx, y + h - 1, pal[0])   # dark sole/edge
+        if h > 3:
+            p.px(x + r.randrange(max(1, w)), y + 1, pal[4])  # scuff shine
+    elif style == "straw":
+        # woven straw: alternating warp/weft strands
+        p.rect(x, y, w, h, pal[3])
+        for yy in range(y, y + h):
+            for xx in range(x, x + w):
+                if (xx + yy) % 3 == 0:
+                    p.px(xx, yy, pal[2])
+                elif (xx - yy) % 4 == 0:
+                    p.px(xx, yy, pal[4])
+        for xx in range(x, x + w, 3):
+            p.px(xx, y + h - 1, pal[1])
     else:
         p.rect(x, y, w, h, pal[2])
 
@@ -165,7 +191,7 @@ def decorate_front(p, x, y, w, h, decor, pal, glow, r):
 
     for d in decor:
         if d == "face":
-            ey = y + max(1, h // 3)
+            ey = y + max(2, h // 2)
             eyes(ey)
             # nose shadow
             p.px(cx, ey + 2, (0, 0, 0, 45))
@@ -173,7 +199,7 @@ def decorate_front(p, x, y, w, h, decor, pal, glow, r):
             p.px(cx - 1, my, (140, 84, 70, 255))
             p.px(cx, my, (150, 92, 76, 255))
         elif d == "lady_face":
-            ey = y + max(1, h // 3)
+            ey = y + max(2, h // 2)
             eyes(ey, iris=(60, 110, 160, 255))
             # lashes
             p.px(cx - w // 4 - 2, ey, (60, 44, 34, 255))
@@ -185,7 +211,7 @@ def decorate_front(p, x, y, w, h, decor, pal, glow, r):
             p.px(cx - 1, my, (186, 76, 84, 255))
             p.px(cx, my, (200, 88, 96, 255))
         elif d == "blindfold_face":
-            ey = y + max(1, h // 3)
+            ey = y + max(2, h // 2)
             for xx in range(x, x + w):
                 p.px(xx, ey, (150, 32, 32, 255))
                 p.px(xx, ey + 1, (118, 26, 26, 255))
@@ -407,9 +433,27 @@ def decorate_front(p, x, y, w, h, decor, pal, glow, r):
                 p.px(xx, yy, (60, 44, 30, 255))
             p.px(cx, yy, (220, 190, 90, 255))
         elif d == "tabard":
-            for yy in range(y + 1, y + h - 1):
-                for xx in range(cx - w // 6 - 1, cx + w // 6 + 1):
-                    p.px(xx, yy, (210, 190, 100, 255) if yy % 3 else (180, 160, 80, 255))
+            tab = pal.get("tabard", (210, 190, 100)) + (255,)
+            tdk = shade(tab, 0.72)
+            crest = pal.get("crest", (120, 90, 40)) + (255,)
+            x0t, x1t = cx - w // 4 - 1, cx + w // 4 + 1
+            for yy in range(y, y + h):
+                for xx in range(x0t, x1t + 1):
+                    p.px(xx, yy, tab if (xx + yy) % 3 else tdk)
+            # edged border
+            for yy in range(y, y + h):
+                p.px(x0t, yy, tdk)
+                p.px(x1t, yy, tdk)
+            # heraldic crest emblem centred on the chest
+            ey0 = y + h // 4
+            p.px(cx, ey0, crest)
+            p.px(cx - 1, ey0 + 1, crest)
+            p.px(cx + 1, ey0 + 1, crest)
+            p.px(cx, ey0 + 2, crest)
+            p.px(cx, ey0 + 1, shade(crest, 1.35))
+            # bottom dags (split hem)
+            for xx in range(x0t, x1t + 1, 2):
+                p.px(xx, y + h - 1, (0, 0, 0, 0))
         elif d == "guild_crest":
             p.px(cx, y + 2, (220, 200, 120, 255))
             p.px(cx - 1, y + 3, (220, 200, 120, 255))
@@ -582,7 +626,10 @@ def paint_mob(mob):
         for ci, cube in enumerate(part["cubes"]):
             role = cube_roles.get(ci, part_role)
             base = (pal.get(role)
-                    or {"hair": (96, 70, 44), "horn": (224, 214, 192)}.get(role)
+                    or {"hair": (96, 70, 44), "horn": (224, 214, 192),
+                        "boots": (76, 56, 38), "belt": (58, 42, 28),
+                        "tabard": (204, 182, 92), "crest": (200, 60, 50),
+                        "straw": (208, 182, 108)}.get(role)
                     or pal.get("cloth") or pal.get("skin") or (120, 110, 100))
             if tint:
                 base = mix(base, tint, 0.45)[:3]
