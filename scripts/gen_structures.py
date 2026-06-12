@@ -477,6 +477,12 @@ def guild_hall():
     for z in range(hz0 + 1, hz1):
         for x in (mx - 1, mx, mx + 1):
             v.set(x, 0, z, "minecraft:red_wool")
+    # the Quest Table: a lectern at the heart of the nave, flanked by candles,
+    # where the Hero finds new contracts
+    qx, qz = mx, (hz0 + hz1) // 2
+    v.set(qx, 1, qz, "minecraft:lectern", {"minecraft:cardinal_direction": "south"})
+    v.set(qx - 1, 1, qz, CANDLE, {"lit": True, "candles": 2})
+    v.set(qx + 1, 1, qz, CANDLE, {"lit": True, "candles": 2})
     # west wing: dormitory
     for i in range(4):
         z = hz0 + 4 + i * 5

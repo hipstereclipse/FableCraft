@@ -133,7 +133,7 @@ LEGENDARIES = [
     {"id": "scimitar", "name": "Scimitar", "kind": "scimitar", "fable_damage": 112,
      "augments": [], "ranged": False,
      "lore": "A fast curved blade favoured by Bowerstone duellists."},
-    {"id": "stick", "name": "Stick", "kind": "stick", "fable_damage": 20,
+    {"id": "stick", "name": "Stick", "kind": "stick", "fable_damage": 5,
      "augments": [], "ranged": False,
      "lore": "Every legend starts somewhere."},
 ]
@@ -142,10 +142,13 @@ LEGENDARIES = [
 def build_legendaries():
     out = []
     for l in LEGENDARIES:
+        # The Stick is a joke weapon — it should barely scratch anything,
+        # so its Minecraft damage bypasses the normal mc_damage() floor.
+        damage = 1 if l["id"] == "stick" else mc_damage(l["fable_damage"])
         out.append({
             "id": l["id"], "name": l["name"], "cat": "ranged" if l["ranged"] else "melee",
             "kind": l["kind"], "material": "legendary", "wtype": "legendary",
-            "fable_damage": l["fable_damage"], "damage": mc_damage(l["fable_damage"]),
+            "fable_damage": l["fable_damage"], "damage": damage,
             "slots": 0, "augments": l["augments"], "value": 45000,
             "durability": 2201 if l["fable_damage"] > 100 else 131,
             "speed": "varies", "two_handed": "great" in l["kind"], "lore": l["lore"],

@@ -413,7 +413,7 @@ ARMOR_GEO = {
 
 
 def emit_attachables(items):
-    """Visible worn armor: every fc armor piece renders on the player using
+    """Worn armor layers: every fc armor piece renders on the player using
     the painted layer textures."""
     count = 0
     for i in items:

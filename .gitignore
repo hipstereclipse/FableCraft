@@ -6,6 +6,8 @@ __pycache__/
 *.pyc
 .DS_Store
 Thumbs.db
+scripts/.cache/
+Fablecraft Reforged.zip
 
 # Dead remnants of the abandoned Java/Gradle prototype
 src/

@@ -1,6 +1,6 @@
 # ⚔ Fablecraft: Reforged
 
-**Transform Minecraft Bedrock into Albion.** A complete recreation of *Fable: The Lost Chapters* as a single `.mcaddon` — Hero XP paths with coloured experience orbs, a living morality system, faction reputation, Will powers, Cullis Gate fast travel, a full mining-and-smithing economy, Demon Doors that talk back, legendary weapons, visible armour, quest chains, Twinblade's war-camps, and Jack of Blades waiting at the end of it all.
+**Transform Minecraft Bedrock into Albion.** A complete recreation of *Fable: The Lost Chapters* as a single `.mcaddon` — Hero XP paths with coloured experience orbs, a living morality system, faction reputation, Will powers, Cullis Gate fast travel, a full mining-and-smithing economy, Demon Doors that talk back, legendary weapons, armour sets, quest chains, Twinblade's war-camps, and Jack of Blades waiting at the end of it all.
 
 > Every texture, model, structure, sound and screenshot in this repository is **procedurally generated from code** — Python paints the pixels, builds the geometry, synthesizes the audio and renders the 3D scenes you see below.
 
@@ -18,7 +18,7 @@
 2. Double-click it (or open it with Minecraft). Both packs import automatically.
 3. Create a new world → **Add** the Behavior Pack *Fablecraft: Reforged [Behavior]* (the Resource Pack joins automatically as a dependency).
 4. Under world settings, ensure **Holiday Creator Features / Beta APIs** toggles required by your Minecraft version are enabled for scripting.
-5. Spawn in. You wake **inside the Heroes' Guild** with the apprentice outfit and a Stick — the Guildmaster is expecting you.
+5. Spawn in. You wake **inside the Heroes' Guild** kitted out in a full apprentice outfit, a Stick, your Guild Seal, a Quest Card and an Apple Pie — the Guildmaster is expecting you.
 
 > Prefer separate packs? `dist/Fablecraft_BP.mcpack` and `dist/Fablecraft_RP.mcpack` install individually.
 
@@ -37,6 +37,8 @@
 Kills grant **General XP** plus **Strength** (melee) or **Skill** (ranged) XP; casting grants **Will XP**. Your **Combat Multiplier** climbs with every unanswered hit and multiplies XP gains — take damage and it shatters, exactly as the Guild taught you. Slain foes also shed **experience orbs** in Fable's colours — green (General), red (Strength), yellow (Skill) and blue (Will) — crush them to absorb bonus experience. Bosses burst with them.
 
 Training happens **at the Guild**: the **Training Grounds** fill the east yard (archery range, sparring ring, Will circle) and the Map Room holds the Guildmaster. Spend XP on **Physique, Health, Toughness, Speed, Guile, Accuracy** and **Magic Power**.
+
+The **Hero Menu** (use your Guild Seal) is your command centre: your active quest and Will energy at a glance, then Stats & Personality, Quest Log, **Weapon Locker** (inspect your wielded weapon's augment slots), **Map of Albion** (Cullis Gate fast travel), Guild Training, Will Powers, Titles & Renown, and Factions & Standing.
 
 ![Hero Menu](screenshots/docs/15_hero_menu_xp_morality.png)
 
@@ -97,15 +99,17 @@ Sword of Aeons · Avo's Tear · The Harbinger · Solus Greatsword · The Bereave
 
 Weapons carry **augment slots** (Steel 1 / Obsidian 2 / Master 3). Bind **Sharpening, Piercing, Health, Mana, Experience, Lightning, Flame** or **Silver** augmentations — forged by binding monster trophies to Will Shards: a Balverine fang and silver-bright iron make a Silver augmentation; a Troll heart makes Health; a Banshee's tear crackles into Lightning. Silver burns Balverines and the undead, exactly as the bestiaries warn.
 
+Using an augmentation stone opens the **Augmentation Forge** — pick which weapon in your pack receives the power from a list of every eligible blade and its filled/empty slots. Binding (or stripping, via the Augment Remover) wreathes the weapon in a burst of totem light and power-coloured sparks with a ringing anvil strike, and augmented weapons carry a faint, drifting aura of their bound colours while held.
+
 ![Archon Endgame Kit](screenshots/docs/05_archon_with_aeons.png)
 ![Weapon Augmentation](screenshots/docs/18_anvil_augments.png)
 ![Reliquary](screenshots/gallery/reliquary.png)
 
-### Visible Armour
+### Armour Sets
 
-Worn armour is **visible on your character**, from apprentice hood to Archon plate — 13 sets across 58 pieces, all attached as you equip them.
+From apprentice hood to Archon plate, the addon includes 13 armour sets across 58 pieces, all attached as you equip them.
 
-![Visible Armour System](screenshots/docs/17_visible_armor_sets.png)
+![Armour Sets](screenshots/docs/17_armor_sets.png)
 ![Armoury](screenshots/gallery/armoury.png)
 
 ---
@@ -178,7 +182,7 @@ The summoned-ally ecosystem (mercenary, summoned hobbe/wasp/balverine) integrate
 | Take a quest | Use a **Quest Card** (the Guildmaster hands them out) |
 | Cast a Will power | Use its **spell tome** (Maze gifts you two to start) |
 | Absorb experience orbs | **Use** a dropped orb — each colour feeds its own discipline |
-| Augment a weapon | Use an **augmentation stone** with the weapon in your hotbar |
+| Augment a weapon | Use an **augmentation stone** and choose a weapon in the Augmentation Forge |
 | Train stats | Hero menu → **Guild Training**, at the Guild's Training Grounds or Map Room |
 | Check your standing | Hero menu → **Factions & Standing** |
 | Mine Will Shards | Dig for glowing **azurite ore** below y 54 |
@@ -215,7 +219,7 @@ python -m venv .venv
 
 Gameplay logic lives in [packs/Fablecraft_BP/scripts/main.js](packs/Fablecraft_BP/scripts/main.js) — XP, morality, multiplier, 17 spells, quests, Demon Door dialogue, faction reputation, Cullis Gate travel, structure loot chests, terrain blending, NPC conversations, shops, world decoration and the two-phase Jack of Blades fight.
 
-The **7 synthesized sounds** (door rumbles and speech, banshee shriek, spell shimmer, level-up chime, guild ambience, sword clash) can be auditioned in [sound_preview/index.html](sound_preview/index.html).
+The generated sound library includes creature voices, NPC speech, item handling, ambience, combat cues and spell/UI sounds; audition the full procedural set in [sound_preview/index.html](sound_preview/index.html).
 
 ![Synthesized Sound Design](screenshots/docs/19_sound_files_overview.png)
 

@@ -28,11 +28,38 @@ const P = {
 
 const XP_KEYS = { general: "fc_xp_general", strength: "fc_xp_strength", skill: "fc_xp_skill", will: "fc_xp_will" };
 const XP_COLOR = { general: "§a", strength: "§c", skill: "§9", will: "§e" };
+const NPC_SOUND_CUES = {
+  "fc:balverine": { sound: "fc.entity.balverine", range: 18, chance: 0.18, cooldown: 180, volume: 0.62, pitch: [0.92, 1.08] },
+  "fc:white_balverine": { sound: "fc.entity.white_balverine", range: 24, chance: 0.22, cooldown: 160, volume: 0.78, pitch: [0.82, 0.98] },
+  "fc:frost_balverine": { sound: "fc.entity.frost_balverine", range: 20, chance: 0.18, cooldown: 180, volume: 0.68, pitch: [0.9, 1.05] },
+  "fc:summoned_balverine": { sound: "fc.entity.summoned_balverine", range: 16, chance: 0.12, cooldown: 220, volume: 0.52, pitch: [0.96, 1.12] },
+  "fc:banshee": { sound: "fc.entity.banshee", range: 18, chance: 0.16, cooldown: 180, volume: 0.68, pitch: [0.92, 1.06] },
+  "fc:wraith": { sound: "fc.entity.wraith", range: 18, chance: 0.14, cooldown: 200, volume: 0.62, pitch: [0.86, 1.02] },
+  "fc:hobbe": { sound: "fc.entity.hobbe", range: 14, chance: 0.14, cooldown: 200, volume: 0.52, pitch: [0.95, 1.14] },
+  "fc:hobbe_scout": { sound: "fc.entity.hobbe_scout", range: 14, chance: 0.14, cooldown: 200, volume: 0.5, pitch: [1.04, 1.2] },
+  "fc:earth_troll": { sound: "fc.entity.earth_troll", range: 24, chance: 0.12, cooldown: 220, volume: 0.78, pitch: [0.84, 0.96] },
+  "fc:ice_troll": { sound: "fc.entity.ice_troll", range: 24, chance: 0.12, cooldown: 220, volume: 0.78, pitch: [0.86, 0.98] },
+  "fc:rock_giant": { sound: "fc.entity.rock_giant", range: 28, chance: 0.12, cooldown: 240, volume: 0.82, pitch: [0.78, 0.92] },
+  "fc:wasp": { sound: "fc.entity.wasp", range: 12, chance: 0.12, cooldown: 160, volume: 0.38, pitch: [0.95, 1.12] },
+  "fc:wasp_queen": { sound: "fc.entity.wasp_queen", range: 18, chance: 0.16, cooldown: 180, volume: 0.56, pitch: [0.82, 1.0] },
+  "fc:arachanox": { sound: "fc.entity.arachanox", range: 22, chance: 0.16, cooldown: 200, volume: 0.7, pitch: [0.82, 0.98] },
+};
+const npcSoundCooldown = new Map();
 
 // Fable: The Lost Chapters menu dressing
 const FABLE_RULE = "§8════════════§6❦§8════════════";
 const FABLE_DOT = "§6❖ ";
 function fableTitle(t) { return `§8‹§6❦§8› §6§l${t}§r §8‹§6❦§8›`; }
+
+function maybePlayNpcCue(p, e, cue) {
+  const key = `${p.id}|${e.id}|${cue.sound}`;
+  const now = TICKS();
+  if ((npcSoundCooldown.get(key) ?? -99999) + cue.cooldown > now) return;
+  if (Math.random() >= cue.chance) return;
+  npcSoundCooldown.set(key, now);
+  const pitch = cue.pitch[0] + Math.random() * (cue.pitch[1] - cue.pitch[0]);
+  p.playSound(cue.sound, { volume: cue.volume, pitch });
+}
 
 function giveXp(p, type, amount) {
   if (amount <= 0) return;
@@ -130,8 +157,8 @@ function initHero(p) {
   P.set(p, "fc_init", true);
   P.set(p, "fc_will", 100);
   for (const it of ["fc:stick", "fc:guild_seal", "fc:quest_card",
-    "fc:apprentice_torso", "fc:apprentice_legs", "fc:apprentice_boots",
-    "fc:health_potion"]) giveItem(p, it, 1);
+    "fc:apprentice_helm", "fc:apprentice_torso", "fc:apprentice_legs", "fc:apprentice_boots",
+    "fc:health_potion", "fc:apple_pie"]) giveItem(p, it, 1);
   giveItem(p, "fc:gold_coin", 5);
   p.onScreenDisplay.setTitle("§6Fablecraft", { fadeInDuration: 10, stayDuration: 70, fadeOutDuration: 20, subtitle: "§eReforged — Welcome to Albion" });
   p.sendMessage("§6═══ The Guildmaster ═══");
@@ -152,6 +179,8 @@ function placeGuildNear(p) {
     // recall point: the nave; training yard + cullis gate flank the hall
     world.setDynamicProperty("fc_guild_loc", JSON.stringify({ x: base.x + 22, y, z: base.z + 20 }));
     world.setDynamicProperty("fc_guild_train", JSON.stringify({ x: base.x + 38, y, z: base.z + 22 }));
+    // the Quest Table lectern at the centre of the Great Hall's nave
+    world.setDynamicProperty("fc_guild_quest_table", JSON.stringify({ x: base.x + 22, y: y + 1, z: base.z + 22 }));
     registerCullis("Heroes' Guild", { x: base.x + 6, y: y + 1, z: base.z + 20 });
     // Guildmaster presides over the Map Room; Maze studies by the Cullis
     // Gate; Theresa haunts the feast hall; a trader works the forecourt.
@@ -365,6 +394,40 @@ function weaponAugments(item) {
   return (item.getLore() ?? []).filter((l) => l.startsWith(AUG_PREFIX))
     .map((l) => l.substring(AUG_PREFIX.length).toLowerCase().split(" ")[0]);
 }
+// Visual and audio signature for each augment — used by the Augmentation Forge
+// when binding a stone, and by the ambient weapon-aura on augmented gear.
+const AUGMENT_FX = {
+  sharpening: { glyph: "§c⚔", particle: "minecraft:critical_hit_emitter", sound: "random.anvil_use" },
+  piercing: { glyph: "§7➳", particle: "minecraft:knockback_roar_particle", sound: "random.anvil_use" },
+  health: { glyph: "§c❤", particle: "minecraft:heart_particle", sound: "random.levelup" },
+  mana: { glyph: "§b✦", particle: "minecraft:enchanting_table_particle", sound: "random.levelup" },
+  experience: { glyph: "§a✦", particle: "minecraft:totem_particle", sound: "random.levelup" },
+  lightning: { glyph: "§9⚡", particle: "minecraft:knockback_roar_particle", sound: "beacon.activate" },
+  flame: { glyph: "§6♦", particle: "minecraft:mobflame_single", sound: "fc.spell_cast" },
+  silver: { glyph: "§f✶", particle: "minecraft:end_chest", sound: "random.orb" },
+};
+// Spawns a short flourish of particles + sound around the player to mark an
+// augment binding to (or being stripped from) their weapon.
+function forgeEffect(p, fx, strip = false) {
+  try {
+    const loc = { x: p.location.x, y: p.location.y + 1.4, z: p.location.z };
+    p.dimension.spawnParticle(strip ? "minecraft:basic_smoke_particle" : "minecraft:totem_particle", loc);
+    p.playSound(strip ? "random.break" : "random.anvil_use");
+    const particle = fx?.particle;
+    for (let i = 0; i < 6; i++) {
+      system.runTimeout(() => {
+        try {
+          p.dimension.spawnParticle(particle ?? "minecraft:enchanting_table_particle", {
+            x: loc.x + (Math.random() - 0.5) * 0.7,
+            y: loc.y + (Math.random() - 0.5) * 0.5,
+            z: loc.z + (Math.random() - 0.5) * 0.7,
+          });
+        } catch { }
+      }, i * 3);
+    }
+    if (!strip && fx?.sound) system.runTimeout(() => { try { p.playSound(fx.sound, { pitch: 1.1 }); } catch { } }, 6);
+  } catch { }
+}
 function applyAugmentHits(p, tgt, augs) {
   if (!augs.length) return;
   try {
@@ -429,44 +492,107 @@ function recallToGuild(p) {
   p.sendMessage("§9✦ The Guild Seal carries you home.");
 }
 
+// Opens the Augmentation Forge: lets the Hero choose which weapon in their
+// pack should receive the stone, then binds it with a flourish of effects.
 function applyAugment(p, item, augId) {
-  // augment goes onto the weapon in the OFFHAND-free style: must hold weapon after sneak
   const c = inv(p);
-  // find first fc weapon in hotbar that has a free slot
-  for (let i = 0; i < 9; i++) {
-    const w = c?.getItem(i);
+  if (!c) return;
+  const info = DATA.augmentInfo?.[augId];
+  const fx = AUGMENT_FX[augId];
+  const candidates = [];
+  for (let i = 0; i < c.size; i++) {
+    const w = c.getItem(i);
     if (!w || !DATA.weapons[w.typeId]) continue;
-    const wd = DATA.weapons[w.typeId];
+    const slots = DATA.weapons[w.typeId].slots ?? 0;
+    if (slots <= 0) continue;
+    candidates.push({ slot: i, item: w, slots, current: weaponAugments(w) });
+  }
+  if (!candidates.length) {
+    p.sendMessage("§7You carry no weapon with augment slots to bind this stone to.");
+    return;
+  }
+  const f = new ActionFormData()
+    .title(fableTitle("Augmentation Forge"))
+    .body([
+      FABLE_RULE,
+      `${fx?.glyph ?? "§6⬩"} §l${info?.name ?? augId}§r`,
+      `§7${info?.desc ?? ""}`,
+      FABLE_RULE,
+      "§7The forge-fire hums. Choose the weapon",
+      "§7that will carry this power into battle.",
+    ].join("\n"));
+  for (const cand of candidates) {
+    const name = cand.item.typeId.replace("fc:", "").split("_").map((w) => w[0].toUpperCase() + w.slice(1)).join(" ");
+    const full = cand.current.length >= cand.slots;
+    const dots = "§6⬩ ".repeat(cand.current.length) + "§8⬩ ".repeat(cand.slots - cand.current.length);
+    f.button(`${full ? "§8" : "§e"}${name}\n${dots}§r §7(${cand.current.length}/${cand.slots})`,
+      `textures/items/${cand.item.typeId.replace("fc:", "")}`);
+  }
+  f.button("§8❖ Leave the stone unbound");
+  f.show(p).then((r) => {
+    if (r.canceled || r.selection == null || r.selection >= candidates.length) return;
+    const cand = candidates[r.selection];
+    if (cand.current.length >= cand.slots) {
+      p.sendMessage("§7That weapon's augment slots are already brimming with power.");
+      return;
+    }
+    const w = cand.item;
     const lore = w.getLore() ?? [];
-    const current = lore.filter((l) => l.startsWith(AUG_PREFIX));
-    const slots = wd.slots ?? 0;
-    if (slots <= 0 || current.length >= slots) continue;
     lore.push(`${AUG_PREFIX}${augId.charAt(0).toUpperCase() + augId.slice(1)} Augmentation`);
     w.setLore(lore);
-    c.setItem(i, w);
+    c.setItem(cand.slot, w);
     removeItem(p, `fc:${augId}_augment`, 1);
-    p.playSound("random.anvil_use");
-    p.sendMessage(`§6⬩ ${augId} augmentation bound to ${w.typeId.replace("fc:", "").replace(/_/g, " ")} §7(${current.length + 1}/${slots})`);
-    return;
-  }
-  p.sendMessage("§7No weapon with a free augment slot in your hotbar.");
+    forgeEffect(p, fx);
+    const wname = w.typeId.replace("fc:", "").replace(/_/g, " ");
+    p.sendMessage([
+      FABLE_RULE,
+      `${fx?.glyph ?? "§6⬩"} §f${info?.name ?? augId} §7is bound to your §e${wname}§7.`,
+      `§7(${cand.current.length + 1}/${cand.slots} augment slots filled)`,
+      FABLE_RULE,
+    ].join("\n"));
+  });
 }
 
+// Opens a similar picker for the Augment Remover, then strips all bound
+// augmentations from the chosen weapon with a fading-embers effect.
 function removeAugments(p) {
   const c = inv(p);
-  for (let i = 0; i < 9; i++) {
-    const w = c?.getItem(i);
+  if (!c) return;
+  const candidates = [];
+  for (let i = 0; i < c.size; i++) {
+    const w = c.getItem(i);
     if (!w || !DATA.weapons[w.typeId]) continue;
-    const lore = (w.getLore() ?? []).filter((l) => !l.startsWith(AUG_PREFIX));
-    if (lore.length === (w.getLore() ?? []).length) continue;
-    w.setLore(lore);
-    c.setItem(i, w);
-    removeItem(p, "fc:augment_remover", 1);
-    p.playSound("random.break");
-    p.sendMessage("§7The augmentations crumble to dust.");
+    const current = weaponAugments(w);
+    if (!current.length) continue;
+    candidates.push({ slot: i, item: w, current });
+  }
+  if (!candidates.length) {
+    p.sendMessage("§7You carry no augmented weapon to strip.");
     return;
   }
-  p.sendMessage("§7No augmented weapon found in your hotbar.");
+  const f = new ActionFormData()
+    .title(fableTitle("Augment Remover"))
+    .body([
+      FABLE_RULE,
+      "§7Choose a weapon to strip of its augmentations.",
+      "§c⚠ The augments are destroyed in the process.",
+      FABLE_RULE,
+    ].join("\n"));
+  for (const cand of candidates) {
+    const name = cand.item.typeId.replace("fc:", "").split("_").map((w) => w[0].toUpperCase() + w.slice(1)).join(" ");
+    f.button(`§e${name}\n§6${"⬩ ".repeat(cand.current.length)}§r`, `textures/items/${cand.item.typeId.replace("fc:", "")}`);
+  }
+  f.button("§8❖ Cancel");
+  f.show(p).then((r) => {
+    if (r.canceled || r.selection == null || r.selection >= candidates.length) return;
+    const cand = candidates[r.selection];
+    const w = cand.item;
+    w.setLore((w.getLore() ?? []).filter((l) => !l.startsWith(AUG_PREFIX)));
+    c.setItem(cand.slot, w);
+    removeItem(p, "fc:augment_remover", 1);
+    forgeEffect(p, null, true);
+    p.sendMessage(`${FABLE_RULE}\n§7The augmentations crumble from your §e${w.typeId.replace("fc:", "").replace(/_/g, " ")}§7 to ash.\n${FABLE_RULE}`);
+  });
 }
 
 // ---------------------------------------------------------------------------
@@ -691,23 +817,94 @@ function ringParticles(dim, loc, r, particle) {
 // HERO MENU (Guild Seal)
 // ---------------------------------------------------------------------------
 function heroMenu(p) {
+  const aq = activeQuest(p);
+  const q = aq ? DATA.quests.find((x) => x.id === aq.id) : null;
+  const questLine = q
+    ? `§e◈ Quest: §f${q.name} §8(${q.objectives.filter((o, i) => (o.type === "collect" ? countItem(p, o.item) : aq.progress[i]) >= o.count).length}/${q.objectives.length} objectives)`
+    : "§7◈ No active quest — the Quest Table awaits in the Great Hall.";
   const f = new ActionFormData()
     .title(fableTitle("Hero of Albion"))
     .body([
       FABLE_RULE,
       `§7"${moralityTitle(p)}§7 — that is what they call you."`,
+      questLine,
       `§8Renown §d${P.get(p, "fc_renown", 0)}  §8·  Gold §6${countItem(p, "fc:gold_coin")}`,
+      `§b◈ Will: ${bar(willEnergy(p), maxWill(p), "§b", 14)} §f${willEnergy(p)}/${maxWill(p)}`,
       FABLE_RULE,
     ].join("\n"))
     .button("§2❖ Stats & Personality", "textures/items/guild_seal")
-    .button("§e❖ Quests", "textures/items/quest_card")
+    .button("§e❖ Quest Log", "textures/items/quest_card")
+    .button("§6❖ Weapon Locker", "textures/items/sharpening_augment")
+    .button("§b❖ Map of Albion", "textures/items/septimal_key")
     .button("§c❖ Guild Training (Upgrades)", "textures/items/health_augment")
     .button("§9❖ Will Powers", "textures/items/spell_fireball")
     .button("§d❖ Titles & Renown", "textures/items/gold_coin")
-    .button("§b❖ Factions & Standing", "textures/items/wedding_ring");
+    .button("§a❖ Factions & Standing", "textures/items/wedding_ring");
   f.show(p).then((r) => {
     if (r.canceled) return;
-    [statsMenu, questMenu, trainMenu, spellMenu, titlesMenu, factionMenu][r.selection]?.(p);
+    [statsMenu, questMenu, weaponLockerMenu, mapMenu, trainMenu, spellMenu, titlesMenu, factionMenu][r.selection]?.(p);
+  });
+}
+
+function weaponLockerMenu(p) {
+  const held = heldItem(p);
+  const lines = [FABLE_RULE];
+  const wd = held && DATA.weapons[held.typeId];
+  if (wd) {
+    const name = held.typeId.replace("fc:", "").split("_").map((w) => w[0].toUpperCase() + w.slice(1)).join(" ");
+    const augs = weaponAugments(held);
+    lines.push(`§e◈ Wielding: §f${name}`);
+    lines.push(`§7   Damage §c${wd.fable}§7 (Fable)`);
+    if (wd.slots > 0) {
+      lines.push(`§7   Augment slots: §f${augs.length}/${wd.slots}`);
+      for (const a of augs) {
+        const info = DATA.augmentInfo?.[a];
+        lines.push(`   §6⬩ §f${info?.name ?? a} §8— §7${info?.desc ?? ""}`);
+      }
+      for (let i = augs.length; i < wd.slots; i++) lines.push("   §8⬩ (empty augment slot)");
+    } else {
+      lines.push("§7   This weapon has no augment slots.");
+    }
+  } else {
+    lines.push("§7Hold a weapon to inspect it here.");
+  }
+  lines.push(FABLE_RULE);
+  lines.push("§7Use an §6augmentation stone§7 from your pack to open the");
+  lines.push("§7Augmentation Forge and bind new powers to a weapon.");
+  new ActionFormData().title(fableTitle("Weapon Locker")).body(lines.join("\n")).button("§8❖ Back")
+    .show(p).then((r) => { if (!r.canceled) heroMenu(p); });
+}
+
+function mapMenu(p) {
+  const sites = JSON.parse(world.getDynamicProperty("fc_cullis") ?? "[]");
+  if (!sites.length) {
+    new ActionFormData().title(fableTitle("Map of Albion"))
+      .body([
+        FABLE_RULE,
+        "§7No Focus Sites discovered yet.",
+        "§7Cullis Gates scattered across Albion will join the lattice as you find them.",
+        FABLE_RULE,
+      ].join("\n"))
+      .button("§8❖ Back")
+      .show(p).then((r) => { if (!r.canceled) heroMenu(p); });
+    return;
+  }
+  const f = new ActionFormData().title(fableTitle("Map of Albion"))
+    .body(`${FABLE_RULE}\n§7The lattice of Albion bends to your Will.\n§7Choose a Focus Site to travel.\n${FABLE_RULE}`);
+  for (const s of sites) {
+    const d = Math.round(Math.hypot(p.location.x - s.x, p.location.z - s.z));
+    f.button(`§b◈ ${s.name}\n§8${d}m distant`, "textures/items/septimal_key");
+  }
+  f.button("§8❖ Back");
+  f.show(p).then((r) => {
+    if (r.canceled) return;
+    if (r.selection >= sites.length) return heroMenu(p);
+    const s = sites[r.selection];
+    try { p.dimension.spawnParticle("minecraft:huge_explosion_emitter", p.location); } catch { }
+    p.playSound("fc.spell_cast", { pitch: 0.6 });
+    p.teleport({ x: s.x + 0.5, y: s.y + 1, z: s.z + 0.5 });
+    p.playSound("mob.endermen.portal");
+    p.onScreenDisplay.setTitle("§b◈", { fadeInDuration: 2, stayDuration: 16, fadeOutDuration: 8, subtitle: `§f${s.name}` });
   });
 }
 
@@ -1013,6 +1210,19 @@ world.beforeEvents.playerInteractWithEntity.subscribe((ev) => {
   if (NPC_TYPES.includes(t)) { ev.cancel = true; system.run(() => npcTalk(p, target)); }
 });
 
+// the Quest Table lectern in the Heroes' Guild great hall opens the quest board
+world.beforeEvents.playerInteractWithBlock.subscribe((ev) => {
+  if (ev.block?.typeId !== "minecraft:lectern") return;
+  const raw = world.getDynamicProperty("fc_guild_quest_table");
+  if (!raw) return;
+  const loc = JSON.parse(raw);
+  const b = ev.block.location;
+  if (b.x !== loc.x || b.y !== loc.y || b.z !== loc.z) return;
+  ev.cancel = true;
+  const p = ev.player;
+  system.run(() => questBoard(p));
+});
+
 function doorPersona(door) {
   let idx = door.getDynamicProperty("fc_door_idx");
   if (idx === undefined) {
@@ -1146,8 +1356,9 @@ function npcTalk(p, npc) {
   const t = npc.typeId;
   const m = morality(p);
   if (t === "fc:guildmaster") {
+    const guildLn = guildRepLine(p);
     new ActionFormData().title("§6The Guildmaster")
-      .body(`§o"${m > 200 ? "Albion sings of your kindness, Hero." : m < -200 ? "I hear dark whispers about you. Tread carefully." : "Your training continues, apprentice."}\n\nA Hero balances Strength, Skill and Will. Use Quest Cards to earn your renown. And do stop hitting the practice dummies with your forehead."`)
+      .body(`§o"${m > 200 ? "Albion sings of your kindness, Hero." : m < -200 ? "I hear dark whispers about you. Tread carefully." : "Your training continues, apprentice."}\n\nA Hero balances Strength, Skill and Will. Use Quest Cards to earn your renown. And do stop hitting the practice dummies with your forehead."§r${guildLn ? `\n\n§o"${guildLn}"§r` : ""}`)
       .button("§eTake a Quest Card", "textures/items/quest_card")
       .button("§9Hero Menu")
       .button("§8Farewell")
@@ -1157,8 +1368,12 @@ function npcTalk(p, npc) {
         if (r.selection === 1) heroMenu(p);
       });
   } else if (t === "fc:maze") {
+    const guildLn = guildRepLine(p);
     new MessageFormData().title("§5Maze")
-      .body('§o"The Will is a muscle, Hero. Spell tomes hide in ruins and Demon Door hoards — each one a power your enemies will learn to dread. Visit the Oracle in the far snows, when you are ready for truths."')
+      .body([
+        '§o"The Will is a muscle, Hero. Spell tomes hide in ruins and Demon Door hoards — each one a power your enemies will learn to dread. Visit the Oracle in the far snows, when you are ready for truths."§r',
+        guildLn ? `\n§7"${guildLn}"` : "",
+      ].join(""))
       .button1("§9Receive a Lightning tome").button2("§8Leave")
       .show(p).then((r) => {
         if (!r.canceled && r.selection === 0 && !P.get(p, "fc_maze_gift", false)) {
@@ -1171,7 +1386,23 @@ function npcTalk(p, npc) {
         }
       });
   } else if (t === "fc:theresa") {
-    p.sendMessage(`§d Theresa: §o"${m >= 0 ? "I see many paths for you, and most are bright." : "Blood follows you like a stray dog, brother."} The blind see further than you'd think."`);
+    const renownLn = renownLine(p);
+    new ActionFormData().title("§dTheresa")
+      .body([
+        `§o"${m >= 0 ? "I see many paths for you, and most are bright." : "Blood follows you like a stray dog, brother."} The blind see further than you'd think."§r`,
+        renownLn ? `\n§7"${renownLn}"` : "",
+      ].join(""))
+      .button("§dAsk about your fate")
+      .button("§5Ask about Jack of Blades")
+      .button("§8Leave")
+      .show(p).then((r) => {
+        if (r.canceled) return;
+        if (r.selection === 0) {
+          p.sendMessage(`§dTheresa: §o"${m > 200 ? "Light follows you, Hero. Do not let it blind you to its cost." : m < -200 ? "Your shadow grows long. It will swallow you, in the end." : "Your path forks soon. Choose with your heart, not your purse."}"`);
+        } else if (r.selection === 1) {
+          p.sendMessage('§dTheresa: §o"He wears a mask of swords and calls it a face. When he comes, the Sword of Aeons will sing. What you do with it after is yours to choose — Albion remembers either way."');
+        }
+      });
   } else if (t === "fc:lady_grey") {
     const married = P.get(p, "fc_married", false);
     if (married) { p.sendMessage('§dLady Grey: §o"My consort. Bowerstone bores me — slay something interesting."'); return; }
@@ -1208,7 +1439,23 @@ function npcTalk(p, npc) {
         }
       });
   } else if (t === "fc:briar_rose") {
-    p.sendMessage('§cBriar Rose: §o"Done staring? Demon Doors respond to deeds, not poetry. Multiplier 14 opens the Warrior\'s arch — if you can keep your footing."');
+    const renownLn = renownLine(p);
+    new ActionFormData().title("§cBriar Rose")
+      .body([
+        '§o"Done staring? The hills hide more than flowers, Hero."§r',
+        renownLn ? `\n§7"${renownLn}"` : "",
+      ].join(""))
+      .button("§cAsk about Demon Doors")
+      .button("§dAsk about the roses")
+      .button("§8Leave")
+      .show(p).then((r) => {
+        if (r.canceled) return;
+        if (r.selection === 0) {
+          p.sendMessage('§cBriar Rose: §o"Demon Doors respond to deeds, not poetry. Multiplier 14 opens the Warrior\'s arch — if you can keep your footing."');
+        } else if (r.selection === 1) {
+          p.sendMessage('§cBriar Rose: §o"Every thorn here grew from a broken promise. Mind you don\'t leave one of your own behind."');
+        }
+      });
   } else if (t === "fc:trader") {
     shopMenu(p, "§6Travelling Trader");
   } else if (t === "fc:barkeep") {
@@ -1231,8 +1478,12 @@ function npcTalk(p, npc) {
         } else if (r.selection <= 1) p.sendMessage("§7Your purse is empty, friend.");
       });
   } else if (t === "fc:mercenary") {
+    const guildLn = guildRepLine(p);
     new MessageFormData().title("§7Mercenary")
-      .body('§o"Twenty gold and my blade walks with you. I don\'t do funerals — especially mine."')
+      .body([
+        '§o"Twenty gold and my blade walks with you. I don\'t do funerals — especially mine."§r',
+        guildLn ? `\n§7"${guildLn}"` : "",
+      ].join(""))
       .button1("§6Hire (20 gold)").button2("§8Not today")
       .show(p).then((r) => {
         if (r.canceled || r.selection !== 0) return;
@@ -1255,6 +1506,8 @@ function npcTalk(p, npc) {
       : t.endsWith("skill") ? ["Maze says patience is an arrow loosed before the bow is drawn.", "I can hit the yard post nine times out of ten now."]
         : ["The Will hums louder near the Cullis Gate.", "I saw blue fire in my sleep. Theresa said not to panic."];
     p.sendMessage(`§6Guild Apprentice: §f"${lines[Math.floor(Math.random() * lines.length)]}"`);
+    const renownLn = renownLine(p);
+    if (renownLn) p.sendMessage(`§6Guild Apprentice: §f"${renownLn}"`);
   } else if (t === "fc:villager_albion" || t === "fc:villager_woman" || t === "fc:villager_farmer" || t === "fc:villager_tailor" || t === "fc:villager_blacksmith" || t === "fc:villager_fisher") {
     const town = VILLAGER_TOWN[t] ?? "bowerstone";
     const tier = repTier(rep(p, town));
@@ -1435,6 +1688,29 @@ function repTier(v) {
 }
 function townAvgRep(p) {
   return (rep(p, "bowerstone") + rep(p, "oakvale") + rep(p, "snowspire")) / 3;
+}
+
+// Renown-based flavour line NPCs use to acknowledge the Hero's growing fame —
+// independent of any single faction, since renown is global.
+function renownLine(p) {
+  const renown = P.get(p, "fc_renown", 0);
+  const m = morality(p);
+  if (renown >= 1500) return m >= 0 ? "Your name is sung in every tavern from here to Bowerstone." : "They speak your name only after the door is barred.";
+  if (renown >= 500) return m >= 0 ? "Word of your deeds is starting to travel." : "Folk go quiet when your name comes up.";
+  if (renown >= 100) return "You're starting to make a name for yourself.";
+  return "";
+}
+
+// Guild reputation flavour line for NPCs tied to the Heroes' Guild.
+const GUILD_REP_LINES = {
+  hostile: "The Guild has all but disowned you.",
+  wary: "Some here still whisper about your last stunt.",
+  neutral: "",
+  friendly: "Good to see a friend of the Guild.",
+  revered: "The Guild speaks of you with real pride these days.",
+};
+function guildRepLine(p) {
+  return GUILD_REP_LINES[repTier(rep(p, "guild"))] ?? "";
 }
 const GUARD_TOWN = {
   "fc:guard_bowerstone": "bowerstone", "fc:guard_oakvale": "oakvale",
@@ -1805,11 +2081,16 @@ function maybePlace(p, rx, rz) {
 }
 
 // ---------------------------------------------------------------------------
-// Boss minion summoning + ghost shriek + ally cleanup
+// Boss minion summoning + characterful mob voices + ally cleanup
 // ---------------------------------------------------------------------------
 system.runInterval(() => {
   for (const p of world.getPlayers()) {
     const dim = p.dimension;
+    for (const [type, cue] of Object.entries(NPC_SOUND_CUES)) {
+      for (const e of dim.getEntities({ location: p.location, maxDistance: cue.range, type })) {
+        maybePlayNpcCue(p, e, cue);
+      }
+    }
     for (const boss of dim.getEntities({ location: p.location, maxDistance: 40, families: ["fc_boss"] })) {
       const minionType = boss.typeId === "fc:white_balverine" ? "fc:balverine"
         : boss.typeId === "fc:wasp_queen" ? "fc:wasp"
@@ -1823,7 +2104,7 @@ system.runInterval(() => {
     }
     // banshee shriek
     for (const b of dim.getEntities({ location: p.location, maxDistance: 12, type: "fc:banshee" })) {
-      if (Math.random() < 0.3) {
+      if (Math.random() < 0.2) {
         p.addEffect("nausea", 100, { amplifier: 0, showParticles: false });
         p.addEffect("darkness", 60, { amplifier: 0, showParticles: false });
         p.playSound("fc.banshee_shriek", { volume: 0.8 });
@@ -1865,6 +2146,24 @@ system.runInterval(() => {
         if (m <= -400) p.dimension.spawnParticle("minecraft:basic_smoke_particle", { x: p.location.x + (Math.random() - 0.5), y: p.location.y + 1.8, z: p.location.z + (Math.random() - 0.5) });
         if (m <= -750) p.dimension.spawnParticle("minecraft:soul_particle", { x: p.location.x, y: p.location.y + 1.2, z: p.location.z });
         if (willLv >= 3) p.dimension.spawnParticle("minecraft:enchanting_table_particle", { x: p.location.x, y: p.location.y + 1.5, z: p.location.z });
+      } catch { }
+    }
+    // augmented weapons hum with the colours of their bound powers
+    if (auraPhase % 5 === 0) {
+      try {
+        const held = heldItem(p);
+        if (held && DATA.weapons[held.typeId]) {
+          const augs = weaponAugments(held);
+          if (augs.length) {
+            const fx = AUGMENT_FX[augs[(auraPhase / 5) % augs.length]];
+            const dir = p.getViewDirection();
+            p.dimension.spawnParticle(fx?.particle ?? "minecraft:enchanting_table_particle", {
+              x: p.location.x + dir.x * 0.8 + (Math.random() - 0.5) * 0.2,
+              y: p.location.y + 1 + (Math.random() - 0.5) * 0.2,
+              z: p.location.z + dir.z * 0.8 + (Math.random() - 0.5) * 0.2,
+            });
+          }
+        }
       } catch { }
     }
     applyUpgrades(p);

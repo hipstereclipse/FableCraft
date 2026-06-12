@@ -7,6 +7,7 @@ renderer used for the gallery); a handful of UI/inventory mockups and the
 recipe/collage scenes round out the set.
 """
 import math
+import textwrap
 
 from PIL import Image, ImageDraw, ImageFont
 
@@ -17,6 +18,7 @@ from gen_screenshots import (
 )
 from fc_mobs import MOBS
 import gen_structures as GS
+import fc_data
 
 DOC_DIR = SHOTS / "docs"
 ITEM_TEX_DIR = ITEM_TEX
@@ -317,7 +319,22 @@ def ui_bg(kind, size):
             d.text((44, 100 + i * 42), q, fill=(224, 196, 146, 255), font=load_font(24, bold=False))
     elif kind == "hero":
         d.rectangle([20, 20, w - 20, h - 20], fill=panel, outline=frame, width=3)
-        d.text((34, 36), "Hero Menu", fill=(240, 218, 176, 255), font=load_font(34, bold=True))
+        d.text((40, 32), "Hero Menu", fill=(240, 218, 176, 255), font=load_font(44, bold=True))
+        d.line([(40, 104), (w - 40, 104)], fill=(120, 96, 64, 255), width=2)
+
+        left_x0, left_x1 = 40, 1140
+        d.text((left_x0, 122), "“The Hero of Skill” — that is what they call you.",
+               fill=(206, 226, 214, 255), font=load_font(28))
+        d.text((left_x0, 170), "● Quest: Wasp Menace  (1/2 objectives)",
+               fill=(244, 214, 120, 255), font=load_font(28, bold=True))
+        d.text((left_x0, 220), "Renown 240   ·   Gold 85",
+               fill=(190, 196, 206, 255), font=load_font(28))
+
+        will_y = 282
+        d.text((left_x0, will_y), "Will Energy", fill=(150, 206, 255, 255), font=load_font(26, bold=True))
+        d.rectangle([260, will_y + 2, left_x1, will_y + 40], fill=(58, 48, 42, 255), outline=(126, 100, 72, 255), width=2)
+        d.rectangle([264, will_y + 6, 264 + int((left_x1 - 264 - 8) * 0.62), will_y + 36], fill=(120, 170, 255, 255))
+
         bars = [
             ("General XP", (244, 214, 90), 0.82),
             ("Strength XP", (220, 74, 64), 0.63),
@@ -325,12 +342,42 @@ def ui_bg(kind, size):
             ("Will XP", (96, 220, 110), 0.71),
         ]
         for i, (name, col, v) in enumerate(bars):
-            y = 112 + i * 78
-            d.text((40, y), name, fill=(224, 198, 160, 255), font=load_font(24, bold=False))
-            d.rectangle([260, y + 8, w - 60, y + 38], fill=(58, 48, 42, 255), outline=(126, 100, 72, 255), width=2)
-            d.rectangle([264, y + 12, 264 + int((w - 328) * v), y + 34], fill=col + (255,))
-        d.text((40, 450), "Morality: +58", fill=(148, 232, 156, 255), font=load_font(28, bold=True))
-        d.text((40, 494), "Title: Hero", fill=(236, 214, 172, 255), font=load_font(28, bold=True))
+            y = 364 + i * 92
+            d.text((left_x0, y), name, fill=(224, 198, 160, 255), font=load_font(28, bold=True))
+            d.rectangle([260, y + 6, left_x1, y + 46], fill=(58, 48, 42, 255), outline=(126, 100, 72, 255), width=2)
+            d.rectangle([264, y + 10, 264 + int((left_x1 - 264 - 8) * v), y + 42], fill=col + (255,))
+
+        d.text((left_x0, 740), "Morality: +58", fill=(148, 232, 156, 255), font=load_font(34, bold=True))
+        d.text((left_x0, 800), "Title: Hero of Skill", fill=(236, 214, 172, 255), font=load_font(34, bold=True))
+        d.text((left_x0, 866), "“Albion remembers every kindness, and every blade.”",
+               fill=(150, 134, 108, 255), font=load_font(24))
+
+        # right column: the Hero Menu's button list
+        right_x0, right_x1 = 1180, 1880
+        menu_buttons = [
+            ("Stats & Personality", "guild_seal"),
+            ("Quest Log", "quest_card"),
+            ("Weapon Locker", "sharpening_augment"),
+            ("Map of Albion", "septimal_key"),
+            ("Guild Training", "health_augment"),
+            ("Will Powers", "spell_fireball"),
+            ("Titles & Renown", "gold_coin"),
+            ("Factions & Standing", "wedding_ring"),
+        ]
+        row_h, gap = 92, 6
+        for i, (label, icon_id) in enumerate(menu_buttons):
+            y0 = 110 + i * (row_h + gap)
+            d.rounded_rectangle([right_x0, y0, right_x1, y0 + row_h], radius=10,
+                                fill=(56, 46, 38, 255), outline=(140, 112, 76, 255), width=2)
+            icon_path = ITEM_TEX_DIR / f"{icon_id}.png"
+            if icon_path.exists():
+                icon = Image.open(icon_path).convert("RGBA")
+                icon = fit_image(icon, (row_h - 24, row_h - 24), Image.NEAREST)
+                img.alpha_composite(icon, (right_x0 + 14, y0 + (row_h - icon.height) // 2))
+            else:
+                MISSING_ASSETS.append(f"item:{icon_id}")
+            d.text((right_x0 + row_h + 4, y0 + row_h // 2), label,
+                   fill=(236, 220, 188, 255), font=load_font(30, bold=True), anchor="lm")
     elif kind == "files":
         d.rectangle([20, 20, w - 20, h - 20], fill=(22, 28, 36, 255), outline=(80, 130, 170, 255), width=2)
         d.rectangle([20, 20, w - 20, 72], fill=(30, 42, 56, 255))
@@ -362,27 +409,117 @@ def ui_bg(kind, size):
 
 
 def anvil_scene(item_ids, size=OUT_SIZE):
+    """The Augmentation Forge: a weapon showcase with glowing power-rings and
+    a ledger of bound augments, mirroring the in-game forge UI."""
     w, h = size
-    img = Image.new("RGBA", size, (26, 22, 18, 255))
+    content_h = h - CONTENT_BOTTOM_PAD
+    img = Image.new("RGBA", size, (18, 15, 13, 255))
     d = ImageDraw.Draw(img)
     frame = (186, 148, 92, 255)
     panel = (42, 34, 28, 235)
-    d.rectangle([20, 20, w - 20, h - 20], fill=panel, outline=frame, width=3)
-    d.text((36, 38), "Augmentation Forge", fill=(240, 218, 176, 255), font=load_font(34, bold=True))
-    slots = [(120, 130), (290, 130), (460, 130), (690, 130)]
-    for x, y in slots:
-        d.rounded_rectangle([x, y, x + 150, y + 150], radius=10,
-                            fill=(58, 46, 38, 255), outline=(128, 102, 72, 255), width=2)
-    d.line([(620, 205), (680, 205)], fill=(236, 214, 172, 255), width=8)
-    d.polygon([(680, 182), (680, 228), (716, 205)], fill=(236, 214, 172, 255))
-    for (x, y), iid in zip(slots, item_ids):
-        p = ITEM_TEX_DIR / f"{iid}.png"
-        if not p.exists():
-            MISSING_ASSETS.append(f"item:{iid}")
-            continue
-        icon = Image.open(p).convert("RGBA")
-        icon = fit_image(icon, (120, 120), Image.NEAREST)
-        img.alpha_composite(icon, (x + (150 - icon.width) // 2, y + (150 - icon.height) // 2))
+    d.rectangle([20, 20, w - 20, content_h], fill=panel, outline=frame, width=3)
+
+    d.text((w // 2, 70), "●  Augmentation Forge  ●", anchor="mm",
+           fill=(240, 218, 176, 255), font=load_font(46, bold=True))
+    d.line([(60, 122), (w - 60, 122)], fill=(120, 96, 64, 255), width=2)
+
+    weapon_id = item_ids[0]
+    aug_ids = item_ids[1:]
+    aug_lookup = {a["id"]: a for a in fc_data.AUGMENTS}
+
+    # ---- left: weapon showcase, ringed with the glow of each bound power ----
+    left_x0, left_x1 = 70, 1150
+    show_cx = (left_x0 + left_x1) // 2
+    show_cy = 430
+    for i, aid in enumerate(aug_ids):
+        info = aug_lookup.get(aid, {})
+        col = tuple(info.get("color", (200, 200, 200)))
+        radius = 230 - i * 28
+        glow = Image.new("RGBA", size, (0, 0, 0, 0))
+        gd = ImageDraw.Draw(glow)
+        gd.ellipse([show_cx - radius, show_cy - radius, show_cx + radius, show_cy + radius],
+                   outline=col + (150,), width=6)
+        img.alpha_composite(glow)
+
+    d.rounded_rectangle([show_cx - 200, show_cy - 200, show_cx + 200, show_cy + 200], radius=24,
+                        fill=(30, 24, 20, 230), outline=frame, width=3)
+    wp = ITEM_TEX_DIR / f"{weapon_id}.png"
+    if wp.exists():
+        icon = Image.open(wp).convert("RGBA")
+        icon = fit_image(icon, (320, 320), Image.NEAREST)
+        img.alpha_composite(icon, (show_cx - icon.width // 2, show_cy - icon.height // 2))
+    else:
+        MISSING_ASSETS.append(f"item:{weapon_id}")
+
+    # sparkle particles around the weapon depicting the binding animation
+    spark_r = rng("docfx", "anvil_sparks", weapon_id)
+    for _ in range(40):
+        ang = spark_r.uniform(0, math.tau)
+        rad = spark_r.uniform(180, 270)
+        sx = show_cx + math.cos(ang) * rad
+        sy = show_cy + math.sin(ang) * rad * 0.85
+        sz = spark_r.uniform(2, 5)
+        col = tuple(aug_lookup.get(spark_r.choice(aug_ids) if aug_ids else "sharpening_augment",
+                                    {}).get("color", (240, 214, 120)))
+        d.ellipse([sx - sz, sy - sz, sx + sz, sy + sz], fill=col + (220,))
+
+    weapon_name = weapon_id.replace("_", " ").title()
+    d.text((show_cx, show_cy + 240), weapon_name, anchor="mm",
+           fill=(236, 220, 188, 255), font=load_font(34, bold=True))
+
+    # augment slot row beneath the weapon
+    slot_y = show_cy + 300
+    slot_w, gap = 150, 24
+    total_w = len(aug_ids) * slot_w + (len(aug_ids) - 1) * gap
+    slot_x0 = show_cx - total_w // 2
+    for i, aid in enumerate(aug_ids):
+        info = aug_lookup.get(aid, {})
+        col = tuple(info.get("color", (200, 200, 200)))
+        x0 = slot_x0 + i * (slot_w + gap)
+        d.rounded_rectangle([x0, slot_y, x0 + slot_w, slot_y + slot_w], radius=12,
+                            fill=(54, 44, 36, 255), outline=col + (255,), width=3)
+        ap = ITEM_TEX_DIR / f"{aid}.png"
+        if ap.exists():
+            aicon = Image.open(ap).convert("RGBA")
+            aicon = fit_image(aicon, (slot_w - 30, slot_w - 30), Image.NEAREST)
+            img.alpha_composite(aicon, (x0 + (slot_w - aicon.width) // 2, slot_y + (slot_w - aicon.height) // 2))
+        else:
+            MISSING_ASSETS.append(f"item:{aid}")
+
+    # ---- right: forge ledger of bound powers + effect notes ----
+    right_x0, right_x1 = 1190, w - 60
+    d.rounded_rectangle([right_x0, 140, right_x1, content_h - 40], radius=14,
+                        fill=(34, 28, 24, 235), outline=frame, width=2)
+    d.text((right_x0 + 28, 168), "Bound Powers", fill=(244, 214, 120, 255), font=load_font(32, bold=True))
+    d.line([(right_x0 + 28, 216), (right_x1 - 28, 216)], fill=(120, 96, 64, 255), width=2)
+
+    entry_y = 238
+    for aid in aug_ids:
+        info = aug_lookup.get(aid, {"name": aid, "desc": "", "color": (200, 200, 200)})
+        col = tuple(info["color"])
+        d.ellipse([right_x0 + 28, entry_y + 8, right_x0 + 50, entry_y + 30], fill=col + (255,))
+        d.text((right_x0 + 64, entry_y), info["name"], fill=(236, 220, 188, 255), font=load_font(28, bold=True))
+        desc_y = entry_y + 42
+        for line in textwrap.wrap(info["desc"], 48):
+            d.text((right_x0 + 64, desc_y), line, fill=(190, 178, 156, 255), font=load_font(22))
+            desc_y += 30
+        entry_y = desc_y + 18
+
+    d.line([(right_x0 + 28, entry_y + 6), (right_x1 - 28, entry_y + 6)], fill=(120, 96, 64, 255), width=2)
+    entry_y += 32
+    d.text((right_x0 + 28, entry_y), "Forge Effects", fill=(150, 206, 255, 255), font=load_font(28, bold=True))
+    entry_y += 44
+    for line in [
+        "Binding a stone wreathes the weapon in a",
+        "shower of sparks matched to its power,",
+        "with a ring of totem light and an anvil",
+        "strike that echoes through the Guild.",
+        "Augmented blades hum with a faint, drifting",
+        "aura of the same colours while held.",
+    ]:
+        d.text((right_x0 + 28, entry_y), line, fill=(190, 178, 156, 255), font=load_font(22))
+        entry_y += 30
+
     return img
 
 
@@ -503,7 +640,7 @@ SCENES = [
         "title": "Item Compendium",
         "subtitle": "Weapon tiers and armour sets, crafted in order",
         "items": ["iron_longsword", "steel_longsword", "obsidian_longsword", "master_longsword",
-                  "apprentice_torso", "guild_cloth", "platemail_torso", "archon_torso"],
+                  "apprentice_torso", "chainmail_bright_torso", "platemail_torso", "archon_torso"],
     },
     {
         "id": "05_archon_with_aeons", "kind": "scene3d", "struct": "temple_avo",
@@ -607,10 +744,10 @@ SCENES = [
         "travel": ["Heroes' Guild", "Oakvale", "Bowerstone", "Snowspire Oracle"],
     },
     {
-        "id": "17_visible_armor_sets", "kind": "inventory",
-        "title": "Visible Armour System",
-        "subtitle": "Apprentice, Guild, Plate, and Archon — worn on the hero",
-        "items": ["apprentice_torso", "guild_cloth", "platemail_torso", "archon_torso",
+        "id": "17_armor_sets", "kind": "inventory",
+        "title": "Armour Sets",
+        "subtitle": "Apprentice, Chainmail, Plate, and Archon — worn on the hero",
+        "items": ["apprentice_torso", "chainmail_bright_torso", "platemail_torso", "archon_torso",
                   "apprentice_helm", "wizard_hat", "platemail_helm", "archon_helm"],
     },
     {
@@ -627,8 +764,9 @@ SCENES = [
     {
         "id": "20_starter_inventory", "kind": "inventory",
         "title": "Quick Start Loadout",
-        "subtitle": "Guild Seal and Stick on spawn",
-        "items": ["guild_seal", "stick", "apprentice_torso", "apprentice_helm"],
+        "subtitle": "A full Apprentice outfit, Guild Seal, Stick, and an Apple Pie on spawn",
+        "items": ["guild_seal", "stick", "apprentice_helm", "apprentice_torso",
+                  "apprentice_legs", "apprentice_boots", "apple_pie"],
     },
     {
         "id": "21_roadmap_progress", "kind": "ui", "ui": "roadmap",

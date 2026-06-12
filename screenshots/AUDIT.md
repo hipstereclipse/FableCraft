@@ -305,8 +305,8 @@ Grades: S (≥90) A (≥75) B (≥60) C (≥45) D (<45)
 
 - **screenshots checked:** 22
 - **dimensions:** 1920x1080
-- **contrast floor:** 18.7 RGB stddev
-- **palette floor:** 1033 sampled colours
+- **contrast floor:** 17.0 RGB stddev
+- **palette floor:** 642 sampled colours
 - **missing asset tokens:** 0; scripts/gen_doc_screenshots.py exits non-zero if a scene references missing mob or item art
 
 ## Verdict

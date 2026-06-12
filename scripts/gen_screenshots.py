@@ -1104,12 +1104,16 @@ def main():
     item_img = {x["id"]: x["img"] for x in item_cards}
     weapons = fc_data.build_weapons()
     tiers = ["iron", "steel", "obsidian", "master"]
+    ranged_tiers = {m["tier"]: mat for mat, m in fc_data.RANGED_MATERIALS.items()}
     wtypes = ["longsword", "katana", "cleaver", "axe", "mace", "pickhammer",
               "greataxe", "greatsword", "greathammer", "longbow", "crossbow"]
     w_matrix = {}
     for ri, wt in enumerate(wtypes):
         for ci, mat in enumerate(tiers):
-            iid = f"{mat}_{wt}"
+            # bows and crossbows are made from yew/oak/ebony/master, not
+            # iron/steel/obsidian/master — map by tier number instead
+            mat_for_col = ranged_tiers[ci + 1] if wt in ("longbow", "crossbow") else mat
+            iid = f"{mat_for_col}_{wt}"
             if iid in item_img:
                 w_matrix[(ri, ci)] = (item_img[iid], iid.replace("_", " ").title())
     progression_sheet(w_matrix,

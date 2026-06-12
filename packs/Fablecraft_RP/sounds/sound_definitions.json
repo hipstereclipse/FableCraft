@@ -1,65 +1,3539 @@
 {
   "format_version": "1.14.0",
   "sound_definitions": {
-    "fc.door_rumble": {
+    "fc.magic.demon_door_open": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/system/door_rumble",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.magic.demon_door_voice": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/system/door_speak_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/system/door_speak_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/system/door_speak_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.magic.banshee_shriek": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/system/banshee_shriek_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/system/banshee_shriek_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/system/banshee_shriek_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.magic.will_cast": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/system/spell_cast_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/system/spell_cast_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.ui.level_up": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/system/level_up_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/system/level_up_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.ambience.heroes_guild": {
+      "category": "ambient",
+      "sounds": [
+        {
+          "name": "sounds/fc/system/guild_pad_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/system/guild_pad_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/system/guild_pad_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.ambience.bowerstone_market": {
+      "category": "ambient",
+      "sounds": [
+        {
+          "name": "sounds/fc/system/bowerstone_market_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/system/bowerstone_market_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/system/bowerstone_market_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.ambience.bandit_camp_murmur": {
+      "category": "ambient",
+      "sounds": [
+        {
+          "name": "sounds/fc/system/bandit_camp_murmur_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/system/bandit_camp_murmur_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/system/bandit_camp_murmur_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.ambience.graveyard_whispers": {
+      "category": "ambient",
+      "sounds": [
+        {
+          "name": "sounds/fc/system/graveyard_whispers_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/system/graveyard_whispers_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/system/graveyard_whispers_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.combat.sword_clash": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/system/sword_clash_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/system/sword_clash_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.arachanox": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/arachanox_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/arachanox_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/arachanox_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.assassin": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/assassin_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/assassin_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/assassin_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.balverine": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/balverine_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/balverine_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.bandit": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/bandit_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/bandit_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/bandit_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.bandit_archer": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/bandit_archer_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/bandit_archer_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/bandit_archer_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.banshee": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/banshee_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/banshee_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/banshee_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.barkeep": {
       "category": "neutral",
       "sounds": [
         {
-          "name": "sounds/fc/door_rumble",
+          "name": "sounds/fc/entity/barkeep_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/barkeep_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/barkeep_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.beetle": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/beetle_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/beetle_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/beetle_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.briar_rose": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/briar_rose_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/briar_rose_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/briar_rose_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.demon_door": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/demon_door_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/demon_door_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/demon_door_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.earth_troll": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/earth_troll_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/earth_troll_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.frost_balverine": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/frost_balverine_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/frost_balverine_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.guard_bowerstone": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/guard_bowerstone_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/guard_bowerstone_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/guard_bowerstone_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.guard_oakvale": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/guard_oakvale_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/guard_oakvale_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/guard_oakvale_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.guard_snowspire": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/guard_snowspire_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/guard_snowspire_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/guard_snowspire_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.guild_apprentice_might": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/guild_apprentice_might_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/guild_apprentice_might_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/guild_apprentice_might_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.guild_apprentice_skill": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/guild_apprentice_skill_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/guild_apprentice_skill_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/guild_apprentice_skill_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.guild_apprentice_will": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/guild_apprentice_will_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/guild_apprentice_will_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/guild_apprentice_will_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.guildmaster": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/guildmaster_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/guildmaster_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/guildmaster_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.hobbe": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/hobbe_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/hobbe_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.hobbe_scout": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/hobbe_scout_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/hobbe_scout_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.ice_troll": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/ice_troll_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/ice_troll_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.jack_dragon": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/jack_dragon_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/jack_dragon_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.jack_of_blades": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/jack_of_blades_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/jack_of_blades_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.lady_grey": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/lady_grey_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/lady_grey_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/lady_grey_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.maze": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/maze_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/maze_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/maze_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.mercenary": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/mercenary_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/mercenary_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/mercenary_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.minion": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/minion_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/minion_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/minion_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.nymph": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/nymph_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/nymph_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/nymph_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.oracle": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/oracle_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/oracle_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/oracle_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.rock_giant": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/rock_giant_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/rock_giant_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.summoned_balverine": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/summoned_balverine_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/summoned_balverine_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.summoned_hobbe": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/summoned_hobbe_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/summoned_hobbe_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.summoned_wasp": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/summoned_wasp_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/summoned_wasp_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/summoned_wasp_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.summoner": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/summoner_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/summoner_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/summoner_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.theresa": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/theresa_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/theresa_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/theresa_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.trader": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/trader_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/trader_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/trader_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.twinblade": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/twinblade_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/twinblade_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/twinblade_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.undead": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/undead_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/undead_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/undead_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.undead_knight": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/undead_knight_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/undead_knight_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/undead_knight_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.undead_soldier": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/undead_soldier_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/undead_soldier_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/undead_soldier_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.villager_albion": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/villager_albion_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/villager_albion_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/villager_albion_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.villager_blacksmith": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/villager_blacksmith_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/villager_blacksmith_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/villager_blacksmith_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.villager_farmer": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/villager_farmer_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/villager_farmer_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/villager_farmer_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.villager_fisher": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/villager_fisher_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/villager_fisher_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/villager_fisher_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.villager_tailor": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/villager_tailor_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/villager_tailor_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/villager_tailor_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.villager_woman": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/villager_woman_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/villager_woman_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/villager_woman_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.wasp": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/wasp_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/wasp_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/wasp_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.wasp_queen": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/wasp_queen_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/wasp_queen_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/wasp_queen_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.white_balverine": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/white_balverine_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/white_balverine_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.entity.wraith": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/wraith_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/wraith_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/wraith_3",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.iron_longsword": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/iron_longsword_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/iron_longsword_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.iron_katana": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/iron_katana_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/iron_katana_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.iron_cleaver": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/iron_cleaver_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/iron_cleaver_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.iron_axe": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/iron_axe_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/iron_axe_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.iron_mace": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/iron_mace_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/iron_mace_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.iron_pickhammer": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/iron_pickhammer_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/iron_pickhammer_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.iron_greataxe": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/iron_greataxe_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/iron_greataxe_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.iron_greatsword": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/iron_greatsword_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/iron_greatsword_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.iron_greathammer": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/iron_greathammer_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/iron_greathammer_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.steel_longsword": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/steel_longsword_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/steel_longsword_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.steel_katana": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/steel_katana_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/steel_katana_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.steel_cleaver": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/steel_cleaver_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/steel_cleaver_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.steel_axe": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/steel_axe_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/steel_axe_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.steel_mace": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/steel_mace_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/steel_mace_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.steel_pickhammer": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/steel_pickhammer_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/steel_pickhammer_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.steel_greataxe": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/steel_greataxe_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/steel_greataxe_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.steel_greatsword": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/steel_greatsword_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/steel_greatsword_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.steel_greathammer": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/steel_greathammer_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/steel_greathammer_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.obsidian_longsword": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/obsidian_longsword_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/obsidian_longsword_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.obsidian_katana": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/obsidian_katana_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/obsidian_katana_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.obsidian_cleaver": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/obsidian_cleaver_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/obsidian_cleaver_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.obsidian_axe": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/obsidian_axe_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/obsidian_axe_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.obsidian_mace": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/obsidian_mace_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/obsidian_mace_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.obsidian_pickhammer": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/obsidian_pickhammer_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/obsidian_pickhammer_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.obsidian_greataxe": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/obsidian_greataxe_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/obsidian_greataxe_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.obsidian_greatsword": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/obsidian_greatsword_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/obsidian_greatsword_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.obsidian_greathammer": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/obsidian_greathammer_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/obsidian_greathammer_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.master_longsword": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/master_longsword_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/master_longsword_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.master_katana": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/master_katana_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/master_katana_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.master_cleaver": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/master_cleaver_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/master_cleaver_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.master_axe": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/master_axe_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/master_axe_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.master_mace": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/master_mace_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/master_mace_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.master_pickhammer": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/master_pickhammer_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/master_pickhammer_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.master_greataxe": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/master_greataxe_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/master_greataxe_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.master_greatsword": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/master_greatsword_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/master_greatsword_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.master_greathammer": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/master_greathammer_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/master_greathammer_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.yew_longbow": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "random.bow",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.yew_crossbow": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "random.bow",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.oak_longbow": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "random.bow",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.oak_crossbow": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "random.bow",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.ebony_longbow": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "random.bow",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.ebony_crossbow": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "random.bow",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.master_longbow": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "random.bow",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.master_crossbow": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "random.bow",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.sword_of_aeons": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/sword_of_aeons_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/sword_of_aeons_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.avos_tear": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/avos_tear_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/avos_tear_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.the_harbinger": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/the_harbinger_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/the_harbinger_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.solus_greatsword": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/solus_greatsword_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/solus_greatsword_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.arkens_crossbow": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "random.bow",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.the_bereaver": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/the_bereaver_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/the_bereaver_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.avenger": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/avenger_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/avenger_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.orkons_club": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/orkons_club_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/orkons_club_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.dollmasters_mace": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/dollmasters_mace_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/dollmasters_mace_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.wellows_pickhammer": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/wellows_pickhammer_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/wellows_pickhammer_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.katana_hiryu": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/katana_hiryu_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/katana_hiryu_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.the_avenger_bow": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "random.bow",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.scimitar": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/scimitar_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/scimitar_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.stick": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/stick_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/stick_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.apprentice_helm": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/apprentice_helm_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/apprentice_helm_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.apprentice_torso": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/apprentice_torso_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/apprentice_torso_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.apprentice_legs": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/apprentice_legs_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/apprentice_legs_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.apprentice_boots": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/apprentice_boots_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/apprentice_boots_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.villager_helm": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/villager_helm_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/villager_helm_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.villager_torso": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/villager_torso_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/villager_torso_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.villager_legs": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/villager_legs_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/villager_legs_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.villager_boots": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/villager_boots_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/villager_boots_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.leather_bright_helm": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/leather_bright_helm_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/leather_bright_helm_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.leather_bright_torso": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/leather_bright_torso_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/leather_bright_torso_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.leather_bright_legs": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/leather_bright_legs_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/leather_bright_legs_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.leather_bright_boots": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/leather_bright_boots_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/leather_bright_boots_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.leather_dark_helm": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/leather_dark_helm_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/leather_dark_helm_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.leather_dark_torso": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/leather_dark_torso_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/leather_dark_torso_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.leather_dark_legs": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/leather_dark_legs_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/leather_dark_legs_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.leather_dark_boots": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/leather_dark_boots_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/leather_dark_boots_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.chainmail_bright_helm": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/chainmail_bright_helm_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/chainmail_bright_helm_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.chainmail_bright_torso": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/chainmail_bright_torso_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/chainmail_bright_torso_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.chainmail_bright_legs": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/chainmail_bright_legs_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/chainmail_bright_legs_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.chainmail_bright_boots": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/chainmail_bright_boots_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/chainmail_bright_boots_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.chainmail_dark_helm": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/chainmail_dark_helm_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/chainmail_dark_helm_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.chainmail_dark_torso": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/chainmail_dark_torso_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/chainmail_dark_torso_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.chainmail_dark_legs": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/chainmail_dark_legs_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/chainmail_dark_legs_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.chainmail_dark_boots": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/chainmail_dark_boots_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/chainmail_dark_boots_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.platemail_helm": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/platemail_helm_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/platemail_helm_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.platemail_torso": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/platemail_torso_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/platemail_torso_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.platemail_legs": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/platemail_legs_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/platemail_legs_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.platemail_boots": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/platemail_boots_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/platemail_boots_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.guard_bowerstone_helm": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/guard_bowerstone_helm_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/guard_bowerstone_helm_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.guard_bowerstone_torso": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/guard_bowerstone_torso_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/guard_bowerstone_torso_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.guard_bowerstone_legs": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/guard_bowerstone_legs_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/guard_bowerstone_legs_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.guard_bowerstone_boots": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/guard_bowerstone_boots_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/guard_bowerstone_boots_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.guard_oakvale_helm": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/guard_oakvale_helm_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/guard_oakvale_helm_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.guard_oakvale_torso": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/guard_oakvale_torso_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/guard_oakvale_torso_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.guard_oakvale_legs": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/guard_oakvale_legs_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/guard_oakvale_legs_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.guard_oakvale_boots": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/guard_oakvale_boots_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/guard_oakvale_boots_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.guard_snowspire_helm": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/guard_snowspire_helm_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/guard_snowspire_helm_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.guard_snowspire_torso": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/guard_snowspire_torso_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/guard_snowspire_torso_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.guard_snowspire_legs": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/guard_snowspire_legs_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/guard_snowspire_legs_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.guard_snowspire_boots": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/guard_snowspire_boots_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/guard_snowspire_boots_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.assassin_helm": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/assassin_helm_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/assassin_helm_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.assassin_torso": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/assassin_torso_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/assassin_torso_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.assassin_legs": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/assassin_legs_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/assassin_legs_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.assassin_boots": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/assassin_boots_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/assassin_boots_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.fire_assassin_helm": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/fire_assassin_helm_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/fire_assassin_helm_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.fire_assassin_torso": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/fire_assassin_torso_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/fire_assassin_torso_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.fire_assassin_legs": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/fire_assassin_legs_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/fire_assassin_legs_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.fire_assassin_boots": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/fire_assassin_boots_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/fire_assassin_boots_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.archon_helm": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/archon_helm_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/archon_helm_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.archon_torso": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/archon_torso_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/archon_torso_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.archon_legs": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/archon_legs_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/archon_legs_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.archon_boots": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/archon_boots_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/archon_boots_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.holy_warrior_helm": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/holy_warrior_helm_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/holy_warrior_helm_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.demon_helm": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/demon_helm_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/demon_helm_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.pimp_hat": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/pimp_hat_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/pimp_hat_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.wizard_hat": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/wizard_hat_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/wizard_hat_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.bright_wizard_hat": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/bright_wizard_hat_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/bright_wizard_hat_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.dark_wizard_hat": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/dark_wizard_hat_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/dark_wizard_hat_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.sharpening_augment": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/sharpening_augment_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/sharpening_augment_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.piercing_augment": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/piercing_augment_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/piercing_augment_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.health_augment": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/health_augment_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/health_augment_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.mana_augment": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/mana_augment_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/mana_augment_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.experience_augment": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/experience_augment_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/experience_augment_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.lightning_augment": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/lightning_augment_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/lightning_augment_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.flame_augment": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/flame_augment_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/flame_augment_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.silver_augment": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/silver_augment_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/silver_augment_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.augment_remover": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/augment_remover_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/augment_remover_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.health_potion": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/health_potion_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/health_potion_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.great_health_potion": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/great_health_potion_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/great_health_potion_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.will_potion": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/will_potion_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/will_potion_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.great_will_potion": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/great_will_potion_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/great_will_potion_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.resurrection_phial": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/resurrection_phial_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/resurrection_phial_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.ages_of_might_potion": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/ages_of_might_potion_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/ages_of_might_potion_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.ages_of_skill_potion": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/ages_of_skill_potion_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/ages_of_skill_potion_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.ages_of_will_potion": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/ages_of_will_potion_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/ages_of_will_potion_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.elixir_of_life": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/elixir_of_life_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/elixir_of_life_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.crunchy_chick": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/crunchy_chick_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/crunchy_chick_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.tofu": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/tofu_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/tofu_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.red_meat": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/red_meat_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/red_meat_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.apple_pie": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/apple_pie_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/apple_pie_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.golden_carrot_brew": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/golden_carrot_brew_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/golden_carrot_brew_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.spell_enflame": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/spell_enflame_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/spell_enflame_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.spell_fireball": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/spell_fireball_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/spell_fireball_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.spell_lightning": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/spell_lightning_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/spell_lightning_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.spell_force_push": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/spell_force_push_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/spell_force_push_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.spell_drain_life": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/spell_drain_life_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/spell_drain_life_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.spell_heal_life": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/spell_heal_life_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/spell_heal_life_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.spell_physical_shield": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/spell_physical_shield_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/spell_physical_shield_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.spell_slow_time": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/spell_slow_time_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/spell_slow_time_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.spell_assassin_rush": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/spell_assassin_rush_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/spell_assassin_rush_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.spell_summon": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/spell_summon_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/spell_summon_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.spell_turncoat": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/spell_turncoat_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/spell_turncoat_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.spell_multi_arrow": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/spell_multi_arrow_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/spell_multi_arrow_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.spell_multi_strike": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/spell_multi_strike_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/spell_multi_strike_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.spell_battle_charge": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/spell_battle_charge_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/spell_battle_charge_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.spell_berserk": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/spell_berserk_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/spell_berserk_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.spell_divine_fury": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/spell_divine_fury_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/spell_divine_fury_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.spell_infernal_wrath": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/spell_infernal_wrath_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/spell_infernal_wrath_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.gold_coin": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/gold_coin_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/gold_coin_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.silver_key": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/silver_key_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/silver_key_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.septimal_key": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/septimal_key_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/septimal_key_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.guild_seal": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/guild_seal_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/guild_seal_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.quest_card": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/quest_card_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/quest_card_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.wedding_ring": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/wedding_ring_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/wedding_ring_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.balverine_fang": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/balverine_fang_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/balverine_fang_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.frost_balverine_hide": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/frost_balverine_hide_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/frost_balverine_hide_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.balverine_trophy": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/balverine_trophy_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/balverine_trophy_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.wasp_wing": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/wasp_wing_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/wasp_wing_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.queens_stinger": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/queens_stinger_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/queens_stinger_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.beetle_chitin": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/beetle_chitin_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/beetle_chitin_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.troll_heart": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/troll_heart_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/troll_heart_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.troll_bones": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/troll_bones_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/troll_bones_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.ectoplasm": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/ectoplasm_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/ectoplasm_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.banshees_tear": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/banshees_tear_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/banshees_tear_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.scorpion_stinger": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/scorpion_stinger_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/scorpion_stinger_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.giants_core": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/giants_core_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/giants_core_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.minion_flesh": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/minion_flesh_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/minion_flesh_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.summoners_grimoire": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/summoners_grimoire_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/summoners_grimoire_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.jack_of_blades_mask": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/jack_of_blades_mask_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/jack_of_blades_mask_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.steel_ingot": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/steel_ingot_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/steel_ingot_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.obsidian_ingot": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/obsidian_ingot_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/obsidian_ingot_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.master_ingot": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/master_ingot_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/master_ingot_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.will_shard": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/will_shard_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/will_shard_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.cured_leather": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/cured_leather_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/cured_leather_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.leather_straps": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/leather_straps_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/leather_straps_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.guild_cloth": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/guild_cloth_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/guild_cloth_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.chain_links": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/chain_links_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/chain_links_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.tempered_plate": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/tempered_plate_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/tempered_plate_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.runed_hilt": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/runed_hilt_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/runed_hilt_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.bow_stave": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/bow_stave_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/bow_stave_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.waxed_bowstring": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/waxed_bowstring_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/waxed_bowstring_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.orb_general": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/orb_general_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/orb_general_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.orb_strength": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/orb_strength_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/orb_strength_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.orb_skill": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/orb_skill_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/orb_skill_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.item.orb_will": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/fc/item/orb_will_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/item/orb_will_2",
+          "volume": 0.9
+        }
+      ]
+    },
+    "fc.door_rumble": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/system/door_rumble",
           "volume": 0.9
         }
       ]
     },
     "fc.door_speak": {
-      "category": "neutral",
+      "category": "hostile",
       "sounds": [
         {
-          "name": "sounds/fc/door_speak",
+          "name": "sounds/fc/system/door_speak_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/system/door_speak_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/system/door_speak_3",
           "volume": 0.9
         }
       ]
     },
     "fc.banshee_shriek": {
-      "category": "neutral",
+      "category": "hostile",
       "sounds": [
         {
-          "name": "sounds/fc/banshee_shriek",
+          "name": "sounds/fc/system/banshee_shriek_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/system/banshee_shriek_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/system/banshee_shriek_3",
           "volume": 0.9
         }
       ]
     },
     "fc.spell_cast": {
-      "category": "neutral",
+      "category": "player",
       "sounds": [
         {
-          "name": "sounds/fc/spell_cast",
+          "name": "sounds/fc/system/spell_cast_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/system/spell_cast_2",
           "volume": 0.9
         }
       ]
     },
     "fc.level_up": {
-      "category": "neutral",
+      "category": "player",
       "sounds": [
         {
-          "name": "sounds/fc/level_up",
+          "name": "sounds/fc/system/level_up_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/system/level_up_2",
           "volume": 0.9
         }
       ]
     },
     "fc.guild_pad": {
-      "category": "neutral",
+      "category": "ambient",
       "sounds": [
         {
-          "name": "sounds/fc/guild_pad",
+          "name": "sounds/fc/system/guild_pad_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/system/guild_pad_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/system/guild_pad_3",
           "volume": 0.9
         }
       ]
     },
     "fc.sword_clash": {
-      "category": "neutral",
+      "category": "player",
       "sounds": [
         {
-          "name": "sounds/fc/sword_clash",
+          "name": "sounds/fc/system/sword_clash_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/system/sword_clash_2",
           "volume": 0.9
         }
       ]

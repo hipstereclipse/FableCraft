@@ -379,7 +379,7 @@ export const DATA = {
    "cat": "melee"
   },
   "fc:stick": {
-   "fable": 20,
+   "fable": 5,
    "slots": 0,
    "augments": [],
    "cat": "melee"
@@ -1907,5 +1907,79 @@ export const DATA = {
   "fc:lightning_augment": "lightning",
   "fc:flame_augment": "flame",
   "fc:silver_augment": "silver"
+ },
+ "augmentInfo": {
+  "sharpening": {
+   "name": "Sharpening Augmentation",
+   "desc": "+25% damage dealt by this weapon.",
+   "color": [
+    212,
+    60,
+    38
+   ]
+  },
+  "piercing": {
+   "name": "Piercing Augmentation",
+   "desc": "Ignores a portion of enemy armour.",
+   "color": [
+    200,
+    200,
+    215
+   ]
+  },
+  "health": {
+   "name": "Health Augmentation",
+   "desc": "Restores health with every blow.",
+   "color": [
+    190,
+    30,
+    50
+   ]
+  },
+  "mana": {
+   "name": "Mana Augmentation",
+   "desc": "Restores Will energy with every blow.",
+   "color": [
+    40,
+    90,
+    220
+   ]
+  },
+  "experience": {
+   "name": "Experience Augmentation",
+   "desc": "Earn bonus experience from each kill.",
+   "color": [
+    70,
+    200,
+    90
+   ]
+  },
+  "lightning": {
+   "name": "Lightning Augmentation",
+   "desc": "Shocks struck enemies with chain lightning.",
+   "color": [
+    120,
+    170,
+    255
+   ]
+  },
+  "flame": {
+   "name": "Flame Augmentation",
+   "desc": "Sets struck enemies ablaze.",
+   "color": [
+    255,
+    130,
+    30
+   ]
+  },
+  "silver": {
+   "name": "Silver Augmentation",
+   "desc": "Bonus damage against Balverines, Undead and the supernatural.",
+   "color": [
+    235,
+    240,
+    250
+   ]
+  }
  }
 };
