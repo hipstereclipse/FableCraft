@@ -11,8 +11,11 @@ Renderer: painter's algorithm over textured quads with face shading,
 rim-light pass and soft ground shadow. Pure PIL, no GL.
 """
 import math
+from io import BytesIO
 from collections import defaultdict
 from pathlib import Path
+from urllib.error import HTTPError, URLError
+from urllib.request import urlopen
 
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
@@ -22,6 +25,41 @@ from fc_mobs import MOBS, build_parts, pack_uvs
 
 ENT_TEX = RP / "textures" / "entity"
 ITEM_TEX = RP / "textures" / "items"
+VANILLA_TEX_CACHE = Path(__file__).resolve().parent / ".cache" / "vanilla_items"
+VANILLA_TEX_BASE = "https://raw.githubusercontent.com/InventivetalentDev/minecraft-assets/1.20.4/assets/minecraft/textures"
+_VANILLA_IMAGE_CACHE = {}
+
+
+def _load_vanilla_texture(item_id):
+    if not item_id.startswith("minecraft:"):
+        return None
+    if item_id in _VANILLA_IMAGE_CACHE:
+        return _VANILLA_IMAGE_CACHE[item_id]
+
+    name = item_id.split(":", 1)[1]
+    VANILLA_TEX_CACHE.mkdir(parents=True, exist_ok=True)
+    for kind in ("item", "block"):
+        cached = VANILLA_TEX_CACHE / f"{kind}_{name}.png"
+        if cached.exists():
+            try:
+                img = Image.open(cached).convert("RGBA")
+                _VANILLA_IMAGE_CACHE[item_id] = img
+                return img
+            except OSError:
+                pass
+        url = f"{VANILLA_TEX_BASE}/{kind}/{name}.png"
+        try:
+            with urlopen(url, timeout=8) as resp:
+                raw = resp.read()
+            img = Image.open(BytesIO(raw)).convert("RGBA")
+            img.save(cached)
+            _VANILLA_IMAGE_CACHE[item_id] = img
+            return img
+        except (HTTPError, URLError, OSError):
+            continue
+
+    _VANILLA_IMAGE_CACHE[item_id] = None
+    return None
 
 # ---------------------------------------------------------------------------
 # Math helpers
@@ -708,6 +746,16 @@ def ingredient_icon(item_id, cell):
             ic = Image.open(path).convert("RGBA").resize((cell - 10, cell - 10), Image.NEAREST)
             tile.alpha_composite(ic, (5, 5))
             return tile
+
+    vanilla = _load_vanilla_texture(item_id)
+    if vanilla is not None:
+        tile = Image.new("RGBA", (cell, cell), (0, 0, 0, 0))
+        bg, _ = _slot_tile(cell, (58, 52, 46))
+        tile.alpha_composite(bg)
+        ic = vanilla.resize((cell - 10, cell - 10), Image.NEAREST)
+        tile.alpha_composite(ic, (5, 5))
+        return tile
+
     base, accent = VANILLA_PALETTES.get(item_id, ((138, 106, 154), (202, 162, 220)))
     tile, d = _slot_tile(cell, base)
     _draw_motif(d, item_id, cell, base, accent)
