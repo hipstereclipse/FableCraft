@@ -1,3 +1,7 @@
+❤️ Support Development
+
+If you are enjoying Fablecraft and want to help keep development moving, please consider supporting the project through Buy Me a Coffee:buymeacoffee.com/k8ffh48yvkeDevelopment costs have started to rise, and I want to keep improving this project to give players the experience I always dreamed of when I first started it almost fifteen years ago. Any contribution is deeply appreciated and goes directly toward funding the tools needed to continue active development of this mod project. I've honestly spent way too much money developing this... 😅
+
 # ⚔ Fablecraft: Reforged
 
 **Transform Minecraft Bedrock into Albion.** A complete recreation of *Fable: The Lost Chapters* as a single `.mcaddon` — Hero XP paths with coloured experience orbs, a living morality system, faction reputation, Will powers, Cullis Gate fast travel, a full mining-and-smithing economy, Demon Doors that talk back, legendary weapons, armour sets, quest chains, Twinblade's war-camps, and Jack of Blades waiting at the end of it all.
@@ -237,8 +241,6 @@ Full generated documentation set and shot manifest: [screenshots/docs/INDEX.md](
 If you are enjoying Fablecraft and want to help keep development moving, please consider supporting the project through Buy Me a Coffee:
 
 [buymeacoffee.com/k8ffh48yvke](https://buymeacoffee.com/k8ffh48yvke)
-
-Development costs have started to rise, and I want to keep improving this project to give players the experience I always dreamed of when I first started it almost fifteen years ago. Any contribution is deeply appreciated and goes directly toward funding the tools needed to continue active development of this mod project.
 
 ---
 
