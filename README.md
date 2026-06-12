@@ -162,7 +162,7 @@ Albion is populated with townsfolk, guild staff, guards, traders, quest-givers a
 
 ![Heroes' Guild — Walled Grounds](screenshots/docs/12_guild_wide_lake_view.png)
 
-**14 quests** make up the full main chain (Wasp Menace → Twinblade → Jack of Blades) plus side quests, bounty jobs and the Silver Key treasure hunt. A guard's greeting — or threat — depends entirely on where you stand with their faction.
+**14 quests** make up the full main chain (Wasp Menace → Twinblade → Jack of Blades) plus side quests, bounty jobs and the Silver Key treasure hunt. A **Quest Table** stands at the heart of the Great Hall's nave — interact with its lectern to browse and accept contracts. A guard's greeting — or threat — depends entirely on where you stand with their faction, and townsfolk will comment on your growing Renown as your fame spreads.
 
 ![Quest Log](screenshots/docs/09_quest_log_ui.png)
 ![Faction Reputation](screenshots/docs/14_guard_low_rep_dialogue.png)
@@ -179,7 +179,7 @@ The summoned-ally ecosystem (mercenary, summoned hobbe/wasp/balverine) integrate
 | Open the Hero menu | Use the **Guild Seal** |
 | Recall to the Guild | **Sneak + use** the Guild Seal |
 | Fast-travel | Stand on a **Cullis Gate** and sneak |
-| Take a quest | Use a **Quest Card** (the Guildmaster hands them out) |
+| Take a quest | Use a **Quest Card**, or interact with the **Quest Table** lectern in the Great Hall |
 | Cast a Will power | Use its **spell tome** (Maze gifts you two to start) |
 | Absorb experience orbs | **Use** a dropped orb — each colour feeds its own discipline |
 | Augment a weapon | Use an **augmentation stone** and choose a weapon in the Augmentation Forge |
