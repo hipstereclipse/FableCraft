@@ -7,6 +7,13 @@
       "is_summonable": true,
       "spawn_category": "creature"
     },
+    "component_groups": {
+      "fc:door_open": {
+        "minecraft:variant": {
+          "value": 1
+        }
+      }
+    },
     "components": {
       "minecraft:type_family": {
         "family": [
@@ -44,6 +51,9 @@
       },
       "minecraft:nameable": {},
       "minecraft:leashable": {},
+      "minecraft:variant": {
+        "value": 0
+      },
       "minecraft:damage_sensor": {
         "triggers": [
           {
@@ -56,6 +66,15 @@
       "minecraft:persistent": {},
       "minecraft:is_stackable": {},
       "minecraft:body_rotation_blocked": {}
+    },
+    "events": {
+      "fc:open": {
+        "add": {
+          "component_groups": [
+            "fc:door_open"
+          ]
+        }
+      }
     }
   }
 }

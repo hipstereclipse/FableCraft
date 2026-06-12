@@ -245,7 +245,6 @@ Grades: S (≥90) A (≥75) B (≥60) C (≥45) D (<45)
 | Waxed Bowstring | **A** | 83 | 35.9 | 5 | 0.86 | 0.33 | — |
 | Experience Orb | **A** | 83 | 74.6 | 5 | 0.58 | 0.72 | — |
 | Skill Orb | **A** | 83 | 74.6 | 5 | 0.55 | 0.76 | — |
-| Wasp Wing | **B** | 71 | 32.0 | 3 | 0.81 | 0.49 | — |
 | Dark Leather Helm | **B** | 68 | 49.2 | 5 | 0.46 | 0.16 | — |
 | Dark Leather Torso | **B** | 68 | 51.6 | 5 | 0.46 | 0.17 | — |
 | Dark Leather Legs | **B** | 68 | 48.4 | 5 | 0.46 | 0.17 | — |
@@ -264,9 +263,10 @@ Grades: S (≥90) A (≥75) B (≥60) C (≥45) D (<45)
 | Pimp Hat | **C** | 56 | 41.4 | 4 | 0.23 | 0.19 | — |
 | Sharpening Augmentation | **C** | 56 | 75.0 | 4 | 0.29 | 0.33 | — |
 | Health Augmentation | **C** | 56 | 75.0 | 4 | 0.23 | 0.24 | — |
-| Septimal Key | **C** | 56 | 16.0 | 3 | 0.3 | 0.44 | — |
+| Wasp Wing | **C** | 53 | 32.0 | 3 | 0.81 | 0.49 | possible placeholder art |
+| Septimal Key | **D** | 38 | 16.0 | 3 | 0.3 | 0.44 | possible placeholder art |
 
-**Category average: 91.8**
+**Category average: 91.6**
 
 ## Structures
 
@@ -274,6 +274,11 @@ Grades: S (≥90) A (≥75) B (≥60) C (≥45) D (<45)
 |---|---|---|---|---|---|---|---|
 | Demon Door | **S** | 100 | 27.0 | 45 | 0.9 | 0.37 | — |
 | Heroes' Guild | **S** | 100 | 14.7 | 48 | 0.94 | 0.35 | — |
+| Chamber of Fate | **S** | 100 | 29.8 | 21 | 0.84 | 0.37 | — |
+| Oakvale | **S** | 100 | 11.2 | 27 | 0.8 | 0.49 | — |
+| Bowerstone Market | **S** | 100 | 12.7 | 26 | 0.89 | 0.32 | — |
+| Knothole Glade | **S** | 100 | 12.8 | 32 | 0.84 | 0.33 | — |
+| Hook Coast | **S** | 100 | 13.1 | 23 | 0.8 | 0.44 | — |
 | Silver Key Ruin | **S** | 100 | 13.9 | 33 | 0.78 | 0.4 | — |
 | Focus Site | **S** | 100 | 24.5 | 23 | 0.94 | 0.47 | — |
 | Guild Courtyard | **S** | 100 | 12.2 | 42 | 0.94 | 0.48 | — |
@@ -286,8 +291,8 @@ Grades: S (≥90) A (≥75) B (≥60) C (≥45) D (<45)
 | Temple of Avo | **A** | 77 | 22.9 | 12 | 0.72 | 0.78 | — |
 | Chapel of Skorm | **A** | 77 | 23.2 | 13 | 0.87 | 0.16 | — |
 
-**Category average: 96.5**
+**Category average: 97.4**
 
 ## Verdict
 
-4 asset(s) flagged below B grade — listed above with notes.
+5 asset(s) flagged below B grade — listed above with notes.

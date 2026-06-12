@@ -96,6 +96,36 @@
           ]
         }
       }
+    },
+    "controller.animation.fc.door": {
+      "initial_state": "closed",
+      "states": {
+        "closed": {
+          "animations": [
+            "idle"
+          ],
+          "transitions": [
+            {
+              "opening": "query.variant == 1"
+            }
+          ]
+        },
+        "opening": {
+          "animations": [
+            "open"
+          ],
+          "transitions": [
+            {
+              "open": "query.any_animation_finished"
+            }
+          ]
+        },
+        "open": {
+          "animations": [
+            "open_hold"
+          ]
+        }
+      }
     }
   }
 }

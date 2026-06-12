@@ -14,11 +14,14 @@
         "default": "geometry.fc.demon_door"
       },
       "animations": {
-        "idle": "animation.fc.door.idle"
+        "idle": "animation.fc.door.idle",
+        "open": "animation.fc.door.open",
+        "open_hold": "animation.fc.door.open_hold",
+        "ctrl_door": "controller.animation.fc.door"
       },
       "scripts": {
         "animate": [
-          "idle"
+          "ctrl_door"
         ]
       },
       "render_controllers": [

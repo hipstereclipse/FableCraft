@@ -449,6 +449,7 @@ def audit_image(img):
         "colors": len(colors),
         "contrast": round(spread, 2),
         "brightness": round(mean / 255, 2),
+        "placeholder": len(colors) <= 3,
     }
 
 
@@ -470,6 +471,9 @@ def grade(m, kind):
         score += 30 if m["coverage"] >= 12 else 15
         if m["coverage"] < 12:
             notes.append("sparse silhouette")
+        if m.get("placeholder"):
+            score -= 18
+            notes.append("possible placeholder art")
     letter = "S" if score >= 90 else "A" if score >= 75 else "B" if score >= 60 else "C" if score >= 45 else "D"
     return letter, score, notes
 
@@ -563,17 +567,6 @@ def ingredient_icon(item_id, cell):
     return tile
 
 
-# recipes worth a showcase card
-SHOWCASE_RECIPES = [
-    "steel_ingot", "obsidian_ingot", "master_ingot", "fc_stick",
-    "iron_longsword", "steel_greatsword", "obsidian_katana", "master_greathammer",
-    "ebony_longbow", "master_crossbow",
-    "platemail_torso", "archon_torso", "assassin_torso", "guard_bowerstone_torso",
-    "wizard_hat", "health_potion", "resurrection_phial",
-    "silver_augment", "flame_augment", "apple_pie",
-]
-
-
 def render_recipe_card(rec, items_by_id):
     cell = 96
     inner = Image.new("RGBA", (860, 560), (0, 0, 0, 0))
@@ -632,11 +625,9 @@ def render_recipe_card(rec, items_by_id):
 def render_recipe_cards(items):
     items_by_id = {f"fc:{i['id']}": i for i in items}
     thumbs = []
-    all_recipes = {r["id"]: r for r in fc_data.build_recipes()}
-    for rid in SHOWCASE_RECIPES:
-        rec = all_recipes.get(rid)
-        if not rec:
-            continue
+    all_recipes = sorted(fc_data.build_recipes(), key=lambda r: r["id"])
+    for rec in all_recipes:
+        rid = rec["id"]
         res = items_by_id.get(rec["output"])
         title = res["name"] if res else rid.replace("_", " ").title()
         kind = {"shaped": "Crafting Table", "shapeless": "Crafting Table (shapeless)",
@@ -729,6 +720,11 @@ def main():
     import gen_structures as GS
     builders = {
         "demon_door_arch": GS.demon_door_arch, "guild_hall": GS.guild_hall,
+        "chamber_of_fate": GS.chamber_of_fate,
+        "oakvale_village": GS.oakvale_village,
+        "bowerstone_market": GS.bowerstone_market,
+        "knothole_glade": GS.knothole_glade,
+        "hook_coast": GS.hook_coast,
         "silver_chest_ruin": GS.silver_chest_ruin, "focus_site": GS.focus_site,
         "power_guild_courtyard": GS.power_guild_courtyard,
         "power_oakvale_quay": GS.power_oakvale_quay,
@@ -751,6 +747,11 @@ def main():
     STRUCT_LABELS = {
         "demon_door_arch": ("Demon Door", "Carved arch · dialogue-locked vault", "dark"),
         "guild_hall": ("Heroes' Guild", "Map Room · dormitories · training", "holy"),
+        "chamber_of_fate": ("Chamber of Fate", "Domed fresco hall · central dais", "royal"),
+        "oakvale_village": ("Oakvale", "Coastal village green · quay · barns", "forest"),
+        "bowerstone_market": ("Bowerstone Market", "Urban bridge district · walled square", "stone"),
+        "knothole_glade": ("Knothole Glade", "Hidden timber village in Witchwood", "forest"),
+        "hook_coast": ("Hook Coast", "Snowy port, lighthouse and abbey ruin", "frost"),
         "silver_chest_ruin": ("Silver Key Ruin", "Hidden silver chest dais", "forest"),
         "focus_site": ("Focus Site", "Septimal Key attunement circle", "dark"),
         "power_guild_courtyard": ("Guild Courtyard", "Chalk stream · bridges · Will island", "holy"),
