@@ -1,6 +1,10 @@
 ❤️ Support Development
 
-If you are enjoying Fablecraft and want to help keep development moving, please consider supporting the project through Buy Me a Coffee:buymeacoffee.com/k8ffh48yvkeDevelopment costs have started to rise, and I want to keep improving this project to give players the experience I always dreamed of when I first started it almost fifteen years ago. Any contribution is deeply appreciated and goes directly toward funding the tools needed to continue active development of this mod project. I've honestly spent way too much money developing this... 😅
+If you are enjoying Fablecraft and want to help keep development moving, please consider supporting the project through Buy Me a Coffee:
+
+buymeacoffee.com/k8ffh48yvke
+
+Development costs have started to rise, and I want to keep improving this project to give players the experience I always dreamed of when I first started it almost fifteen years ago. Any contribution is deeply appreciated and goes directly toward funding the tools needed to continue active development of this mod project. I've honestly spent way too much money developing this... 😅
 
 # ⚔ Fablecraft: Reforged
 
