@@ -148,9 +148,50 @@ function setHeld(p, item) {
 // ---------------------------------------------------------------------------
 world.afterEvents.playerSpawn.subscribe((ev) => {
   const p = ev.player;
-  if (!ev.initialSpawn) return;
+  if (!ev.initialSpawn) {
+    // Respawning after death — a Hero of the Guild always carries their seal.
+    if (countItem(p, "fc:guild_seal") < 1) giveItem(p, "fc:guild_seal", 1);
+    setGuildSpawn(p);
+    return;
+  }
   system.runTimeout(() => initHero(p), 20);
 });
+
+// Point the player's respawn location at the Guild rather than whatever
+// patch of world (often a lake or village well) the game first chose.
+function setGuildSpawn(p) {
+  const raw = world.getDynamicProperty("fc_guild_loc");
+  if (!raw) return;
+  try {
+    const loc = JSON.parse(raw);
+    p.setSpawnPoint({ dimension: p.dimension, x: Math.floor(loc.x), y: Math.floor(loc.y), z: Math.floor(loc.z) });
+  } catch { }
+}
+
+// If the Hero's first spawn dropped them into water (a fountain, well, lake,
+// etc.), walk them out onto the nearest dry ground before the Guild is laid
+// out around them.
+function ensureDryLanding(p) {
+  const dim = p.dimension;
+  const fx = Math.floor(p.location.x), fz = Math.floor(p.location.z);
+  const below = dim.getBlock({ x: fx, y: Math.floor(p.location.y) - 1, z: fz });
+  if (!below?.isLiquid) return;
+  for (let r = 1; r <= 16; r++) {
+    for (let dx = -r; dx <= r; dx++) {
+      for (let dz = -r; dz <= r; dz++) {
+        if (Math.max(Math.abs(dx), Math.abs(dz)) !== r) continue;
+        const x = fx + dx, z = fz + dz;
+        const y = groundY(dim, x, z);
+        if (y === null) continue;
+        const ground = dim.getBlock({ x, y: y - 1, z });
+        if (ground && !ground.isLiquid) {
+          p.teleport({ x: x + 0.5, y, z: z + 0.5 });
+          return;
+        }
+      }
+    }
+  }
+}
 
 function initHero(p) {
   if (P.get(p, "fc_init", false)) return;
@@ -163,7 +204,9 @@ function initHero(p) {
   p.onScreenDisplay.setTitle("§6Fablecraft", { fadeInDuration: 10, stayDuration: 70, fadeOutDuration: 20, subtitle: "§eReforged — Welcome to Albion" });
   p.sendMessage("§6═══ The Guildmaster ═══");
   p.sendMessage("§f\"Ah, the new apprentice wakes. Your §eGuild Seal§f opens the Hero menu. Use a §eQuest Card§f to begin your training. Albion is watching, little sparrow.\"");
+  ensureDryLanding(p);
   placeGuildNear(p);
+  setGuildSpawn(p);
 }
 
 function placeGuildNear(p) {
@@ -252,6 +295,51 @@ function groundY(dim, x, z) {
   }
   return null;
 }
+
+// ---------------------------------------------------------------------------
+// Guild wards — the grounds around the Guild Hall are sacred: hostile mobs
+// are turned away at the boundary, and any that get close to a defender
+// (Guildmaster, Maze, or an apprentice) are cut down on sight.
+// ---------------------------------------------------------------------------
+function guildBounds() {
+  const raw = world.getDynamicProperty("fc_guild_base");
+  if (!raw) return null;
+  let base; try { base = JSON.parse(raw); } catch { return null; }
+  return {
+    base,
+    minX: base.x - 6, maxX: base.x + 51,
+    minZ: base.z - 34, maxZ: base.z + 47,
+    minY: base.y - 24, maxY: base.y + 24,
+  };
+}
+
+system.runInterval(() => {
+  const b = guildBounds();
+  if (!b) return;
+  const dim = OW();
+  const cx = (b.minX + b.maxX) / 2, cz = (b.minZ + b.maxZ) / 2;
+  const radius = Math.max(b.maxX - b.minX, b.maxZ - b.minZ) / 2 + 6;
+  for (const mob of dim.getEntities({ location: { x: cx, y: b.base.y, z: cz }, maxDistance: radius + 24, families: ["monster"] })) {
+    const loc = mob.location;
+    if (loc.x < b.minX || loc.x > b.maxX || loc.z < b.minZ || loc.z > b.maxZ || loc.y < b.minY || loc.y > b.maxY) continue;
+    const defender = dim.getEntities({ location: loc, maxDistance: 16, families: ["fc_guild_defender"] })[0];
+    if (defender) {
+      try {
+        mob.applyDamage(1000, { cause: EntityDamageCause.entityAttack, damagingEntity: defender });
+        dim.spawnParticle("minecraft:critical_hit_emitter", loc);
+      } catch { try { mob.kill(); } catch { } }
+      continue;
+    }
+    // no defender close enough yet — ward the intruder back beyond the wall
+    const dx = loc.x - cx, dz = loc.z - cz;
+    const len = Math.hypot(dx, dz) || 1;
+    const push = (radius + 4) / len;
+    try {
+      mob.teleport({ x: cx + dx * push, y: loc.y, z: cz + dz * push });
+      dim.spawnParticle("minecraft:large_explosion", loc);
+    } catch { }
+  }
+}, 40);
 
 // ---------------------------------------------------------------------------
 // Combat multiplier + kill XP + morality + augment effects

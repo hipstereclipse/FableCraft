@@ -12,7 +12,8 @@
         "family": [
           "fc_guild",
           "fc_villager",
-          "fc_friendly"
+          "fc_friendly",
+          "fc_guild_defender"
         ]
       },
       "minecraft:health": {
