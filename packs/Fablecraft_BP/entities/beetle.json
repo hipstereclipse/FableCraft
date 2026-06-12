@@ -16,11 +16,11 @@
         ]
       },
       "minecraft:health": {
-        "value": 8,
-        "max": 8
+        "value": 7,
+        "max": 7
       },
       "minecraft:movement": {
-        "value": 0.32
+        "value": 0.275
       },
       "minecraft:collision_box": {
         "width": 0.7,

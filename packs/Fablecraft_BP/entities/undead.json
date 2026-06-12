@@ -17,11 +17,11 @@
         ]
       },
       "minecraft:health": {
-        "value": 22,
-        "max": 22
+        "value": 18,
+        "max": 18
       },
       "minecraft:movement": {
-        "value": 0.24
+        "value": 0.206
       },
       "minecraft:collision_box": {
         "width": 0.7,
@@ -51,7 +51,7 @@
         "despawn_from_distance": {}
       },
       "minecraft:attack": {
-        "damage": 5,
+        "damage": 4,
         "effect_name": "poison",
         "effect_duration": 5
       },

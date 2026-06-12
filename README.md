@@ -166,7 +166,7 @@ Full bestiary renders live in [screenshots/mobs](screenshots/mobs), with a measu
 
 ## 👥 NPCs, Quests & Factions
 
-Albion is populated with townsfolk, guild staff, guards, traders, quest-givers and summonable allies — distinct archetypes for guards, villagers, blacksmiths, barkeeps, traders, the Guildmaster, Maze, Theresa, Lady Grey and the Oracle, each with dialogue and reactions tied to morality and faction reputation.
+Albion is populated with townsfolk, guild staff, guards, traders, quest-givers and summonable allies — distinct archetypes for guards, villagers, blacksmiths, barkeeps, traders, the Guildmaster, Maze, Theresa, Lady Grey, the Oracle and Briar Rose, each with dialogue and reactions tied to morality and faction reputation. Briar Rose lingers near the wilds with cryptic hints about the Demon Doors and the trials they demand.
 
 ![Heroes' Guild — Walled Grounds](screenshots/docs/12_guild_wide_lake_view.png)
 

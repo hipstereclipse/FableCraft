@@ -15,11 +15,11 @@
         ]
       },
       "minecraft:health": {
-        "value": 14,
-        "max": 14
+        "value": 11,
+        "max": 11
       },
       "minecraft:movement": {
-        "value": 0.32
+        "value": 0.275
       },
       "minecraft:collision_box": {
         "width": 0.5599999999999999,
@@ -49,7 +49,7 @@
         "despawn_from_distance": {}
       },
       "minecraft:attack": {
-        "damage": 4
+        "damage": 3
       },
       "minecraft:behavior.ranged_attack": {
         "priority": 3,

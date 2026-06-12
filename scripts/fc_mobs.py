@@ -933,6 +933,22 @@ MOBS = [
      "spawn": None, "drops": [], "scale": 1.0},
 ]
 
+# Global hostile-tuning pass: keep identity, lower frustration.
+# Non-boss monsters are softened more than bosses.
+for mob in MOBS:
+    fam = set(mob.get("family", []))
+    if "monster" not in fam:
+        continue
+    is_boss = ("fc_boss" in fam) or (mob.get("behavior") in ("boss_melee", "flying_boss"))
+
+    hp_mult = 0.88 if is_boss else 0.82
+    dmg_mult = 0.82 if is_boss else 0.78
+    speed_mult = 0.9 if is_boss else 0.86
+
+    mob["hp"] = max(1, int(round(mob["hp"] * hp_mult)))
+    mob["dmg"] = max(1, int(round(mob["dmg"] * dmg_mult)))
+    mob["speed"] = round(max(0.16, mob["speed"] * speed_mult), 3)
+
 PLAN_BUILDERS = {
     "humanoid": plan_humanoid,
     "balverine": plan_balverine,

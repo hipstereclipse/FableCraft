@@ -307,8 +307,8 @@ function guildBounds() {
   let base; try { base = JSON.parse(raw); } catch { return null; }
   return {
     base,
-    minX: base.x - 6, maxX: base.x + 51,
-    minZ: base.z - 34, maxZ: base.z + 47,
+    minX: base.x - 12, maxX: base.x + 57,
+    minZ: base.z - 40, maxZ: base.z + 53,
     minY: base.y - 24, maxY: base.y + 24,
   };
 }
@@ -322,24 +322,17 @@ system.runInterval(() => {
   for (const mob of dim.getEntities({ location: { x: cx, y: b.base.y, z: cz }, maxDistance: radius + 24, families: ["monster"] })) {
     const loc = mob.location;
     if (loc.x < b.minX || loc.x > b.maxX || loc.z < b.minZ || loc.z > b.maxZ || loc.y < b.minY || loc.y > b.maxY) continue;
-    const defender = dim.getEntities({ location: loc, maxDistance: 16, families: ["fc_guild_defender"] })[0];
-    if (defender) {
-      try {
-        mob.applyDamage(1000, { cause: EntityDamageCause.entityAttack, damagingEntity: defender });
-        dim.spawnParticle("minecraft:critical_hit_emitter", loc);
-      } catch { try { mob.kill(); } catch { } }
-      continue;
-    }
-    // no defender close enough yet — ward the intruder back beyond the wall
-    const dx = loc.x - cx, dz = loc.z - cz;
-    const len = Math.hypot(dx, dz) || 1;
-    const push = (radius + 4) / len;
+    // Guild grounds are fully protected: hostile mobs cannot remain inside.
+    const defender = dim.getEntities({ location: loc, maxDistance: 24, families: ["fc_guild_defender"] })[0];
     try {
-      mob.teleport({ x: cx + dx * push, y: loc.y, z: cz + dz * push });
-      dim.spawnParticle("minecraft:large_explosion", loc);
-    } catch { }
+      if (defender) mob.applyDamage(1000, { cause: EntityDamageCause.entityAttack, damagingEntity: defender });
+      else mob.kill();
+      dim.spawnParticle("minecraft:critical_hit_emitter", loc);
+    } catch {
+      try { mob.kill(); } catch { }
+    }
   }
-}, 40);
+}, 10);
 
 // ---------------------------------------------------------------------------
 // Combat multiplier + kill XP + morality + augment effects

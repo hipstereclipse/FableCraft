@@ -4,20 +4,20 @@
     "name": "Fablecraft: Reforged [Behavior]",
     "description": "Transform Minecraft into Albion. Heroes, Will powers, morality, quests, Demon Doors and the legend of Jack of Blades. §eFable: The Lost Chapters§r reborn.",
     "uuid": "f4afd61f-94f1-47ef-ab2f-ccc4f992c6a9",
-    "version": [2, 0, 0],
+    "version": [2, 1, 0],
     "min_engine_version": [1, 21, 90]
   },
   "modules": [
     {
       "type": "data",
       "uuid": "b627bbc1-8928-4124-bc74-2e66c763b298",
-      "version": [2, 0, 0]
+      "version": [2, 1, 0]
     },
     {
       "type": "script",
       "language": "javascript",
       "uuid": "81e9cd6b-9065-4f58-9a92-9526477e41ec",
-      "version": [2, 0, 0],
+      "version": [2, 1, 0],
       "entry": "scripts/main.js"
     }
   ],
@@ -32,12 +32,12 @@
     },
     {
       "uuid": "c6fa4520-48f8-42b9-b946-777aa2e949dd",
-      "version": [2, 0, 0]
+      "version": [2, 1, 0]
     }
   ],
   "metadata": {
     "authors": ["Fablecraft: Reforged Team"],
     "license": "All Fable lore property of Microsoft/Lionhead. Fan recreation.",
-    "generated_with": { "fablecraft_pipeline": ["2.0.0"] }
+    "generated_with": { "fablecraft_pipeline": ["2.1.0"] }
   }
 }

@@ -16,11 +16,11 @@
         ]
       },
       "minecraft:health": {
-        "value": 400,
-        "max": 400
+        "value": 352,
+        "max": 352
       },
       "minecraft:movement": {
-        "value": 0.18
+        "value": 0.162
       },
       "minecraft:collision_box": {
         "width": 1.4,
@@ -50,7 +50,7 @@
         "despawn_from_distance": {}
       },
       "minecraft:attack": {
-        "damage": 20
+        "damage": 16
       },
       "minecraft:behavior.melee_box_attack": {
         "priority": 3,

@@ -16,11 +16,11 @@
         ]
       },
       "minecraft:health": {
-        "value": 10,
-        "max": 10
+        "value": 8,
+        "max": 8
       },
       "minecraft:movement": {
-        "value": 0.6
+        "value": 0.516
       },
       "minecraft:collision_box": {
         "width": 0.7,
@@ -43,7 +43,7 @@
         "despawn_from_distance": {}
       },
       "minecraft:attack": {
-        "damage": 3
+        "damage": 2
       },
       "minecraft:navigation.hover": {
         "can_path_over_water": true,
@@ -53,7 +53,7 @@
       },
       "minecraft:movement.hover": {},
       "minecraft:flying_speed": {
-        "value": 0.27
+        "value": 0.23220000000000002
       },
       "minecraft:can_fly": {},
       "minecraft:behavior.float_wander": {

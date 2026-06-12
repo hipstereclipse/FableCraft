@@ -11,13 +11,12 @@
       "minecraft:type_family": {
         "family": [
           "fc_maze",
-          "fc_friendly",
-          "fc_guild_defender"
+          "fc_friendly"
         ]
       },
       "minecraft:health": {
-        "value": 2000,
-        "max": 2000
+        "value": 120,
+        "max": 120
       },
       "minecraft:movement": {
         "value": 0.3
@@ -42,7 +41,7 @@
         "can_walk": true
       },
       "minecraft:knockback_resistance": {
-        "value": 1.0
+        "value": 0.2
       },
       "minecraft:nameable": {},
       "minecraft:leashable": {},
@@ -50,39 +49,7 @@
         "despawn_from_distance": {}
       },
       "minecraft:attack": {
-        "damage": 75
-      },
-      "minecraft:behavior.hurt_by_target": {
-        "priority": 0
-      },
-      "minecraft:behavior.nearest_attackable_target": {
-        "priority": 1,
-        "must_see": false,
-        "reselect_targets": true,
-        "within_radius": 32.0,
-        "entity_types": [
-          {
-            "filters": {
-              "test": "is_family",
-              "subject": "other",
-              "value": "player"
-            },
-            "max_dist": 32
-          },
-          {
-            "filters": {
-              "test": "is_family",
-              "subject": "other",
-              "value": "monster"
-            },
-            "max_dist": 32
-          }
-        ]
-      },
-      "minecraft:behavior.melee_box_attack": {
-        "priority": 2,
-        "speed_multiplier": 1.4,
-        "track_target": true
+        "damage": 1
       },
       "minecraft:behavior.random_stroll": {
         "priority": 6,
