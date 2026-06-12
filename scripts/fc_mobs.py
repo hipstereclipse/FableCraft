@@ -95,12 +95,16 @@ def plan_humanoid(head=8, torso_w=8, torso_h=12, torso_d=4, arm_w=4, arm_len=12,
                                     [head, head, 2], inflate=0.2))
             cube_roles[len(head_cubes) - 1] = "hair"
     if helmet:
-        # open-faced steel kettle helm with comb crest
+        # rounded sallet: dome cap, flared rear neck-guard, nasal bar — face open
         head_cubes.append(_cube([-head / 2, top + (head * 5) // 8, -head / 2],
-                                [head, head - (head * 5) // 8, head], inflate=0.5))
+                                [head, head - (head * 5) // 8, head], inflate=0.55))
         cube_roles[len(head_cubes) - 1] = "metal"
-        head_cubes.append(_cube([-1, top + head, -head / 2 - 1], [2, 2, head + 1], inflate=0.1))
-        cube_roles[len(head_cubes) - 1] = "crest"
+        head_cubes.append(_cube([-head / 2, top + 1, head / 2 - 1],
+                                [head, head // 2, 1], inflate=0.45))
+        cube_roles[len(head_cubes) - 1] = "metal"
+        head_cubes.append(_cube([-0.5, top + 2, -head / 2 - 0.6],
+                                [1, (head * 3) // 8 + 1, 1]))
+        cube_roles[len(head_cubes) - 1] = "metal"
     if horns:
         head_cubes.append(_cube([-head / 2 - 1, top + head - 2, -1], [2, 4, 2]))
         cube_roles[len(head_cubes) - 1] = "horn"
@@ -156,7 +160,7 @@ def plan_balverine(frost=False, white=False, scale=1.0):
          "cubes": [_cube([-5, 14, -3], [10, 12, 6]),
                    _cube([-4, 24, -4], [8, 5, 5])],
          "role": "fur", "decor": ["spine"]},
-        {"name": "tail", "pivot": [0, 15, 3], "rot": [26, 0, 0], "parent": "body",
+        {"name": "tail", "pivot": [0, 15, 3], "rot": [-30, 0, 0], "parent": "body",
          "cubes": [_cube([-1, 8, 3], [2, 8, 2])], "role": "fur", "decor": []},
         {"name": "head", "pivot": [0, 28, 0], "rot": [-8, 0, 0],
          "cubes": [_cube([-3.5, 28, -5], [7, 7, 7]),
@@ -164,12 +168,12 @@ def plan_balverine(frost=False, white=False, scale=1.0):
                    _cube([-3.5, 35, -2], [2, 3, 1]),
                    _cube([1.5, 35, -2], [2, 3, 1])],
          "role": "fur", "decor": decor_head},
-        {"name": "arm_r", "pivot": [-6, 26, 0], "rot": [-20, 0, 6],
+        {"name": "arm_r", "pivot": [-6, 26, 0], "rot": [26, 0, 6],
          "cubes": [_cube([-9, 12, -2], [4, 15, 4]),
                    _cube([-9, 8, -3], [4, 5, 4]),
                    _cube([-8.5, 4, -3.5], [3, 4, 3])],
          "role": "fur", "decor": ["claws"]},
-        {"name": "arm_l", "pivot": [6, 26, 0], "rot": [-20, 0, -6],
+        {"name": "arm_l", "pivot": [6, 26, 0], "rot": [26, 0, -6],
          "cubes": [_cube([5, 12, -2], [4, 15, 4]),
                    _cube([5, 8, -3], [4, 5, 4]),
                    _cube([5.5, 4, -3.5], [3, 4, 3])],
@@ -399,7 +403,7 @@ def plan_jack():
     parts = plan_humanoid(
         head=8, torso_w=9, torso_h=12, torso_d=5, arm_w=4, arm_len=13,
         leg_h=12, skirt=True, cape=True, pauldrons=True,
-        roles={"body": "cloth", "arms": "cloth", "legs": "cloth",
+        roles={"body": "cloth", "arms": "cloth", "legs": "dark",
                "head": "cloth", "cape": "cloth"},
         decor={"head": ["jack_mask"], "body": ["jack_robe"],
                "cape": ["trim"], "arms": ["trim_cuff"]})
@@ -412,25 +416,28 @@ def plan_jack():
 
 
 def plan_demon_door():
-    """The carved stone face of a Demon Door (entity sits inside arch)."""
+    """The carved living face of a Demon Door. Both eyes protrude further
+    than the nose so the whole face reads from any angle."""
     return [
         {"name": "body", "pivot": [0, 0, 0], "rot": [0, 0, 0],
          "cubes": [_cube([-16, 0, -4], [32, 48, 6])],
          "role": "rock", "decor": ["door_slab"]},
         {"name": "brow", "pivot": [0, 34, -4], "rot": [0, 0, 0],
-         "cubes": [_cube([-12, 32, -6], [24, 5, 3])],
+         "cubes": [_cube([-13, 33, -7], [10, 4, 4]),
+                   _cube([3, 33, -7], [10, 4, 4]),
+                   _cube([-3, 35, -6], [6, 3, 3])],
          "role": "rock", "decor": ["brow"]},
-        {"name": "nose", "pivot": [0, 26, -4], "rot": [0, 0, 0],
-         "cubes": [_cube([-3, 22, -7], [6, 10, 4])],
-         "role": "rock", "decor": []},
         {"name": "eye_r", "pivot": [-7, 29, -4], "rot": [0, 0, 0],
-         "cubes": [_cube([-10, 26, -5.5], [6, 5, 2])],
+         "cubes": [_cube([-11, 26, -7], [8, 7, 3])],
          "role": "rock", "decor": ["door_eye"]},
         {"name": "eye_l", "pivot": [7, 29, -4], "rot": [0, 0, 0],
-         "cubes": [_cube([4, 26, -5.5], [6, 5, 2])],
+         "cubes": [_cube([3, 26, -7], [8, 7, 3])],
          "role": "rock", "decor": ["door_eye"]},
-        {"name": "jaw", "pivot": [0, 14, -1], "rot": [0, 0, 0],
-         "cubes": [_cube([-9, 4, -6.5], [18, 10, 4])],
+        {"name": "nose", "pivot": [0, 24, -4], "rot": [0, 0, 0],
+         "cubes": [_cube([-3, 17, -6, ], [6, 12, 2.5])],
+         "role": "rock", "decor": []},
+        {"name": "jaw", "pivot": [0, 10, -1], "rot": [0, 0, 0],
+         "cubes": [_cube([-10, 4, -7], [20, 11, 4])],
          "role": "rock", "decor": ["door_mouth"]},
     ]
 
@@ -445,8 +452,8 @@ PAL = {
     "frost_balverine": {"fur": (164, 196, 216), "skin": (200, 224, 236), "glowcol": (110, 220, 255)},
     "hobbe": {"skin": (134, 142, 92), "cloth": (104, 82, 58), "glowcol": (230, 200, 80)},
     "hobbe_scout": {"skin": (120, 130, 86), "cloth": (70, 76, 60), "glowcol": (230, 200, 80)},
-    "bandit": {"skin": (196, 154, 116), "cloth": (94, 60, 48), "metal": (130, 130, 140), "glowcol": (255, 220, 150)},
-    "bandit_archer": {"skin": (186, 148, 112), "cloth": (62, 72, 52), "metal": (120, 120, 130), "glowcol": (255, 220, 150)},
+    "bandit": {"skin": (196, 154, 116), "cloth": (94, 60, 48), "metal": (130, 130, 140), "boots": (72, 50, 34), "belt": (44, 34, 26), "glowcol": (255, 220, 150)},
+    "bandit_archer": {"skin": (186, 148, 112), "cloth": (62, 72, 52), "metal": (120, 120, 130), "boots": (58, 54, 42), "belt": (40, 36, 30), "glowcol": (255, 220, 150)},
     "undead": {"skin": (148, 158, 132), "bone": (208, 206, 186), "cloth": (78, 84, 70), "glowcol": (140, 240, 170)},
     "wasp": {"chitin": (212, 168, 52), "dark": (52, 44, 30), "wing": (220, 230, 240), "glowcol": (255, 230, 120)},
     "wasp_queen": {"chitin": (230, 150, 40), "dark": (60, 30, 24), "wing": (235, 220, 245), "glowcol": (255, 200, 90)},
@@ -460,25 +467,25 @@ PAL = {
     "minion": {"skin": (110, 70, 80), "metal": (74, 70, 82), "cloth": (60, 40, 50), "glowcol": (255, 90, 60)},
     "arachanox": {"chitin": (78, 52, 110), "dark": (40, 26, 56), "glowcol": (200, 120, 255)},
     "assassin": {"cloth": (48, 44, 56), "skin": (180, 150, 130), "metal": (90, 30, 36), "glowcol": (255, 120, 90)},
-    "jack_of_blades": {"cloth": (138, 26, 30), "metal": (212, 172, 84), "skin": (220, 200, 180), "glowcol": (255, 230, 140)},
+    "jack_of_blades": {"cloth": (148, 22, 24), "dark": (34, 26, 28), "metal": (212, 172, 84), "skin": (220, 200, 180), "glowcol": (255, 120, 60)},
     "jack_dragon": {"scale": (96, 26, 30), "wing_leather": (60, 18, 22), "glowcol": (255, 200, 90)},
-    "villager_albion": {"skin": (208, 168, 130), "cloth": (110, 90, 64), "hair": (112, 78, 46), "boots": (78, 56, 38), "belt": (58, 42, 28), "glowcol": (255, 240, 200)},
-    "villager_woman": {"skin": (212, 172, 134), "cloth": (104, 118, 74), "hair": (86, 58, 34), "boots": (84, 60, 40), "belt": (62, 44, 30), "glowcol": (255, 240, 200)},
-    "villager_farmer": {"skin": (204, 162, 122), "cloth": (126, 98, 62), "straw": (208, 182, 108), "boots": (74, 54, 36), "belt": (56, 40, 28), "glowcol": (255, 240, 200)},
-    "guard_bowerstone": {"skin": (200, 162, 124), "cloth": (52, 70, 140), "metal": (150, 155, 168), "tabard": (204, 182, 92), "crest": (60, 84, 170), "boots": (54, 40, 28), "belt": (48, 36, 26), "glowcol": (200, 220, 255)},
-    "guard_oakvale": {"skin": (204, 166, 126), "cloth": (150, 44, 40), "metal": (150, 150, 160), "tabard": (232, 222, 198), "crest": (170, 50, 44), "boots": (60, 44, 30), "belt": (50, 38, 26), "glowcol": (255, 200, 180)},
-    "guard_snowspire": {"skin": (198, 160, 124), "cloth": (200, 110, 36), "metal": (170, 180, 195), "tabard": (240, 235, 224), "crest": (216, 124, 44), "boots": (66, 50, 36), "belt": (54, 40, 28), "glowcol": (255, 220, 160)},
-    "trader": {"skin": (202, 164, 128), "cloth": (140, 100, 50), "boots": (80, 58, 38), "belt": (60, 44, 30), "glowcol": (255, 230, 170)},
-    "barkeep": {"skin": (210, 170, 132), "cloth": (90, 60, 40), "boots": (70, 50, 34), "belt": (54, 40, 28), "glowcol": (255, 230, 170)},
-    "guildmaster": {"skin": (190, 158, 128), "cloth": (70, 80, 120), "metal": (180, 170, 130), "hair": (176, 174, 168), "boots": (66, 50, 36), "belt": (52, 40, 30), "glowcol": (180, 220, 255)},
-    "maze": {"skin": (150, 120, 100), "cloth": (96, 38, 42), "metal": (208, 172, 88), "boots": (52, 38, 30), "belt": (190, 156, 78), "glowcol": (255, 170, 90)},
-    "theresa": {"skin": (188, 152, 122), "cloth": (140, 40, 40), "hair": (88, 58, 38), "boots": (70, 48, 34), "glowcol": (255, 160, 160)},
-    "lady_grey": {"skin": (214, 178, 144), "cloth": (90, 96, 110), "metal": (220, 200, 140), "hair": (208, 178, 116), "boots": (96, 84, 70), "belt": (180, 160, 110), "glowcol": (220, 220, 255)},
+    "villager_albion": {"skin": (208, 168, 130), "cloth": (110, 90, 64), "hair": (112, 78, 46), "boots": (112, 80, 50), "belt": (58, 42, 28), "glowcol": (255, 240, 200)},
+    "villager_woman": {"skin": (212, 172, 134), "cloth": (104, 118, 74), "hair": (86, 58, 34), "boots": (50, 38, 32), "belt": (62, 44, 30), "glowcol": (255, 240, 200)},
+    "villager_farmer": {"skin": (204, 162, 122), "cloth": (126, 98, 62), "straw": (208, 182, 108), "boots": (138, 106, 64), "belt": (56, 40, 28), "glowcol": (255, 240, 200)},
+    "guard_bowerstone": {"skin": (200, 162, 124), "cloth": (52, 70, 140), "metal": (150, 155, 168), "tabard": (204, 182, 92), "crest": (60, 84, 170), "boots": (40, 44, 64), "belt": (48, 36, 26), "glowcol": (200, 220, 255)},
+    "guard_oakvale": {"skin": (204, 166, 126), "cloth": (150, 44, 40), "metal": (150, 150, 160), "tabard": (232, 222, 198), "crest": (170, 50, 44), "boots": (92, 40, 34), "belt": (50, 38, 26), "glowcol": (255, 200, 180)},
+    "guard_snowspire": {"skin": (198, 160, 124), "cloth": (200, 110, 36), "metal": (170, 180, 195), "tabard": (240, 235, 224), "crest": (216, 124, 44), "boots": (146, 112, 72), "belt": (54, 40, 28), "glowcol": (255, 220, 160)},
+    "trader": {"skin": (202, 164, 128), "cloth": (140, 100, 50), "boots": (122, 62, 40), "belt": (60, 44, 30), "glowcol": (255, 230, 170)},
+    "barkeep": {"skin": (210, 170, 132), "cloth": (90, 60, 40), "boots": (64, 46, 32), "belt": (54, 40, 28), "glowcol": (255, 230, 170)},
+    "guildmaster": {"skin": (190, 158, 128), "cloth": (70, 80, 120), "metal": (180, 170, 130), "hair": (176, 174, 168), "boots": (58, 56, 78), "belt": (52, 40, 30), "glowcol": (180, 220, 255)},
+    "maze": {"skin": (216, 186, 152), "cloth": (58, 122, 130), "cape": (96, 60, 130), "metal": (208, 172, 88), "hair": (228, 226, 220), "boots": (46, 34, 56), "belt": (190, 156, 78), "glowcol": (120, 220, 255)},
+    "theresa": {"skin": (188, 152, 122), "cloth": (140, 40, 40), "hair": (88, 58, 38), "boots": (98, 48, 40), "glowcol": (255, 160, 160)},
+    "lady_grey": {"skin": (214, 178, 144), "cloth": (90, 96, 110), "metal": (220, 200, 140), "hair": (208, 178, 116), "boots": (152, 152, 164), "belt": (180, 160, 110), "glowcol": (220, 220, 255)},
     "oracle": {"ghost": (130, 170, 190), "glowcol": (150, 230, 255)},
-    "briar_rose": {"skin": (200, 160, 126), "cloth": (120, 40, 60), "hair": (140, 72, 48), "boots": (74, 52, 36), "belt": (58, 42, 28), "glowcol": (255, 180, 200)},
-    "mercenary": {"skin": (192, 152, 118), "cloth": (80, 70, 60), "metal": (140, 140, 150), "boots": (58, 44, 32), "belt": (48, 36, 26), "glowcol": (255, 230, 170)},
+    "briar_rose": {"skin": (200, 160, 126), "cloth": (120, 40, 60), "hair": (140, 72, 48), "boots": (126, 66, 44), "belt": (58, 42, 28), "glowcol": (255, 180, 200)},
+    "mercenary": {"skin": (192, 152, 118), "cloth": (80, 70, 60), "metal": (140, 140, 150), "boots": (92, 90, 96), "belt": (48, 36, 26), "glowcol": (255, 230, 170)},
     "nymph": {"glow": (150, 230, 200), "wing": (210, 245, 235), "glowcol": (180, 255, 220)},
-    "demon_door": {"rock": (110, 100, 92), "glowcol": (255, 190, 90)},
+    "demon_door": {"rock": (120, 116, 110), "glowcol": (255, 190, 90)},
 }
 
 # ---------------------------------------------------------------------------
@@ -614,17 +621,17 @@ MOBS = [
                                                                              "decor": {"head": ["face", "beard"], "body": ["apron"]}}),
      "behavior": "npc", "hp": 22, "dmg": 1, "speed": 0.3, "family": ["fc_villager", "fc_friendly"],
      "spawn": None, "drops": [], "scale": 1.0, "dialogue": "villager"},
-    {"id": "guard_bowerstone", "name": "Bowerstone Guard", "plan": ("humanoid", {"helmet": True, "boots": True, "belt": True,
+    {"id": "guard_bowerstone", "name": "Bowerstone Guard", "plan": ("humanoid", {"helmet": True, "boots": True, "belt": True, "pauldrons": True,
                                                                                  "roles": {"body": "metal", "legs": "cloth", "arms": "metal", "head": "skin"},
                                                                                  "decor": {"head": ["face"], "body": ["tabard"]}}),
      "behavior": "guard", "hp": 40, "dmg": 8, "speed": 0.34, "family": ["fc_guard", "fc_friendly"],
      "spawn": None, "drops": [], "scale": 1.05, "dialogue": "guard"},
-    {"id": "guard_oakvale", "name": "Oakvale Guard", "plan": ("humanoid", {"helmet": True, "boots": True, "belt": True,
+    {"id": "guard_oakvale", "name": "Oakvale Guard", "plan": ("humanoid", {"helmet": True, "boots": True, "belt": True, "pauldrons": True,
                                                                            "roles": {"body": "metal", "legs": "cloth", "arms": "metal", "head": "skin"},
                                                                            "decor": {"head": ["face"], "body": ["tabard"]}}),
      "behavior": "guard", "hp": 36, "dmg": 7, "speed": 0.34, "family": ["fc_guard", "fc_friendly"],
      "spawn": None, "drops": [], "scale": 1.05, "dialogue": "guard"},
-    {"id": "guard_snowspire", "name": "Snowspire Guard", "plan": ("humanoid", {"helmet": True, "boots": True, "belt": True,
+    {"id": "guard_snowspire", "name": "Snowspire Guard", "plan": ("humanoid", {"helmet": True, "boots": True, "belt": True, "pauldrons": True,
                                                                                "roles": {"body": "metal", "legs": "cloth", "arms": "metal", "head": "skin"},
                                                                                "decor": {"head": ["face"], "body": ["tabard"]}}),
      "behavior": "guard", "hp": 46, "dmg": 9, "speed": 0.34, "family": ["fc_guard", "fc_friendly"],
@@ -637,12 +644,13 @@ MOBS = [
                                                                "decor": {"head": ["face", "moustache"], "body": ["apron"]}}),
      "behavior": "npc", "hp": 25, "dmg": 1, "speed": 0.28, "family": ["fc_barkeep", "fc_friendly"],
      "spawn": None, "drops": [], "scale": 1.0, "dialogue": "barkeep"},
-    {"id": "guildmaster", "name": "Guildmaster", "plan": ("humanoid", {"hair": True, "boots": True, "belt": True,
+    {"id": "guildmaster", "name": "Guildmaster", "plan": ("humanoid", {"boots": True, "belt": True,
                                                                        "roles": {"body": "cloth", "head": "skin"},
-                                                                       "decor": {"head": ["face", "beard"], "body": ["guild_crest"]}}),
+                                                                       "decor": {"head": ["face", "moustache"], "body": ["guild_crest"]}}),
      "behavior": "npc", "hp": 100, "dmg": 1, "speed": 0.28, "family": ["fc_guildmaster", "fc_friendly"],
      "spawn": None, "drops": [], "scale": 1.0, "dialogue": "guildmaster"},
-    {"id": "maze", "name": "Maze", "plan": ("humanoid", {"cape": True, "boots": True, "belt": True,
+    {"id": "maze", "name": "Maze", "plan": ("humanoid", {"hair": True, "cape": True, "boots": True, "belt": True,
+                                                         "roles": {"cape": "cape"},
                                                          "decor": {"head": ["maze_face"], "body": ["runes"], "cape": ["trim"]}}),
      "behavior": "npc", "hp": 120, "dmg": 1, "speed": 0.3, "family": ["fc_maze", "fc_friendly"],
      "spawn": None, "drops": [], "scale": 1.08, "dialogue": "maze"},

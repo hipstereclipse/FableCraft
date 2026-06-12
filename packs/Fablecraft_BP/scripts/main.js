@@ -180,6 +180,7 @@ world.afterEvents.entityHitEntity.subscribe((ev) => {
   // augment effects from held weapon lore
   const it = heldItem(p);
   if (it && DATA.weapons[it.typeId]) {
+    if (Math.random() < 0.35) p.playSound("fc.sword_clash", { volume: 0.45, pitch: 0.9 + Math.random() * 0.25 });
     const augs = weaponAugments(it);
     applyAugmentHits(p, tgt, augs);
   }
@@ -443,7 +444,7 @@ function castSpell(p, id, fromGrimoire = false) {
   if (!spendWill(p, cost)) return p.onScreenDisplay.setActionBar("§9Not enough Will energy.");
   spellCd.set(key, TICKS());
   giveXp(p, "will", Math.round(cost * 0.6));
-  p.playSound("mob.evocation_illager.cast_spell", { pitch: 0.8 + lvl * 0.1 });
+  p.playSound("fc.spell_cast", { pitch: 0.85 + lvl * 0.08 });
   SPELL_FX[id]?.(p, lvl);
 }
 
@@ -695,7 +696,7 @@ function trainMenu(p) {
     P.add(p, xpKey, -cost);
     P.add(p, `fc_up_${u.id}`, 1);
     applyUpgrades(p);
-    p.playSound("random.levelup");
+    p.playSound("fc.level_up");
     p.dimension.spawnParticle("minecraft:totem_particle", p.location);
     p.sendMessage(`§6✦ ${u.name} increased to ${lvl + 1}! §7${u.desc}`);
     trainMenu(p);
@@ -736,7 +737,7 @@ function spellMenu(p) {
     if (P.get(p, "fc_xp_will", 0) < cost) { p.sendMessage(`§7You need ${cost} Will XP to deepen this power.`); return spellMenu(p); }
     P.add(p, "fc_xp_will", -cost);
     P.set(p, `fc_spell_lvl_${id}`, lvl + 1);
-    p.playSound("random.levelup", { pitch: 1.4 });
+    p.playSound("fc.level_up", { pitch: 1.3 });
     p.sendMessage(`§9✦ ${DATA.spells[id].name} flows stronger (level ${lvl + 1}).`);
     spellMenu(p);
   });
@@ -831,7 +832,7 @@ function completeQuest(p, q) {
   if (rw.title) addTitle(p, rw.title);
   const done = doneQuests(p); done.push(q.id); P.setJ(p, "fc_quests_done", done);
   P.set(p, "fc_quest", undefined);
-  p.playSound("random.levelup");
+  p.playSound("fc.level_up");
   p.dimension.spawnParticle("minecraft:totem_particle", p.location);
   p.onScreenDisplay.setTitle("§6Quest Complete", { fadeInDuration: 5, stayDuration: 50, fadeOutDuration: 15, subtitle: `§e${q.name}` });
   // chain spawns
@@ -916,6 +917,7 @@ function doorPersona(door) {
 
 function demonDoorTalk(p, door) {
   const d = doorPersona(door);
+  p.playSound("fc.door_speak", { volume: 0.9 });
   if (door.getDynamicProperty("fc_door_open")) {
     p.sendMessage(`§8${d.name}: §7"I have given all I guard. Leave an old door to its naps."`);
     return;
@@ -970,7 +972,7 @@ function openDemonDoor(p, door, d) {
   p.sendMessage(`§5${d.name}: §a"${d.success}"`);
   const dim = door.dimension, loc = door.location;
   dim.spawnParticle("minecraft:huge_explosion_emitter", loc);
-  p.playSound("mob.enderdragon.growl", { volume: 0.5, pitch: 0.6 });
+  p.playSound("fc.door_rumble", { volume: 0.9 });
   for (const it of d.reward.items) giveItem(p, it.id, it.count);
   giveXp(p, "general", d.reward.xp);
   addTitle(p, "Door-Speaker");
@@ -1153,7 +1155,7 @@ function shopMenu(p, title) {
 // ---------------------------------------------------------------------------
 const REGION = 160;
 const STRUCTS = [
-  { id: "fc:demon_door_arch", w: 11, chance: 0.16, door: true },
+  { id: "fc:demon_door_arch", w: 17, chance: 0.16, door: true },
   { id: "fc:silver_chest_ruin", w: 13, chance: 0.34, loot: "ruin" },
   { id: "fc:bandit_camp", w: 21, chance: 0.50, mobs: ["fc:bandit", "fc:bandit", "fc:bandit_archer"] },
   { id: "fc:graveyard", w: 15, chance: 0.62, mobs: ["fc:undead", "fc:undead"] },
@@ -1201,7 +1203,7 @@ function maybePlace(p, rx, rz) {
     world.structureManager.place(pick.id, dim, { x, y: y - 1, z });
     world.setDynamicProperty(key, 1);
     if (pick.door) {
-      const door = trySpawn(dim, "fc:demon_door", { x: x + 5.5, y: y, z: z + 3.2 });
+      const door = trySpawn(dim, "fc:demon_door", { x: x + 8.5, y: y, z: z + 4.3 });
       if (door) doorPersona(door);
     }
     for (const mtype of pick.mobs ?? []) {
@@ -1238,7 +1240,7 @@ system.runInterval(() => {
       if (Math.random() < 0.3) {
         p.addEffect("nausea", 100, { amplifier: 0, showParticles: false });
         p.addEffect("darkness", 60, { amplifier: 0, showParticles: false });
-        p.playSound("mob.ghast.scream", { pitch: 1.7, volume: 0.8 });
+        p.playSound("fc.banshee_shriek", { volume: 0.8 });
       }
     }
   }

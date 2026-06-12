@@ -372,13 +372,14 @@ BLOCK_COLORS = {
 GLOW_BLOCKS = {"minecraft:lantern", "minecraft:soul_lantern", "minecraft:sea_lantern",
                "minecraft:campfire", "minecraft:soul_campfire", "minecraft:torch",
                "minecraft:beacon", "minecraft:magma", "minecraft:end_rod",
-               "minecraft:gold_block", "minecraft:emerald_block", "minecraft:crying_obsidian"}
+               "minecraft:gold_block", "minecraft:emerald_block", "minecraft:crying_obsidian",
+               "minecraft:amethyst_cluster", "minecraft:soul_torch"}
 
 
-def render_structure(vox, size=(1100, 900)):
+def render_structure(vox, size=(1100, 900), extra_quads=None):
     """vox: gen_structures.Vox (re-built). Isometric painter render."""
     flat = Image.new("RGBA", (4, 4), (255, 255, 255, 255))
-    quads = []
+    quads = list(extra_quads) if extra_quads else []
     sx, sy, sz = vox.sx, vox.sy, vox.sz
     grid = vox.grid
     pal = vox.palette
@@ -598,7 +599,16 @@ def main():
         "arena_ring": ("The Arena", "Round-based gladiator combat", "fire"),
     }
     for name, vox in captured.items():
-        render = render_structure(vox)
+        extra = None
+        if name == "demon_door_arch":
+            # composite the living door face into the carved arch
+            dd = next(m for m in MOBS if m["id"] == "demon_door")
+            dq = mob_quads(dd)
+            s = 0.16  # model units -> blocks, slightly oversized to fill arch
+            ox, oy, oz = 8.5, 0.6, 4.55
+            extra = [([(c[0] * s + ox, c[1] * s + oy, c[2] * s + oz) for c in corners],
+                      tex, uvs, glow) for corners, tex, uvs, glow in dq]
+        render = render_structure(vox, extra_quads=extra)
         title, sub, mood = STRUCT_LABELS[name]
         card = frame_card(render, title, sub, mood, size=(1100, 1040))
         card.convert("RGB").save(SHOTS / "structures" / f"{name}.png", quality=92)

@@ -1129,8 +1129,27 @@ def paint_armor_icon(item):
     mid = shade(base, 0.85)
     r = rng("armor", item["id"])
     slot = item["slot"]
+    accent = pal.get("accent")
+    accent = accent + (255,) if accent else trim
     if slot == "helm":
-        if item.get("horns"):
+        if pal.get("hood"):
+            # cloth hood: rounded cowl, deep face shadow, draped shoulder hem
+            p.disc(8, 7, 5.4, base)
+            p.rect(3, 7, 11, 4, base)
+            p.rect(2, 11, 13, 2, mid)           # shoulder drape
+            p.rect(2, 11, 13, 1, dk)
+            p.disc(8, 8, 3.2, (22, 18, 16, 255))  # face shadow
+            p.rect(5, 9, 7, 3, (22, 18, 16, 255))
+            p.px(4, 4, hi)
+            p.px(5, 3, hi)
+            p.px(11, 5, dk)
+            # rim stitching in accent colour
+            for a in range(0, 180, 30):
+                xx = 8 + round(math.cos(math.radians(a)) * 5)
+                yy = 7 - round(math.sin(math.radians(a)) * 5)
+                p.px(xx, yy, accent)
+            p.px(8, 12, accent)  # clasp
+        elif item.get("horns"):
             p.px(3, 3, hi)
             p.px(2, 2, dk)
             p.px(12, 3, hi)
@@ -1171,6 +1190,12 @@ def paint_armor_icon(item):
         p.px(6, 4, hi)
         p.px(10, 9, dk)
         p.px(11, 10, dk)
+        if pal.get("accent"):
+            # diagonal sash in the accent colour
+            for i in range(8):
+                p.px(4 + i, 3 + i, accent)
+                if i < 7:
+                    p.px(5 + i, 3 + i, shade(accent, 0.8))
         if pal.get("metal"):
             for yy in range(4, 11, 2):
                 p.px(6, yy, hi)

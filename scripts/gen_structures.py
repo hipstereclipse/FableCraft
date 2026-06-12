@@ -188,50 +188,62 @@ def tent(v, x0, z0, depth, half, col, r, open_front=True):
 # ---------------------------------------------------------------------------
 
 def demon_door_arch():
-    """Realistic Demon Door: a 11w x 9h carved arch built into a hillside slab,
-    braziers, cracked masonry, vines. The fc:demon_door entity (the face) is
-    summoned centred in the arch by the placement script."""
+    """Demon Door site: a 17-wide cliff face of weathered masonry with a
+    deep-set carved arch, twin rune monoliths, brazier pedestals, stairs
+    and creeping overgrowth. The fc:demon_door entity (the living face)
+    is summoned centred in the arch by the placement script."""
     r = rng("struct", "demon_door")
-    v = Vox(11, 10, 5)
-    # foundation slab
-    for x in range(11):
-        for z in range(5):
+    W, H, D = 17, 14, 7
+    v = Vox(W, H, D)
+    cx = W // 2
+    # foundation slab + approach steps
+    for x in range(W):
+        for z in range(D):
             v.set(x, 0, z, MCOBBLE if r.random() < 0.3 else COBBLE)
-    # back wall (the door is embedded in it)
-    for x in range(11):
-        for y in range(1, 9):
-            for z in range(3, 5):
-                edge = x in (0, 10) or y == 8
-                v.set(x, y, z, rnd_stone(r) if not edge else COBBLE)
-    # carve arch opening in back wall (4 wide, 6 high) — the entity fills it
-    v.fill(4, 1, 3, 7, 6, 4, "minecraft:air")
-    # arch frame pillars
-    for y in range(1, 8):
-        v.set(3, y, 3, CHISELED)
-        v.set(8, y, 3, CHISELED)
-    for x in range(3, 9):
-        v.set(x, 7, 3, CHISELED)
-    v.set(3, 7, 3, STONE)
-    v.set(8, 7, 3, STONE)
-    # keystone with carved skull (chiseled deepslate)
-    v.set(5, 8, 3, "minecraft:chiseled_deepslate")
-    v.set(6, 8, 3, "minecraft:chiseled_deepslate")
-    # braziers on pedestals
-    for bx in (1, 9):
-        v.set(bx, 1, 1, COBBLE)
-        v.set(bx, 2, 1, "minecraft:campfire")
-    # path to the door
-    for z in range(0, 3):
-        for x in range(4, 8):
+    # cliff wall the door is carved into (two blocks thick, ragged top)
+    for x in range(W):
+        crown = H - 2 - (abs(x - cx) // 3) + r.randrange(0, 2)
+        for y in range(1, crown):
+            for z in range(D - 2, D):
+                v.set(x, y, z, rnd_stone(r))
+    # carve the deep arch opening (5 wide, 8 high, rounded top)
+    v.fill(cx - 2, 1, D - 2, cx + 2, 7, D - 1, "minecraft:air")
+    v.fill(cx - 1, 8, D - 2, cx + 1, 8, D - 1, "minecraft:air")
+    # tiered chiseled arch frame
+    for y in range(1, 9):
+        v.set(cx - 3, y, D - 2, CHISELED)
+        v.set(cx + 3, y, D - 2, CHISELED)
+    for x in range(cx - 3, cx + 4):
+        v.set(x, 9, D - 2, CHISELED)
+    v.set(cx - 2, 8, D - 2, CHISELED)
+    v.set(cx + 2, 8, D - 2, CHISELED)
+    # skull keystone + flanking carvings
+    v.set(cx, 10, D - 2, "minecraft:chiseled_deepslate")
+    v.set(cx - 1, 9, D - 2, "minecraft:chiseled_deepslate")
+    v.set(cx + 1, 9, D - 2, "minecraft:chiseled_deepslate")
+    # rune monoliths flanking the approach
+    for mx in (1, W - 2):
+        for y in range(1, 6):
+            v.set(mx, y, 2, OBSIDIAN if y < 4 else "minecraft:crying_obsidian")
+        v.set(mx, 6, 2, SOUL_LANTERN)
+    # brazier pedestals at the arch
+    for bx in (cx - 5, cx + 5):
+        v.set(bx, 1, D - 3, CHISELED)
+        v.set(bx, 2, D - 3, "minecraft:campfire")
+    # worn path + steps
+    for z in range(0, D - 2):
+        for x in range(cx - 2, cx + 3):
             v.set(x, 0, z, PATH if r.random() < 0.7 else GRAVEL)
-    # crumbled rubble + vines
-    for i in range(8):
-        x = r.randrange(11)
-        v.set(x, 1, r.choice([0, 1]), MCOBBLE) if r.random() < 0.4 else None
-    for x in (0, 2, 9, 10):
-        h = r.randrange(2, 6)
-        for y in range(max(1, 8 - h), 9):
-            v.set(x, y, 2, "minecraft:vine", {"vine_direction_bits": 8})
+    # rubble, moss and vines
+    for i in range(12):
+        x = r.randrange(W)
+        if r.random() < 0.5:
+            v.set(x, 1, r.choice([0, 1, 2]), MCOBBLE if r.random() < 0.5 else "minecraft:cobblestone_wall")
+    for x in range(0, W, 2):
+        if abs(x - cx) > 3:
+            h = r.randrange(3, 9)
+            for y in range(max(1, H - 3 - h), H - 3):
+                v.set(x, y, D - 3, "minecraft:vine", {"vine_direction_bits": 8})
     v.save("demon_door_arch")
 
 

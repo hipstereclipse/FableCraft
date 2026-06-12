@@ -40,6 +40,7 @@ ROLE_TEXTURE = {
     "tabard": ("tabard", "cloth"),
     "crest": ("crest", "metal"),
     "straw": ("straw", "straw"),
+    "cape": ("cape", "cloth"),
 }
 
 
@@ -297,40 +298,37 @@ def decorate_front(p, x, y, w, h, decor, pal, glow, r):
                 for xx in range(x, x + w):
                     p.px(xx, yy, (30, 28, 36, 255))
         elif d == "jack_mask":
-            # bone-white theatre mask floating in a red cowl void
+            # skin reference: crimson hood framing a stark white mask
+            hoodc = (122, 16, 18, 255)
+            hooddk = (84, 10, 12, 255)
             for yy in range(y, y + h):
                 for xx in range(x, x + w):
-                    # cowl shadow frame
-                    p.px(xx, yy, (96, 16, 18, 255))
+                    p.px(xx, yy, hoodc if (xx + yy) % 3 else hooddk)
             mx0, mx1 = x + 1, x + w - 2
-            for yy in range(y + 1, y + h - 1):
+            my0, my1 = y + 1, y + h - 1
+            for yy in range(my0, my1):
                 for xx in range(mx0, mx1 + 1):
-                    t = (yy - y) / max(1, h)
-                    base = (228, 216, 192, 255) if (xx + yy) % 5 else (214, 200, 172, 255)
-                    p.px(xx, yy, base)
+                    sh = 1.0 - 0.18 * ((yy - my0) / max(1, my1 - my0 - 1))
+                    v = int(246 * sh) if (xx + yy) % 6 else int(234 * sh)
+                    p.px(xx, yy, (v, v, min(255, v + 5), 255))
             # mask edge shading
-            for yy in range(y + 1, y + h - 1):
-                p.px(mx0, yy, (188, 172, 142, 255))
-                p.px(mx1, yy, (170, 152, 122, 255))
-            # angular eye slits, glowing
+            for yy in range(my0, my1):
+                p.px(mx0, yy, (210, 208, 214, 255))
+                p.px(mx1, yy, (194, 192, 200, 255))
+            # narrow dark eye slits with ember glints
             ey = y + h // 3
             for ex in (cx - w // 4 - 1, cx + w // 4):
-                p.px(ex, ey, (255, 220, 90, 255))
-                p.px(ex + 1, ey, (255, 180, 60, 255))
-                p.px(ex, ey - 1, (60, 30, 20, 255))
-                p.px(ex + 1, ey - 1, (60, 30, 20, 255))
-                p.px(ex + (0 if ex < cx else 1), ey + 1, (120, 60, 30, 200))
-            # long nose ridge + stern mouth slit
+                p.px(ex, ey, (24, 18, 18, 255))
+                p.px(ex + 1, ey, (24, 18, 18, 255))
+                p.px(ex + (1 if ex < cx else 0), ey, (250, 90, 50, 255))
+                p.px(ex, ey - 1, (152, 148, 154, 255))
+                p.px(ex + 1, ey - 1, (152, 148, 154, 255))
+            # smooth nose ridge + grim mouth slit
             for yy in range(ey + 1, y + (3 * h) // 4):
-                p.px(cx, yy, (196, 180, 150, 255))
+                p.px(cx, yy, (224, 222, 228, 255))
             my = y + (3 * h) // 4
-            for xx in range(cx - 2, cx + 3):
-                p.px(xx, my, (70, 40, 28, 255))
-            p.px(cx - 2, my - 1, (160, 140, 110, 255))
-            p.px(cx + 2, my - 1, (160, 140, 110, 255))
-            # gold trim crown line
-            for xx in range(mx0, mx1 + 1):
-                p.px(xx, y + 1, (212, 172, 84, 255) if xx % 2 else (180, 140, 60, 255))
+            for xx in range(cx - 1, cx + 2):
+                p.px(xx, my, (40, 32, 32, 255))
         elif d == "minion_face":
             ey = y + h // 3
             for ex in (cx - w // 4 - 1, cx + w // 4):
@@ -380,17 +378,23 @@ def decorate_front(p, x, y, w, h, decor, pal, glow, r):
             p.px(cx, y + h // 2 + 1, (255, 255, 255, 200))
         elif d == "maze_face":
             ey = y + h // 2
-            eyes(ey, iris=(255, 170, 90, 255), brows=False)
-            p.px(cx - w // 4 - 1, ey - 1, with_alpha((255, 170, 90), 120))
-            p.px(cx + w // 4, ey - 1, with_alpha((255, 170, 90), 120))
-            for yy in range(y, y + h // 4):
-                for xx in range(x, x + w):
-                    p.px(xx, yy, (60, 30, 34, 255))
-            # goatee
+            eyes(ey, iris=(110, 200, 240, 255), brows=False)
+            # white brows
+            p.px(cx - w // 4 - 1, ey - 1, (226, 224, 218, 255))
+            p.px(cx - w // 4, ey - 1, (226, 224, 218, 255))
+            p.px(cx + w // 4, ey - 1, (226, 224, 218, 255))
+            p.px(cx + w // 4 + 1, ey - 1, (226, 224, 218, 255))
+            # glowing will-tattoo lines on brow and cheeks
+            p.px(cx, y + 1, with_alpha(glow + (255,), 220))
+            p.px(cx, y + 2, with_alpha(glow + (255,), 160))
+            p.px(cx - w // 4 - 2, ey + 1, with_alpha(glow + (255,), 200))
+            p.px(cx - w // 4 - 2, ey + 2, with_alpha(glow + (255,), 140))
+            p.px(cx + w // 4 + 2, ey + 1, with_alpha(glow + (255,), 200))
+            p.px(cx + w // 4 + 2, ey + 2, with_alpha(glow + (255,), 140))
+            # stern mouth
             my = y + (3 * h) // 4 + 1
-            p.px(cx - 1, my, (40, 30, 28, 255))
-            p.px(cx, my, (40, 30, 28, 255))
-            p.px(cx, min(y + h - 1, my + 1), (40, 30, 28, 255))
+            p.px(cx - 1, my, (150, 96, 84, 255))
+            p.px(cx, my, (150, 96, 84, 255))
         elif d == "beard":
             for yy in range(y + (2 * h) // 3, y + h):
                 for xx in range(cx - w // 3, cx + w // 3 + 1):
@@ -402,9 +406,12 @@ def decorate_front(p, x, y, w, h, decor, pal, glow, r):
             p.px(cx - w // 3 - 1, my, (200, 200, 192, 255))
             p.px(cx + w // 3 + 1, my, (200, 200, 192, 255))
         elif d == "moustache":
+            mc = pal.get("hair", (90, 60, 40))
             my = y + (2 * h) // 3
             for xx in range(cx - 2, cx + 2):
-                p.px(xx, my, (90, 60, 40, 255))
+                p.px(xx, my, mc + (255,))
+            p.px(cx - 3, my + 1, mc + (255,))
+            p.px(cx + 2, my + 1, mc + (255,))
         elif d == "stripes":
             for yy in range(y, y + h, 3):
                 for xx in range(x, x + w):
@@ -496,21 +503,24 @@ def decorate_front(p, x, y, w, h, decor, pal, glow, r):
                 p.px(cx - 1, yy, (224, 204, 160, 255))
                 p.px(cx + 1, yy + 1 if yy + 1 < y + h - 1 else yy, (224, 204, 160, 255))
         elif d == "jack_robe":
-            # crimson robe: gold clasps, black belt, glowing sigil
-            for xx in range(x, x + w):
-                p.px(xx, y, (212, 172, 84, 255) if xx % 2 else (170, 130, 56, 255))
-            for yy in range(y + 1, y + h, 3):
-                p.px(cx - w // 4, yy, (212, 172, 84, 255))
+            # skin reference: black coat panel over crimson, gold clasps, dark belt
+            px0, px1 = cx - w // 4, cx + w // 4
+            for yy in range(y, y + h):
+                for xx in range(px0, px1 + 1):
+                    p.px(xx, yy, (34, 26, 28, 255) if (xx + yy) % 4 else (26, 20, 22, 255))
+            # panel edges
+            for yy in range(y, y + h):
+                p.px(px0, yy, (60, 24, 26, 255))
+                p.px(px1, yy, (60, 24, 26, 255))
+            # gold clasps down the centre
+            for yy in range(y + 2, y + h - 2, 3):
+                p.px(cx, yy, (212, 172, 84, 255))
+                p.px(cx, yy + 1, (150, 116, 48, 255))
+            # dark belt with gold buckle
             by = y + (2 * h) // 3
             for xx in range(x, x + w):
-                p.px(xx, by, (40, 24, 26, 255))
-            p.px(cx, by, (212, 172, 84, 255))  # buckle
-            # sigil
-            sy = y + h // 3
-            p.px(cx + 1, sy, glow + (235,))
-            p.px(cx + 2, sy + 1, glow + (200,))
-            p.px(cx + 1, sy + 2, glow + (235,))
-            p.px(cx, sy + 1, glow + (200,))
+                p.px(xx, by, (20, 14, 16, 255))
+            p.px(cx, by, (212, 172, 84, 255))
         elif d == "trim_cuff":
             for xx in range(x, x + w):
                 p.px(xx, y + h - 2, (212, 172, 84, 255) if xx % 2 else (180, 140, 60, 255))
@@ -589,19 +599,48 @@ def decorate_front(p, x, y, w, h, decor, pal, glow, r):
         elif d == "horns":
             pass
         elif d == "door_slab":
-            pass  # handled in role fill
+            # masonry coursing so the living door matches its stone arch
+            course = 6
+            mortar = (88, 84, 78, 255)
+            for yy in range(y, y + h):
+                row = (yy - y) // course
+                for xx in range(x, x + w):
+                    if (yy - y) % course == 0:
+                        p.px(xx, yy, mortar)
+                    elif (xx - x + (row % 2) * (course)) % (course * 2) == 0:
+                        p.px(xx, yy, mortar)
+            # weathering streaks + moss
+            for i in range(14):
+                xx = x + r.randrange(max(1, w))
+                yy0 = y + r.randrange(max(1, h - 6))
+                for t in range(r.randrange(3, 7)):
+                    p.px(xx, yy0 + t, (104, 108, 92, 200))
         elif d == "door_eye":
+            # dark carved socket with a blazing iris
+            for yy in range(y, y + h):
+                for xx in range(x, x + w):
+                    p.px(xx, yy, (42, 36, 30, 255))
             for yy in range(y + 1, y + h - 1):
                 for xx in range(x + 1, x + w - 1):
                     p.px(xx, yy, glow + (255,))
-            p.px(cx, y + h // 2, (255, 255, 220, 255))
+            p.px(cx - 1, y + h // 2, (255, 255, 230, 255))
+            p.px(cx, y + h // 2, (255, 255, 235, 255))
+            p.px(cx, y + h // 2 - 1, (255, 245, 200, 255))
         elif d == "door_mouth":
-            for yy in range(y + 1, y + h - 1):
-                for xx in range(x + 1, x + w - 1):
-                    p.px(xx, yy, (18, 12, 10, 255))
+            # cavernous mouth with irregular teeth
+            for yy in range(y, y + h):
+                for xx in range(x, x + w):
+                    p.px(xx, yy, (16, 11, 9, 255))
             for xx in range(x + 1, x + w - 1, 2):
-                p.px(xx, y + 1, (200, 195, 180, 255))
-                p.px(xx, y + h - 2, (200, 195, 180, 255))
+                deep = 2 if xx % 3 == 0 else 1
+                for t in range(deep):
+                    p.px(xx, y + 1 + t, (216, 210, 194, 255))
+                p.px(xx + 1, y + h - 2, (198, 190, 174, 255))
+                if xx % 4 == 1:
+                    p.px(xx + 1, y + h - 3, (198, 190, 174, 255))
+            for xx in range(x, x + w):
+                p.px(xx, y, (72, 64, 56, 255))
+                p.px(xx, y + h - 1, (72, 64, 56, 255))
         elif d == "brow":
             for xx in range(x, x + w):
                 p.px(xx, y + h - 1, (40, 34, 30, 255))
