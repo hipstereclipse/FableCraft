@@ -218,39 +218,52 @@ function initHero(p) {
   p.sendMessage("§6═══ The Guildmaster ═══");
   p.sendMessage("§f\"Ah, the new apprentice wakes. Your §eGuild Seal§f opens the Hero menu. Use a §eQuest Card§f to begin your training. Albion is watching, little sparrow.\"");
   ensureDryLanding(p);
+  placeGuildNear(p);
+  setGuildSpawn(p);
+}
+
+const GUILD_TA = "fc_guild_keep";  // ticking area that force-loads the campus
+
+// Pin the whole 92x100 Guild footprint with a ticking area so every chunk is
+// force-loaded regardless of the player's render/simulation distance. The
+// campus is far wider than the few chunks a low render distance keeps live, so
+// without this the far rooms (Library, Maze's Tower) would land in unloaded
+// chunks and silently fail to generate. Idempotent — adds the area only once.
+function forceLoadGuild(dim, p, base) {
+  if (world.getDynamicProperty("fc_guild_ta")) return;
+  const cmd = `tickingarea add ${base.x - 4} 0 ${base.z - 4} ${base.x + 96} 319 ${base.z + 104} ${GUILD_TA}`;
+  for (const runner of [dim, p]) {
+    try { runner.runCommand(cmd); world.setDynamicProperty("fc_guild_ta", true); return; } catch { }
+  }
 }
 
 function placeGuildNear(p) {
   if (world.getDynamicProperty("fc_guild_placed")) return;
-  const isPlaced = world.getDynamicProperty("fc_guild_placed");
-  const guildLocS = world.getDynamicProperty("fc_guild_loc");
-
-  if (isPlaced && guildLocS) {
-    // Guild already founded. Ensure player is sent there if they haven't been.
-    if (!P.get(p, "fc_at_guild", false)) {
-      try {
-        const loc = JSON.parse(guildLocS);
-        p.teleport({ x: loc.x + 0.5, y: loc.y + 1, z: loc.z + 0.5 },
-          { facingLocation: { x: loc.x + 0.5, y: loc.y + 2, z: loc.z + 14 } });
-        P.set(p, "fc_at_guild", true);
-        setGuildSpawn(p);
-        p.onScreenDisplay.setTitle("§6Fablecraft", { fadeInDuration: 10, stayDuration: 70, fadeOutDuration: 20, subtitle: "§eReforged — Welcome to Albion" });
-        p.sendMessage("§6═══ The Guildmaster ═══");
-        p.sendMessage("§f\"Ah, the new apprentice wakes. Your §eGuild Seal§f opens the Hero menu. Use a §eQuest Card§f to begin your training. Albion is watching, little sparrow.\"");
-      } catch { }
-    }
-    return;
-  }
-
+  // Self-healing guard: only one build runs at a time, but if a build attempt
+  // ever stalls or throws without rescheduling itself, the timestamp goes stale
+  // and the next sweep restarts it — so the Guild can never be wedged "never
+  // spawning" by a single failed attempt.
+  const now = system.currentTick;
+  const last = world.getDynamicProperty("fc_guild_build_tick");
+  if (typeof last === "number" && now - last < 200) return;  // a build is in flight
+  world.setDynamicProperty("fc_guild_build_tick", now);
   const dim = p.dimension;
   const base = { x: Math.floor(p.location.x) + 16, y: 0, z: Math.floor(p.location.z) + 16 };
-  // Be lenient with ground sampling for the initial Guild placement (allow liquid).
-  const y = sampleGroundY(dim, base.x, base.z, 92, 100, true);
-  if (y === null) return;
-  
-  p.onScreenDisplay.setTitle("§6Founding Guild...", { fadeInDuration: 0, stayDuration: 200, fadeOutDuration: 0, subtitle: "§ePlease wait..." });
-  
-  system.runTimeout(() => {
+  try { buildGuildWhenReady(p, dim, base, 0); } catch { /* stale tick lets the sweep retry */ }
+}
+
+// Force-load the footprint, wait for the chunks to report ready, then build the
+// whole Guild in one place call. Retries for ~5 minutes so generation succeeds
+// even when the player's render distance leaves most of the campus unloaded.
+function buildGuildWhenReady(p, dim, base, attempt) {
+  if (world.getDynamicProperty("fc_guild_placed")) return;
+  world.setDynamicProperty("fc_guild_build_tick", system.currentTick);  // keep the guard fresh while working
+  forceLoadGuild(dim, p, base);
+  const y = sampleGroundY(dim, base.x, base.z, 92, 100);
+  if (y === null) {  // chunks still loading — try again shortly
+    if (attempt < 600) system.runTimeout(() => buildGuildWhenReady(p, dim, base, attempt + 1), 10);
+    return;  // else stop refreshing — the stale tick lets the next sweep restart us
+  }
   try {
     // The Heroes' Guild is ONE connected 92x30x100 structure on a single floor
     // level. The heart is the domed Map Room rotunda at local (34,44); the
@@ -260,53 +273,58 @@ function placeGuildNear(p) {
     // north to the Guild-Cave door; Maze's Tower spire stands NE (study floor
     // at local y+15). The Hero wakes on the crimson runner at (34,~30).
     world.structureManager.place("fc:guild_hall", dim, { x: base.x, y, z: base.z });
-    world.setDynamicProperty("fc_guild_placed", true);
-    world.setDynamicProperty("fc_guild_base", JSON.stringify({ x: base.x, y, z: base.z }));
-    // recall/wake point: the crimson runner in the nave, just inside the south
-    // doors, dry and well clear of the Map Room relief (never water/blocks)
-    world.setDynamicProperty("fc_guild_loc", JSON.stringify({ x: base.x + 34, y, z: base.z + 30 }));
-    // training happens at the green Skill portal to the RIGHT of the Map Room
-    world.setDynamicProperty("fc_guild_train", JSON.stringify({ x: base.x + 47, y, z: base.z + 44 }));
-    world.setDynamicProperty("fc_guild_skill", JSON.stringify({ x: base.x + 47, y, z: base.z + 44 }));
-    // the Quest lectern at the south edge of the rotunda's Map relief
-    world.setDynamicProperty("fc_guild_quest_table", JSON.stringify({ x: base.x + 34, y: y + 1, z: base.z + 40 }));
-    // the Cullis Gate beacon core in its LEFT/west alcove — the warded portal
-    // home from across Albion
+  } catch {  // chunk-edge race — retry; the ticking area keeps loading them
+    if (attempt < 600) system.runTimeout(() => buildGuildWhenReady(p, dim, base, attempt + 1), 10);
+    return;  // else stop refreshing — the stale tick lets the next sweep restart us
+  }
+  world.setDynamicProperty("fc_guild_placed", true);
+  world.setDynamicProperty("fc_guild_base", JSON.stringify({ x: base.x, y, z: base.z }));
+  // recall/wake point: the crimson runner in the nave, just inside the south
+  // doors, dry and well clear of the Map Room relief (never water/blocks)
+  world.setDynamicProperty("fc_guild_loc", JSON.stringify({ x: base.x + 34, y, z: base.z + 30 }));
+  // training happens at the green Skill portal to the RIGHT of the Map Room
+  world.setDynamicProperty("fc_guild_train", JSON.stringify({ x: base.x + 47, y, z: base.z + 44 }));
+  world.setDynamicProperty("fc_guild_skill", JSON.stringify({ x: base.x + 47, y, z: base.z + 44 }));
+  // the Quest lectern at the south edge of the rotunda's Map relief
+  world.setDynamicProperty("fc_guild_quest_table", JSON.stringify({ x: base.x + 34, y: y + 1, z: base.z + 40 }));
+  // the Guild's own Demon Door anchor (the carved SE-plaza face)
+  const doorLoc = { x: base.x + 85.5, y: y + 1, z: base.z + 25.4 };
+  world.setDynamicProperty("fc_guild_door", JSON.stringify(doorLoc));
+  // Everything below is decoration: NPCs, the Cullis registration, loot, terrain
+  // and the buried Chamber. The Guild is already PLACED above, so none of this is
+  // allowed to abort the build — wrap it so a single failure can't matter.
+  try {
+    // the Cullis Gate beacon core in its LEFT/west alcove — the warded portal home
     registerCullis("Heroes' Guild", { x: base.x + 21, y: y + 1, z: base.z + 44 });
-    // Guildmaster greets arrivals before the Map Room; Maze keeps his study
-    // atop his spiral-stair tower (solid floor at local y+15, he stands at +16);
-    // Theresa reads in the Library; a trader works the Guild Shop.
+    // Guildmaster greets arrivals; Maze keeps his tower study; Theresa reads in
+    // the Library; a trader works the Guild Shop.
     trySpawn(dim, "fc:guildmaster", { x: base.x + 34, y: y + 1, z: base.z + 38 });
     trySpawn(dim, "fc:maze", { x: base.x + 61, y: y + 16, z: base.z + 83 });
     trySpawn(dim, "fc:theresa", { x: base.x + 31, y: y + 1, z: base.z + 58 });
     trySpawn(dim, "fc:trader", { x: base.x + 22, y: y + 1, z: base.z + 31 });
-    // apprentices at work: Strength sparring in the forecourt, Will among the
-    // Library shelves, Skill by the green portal and at the gate
+    // apprentices at work across the grounds
     trySpawn(dim, "fc:guild_apprentice_might", { x: base.x + 28, y: y + 1, z: base.z + 18 });
     trySpawn(dim, "fc:guild_apprentice_might", { x: base.x + 40, y: y + 1, z: base.z + 16 });
     trySpawn(dim, "fc:guild_apprentice_skill", { x: base.x + 48, y: y + 1, z: base.z + 46 });
     trySpawn(dim, "fc:guild_apprentice_skill", { x: base.x + 40, y: y + 1, z: base.z + 12 });
     trySpawn(dim, "fc:guild_apprentice_will", { x: base.x + 24, y: y + 1, z: base.z + 62 });
     trySpawn(dim, "fc:guild_apprentice_will", { x: base.x + 44, y: y + 1, z: base.z + 62 });
+    ensureDemonDoor(dim, doorLoc, base.z + 11);
     fillLootChests(dim, base.x, y, base.z, 92, 30, 100, "fc:guild_hall");
     blendTerrain(dim, base.x, y, base.z, 92, 100);
+    skirtTerrain(dim, base.x, y, base.z, 92, 100, 12);
     dressSurroundings(dim, base.x, y, base.z, 92, "holy");
     placeGuildAnnexes(dim);
-    // wake the new Hero on the dry crimson runner, facing north to the Map Room
-    system.runTimeout(() => {
-      try {
-        p.teleport({ x: base.x + 34.5, y: y + 1, z: base.z + 30.5 },
-          { facingLocation: { x: base.x + 34.5, y: y + 2, z: base.z + 44 } });
-        P.set(p, "fc_at_guild", true);
-        setGuildSpawn(p);
-        p.onScreenDisplay.setTitle("§6Fablecraft", { fadeInDuration: 10, stayDuration: 70, fadeOutDuration: 20, subtitle: "§eReforged — Welcome to Albion" });
-        p.sendMessage("§6═══ The Guildmaster ═══");
-        p.sendMessage("§f\"Ah, the new apprentice wakes. Your §eGuild Seal§f opens the Hero menu. Use a §eQuest Card§f to begin your training. Albion is watching, little sparrow.\"");
-        p.sendMessage("§6⚔ You awaken in the Heroes' Guild. The §bCullis Gate§6 glows to the left of the Map Room; the §aSkill portal§6 waits to its right.");
-      } catch { }
-    }, 10);
-  } catch { /* chunk not ready; retried by the structure sweep */ }
-  }, 5);
+    setGuildSpawn(p);
+  } catch { /* decoration is best-effort; the Guild itself is already placed */ }
+  // wake the new Hero on the dry crimson runner, facing north to the Map Room
+  system.runTimeout(() => {
+    try {
+      p.teleport({ x: base.x + 34.5, y: y + 1, z: base.z + 30.5 },
+        { facingLocation: { x: base.x + 34.5, y: y + 2, z: base.z + 44 } });
+      p.sendMessage("§6⚔ You awaken in the Heroes' Guild. The §bCullis Gate§6 glows to the left of the Map Room; the §aSkill portal§6 waits to its right.");
+    } catch { }
+  }, 10);
 }
 
 // The Guild hall itself is a single connected structure placed by
@@ -323,8 +341,62 @@ function placeGuildAnnexes(dim) {
     try {
       world.structureManager.place("fc:chamber_of_fate", dim, { x: chx, y: chy, z: chz });
       world.setDynamicProperty("fc_guild_chamber_placed", true);
-      registerCullis("Chamber of Fate", { x: chx + 15.5, y: chy + 3, z: chz + 11.5 });
+      registerCullis("Chamber of Fate", { x: chx + 15.5, y: chy + 5, z: chz + 15.5 });
       fillLootChests(dim, chx, chy, chz, 31, 18, 31, "fc:chamber_of_fate");
+      hollowChamber(dim, chx, chy, chz, 31, 18);   // scrub any rock that bled in
+      hangChamberArt(dim, chx, chy, chz, 31);       // best-effort vanilla paintings
+    } catch { }
+  }
+}
+
+// Guarantee the Chamber of Fate reads as an open, hollow hall even when it is
+// stamped into solid deepslate: clear any *natural* rock that intruded into the
+// room volume, while leaving the structure's own masonry, columns, frescoes and
+// dais untouched (we only delete raw stone/dirt/ore, never built blocks).
+const CHAMBER_FILL = new Set([
+  "minecraft:stone", "minecraft:deepslate", "minecraft:dirt", "minecraft:gravel",
+  "minecraft:andesite", "minecraft:diorite", "minecraft:granite", "minecraft:tuff",
+  "minecraft:cobblestone", "minecraft:water", "minecraft:lava", "minecraft:coarse_dirt",
+  "minecraft:calcite", "minecraft:dripstone_block", "minecraft:clay", "minecraft:sand",
+  "minecraft:sandstone", "minecraft:grass_block", "minecraft:moss_block",
+]);
+function hollowChamber(dim, x0, y0, z0, S, H) {
+  const c = S >> 1;
+  const work = function* () {
+    for (let lx = 1; lx < S - 1; lx++) {
+      for (let lz = 1; lz < S - 1; lz++) {
+        const d = Math.hypot(lx - c, lz - c);
+        if (d > 11.4) continue;                 // inside the wall ring only
+        for (let ly = 2; ly < H - 1; ly++) {
+          let b;
+          try { b = dim.getBlock({ x: x0 + lx, y: y0 + ly, z: z0 + lz }); } catch { continue; }
+          if (b && !b.isAir && CHAMBER_FILL.has(b.typeId)) {
+            try { b.setType("minecraft:air"); } catch { }
+          }
+        }
+      }
+      yield;
+    }
+  };
+  try { system.runJob(work()); } catch { }
+}
+
+// Hang real paintings on the chamber's cardinal walls (best-effort — the engine
+// picks whatever motif fits the space; mismatched art is fine, it's the gallery
+// feel that matters). The block frescoes carry the look if this no-ops.
+function hangChamberArt(dim, x0, y0, z0, S) {
+  const c = S >> 1, y = y0 + 6;
+  // (offset toward centre, facing) for each cardinal wall
+  const spots = [
+    { x: x0 + c, z: z0 + 2, dir: "south" },
+    { x: x0 + c, z: z0 + S - 3, dir: "north" },
+    { x: x0 + 2, z: z0 + c, dir: "east" },
+    { x: x0 + S - 3, z: z0 + c, dir: "west" },
+  ];
+  for (const s of spots) {
+    try {
+      const e = dim.spawnEntity("minecraft:painting", { x: s.x + 0.5, y, z: s.z + 0.5 });
+      try { e.setProperty?.("minecraft:cardinal_direction", s.dir); } catch { }
     } catch { }
   }
 }
@@ -366,7 +438,7 @@ function guildBounds() {
 // worn paths; randomly-rendered locations keep clear of the Guild and of each
 // other so the world never overlaps two builds into one tangle.
 // ---------------------------------------------------------------------------
-function layPath(dim, x, z, mat = "minecraft:grass_path") {
+function layPath(dim, x, z, mat = "minecraft:dirt_path") {
   const gy = groundY(dim, x, z);
   if (gy === null) return;
   try {
@@ -1493,7 +1565,6 @@ function questBoard(p) {
         P.setJ(p, "fc_quest", { id: q.id, progress: q.objectives.map(() => 0) });
         p.playSound("random.orb");
         p.sendMessage(`§e✦ Quest accepted: ${q.name}`);
-        if (q.id === "join_guild") placeGuildNear(p);
       });
   });
 }
@@ -1525,7 +1596,7 @@ function questMenu(p) {
 }
 
 function completeQuest(p, q) {
-  for (const o of q.objectives) if (o.type === "collect" && o.item !== "fc:guild_seal") removeItem(p, o.item, o.count);
+  for (const o of q.objectives) if (o.type === "collect") removeItem(p, o.item, o.count);
   const rw = q.rewards;
   if (rw.gold) giveItem(p, "fc:gold_coin", Math.min(64, Math.max(1, Math.round(rw.gold / 100))));
   for (const it of rw.items ?? []) giveItem(p, it.id, it.count);
@@ -1632,6 +1703,45 @@ function doorPersona(door) {
     door.setDynamicProperty("fc_door_idx", idx);
   }
   return DATA.demonDoors[idx];
+}
+
+// Summon the living Demon-Door face at an arch if one isn't already there, and
+// turn it to face the approach. Idempotent: re-running is a no-op while the
+// door exists, but it re-spawns one that failed to spawn (chunk timing) or was
+// somehow lost — so a carved arch never reads as a blank wall.
+function ensureDemonDoor(dim, loc, facingZ) {
+  let present;
+  try {
+    present = dim.getEntities({ location: loc, maxDistance: 4, type: "fc:demon_door" }).length > 0;
+  } catch { return; }   // chunk not ready — the sweep will retry
+  if (present) return;
+  const door = trySpawn(dim, "fc:demon_door", loc);
+  if (!door) return;
+  try { door.teleport(loc, { facingLocation: { x: loc.x, y: loc.y + 1, z: facingZ } }); } catch { }
+  try { doorPersona(door); } catch { }
+}
+
+// Remember every standalone Demon-Door arch we render so the periodic sweep can
+// keep its face present even if the first spawn missed or the chunk reloaded.
+function recordDemonDoor(loc, faceZ) {
+  let arr;
+  try { arr = JSON.parse(world.getDynamicProperty("fc_doors") ?? "[]"); } catch { arr = []; }
+  arr.push({ x: loc.x, y: loc.y, z: loc.z, f: faceZ });
+  if (arr.length > 64) arr = arr.slice(-64);
+  world.setDynamicProperty("fc_doors", JSON.stringify(arr));
+}
+
+function ensureAllDemonDoors(dim) {
+  const doors = [];
+  const g = world.getDynamicProperty("fc_guild_door");
+  if (g) { try { const d = JSON.parse(g); doors.push({ x: d.x, y: d.y, z: d.z, f: d.z - 14 }); } catch { } }
+  try { for (const d of JSON.parse(world.getDynamicProperty("fc_doors") ?? "[]")) doors.push(d); } catch { }
+  const players = world.getPlayers();
+  for (const d of doors) {
+    const near = players.some((p) => p.dimension.id === dim.id
+      && Math.hypot(p.location.x - d.x, p.location.z - d.z) < 80);
+    if (near) ensureDemonDoor(dim, { x: d.x, y: d.y, z: d.z }, d.f);
+  }
 }
 
 function demonDoorTalk(p, door) {
@@ -2425,7 +2535,6 @@ function fillLootChests(dim, x0, y0, z0, w, h, d, themeId) {
 // footprint has no solid ground beneath it (e.g. open water) — callers
 // should skip placement in that case.
 function sampleGroundY(dim, x0, z0, w, d) {
-function sampleGroundY(dim, x0, z0, w, d, allowLiquid = false) {
   const pts = [
     [x0 + 1, z0 + 1], [x0 + w - 2, z0 + 1], [x0 + 1, z0 + d - 2],
     [x0 + w - 2, z0 + d - 2], [x0 + Math.floor(w / 2), z0 + Math.floor(d / 2)],
@@ -2433,7 +2542,6 @@ function sampleGroundY(dim, x0, z0, w, d, allowLiquid = false) {
   const ys = [];
   for (const [x, z] of pts) {
     const y = groundY(dim, x, z);
-    const y = groundY(dim, x, z, allowLiquid);
     if (y !== null) ys.push(y);
   }
   if (ys.length < 3) return null;
@@ -2470,6 +2578,89 @@ function* foundationColumn(dim, x, yTop, z) {
   }
 }
 
+// Feather the plinth into the surrounding land. blendTerrain only fills the
+// void *under* a build; on sloping ground that leaves the lawn ending in a
+// sheer rectangular cliff (the "floating slab" look). skirtTerrain rings the
+// footprint with a GENTLE, organic earthen bank — the step boundary is jittered
+// so it never reads as a square terrace, the grade is shallow (~1 down per 1.6
+// out), and grass caps are softened with tufts — so each site melts into the
+// hillside it grew from instead of perching on a dropped slab.
+function skirtTerrain(dim, x0, y0, z0, w, d, R) {
+  const { cap, sub } = skirtBiome(dim, x0, z0, w, d, R);
+  const work = function* () {
+    for (let x = x0 - R; x < x0 + w + R; x++) {
+      for (let z = z0 - R; z < z0 + d + R; z++) {
+        const ox = x < x0 ? x0 - x : (x >= x0 + w ? x - (x0 + w - 1) : 0);
+        const oz = z < z0 ? z0 - z : (z >= z0 + d ? z - (z0 + d - 1) : 0);
+        const out = Math.max(ox, oz);
+        if (out === 0) continue;          // inside the footprint — leave it
+        // jitter the contour and ease the grade so the bank looks natural
+        const j = hash2(x * 2 + 7, z * 2 + 3) * 2.4;
+        const step = Math.max(0, Math.round((out - j) / 1.6));
+        skirtColumn(dim, x, z, y0, y0 - step, cap, sub);
+        yield;
+      }
+    }
+  };
+  try { system.runJob(work()); } catch { }
+}
+
+// Choose the skirt's surface material from the untouched land just outside the
+// footprint, so the ramp wears snow on snow, sand on sand, etc.
+function skirtBiome(dim, x0, z0, w, d, R) {
+  const pts = [
+    [x0 + (w >> 1), z0 - R - 3], [x0 + (w >> 1), z0 + d + R + 2],
+    [x0 - R - 3, z0 + (d >> 1)], [x0 + w + R + 2, z0 + (d >> 1)],
+    [x0 - R - 3, z0 - R - 3], [x0 + w + R + 2, z0 + d + R + 2],
+  ];
+  const tally = {};
+  for (const [px, pz] of pts) {
+    const gy = groundY(dim, px, pz);
+    if (gy === null) continue;
+    let t = "";
+    try { t = dim.getBlock({ x: px, y: gy - 1, z: pz })?.typeId ?? ""; } catch { }
+    let k = "grass";
+    if (t.includes("snow") || t.includes("ice")) k = "snow";
+    else if (t.includes("sand")) k = "sand";
+    else if (t.includes("stone") || t.includes("deepslate") || t.includes("gravel")
+      || t.includes("andesite") || t.includes("diorite") || t.includes("granite")
+      || t.includes("tuff") || t.includes("calcite")) k = "rock";
+    tally[k] = (tally[k] ?? 0) + 1;
+  }
+  let best = "grass", n = -1;
+  for (const k in tally) if (tally[k] > n) { n = tally[k]; best = k; }
+  return ({
+    snow: { cap: "minecraft:snow", sub: "minecraft:dirt" },
+    sand: { cap: "minecraft:sand", sub: "minecraft:sandstone" },
+    rock: { cap: "minecraft:stone", sub: "minecraft:stone" },
+    grass: { cap: "minecraft:grass_block", sub: "minecraft:dirt" },
+  })[best];
+}
+
+function skirtColumn(dim, x, z, yPlinth, targetTop, cap, sub) {
+  const gy = groundY(dim, x, z);
+  if (gy === null) return;                 // open water / unloaded — skip
+  const natTop = gy - 1;                    // highest natural solid block here
+  if (natTop > targetTop) return;           // a real hill rises here — leave it
+  for (let y = natTop + 1; y < targetTop; y++) skirtSet(dim, x, y, z, sub);
+  skirtSet(dim, x, targetTop, z, cap);
+  // shave any exposed foundation wall / plinth overhang above the bank
+  for (let y = targetTop + 1; y <= yPlinth + 1; y++) {
+    try { const b = dim.getBlock({ x, y, z }); if (b && !b.isAir) b.setType("minecraft:air"); } catch { }
+  }
+  // soften grassy banks with the odd tuft of grass or fern
+  if (cap === "minecraft:grass_block" && hash2(x * 5 + 1, z * 5 + 9) < 0.16) {
+    try {
+      const t = dim.getBlock({ x, y: targetTop + 1, z });
+      if (t && t.isAir) t.setType(hash2(x, z) < 0.5 ? "minecraft:tallgrass" : "minecraft:fern");
+    } catch { }
+  }
+}
+
+function skirtSet(dim, x, y, z, id) {
+  try { const b = dim.getBlock({ x, y, z }); if (b && (b.isAir || b.isLiquid || b.typeId !== id)) b.setType(id); } catch { }
+}
+
 function hash2(x, z) {
   let h = (x * 374761393 + z * 668265263) ^ 1407;
   h = (h ^ (h >> 13)) * 1274126177;
@@ -2501,8 +2692,8 @@ function surfaceCategory(dim, x, z) {
 // site bleeds naturally into the surrounding terrain
 const THEME_DECOR = {
   forest: ["minecraft:fern", "minecraft:mossy_cobblestone", "minecraft:tallgrass", "minecraft:oak_leaves"],
-  village: ["minecraft:poppy", "minecraft:oxeye_daisy", "minecraft:grass_path", "minecraft:cornflower"],
-  farm: ["minecraft:hay_block", "minecraft:poppy", "minecraft:oxeye_daisy", "minecraft:grass_path"],
+  village: ["minecraft:poppy", "minecraft:oxeye_daisy", "minecraft:dirt_path", "minecraft:cornflower"],
+  farm: ["minecraft:hay_block", "minecraft:poppy", "minecraft:oxeye_daisy", "minecraft:dirt_path"],
   dark: ["minecraft:deadbush", "minecraft:brown_mushroom", "minecraft:soul_torch", "minecraft:mossy_cobblestone"],
   snow: ["minecraft:snow_layer", "minecraft:snow_layer", "minecraft:spruce_fence", "minecraft:lantern"],
   holy: ["minecraft:oxeye_daisy", "minecraft:white_candle", "minecraft:smooth_quartz", "minecraft:cornflower"],
@@ -2526,7 +2717,7 @@ function dressSurroundings(dim, x0, y0, z0, w, theme) {
         const slot = dim.getBlock({ x: px, y: py, z: pz });
         if (!ground || !slot || !slot.isAir || ground.isLiquid) { yield; continue; }
         const id = deco[Math.floor(Math.random() * deco.length)];
-        if (id === "minecraft:grass_path") ground.setType(id);
+        if (id === "minecraft:dirt_path") ground.setType(id);
         else slot.setType(id);
       } catch { }
       yield;
@@ -2537,16 +2728,21 @@ function dressSurroundings(dim, x0, y0, z0, w, theme) {
 
 system.runInterval(() => {
   for (const p of world.getPlayers()) {
-    if (!world.getDynamicProperty("fc_guild_placed")) placeGuildNear(p);
-    else if (!world.getDynamicProperty("fc_guild_chamber_placed")) placeGuildAnnexes(p.dimension);
-    if (!P.get(p, "fc_at_guild", false)) placeGuildNear(p);
-    if (world.getDynamicProperty("fc_guild_placed") && !world.getDynamicProperty("fc_guild_chamber_placed")) placeGuildAnnexes(p.dimension);
-    const rx = Math.floor(p.location.x / REGION), rz = Math.floor(p.location.z / REGION);
-    for (let dx = -1; dx <= 1; dx++) {
-      for (let dz = -1; dz <= 1; dz++) {
-        maybePlace(p, rx + dx, rz + dz);
+    // Guild placement comes FIRST and is isolated: a failure anywhere else in
+    // this sweep (doors, world structures) must never stop the Guild spawning.
+    try {
+      if (!world.getDynamicProperty("fc_guild_placed")) placeGuildNear(p);
+      else if (!world.getDynamicProperty("fc_guild_chamber_placed")) placeGuildAnnexes(p.dimension);
+    } catch { }
+    try { ensureAllDemonDoors(p.dimension); } catch { }   // keep every carved arch wearing its face
+    try {
+      const rx = Math.floor(p.location.x / REGION), rz = Math.floor(p.location.z / REGION);
+      for (let dx = -1; dx <= 1; dx++) {
+        for (let dz = -1; dz <= 1; dz++) {
+          maybePlace(p, rx + dx, rz + dz);
+        }
       }
-    }
+    } catch { }
   }
 }, 80);
 
@@ -2595,8 +2791,9 @@ function maybePlace(p, rx, rz) {
     world.setDynamicProperty(key, 1);
     recordPlace(x, z, pick.w, pick.id, pick.theme);
     if (pick.door) {
-      const door = trySpawn(dim, "fc:demon_door", { x: x + 11.5, y: y, z: z + 4.6 });
-      if (door) doorPersona(door);
+      const doorLoc = { x: x + 11.5, y: y, z: z + 4.6 };
+      recordDemonDoor(doorLoc, z - 6);   // faces the approach (lower z)
+      ensureDemonDoor(dim, doorLoc, z - 6);
     }
     if (pick.cullis) registerCullis(`Focus Site ${rx},${rz}`, { x: x + 6.5, y, z: z + 6.5 });
     for (const mtype of pick.mobs ?? []) {
@@ -2607,6 +2804,7 @@ function maybePlace(p, rx, rz) {
     }
     fillLootChests(dim, x, y - 1, z, pick.w, 28, pick.w, pick.id);
     blendTerrain(dim, x, y - 1, z, pick.w, pick.w);
+    skirtTerrain(dim, x, y - 1, z, pick.w, pick.w, 6);
     dressSurroundings(dim, x, y - 1, z, pick.w, pick.theme);
   } catch { /* chunk edge; try next sweep */ }
 }

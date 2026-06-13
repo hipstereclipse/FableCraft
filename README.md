@@ -16,7 +16,7 @@ Development costs have started to rise, and I want to keep improving this projec
 
 | | | | | | | | | |
 |---|---|---|---|---|---|---|---|---|
-| **45** creatures | **185** items | **122** recipes | **17** Will powers | **14** quests | **8** Demon Doors | **9** structures | **5** factions | **7** sounds |
+| **45** creatures | **185** items | **130** recipes | **17** Will powers | **14** quests | **8** Demon Doors | **9** structures | **5** factions | **261** sounds |
 
 ---
 
@@ -86,7 +86,7 @@ Weapons follow classic patterns (longswords, katanas, cleavers, axes, maces, pic
 
 ### Crafting in Action
 
-122 recipes cover every outfit, weapon and tool — fold steel from iron and coal, smelt obsidian ingots from obsidian, quench Master ingots in Will Shards mined from azurite ore.
+130 recipes cover every outfit, weapon and tool — fold steel from iron and coal, smelt obsidian ingots from obsidian, quench Master ingots in Will Shards mined from azurite ore.
 
 ![Crafting Progression](screenshots/docs/06_master_katana_recipe.png)
 ![The Forge of Albion](screenshots/gallery/forge.png)
@@ -99,7 +99,7 @@ Weapons follow classic patterns (longswords, katanas, cleavers, axes, maces, pic
 ![Forge Armour Recipes](screenshots/gallery/forge_armor.png)
 ![Forge Components and Augments Recipes](screenshots/gallery/forge_systems.png)
 
-All 122 recipe diagrams live in [screenshots/recipes](screenshots/recipes).
+All 130 recipe diagrams live in [screenshots/recipes](screenshots/recipes).
 
 ### Legendary Arsenal & Augments
 
@@ -217,7 +217,7 @@ python -m venv .venv
 | [scripts/fc_mobs.py](scripts/fc_mobs.py) | Mob roster, body-plan geometry, UV packing |
 | [scripts/gen_item_textures.py](scripts/gen_item_textures.py) | Paints all 185 item icons + the azurite ore block |
 | [scripts/gen_entity_textures.py](scripts/gen_entity_textures.py) | Paints entity skins + worn-armour layer textures |
-| [scripts/gen_behavior.py](scripts/gen_behavior.py) | Emits BP items/entities/loot/spawn rules/**122 recipes**/ore features |
+| [scripts/gen_behavior.py](scripts/gen_behavior.py) | Emits BP items/entities/loot/spawn rules/**130 recipes**/ore features |
 | [scripts/gen_resources.py](scripts/gen_resources.py) | Emits RP geometry, client entities, animation controllers, **armour attachables**, lang |
 | [scripts/gen_structures.py](scripts/gen_structures.py) | Builds `.mcstructure` NBT for all nine sites |
 | [scripts/gen_sounds.py](scripts/gen_sounds.py) | Synthesizes the soundscape from raw math |
@@ -227,7 +227,7 @@ python -m venv .venv
 
 Gameplay logic lives in [packs/Fablecraft_BP/scripts/main.js](packs/Fablecraft_BP/scripts/main.js) — XP, morality, multiplier, 17 spells, quests, Demon Door dialogue, faction reputation, Cullis Gate travel, structure loot chests, terrain blending, NPC conversations, shops, world decoration and the two-phase Jack of Blades fight.
 
-The generated sound library includes creature voices, NPC speech, item handling, ambience, combat cues and spell/UI sounds; audition the full procedural set in [sound_preview/index.html](sound_preview/index.html).
+The generated sound library spans **261 distinct sounds** (532 synthesized `.wav` files in all) — creature voices, NPC speech, item handling, ambience, combat cues and spell/UI sounds; audition the full procedural set in [sound_preview/index.html](sound_preview/index.html).
 
 ![Synthesized Sound Design](screenshots/docs/19_sound_files_overview.png)
 

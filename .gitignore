@@ -9,6 +9,12 @@ Thumbs.db
 scripts/.cache/
 Fablecraft Reforged.zip
 
+# Node / lint dev tooling (not part of the addon)
+node_modules/
+package.json
+package-lock.json
+.eslintrc.json
+
 # Dead remnants of the abandoned Java/Gradle prototype
 src/
 gradle/

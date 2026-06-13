@@ -404,10 +404,13 @@ def emit_terrain_atlas():
     })
 
 
+# NOTE: the vanilla worn-armor geometries are helmet / chestplate / leggings /
+# boots. Using "chest"/"legs" silently fails to bind, so the chestplate and
+# leggings render invisible while the (correctly-named) helmet and boots show.
 ARMOR_GEO = {
     "helm": ("geometry.humanoid.armor.helmet", "variable.helmet_layer_visible", 1),
-    "torso": ("geometry.humanoid.armor.chest", "variable.chest_layer_visible", 1),
-    "legs": ("geometry.humanoid.armor.legs", "variable.leg_layer_visible", 2),
+    "torso": ("geometry.humanoid.armor.chestplate", "variable.chest_layer_visible", 1),
+    "legs": ("geometry.humanoid.armor.leggings", "variable.leg_layer_visible", 2),
     "boots": ("geometry.humanoid.armor.boots", "variable.boot_layer_visible", 1),
 }
 

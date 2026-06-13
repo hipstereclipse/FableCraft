@@ -429,6 +429,24 @@ BLOCK_COLORS = {
     "minecraft:mud_bricks": (140, 110, 86), "minecraft:enchanting_table": (60, 40, 70),
     "minecraft:oak_planks": (162, 130, 78), "minecraft:packed_ice": (148, 192, 232),
     "minecraft:seagrass": (66, 124, 70),
+    # --- warm Fable-Guild stone + trim ---
+    "minecraft:smooth_sandstone": (216, 200, 156), "minecraft:cut_sandstone": (212, 196, 152),
+    "minecraft:chiseled_sandstone": (210, 194, 150), "minecraft:sandstone_wall": (208, 192, 148),
+    "minecraft:sandstone_stairs": (208, 192, 148), "minecraft:smooth_sandstone_stairs": (216, 200, 156),
+    "minecraft:bricks": (150, 84, 66), "minecraft:smooth_stone": (158, 158, 158),
+    "minecraft:smooth_stone_slab": (158, 158, 158), "minecraft:stone_brick_slab": (124, 120, 116),
+    "minecraft:stone_brick_stairs": (124, 120, 116), "minecraft:sandstone_slab": (208, 192, 148),
+    "minecraft:oak_stairs": (162, 130, 78), "minecraft:spruce_stairs": (114, 84, 50),
+    "minecraft:dark_oak_stairs": (78, 56, 34), "minecraft:cobblestone_stairs": (108, 106, 104),
+    "minecraft:oak_slab": (162, 130, 78), "minecraft:spruce_slab": (114, 84, 50),
+    "minecraft:red_carpet": (160, 48, 44), "minecraft:dark_oak_trapdoor": (70, 50, 30),
+    "minecraft:green_stained_glass": (70, 170, 70), "minecraft:green_stained_glass_pane": (70, 170, 70),
+    "minecraft:lime_stained_glass": (110, 200, 80), "minecraft:ladder": (140, 108, 60),
+    "minecraft:flower_pot": (150, 96, 70), "minecraft:cartography_table": (110, 92, 80),
+    "minecraft:loom": (150, 120, 80), "minecraft:smoker": (96, 90, 84),
+    "minecraft:anvil": (70, 70, 74), "minecraft:furnace": (96, 94, 92),
+    "minecraft:bell": (240, 200, 90), "minecraft:chiseled_bookshelf": (150, 118, 70),
+    "minecraft:candle": (240, 234, 220),
 }
 
 GLOW_BLOCKS = {"minecraft:lantern", "minecraft:soul_lantern", "minecraft:sea_lantern",
@@ -997,7 +1015,7 @@ def main():
     GS.Vox.save = orig_save
     STRUCT_LABELS = {
         "demon_door_arch": ("Demon Door", "Carved arch · dialogue-locked vault", "dark"),
-        "guild_hall": ("Heroes' Guild", "Map Room · dormitories · training", "holy"),
+        "guild_hall": ("Heroes' Guild", "Domed Map Room · Cullis Gate · Maze's spiral tower", "holy"),
         "chamber_of_fate": ("Chamber of Fate", "Domed fresco hall · central dais", "royal"),
         "oakvale_village": ("Oakvale", "Thatched green · wheat field · quay", "forest"),
         "bowerstone_market": ("Bowerstone Market", "Urban bridge district · walled square", "stone"),

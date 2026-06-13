@@ -1054,10 +1054,15 @@ def paint_armor_set_layers(set_rec):
     _box_region(p1, 40, 16, 4, 12, 4, shade(base, 0.95)[:3], style, r)
     for xx in range(44, 48):
         p1.px(xx, 27, trim)      # cuff
-    # boots: leg box at (0,16) 4x12x4 — geometry shows feet only
+    # boots: leg box at (0,16) 4x12x4. The vanilla boots geometry renders the
+    # WHOLE leg, so only the lower portion may be opaque — if the upper leg is
+    # painted, the "boots" read as full leggings/pants on the player. Paint the
+    # box, then wipe the upper-leg faces so just the boot (rows 27..31) remains.
     _box_region(p1, 0, 16, 4, 12, 4, shade(base, 0.85)[:3], style, r)
-    for xx in range(4, 8):
-        p1.px(xx, 26, trim)
+    _clear(p1, 0, 20, 16, 7)   # upper-leg side faces (keep the lower boot only)
+    _clear(p1, 4, 16, 4, 4)    # the leg's top cross-section (hidden in the body)
+    for xx in range(0, 16):
+        p1.px(xx, 27, trim)    # cuff line along the top of the boot
     p1.save(ARMOR_OUT / f"fc_{set_rec['id']}_layer_1.png")
 
     # ---- layer 2 (leggings) ----

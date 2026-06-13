@@ -273,29 +273,29 @@ Grades: S (≥90) A (≥75) B (≥60) C (≥45) D (<45)
 | Asset | Grade | Score | Coverage % | Colours | Contrast | Brightness | Notes |
 |---|---|---|---|---|---|---|---|
 | Demon Door | **S** | 100 | 27.0 | 45 | 0.9 | 0.37 | — |
-| Heroes' Guild | **S** | 100 | 14.7 | 60 | 0.94 | 0.35 | — |
-| Chamber of Fate | **S** | 100 | 29.8 | 21 | 0.84 | 0.37 | — |
-| Oakvale | **S** | 100 | 11.3 | 53 | 0.83 | 0.53 | — |
+| Heroes' Guild | **S** | 100 | 11.8 | 80 | 0.94 | 0.51 | — |
+| Chamber of Fate | **S** | 100 | 32.6 | 20 | 0.84 | 0.36 | — |
+| Oakvale | **S** | 100 | 11.3 | 54 | 0.83 | 0.53 | — |
 | Bowerstone Market | **S** | 100 | 14.1 | 40 | 0.89 | 0.37 | — |
 | Knothole Glade | **S** | 100 | 12.7 | 46 | 0.87 | 0.35 | — |
 | Hook Coast | **S** | 100 | 12.9 | 39 | 0.9 | 0.66 | — |
 | Silver Key Ruin | **S** | 100 | 13.9 | 33 | 0.78 | 0.4 | — |
 | Focus Site | **S** | 100 | 24.5 | 23 | 0.94 | 0.47 | — |
-| Guild Courtyard | **S** | 100 | 12.2 | 42 | 0.94 | 0.48 | — |
+| Guild Courtyard | **S** | 100 | 12.2 | 42 | 0.94 | 0.49 | — |
 | Oakvale Quay | **S** | 100 | 12.2 | 37 | 0.82 | 0.47 | — |
 | Snowspire Oracle | **S** | 100 | 14.0 | 29 | 0.94 | 0.53 | — |
 | Necropolis Ruin | **S** | 100 | 12.5 | 31 | 0.94 | 0.37 | — |
-| Bandit Camp | **S** | 100 | 22.3 | 37 | 0.92 | 0.27 | — |
+| Bandit Camp | **S** | 100 | 22.3 | 38 | 0.92 | 0.28 | — |
 | Lychfield Graveyard | **S** | 100 | 13.7 | 35 | 0.89 | 0.36 | — |
 | The Arena | **S** | 100 | 27.1 | 32 | 0.83 | 0.44 | — |
 | Lookout Point | **S** | 100 | 11.9 | 32 | 0.79 | 0.5 | — |
-| Orchard Farm | **S** | 100 | 12.3 | 42 | 0.83 | 0.45 | — |
+| Orchard Farm | **S** | 100 | 12.3 | 43 | 0.83 | 0.45 | — |
 | Fisher Creek | **S** | 100 | 11.5 | 33 | 0.84 | 0.44 | — |
 | Rose Cottage | **S** | 100 | 11.8 | 33 | 0.85 | 0.45 | — |
 | Witchwood Stones | **S** | 100 | 12.0 | 38 | 0.89 | 0.35 | — |
 | Darkwood Camp | **S** | 100 | 11.9 | 28 | 0.89 | 0.36 | — |
 | Hobbe Cave | **S** | 100 | 13.6 | 34 | 0.8 | 0.42 | — |
-| Windmill Hill | **S** | 100 | 15.1 | 29 | 0.88 | 0.46 | — |
+| Windmill Hill | **S** | 100 | 15.1 | 30 | 0.88 | 0.46 | — |
 | Temple of Avo | **S** | 92 | 22.9 | 15 | 0.72 | 0.78 | — |
 | Chapel of Skorm | **S** | 92 | 23.2 | 16 | 0.88 | 0.17 | — |
 
