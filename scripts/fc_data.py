@@ -528,6 +528,13 @@ FACTIONS = {
 # ---------------------------------------------------------------------------
 
 QUESTS = [
+    {"id": "join_guild", "name": "Join the Heroes' Guild", "chain": "main", "order": 0,
+     "giver": "Guildmaster", "renown": 10,
+     "desc": "The Guildmaster has invited you to join the Heroes' Guild. Begin your training.",
+     "objectives": [{"type": "collect", "item": "fc:guild_seal", "count": 1, "label": "Show your Guild Seal"}],
+     "rewards": {"gold": 100, "xp": {"general": 50}, "morality": 0,
+                 "items": []},
+     "next": "wasp_menace"},
     {"id": "wasp_menace", "name": "The Wasp Menace", "chain": "main", "order": 1,
      "giver": "Guildmaster", "renown": 100,
      "desc": "Wasps swarm the picnic grounds. Slay the Wasp Queen before lunch is ruined forever.",

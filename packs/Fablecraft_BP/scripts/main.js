@@ -218,136 +218,114 @@ function initHero(p) {
   p.sendMessage("§6═══ The Guildmaster ═══");
   p.sendMessage("§f\"Ah, the new apprentice wakes. Your §eGuild Seal§f opens the Hero menu. Use a §eQuest Card§f to begin your training. Albion is watching, little sparrow.\"");
   ensureDryLanding(p);
-  placeGuildNear(p);
-  setGuildSpawn(p);
 }
 
 function placeGuildNear(p) {
   if (world.getDynamicProperty("fc_guild_placed")) return;
+  const isPlaced = world.getDynamicProperty("fc_guild_placed");
+  const guildLocS = world.getDynamicProperty("fc_guild_loc");
+
+  if (isPlaced && guildLocS) {
+    // Guild already founded. Ensure player is sent there if they haven't been.
+    if (!P.get(p, "fc_at_guild", false)) {
+      try {
+        const loc = JSON.parse(guildLocS);
+        p.teleport({ x: loc.x + 0.5, y: loc.y + 1, z: loc.z + 0.5 },
+          { facingLocation: { x: loc.x + 0.5, y: loc.y + 2, z: loc.z + 14 } });
+        P.set(p, "fc_at_guild", true);
+        setGuildSpawn(p);
+        p.onScreenDisplay.setTitle("§6Fablecraft", { fadeInDuration: 10, stayDuration: 70, fadeOutDuration: 20, subtitle: "§eReforged — Welcome to Albion" });
+        p.sendMessage("§6═══ The Guildmaster ═══");
+        p.sendMessage("§f\"Ah, the new apprentice wakes. Your §eGuild Seal§f opens the Hero menu. Use a §eQuest Card§f to begin your training. Albion is watching, little sparrow.\"");
+      } catch { }
+    }
+    return;
+  }
+
   const dim = p.dimension;
   const base = { x: Math.floor(p.location.x) + 16, y: 0, z: Math.floor(p.location.z) + 16 };
-  const y = sampleGroundY(dim, base.x, base.z, 45, 41);
+  // Be lenient with ground sampling for the initial Guild placement (allow liquid).
+  const y = sampleGroundY(dim, base.x, base.z, 92, 100, true);
   if (y === null) return;
+  
+  p.onScreenDisplay.setTitle("§6Founding Guild...", { fadeInDuration: 0, stayDuration: 200, fadeOutDuration: 0, subtitle: "§ePlease wait..." });
+  
+  system.runTimeout(() => {
   try {
+    // The Heroes' Guild is ONE connected 92x30x100 structure on a single floor
+    // level. The heart is the domed Map Room rotunda at local (34,44); the
+    // Cullis Gate glows in its LEFT/west alcove (21,44) and the green Skill
+    // portal in its RIGHT/east alcove (47,44). The pillared nave runs south to
+    // the gatehouse; the Dining Hall lies east; the two-storey Library runs
+    // north to the Guild-Cave door; Maze's Tower spire stands NE (study floor
+    // at local y+15). The Hero wakes on the crimson runner at (34,~30).
     world.structureManager.place("fc:guild_hall", dim, { x: base.x, y, z: base.z });
     world.setDynamicProperty("fc_guild_placed", true);
     world.setDynamicProperty("fc_guild_base", JSON.stringify({ x: base.x, y, z: base.z }));
-    // recall point: the nave; training yard + cullis gate flank the hall
-    world.setDynamicProperty("fc_guild_loc", JSON.stringify({ x: base.x + 22, y, z: base.z + 20 }));
-    world.setDynamicProperty("fc_guild_train", JSON.stringify({ x: base.x + 38, y, z: base.z + 22 }));
-    // the Quest Table lectern at the centre of the Great Hall's nave
-    world.setDynamicProperty("fc_guild_quest_table", JSON.stringify({ x: base.x + 22, y: y + 1, z: base.z + 22 }));
-    registerCullis("Heroes' Guild", { x: base.x + 6, y: y + 1, z: base.z + 20 });
-    // Guildmaster presides over the Map Room; Maze studies by the Cullis
-    // Gate; Theresa haunts the feast hall; a trader works the forecourt.
-    trySpawn(dim, "fc:guildmaster", { x: base.x + 22, y: y + 1, z: base.z + 33 });
-    trySpawn(dim, "fc:maze", { x: base.x + 9, y: y + 1, z: base.z + 20 });
-    trySpawn(dim, "fc:theresa", { x: base.x + 30, y: y + 1, z: base.z + 20 });
-    trySpawn(dim, "fc:trader", { x: base.x + 26, y: y + 1, z: base.z + 6 });
-    trySpawn(dim, "fc:guild_apprentice_might", { x: base.x + 35, y: y + 1, z: base.z + 23 });
-    trySpawn(dim, "fc:guild_apprentice_skill", { x: base.x + 37, y: y + 1, z: base.z + 19 });
-    trySpawn(dim, "fc:guild_apprentice_will", { x: base.x + 17, y: y + 1, z: base.z + 29 });
-    // a handful more apprentices scattered around the grounds, sparring
-    // in the forecourt and studying near the feast hall
-    trySpawn(dim, "fc:guild_apprentice_might", { x: base.x + 12, y: y + 1, z: base.z + 12 });
-    trySpawn(dim, "fc:guild_apprentice_skill", { x: base.x + 33, y: y + 1, z: base.z + 8 });
-    trySpawn(dim, "fc:guild_apprentice_will", { x: base.x + 20, y: y + 1, z: base.z + 35 });
-    trySpawn(dim, "fc:guild_apprentice_might", { x: base.x + 8, y: y + 1, z: base.z + 33 });
-    fillLootChests(dim, base.x, y, base.z, 45, 26, 41, "fc:guild_hall");
-    blendTerrain(dim, base.x, y, base.z, 45, 41);
-    dressSurroundings(dim, base.x, y, base.z, 45, "holy");
+    // recall/wake point: the crimson runner in the nave, just inside the south
+    // doors, dry and well clear of the Map Room relief (never water/blocks)
+    world.setDynamicProperty("fc_guild_loc", JSON.stringify({ x: base.x + 34, y, z: base.z + 30 }));
+    // training happens at the green Skill portal to the RIGHT of the Map Room
+    world.setDynamicProperty("fc_guild_train", JSON.stringify({ x: base.x + 47, y, z: base.z + 44 }));
+    world.setDynamicProperty("fc_guild_skill", JSON.stringify({ x: base.x + 47, y, z: base.z + 44 }));
+    // the Quest lectern at the south edge of the rotunda's Map relief
+    world.setDynamicProperty("fc_guild_quest_table", JSON.stringify({ x: base.x + 34, y: y + 1, z: base.z + 40 }));
+    // the Cullis Gate beacon core in its LEFT/west alcove — the warded portal
+    // home from across Albion
+    registerCullis("Heroes' Guild", { x: base.x + 21, y: y + 1, z: base.z + 44 });
+    // Guildmaster greets arrivals before the Map Room; Maze keeps his study
+    // atop his spiral-stair tower (solid floor at local y+15, he stands at +16);
+    // Theresa reads in the Library; a trader works the Guild Shop.
+    trySpawn(dim, "fc:guildmaster", { x: base.x + 34, y: y + 1, z: base.z + 38 });
+    trySpawn(dim, "fc:maze", { x: base.x + 61, y: y + 16, z: base.z + 83 });
+    trySpawn(dim, "fc:theresa", { x: base.x + 31, y: y + 1, z: base.z + 58 });
+    trySpawn(dim, "fc:trader", { x: base.x + 22, y: y + 1, z: base.z + 31 });
+    // apprentices at work: Strength sparring in the forecourt, Will among the
+    // Library shelves, Skill by the green portal and at the gate
+    trySpawn(dim, "fc:guild_apprentice_might", { x: base.x + 28, y: y + 1, z: base.z + 18 });
+    trySpawn(dim, "fc:guild_apprentice_might", { x: base.x + 40, y: y + 1, z: base.z + 16 });
+    trySpawn(dim, "fc:guild_apprentice_skill", { x: base.x + 48, y: y + 1, z: base.z + 46 });
+    trySpawn(dim, "fc:guild_apprentice_skill", { x: base.x + 40, y: y + 1, z: base.z + 12 });
+    trySpawn(dim, "fc:guild_apprentice_will", { x: base.x + 24, y: y + 1, z: base.z + 62 });
+    trySpawn(dim, "fc:guild_apprentice_will", { x: base.x + 44, y: y + 1, z: base.z + 62 });
+    fillLootChests(dim, base.x, y, base.z, 92, 30, 100, "fc:guild_hall");
+    blendTerrain(dim, base.x, y, base.z, 92, 100);
+    dressSurroundings(dim, base.x, y, base.z, 92, "holy");
     placeGuildAnnexes(dim);
-    // wake the new Hero inside the Guild forecourt
+    // wake the new Hero on the dry crimson runner, facing north to the Map Room
     system.runTimeout(() => {
       try {
-        p.teleport({ x: base.x + 22.5, y: y + 1, z: base.z + 6.5 },
-          { facingLocation: { x: base.x + 22.5, y: y + 2, z: base.z + 20 } });
-        p.sendMessage("§6⚔ You awaken at the Heroes' Guild. The Cullis Gate hums in the west yard; the Training Grounds wait in the east.");
+        p.teleport({ x: base.x + 34.5, y: y + 1, z: base.z + 30.5 },
+          { facingLocation: { x: base.x + 34.5, y: y + 2, z: base.z + 44 } });
+        P.set(p, "fc_at_guild", true);
+        setGuildSpawn(p);
+        p.onScreenDisplay.setTitle("§6Fablecraft", { fadeInDuration: 10, stayDuration: 70, fadeOutDuration: 20, subtitle: "§eReforged — Welcome to Albion" });
+        p.sendMessage("§6═══ The Guildmaster ═══");
+        p.sendMessage("§f\"Ah, the new apprentice wakes. Your §eGuild Seal§f opens the Hero menu. Use a §eQuest Card§f to begin your training. Albion is watching, little sparrow.\"");
+        p.sendMessage("§6⚔ You awaken in the Heroes' Guild. The §bCullis Gate§6 glows to the left of the Map Room; the §aSkill portal§6 waits to its right.");
       } catch { }
     }, 10);
   } catch { /* chunk not ready; retried by the structure sweep */ }
+  }, 5);
 }
 
-// The Guild is a one-time composite: the hall above, the courtyard approach
-// before its gate, and the Chamber of Fate buried beneath. Each piece keeps
-// its own flag so chunk-edge failures retry on later sweeps.
+// The Guild hall itself is a single connected structure placed by
+// placeGuildNear. The only remaining annex is the Chamber of Fate, buried far
+// beneath the hall; it keeps its own flag so chunk-edge failures retry later.
 function placeGuildAnnexes(dim) {
   const raw = world.getDynamicProperty("fc_guild_base");
   if (!raw) return;
   let base;
   try { base = JSON.parse(raw); } catch { return; }
-  if (!world.getDynamicProperty("fc_guild_court_placed")) {
-    // courtyard centred on the gate axis, just south of the perimeter wall
-    const cx0 = base.x + 9, cz0 = base.z - 28;
-    const cy = sampleGroundY(dim, cx0, cz0, 27, 27);
-    if (cy !== null) {
-      try {
-        world.structureManager.place("fc:power_guild_courtyard", dim, { x: cx0, y: cy - 1, z: cz0 });
-        world.setDynamicProperty("fc_guild_court_placed", true);
-        fillLootChests(dim, cx0, cy - 1, cz0, 27, 13, 27, "fc:power_guild_courtyard");
-        blendTerrain(dim, cx0, cy - 1, cz0, 27, 27);
-        dressSurroundings(dim, cx0, cy - 1, cz0, 27, "holy");
-        // apprentices drilling in the training courtyard
-        trySpawn(dim, "fc:guild_apprentice_might", { x: cx0 + 6, y: cy, z: cz0 + 20 });
-        trySpawn(dim, "fc:guild_apprentice_skill", { x: cx0 + 20, y: cy, z: cz0 + 6 });
-        trySpawn(dim, "fc:guild_apprentice_will", { x: cx0 + 13, y: cy, z: cz0 + 13 });
-      } catch { }
-    }
-  }
   if (!world.getDynamicProperty("fc_guild_chamber_placed")) {
-    // the Chamber of Fate sleeps beneath the hall
-    const chx = base.x + 7, chy = base.y - 22, chz = base.z + 5;
+    // the Chamber of Fate sleeps far beneath the Map Room rotunda
+    const chx = base.x + 19, chy = base.y - 22, chz = base.z + 29;
     try {
       world.structureManager.place("fc:chamber_of_fate", dim, { x: chx, y: chy, z: chz });
       world.setDynamicProperty("fc_guild_chamber_placed", true);
       registerCullis("Chamber of Fate", { x: chx + 15.5, y: chy + 3, z: chz + 11.5 });
       fillLootChests(dim, chx, chy, chz, 31, 18, 31, "fc:chamber_of_fate");
     } catch { }
-  }
-  if (!world.getDynamicProperty("fc_guild_armoury_placed")) {
-    // Armoury & Forge: west annex, its entrance facing the Great Hall
-    const ax0 = base.x - 18, az0 = base.z + 11;
-    try {
-      world.structureManager.place("fc:guild_armoury", dim, { x: ax0, y: base.y, z: az0 });
-      world.setDynamicProperty("fc_guild_armoury_placed", true);
-      fillLootChests(dim, ax0, base.y, az0, 18, 18, 22, "fc:guild_armoury");
-      blendTerrain(dim, ax0, base.y, az0, 18, 22);
-      dressSurroundings(dim, ax0, base.y, az0, 18, "holy");
-      // smiths and sparring apprentices at work in the forge
-      trySpawn(dim, "fc:guild_apprentice_might", { x: ax0 + 9, y: base.y + 1, z: az0 + 8 });
-      trySpawn(dim, "fc:guild_apprentice_might", { x: ax0 + 9, y: base.y + 1, z: az0 + 14 });
-    } catch { }
-  }
-  if (!world.getDynamicProperty("fc_guild_scriptorium_placed")) {
-    // Scriptorium: east annex, mirrors the armoury across the Great Hall
-    const sx0 = base.x + 45, sz0 = base.z + 11;
-    try {
-      world.structureManager.place("fc:guild_scriptorium", dim, { x: sx0, y: base.y, z: sz0 });
-      world.setDynamicProperty("fc_guild_scriptorium_placed", true);
-      fillLootChests(dim, sx0, base.y, sz0, 18, 18, 22, "fc:guild_scriptorium");
-      blendTerrain(dim, sx0, base.y, sz0, 18, 22);
-      dressSurroundings(dim, sx0, base.y, sz0, 18, "holy");
-      // scholars of Will poring over the lecterns
-      trySpawn(dim, "fc:guild_apprentice_will", { x: sx0 + 4, y: base.y + 1, z: sz0 + 7 });
-      trySpawn(dim, "fc:guild_apprentice_will", { x: sx0 + 13, y: base.y + 1, z: sz0 + 7 });
-    } catch { }
-  }
-  if (!world.getDynamicProperty("fc_guild_sentinel_placed")) {
-    // Sentinel Gate: twin warded towers south of the training courtyard,
-    // on the same gate axis as the courtyard's south entrance
-    const gx0 = base.x + 9, gz0 = base.z - 42;
-    const gy = sampleGroundY(dim, gx0, gz0, 27, 14);
-    if (gy !== null) {
-      try {
-        world.structureManager.place("fc:guild_sentinel_gate", dim, { x: gx0, y: gy - 1, z: gz0 });
-        world.setDynamicProperty("fc_guild_sentinel_placed", true);
-        blendTerrain(dim, gx0, gy - 1, gz0, 27, 14);
-        dressSurroundings(dim, gx0, gy - 1, gz0, 27, "holy");
-        // sentries standing watch at the warded gate passage
-        trySpawn(dim, "fc:guild_apprentice_skill", { x: gx0 + 13, y: gy, z: gz0 + 4 });
-        trySpawn(dim, "fc:guild_apprentice_skill", { x: gx0 + 13, y: gy, z: gz0 + 9 });
-      } catch { }
-    }
   }
 }
 
@@ -375,12 +353,59 @@ function guildBounds() {
   let base; try { base = JSON.parse(raw); } catch { return null; }
   return {
     base,
-    // covers the Great Hall plus its Armoury/Scriptorium annexes (west/east)
-    // and the courtyard + Sentinel Gate to the south
-    minX: base.x - 21, maxX: base.x + 65,
-    minZ: base.z - 45, maxZ: base.z + 53,
-    minY: base.y - 24, maxY: base.y + 24,
+    // the Guild is one 92x30x100 structure (rotunda + nave + wings + library +
+    // tower + grounds), with the Chamber of Fate buried beneath it
+    minX: base.x - 3, maxX: base.x + 95,
+    minZ: base.z - 3, maxZ: base.z + 103,
+    minY: base.y - 26, maxY: base.y + 32,
   };
+}
+
+// ---------------------------------------------------------------------------
+// Connected campus + world spacing. The Guild's pieces are laced together with
+// worn paths; randomly-rendered locations keep clear of the Guild and of each
+// other so the world never overlaps two builds into one tangle.
+// ---------------------------------------------------------------------------
+function layPath(dim, x, z, mat = "minecraft:grass_path") {
+  const gy = groundY(dim, x, z);
+  if (gy === null) return;
+  try {
+    const below = dim.getBlock({ x, y: gy - 1, z });
+    if (below && !below.isAir && !below.isLiquid) below.setType(mat);
+  } catch { }
+}
+function connectGuildPaths(dim, base) {
+  if (world.getDynamicProperty("fc_guild_paths_done")) return;
+  // gate axis: Sentinel Gate -> courtyard -> hall gate (N-S along x = base.x+22)
+  for (let z = base.z - 40; z <= base.z + 1; z++) {
+    for (let dx = -1; dx <= 1; dx++) layPath(dim, base.x + 22 + dx, z);
+  }
+  // hall <-> Armoury (west) and hall <-> Scriptorium (east), along z = base.z+16
+  for (let x = base.x - 9; x <= base.x; x++) layPath(dim, x, base.z + 16);
+  for (let x = base.x + 44; x <= base.x + 54; x++) layPath(dim, x, base.z + 16);
+  world.setDynamicProperty("fc_guild_paths_done", true);
+}
+
+function rectsOverlap(ax0, az0, ax1, az1, bx0, bz0, bx1, bz1) {
+  return ax0 <= bx1 && bx0 <= ax1 && az0 <= bz1 && bz0 <= az1;
+}
+// would a w×w footprint at (x,z) crowd the Guild grounds or an existing build?
+function tooCloseToExisting(x, z, w, margin) {
+  const g = guildBounds();
+  if (g && rectsOverlap(x - margin, z - margin, x + w + margin, z + w + margin,
+    g.minX, g.minZ, g.maxX, g.maxZ)) return true;
+  const places = JSON.parse(world.getDynamicProperty("fc_places") ?? "[]");
+  for (const pl of places) {
+    if (rectsOverlap(x - margin, z - margin, x + w + margin, z + w + margin,
+      pl.x, pl.z, pl.x + pl.w, pl.z + pl.w)) return true;
+  }
+  return false;
+}
+function recordPlace(x, z, w, id, theme) {
+  const places = JSON.parse(world.getDynamicProperty("fc_places") ?? "[]");
+  places.push({ x, z, w, id, theme, k: `${x}_${z}` });
+  if (places.length > 160) places.splice(0, places.length - 160);
+  world.setDynamicProperty("fc_places", JSON.stringify(places));
 }
 
 system.runInterval(() => {
@@ -1222,7 +1247,7 @@ function trainMenu(p) {
     const d = Math.min(
       Math.hypot(p.location.x - g.x, p.location.z - g.z),
       Math.hypot(p.location.x - tr.x, p.location.z - tr.z));
-    if (d > 46) return p.sendMessage("§7Training happens at the Guild — the Training Grounds in the east yard, or the Map Room. (Sneak+use the Seal to recall.)");
+    if (d > 46) return p.sendMessage("§7Training happens at the Guild — stand at the §aSkill Altar§7 to the right of the Map Room. (Sneak+use the Seal to recall.)");
   }
   const f = new ActionFormData().title(fableTitle("Guild Training"));
   const ups = Object.values(DATA.upgrades);
@@ -1276,10 +1301,12 @@ function spellMenu(p) {
     const alignTag = s.align > 0 ? " §e[Good]" : s.align < 0 ? " §5[Evil]" : "";
     f.button(`${owned ? "§b❖ " : "§8❖ "}${s.name}${alignTag} §7Lv${lvl}\n§8${s.will} Will · upgrade: ${lvl * 150} Will XP`);
   }
+  f.button("§b⚡ Attune Quick-Cast Slots", "textures/items/spell_fireball");
   f.button("§8❖ Back");
   f.show(p).then((r) => {
     if (r.canceled) return;
-    if (r.selection >= ids.length) return heroMenu(p);
+    if (r.selection === ids.length) return willAttuneMenu(p);
+    if (r.selection > ids.length) return heroMenu(p);
     const id = ids[r.selection];
     const lvl = spellLevel(p, id);
     if (lvl >= 4) { p.sendMessage("§7This Will power is already mastered."); return spellMenu(p); }
@@ -1290,6 +1317,130 @@ function spellMenu(p) {
     p.playSound("fc.level_up", { pitch: 1.3 });
     p.sendMessage(`§9✦ ${DATA.spells[id].name} flows stronger (level ${lvl + 1}).`);
     spellMenu(p);
+  });
+}
+
+// ---------------------------------------------------------------------------
+// WILL QUICK-CAST BAR — once a Hero unlocks Will, their three attuned powers
+// live in the three rightmost hotbar slots (6/7/8 → keys 7/8/9, the right edge
+// of the screen). Selecting a slot and using it casts. Bedrock cannot bind
+// custom hotkeys, so the hotbar IS the quick bar; it is sortable from the
+// attunement menu and by dragging in the inventory.
+// ---------------------------------------------------------------------------
+function willOwnedSpells(p) {
+  return Object.keys(DATA.spells).filter((id) => countItem(p, `fc:spell_${id}`) > 0);
+}
+function applyWillLabel(st, p, id) {
+  const s = DATA.spells[id];
+  if (!s) return;
+  try {
+    st.nameTag = `§b❖ ${s.name} §7Lv${spellLevel(p, id)}`;
+    st.setLore([`§9Will cost: §f${s.will}`, "§8Quick-cast — select this slot and use"]);
+  } catch { }
+}
+// Explicit placement (attune / init): put exactly one tome in the target slot,
+// stripping stray copies and rehoming whatever was displaced.
+function forceAttune(p, target, id) {
+  const c = inv(p); if (!c) return;
+  const tomeId = `fc:spell_${id}`;
+  const displaced = c.getItem(target);
+  for (let j = 0; j < c.size; j++) { const it = c.getItem(j); if (it?.typeId === tomeId) c.setItem(j, undefined); }
+  const st = new ItemStack(tomeId, 1);
+  applyWillLabel(st, p, id);
+  c.setItem(target, st);
+  if (displaced && displaced.typeId !== tomeId) { try { c.addItem(displaced); } catch { } }
+}
+// Gentle upkeep: only fills an EMPTY bar slot when the power tome is wholly
+// missing (death/relog), so it never clobbers the player's own arrangement.
+function maintainWillSlot(p, c, target, id) {
+  if (!id) return;
+  const tomeId = `fc:spell_${id}`;
+  const cur = c.getItem(target);
+  if (cur) return;                          // already in place / busy — leave it
+  if (countItem(p, tomeId) > 0) return;     // owned elsewhere — respect arrangement
+  const st = new ItemStack(tomeId, 1);
+  applyWillLabel(st, p, id);
+  c.setItem(target, st);
+}
+function gatherWillBar(p) {
+  if (!P.get(p, "fc_will_bar", 1)) { p.sendMessage("§7Enable the Quick-Cast Bar first."); return; }
+  const slots = P.getJ(p, "fc_will_slots", [null, null, null]);
+  for (let i = 0; i < 3; i++) if (slots[i]) forceAttune(p, 6 + i, slots[i]);
+  p.sendMessage("§9❖ Will powers gathered to slots §f7 · 8 · 9§9.");
+}
+
+const willGreeted = new Set();
+system.runInterval(() => {
+  for (const p of world.getPlayers()) {
+    let slots = P.getJ(p, "fc_will_slots", null);
+    if (slots === null) {
+      const owned = willOwnedSpells(p);
+      if (!owned.length) continue;          // Will not unlocked yet
+      slots = [owned[0] ?? null, owned[1] ?? null, owned[2] ?? null];
+      P.setJ(p, "fc_will_slots", slots);
+      if (P.get(p, "fc_will_bar", -1) === -1) P.set(p, "fc_will_bar", 1);
+      for (let i = 0; i < 3; i++) if (slots[i]) forceAttune(p, 6 + i, slots[i]);
+      if (!willGreeted.has(p.id)) {
+        willGreeted.add(p.id);
+        p.sendMessage("§9❖ Will unlocked — your powers are bound to the three rightmost hotbar slots (keys §f7 · 8 · 9§9). Select one and use it to cast. Re-bind them via Guild Seal → Will Powers → Attune.");
+        p.playSound("fc.level_up", { pitch: 1.1 });
+      }
+      continue;
+    }
+    if (!P.get(p, "fc_will_bar", 1)) continue;
+    const c = inv(p); if (!c) continue;
+    for (let i = 0; i < 3; i++) maintainWillSlot(p, c, 6 + i, slots[i]);
+  }
+}, 40);
+
+function willAttuneMenu(p) {
+  const slots = P.getJ(p, "fc_will_slots", [null, null, null]);
+  const on = P.get(p, "fc_will_bar", 1);
+  const f = new ActionFormData().title(fableTitle("Attune Quick-Cast"))
+    .body(`${FABLE_RULE}\n§7Bind up to three Will powers to the rightmost hotbar\n§7slots — keys §f7 · 8 · 9§7. Select a slot to change it.\n§7Quick-Cast Bar: ${on ? "§aON" : "§cOFF"}\n${FABLE_RULE}`);
+  for (let i = 0; i < 3; i++) {
+    const id = slots[i];
+    const name = id ? (DATA.spells[id]?.name ?? id) : "§8(empty)";
+    f.button(`§bSlot ${i + 1} §7(key ${7 + i})\n§f${name}`, "textures/items/spell_fireball");
+  }
+  f.button(on ? "§e⏼ Disable Quick-Cast Bar" : "§a⏼ Enable Quick-Cast Bar");
+  f.button("§b⇅ Gather powers to bar");
+  f.button("§8❖ Back");
+  f.show(p).then((r) => {
+    if (r.canceled) return;
+    if (r.selection < 3) return willSlotPicker(p, r.selection);
+    if (r.selection === 3) { P.set(p, "fc_will_bar", on ? 0 : 1); return willAttuneMenu(p); }
+    if (r.selection === 4) { gatherWillBar(p); return willAttuneMenu(p); }
+    return spellMenu(p);
+  });
+}
+
+function willSlotPicker(p, slotIdx) {
+  const owned = willOwnedSpells(p);
+  const f = new ActionFormData().title(fableTitle(`Slot ${slotIdx + 1}`))
+    .body(`${FABLE_RULE}\n§7Choose the Will power for key §f${7 + slotIdx}§7.\n${FABLE_RULE}`);
+  for (const id of owned) f.button(`§b❖ ${DATA.spells[id].name}\n§8${DATA.spells[id].will} Will`);
+  f.button("§7✖ Clear slot");
+  f.button("§8❖ Back");
+  f.show(p).then((r) => {
+    if (r.canceled) return willAttuneMenu(p);
+    const slots = P.getJ(p, "fc_will_slots", [null, null, null]);
+    if (r.selection < owned.length) {
+      const id = owned[r.selection];
+      for (let k = 0; k < 3; k++) if (slots[k] === id) slots[k] = null;  // de-dupe
+      slots[slotIdx] = id;
+      P.setJ(p, "fc_will_slots", slots);
+      if (P.get(p, "fc_will_bar", 1)) forceAttune(p, 6 + slotIdx, id);
+    } else if (r.selection === owned.length) {
+      const c = inv(p);
+      if (c) {
+        const cur = c.getItem(6 + slotIdx);
+        if (cur?.typeId.startsWith("fc:spell_")) { c.setItem(6 + slotIdx, undefined); try { c.addItem(cur); } catch { } }
+      }
+      slots[slotIdx] = null;
+      P.setJ(p, "fc_will_slots", slots);
+    }
+    willAttuneMenu(p);
   });
 }
 
@@ -1342,6 +1493,7 @@ function questBoard(p) {
         P.setJ(p, "fc_quest", { id: q.id, progress: q.objectives.map(() => 0) });
         p.playSound("random.orb");
         p.sendMessage(`§e✦ Quest accepted: ${q.name}`);
+        if (q.id === "join_guild") placeGuildNear(p);
       });
   });
 }
@@ -1373,7 +1525,7 @@ function questMenu(p) {
 }
 
 function completeQuest(p, q) {
-  for (const o of q.objectives) if (o.type === "collect") removeItem(p, o.item, o.count);
+  for (const o of q.objectives) if (o.type === "collect" && o.item !== "fc:guild_seal") removeItem(p, o.item, o.count);
   const rw = q.rewards;
   if (rw.gold) giveItem(p, "fc:gold_coin", Math.min(64, Math.max(1, Math.round(rw.gold / 100))));
   for (const it of rw.items ?? []) giveItem(p, it.id, it.count);
@@ -1847,28 +1999,66 @@ function registerCullis(name, loc) {
 }
 
 const cullisCd = new Map();
+const cullisDwell = new Map();      // `${playerId}|${siteName}` -> dwell intervals
 let cullisPhase = 0;
+
+// The "special cullis gate configuration": a beacon / sea-lantern core ringed
+// by chiseled stone or obsidian. A gate our structures actually build qualifies
+// as a portal; a bare registered travel-point does not (it keeps sneak-travel).
+const CULLIS_CORE = new Set(["minecraft:beacon", "minecraft:sea_lantern"]);
+const CULLIS_RING = new Set(["minecraft:chiseled_stone_bricks", "minecraft:obsidian",
+  "minecraft:crying_obsidian", "minecraft:polished_deepslate", "minecraft:deepslate_tiles",
+  "minecraft:quartz_block", "minecraft:smooth_quartz", "minecraft:amethyst_block"]);
+function isCullisConfigured(dim, s) {
+  try {
+    let core = false;
+    for (const dy of [0, -1, 1]) {
+      const b = dim.getBlock({ x: s.x, y: s.y + dy, z: s.z });
+      if (b && CULLIS_CORE.has(b.typeId)) { core = true; break; }
+    }
+    if (!core) return false;
+    let ring = 0;
+    for (const [dx, dz] of [[2, 0], [-2, 0], [0, 2], [0, -2], [3, 0], [-3, 0], [0, 3], [0, -3]]) {
+      for (const dy of [0, 1, -1]) {
+        const b = dim.getBlock({ x: s.x + dx, y: s.y + dy, z: s.z + dz });
+        if (b && CULLIS_RING.has(b.typeId)) { ring++; break; }
+      }
+    }
+    return ring >= 3;
+  } catch { return false; }
+}
+
 system.runInterval(() => {
   cullisPhase++;
   const sites = JSON.parse(world.getDynamicProperty("fc_cullis") ?? "[]");
-  if (!sites.length) return;
+  const dim = OW();
+  const players = world.getPlayers();
+
+  // animate only the gates close to a player (keeps particle work bounded)
   for (const s of sites) {
-    const dim = OW();
-    for (let i = 0; i < 6; i++) {
+    const seen = players.some((p) => Math.hypot(p.location.x - s.x, p.location.z - s.z) < 48
+      && Math.abs(p.location.y - s.y) < 24);
+    if (!seen) continue;
+    const cx = s.x + 0.5, cz = s.z + 0.5;
+    for (let i = 0; i < 6; i++) {                 // swirling enchant ring
       const ang = (cullisPhase * 0.18) + (Math.PI * 2 * i) / 6;
       const rad = 1.8 + 0.35 * Math.sin(cullisPhase * 0.1 + i);
-      const x = s.x + Math.cos(ang) * rad;
       const y = s.y + 0.7 + (i % 2) * 0.3 + Math.sin(cullisPhase * 0.08 + i) * 0.15;
-      const z = s.z + Math.sin(ang) * rad;
-      try { dim.spawnParticle("minecraft:enchanting_table_particle", { x, y, z }); } catch { }
+      try { dim.spawnParticle("minecraft:enchanting_table_particle", { x: cx + Math.cos(ang) * rad, y, z: cz + Math.sin(ang) * rad }); } catch { }
     }
-    if (cullisPhase % 8 === 0) {
-      try { dim.spawnParticle("minecraft:end_chest", { x: s.x + 0.5, y: s.y + 1.1, z: s.z + 0.5 }); } catch { }
+    for (let j = 0; j < 4; j++) {                 // rising blue light column
+      const y = s.y + 0.3 + ((cullisPhase * 0.25 + j * 0.7) % 3);
+      try {
+        dim.spawnParticle("minecraft:soul_particle",
+          { x: cx + (Math.random() - 0.5) * 0.5, y, z: cz + (Math.random() - 0.5) * 0.5 });
+      } catch { }
+    }
+    if (cullisPhase % 6 === 0) {
+      try { dim.spawnParticle("minecraft:end_chest", { x: cx, y: s.y + 1.1, z: cz }); } catch { }
     }
   }
 
   // Demon Doors breathe and whisper in the hills.
-  const dim = OW();
   for (const door of dim.getEntities({ type: "fc:demon_door" })) {
     const o = door.location;
     try {
@@ -1880,18 +2070,82 @@ system.runInterval(() => {
     } catch { }
   }
 
-  for (const p of world.getPlayers()) {
-    const near = sites.find((s) => Math.hypot(p.location.x - s.x, p.location.z - s.z) < 2.4
+  for (const p of players) {
+    const near = sites.find((s) => Math.hypot(p.location.x - s.x, p.location.z - s.z) < 3.0
       && Math.abs(p.location.y - s.y) < 4);
-    if (!near) continue;
-    if (!p.isSneaking) {
-      p.onScreenDisplay.setActionBar("§b◈ Cullis Gate §7— sneak to focus your Will and travel");
+    if (!near) {                                  // drop any stale dwell charge
+      for (const k of [...cullisDwell.keys()]) if (k.startsWith(p.id + "|")) cullisDwell.delete(k);
       continue;
     }
-    const last = cullisCd.get(p.id) ?? -9999;
-    if (TICKS() - last < 80) continue;
-    cullisCd.set(p.id, TICKS());
-    cullisTravel(p, sites, near);
+    const dwellKey = `${p.id}|${near.name}`;
+    if (isCullisConfigured(dim, near)) {
+      // PORTAL: stand in the central blue light for ~3s to be carried away
+      const inCentre = Math.hypot(p.location.x - (near.x + 0.5), p.location.z - (near.z + 0.5)) < 1.3;
+      if (!inCentre) {
+        cullisDwell.delete(dwellKey);
+        p.onScreenDisplay.setActionBar("§b◈ Cullis Gate §7— step into the light to travel");
+        continue;
+      }
+      const NEED = 3;                             // intervals of 20t ≈ 3 seconds
+      const d = (cullisDwell.get(dwellKey) ?? 0) + 1;
+      cullisDwell.set(dwellKey, d);
+      if (d < NEED) {
+        try {
+          for (let k = 0; k < 10; k++) {
+            const ang = Math.random() * Math.PI * 2;
+            dim.spawnParticle("minecraft:soul_particle",
+              { x: near.x + 0.5 + Math.cos(ang) * 0.8, y: near.y + 0.4 + Math.random() * 2.0, z: near.z + 0.5 + Math.sin(ang) * 0.8 });
+          }
+        } catch { }
+        p.playSound("note.bell", { pitch: 0.6 + 0.3 * d });
+        p.onScreenDisplay.setActionBar(`§b◈ The Gate awakens… §f${"▮".repeat(d)}§8${"▯".repeat(NEED - d)}`);
+        continue;
+      }
+      const last = cullisCd.get(p.id) ?? -9999;
+      if (TICKS() - last < 80) continue;
+      cullisCd.set(p.id, TICKS());
+      cullisDwell.delete(dwellKey);
+      try { dim.spawnParticle("minecraft:huge_explosion_emitter", { x: near.x + 0.5, y: near.y + 1, z: near.z + 0.5 }); } catch { }
+      cullisTravel(p, sites, near);
+    } else {
+      // bare travel-point — keep the sneak-to-travel fallback
+      if (!p.isSneaking) {
+        p.onScreenDisplay.setActionBar("§b◈ Cullis Gate §7— sneak to focus your Will and travel");
+        continue;
+      }
+      const last = cullisCd.get(p.id) ?? -9999;
+      if (TICKS() - last < 80) continue;
+      cullisCd.set(p.id, TICKS());
+      cullisTravel(p, sites, near);
+    }
+  }
+}, 20);
+
+// The Skill Altar (right of the Map Room): stand on it and sneak to spend the
+// experience you have gathered on Strength/Skill/Will upgrades. The same
+// training is also reachable from the Guild Seal menu anywhere in the hall.
+const skillAltarCd = new Map();
+system.runInterval(() => {
+  const raw = world.getDynamicProperty("fc_guild_skill");
+  if (!raw) return;
+  let s; try { s = JSON.parse(raw); } catch { return; }
+  const dim = OW();
+  for (const p of world.getPlayers()) {
+    if (Math.hypot(p.location.x - s.x, p.location.z - s.z) > 2.8
+      || Math.abs(p.location.y - s.y) > 3) continue;
+    try {
+      dim.spawnParticle("minecraft:enchanting_table_particle",
+        { x: s.x + 0.5, y: s.y + 1.3, z: s.z + 0.5 });
+    } catch { }
+    if (!p.isSneaking) {
+      p.onScreenDisplay.setActionBar("§a✦ Skill Altar §7— sneak to spend experience and train");
+      continue;
+    }
+    const last = skillAltarCd.get(p.id) ?? -9999;
+    if (TICKS() - last < 40) continue;
+    skillAltarCd.set(p.id, TICKS());
+    try { p.playSound("random.levelup", { pitch: 1.2 }); } catch { }
+    trainMenu(p);
   }
 }, 20);
 
@@ -2171,6 +2425,7 @@ function fillLootChests(dim, x0, y0, z0, w, h, d, themeId) {
 // footprint has no solid ground beneath it (e.g. open water) — callers
 // should skip placement in that case.
 function sampleGroundY(dim, x0, z0, w, d) {
+function sampleGroundY(dim, x0, z0, w, d, allowLiquid = false) {
   const pts = [
     [x0 + 1, z0 + 1], [x0 + w - 2, z0 + 1], [x0 + 1, z0 + d - 2],
     [x0 + w - 2, z0 + d - 2], [x0 + Math.floor(w / 2), z0 + Math.floor(d / 2)],
@@ -2178,6 +2433,7 @@ function sampleGroundY(dim, x0, z0, w, d) {
   const ys = [];
   for (const [x, z] of pts) {
     const y = groundY(dim, x, z);
+    const y = groundY(dim, x, z, allowLiquid);
     if (y !== null) ys.push(y);
   }
   if (ys.length < 3) return null;
@@ -2282,8 +2538,9 @@ function dressSurroundings(dim, x0, y0, z0, w, theme) {
 system.runInterval(() => {
   for (const p of world.getPlayers()) {
     if (!world.getDynamicProperty("fc_guild_placed")) placeGuildNear(p);
-    else if (!world.getDynamicProperty("fc_guild_court_placed")
-      || !world.getDynamicProperty("fc_guild_chamber_placed")) placeGuildAnnexes(p.dimension);
+    else if (!world.getDynamicProperty("fc_guild_chamber_placed")) placeGuildAnnexes(p.dimension);
+    if (!P.get(p, "fc_at_guild", false)) placeGuildNear(p);
+    if (world.getDynamicProperty("fc_guild_placed") && !world.getDynamicProperty("fc_guild_chamber_placed")) placeGuildAnnexes(p.dimension);
     const rx = Math.floor(p.location.x / REGION), rz = Math.floor(p.location.z / REGION);
     for (let dx = -1; dx <= 1; dx++) {
       for (let dz = -1; dz <= 1; dz++) {
@@ -2329,11 +2586,14 @@ function maybePlace(p, rx, rz) {
     }
     if (best) { x = Math.floor(best.x); z = Math.floor(best.z); }
   }
+  // keep clear of the Guild grounds and of any build we already rendered
+  if (tooCloseToExisting(x, z, pick.w, 24)) { world.setDynamicProperty(key, 1); return; }
   const y = sampleGroundY(dim, x, z, pick.w, pick.w);
   if (y === null) return;
   try {
     world.structureManager.place(pick.id, dim, { x, y: y - 1, z });
     world.setDynamicProperty(key, 1);
+    recordPlace(x, z, pick.w, pick.id, pick.theme);
     if (pick.door) {
       const door = trySpawn(dim, "fc:demon_door", { x: x + 11.5, y: y, z: z + 4.6 });
       if (door) doorPersona(door);
@@ -2349,6 +2609,74 @@ function maybePlace(p, rx, rz) {
     blendTerrain(dim, x, y - 1, z, pick.w, pick.w);
     dressSurroundings(dim, x, y - 1, z, pick.w, pick.theme);
   } catch { /* chunk edge; try next sweep */ }
+}
+
+// ---------------------------------------------------------------------------
+// First-entry live encounters: the first time a Hero sets foot inside a
+// rendered location it reacts — a greeter hails them, or its denizens stir.
+// One-shot per location per player, keyed off the fc_places footprints.
+// ---------------------------------------------------------------------------
+const ENTRY_BY_THEME = {
+  village: { line: "§e\"Well met, Hero. Mind the guards and you'll do fine here.\"", spawn: ["fc:villager_albion"], sound: "random.levelup", hostile: false },
+  farm: { line: "§e\"Visitors! Don't go trampling the crops, eh?\"", spawn: ["fc:villager_farmer"], sound: "random.levelup", hostile: false },
+  forest: { line: "§a Something rustles in the trees — you are being watched.", spawn: ["fc:mercenary"], sound: "mob.wolf.growl", hostile: false },
+  holy: { line: "§f A hush falls — Avo's light warms this place.", spawn: [], sound: "beacon.activate", hostile: false },
+  snow: { line: "§b The wind bites. A lone watcher marks your arrival.", spawn: ["fc:villager_woman"], sound: "random.levelup", hostile: false },
+  dark: { line: "§5 The air turns cold — something here resents the living.", spawn: ["fc:undead", "fc:undead_soldier"], sound: "ambient.cave", hostile: true },
+};
+const ENTRY_BY_ID = {
+  "fc:bandit_camp": { line: "§c\"Intruder in the camp — cut them down!\"", spawn: ["fc:bandit", "fc:bandit_archer"], sound: "mob.zombie.say", hostile: true },
+  "fc:graveyard": { line: "§5 The graves crack open at your trespass…", spawn: ["fc:undead", "fc:undead_soldier"], sound: "ambient.cave", hostile: true },
+  "fc:hobbe_cave": { line: "§c Shrieks echo from the dark — the hobbes have your scent!", spawn: ["fc:hobbe", "fc:hobbe"], sound: "mob.zombie.say", hostile: true },
+  "fc:bowerstone_market": { line: "§e A Bowerstone guard strides over: \"State your business, stranger.\"", spawn: ["fc:guard_bowerstone"], sound: "random.levelup", hostile: false },
+  "fc:arena_ring": { line: "§6 The crowd roars — a challenger steps into the sand!", spawn: ["fc:hobbe", "fc:beetle"], sound: "random.levelup", hostile: true },
+  "fc:temple_avo": { line: "§f Avo's light embraces you; your spirit feels lighter.", spawn: [], sound: "beacon.activate", hostile: false },
+  "fc:chapel_skorm": { line: "§4 A cold dread seeps from the altar of Skorm.", spawn: ["fc:undead"], sound: "ambient.cave", hostile: true },
+};
+function firstEntryFor(place) {
+  return ENTRY_BY_ID[place.id] ?? ENTRY_BY_THEME[place.theme] ?? null;
+}
+const entryCd = new Map();
+system.runInterval(() => {
+  const places = JSON.parse(world.getDynamicProperty("fc_places") ?? "[]");
+  if (!places.length) return;
+  for (const p of world.getPlayers()) {
+    const visited = P.getJ(p, "fc_visited", []);
+    const px = p.location.x, pz = p.location.z;
+    for (const pl of places) {
+      // require the player to be well inside the footprint before it reacts
+      if (px < pl.x + 3 || px > pl.x + pl.w - 3 || pz < pl.z + 3 || pz > pl.z + pl.w - 3) continue;
+      if (visited.includes(pl.k)) continue;
+      const last = entryCd.get(p.id) ?? -9999;
+      if (TICKS() - last < 40) break;  // one trigger per player per pass
+      entryCd.set(p.id, TICKS());
+      visited.push(pl.k);
+      if (visited.length > 200) visited.splice(0, visited.length - 200);
+      P.setJ(p, "fc_visited", visited);
+      fireFirstEntry(p, pl);
+      break;
+    }
+  }
+}, 20);
+
+function fireFirstEntry(p, pl) {
+  const e = firstEntryFor(pl);
+  if (!e) return;
+  const dim = p.dimension;
+  try { p.playSound(e.sound, { pitch: 1.0 }); } catch { }
+  p.sendMessage(e.line);
+  let i = 0;
+  for (const type of e.spawn) {
+    const ang = (Math.PI * 2 * i) / Math.max(1, e.spawn.length) + Math.random();
+    const sx = p.location.x + Math.cos(ang) * 5;
+    const sz = p.location.z + Math.sin(ang) * 5;
+    const sy = groundY(dim, Math.floor(sx), Math.floor(sz)) ?? (Math.floor(p.location.y) + 1);
+    trySpawn(dim, type, { x: sx, y: sy, z: sz });
+    i++;
+  }
+  if (e.hostile) {
+    try { dim.spawnParticle("minecraft:knockback_roar_particle", { x: p.location.x, y: p.location.y + 1, z: p.location.z }); } catch { }
+  }
 }
 
 // ---------------------------------------------------------------------------
