@@ -1033,6 +1033,20 @@ def paint_armor_set_layers(set_rec):
         p1.px(xx, 30, trim)      # hem trim
         p1.px(xx, 20, trim)      # collar trim
     accent = pal.get("accent")
+    if set_rec.get("id") == "apprentice":
+        robe_edge = shade(base, 1.12)[:3] + (255,)
+        robe_shadow = shade(base, 0.75)[:3] + (255,)
+        robe_sash = accent + (255,) if accent else trim
+        for xx in range(18, 26):
+            p1.px(xx, 18, robe_edge)
+            p1.px(xx, 19, robe_edge)
+            p1.px(xx, 29, robe_shadow)
+        for yy in range(19, 30):
+            p1.px(18, yy, robe_edge)
+            p1.px(25, yy, robe_edge)
+        for offset in range(8):
+            p1.px(19 + offset, 21 + offset, robe_sash)
+            p1.px(24 - offset, 21 + offset, robe_sash)
     if accent:
         for i in range(8):       # apprentice-style sash
             p1.px(20 + i, 21 + i, accent + (255,))

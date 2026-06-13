@@ -136,6 +136,18 @@ function giveItem(p, id, count = 1) {
   }
 }
 
+function ensureGuildSeal(p) {
+  if (countItem(p, "fc:guild_seal") >= 1) return;
+  giveItem(p, "fc:guild_seal", 1);
+  if (countItem(p, "fc:guild_seal") >= 1) return;
+  // Last-resort fallback: force one seal into the final inventory slot.
+  const c = inv(p);
+  if (!c) return;
+  try {
+    c.setItem(c.size - 1, new ItemStack("fc:guild_seal", 1));
+  } catch { }
+}
+
 function heldItem(p) {
   return p.getComponent("minecraft:equippable")?.getEquipment(EquipmentSlot.Mainhand);
 }
@@ -150,7 +162,7 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
   const p = ev.player;
   if (!ev.initialSpawn) {
     // Respawning after death — a Hero of the Guild always carries their seal.
-    if (countItem(p, "fc:guild_seal") < 1) giveItem(p, "fc:guild_seal", 1);
+    ensureGuildSeal(p);
     setGuildSpawn(p);
     return;
   }
@@ -200,6 +212,7 @@ function initHero(p) {
   for (const it of ["fc:stick", "fc:guild_seal", "fc:quest_card",
     "fc:apprentice_helm", "fc:apprentice_torso", "fc:apprentice_legs", "fc:apprentice_boots",
     "fc:health_potion", "fc:apple_pie"]) giveItem(p, it, 1);
+  ensureGuildSeal(p);
   giveItem(p, "fc:gold_coin", 5);
   p.onScreenDisplay.setTitle("§6Fablecraft", { fadeInDuration: 10, stayDuration: 70, fadeOutDuration: 20, subtitle: "§eReforged — Welcome to Albion" });
   p.sendMessage("§6═══ The Guildmaster ═══");
@@ -213,7 +226,7 @@ function placeGuildNear(p) {
   if (world.getDynamicProperty("fc_guild_placed")) return;
   const dim = p.dimension;
   const base = { x: Math.floor(p.location.x) + 16, y: 0, z: Math.floor(p.location.z) + 16 };
-  const y = groundY(dim, base.x + 22, base.z + 20);
+  const y = sampleGroundY(dim, base.x, base.z, 45, 41);
   if (y === null) return;
   try {
     world.structureManager.place("fc:guild_hall", dim, { x: base.x, y, z: base.z });
@@ -234,6 +247,12 @@ function placeGuildNear(p) {
     trySpawn(dim, "fc:guild_apprentice_might", { x: base.x + 35, y: y + 1, z: base.z + 23 });
     trySpawn(dim, "fc:guild_apprentice_skill", { x: base.x + 37, y: y + 1, z: base.z + 19 });
     trySpawn(dim, "fc:guild_apprentice_will", { x: base.x + 17, y: y + 1, z: base.z + 29 });
+    // a handful more apprentices scattered around the grounds, sparring
+    // in the forecourt and studying near the feast hall
+    trySpawn(dim, "fc:guild_apprentice_might", { x: base.x + 12, y: y + 1, z: base.z + 12 });
+    trySpawn(dim, "fc:guild_apprentice_skill", { x: base.x + 33, y: y + 1, z: base.z + 8 });
+    trySpawn(dim, "fc:guild_apprentice_will", { x: base.x + 20, y: y + 1, z: base.z + 35 });
+    trySpawn(dim, "fc:guild_apprentice_might", { x: base.x + 8, y: y + 1, z: base.z + 33 });
     fillLootChests(dim, base.x, y, base.z, 45, 26, 41, "fc:guild_hall");
     blendTerrain(dim, base.x, y, base.z, 45, 41);
     dressSurroundings(dim, base.x, y, base.z, 45, "holy");
@@ -260,7 +279,7 @@ function placeGuildAnnexes(dim) {
   if (!world.getDynamicProperty("fc_guild_court_placed")) {
     // courtyard centred on the gate axis, just south of the perimeter wall
     const cx0 = base.x + 9, cz0 = base.z - 28;
-    const cy = groundY(dim, cx0 + 13, cz0 + 13) ?? groundY(dim, cx0, cz0);
+    const cy = sampleGroundY(dim, cx0, cz0, 27, 27);
     if (cy !== null) {
       try {
         world.structureManager.place("fc:power_guild_courtyard", dim, { x: cx0, y: cy - 1, z: cz0 });
@@ -268,6 +287,10 @@ function placeGuildAnnexes(dim) {
         fillLootChests(dim, cx0, cy - 1, cz0, 27, 13, 27, "fc:power_guild_courtyard");
         blendTerrain(dim, cx0, cy - 1, cz0, 27, 27);
         dressSurroundings(dim, cx0, cy - 1, cz0, 27, "holy");
+        // apprentices drilling in the training courtyard
+        trySpawn(dim, "fc:guild_apprentice_might", { x: cx0 + 6, y: cy, z: cz0 + 20 });
+        trySpawn(dim, "fc:guild_apprentice_skill", { x: cx0 + 20, y: cy, z: cz0 + 6 });
+        trySpawn(dim, "fc:guild_apprentice_will", { x: cx0 + 13, y: cy, z: cz0 + 13 });
       } catch { }
     }
   }
@@ -280,6 +303,51 @@ function placeGuildAnnexes(dim) {
       registerCullis("Chamber of Fate", { x: chx + 15.5, y: chy + 3, z: chz + 11.5 });
       fillLootChests(dim, chx, chy, chz, 31, 18, 31, "fc:chamber_of_fate");
     } catch { }
+  }
+  if (!world.getDynamicProperty("fc_guild_armoury_placed")) {
+    // Armoury & Forge: west annex, its entrance facing the Great Hall
+    const ax0 = base.x - 18, az0 = base.z + 11;
+    try {
+      world.structureManager.place("fc:guild_armoury", dim, { x: ax0, y: base.y, z: az0 });
+      world.setDynamicProperty("fc_guild_armoury_placed", true);
+      fillLootChests(dim, ax0, base.y, az0, 18, 18, 22, "fc:guild_armoury");
+      blendTerrain(dim, ax0, base.y, az0, 18, 22);
+      dressSurroundings(dim, ax0, base.y, az0, 18, "holy");
+      // smiths and sparring apprentices at work in the forge
+      trySpawn(dim, "fc:guild_apprentice_might", { x: ax0 + 9, y: base.y + 1, z: az0 + 8 });
+      trySpawn(dim, "fc:guild_apprentice_might", { x: ax0 + 9, y: base.y + 1, z: az0 + 14 });
+    } catch { }
+  }
+  if (!world.getDynamicProperty("fc_guild_scriptorium_placed")) {
+    // Scriptorium: east annex, mirrors the armoury across the Great Hall
+    const sx0 = base.x + 45, sz0 = base.z + 11;
+    try {
+      world.structureManager.place("fc:guild_scriptorium", dim, { x: sx0, y: base.y, z: sz0 });
+      world.setDynamicProperty("fc_guild_scriptorium_placed", true);
+      fillLootChests(dim, sx0, base.y, sz0, 18, 18, 22, "fc:guild_scriptorium");
+      blendTerrain(dim, sx0, base.y, sz0, 18, 22);
+      dressSurroundings(dim, sx0, base.y, sz0, 18, "holy");
+      // scholars of Will poring over the lecterns
+      trySpawn(dim, "fc:guild_apprentice_will", { x: sx0 + 4, y: base.y + 1, z: sz0 + 7 });
+      trySpawn(dim, "fc:guild_apprentice_will", { x: sx0 + 13, y: base.y + 1, z: sz0 + 7 });
+    } catch { }
+  }
+  if (!world.getDynamicProperty("fc_guild_sentinel_placed")) {
+    // Sentinel Gate: twin warded towers south of the training courtyard,
+    // on the same gate axis as the courtyard's south entrance
+    const gx0 = base.x + 9, gz0 = base.z - 42;
+    const gy = sampleGroundY(dim, gx0, gz0, 27, 14);
+    if (gy !== null) {
+      try {
+        world.structureManager.place("fc:guild_sentinel_gate", dim, { x: gx0, y: gy - 1, z: gz0 });
+        world.setDynamicProperty("fc_guild_sentinel_placed", true);
+        blendTerrain(dim, gx0, gy - 1, gz0, 27, 14);
+        dressSurroundings(dim, gx0, gy - 1, gz0, 27, "holy");
+        // sentries standing watch at the warded gate passage
+        trySpawn(dim, "fc:guild_apprentice_skill", { x: gx0 + 13, y: gy, z: gz0 + 4 });
+        trySpawn(dim, "fc:guild_apprentice_skill", { x: gx0 + 13, y: gy, z: gz0 + 9 });
+      } catch { }
+    }
   }
 }
 
@@ -307,8 +375,10 @@ function guildBounds() {
   let base; try { base = JSON.parse(raw); } catch { return null; }
   return {
     base,
-    minX: base.x - 12, maxX: base.x + 57,
-    minZ: base.z - 40, maxZ: base.z + 53,
+    // covers the Great Hall plus its Armoury/Scriptorium annexes (west/east)
+    // and the courtyard + Sentinel Gate to the south
+    minX: base.x - 21, maxX: base.x + 65,
+    minZ: base.z - 45, maxZ: base.z + 53,
     minY: base.y - 24, maxY: base.y + 24,
   };
 }
@@ -723,12 +793,80 @@ function castSpell(p, id, fromGrimoire = false) {
   spellCd.set(key, TICKS());
   giveXp(p, "will", Math.round(cost * 0.6));
   p.playSound("fc.spell_cast", { pitch: 0.85 + lvl * 0.08 });
+  playSpellAnim(p, id);
+  castFlash(p, id);
   SPELL_FX[id]?.(p, lvl);
 }
 
 function foes(p, r) {
   return p.dimension.getEntities({ location: p.location, maxDistance: r, families: ["monster"] })
     .filter((e) => !(e.getComponent("minecraft:type_family")?.hasTypeFamily("fc_ally")));
+}
+
+// Which gestural animation (defined in fc_player_spells.animation.json) best
+// fits each Will Power, so casting reads as a distinct motion per spell.
+const SPELL_ANIM = {
+  enflame: "animation.player.fc_cast_offense",
+  fireball: "animation.player.fc_cast_offense",
+  lightning: "animation.player.fc_cast_offense",
+  force_push: "animation.player.fc_cast_offense",
+  drain_life: "animation.player.fc_cast_offense",
+  multi_arrow: "animation.player.fc_cast_offense",
+  infernal_wrath: "animation.player.fc_cast_offense",
+  divine_fury: "animation.player.fc_cast_defense",
+  heal_life: "animation.player.fc_cast_defense",
+  physical_shield: "animation.player.fc_cast_defense",
+  slow_time: "animation.player.fc_cast_defense",
+  turncoat: "animation.player.fc_cast_defense",
+  summon: "animation.player.fc_cast_summon",
+  multi_strike: "animation.player.fc_cast_melee",
+  battle_charge: "animation.player.fc_cast_melee",
+  berserk: "animation.player.fc_cast_melee",
+  assassin_rush: "animation.player.fc_cast_melee",
+};
+
+function playSpellAnim(p, id) {
+  const anim = SPELL_ANIM[id] ?? "animation.player.fc_cast_offense";
+  try { p.playAnimation(anim, { blendOutTime: 0.2 }); } catch { }
+}
+
+// A short particle "muzzle flash" at the caster's hands, themed per spell,
+// so every Will Power has an immediate visual tell the moment it's cast.
+const SPELL_CAST_PARTICLE = {
+  enflame: "minecraft:mobflame_single",
+  fireball: "minecraft:mobflame_single",
+  lightning: "minecraft:knockback_roar_particle",
+  force_push: "minecraft:knockback_roar_particle",
+  drain_life: "minecraft:soul_particle",
+  heal_life: "minecraft:crop_growth_emitter",
+  physical_shield: "minecraft:end_chest",
+  slow_time: "minecraft:enchanting_table_particle",
+  assassin_rush: "minecraft:dragon_breath_trail",
+  summon: "minecraft:totem_particle",
+  turncoat: "minecraft:heart_particle",
+  multi_arrow: "minecraft:critical_hit_emitter",
+  multi_strike: "minecraft:critical_hit_emitter",
+  battle_charge: "minecraft:critical_hit_emitter",
+  berserk: "minecraft:totem_particle",
+  divine_fury: "minecraft:totem_particle",
+  infernal_wrath: "minecraft:soul_particle",
+};
+
+function castFlash(p, id) {
+  const particle = SPELL_CAST_PARTICLE[id] ?? "minecraft:enchanting_table_particle";
+  const dir = p.getViewDirection();
+  const loc = { x: p.location.x + dir.x * 0.7, y: p.location.y + 1.2, z: p.location.z + dir.z * 0.7 };
+  for (let i = 0; i < 5; i++) {
+    system.runTimeout(() => {
+      try {
+        p.dimension.spawnParticle(particle, {
+          x: loc.x + (Math.random() - 0.5) * 0.4,
+          y: loc.y + (Math.random() - 0.5) * 0.4,
+          z: loc.z + (Math.random() - 0.5) * 0.4,
+        });
+      } catch { }
+    }, i * 2);
+  }
 }
 
 const SPELL_FX = {
@@ -738,12 +876,43 @@ const SPELL_FX = {
     for (const e of foes(p, r)) { try { e.setOnFire(3 + lvl, true); e.applyDamage(4 + lvl * 2, { cause: EntityDamageCause.fire }); } catch { } }
   },
   fireball(p, lvl) {
+    const dim = p.dimension;
     const dir = p.getViewDirection();
     const loc = { x: p.location.x + dir.x * 1.5, y: p.location.y + 1.5 + dir.y, z: p.location.z + dir.z * 1.5 };
-    for (let i = 0; i < (lvl >= 3 ? 3 : 1); i++) {
-      const fb = trySpawn(p.dimension, "minecraft:small_fireball", loc);
+    const shots = lvl >= 3 ? 3 : 1;
+    // Visual projectile(s) — vanilla small fireballs for the flame trail.
+    for (let i = 0; i < shots; i++) {
+      const fb = trySpawn(dim, "minecraft:small_fireball", loc);
       const proj = fb?.getComponent("minecraft:projectile");
       if (proj) { proj.owner = p; proj.shoot({ x: dir.x * 1.4 + (i - 1) * 0.12, y: dir.y * 1.4, z: dir.z * 1.4 + (i - 1) * 0.12 }); }
+    }
+    // Guaranteed hit-scan so the spell always lands, regardless of whether the
+    // vanilla fireball entity actually collides with anything.
+    const range = 14 + lvl * 2;
+    const hits = p.getEntitiesFromViewDirection({ maxDistance: range });
+    const hit = hits.find((h) => h.entity && h.entity.typeId !== "minecraft:player"
+      && !h.entity.getComponent("minecraft:type_family")?.hasTypeFamily("fc_ally"));
+    const impact = hit ? hit.entity.location
+      : { x: p.location.x + dir.x * range, y: p.location.y + 1.5 + dir.y * range, z: p.location.z + dir.z * range };
+    try { dim.spawnParticle("minecraft:large_explosion", impact); } catch { }
+    try { dim.spawnParticle("minecraft:mobflame_single", impact); } catch { }
+    try { p.playSound("mob.blaze.shoot", { location: impact, volume: 0.8, pitch: 0.9 }); } catch { }
+    if (hit) {
+      const e = hit.entity;
+      try {
+        e.applyDamage(7 + lvl * 3, { cause: EntityDamageCause.fire, damagingEntity: p });
+        e.setOnFire(4 + lvl, true);
+        const dx = e.location.x - p.location.x, dz = e.location.z - p.location.z;
+        const len = Math.max(0.01, Math.hypot(dx, dz));
+        e.applyKnockback(dx / len, dz / len, 1.2 + lvl * 0.3, 0.25);
+      } catch { }
+      // Splash damage to other foes caught near the impact point.
+      for (const n of dim.getEntities({ location: impact, maxDistance: 3 + Math.floor(lvl / 2), families: ["monster"] })) {
+        if (n.id === e.id || n.getComponent("minecraft:type_family")?.hasTypeFamily("fc_ally")) continue;
+        try { n.applyDamage(4 + lvl * 2, { cause: EntityDamageCause.fire, damagingEntity: p }); n.setOnFire(3, true); } catch { }
+      }
+    } else {
+      p.onScreenDisplay.setActionBar("§6The fireball scorches the ground ahead.");
     }
   },
   lightning(p, lvl) {
@@ -1942,6 +2111,10 @@ const CHEST_LOOT = {
   ["fc:ages_of_will_potion", 1, 1, 0.25], ["fc:silver_key", 1, 1, 0.3]],
   "fc:power_guild_courtyard": [["fc:quest_card", 1, 1, 0.8], ["fc:will_potion", 1, 2, 0.8],
   ["fc:orb_will", 1, 2, 0.6], ["fc:silver_key", 1, 1, 0.2]],
+  "fc:guild_armoury": [["fc:steel_ingot", 2, 5, 0.8], ["fc:steel_longsword", 1, 1, 0.3],
+  ["fc:sharpening_augment", 1, 1, 0.2], ["fc:gold_coin", 3, 9, 0.7], ["fc:orb_strength", 1, 2, 0.4]],
+  "fc:guild_scriptorium": [["fc:quest_card", 1, 1, 0.7], ["fc:will_shard", 1, 3, 0.8],
+  ["fc:will_potion", 1, 2, 0.7], ["fc:ages_of_will_potion", 1, 1, 0.2], ["fc:orb_will", 1, 2, 0.5]],
   "fc:power_oakvale_quay": [["fc:gold_coin", 2, 8, 0.9], ["fc:apple_pie", 1, 3, 0.8],
   ["fc:health_potion", 1, 2, 0.6], ["fc:orb_general", 1, 2, 0.5]],
   "fc:power_snowspire_oracle": [["fc:will_shard", 1, 3, 0.9], ["fc:ages_of_will_potion", 1, 1, 0.35],
@@ -1992,18 +2165,33 @@ function fillLootChests(dim, x0, y0, z0, w, h, d, themeId) {
   try { system.runJob(work()); } catch { for (const _ of work()) { } }
 }
 
+// Sample several points across a footprint (corners + centre) and return a
+// representative ground height, so a structure sits on the land instead of
+// floating above it or sinking into it. Returns null if most of the
+// footprint has no solid ground beneath it (e.g. open water) — callers
+// should skip placement in that case.
+function sampleGroundY(dim, x0, z0, w, d) {
+  const pts = [
+    [x0 + 1, z0 + 1], [x0 + w - 2, z0 + 1], [x0 + 1, z0 + d - 2],
+    [x0 + w - 2, z0 + d - 2], [x0 + Math.floor(w / 2), z0 + Math.floor(d / 2)],
+  ];
+  const ys = [];
+  for (const [x, z] of pts) {
+    const y = groundY(dim, x, z);
+    if (y !== null) ys.push(y);
+  }
+  if (ys.length < 3) return null;
+  return Math.round(ys.reduce((a, b) => a + b, 0) / ys.length);
+}
+
 function blendTerrain(dim, x0, y0, z0, w, d) {
-  // foundation skirt: fill below the structure rim so it meets the land
+  // foundation fill: every column under the structure (plus a 1-block
+  // border) gets filled from the structure's base down to solid ground —
+  // no gaps below buildings, no water pockets trapped underneath.
   const work = function* () {
     for (let x = x0 - 1; x <= x0 + w; x++) {
-      for (const z of [z0 - 1, z0 + d]) {
-        yield* skirtColumn(dim, x, y0, z);
-      }
-      yield;
-    }
-    for (let z = z0 - 1; z <= z0 + d; z++) {
-      for (const x of [x0 - 1, x0 + w]) {
-        yield* skirtColumn(dim, x, y0, z);
+      for (let z = z0 - 1; z <= z0 + d; z++) {
+        yield* foundationColumn(dim, x, y0, z);
       }
       yield;
     }
@@ -2011,14 +2199,16 @@ function blendTerrain(dim, x0, y0, z0, w, d) {
   try { system.runJob(work()); } catch { /* skip blending if jobs unavailable */ }
 }
 
-function* skirtColumn(dim, x, yTop, z) {
-  for (let y = yTop - 1; y > yTop - 9; y--) {
+function* foundationColumn(dim, x, yTop, z) {
+  for (let y = yTop - 1; y > yTop - 16; y--) {
     let b;
     try { b = dim.getBlock({ x, y, z }); } catch { return; }
     if (!b) return;
-    if (!b.isAir && !b.isLiquid) return; // reached ground
+    if (!b.isAir && !b.isLiquid) return; // reached solid ground
     try {
-      b.setType(Math.random() < 0.5 ? "minecraft:cobblestone" : "minecraft:dirt");
+      b.setType(y > yTop - 4
+        ? (Math.random() < 0.5 ? "minecraft:cobblestone" : "minecraft:stone")
+        : (Math.random() < 0.4 ? "minecraft:deepslate" : "minecraft:stone"));
     } catch { return; }
     yield;
   }
@@ -2139,7 +2329,7 @@ function maybePlace(p, rx, rz) {
     }
     if (best) { x = Math.floor(best.x); z = Math.floor(best.z); }
   }
-  const y = groundY(dim, x + Math.floor(pick.w / 2), z + Math.floor(pick.w / 2)) ?? groundY(dim, x, z);
+  const y = sampleGroundY(dim, x, z, pick.w, pick.w);
   if (y === null) return;
   try {
     world.structureManager.place(pick.id, dim, { x, y: y - 1, z });

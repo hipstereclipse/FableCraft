@@ -747,6 +747,225 @@ def power_guild_courtyard():
     v.save("power_guild_courtyard")
 
 
+def guild_armoury():
+    """West annex of the Heroes' Guild: a working forge and armoury where
+    apprentices temper steel and drill with practice dummies. Sits just
+    west of the Great Hall, sharing its stone-brick-and-deepslate style."""
+    r = rng("struct", "guild_armoury")
+    W, H, D = 18, 18, 22
+    v = Vox(W, H, D)
+    mx = W // 2
+    wall_h = 8
+
+    # floor
+    for x in range(W):
+        for z in range(D):
+            roll = r.random()
+            v.set(x, 0, z, COBBLE if roll < 0.55 else (GRAVEL if roll < 0.75 else STONE))
+
+    # outer walls
+    for x in range(W):
+        for z in (0, D - 1):
+            for y in range(1, wall_h):
+                v.set(x, y, z, rnd_stone(r))
+    for z in range(D):
+        for x in (0, W - 1):
+            for y in range(1, wall_h):
+                v.set(x, y, z, rnd_stone(r))
+
+    # arrow-slit windows
+    for z in range(3, D - 1, 4):
+        v.set(0, 3, z, IRON_BARS)
+        v.set(0, 4, z, IRON_BARS)
+        v.set(W - 1, 3, z, IRON_BARS)
+        v.set(W - 1, 4, z, IRON_BARS)
+
+    # entrance on the east wall, toward the Great Hall
+    ez = D // 2
+    v.fill(W - 1, 1, ez - 1, W - 1, 3, ez + 1, "minecraft:air")
+    for y in range(1, 5):
+        v.set(W - 1, y, ez - 2, CHISELED)
+        v.set(W - 1, y, ez + 2, CHISELED)
+    v.set(W - 1, 4, ez - 1, LANTERN, {"hanging": True})
+    v.set(W - 1, 4, ez + 1, LANTERN, {"hanging": True})
+
+    # forge corner (NW)
+    for fx, fz in ((1, 2), (2, 2)):
+        v.set(fx, 1, fz, "minecraft:furnace")
+    v.set(3, 1, 2, "minecraft:blast_furnace")
+    v.set(1, 1, 1, "minecraft:anvil")
+    v.set(2, 1, 1, COBBLE)
+    v.set(3, 1, 1, COBBLE)
+
+    # weapon racks: chest row + barrels along the south wall
+    for cx_ in range(3, W - 3, 3):
+        v.set(cx_, 1, D - 2, "minecraft:chest", {"minecraft:cardinal_direction": "north"})
+        v.set(cx_, 1, D - 3, "minecraft:barrel")
+
+    # sparring dummies near the entrance
+    for dx_, dz_ in ((mx - 2, ez), (mx + 2, ez)):
+        v.set(dx_, 1, dz_, "minecraft:hay_block")
+        v.set(dx_, 2, dz_, "minecraft:hay_block")
+        v.set(dx_, 3, dz_, "minecraft:target")
+
+    # ceiling beams + hanging lanterns
+    for z in range(2, D - 2, 4):
+        for x in range(0, W):
+            v.set(x, wall_h - 1, z, SPRUCE_LOG)
+        v.set(mx, wall_h - 1, z, LANTERN, {"hanging": True})
+
+    # stepped gable roof, ridge running along z (the long axis)
+    gable_roof_z(v, 0, W - 1, 0, D - 1, wall_h, DEEP_TILES, STONE)
+
+    v.save("guild_armoury")
+
+
+def guild_scriptorium():
+    """East annex of the Heroes' Guild: the Scriptorium, where apprentices of
+    Will study tomes and copy maps. Mirrors the armoury across the Great
+    Hall, sharing its stone-brick-and-deepslate style."""
+    r = rng("struct", "guild_scriptorium")
+    W, H, D = 18, 18, 22
+    v = Vox(W, H, D)
+    mx = W // 2
+    wall_h = 8
+
+    # checkerboard floor
+    for x in range(W):
+        for z in range(D):
+            v.set(x, 0, z, DEEP_TILES if (x + z) % 2 == 0 else STONE)
+
+    # outer walls
+    for x in range(W):
+        for z in (0, D - 1):
+            for y in range(1, wall_h):
+                v.set(x, y, z, rnd_stone(r))
+    for z in range(D):
+        for x in (0, W - 1):
+            for y in range(1, wall_h):
+                v.set(x, y, z, rnd_stone(r))
+
+    # dark-oak pilasters + clerestory windows along the long walls
+    for z in range(2, D - 1, 4):
+        for x in (0, W - 1):
+            for y in range(1, wall_h + 1):
+                v.set(x, y, z, DARKLOG)
+            if z + 2 < D - 1:
+                for y in (3, 4, 5):
+                    v.set(x, y, z + 2, GLASS)
+
+    # entrance on the west wall, toward the Great Hall
+    ez = D // 2
+    v.fill(0, 1, ez - 1, 0, 3, ez + 1, "minecraft:air")
+    for y in range(1, 5):
+        v.set(0, y, ez - 2, CHISELED)
+        v.set(0, y, ez + 2, CHISELED)
+    v.set(0, 4, ez - 1, LANTERN, {"hanging": True})
+    v.set(0, 4, ez + 1, LANTERN, {"hanging": True})
+
+    # bookshelves lining the long walls
+    for z in range(2, D - 2):
+        if z % 3:
+            for y in (1, 2, 3):
+                v.set(1, y, z, "minecraft:bookshelf")
+                v.set(W - 2, y, z, "minecraft:bookshelf")
+
+    # study lecterns down the centre aisle
+    for i, z in enumerate(range(4, D - 3, 6)):
+        v.set(mx, 1, z, "minecraft:lectern",
+              {"minecraft:cardinal_direction": "east" if i % 2 else "west"})
+        v.set(mx - 1, 1, z, CANDLE, {"lit": True, "candles": (i % 4) + 1})
+        v.set(mx + 1, 1, z, CANDLE, {"lit": True, "candles": (i % 4) + 1})
+
+    # scholars' bunks in the far corner
+    for i in range(2):
+        z = D - 4 + i * 2
+        v.set(2, 1, z, "minecraft:bed", {"direction": 1})
+        v.set(3, 1, z, "minecraft:bed", {"direction": 1, "head_piece_bit": True})
+    v.set(2, 1, D - 6, "minecraft:chest", {"minecraft:cardinal_direction": "east"})
+
+    # ceiling beams + hanging lanterns
+    for z in range(2, D - 2, 4):
+        for x in range(0, W):
+            v.set(x, wall_h - 1, z, SPRUCE_LOG)
+        v.set(mx, wall_h - 1, z, LANTERN, {"hanging": True})
+
+    # stepped gable roof with a glass skylight at the ridge
+    gable_roof_z(v, 0, W - 1, 0, D - 1, wall_h, DEEP_TILES, STONE)
+    for z in range(4, D - 4, 5):
+        v.set(mx, H - 2, z, GLASS)
+
+    v.save("guild_scriptorium")
+
+
+def guild_sentinel_gate():
+    """Outermost gate of the Heroes' Guild grounds: twin Sentinel towers,
+    each crowned with a pair of ever-lit redstone lamps -- the visible face
+    of the Guild's permanent warding Seal. Sits south of the training
+    courtyard, aligned on the same gate axis."""
+    r = rng("struct", "guild_sentinel")
+    W, H, D = 27, 20, 14
+    v = Vox(W, H, D)
+    mx = W // 2  # 13
+
+    # ground: stone court with a paved path through the gate
+    for x in range(W):
+        for z in range(D):
+            v.set(x, 0, z, MCOBBLE if r.random() < 0.6 else STONE)
+    for z in range(D):
+        for x in range(mx - 1, mx + 2):
+            v.set(x, 0, z, DEEP_TILES if (x + z) % 2 else CHISELED)
+
+    # twin towers
+    for tx0 in (1, W - 5):
+        v.box(tx0, 1, 1, tx0 + 3, 14, D - 2, rnd_stone(r))
+        v.fill(tx0 + 1, 1, 2, tx0 + 2, 12, D - 3, "minecraft:air")
+        # crenellations + spires
+        for x in range(tx0, tx0 + 4):
+            for z in (1, D - 2):
+                if (x + z) % 2 == 0:
+                    v.set(x, 15, z, "minecraft:stone_brick_wall")
+        v.set(tx0 + 1, 16, (D - 1) // 2, "minecraft:end_rod")
+        v.set(tx0 + 2, 16, (D - 1) // 2, "minecraft:end_rod")
+        # the Seal: 2x2 ever-lit redstone lamps set into the south face
+        for x in (tx0 + 1, tx0 + 2):
+            for y in (11, 12):
+                v.set(x, y, 1, "minecraft:lit_redstone_lamp")
+        # arrow-slit windows
+        for z in (4, 8):
+            v.set(tx0, 6, z, IRON_BARS)
+            v.set(tx0 + 3, 6, z, IRON_BARS)
+
+    # curtain walls linking the towers to the central gate pillars
+    for xr in (range(5, mx - 3), range(mx + 4, W - 5)):
+        for x in xr:
+            for y in range(1, 7):
+                v.set(x, y, 0, rnd_stone(r))
+                v.set(x, y, D - 1, rnd_stone(r))
+            v.set(x, 7, 0, "minecraft:stone_brick_wall")
+            v.set(x, 7, D - 1, "minecraft:stone_brick_wall")
+
+    # central gate: obsidian pillars framing the open passage
+    for px in (mx - 4, mx + 4):
+        for y in range(1, 8):
+            v.set(px, y, 0, OBSIDIAN if y < 5 else "minecraft:crying_obsidian")
+            v.set(px, y, D - 1, OBSIDIAN if y < 5 else "minecraft:crying_obsidian")
+
+    # retracted portcullis grate over the passage
+    for x in range(mx - 3, mx + 4):
+        for z in range(D):
+            v.set(x, 7, z, IRON_BARS)
+
+    # warded lanterns glow above both faces of the gate
+    v.set(mx, 8, 0, "minecraft:sea_lantern")
+    v.set(mx, 8, D - 1, "minecraft:sea_lantern")
+    for x in (mx - 4, mx + 4):
+        v.set(x, 8, 0, SOUL_LANTERN)
+        v.set(x, 8, D - 1, SOUL_LANTERN)
+
+    v.save("guild_sentinel_gate")
+
+
 def power_oakvale_quay():
     """Oakvale-inspired Place of Power: cliffside village green around a great
     tree and well, with a guarded timber quay and barns below."""
@@ -2632,6 +2851,9 @@ def main():
     silver_chest_ruin()
     focus_site()
     power_guild_courtyard()
+    guild_armoury()
+    guild_scriptorium()
+    guild_sentinel_gate()
     power_oakvale_quay()
     power_snowspire_oracle()
     power_necropolis()
