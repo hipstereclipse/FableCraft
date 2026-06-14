@@ -51,4 +51,15 @@ nr = SS.render_structure(sub_noroof, size=(1300, 1000), yaw=math.pi - 0.55, pitc
 nr.convert("RGB").save("screenshots/structures/_guild_crop_noroof.png", quality=92)
 nrt = SS.render_structure(sub_noroof, size=(1100, 1100), yaw=0.0, pitch=math.pi / 2 - 0.001)
 nrt.convert("RGB").save("screenshots/structures/_guild_crop_noroof_top.png", quality=92)
-print("rendered topdown / iso / iso_se / crop_iso / crop_top / crop_noroof(+top)")
+
+# GROUND-ONLY top-down (just the y=0..2 surface) so the gravel/dirt path network
+# reads unambiguously against the lawn — no roofs, no walls hiding the paths.
+ground = GS.Vox(vox.sx, 3, vox.sz)
+for x in range(vox.sx):
+    for y in range(3):
+        for z in range(vox.sz):
+            n, s = vox.palette[vox.grid[vox.idx(x, y, z)]]
+            ground.set(x, y, z, n, dict(s))
+gt = SS.render_structure(ground, size=(1100, 1100), yaw=0.0, pitch=math.pi / 2 - 0.001)
+gt.convert("RGB").save("screenshots/structures/_guild_ground_top.png", quality=92)
+print("rendered topdown / iso / iso_se / crop_iso / crop_top / crop_noroof(+top) / ground_top")

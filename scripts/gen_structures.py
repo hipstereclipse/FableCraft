@@ -511,12 +511,15 @@ def guild_hall():
     UP_Y = 9
     DOOR_X, DOOR_Z = 56, 94             # Demon Door crag (far south)
 
-    # ================= GROUND: a level grass lawn =================
+    # ================= GROUND: a level, SMOOTH grass lawn =================
+    # Mostly clean grass with only a faint wash of moss (near-grass green) and the
+    # rare podzol fleck, so the open grounds read smooth — not a brown-speckled
+    # patchwork. Paths (gravel) and gardens are laid over this later.
     for x in range(W):
         for z in range(L):
             roll = r.random()
-            v.set(x, 0, z, "minecraft:grass_block" if roll < 0.84 else
-                  ("minecraft:moss_block" if roll < 0.94 else "minecraft:podzol"))
+            v.set(x, 0, z, "minecraft:grass_block" if roll < 0.92 else
+                  ("minecraft:moss_block" if roll < 0.985 else "minecraft:podzol"))
 
     # ================= THE CURVED RIVER + south pond =================
     # The river runs straight north-south down the tower's EAST flank, then
@@ -917,6 +920,39 @@ def guild_hall():
     v.set(stx0 + 1, 1, stz1 - 1, "minecraft:chest", {"minecraft:cardinal_direction": "south"})
     v.set((stx0 + stx1) // 2, 4, (stz0 + stz1) // 2, LANTERN, {"hanging": True})
 
+    # ===== ONE CONNECTED BUILDING =============================================
+    # The Library (N), Map-Room rotunda (centre), Dining hall (E) and Store (S)
+    # are knitted into a SINGLE rambling hall. Connective bays fill the lawn gaps
+    # between the subsections with a paved floor, warm-stone side walls and a
+    # slate roof DECK whose height matches the neighbour it joins — so the
+    # rooflines run continuous from wing to wing while the dome still rises proud
+    # at the heart. Wide archways open each bay into the rooms it links, so the
+    # whole complex reads (and walks) as one building, not separate boxes.
+    def join_bay(x0, z0, x1, z1, eave, wall_axis):
+        for x in range(x0, x1 + 1):
+            for z in range(z0, z1 + 1):
+                v.set(x, 0, z, STONE if (x + z) % 4 else DEEP_TILES)         # paved floor
+                v.fill(x, 1, z, x, eave, z, "minecraft:air")                  # clear interior
+                v.set(x, eave + 1, z, SLATE if (x + z) % 2 else DEEP_TILES)   # roof deck
+        if wall_axis == 'z':                     # walls on the x extremes (run along z)
+            for z in range(z0, z1 + 1):
+                for x in (x0, x1):
+                    for y in range(1, eave + 1):
+                        v.set(x, y, z, warm())
+        else:                                    # walls on the z extremes (run along x)
+            for x in range(x0, x1 + 1):
+                for z in (z0, z1):
+                    for y in range(1, eave + 1):
+                        v.set(x, y, z, warm())
+    join_bay(18, 31, 34, 33, 8, 'z')     # Library  <-> rotunda (north): walls x18/x34, roof y9
+    join_bay(22, 51, 33, 51, 4, 'z')     # rotunda  <-> Store   (south): low link, roof y5
+    join_bay(35, 34, 35, 50, 8, 'x')     # rotunda  <-> Dining  (east):  walls z34/z50, roof y9
+    # grand archways so the bays read as one open hall (the rotunda's cardinal
+    # doorways already open its three connecting sides)
+    v.fill(23, 1, 30, 30, 4, 30, "minecraft:air")     # wide opening into the Library
+    v.fill(25, 1, 52, 30, 4, 52, "minecraft:air")     # wide opening into the Store
+    v.fill(36, 1, 39, 36, 4, 45, "minecraft:air")     # wide opening into the Dining hall
+
     # ================= NE KITCHEN / STORES / DORMITORY (across the river) =======
     # Foundation planted at GROUND level (was a block proud); both flanks opened
     # with arches onto the gravel paths so the Hero can step off the bridge and
@@ -1072,11 +1108,8 @@ def guild_hall():
         v.set(dmx, 1, dmz, "minecraft:hay_block")
         v.set(dmx, 2, dmz, "minecraft:hay_block")
         v.set(dmx, 3, dmz, "minecraft:carved_pumpkin", {"minecraft:cardinal_direction": "west"})
-    # grey gravel paths linking the bridges to the rings and out to the Woods (Exit C)
-    for x in range(57, W - 3):
-        v.set(x, 0, 32, GRAVEL if (x) % 3 else COBBLE)
-    for z in range(32, 55):
-        v.set(74, 0, z, GRAVEL if z % 3 else COBBLE)
+    # (the east-grounds gravel spine + the dirt branch out to the Woods are laid
+    #  in the consolidated GROUNDS path circuit below, clipped to open lawn)
 
     # ================= MAZE'S TOWER (moated island, south) — THREE floors =======
     # A circular medieval tower: a wall-hugging spiral winds up past book-lined
@@ -1523,25 +1556,41 @@ def guild_hall():
             for dx in range(0, wide + 1):
                 for dz in range(0, wide + 1):
                     ax, az = cx + dx, cz + dz
-                    if 0 <= ax < W and 0 <= az < L and v.grid[v.idx(ax, 0, az)] in GRASS:
-                        if mat == "gravel":          # grey gravelled lane (the plan's paths)
-                            v.set(ax, 0, az, GRAVEL if r.random() < 0.78 else COBBLE)
-                        else:                        # a worn earthen track
-                            v.set(ax, 0, az, PATH if r.random() < 0.7 else "minecraft:coarse_dirt")
-    lay_path(9, 42, 18, 42)             # gate -> Map Room
-    lay_path(34, 42, 50, 42)            # Map Room -> river bridges
-    lay_path(57, 32, W - 4, 32)         # bridge -> Archery -> Woods (Exit C)
-    lay_path(74, 33, 80, 47, mat="dirt")  # Archery -> Dueling Ring (the plan's "dirt path")
-    lay_path(34, 30, 34, 16)            # complex -> stone hallway
-    lay_path(20, 42, 26, 55)            # Map Room -> Store / cloister
-    lay_path(68, 82, 80, 56)            # east-bank bridge -> Dueling Ring
-    # task 5: a gravel promenade WRAPS the complex — both river banks, knitting
-    # every bridge, the riverside terrace and the Four-Graves garden into a circuit
-    lay_path(50, 18, 50, 70)            # WEST-bank riverside walk (north river -> tower)
-    lay_path(56, 18, 56, 80)            # EAST-bank riverside walk (links all the bridges)
-    lay_path(31, 70, 49, 71)            # along the graves garden's south, to the tower
-    lay_path(31, 58, 31, 71)            # up the graves garden's west flank
-    lay_path(40, 70, 44, 67)            # graves garden -> tower north archway
+                    if 0 <= ax < W and 0 <= az < L and v.grid[v.idx(ax, 0, az)] in GRASS \
+                            and v.grid[v.idx(ax, 1, az)] == AIR:   # open lawn only (no paving under flowers/decor)
+                        if mat == "gravel":          # SMOOTH grey gravelled lane (full
+                            # flat blocks only — no sunk path tiles, so it reads even)
+                            v.set(ax, 0, az, GRAVEL if r.random() < 0.86 else MCOBBLE)
+                        else:                        # a worn earthen track (the east branch)
+                            v.set(ax, 0, az, "minecraft:coarse_dirt" if r.random() < 0.5 else PATH)
+    # ===== the campus GRAVEL circuit (the plan's PURPLE paths): one connected,
+    #       SMOOTH gravelled walk that reaches every feature. lay_path is clipped
+    #       to open lawn, so it never paves a floor, wall, garden bed or the water
+    #       — the grounds stay continuous with no pocked holes. =====
+    # west: the gate / Cullis lawn, wrapping the rotunda's open south to the Store
+    lay_path(12, 47, 20, 50, wide=2)    # gate & Cullis lawn -> south of the Map Room
+    lay_path(20, 50, 27, 52, wide=2)    # -> Store doorway approach
+    lay_path(34, 44, 49, 44, wide=2)    # Map Room east lawn -> river west bank
+    lay_path(34, 30, 34, 17)            # main complex -> covered stone hallway (north)
+    # both river banks knit every plank bridge + the terrace into the circuit
+    lay_path(50, 17, 50, 70)            # WEST-bank riverside walk (self-clips at the pond)
+    lay_path(56, 17, 56, 80)            # EAST-bank riverside walk (self-clips at the pond)
+    # south: Store -> Four-Graves garden borders -> the tower's north archway
+    lay_path(27, 56, 31, 60)            # Store -> graves garden NW corner
+    lay_path(31, 60, 31, 70)            # graves garden west border
+    lay_path(31, 70, 45, 70, wide=2)    # graves garden south -> tower north arch
+    lay_path(40, 70, 44, 67)            # -> tower north archway threshold
+    # east training grounds (across the river): the gravel walk leaves the two
+    # southern bridges and runs along the WEST side of the ranges, reaching each
+    # ring at its EDGE (you step onto the dirt circle), then drops SE to the pond
+    lay_path(58, 36, 64, 37, wide=2)    # centre bridge -> Archery Range (west edge)
+    lay_path(58, 54, 74, 54, wide=2)    # south bridge -> Dueling Ring (west edge), along z54
+    lay_path(64, 38, 72, 51, wide=2)    # Archery <-> Dueling (links the two grounds)
+    lay_path(74, 58, 67, 80, wide=2)    # Dueling SE -> pond bridge / Demon Door (self-clips at water)
+    # ===== the DIRT PATH branch (the plan's ORANGE): peels off by the Archery
+    #       Range and runs east through Exit C to the Guild Woods (continued
+    #       beyond the footprint at runtime by layWoodsPath in main.js) =====
+    lay_path(74, 33, 88, 32, wide=2, mat="dirt")
 
     # Exit C — a chiseled stone archway through the east wall to the Guild Woods
     ecz = 32
@@ -1618,6 +1667,19 @@ def guild_hall():
         else:
             rx, rz = r.randint(3, W - 3), r.choice([r.randint(3, 11), r.randint(L - 11, L - 3)])
         rock(rx, rz)
+
+    # ---- SMOOTH GROUNDS: a final no-holes sweep. Every ground column must carry
+    #      a solid surface block (the lawn is grass/moss/podzol, water is water,
+    #      buildings/paths set their own floors) so the grounds never read as a
+    #      field of pocked holes. The ONLY intended y=0 opening is the spiral-shaft
+    #      mouth in the library alcove (carved open at runtime), which we spare. ----
+    cvx, cvz = (lx0 + lx1) // 2, lz0 - 2     # spiral centre (27,14) — keep its mouth open
+    for x in range(W):
+        for z in range(L):
+            if cvx - 1 <= x <= cvx + 1 and cvz - 1 <= z <= cvz + 1:
+                continue                     # spare the shaft mouth
+            if v.grid[v.idx(x, 0, z)] == AIR:
+                v.set(x, 0, z, "minecraft:grass_block")
 
     fix_floating_decor(v)                # re-seat every lantern; no floaters
     v.save("guild_hall")

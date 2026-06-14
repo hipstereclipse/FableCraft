@@ -325,6 +325,7 @@ function buildGuildWhenReady(p, dim, base, attempt) {
     skirtTerrain(dim, base.x, y, base.z, 92, 100, 16);
     dressSurroundings(dim, base.x, y, base.z, 92, "holy");
     populateSurroundings(dim, base);                 // biome-matched woods around the campus
+    layWoodsPath(dim, base);                          // the orange dirt trail out to the Woods
     placeGuildAnnexes(dim);
     setGuildSpawn(p);
   } catch { /* decoration is best-effort; the Guild itself is already placed */ }
@@ -635,6 +636,31 @@ function layPath(dim, x, z, mat = "minecraft:dirt_path") {
     const below = dim.getBlock({ x, y: gy - 1, z });
     if (below && !below.isAir && !below.isLiquid) below.setType(mat);
   } catch { }
+}
+// The Guild's east DIRT PATH (the plan's ORANGE branch): continues the
+// in-structure track out past Exit C (local z=32) into the Guild Woods, hugging
+// the natural ground so it reads as a worn forest trail that gently wanders and
+// forks. 2 wide, idempotent, bounded, fully wrapped so it can never break a build.
+function layWoodsPath(dim, base) {
+  if (world.getDynamicProperty("fc_guild_woodspath_done")) return;
+  const z0 = base.z + 32;                            // Exit C centreline
+  const work = function* () {
+    let z = z0;
+    for (let i = 0; i < 30; i++) {                   // main trail, heading east
+      const x = base.x + 92 + i;                     // just outside the east wall, onward
+      if (i > 5 && Math.random() < 0.3) z += (Math.random() < 0.5 ? 1 : -1);  // gentle wander
+      for (let dz = -1; dz <= 0; dz++) layPath(dim, x, z + dz);   // 2 wide
+      yield;
+    }
+    let fz = z0;                                     // a fork peeling off to the north-east
+    for (let i = 0; i < 14; i++) {
+      const x = base.x + 102 + i;
+      fz -= 1;
+      for (let dz = -1; dz <= 0; dz++) layPath(dim, x, fz + dz);
+      yield;
+    }
+  };
+  try { system.runJob(work()); world.setDynamicProperty("fc_guild_woodspath_done", true); } catch { }
 }
 function connectGuildPaths(dim, base) {
   if (world.getDynamicProperty("fc_guild_paths_done")) return;
