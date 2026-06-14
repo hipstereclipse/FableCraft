@@ -888,19 +888,26 @@ def guild_hall():
         v.set(dx0 + 1, UPPER + 1, bz, "minecraft:bed", {"direction": 1, "head_piece_bit": True})
     v.set((dx0 + dx1) // 2, UPPER + 4, (dz0 + dz1) // 2, LANTERN, {"hanging": True})
 
-    # ---- the RIVERSIDE GRAND STAIRCASE + terrace: in the strip between the
-    #      shortened hall (x45) and the river (x51). A 2-wide stone flight on a
-    #      SOLID carriage (nothing floats) climbs from the waterside promenade up
-    #      to a railed riverside terrace that opens, through a door, into the
-    #      hall's upper floor. One flat landing breaks the run; the foot turns 90°
-    #      east onto the promenade that wraps the complex.
+    # ---- the RIVERSIDE CAUSEWAY + grand staircase + terrace: the strip between
+    #      the shortened hall (x45) and the river (x51). A clean, CONTINUOUS 2-wide
+    #      stone QUAY (x49-50) runs the whole river flank — from the covered hallway
+    #      in the north to the tower island in the south — deliberate stone-tile
+    #      paving (not gravel speckle), flush with the water, the through-lane on
+    #      x49 always clear and chiseled lantern bollards punctuating the river edge
+    #      (x50). Onto it land the three plank bridges and the grand staircase: a
+    #      2-wide stone flight on a SOLID carriage (nothing floats) climbing to a
+    #      railed riverside terrace that opens, through a door, into the hall's
+    #      upper floor. One flat landing breaks the run.
     TR_A, TR_B = 47, 48                              # the two tread columns
-    for z in range(dz0 - 2, dz1 + 7):               # waterside gravel PROMENADE (stand y1)
+    for z in range(22, 71):                          # continuous stone causeway, water-clipped
+        if is_water(49, z) or is_water(50, z):
+            continue
         for x in (49, 50):
-            if not is_water(x, z) and v.grid[v.idx(x, 1, z)] == v._pid("minecraft:air"):
-                v.set(x, 0, z, GRAVEL if (x + z) % 3 else COBBLE)
-        if z % 5 == 0 and not is_water(50, z):
-            v.set(50, 1, z, SAND_WALL)
+            if v.grid[v.idx(x, 1, z)] == v._pid("minecraft:air"):
+                v.set(x, 0, z, DEEP_TILES if (x + z) % 4 == 0 else STONE)   # quay deck
+        if z % 8 == 0 and v.grid[v.idx(50, 1, z)] == v._pid("minecraft:air"):
+            v.set(50, 1, z, SAND_CHIS)              # river-edge lantern bollard
+            v.set(50, 2, z, LANTERN, {"hanging": False})
     stand, z = 1, dz1                                # climb NORTH from the promenade
     for step in ["s", "s", "s", "L", "s", "s", "s", "s"]:   # 7 rises -> stand 8 at z=44
         topy = stand if step == "s" else stand - 1
@@ -911,8 +918,7 @@ def guild_hall():
                 v.set(tx, stand - 1, z, DEEP_TILES if (tx + z) % 2 else STONE)
             for yy in range(1, topy):
                 v.set(tx, yy, z, warm())            # solid carriage down to the ground
-        v.set(46, topy + 1, z, SAND_WALL)           # balustrades flank the whole run
-        v.set(49, topy + 1, z, SAND_WALL)
+        v.set(46, topy + 1, z, SAND_WALL)           # building-side rail (river side = the quay)
         if step == "s":
             stand += 1
         z -= 1
@@ -926,8 +932,7 @@ def guild_hall():
     v.set(46, UPPER + 1, dz0 + 4, SAND_CHIS)
     v.set(46, UPPER + 2, dz0 + 4, LANTERN, {"hanging": False})
     v.fill(dx1, UPPER + 1, dz0 + 6, dx1, UPPER + 3, dz0 + 8, "minecraft:air")   # door into upper floor
-    for x in range(TR_B, 51):                        # the foot opens east onto the promenade
-        v.set(x, 0, dz1 + 1, GRAVEL)
+    # (the staircase foot lands directly on the continuous causeway at x49-50)
 
     # ================= STORE (south of the rotunda) =================
     stx0, stx1, stz0, stz1 = 22, 33, 52, 59
