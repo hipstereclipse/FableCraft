@@ -314,33 +314,39 @@ def _stair_dir(dx, dz):
     return 2 if dz > 0 else 3
 
 
-def spiral_stair(v, cx, cz, radius, y0, y1, mat, post=None, steps_per_rev=12,
+def spiral_stair(v, cx, cz, radius, y0, y1, mat, post=None, steps_per_rev=16,
                  ccw=True, support=STONE):
-    """A walkable spiral staircase winding up around (cx,cz). One block of
-    climb per step; consecutive treads stay edge/corner adjacent so a Hero can
-    walk straight up. Optional centre post and a support block under each tread."""
+    """A TWO-WIDE walkable spiral winding up around (cx,cz). Each course lays an
+    outer stair tread plus an inner stair tread (so it is two blocks wide) on a
+    solid pillar that fills to the floor, so the run is always climbable and
+    reaches the storey above. Returns the OUTER tread points (x, y, z)."""
     n = y1 - y0
-    pts = []
+    outer = []
+    prev = None
     for i in range(n + 1):
         ang = (i / steps_per_rev) * 2 * math.pi * (1 if ccw else -1)
-        x = cx + round(math.cos(ang) * radius)
-        z = cz + round(math.sin(ang) * radius)
-        pts.append((x, y0 + i, z))
-    for i, (x, y, z) in enumerate(pts):
-        if i + 1 < len(pts):
-            dx, dz = pts[i + 1][0] - x, pts[i + 1][2] - z
-        else:
-            dx, dz = x - pts[i - 1][0], z - pts[i - 1][2]
+        ox = cx + round(math.cos(ang) * radius)
+        oz = cz + round(math.sin(ang) * radius)
+        ix = cx + round(math.cos(ang) * (radius - 1))
+        iz = cz + round(math.sin(ang) * (radius - 1))
+        y = y0 + i
+        dx, dz = (ox - prev[0], oz - prev[1]) if prev else (0, 1)
         if dx == 0 and dz == 0:
             dx = 1
-        v.set(x, y, z, mat, {"weirdo_direction": _stair_dir(dx, dz),
-                             "upside_down_bit": False})
+        st = {"weirdo_direction": _stair_dir(dx, dz), "upside_down_bit": False}
+        v.set(ox, y, oz, mat, st)
+        if (ix, iz) != (ox, oz):
+            v.set(ix, y, iz, mat, st)              # inner tread -> two wide
         if support:
-            v.set(x, y - 1, z, support)
+            for yy in range(y0 - 1, y):            # solid carriage under both treads
+                v.set(ox, yy, oz, support)
+                v.set(ix, yy, iz, support)
+        outer.append((ox, y, oz))
+        prev = (ox, oz)
     if post:
         for y in range(y0, y1 + 2):
             v.set(cx, y, cz, post)
-    return pts
+    return outer
 
 
 def dome(v, cx, cz, radius, y0, mat, ring_mat=None, oculus=None):
@@ -457,18 +463,19 @@ def guild_hall():
                   ("minecraft:moss_block" if roll < 0.94 else "minecraft:podzol"))
 
     # ================= THE CURVED RIVER + south pond =================
+    # The river runs straight north-south, then bends EAST and SOUTH around
+    # Maze's Tower — so the tower has water on TWO sides only and keeps a dry
+    # land approach on its NW where the stone corridor reaches it.
     def is_water(x, z):
+        if 51 <= x <= 55 and 4 <= z <= 64:
+            return True                        # the straight north river channel
         dt = math.hypot(x - TWR_X, z - TWR_Z)
-        if dt <= 6.5:
-            return False                       # tower island (land)
-        if 6.5 < dt <= 9.4:
-            return True                        # tower moat — "water all around"
-        if 51 <= x <= 55 and 4 <= z <= 52:
-            return True                        # north river channel
-        if 47 <= x <= 56 and 50 <= z <= 64:
-            return True                        # the bend that feeds the moat
-        if 42 <= x <= 66 and 74 <= z <= 90:    # the south pond
-            if math.hypot((x - 55) * 0.9, (z - 82) * 1.0) <= 12:
+        if dt <= 6.0:
+            return False                       # the tower stands on dry land
+        if 6.0 < dt <= 9.2 and (x - TWR_X >= 1 or z - TWR_Z >= 1):
+            return True                        # the river sweeps the tower's E + S
+        if 44 <= x <= 66 and 62 <= z <= 90:    # the south pond (islands + Demon Door)
+            if math.hypot((x - 55) * 0.85, (z - 76) * 0.9) <= 14:
                 return True
         return False
     for x in range(W):
@@ -477,19 +484,20 @@ def guild_hall():
                 v.set(x, 0, z, "minecraft:water")
 
     # ================= PERIMETER: the western main wall + gate =================
+    WALL_X = 10                                 # set back to give the platform room
     GATE_Z = ROT_Z                              # the gate lines up with the Map Room
     for z in range(2, L - 2):                    # west curtain wall
         if abs(z - GATE_Z) <= 2:
             continue                             # leave the gate open
         for y in range(1, 5):
-            v.set(8, y, z, COBBLE if r.random() < 0.45 else STONE)
+            v.set(WALL_X, y, z, COBBLE if r.random() < 0.45 else STONE)
         if z % 2 == 0:
-            v.set(8, 5, z, SAND_WALL)
+            v.set(WALL_X, 5, z, SAND_WALL)
     for gz in (GATE_Z - 3, GATE_Z + 3):          # gate piers
         for y in range(1, 6):
-            v.set(8, y, gz, SAND_CHIS if y == 5 else warm())
-        v.set(8, 6, gz, LANTERN, {"hanging": False})
-    for x in range(8, 0, -1):                    # paved approach out to the world
+            v.set(WALL_X, y, gz, SAND_CHIS if y == 5 else warm())
+        v.set(WALL_X, 6, gz, LANTERN, {"hanging": False})
+    for x in range(WALL_X, 0, -1):               # paved approach out to the world
         for z in range(GATE_Z - 1, GATE_Z + 2):
             v.set(x, 0, z, STONE if (x + z) % 3 else SAND_SMOOTH)
     # a light wall closing the rest of the perimeter (north / south / east)
@@ -500,13 +508,13 @@ def guild_hall():
     for z in range(2, L - 2):
         for y in range(1, 4):
             v.set(W - 3, y, z, COBBLE if r.random() < 0.5 else STONE)
-    for cx_, cz_ in ((8, 2), (W - 3, 2), (8, L - 3), (W - 3, L - 3)):
+    for cx_, cz_ in ((WALL_X, 2), (W - 3, 2), (WALL_X, L - 3), (W - 3, L - 3)):
         for y in range(1, 6):
             v.set(cx_, y, cz_, warm() if y < 5 else SAND_CHIS)
         v.set(cx_, 6, cz_, LANTERN, {"hanging": False})
 
-    # ================= BOASTING PLATFORM + CART (west, by the gate) =============
-    bx0, bx1, bz0, bz1 = 2, 7, 24, 30
+    # ================= BOASTING PLATFORM + CART (west, outside the wall) ========
+    bx0, bx1, bz0, bz1 = 2, 6, 23, 30
     for x in range(bx0, bx1 + 1):
         for z in range(bz0, bz1 + 1):
             v.set(x, 1, z, SPRUCE if (x + z) % 2 else DARKOAK)
@@ -635,11 +643,14 @@ def guild_hall():
                     for y in range(1, wh):
                         v.set(x, y, z, warm())
         cone_roof(v, cx, cz, rad, wh, SLATE, tip="minecraft:end_rod")
-        # an open throat fuses the nook interior straight into the rotunda
+        # an open throat fuses the nook interior straight into the rotunda — but
+        # STOPS at the rotunda floor so it never carves through the Map relief
         steps = max(1, int(round(math.hypot(ROT_X - cx, ROT_Z - cz))))
         for i in range(steps + 1):
             px = round(cx + (ROT_X - cx) * i / steps)
             pz = round(cz + (ROT_Z - cz) * i / steps)
+            if math.hypot(px - ROT_X, pz - ROT_Z) <= ROT_R - 1.5:
+                break                       # reached the Map Room floor; spare the Map
             for ox, oz in ((0, 0), (1, 0), (-1, 0), (0, 1), (0, -1)):
                 v.set(px + ox, 0, pz + oz, floor)
                 v.fill(px + ox, 1, pz + oz, px + ox, 3, pz + oz, "minecraft:air")
@@ -822,6 +833,7 @@ def guild_hall():
             v.set(57, 1, z, SPRUCE_STAIR, {"weirdo_direction": 1, "upside_down_bit": False})
     plank_bridge(20)
     plank_bridge(36)
+    plank_bridge(54)                                 # monuments / garden -> east path
 
     # ================= EAST TRAINING GROUNDS (across the river) =================
     # the Archery Range — a dirt circle with a covered stand and straw targets
@@ -834,16 +846,19 @@ def guild_hall():
             if arr - 0.7 < d <= arr + 0.3:
                 v.set(x, 1, z, DARKOAK_FENCE)
     v.set(arx - arr, 1, arz, "minecraft:air")        # gate facing the bridges
-    for z in range(arz - 3, arz + 4, 2):             # straw-backed targets (east butt)
-        v.set(arx + arr - 1, 1, z, "minecraft:hay_block")
-        v.set(arx + arr - 1, 2, z, "minecraft:target")
-    for z in range(arz - 3, arz + 4):                # covered shooting stand (west)
-        v.set(arx - arr + 1, 5, z, DARKOAK if z % 2 else SLATE)
-        v.set(arx - arr + 1, 1, z, SPRUCE_STAIR, {"weirdo_direction": 0, "upside_down_bit": False})
-    for z in (arz - 3, arz + 3):
+    # straw-backed targets stood against the NE building's south wall (the butt)
+    for x in range(arx - 3, arx + 4):
+        v.set(x, 1, arz - arr + 1, "minecraft:hay_block")
+        v.set(x, 2, arz - arr + 1, "minecraft:target")
+        v.set(x, 3, arz - arr + 1, "minecraft:target")
+    # covered shooting stand on the SOUTH edge, firing north at the butt
+    for x in range(arx - 3, arx + 4):
+        v.set(x, 5, arz + arr - 1, DARKOAK if x % 2 else SLATE)
+        v.set(x, 1, arz + arr - 1, SPRUCE_STAIR, {"weirdo_direction": 3, "upside_down_bit": False})
+    for x in (arx - 3, arx + 3):
         for y in range(1, 5):
-            v.set(arx - arr + 1, y, z, SPRUCE_LOG)
-    v.set(arx - arr + 2, 1, arz, "minecraft:fletching_table")
+            v.set(x, y, arz + arr - 1, SPRUCE_LOG)
+    v.set(arx, 1, arz + arr - 2, "minecraft:fletching_table")
     # the Dueling Ring — a kerbed sawdust sparring circle with straw dummies
     drx, drz, drr = 80, 54, 6
     for x in range(drx - drr, drx + drr + 1):
@@ -907,21 +922,22 @@ def guild_hall():
     v.set(TWR_X, STUDY_Y + 2, TWR_Z, "minecraft:sea_lantern")
     cone_roof(v, TWR_X, TWR_Z, TWR_R + 1, STUDY_Y + 4, SLATE, tip="minecraft:end_rod")
 
-    # ---- covered stone corridor: the complex (north) down to the tower door,
-    #      enclosed on the exterior (west) flank only ----
-    cz0 = 60                                          # corridor runs z 60 .. tower
-    for z in range(cz0, TWR_Z - TWR_R + 1):
-        for x in (TWR_X - 1, TWR_X, TWR_X + 1):
-            v.set(x, 0, z, STONE if (x + z) % 2 else DEEP_TILES)   # deck over the water
-            v.fill(x, 1, z, x, 4, z, "minecraft:air")
-            v.set(x, 5, z, SLATE if z % 2 else DEEP_TILES)
-        for y in range(1, 5):
-            v.set(TWR_X - 1, y, z, warm())            # enclosed exterior (west) wall
-        v.set(TWR_X + 1, 1, z, SAND_WALL)             # open rail (east, toward the grounds)
-    for z in range(cz0 + 1, TWR_Z - TWR_R, 3):
-        v.set(TWR_X, 4, z, LANTERN, {"hanging": True})
-    for x in (TWR_X - 1, TWR_X, TWR_X + 1):           # connect the corridor to the grounds
-        v.set(x, 0, cz0 - 1, STONE)
+    # ---- the covered stone corridor: it joins the Dining Hall (north) down the
+    #      dry NW approach to the tower door — walled on its exterior (west) flank,
+    #      open arches to the east: "enclosed only exterior side" ----
+    cor_x = TWR_X - 1                                 # x45, the dry land approach
+    v.fill(cor_x, 1, dz1, cor_x, 3, dz1, "minecraft:air")    # door out of the Dining Hall
+    for z in range(dz1, TWR_Z - TWR_R + 1):           # 51 .. 66
+        for x in (cor_x - 1, cor_x, cor_x + 1):
+            v.set(x, 0, z, STONE if (x + z) % 2 else DEEP_TILES)   # ground-level floor
+            v.fill(x, 1, z, x, 3, z, "minecraft:air")
+            v.set(x, 4, z, SLATE if z % 2 else DEEP_TILES)         # flat roof
+        for y in range(1, 4):
+            v.set(cor_x - 1, y, z, warm())            # enclosed exterior (west) wall
+        if z < TWR_Z - TWR_R:
+            v.set(cor_x + 1, 1, z, SAND_WALL)         # open arched rail (east)
+    for z in range(dz1 + 1, TWR_Z - TWR_R, 3):
+        v.set(cor_x, 3, z, LANTERN, {"hanging": True})
 
     # the Four Graves + monument garden (between the complex and the corridor)
     gx0, gz0 = 30, 54

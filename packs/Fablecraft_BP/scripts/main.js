@@ -312,7 +312,7 @@ function buildGuildWhenReady(p, dim, base, attempt) {
     ensureDemonDoor(dim, doorLoc, base.z + 86);
     fillLootChests(dim, base.x, y, base.z, 92, 30, 100, "fc:guild_hall");
     blendTerrain(dim, base.x, y, base.z, 92, 100);
-    skirtTerrain(dim, base.x, y, base.z, 92, 100, 12);
+    skirtTerrain(dim, base.x, y, base.z, 92, 100, 16);
     dressSurroundings(dim, base.x, y, base.z, 92, "holy");
     placeGuildAnnexes(dim);
     setGuildSpawn(p);
@@ -2630,9 +2630,10 @@ function skirtTerrain(dim, x0, y0, z0, w, d, R) {
         const oz = z < z0 ? z0 - z : (z >= z0 + d ? z - (z0 + d - 1) : 0);
         const out = Math.max(ox, oz);
         if (out === 0) continue;          // inside the footprint — leave it
-        // jitter the contour and ease the grade so the bank looks natural
-        const j = hash2(x * 2 + 7, z * 2 + 3) * 2.4;
-        const step = Math.max(0, Math.round((out - j) / 1.6));
+        // a STEEP, lightly-jittered bank that hugs the plinth and drives down to
+        // the natural ground fast (no wide out-of-place shelf)
+        const j = hash2(x * 2 + 7, z * 2 + 3) * 1.4;
+        const step = Math.max(0, Math.round(out - j));   // ~1:1 grade
         skirtColumn(dim, x, z, y0, y0 - step, cap, sub);
         yield;
       }
