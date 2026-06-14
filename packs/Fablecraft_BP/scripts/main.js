@@ -322,7 +322,7 @@ function buildGuildWhenReady(p, dim, base, attempt) {
     ensureDemonDoor(dim, doorLoc, base.z + 86);
     fillLootChests(dim, base.x, y, base.z, 92, 30, 100, "fc:guild_hall");
     blendTerrain(dim, base.x, y, base.z, 92, 100);
-    skirtTerrain(dim, base.x, y, base.z, 92, 100, 16);
+    skirtTerrain(dim, base.x, y, base.z, 92, 100, 28);
     dressSurroundings(dim, base.x, y, base.z, 92, "holy");
     populateSurroundings(dim, base);                 // biome-matched woods around the campus
     layWoodsPath(dim, base);                          // the orange dirt trail out to the Woods
@@ -3076,10 +3076,13 @@ function skirtTerrain(dim, x0, y0, z0, w, d, R) {
         const oz = z < z0 ? z0 - z : (z >= z0 + d ? z - (z0 + d - 1) : 0);
         const out = Math.max(ox, oz);
         if (out === 0) continue;          // inside the footprint — leave it
-        // a STEEP, lightly-jittered bank that hugs the plinth and drives down to
-        // the natural ground fast (no wide out-of-place shelf)
-        const j = hash2(x * 2 + 7, z * 2 + 3) * 1.4;
-        const step = Math.max(0, Math.round(out - j));   // ~1:1 grade
+        // a BROAD, gently-graded earthen apron that eases out from the plinth and
+        // melts into the natural ground over a wide radius (no perched shelf): a
+        // ~0.6:1 slope, steepest at the plinth and flattening outward, lightly
+        // jittered so the toe of the bank reads natural rather than ruled
+        const j = hash2(x * 2 + 7, z * 2 + 3) * 1.3;
+        const grade = Math.pow(out / R, 0.85) * R * 0.62;  // gentle, easing curve
+        const step = Math.max(0, Math.round(grade - j));
         skirtColumn(dim, x, z, y0, y0 - step, cap, sub);
         yield;
       }

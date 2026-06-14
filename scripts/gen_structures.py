@@ -1040,25 +1040,37 @@ def guild_hall():
     for x in range(34, 37):
         v.set(x, 0, hbz, STONE)
 
-    # =========== BRIDGES across the north river (handsome arched spans) ========
-    def plank_bridge(zc):
-        for x in range(49, 58):                       # dark-oak deck, 3 wide
+    # =========== BRIDGES across the north river (handsome ARCHED spans) ========
+    # A gentle walkable HUMP: the dark-oak deck sits at y1 on the banks and rises
+    # to a y2 crown over midstream, eased on and off by stair treads. Mossy stone
+    # piers + inverted-stair haunches form the arch beneath; fence rails follow
+    # the curve and lanterns mark the gateheads — matching the stone pond bridge.
+    def arch_bridge(zc):
+        crown = set(range(51, 56))                     # x51..55 ride the raised crown
+        for x in range(49, 58):
+            dy = 2 if x in crown else 1
             for z in (zc - 1, zc, zc + 1):
-                v.set(x, 1, z, DARKOAK)
-            v.set(x, 2, zc - 1, SPRUCE_FENCE)          # railings both sides
-            v.set(x, 2, zc + 1, SPRUCE_FENCE)
-        for px in (51, 53, 55):                        # mossy stone piers in the river
-            v.set(px, 0, zc, MCOBBLE)
-        for z in (zc - 1, zc, zc + 1):                 # ramp stairs to both banks
+                v.set(x, dy, z, DARKOAK)               # deck (banks y1, crown y2)
+        for z in (zc - 1, zc, zc + 1):                 # treads on/off crown + down to banks
+            v.set(50, 1, z, SPRUCE_STAIR, {"weirdo_direction": 0, "upside_down_bit": False})
+            v.set(56, 1, z, SPRUCE_STAIR, {"weirdo_direction": 1, "upside_down_bit": False})
             v.set(48, 1, z, SPRUCE_STAIR, {"weirdo_direction": 0, "upside_down_bit": False})
             v.set(58, 1, z, SPRUCE_STAIR, {"weirdo_direction": 1, "upside_down_bit": False})
+        for px in (51, 53, 55):                        # mossy stone piers in the river
+            v.set(px, 0, zc, MCOBBLE)
+        v.set(51, 1, zc, SPRUCE_STAIR, {"weirdo_direction": 0, "upside_down_bit": True})  # arch haunches
+        v.set(55, 1, zc, SPRUCE_STAIR, {"weirdo_direction": 1, "upside_down_bit": True})
+        for x in range(49, 58):                        # fence rails follow the hump
+            dy = 2 if x in crown else 1
+            v.set(x, dy + 1, zc - 1, SPRUCE_FENCE)
+            v.set(x, dy + 1, zc + 1, SPRUCE_FENCE)
         for px in (48, 58):                            # lantern posts at the gateheads
             for zr in (zc - 1, zc + 1):
                 v.set(px, 2, zr, DARKOAK_FENCE)
                 v.set(px, 3, zr, LANTERN, {"hanging": False})
-    plank_bridge(20)
-    plank_bridge(36)
-    plank_bridge(54)                                 # monuments / garden -> east path
+    arch_bridge(20)
+    arch_bridge(36)
+    arch_bridge(54)                                 # monuments / garden -> east path
 
     # ================= EAST TRAINING GROUNDS (across the river) =================
     # the Archery Range — a dirt circle SOUTH of (clear of) the kitchen, with the
@@ -1667,6 +1679,39 @@ def guild_hall():
         else:
             rx, rz = r.randint(3, W - 3), r.choice([r.randint(3, 11), r.randint(L - 11, L - 3)])
         rock(rx, rz)
+
+    # ===== FULL CIVIC PAVING (match the Inkarnate ground plan) — the developed
+    #       complex reads as dense tan FLAGSTONE courtyards, not open lawn. We
+    #       convert the still-open ground of the WESTERN civic core — the gate
+    #       forecourt + boasting apron, the whole joined building's courtyards,
+    #       and the southern cloister / Four-Graves court — into a designed
+    #       sandstone plaza. This runs AFTER paths, gardens, trees and rocks, so
+    #       it only touches ground that is still open: building floors, walls,
+    #       decor, water, garden beds, tree trunks AND the eastern training lawns
+    #       (archery / dueling / woods) are all left untouched. =====
+    PAVE_OK = GRASS | {v._pid(GRAVEL), v._pid(MCOBBLE), v._pid(PATH),
+                       v._pid("minecraft:coarse_dirt")}
+    def flagstone(x, z):
+        if (x % 4 == 0) or (z % 4 == 0):
+            return SAND_CUT                       # joint lines frame 3x3 flag tiles
+        roll = r.random()
+        if roll < 0.05:
+            return STONE                          # occasional grey inlay
+        if roll < 0.09:
+            return MCOBBLE                        # mossy weathering between flags
+        if roll < 0.15:
+            return SAND                           # plain sandstone tonal variation
+        return SAND_SMOOTH
+    def pave_region(rx0, rz0, rx1, rz1):
+        for x in range(max(0, rx0), min(W, rx1 + 1)):
+            for z in range(max(0, rz0), min(L, rz1 + 1)):
+                if 24 <= x <= 30 and 9 <= z <= 16:
+                    continue                      # spare the rough Guild-Cave alcove + shaft
+                if v.grid[v.idx(x, 1, z)] == AIR and v.grid[v.idx(x, 0, z)] in PAVE_OK \
+                        and not is_water(x, z):
+                    v.set(x, 0, z, flagstone(x, z))
+    pave_region(1, 16, 10, 60)         # west gate forecourt + boasting apron
+    pave_region(11, 5, 51, 80)         # the joined complex courtyards + south cloister court
 
     # ---- SMOOTH GROUNDS: a final no-holes sweep. Every ground column must carry
     #      a solid surface block (the lawn is grass/moss/podzol, water is water,
