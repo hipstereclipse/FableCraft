@@ -279,37 +279,37 @@ function buildGuildWhenReady(p, dim, base, attempt) {
   }
   world.setDynamicProperty("fc_guild_placed", true);
   world.setDynamicProperty("fc_guild_base", JSON.stringify({ x: base.x, y, z: base.z }));
-  // recall/wake point: the crimson runner in the nave, just inside the south
-  // doors, dry and well clear of the Map Room relief (never water/blocks)
-  world.setDynamicProperty("fc_guild_loc", JSON.stringify({ x: base.x + 34, y, z: base.z + 30 }));
-  // training happens at the green Skill portal to the RIGHT of the Map Room
-  world.setDynamicProperty("fc_guild_train", JSON.stringify({ x: base.x + 47, y, z: base.z + 44 }));
-  world.setDynamicProperty("fc_guild_skill", JSON.stringify({ x: base.x + 47, y, z: base.z + 44 }));
-  // the Quest lectern at the south edge of the rotunda's Map relief
-  world.setDynamicProperty("fc_guild_quest_table", JSON.stringify({ x: base.x + 34, y: y + 1, z: base.z + 40 }));
-  // the Guild's own Demon Door anchor (the carved SE-plaza face)
-  const doorLoc = { x: base.x + 85.5, y: y + 1, z: base.z + 25.4 };
+  // New ground plan: you enter from the WEST onto the crimson runner before the
+  // Map Room rotunda (local 26,42). Wake at (21,42), facing east to the Map.
+  world.setDynamicProperty("fc_guild_loc", JSON.stringify({ x: base.x + 21, y, z: base.z + 42 }));
+  // Skill / Experience shrine in the Map Room's NW nook (local 15,35)
+  world.setDynamicProperty("fc_guild_train", JSON.stringify({ x: base.x + 15, y, z: base.z + 35 }));
+  world.setDynamicProperty("fc_guild_skill", JSON.stringify({ x: base.x + 15, y, z: base.z + 35 }));
+  // the Quest lectern at the near (south) edge of the Map relief (local 26,37)
+  world.setDynamicProperty("fc_guild_quest_table", JSON.stringify({ x: base.x + 26, y: y + 1, z: base.z + 37 }));
+  // the Guild's own Demon Door — the crag on the far south bank past the islands
+  const doorLoc = { x: base.x + 56, y: y + 1, z: base.z + 94.4 };
   world.setDynamicProperty("fc_guild_door", JSON.stringify(doorLoc));
   // Everything below is decoration: NPCs, the Cullis registration, loot, terrain
   // and the buried Chamber. The Guild is already PLACED above, so none of this is
   // allowed to abort the build — wrap it so a single failure can't matter.
   try {
-    // the Cullis Gate beacon core in its LEFT/west alcove — the warded portal home
-    registerCullis("Heroes' Guild", { x: base.x + 21, y: y + 1, z: base.z + 44 });
-    // Guildmaster greets arrivals; Maze keeps his tower study; Theresa reads in
-    // the Library; a trader works the Guild Shop.
-    trySpawn(dim, "fc:guildmaster", { x: base.x + 34, y: y + 1, z: base.z + 38 });
-    trySpawn(dim, "fc:maze", { x: base.x + 61, y: y + 16, z: base.z + 83 });
-    trySpawn(dim, "fc:theresa", { x: base.x + 31, y: y + 1, z: base.z + 58 });
-    trySpawn(dim, "fc:trader", { x: base.x + 22, y: y + 1, z: base.z + 31 });
+    // the Cullis Gate beacon core in the Map Room's SW nook (local 15,49)
+    registerCullis("Heroes' Guild", { x: base.x + 15, y: y + 1, z: base.z + 49 });
+    // Guildmaster greets arrivals at the Map; Maze keeps his tower study; Theresa
+    // reads in the Library (north); a trader works the Store (south).
+    trySpawn(dim, "fc:guildmaster", { x: base.x + 23, y: y + 1, z: base.z + 42 });
+    trySpawn(dim, "fc:maze", { x: base.x + 46, y: y + 16, z: base.z + 72 });
+    trySpawn(dim, "fc:theresa", { x: base.x + 26, y: y + 1, z: base.z + 23 });
+    trySpawn(dim, "fc:trader", { x: base.x + 28, y: y + 1, z: base.z + 55 });
     // apprentices at work across the grounds
-    trySpawn(dim, "fc:guild_apprentice_might", { x: base.x + 28, y: y + 1, z: base.z + 18 });
-    trySpawn(dim, "fc:guild_apprentice_might", { x: base.x + 40, y: y + 1, z: base.z + 16 });
-    trySpawn(dim, "fc:guild_apprentice_skill", { x: base.x + 48, y: y + 1, z: base.z + 46 });
-    trySpawn(dim, "fc:guild_apprentice_skill", { x: base.x + 40, y: y + 1, z: base.z + 12 });
-    trySpawn(dim, "fc:guild_apprentice_will", { x: base.x + 24, y: y + 1, z: base.z + 62 });
-    trySpawn(dim, "fc:guild_apprentice_will", { x: base.x + 44, y: y + 1, z: base.z + 62 });
-    ensureDemonDoor(dim, doorLoc, base.z + 11);
+    trySpawn(dim, "fc:guild_apprentice_might", { x: base.x + 12, y: y + 1, z: base.z + 42 });
+    trySpawn(dim, "fc:guild_apprentice_might", { x: base.x + 80, y: y + 1, z: base.z + 54 });
+    trySpawn(dim, "fc:guild_apprentice_skill", { x: base.x + 68, y: y + 1, z: base.z + 32 });
+    trySpawn(dim, "fc:guild_apprentice_skill", { x: base.x + 42, y: y + 1, z: base.z + 40 });
+    trySpawn(dim, "fc:guild_apprentice_will", { x: base.x + 26, y: y + 1, z: base.z + 24 });
+    trySpawn(dim, "fc:guild_apprentice_will", { x: base.x + 16, y: y + 1, z: base.z + 35 });
+    ensureDemonDoor(dim, doorLoc, base.z + 86);
     fillLootChests(dim, base.x, y, base.z, 92, 30, 100, "fc:guild_hall");
     blendTerrain(dim, base.x, y, base.z, 92, 100);
     skirtTerrain(dim, base.x, y, base.z, 92, 100, 12);
@@ -320,9 +320,9 @@ function buildGuildWhenReady(p, dim, base, attempt) {
   // wake the new Hero on the dry crimson runner, facing north to the Map Room
   system.runTimeout(() => {
     try {
-      p.teleport({ x: base.x + 34.5, y: y + 1, z: base.z + 30.5 },
-        { facingLocation: { x: base.x + 34.5, y: y + 2, z: base.z + 44 } });
-      p.sendMessage("§6⚔ You awaken in the Heroes' Guild. The §bCullis Gate§6 glows to the left of the Map Room; the §aSkill portal§6 waits to its right.");
+      p.teleport({ x: base.x + 21.5, y: y + 1, z: base.z + 42.5 },
+        { facingLocation: { x: base.x + 26, y: y + 2, z: base.z + 42 } });
+      p.sendMessage("§6⚔ You awaken in the Heroes' Guild. The §bCullis Gate§6 glows in the Map Room's south-west nook; the §aSkill Shrine§6 waits to the north-west.");
     } catch { }
   }, 10);
 }
@@ -336,8 +336,9 @@ function placeGuildAnnexes(dim) {
   let base;
   try { base = JSON.parse(raw); } catch { return; }
   if (!world.getDynamicProperty("fc_guild_chamber_placed")) {
-    // the Chamber of Fate sleeps far beneath the Map Room rotunda
-    const chx = base.x + 19, chy = base.y - 22, chz = base.z + 29;
+    // the Chamber of Fate sleeps far beneath the Map Room rotunda (local 26,42),
+    // so its 31x31 footprint is centred under the dome
+    const chx = base.x + 11, chy = base.y - 22, chz = base.z + 27;
     try {
       world.structureManager.place("fc:chamber_of_fate", dim, { x: chx, y: chy, z: chz });
       world.setDynamicProperty("fc_guild_chamber_placed", true);
@@ -2150,21 +2151,24 @@ system.runInterval(() => {
       && Math.abs(p.location.y - s.y) < 24);
     if (!seen) continue;
     const cx = s.x + 0.5, cz = s.z + 0.5;
-    for (let i = 0; i < 6; i++) {                 // swirling enchant ring
-      const ang = (cullisPhase * 0.18) + (Math.PI * 2 * i) / 6;
-      const rad = 1.8 + 0.35 * Math.sin(cullisPhase * 0.1 + i);
-      const y = s.y + 0.7 + (i % 2) * 0.3 + Math.sin(cullisPhase * 0.08 + i) * 0.15;
+    // a rising double-helix of enchant glyphs that spirals up out of the ring
+    for (let i = 0; i < 8; i++) {
+      const ang = (cullisPhase * 0.22) + (Math.PI * 2 * i) / 8;
+      const rad = 1.7 + 0.5 * Math.sin(cullisPhase * 0.09 + i);
+      const y = s.y + 0.5 + ((cullisPhase * 0.13 + i * 0.4) % 2.8);
       try { dim.spawnParticle("minecraft:enchanting_table_particle", { x: cx + Math.cos(ang) * rad, y, z: cz + Math.sin(ang) * rad }); } catch { }
     }
-    for (let j = 0; j < 4; j++) {                 // rising blue light column
-      const y = s.y + 0.3 + ((cullisPhase * 0.25 + j * 0.7) % 3);
+    // a bright rising column of soul-fire at the core
+    for (let j = 0; j < 5; j++) {
+      const y = s.y + 0.3 + ((cullisPhase * 0.3 + j * 0.6) % 3.4);
       try {
         dim.spawnParticle("minecraft:soul_particle",
-          { x: cx + (Math.random() - 0.5) * 0.5, y, z: cz + (Math.random() - 0.5) * 0.5 });
+          { x: cx + (Math.random() - 0.5) * 0.4, y, z: cz + (Math.random() - 0.5) * 0.4 });
       } catch { }
     }
-    if (cullisPhase % 6 === 0) {
-      try { dim.spawnParticle("minecraft:end_chest", { x: cx, y: s.y + 1.1, z: cz }); } catch { }
+    if (cullisPhase % 5 === 0) {                   // periodic arcane flares
+      try { dim.spawnParticle("minecraft:end_chest", { x: cx, y: s.y + 1.3, z: cz }); } catch { }
+      try { dim.spawnParticle("minecraft:dragon_breath_trail", { x: cx, y: s.y + 0.7, z: cz }); } catch { }
     }
   }
 
@@ -2231,29 +2235,61 @@ system.runInterval(() => {
   }
 }, 20);
 
-// The Skill Altar (right of the Map Room): stand on it and sneak to spend the
-// experience you have gathered on Strength/Skill/Will upgrades. The same
-// training is also reachable from the Guild Seal menu anywhere in the hall.
+// The Skill Altar / Experience Shrine (right of the Map Room): like the Cullis
+// Gate, stand in its green light for ~3 seconds and the Shrine drinks your
+// deeds and opens Guild Training. (Still reachable from the Guild Seal menu.)
 const skillAltarCd = new Map();
+const skillDwell = new Map();
+let skillPhase = 0;
 system.runInterval(() => {
+  skillPhase++;
   const raw = world.getDynamicProperty("fc_guild_skill");
   if (!raw) return;
   let s; try { s = JSON.parse(raw); } catch { return; }
   const dim = OW();
-  for (const p of world.getPlayers()) {
-    if (Math.hypot(p.location.x - s.x, p.location.z - s.z) > 2.8
-      || Math.abs(p.location.y - s.y) > 3) continue;
-    try {
-      dim.spawnParticle("minecraft:enchanting_table_particle",
-        { x: s.x + 0.5, y: s.y + 1.3, z: s.z + 0.5 });
-    } catch { }
-    if (!p.isSneaking) {
-      p.onScreenDisplay.setActionBar("§a✦ Skill Altar §7— sneak to spend experience and train");
+  const cx = s.x + 0.5, cz = s.z + 0.5;
+  const players = world.getPlayers();
+  // green arcane swirl when a Hero is near (the Cullis Gate's twin, in green)
+  if (players.some((p) => Math.hypot(p.location.x - cx, p.location.z - cz) < 40 && Math.abs(p.location.y - s.y) < 16)) {
+    for (let i = 0; i < 7; i++) {
+      const ang = (skillPhase * 0.2) + (Math.PI * 2 * i) / 7;
+      const rad = 1.5 + 0.4 * Math.sin(skillPhase * 0.11 + i);
+      const y = s.y + 0.5 + ((skillPhase * 0.13 + i * 0.4) % 2.6);
+      try { dim.spawnParticle("minecraft:villager_happy", { x: cx + Math.cos(ang) * rad, y, z: cz + Math.sin(ang) * rad }); } catch { }
+    }
+    for (let j = 0; j < 3; j++) {
+      const y = s.y + 0.3 + ((skillPhase * 0.28 + j * 0.7) % 3.0);
+      try { dim.spawnParticle("minecraft:villager_happy", { x: cx + (Math.random() - 0.5) * 0.4, y, z: cz + (Math.random() - 0.5) * 0.4 }); } catch { }
+    }
+  }
+  for (const p of players) {
+    const dist = Math.hypot(p.location.x - cx, p.location.z - cz);
+    if (dist > 2.8 || Math.abs(p.location.y - s.y) > 3) { skillDwell.delete(p.id); continue; }
+    if (dist > 1.4) {                              // near but not centred
+      skillDwell.delete(p.id);
+      p.onScreenDisplay.setActionBar("§a✦ Experience Shrine §7— step into the green light to train");
+      continue;
+    }
+    const NEED = 3;                                // intervals of 20t ≈ 3 seconds
+    const d = (skillDwell.get(p.id) ?? 0) + 1;
+    skillDwell.set(p.id, d);
+    if (d < NEED) {
+      try {
+        for (let k = 0; k < 12; k++) {
+          const ang = Math.random() * Math.PI * 2;
+          dim.spawnParticle("minecraft:villager_happy",
+            { x: cx + Math.cos(ang) * 0.7, y: s.y + 0.4 + Math.random() * 2.0, z: cz + Math.sin(ang) * 0.7 });
+        }
+      } catch { }
+      p.playSound("note.bell", { pitch: 1.0 + 0.3 * d });
+      p.onScreenDisplay.setActionBar(`§a✦ The Shrine drinks your deeds… §f${"▮".repeat(d)}§8${"▯".repeat(NEED - d)}`);
       continue;
     }
     const last = skillAltarCd.get(p.id) ?? -9999;
-    if (TICKS() - last < 40) continue;
+    if (TICKS() - last < 80) continue;
     skillAltarCd.set(p.id, TICKS());
+    skillDwell.delete(p.id);
+    try { dim.spawnParticle("minecraft:totem_particle", { x: cx, y: s.y + 1, z: cz }); } catch { }
     try { p.playSound("random.levelup", { pitch: 1.2 }); } catch { }
     trainMenu(p);
   }
