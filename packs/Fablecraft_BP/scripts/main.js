@@ -160,6 +160,7 @@ function setHeld(p, item) {
 // ---------------------------------------------------------------------------
 world.afterEvents.playerSpawn.subscribe((ev) => {
   const p = ev.player;
+  try { applyTitleTag(p); } catch { }            // re-wear the chosen title
   if (!ev.initialSpawn) {
     // Respawning after death — a Hero of the Guild always carries their seal.
     ensureGuildSeal(p);
@@ -314,6 +315,7 @@ function buildGuildWhenReady(p, dim, base, attempt) {
     blendTerrain(dim, base.x, y, base.z, 92, 100);
     skirtTerrain(dim, base.x, y, base.z, 92, 100, 16);
     dressSurroundings(dim, base.x, y, base.z, 92, "holy");
+    populateSurroundings(dim, base);                 // biome-matched woods around the campus
     placeGuildAnnexes(dim);
     setGuildSpawn(p);
   } catch { /* decoration is best-effort; the Guild itself is already placed */ }
@@ -343,11 +345,145 @@ function placeGuildAnnexes(dim) {
       world.structureManager.place("fc:chamber_of_fate", dim, { x: chx, y: chy, z: chz });
       world.setDynamicProperty("fc_guild_chamber_placed", true);
       registerCullis("Chamber of Fate", { x: chx + 15.5, y: chy + 5, z: chz + 15.5 });
-      fillLootChests(dim, chx, chy, chz, 31, 18, 31, "fc:chamber_of_fate");
-      hollowChamber(dim, chx, chy, chz, 31, 18);   // scrub any rock that bled in
+      fillLootChests(dim, chx, chy, chz, 31, 20, 31, "fc:chamber_of_fate");
+      hollowChamber(dim, chx, chy, chz, 31, 20);   // scrub any rock that bled in
       hangChamberArt(dim, chx, chy, chz, 31);       // best-effort vanilla paintings
     } catch { }
   }
+  carveGuildCaves(dim, base);                       // spiral + ravine to the Chamber
+}
+
+// Carve the Guild Caves: a 3x3 spiral stair (central stone pillar) drops from
+// the Library's caves alcove into a descending, arched stone tunnel that crosses
+// a deep dark RAVINE on a stone bridge and pierces the Chamber of Fate's north
+// wall. Runtime-carved because it spans the surface build down to the buried
+// Chamber. Idempotent, bounded, and fully wrapped so it can never break a build.
+function carveGuildCaves(dim, base) {
+  if (world.getDynamicProperty("fc_guild_caves_done")) return;
+  if (!world.getDynamicProperty("fc_guild_chamber_placed")) return;
+  const setB = (x, y, z, id) => { try { const b = dim.getBlock({ x, y, z }); if (b) b.setType(id); } catch { } };
+  const air = (x, y, z) => setB(x, y, z, "minecraft:air");
+  const stone = () => (Math.random() < 0.25 ? "minecraft:mossy_stone_bricks" : "minecraft:stone_bricks");
+  const SX = base.x + 27, SZ = base.z + 14;          // spiral centre (matches the structure)
+  // clockwise ring N,NE,E,SE,S,SW,W,NW — consecutive cells are edge-adjacent
+  const ringCW = [[0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1]];
+  const SPIRAL = 9, sBot = base.y - SPIRAL;           // spiral descends 9 to here
+  const TX = base.x + 26, Z0 = base.z + 15, Z1 = base.z + 28, CWALL = base.z + 29;
+  const CFY = base.y - 21;                            // Chamber floor level
+  const abyss = Math.max(base.y - 34, -60);
+  const work = function* () {
+    // ---- the shaft: a hollow 3x3 around a chiseled pillar, OPEN at the top ----
+    for (let y = base.y + 2; y >= sBot - 1; y--) {
+      for (let ox = -2; ox <= 2; ox++) for (let oz = -2; oz <= 2; oz++) {
+        const cheb = Math.max(Math.abs(ox), Math.abs(oz));
+        if (ox === 0 && oz === 0) setB(SX, y, SZ, "minecraft:chiseled_stone_bricks");
+        else if (cheb === 2) setB(SX + ox, y, SZ + oz, stone());   // shaft wall
+        else if (y < base.y) air(SX + ox, y, SZ + oz);             // hollow below the floor
+      }
+      yield;
+    }
+    // ---- walkable treads: steps on the edges, flat landings on the corners,
+    //      descending one course every two cells, with torches as you go down ----
+    for (let n = 0; n <= SPIRAL * 2 + 2; n++) {
+      const [dx, dz] = ringCW[n % 8];
+      const ty = base.y - 1 - Math.floor(n / 2);
+      if (ty < sBot) break;
+      setB(SX + dx, ty, SZ + dz, stone());             // tread you stand on
+      setB(SX + dx, ty - 1, SZ + dz, stone());         // solid beneath
+      air(SX + dx, ty + 1, SZ + dz);                   // headroom
+      air(SX + dx, ty + 2, SZ + dz);
+      if (n === 0) air(SX + dx, base.y, SZ + dz);       // open the entry hole at the top
+      if (n % 6 === 1) setB(SX + dx, ty + 2, SZ + dz, "minecraft:torch");
+    }
+    // ---- a descending, arched stone tunnel south to the Chamber, with a deep
+    //      dark RAVINE crossed by a bridge midway ----
+    for (let z = Z0; z <= Z1; z++) {
+      const fy = sBot - Math.round((z - Z0) * (SPIRAL + 3) / (Z1 - Z0));   // falls to CFY
+      const inRavine = (z >= base.z + 20 && z <= base.z + 24);
+      for (let ox = -1; ox <= 1; ox++) {                 // bridge / floor (3 wide)
+        setB(TX + ox, fy, z, stone());
+        setB(TX + ox, fy - 1, z, stone());
+        for (let oy = 1; oy <= 3; oy++) air(TX + ox, fy + oy, z);
+        setB(TX + ox, fy + 4, z, stone());               // ceiling
+      }
+      for (let oy = 0; oy <= 4; oy++) { setB(TX - 2, fy + oy, z, stone()); setB(TX + 2, fy + oy, z, stone()); }
+      if (inRavine) {                                    // sheer dark drops to each side
+        for (let ox = -13; ox <= 13; ox++) {
+          if (Math.abs(ox) <= 1) continue;
+          for (let yy = fy + 5; yy > abyss; yy--) air(TX + ox, yy, z);
+        }
+        setB(TX - 1, fy + 1, z, "minecraft:cobblestone_wall");   // bridge rails
+        setB(TX + 1, fy + 1, z, "minecraft:cobblestone_wall");
+      }
+      if ((z - Z0) % 4 === 0 || z === base.z + 19 || z === base.z + 25) {  // chiseled stone arch
+        for (let oy = 1; oy <= 4; oy++) {
+          setB(TX - 2, fy + oy, z, "minecraft:chiseled_stone_bricks");
+          setB(TX + 2, fy + oy, z, "minecraft:chiseled_stone_bricks");
+        }
+        for (let ox = -1; ox <= 1; ox++) setB(TX + ox, fy + 4, z, "minecraft:chiseled_stone_bricks");
+        setB(TX, fy + 3, z, "minecraft:lantern");
+      }
+      yield;
+    }
+    // ---- join the spiral foot to the tunnel mouth ----
+    for (let oy = 0; oy <= 3; oy++) {
+      air(SX, sBot + oy, SZ + 1); air(SX - 1, sBot + oy, SZ + 1);
+      air(TX, sBot + oy, Z0 - 1);
+    }
+    setB(SX, sBot - 1, SZ + 1, stone()); setB(SX - 1, sBot - 1, SZ + 1, stone());
+    setB(TX, sBot - 1, Z0 - 1, stone());
+    // ---- pierce the Chamber of Fate's north wall with a stone arch ----
+    for (let ox = -1; ox <= 1; ox++) for (let oy = 0; oy <= 3; oy++) air(TX + ox, CFY + oy, CWALL);
+    for (let oy = 0; oy <= 4; oy++) {
+      setB(TX - 2, CFY + oy, CWALL, "minecraft:chiseled_stone_bricks");
+      setB(TX + 2, CFY + oy, CWALL, "minecraft:chiseled_stone_bricks");
+    }
+  };
+  try { system.runJob(work()); world.setDynamicProperty("fc_guild_caves_done", true); } catch { }
+}
+
+// Populate the land just outside the Guild with biome-matched trees and ground
+// cover so the campus melts into the surrounding wilds instead of sitting on a
+// bare ring. Idempotent; bounded; fully wrapped.
+function populateSurroundings(dim, base) {
+  if (world.getDynamicProperty("fc_guild_wild_done")) return;
+  const W = 92, D = 100, R = 26;
+  const setBlk = (x, y, z, id) => { try { const b = dim.getBlock({ x, y, z }); if (b) b.setType(id); } catch { } };
+  const work = function* () {
+    for (let n = 0; n < 240; n++) {
+      const side = n & 3, off = 2 + Math.floor(Math.random() * R);
+      let px, pz;
+      if (side === 0) { px = base.x - off; pz = base.z + Math.floor(Math.random() * D); }
+      else if (side === 1) { px = base.x + W + off; pz = base.z + Math.floor(Math.random() * D); }
+      else if (side === 2) { pz = base.z - off; px = base.x + Math.floor(Math.random() * W); }
+      else { pz = base.z + D + off; px = base.x + Math.floor(Math.random() * W); }
+      const gy = groundY(dim, px, pz);
+      if (gy === null) { yield; continue; }
+      let g; try { g = dim.getBlock({ x: px, y: gy - 1, z: pz }); } catch { g = null; }
+      const slot = (() => { try { return dim.getBlock({ x: px, y: gy, z: pz }); } catch { return null; } })();
+      if (!g || !slot || !slot.isAir) { yield; continue; }
+      const t = g.typeId;
+      const grassy = t.includes("grass") || t === "minecraft:dirt" || t.includes("podzol") || t.includes("moss");
+      if (t.includes("water") || t.includes("ice")) { yield; continue; }
+      if (Math.random() < 0.35) {                      // ground cover
+        setBlk(px, gy, pz, t.includes("snow") ? "minecraft:snow_layer"
+          : (Math.random() < 0.5 ? "minecraft:tallgrass" : "minecraft:fern"));
+        yield; continue;
+      }
+      if (!grassy && !t.includes("snow")) { yield; continue; }
+      const spruce = t.includes("podzol") || t.includes("snow") || t.includes("spruce") || t.includes("moss");
+      const trunk = spruce ? "minecraft:spruce_log" : (Math.random() < 0.3 ? "minecraft:birch_log" : "minecraft:oak_log");
+      const leaf = spruce ? "minecraft:spruce_leaves" : (trunk.includes("birch") ? "minecraft:birch_leaves" : "minecraft:oak_leaves");
+      const h = 4 + Math.floor(Math.random() * 3);
+      for (let i = 0; i < h; i++) setBlk(px, gy + i, pz, trunk);
+      for (let dx = -2; dx <= 2; dx++) for (let dz = -2; dz <= 2; dz++) for (let dy = h - 2; dy <= h; dy++)
+        if (Math.abs(dx) + Math.abs(dz) + Math.abs(dy - h + 1) <= 3 && Math.random() < 0.85)
+          setBlk(px + dx, gy + dy, pz + dz, leaf);
+      yield;
+    }
+    world.setDynamicProperty("fc_guild_wild_done", true);
+  };
+  try { system.runJob(work()); } catch { }
 }
 
 // Guarantee the Chamber of Fate reads as an open, hollow hall even when it is
@@ -368,7 +504,7 @@ function hollowChamber(dim, x0, y0, z0, S, H) {
       for (let lz = 1; lz < S - 1; lz++) {
         const d = Math.hypot(lx - c, lz - c);
         if (d > 11.4) continue;                 // inside the wall ring only
-        for (let ly = 2; ly < H - 1; ly++) {
+        for (let ly = 2; ly < H - 3; ly++) {    // stop below the glass/water/glowstone skylight
           let b;
           try { b = dim.getBlock({ x: x0 + lx, y: y0 + ly, z: z0 + lz }); } catch { continue; }
           if (b && !b.isAir && CHAMBER_FILL.has(b.typeId)) {
@@ -1517,17 +1653,35 @@ function willSlotPicker(p, slotIdx) {
   });
 }
 
+function activeTitle(p) { return P.getJ(p, "fc_active_title", ""); }
+function applyTitleTag(p) {
+  try { const t = activeTitle(p); p.nameTag = t ? `§e${t}\n§f${p.name}` : p.name; } catch { }
+}
+// How an NPC addresses the Hero — by their worn title if they have one.
+function heroAddress(p) { return activeTitle(p) || "Hero"; }
+
 function titlesMenu(p) {
   const titles = P.getJ(p, "fc_titles", []);
-  const body = [
+  const active = activeTitle(p);
+  const f = new ActionFormData().title(fableTitle("Titles & Renown")).body([
     FABLE_RULE,
     `§dRenown: §f${P.get(p, "fc_renown", 0)}`,
+    `§7Now wearing: §e${active || "(none)"}`,
     FABLE_RULE,
-    titles.length ? "§6Titles:" : "§7No titles yet. Albion barely knows your name.",
-    ...titles.map((t) => ` §e✦ ${t}`),
-  ].join("\n");
-  new ActionFormData().title(fableTitle("Titles & Renown")).body(body).button("§8❖ Back")
-    .show(p).then((r) => { if (!r.canceled) heroMenu(p); });
+    titles.length ? "§6Choose the title you wear — Albion will address you by it:"
+      : "§7No titles yet. Earn renown and deeds to claim them.",
+  ].join("\n"));
+  f.button("§8✦ Wear no title");
+  for (const t of titles) f.button((t === active ? "§a● " : "§e✦ ") + t);
+  f.button("§8❖ Back");
+  f.show(p).then((r) => {
+    if (r.canceled) return;
+    if (r.selection === 0) { P.setJ(p, "fc_active_title", ""); applyTitleTag(p); p.sendMessage("§7You wear no title."); return; }
+    if (r.selection === titles.length + 1) { heroMenu(p); return; }
+    const t = titles[r.selection - 1];
+    P.setJ(p, "fc_active_title", t); applyTitleTag(p);
+    p.sendMessage(`§6✦ You will be known as §e${t}§6 across Albion.`);
+  });
 }
 
 // ---------------------------------------------------------------------------
@@ -1870,8 +2024,9 @@ function npcTalk(p, npc) {
   const m = morality(p);
   if (t === "fc:guildmaster") {
     const guildLn = guildRepLine(p);
+    const you = heroAddress(p);
     new ActionFormData().title("§6The Guildmaster")
-      .body(`§o"${m > 200 ? "Albion sings of your kindness, Hero." : m < -200 ? "I hear dark whispers about you. Tread carefully." : "Your training continues, apprentice."}\n\nA Hero balances Strength, Skill and Will. Use Quest Cards to earn your renown. And do stop hitting the practice dummies with your forehead."§r${guildLn ? `\n\n§o"${guildLn}"§r` : ""}`)
+      .body(`§o"${m > 200 ? `Albion sings of your kindness, ${you}.` : m < -200 ? `I hear dark whispers about you, ${you}. Tread carefully.` : `Your training continues, ${you}.`}\n\nA Hero balances Strength, Skill and Will. Use Quest Cards to earn your renown. And do stop hitting the practice dummies with your forehead."§r${guildLn ? `\n\n§o"${guildLn}"§r` : ""}`)
       .button("§eTake a Quest Card", "textures/items/quest_card")
       .button("§9Hero Menu")
       .button("§8Farewell")
@@ -2294,6 +2449,64 @@ system.runInterval(() => {
     trainMenu(p);
   }
 }, 20);
+
+// The Boasting Platform (west of the gate): stand on it and the crowd hushes —
+// declare which earned Title you wear. Albion's folk then address you by it.
+const boastDwell = new Map();
+system.runInterval(() => {
+  const raw = world.getDynamicProperty("fc_guild_base");
+  if (!raw) return;
+  let base; try { base = JSON.parse(raw); } catch { return; }
+  const bx = base.x + 4, by = base.y + 1, bz = base.z + 27;     // platform centre
+  const dim = OW();
+  for (const p of world.getPlayers()) {
+    if (Math.hypot(p.location.x - bx, p.location.z - bz) > 3 || Math.abs(p.location.y - by) > 3) {
+      boastDwell.delete(p.id); continue;
+    }
+    try { dim.spawnParticle("minecraft:villager_happy", { x: bx + (Math.random() - 0.5) * 2, y: by + 1.5, z: bz + (Math.random() - 0.5) * 2 }); } catch { }
+    const d = (boastDwell.get(p.id) ?? 0) + 1;
+    boastDwell.set(p.id, d);
+    if (d < 3) { p.onScreenDisplay.setActionBar("§6❖ Boasting Platform §7— hold to declare your title"); continue; }
+    if (d === 3) { try { p.playSound("random.orb"); } catch { } titlesMenu(p); }
+  }
+}, 20);
+
+// NPCs murmur and react as the Hero passes — a villager sound and the odd
+// remark, addressed by the Hero's worn title.
+const NPC_VOICE = {
+  "fc:guildmaster": ["Mind your stance, {you}.", "Renown is earned, not given."],
+  "fc:trader": ["Finest wares in Albion, {you}!", "Browse a while, no pressure."],
+  "fc:theresa": ["The future bends around you, {you}.", "I see paths you cannot."],
+  "fc:barkeep": ["Ale, {you}? Best in the guild.", "Mind the floor, just mopped."],
+  "fc:guild_apprentice_might": ["One day I'll best you, {you}.", "*grunts, swinging a practice sword*"],
+  "fc:guild_apprentice_skill": ["Bullseye! See that, {you}?", "*looses an arrow at the butt*"],
+  "fc:guild_apprentice_will": ["The Will hums today…", "*sparks crackle between their fingers*"],
+  "fc:villager_albion": ["A real Hero! Bless you, {you}.", "Did you hear the news from Bowerstone?"],
+};
+const NPC_NAME = {
+  "fc:guildmaster": "Guildmaster", "fc:trader": "Trader", "fc:theresa": "Theresa",
+  "fc:barkeep": "Alfie", "fc:guild_apprentice_might": "Apprentice",
+  "fc:guild_apprentice_skill": "Apprentice", "fc:guild_apprentice_will": "Apprentice",
+  "fc:villager_albion": "Villager",
+};
+const npcSaidAt = new Map();
+system.runInterval(() => {
+  for (const p of world.getPlayers()) {
+    let near;
+    try { near = p.dimension.getEntities({ location: p.location, maxDistance: 6 }); } catch { continue; }
+    for (const e of near) {
+      const lines = NPC_VOICE[e.typeId];
+      if (!lines) continue;
+      if ((npcSaidAt.get(e.id) ?? -9999) > TICKS() - 160) continue;   // per-NPC cooldown
+      if (Math.random() > 0.3) continue;
+      npcSaidAt.set(e.id, TICKS());
+      const line = lines[Math.floor(Math.random() * lines.length)].replace("{you}", heroAddress(p));
+      try { p.onScreenDisplay.setActionBar(`§e${NPC_NAME[e.typeId] ?? "Hero"}: §f${line}`); } catch { }
+      try { p.playSound("mob.villager.idle", { pitch: 0.9 + Math.random() * 0.2 }); } catch { }
+      break;
+    }
+  }
+}, 40);
 
 function cullisTravel(p, sites, here) {
   const others = sites.filter((s) => s.name !== here.name);

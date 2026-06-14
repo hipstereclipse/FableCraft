@@ -605,6 +605,19 @@ def guild_hall():
     for x in range(9, ROT_X + 1):
         for z in (WAKE_Z - 1, WAKE_Z, WAKE_Z + 1):
             v.set(x, 0, z, RED)
+    # the MAIN ENTRANCE is a covered stone corridor from the gate to the Map Room
+    for x in range(11, ROT_X - ROT_R + 1):           # 11 .. 18
+        for y in range(1, 5):
+            v.set(x, y, WAKE_Z - 2, warm())
+            v.set(x, y, WAKE_Z + 2, warm())
+        v.fill(x, 1, WAKE_Z - 1, x, 4, WAKE_Z + 1, "minecraft:air")
+        for z in range(WAKE_Z - 2, WAKE_Z + 3):      # gabled stone roof
+            v.set(x, 5, z, SLATE if (x + z) % 2 else DEEP_TILES)
+        if x % 3 == 0:
+            v.set(x, 4, WAKE_Z, LANTERN, {"hanging": True})
+    for y in range(1, 5):                            # framed portal at the gatehead
+        v.set(11, y, WAKE_Z - 2, SAND_CHIS)
+        v.set(11, y, WAKE_Z + 2, SAND_CHIS)
 
     # twin grand stairs behind the alcoves, climbing to the upper dormitory gallery
     for side in (-1, 1):
@@ -656,24 +669,28 @@ def guild_hall():
                 v.fill(px + ox, 1, pz + oz, px + ox, 3, pz + oz, "minecraft:air")
     merge_nook(CGX, CGZ, 4, 6, DEEP_TILES)          # Cullis Gate (SW bay)
     merge_nook(SKX, SKZ, 4, 6, DEEP_TILES)          # Skill Shrine (NW bay)
-    # the Cullis focus
-    for x in range(CGX - 2, CGX + 3):
-        for z in range(CGZ - 2, CGZ + 3):
-            if 1.7 < math.hypot(x - CGX, z - CGZ) <= 2.6:
-                v.set(x, 1, z, OBSIDIAN if (x + z) % 3 else "minecraft:crying_obsidian")
-    v.set(CGX, 1, CGZ, "minecraft:beacon")
-    for ang in range(0, 360, 90):
-        v.set(CGX + round(math.cos(math.radians(ang)) * 2), 1,
-              CGZ + round(math.sin(math.radians(ang)) * 2), "minecraft:sea_lantern")
-    v.set(CGX, 5, CGZ, LANTERN, {"hanging": True})
-    # the green Skill / Experience shrine
-    v.set(SKX, 1, SKZ, "minecraft:smooth_quartz")
-    v.set(SKX, 2, SKZ, "minecraft:enchanting_table")
-    for ang in range(0, 360, 90):
-        v.set(SKX + round(math.cos(math.radians(ang)) * 2), 1,
-              SKZ + round(math.sin(math.radians(ang)) * 2), "minecraft:amethyst_block")
-    v.set(SKX, 1, SKZ + 2, "minecraft:green_stained_glass")
-    v.set(SKX, 5, SKZ, LANTERN, {"hanging": True})
+    # Cullis Gate — a FLAT warded platform (no pedestal); its glow, beam and
+    # swirling particles are animated at runtime when a Hero stands on it
+    for x in range(CGX - 3, CGX + 4):
+        for z in range(CGZ - 3, CGZ + 4):
+            d = math.hypot(x - CGX, z - CGZ)
+            if d <= 3.2:
+                v.set(x, 0, z, CHISELED if d <= 1.4 else DEEP_TILES)
+            if 1.6 < d <= 2.5:
+                v.set(x, 0, z, OBSIDIAN if (x + z) % 2 else "minecraft:crying_obsidian")
+    v.set(CGX, 0, CGZ, "minecraft:sea_lantern")          # flush glowing core (cullis detect)
+    v.set(CGX, 6, CGZ, LANTERN, {"hanging": True})
+    # Skill / Experience Shrine — also a FLAT platform; its green training light
+    # and particles are animated at runtime
+    for x in range(SKX - 3, SKX + 4):
+        for z in range(SKZ - 3, SKZ + 4):
+            d = math.hypot(x - SKX, z - SKZ)
+            if d <= 3.2:
+                v.set(x, 0, z, CHISELED if d <= 1.4 else DEEP_TILES)
+            if 1.6 < d <= 2.5:
+                v.set(x, 0, z, "minecraft:emerald_block" if (x + z) % 2 else "minecraft:amethyst_block")
+    v.set(SKX, 0, SKZ, "minecraft:sea_lantern")          # flush glowing core
+    v.set(SKX, 6, SKZ, LANTERN, {"hanging": True})
 
     # ================= LIBRARY (north) + Guild-Cave exit (B) =================
     lx0, lx1, lz0, lz1 = 18, 36, 16, 30
@@ -690,20 +707,25 @@ def guild_hall():
         v.set(lx0 + 4, 1, z, "minecraft:lectern",
               {"minecraft:cardinal_direction": "east" if i % 2 else "west"})
     v.set((lx0 + lx1) // 2, 7, (lz0 + lz1) // 2, LANTERN, {"hanging": True})
-    # the iron Guild-Cave door (Exit B) into a rough-hewn shaft, north of the library
-    cvx = (lx0 + lx1) // 2
-    door(cvx, lz0, axis="z", h=4)
-    for x in range(cvx - 2, cvx + 3):
+    # the Guild-Cave exit (B): a chiseled stone archway into an alcove whose
+    # floor opens onto a 3x3 spiral stair (carved at runtime) winding down to the
+    # Chamber of Fate. cvx/cvz anchor the spiral — keep in sync with main.js.
+    cvx, cvz = (lx0 + lx1) // 2, lz0 - 2          # spiral centre (local 27,14)
+    door(cvx, lz0, axis="z", h=4)                # library -> caves alcove
+    for x in range(cvx - 2, cvx + 3):            # the alcove walls
         for z in range(lz0 - 4, lz0):
             v.set(x, 0, z, COBBLE if r.random() < 0.6 else MCOBBLE)
-            for y in range(1, 5):
+            for y in range(1, 6):
                 if x in (cvx - 2, cvx + 2) or z == lz0 - 4:
                     v.set(x, y, z, COBBLE if r.random() < 0.7 else MCOBBLE)
-    for y in (1, 2, 3):
-        v.set(cvx, y, lz0, "minecraft:iron_bars")
-    for y in range(0, 4):
-        v.set(cvx, y, lz0 - 3, "minecraft:ladder", {"facing_direction": 3})
+    for x in range(cvx - 1, cvx + 2):            # a stone arch over the descent
+        v.set(x, 5, cvz, CHISELED)
+    v.set(cvx - 1, 4, cvz, CHISELED)
+    v.set(cvx + 1, 4, cvz, CHISELED)
+    v.fill(cvx - 1, 0, cvz - 1, cvx + 1, 0, cvz + 1, "minecraft:air")   # mouth of the shaft
+    v.set(cvx, 0, cvz, "minecraft:chiseled_stone_bricks")              # central pillar cap
     v.set(cvx - 2, 4, lz0 - 2, SOUL_LANTERN)
+    v.set(cvx + 2, 4, lz0 - 2, SOUL_LANTERN)
 
     # ================= DINING HALL & KITCHEN (east, two storeys) =================
     dx0, dx1, dz0, dz1 = 36, 49, 33, 51
@@ -821,16 +843,22 @@ def guild_hall():
     for x in range(34, 37):
         v.set(x, 0, hbz, STONE)
 
-    # ================= TWO PLANK BRIDGES across the north river =================
+    # =========== BRIDGES across the north river (handsome arched spans) ========
     def plank_bridge(zc):
-        for x in range(50, 57):
+        for x in range(49, 58):                       # dark-oak deck, 3 wide
             for z in (zc - 1, zc, zc + 1):
                 v.set(x, 1, z, DARKOAK)
-            v.set(x, 2, zc - 1, SPRUCE_FENCE)
+            v.set(x, 2, zc - 1, SPRUCE_FENCE)          # railings both sides
             v.set(x, 2, zc + 1, SPRUCE_FENCE)
-        for z in (zc - 1, zc, zc + 1):               # ramp stairs both ends
-            v.set(49, 1, z, SPRUCE_STAIR, {"weirdo_direction": 0, "upside_down_bit": False})
-            v.set(57, 1, z, SPRUCE_STAIR, {"weirdo_direction": 1, "upside_down_bit": False})
+        for px in (51, 53, 55):                        # mossy stone piers in the river
+            v.set(px, 0, zc, MCOBBLE)
+        for z in (zc - 1, zc, zc + 1):                 # ramp stairs to both banks
+            v.set(48, 1, z, SPRUCE_STAIR, {"weirdo_direction": 0, "upside_down_bit": False})
+            v.set(58, 1, z, SPRUCE_STAIR, {"weirdo_direction": 1, "upside_down_bit": False})
+        for px in (48, 58):                            # lantern posts at the gateheads
+            for zr in (zc - 1, zc + 1):
+                v.set(px, 2, zr, DARKOAK_FENCE)
+                v.set(px, 3, zr, LANTERN, {"hanging": False})
     plank_bridge(20)
     plank_bridge(36)
     plank_bridge(54)                                 # monuments / garden -> east path
@@ -859,16 +887,19 @@ def guild_hall():
         for y in range(1, 5):
             v.set(x, y, arz + arr - 1, SPRUCE_LOG)
     v.set(arx, 1, arz + arr - 2, "minecraft:fletching_table")
-    # the Dueling Ring — a kerbed sawdust sparring circle with straw dummies
+    # an additional bare DIRT practice ring in front of (south of) the range,
+    # where training Heroes drill
+    pax, paz, par = arx, arz + arr + 5, 4
+    for x in range(pax - par, pax + par + 1):
+        for z in range(paz - par, paz + par + 1):
+            if math.hypot(x - pax, z - paz) <= par + 0.3:
+                v.set(x, 0, z, "minecraft:coarse_dirt" if r.random() < 0.7 else GRAVEL)
+    # the Dueling Ring — a BARE dirt sparring circle (no kerb) with straw dummies
     drx, drz, drr = 80, 54, 6
     for x in range(drx - drr, drx + drr + 1):
         for z in range(drz - drr, drz + drr + 1):
-            d = math.hypot(x - drx, z - drz)
-            if d <= drr + 0.3:
+            if math.hypot(x - drx, z - drz) <= drr + 0.3:
                 v.set(x, 0, z, "minecraft:coarse_dirt" if r.random() < 0.65 else GRAVEL)
-            if drr - 0.7 < d <= drr + 0.3:
-                v.set(x, 1, z, DARKOAK_FENCE)
-    v.set(drx - drr, 1, drz, "minecraft:air")
     for dmx, dmz in ((drx - 2, drz - 2), (drx + 2, drz + 2), (drx + 2, drz - 2)):
         v.set(dmx, 1, dmz, "minecraft:hay_block")
         v.set(dmx, 2, dmz, "minecraft:hay_block")
@@ -1057,6 +1088,21 @@ def guild_hall():
     lay_path(20, 42, 26, 55)            # Map Room -> Store / graves
     lay_path(67, 72, 80, 56)            # island east bank -> Dueling Ring
 
+    # Exit C — a chiseled stone archway through the east wall to the Guild Woods
+    ecz = 32
+    v.fill(W - 3, 1, ecz - 1, W - 3, 4, ecz + 1, "minecraft:air")
+    for y in range(1, 6):
+        v.set(W - 3, y, ecz - 2, CHISELED)
+        v.set(W - 3, y, ecz + 2, CHISELED)
+    for z in range(ecz - 2, ecz + 3):
+        v.set(W - 3, 6, z, CHISELED)
+    v.set(W - 3, 6, ecz, "minecraft:chiseled_deepslate")
+    v.set(W - 3, 4, ecz - 1, LANTERN, {"hanging": True})
+    v.set(W - 3, 4, ecz + 1, LANTERN, {"hanging": True})
+    for x in range(W - 2, W):                        # paved threshold out to the Woods
+        for z in range(ecz - 1, ecz + 2):
+            v.set(x, 0, z, STONE if (x + z) % 2 else GRAVEL)
+
     def open_ground(x, z):
         return (0 <= x < W and 0 <= z < L
                 and v.grid[v.idx(x, 1, z)] == AIR and v.grid[v.idx(x, 0, z)] in GRASS)
@@ -1064,16 +1110,24 @@ def guild_hall():
     def tree(tx, tz):
         if not open_ground(tx, tz):
             return
-        h = r.randint(4, 6)
-        trunk = "minecraft:oak_log" if r.random() < 0.6 else SPRUCE_LOG
+        h = r.randint(4, 7)
+        kind = r.random()
+        if kind < 0.45:
+            trunk, leaf = "minecraft:oak_log", "minecraft:oak_leaves"
+        elif kind < 0.8:
+            trunk, leaf = SPRUCE_LOG, "minecraft:spruce_leaves"
+        else:
+            trunk, leaf = "minecraft:birch_log", "minecraft:birch_leaves"
         for y in range(1, h):
             v.set(tx, y, tz, trunk)
-        leaf = "minecraft:oak_leaves" if "oak" in trunk else "minecraft:spruce_leaves"
-        for dx in range(-2, 3):
-            for dz in range(-2, 3):
-                for dy in range(h - 1, h + 2):
-                    if abs(dx) + abs(dz) + abs(dy - h) <= 3 and r.random() < 0.85:
+        rad = 2 if h < 6 else 3
+        for dx in range(-rad, rad + 1):
+            for dz in range(-rad, rad + 1):
+                for dy in range(h - 2, h + 2):
+                    if math.hypot(dx, dz) + abs(dy - h) * 0.8 <= rad + 0.5 and r.random() < 0.85:
                         v.set(tx + dx, dy, tz + dz, leaf)
+        if r.random() < 0.3:                         # feet: shrubs / flowers
+            v.set(tx + r.choice((-1, 1)), 1, tz, "minecraft:fern" if r.random() < 0.5 else "minecraft:tallgrass")
 
     def rock(rx, rz):
         for dx in range(-1, 2):
@@ -1083,16 +1137,25 @@ def guild_hall():
                     if r.random() < 0.35:
                         v.set(rx + dx, 2, rz + dz, MCOBBLE)
 
-    for _ in range(34):                  # trees, biased to the grounds' edges
-        if r.random() < 0.55:
-            tx = r.choice([r.randint(3, 13), r.randint(W - 13, W - 3)])
-            tz = r.randint(3, L - 3)
+    # Woodland on the open green: a THICK forest wraps the perimeter and thins
+    # quickly inward, so the courtyards, training grounds, gardens and paths stay
+    # open (open_ground() keeps trees off anything but bare lawn)
+    for gx in range(2, W - 2, 3):
+        for gz in range(2, L - 2, 3):
+            tx, tz = gx + r.randint(-1, 1), gz + r.randint(-1, 1)
+            if bx0 - 3 <= tx <= bx1 + 4 and bz0 - 4 <= tz <= bz1 + 4:
+                continue                         # keep the Boasting stage clear
+            edge = min(tx, W - 1 - tx, tz, L - 1 - tz)
+            p = 0.6 if edge < 7 else (0.16 if edge < 13 else 0.04)
+            if r.random() < p:
+                tree(tx, tz)
+    for _ in range(28):                  # mossy rock clusters, thick at the edges
+        if r.random() < 0.6:
+            rx = r.choice([r.randint(3, 11), r.randint(W - 11, W - 3)])
+            rz = r.randint(3, L - 3)
         else:
-            tx = r.randint(3, W - 3)
-            tz = r.choice([r.randint(3, 13), r.randint(L - 13, L - 3)])
-        tree(tx, tz)
-    for _ in range(20):                  # mossy rock clusters
-        rock(r.randint(4, W - 4), r.randint(4, L - 4))
+            rx, rz = r.randint(3, W - 3), r.choice([r.randint(3, 11), r.randint(L - 11, L - 3)])
+        rock(rx, rz)
 
     v.save("guild_hall")
 
@@ -2281,7 +2344,7 @@ def chamber_of_fate():
     is placed deep underground, so it can never read as a solid block of fill.)
     """
     r = rng("struct", "chamber_fate")
-    S, H = 31, 18
+    S, H = 31, 20
     v = Vox(S, H, S)
     c = S // 2
     WALL_R = 13          # outer wall radius
@@ -2371,8 +2434,8 @@ def chamber_of_fate():
             v.set(x, 1, z, COBBLE if (x + z) % 2 else MCOBBLE)
             v.fill(x, 2, z, x, 5, z, "minecraft:air")
 
-    # ---- dome shell (airtight) with hanging lanterns + a central oculus ----
-    for y in range(WALL_TOP, H):
+    # ---- dome shell with hanging lanterns ----
+    for y in range(WALL_TOP, H - 2):
         rad = max(2, int(13 - (y - WALL_TOP) * 0.95))
         for x in range(c - rad - 1, c + rad + 2):
             for z in range(c - rad - 1, c + rad + 2):
@@ -2384,8 +2447,16 @@ def chamber_of_fate():
         pz = c + round(math.sin(math.radians(ang)) * 6)
         v.set(px, WALL_TOP, pz, "minecraft:chain")
         v.set(px, WALL_TOP - 1, pz, "minecraft:lantern", {"hanging": True})
-    v.set(c, H - 2, c, "minecraft:sea_lantern")
-    v.set(c, H - 1, c, "minecraft:end_rod")
+    # ---- a glowing 'daylight' skylight seals the dome top: glass (seen from
+    #      below) under a water layer under glowstone, so soft light pours down
+    #      and the Chamber of Fate is fully enclosed and naturally bright ----
+    cap = H - 3
+    for x in range(c - 8, c + 9):
+        for z in range(c - 8, c + 9):
+            if math.hypot(x - c, z - c) <= 7.6:
+                v.set(x, cap, z, "minecraft:glass")
+                v.set(x, cap + 1, z, "minecraft:water")
+                v.set(x, cap + 2, z, "minecraft:glowstone")
     v.save("chamber_of_fate")
 
 
