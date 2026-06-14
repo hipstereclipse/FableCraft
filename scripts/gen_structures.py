@@ -931,13 +931,16 @@ def guild_hall():
 
     # ================= STORE (south of the rotunda) =================
     stx0, stx1, stz0, stz1 = 22, 33, 52, 59
-    room(stx0, stz0, stx1, stz1, 5, floor=lambda: DARKOAK if r.random() < 0.5 else SPRUCE, roof="gable")
+    # raised to the complex's common y9 eave (was a low y5 wing) so the south arm
+    # of the roof runs continuous with the Library/rotunda line — dome + 2-storey
+    # Dining stay proud above. A hip cap matches the Library's roof.
+    room(stx0, stz0, stx1, stz1, 9, floor=lambda: DARKOAK if r.random() < 0.5 else SPRUCE, roof="hip")
     door((stx0 + stx1) // 2, stz0, axis="z")        # store N <-> rotunda S grounds
     for x in range(stx0 + 1, stx1):
         for y in (2, 3):
             v.set(x, y, stz1 - 1, "minecraft:bookshelf" if (x + y) % 2 else "minecraft:barrel")
     v.set(stx0 + 1, 1, stz1 - 1, "minecraft:chest", {"minecraft:cardinal_direction": "south"})
-    v.set((stx0 + stx1) // 2, 4, (stz0 + stz1) // 2, LANTERN, {"hanging": True})
+    v.set((stx0 + stx1) // 2, 7, (stz0 + stz1) // 2, LANTERN, {"hanging": True})
 
     # ===== ONE CONNECTED BUILDING =============================================
     # The Library (N), Map-Room rotunda (centre), Dining hall (E) and Store (S)
@@ -964,7 +967,7 @@ def guild_hall():
                     for y in range(1, eave + 1):
                         v.set(x, y, z, warm())
     join_bay(18, 31, 34, 33, 8, 'z')     # Library  <-> rotunda (north): walls x18/x34, roof y9
-    join_bay(22, 51, 33, 51, 4, 'z')     # rotunda  <-> Store   (south): low link, roof y5
+    join_bay(22, 51, 33, 51, 8, 'z')     # rotunda  <-> Store   (south): now full-height, roof y9
     join_bay(35, 34, 35, 50, 8, 'x')     # rotunda  <-> Dining  (east):  walls z34/z50, roof y9
     # grand archways so the bays read as one open hall (the rotunda's cardinal
     # doorways already open its three connecting sides)
