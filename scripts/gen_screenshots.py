@@ -429,6 +429,14 @@ BLOCK_COLORS = {
     "minecraft:mud_bricks": (140, 110, 86), "minecraft:enchanting_table": (60, 40, 70),
     "minecraft:oak_planks": (162, 130, 78), "minecraft:packed_ice": (148, 192, 232),
     "minecraft:seagrass": (66, 124, 70),
+    # --- foliage / decor the renderer was rendering as magenta (valid blocks) ---
+    "minecraft:spruce_leaves": (58, 86, 54), "minecraft:birch_leaves": (108, 140, 78),
+    "minecraft:birch_log": (206, 206, 196), "minecraft:lily_of_the_valley": (224, 230, 220),
+    "minecraft:azure_bluet": (196, 200, 214), "minecraft:purple_bed": (118, 72, 150),
+    "minecraft:blue_glazed_terracotta": (56, 92, 158), "minecraft:purple_glazed_terracotta": (120, 64, 150),
+    "minecraft:fletching_table": (178, 150, 102), "minecraft:pumpkin": (212, 132, 40),
+    "minecraft:blast_furnace": (78, 80, 86), "minecraft:cake": (228, 214, 188),
+    "minecraft:dirt_path": (146, 116, 78), "minecraft:brewing_stand": (122, 110, 100),
     # --- warm Fable-Guild stone + trim ---
     "minecraft:smooth_sandstone": (216, 200, 156), "minecraft:cut_sandstone": (212, 196, 152),
     "minecraft:chiseled_sandstone": (210, 194, 150), "minecraft:sandstone_wall": (208, 192, 148),

@@ -692,32 +692,46 @@ def guild_hall():
         v.set(11, y, WAKE_Z - 2, SAND_CHIS)
         v.set(11, y, WAKE_Z + 2, SAND_CHIS)
 
-    # ONE grand stair to the upper gallery, set along the SOUTH arc (z=ROT_Z+6).
-    # It is carried on open stone ARCHES — only slim piers (never on the cardinal
-    # doorway line x=ROT_X) support the run — so all four ground arches stay
-    # walkable: the south approach passes clean UNDER the staircase.
-    sstz = ROT_Z + 6
-    PIERS = (ROT_X - 5, ROT_X - 1, ROT_X + 3)       # support columns, off the doorway axis
+    # TWIN grand stairs to the upper gallery — a symmetric DOUBLE staircase set
+    # along the SOUTH arc. Two parallel flights climb in OPPOSITE directions up
+    # onto a ring GALLERY that rings a central well looking down on the Map. Both
+    # runs ride on slim off-axis piers (never on the x=ROT_X doorway line), so all
+    # four ground arches stay walkable: the south approach passes clean UNDER the
+    # stairs. (The upper stone-arch BRIDGE to the Dining hall joins this gallery.)
+    EAST_Z, WEST_Z = ROT_Z + 5, ROT_Z + 4          # z47 (ascends east), z46 (ascends west) — clear of the wall band
+    EAST_PIERS = (ROT_X - 5, ROT_X - 1, ROT_X + 3)   # x21,25,29 — off the doorway axis
+    WEST_PIERS = (ROT_X - 2, ROT_X + 4)              # x24,30     — off the doorway axis
+    tread_cells = set()
     for i in range(1, UP_Y + 1):
-        sx = ROT_X - 6 + i                          # treads (21,1) .. (29,9)
-        v.set(sx, i, sstz, SBRICK_STAIR, {"weirdo_direction": 0, "upside_down_bit": False})
-        if sx in PIERS:                             # a slender pier to ground
+        ex = ROT_X - 6 + i                           # east flight treads x21..29 (y1..9)
+        v.set(ex, i, EAST_Z, SBRICK_STAIR, {"weirdo_direction": 0, "upside_down_bit": False})
+        tread_cells.add((ex, EAST_Z))
+        if ex in EAST_PIERS:
             for yy in range(1, i):
-                v.set(sx, yy, sstz, STONE)
-    stair_cells = {(ROT_X - 6 + i, sstz) for i in range(1, UP_Y + 1)}
-    # the upper dormitory gallery deck over the EAST half (clear of the stair run)
-    for x in range(ROT_X, ROT_X + 6):
-        for z in range(ROT_Z - 6, ROT_Z + 7):
-            if math.hypot(x - ROT_X, z - ROT_Z) <= ROT_R - 0.6 and (x, z) not in stair_cells:
+                v.set(ex, yy, EAST_Z, STONE)
+        wx = ROT_X + 6 - i                           # west flight treads x31..23 (y1..9)
+        v.set(wx, i, WEST_Z, SBRICK_STAIR, {"weirdo_direction": 1, "upside_down_bit": False})
+        tread_cells.add((wx, WEST_Z))
+        if wx in WEST_PIERS:
+            for yy in range(1, i):
+                v.set(wx, yy, WEST_Z, STONE)
+    # ring GALLERY deck at y=UP_Y — an annulus that carries the twin stair-tops and
+    # the Dining bridge while a central WELL stays open over the breathing Map
+    for x in range(ROT_X - 7, ROT_X + 8):
+        for z in range(ROT_Z - 7, ROT_Z + 8):
+            d = math.hypot(x - ROT_X, z - ROT_Z)
+            if 3.0 < d <= ROT_R - 1.0 and (x, z) not in tread_cells:
                 v.set(x, UP_Y, z, SPRUCE)
-    for z in range(ROT_Z - 5, ROT_Z + 6):           # balustrade on the gallery's west edge
-        if abs(z - ROT_Z) <= ROT_R - 0.6:
-            v.set(ROT_X, UP_Y + 1, z, DARKOAK_FENCE)
-    for dz in (ROT_Z - 4, ROT_Z, ROT_Z + 3):        # beds on the gallery
-        v.set(ROT_X + 3, UP_Y + 1, dz, "minecraft:bed", {"direction": 1})
-        v.set(ROT_X + 4, UP_Y + 1, dz, "minecraft:bed", {"direction": 1, "head_piece_bit": True})
+    for x in range(ROT_X - 7, ROT_X + 8):           # balustrade ringing the central well
+        for z in range(ROT_Z - 7, ROT_Z + 8):
+            d = math.hypot(x - ROT_X, z - ROT_Z)
+            if 2.6 < d <= 3.5 and v.grid[v.idx(x, UP_Y, z)] == v._pid(SPRUCE):
+                v.set(x, UP_Y + 1, z, DARKOAK_FENCE)
+    for dz in (ROT_Z - 5, ROT_Z - 3):               # a couple of beds on the north arc
+        v.set(ROT_X - 1, UP_Y + 1, dz, "minecraft:bed", {"direction": 1})
+        v.set(ROT_X, UP_Y + 1, dz, "minecraft:bed", {"direction": 1, "head_piece_bit": True})
     v.set(ROT_X + 4, UP_Y + 1, ROT_Z - 5, "minecraft:bookshelf")
-    v.set(ROT_X + 2, UP_Y + 3, ROT_Z, LANTERN, {"hanging": True})
+    v.set(ROT_X, UP_Y - 1, ROT_Z - 4, LANTERN, {"hanging": True})   # hangs under the gallery
 
     # ===== CULLIS GATE + SKILL SHRINE — ROUNDED nooks that merge into the Map
     #       Room's western wall (apsidal bays, not square out-buildings) =====
