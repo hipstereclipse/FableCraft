@@ -368,98 +368,111 @@ function placeGuildAnnexes(dim) {
   carveGuildCaves(dim, base);                       // spiral + ravine to the Chamber
 }
 
-// Carve the Guild Caves: a 3x3 spiral stair (central stone pillar) drops from
-// the Library's caves alcove into a descending, arched stone tunnel that crosses
-// a deep dark RAVINE on a stone bridge and pierces the Chamber of Fate's north
-// wall. Runtime-carved because it spans the surface build down to the buried
-// Chamber. Idempotent, bounded, and fully wrapped so it can never break a build.
+// Carve the Guild Caves: a 3x3 spiral stair (central glowing pillar) carries the
+// ENTIRE descent from the Library's caves alcove down to the Chamber floor level,
+// then a long, DEAD-LEVEL stone causeway crosses a wide, deep, DARK gulf and
+// pierces the Chamber of Fate's north wall through a level arch. The descent is
+// all on the spiral; the bridge never slopes, so the walk is jump-free end to
+// end (alcove -> spiral down -> flat span over darkness -> arch -> Chamber).
+// Runtime-carved because it spans the surface build down to the buried Chamber.
+// Idempotent, bounded, and fully wrapped so it can never break a build.
 function carveGuildCaves(dim, base) {
   if (world.getDynamicProperty("fc_guild_caves_done")) return;
   if (!world.getDynamicProperty("fc_guild_chamber_placed")) return;
   const setB = (x, y, z, id) => { try { const b = dim.getBlock({ x, y, z }); if (b) b.setType(id); } catch { } };
   const air = (x, y, z) => setB(x, y, z, "minecraft:air");
-  const stone = () => (Math.random() < 0.25 ? "minecraft:mossy_stone_bricks" : "minecraft:stone_bricks");
-  const SX = base.x + 27, SZ = base.z + 14;          // spiral centre (matches the structure)
-  // clockwise ring starting at S (the Library-entry side): S,SW,W,NW,N,NE,E,SE
+  const stone = () => (Math.random() < 0.22 ? "minecraft:mossy_stone_bricks" : "minecraft:stone_bricks");
+  // ---- anchors (keep in lockstep with gen_structures.py guild_hall + chamber) ----
+  const SX = base.x + 27, SZ = base.z + 14;   // 3x3 spiral centre (Library alcove)
+  const TX = base.x + 26;                      // causeway centreline == Chamber centre x
+  const CWALL = base.z + 29;                   // Chamber north wall (pierced here)
+  const CFY = base.y - 21;                     // Chamber floor block (a Hero walks at CFY+1)
+  const DECK = CFY;                            // FLAT deck == Chamber floor -> level walk-in
+  const BSTART = base.z + 16;                  // deck springs from a solid abutment here
+  const CSTART = base.z + 17, CEND = base.z + 28;  // the deck floats over the gulf here
+  const HALF = 10;                             // gulf half-width carved to darkness each side
+  const CEIL = DECK + 7;                       // sealed rock ceiling capping the gulf
+  const FLOORB = Math.max(base.y - 36, -60);   // abyss floor — a long dark drop below the span
+  // clockwise ring S,SW,W,NW,N,NE,E,SE starting at the Library-entry (south) side
   const ringCW = [[0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1], [1, 0], [1, 1]];
-  const SPIRAL = 9, sBot = base.y - SPIRAL;           // spiral descends 9 to here
-  const TX = base.x + 26, Z0 = base.z + 15, Z1 = base.z + 28, CWALL = base.z + 29;
-  const CFY = base.y - 21;                            // Chamber floor level
-  const abyss = Math.max(base.y - 34, -60);
   const work = function* () {
-    // ---- the shaft: a hollow 3x3 around a chiseled pillar, OPEN at the top and
-    //      OPEN on its south face so you can walk straight in off the Library
-    //      alcove (that south wall is the bug the player had to dig through) ----
-    for (let y = base.y + 2; y >= sBot - 1; y--) {
+    // ===== 1. the SHAFT: a hollow 3x3 around a chiseled pillar, OPEN at the top
+    //         and OPEN on its south face so you walk straight in off the Library
+    //         alcove (that south wall was the bug the player had to dig through) =====
+    for (let y = base.y + 2; y >= DECK - 1; y--) {
       for (let ox = -2; ox <= 2; ox++) for (let oz = -2; oz <= 2; oz++) {
         const cheb = Math.max(Math.abs(ox), Math.abs(oz));
-        if (ox === 0 && oz === 0) setB(SX, y, SZ, "minecraft:chiseled_stone_bricks");
+        if (ox === 0 && oz === 0) setB(SX, y, SZ, "minecraft:chiseled_stone_bricks"); // pillar
         else if (cheb === 2) {
           if (oz === 2 && y >= base.y) air(SX + ox, y, SZ + oz);   // open the entry doorway
           else setB(SX + ox, y, SZ + oz, stone());                 // shaft wall
-        } else if (y < base.y) air(SX + ox, y, SZ + oz);           // hollow below the floor
+        } else air(SX + ox, y, SZ + oz);                           // hollow interior
       }
       yield;
     }
-    // ---- walkable treads: a true helix winding the 3x3 shaft, descending ONE
-    //      course PER cell so every step is an adjacent block exactly one down
-    //      (the old "one per two cells" made jumbled twin treads you couldn't
-    //      walk). The central pillar glows to light the descent. ----
+    // ===== 2. the DESCENT: a true helix winding the shaft, ONE course down per
+    //         cell, carrying the WHOLE vertical drop down to deck level so the
+    //         causeway itself can stay dead level. The pillar glows to light it. =====
     air(SX, base.y, SZ + 1);                            // open the entry mouth
-    for (let n = 0; n <= SPIRAL + 8; n++) {
+    for (let n = 0; ; n++) {
       const [dx, dz] = ringCW[n % 8];
       const ty = base.y - 1 - n;                        // one step down per cell
-      if (ty < sBot) break;
+      if (ty < DECK) break;
       setB(SX + dx, ty, SZ + dz, stone());             // tread you stand on
-      setB(SX + dx, ty - 1, SZ + dz, stone());         // solid beneath
+      setB(SX + dx, ty - 1, SZ + dz, stone());         // solid beneath the tread
       air(SX + dx, ty + 1, SZ + dz);                   // 3 of headroom for the step-down
       air(SX + dx, ty + 2, SZ + dz);
       air(SX + dx, ty + 3, SZ + dz);
       if (n % 3 === 0) setB(SX, ty + 1, SZ, "minecraft:glowstone");   // glowing newel
+      yield;
     }
-    // ---- a descending, arched stone tunnel south to the Chamber, with a deep
-    //      dark RAVINE crossed by a bridge midway ----
-    for (let z = Z0; z <= Z1; z++) {
-      const fy = sBot - Math.round((z - Z0) * (SPIRAL + 3) / (Z1 - Z0));   // falls to CFY
-      const inRavine = (z >= base.z + 20 && z <= base.z + 24);
-      for (let ox = -1; ox <= 1; ox++) {                 // bridge / floor (3 wide)
-        setB(TX + ox, fy, z, stone());
-        setB(TX + ox, fy - 1, z, stone());
-        for (let oy = 1; oy <= 3; oy++) air(TX + ox, fy + oy, z);
-        setB(TX + ox, fy + 4, z, stone());               // ceiling
-      }
-      for (let oy = 0; oy <= 4; oy++) { setB(TX - 2, fy + oy, z, stone()); setB(TX + 2, fy + oy, z, stone()); }
-      if (inRavine) {                                    // sheer dark drops to each side
-        for (let ox = -13; ox <= 13; ox++) {
-          if (Math.abs(ox) <= 1) continue;
-          for (let yy = fy + 5; yy > abyss; yy--) air(TX + ox, yy, z);
+    // a clean flat landing at the spiral foot (deck level) feeding south to the bridge
+    for (let ox = -1; ox <= 1; ox++) for (let oz = -1; oz <= 1; oz++) {
+      setB(SX + ox, DECK, SZ + oz, stone());            // landing floor
+      setB(SX + ox, DECK - 1, SZ + oz, stone());        // solid beneath
+    }
+    // ===== 3. the CAUSEWAY: a long, dead-level span over a wide, deep, dark gulf.
+    //         Deck is 5 wide (inner 3 walkable, outer 2 carry the rails); the gulf
+    //         is carved to darkness on BOTH sides for the entire crossing. =====
+    for (let z = BSTART; z < CWALL; z++) {
+      if (z >= CSTART && z <= CEND) {                   // open the gulf under + beside the span
+        for (let ox = -HALF; ox <= HALF; ox++) {
+          setB(TX + ox, CEIL, z, stone());              // sealed rock ceiling over the void
+          for (let yy = CEIL - 1; yy > FLOORB; yy--) air(TX + ox, yy, z);
         }
-        setB(TX - 1, fy + 1, z, "minecraft:cobblestone_wall");   // bridge rails
-        setB(TX + 1, fy + 1, z, "minecraft:cobblestone_wall");
-      }
-      if ((z - Z0) % 4 === 0 || z === base.z + 19 || z === base.z + 25) {  // chiseled stone arch
-        for (let oy = 1; oy <= 4; oy++) {
-          setB(TX - 2, fy + oy, z, "minecraft:chiseled_stone_bricks");
-          setB(TX + 2, fy + oy, z, "minecraft:chiseled_stone_bricks");
+        for (let yy = FLOORB; yy <= CEIL; yy++) {       // sealed gulf side-walls (no bleed-in)
+          setB(TX - HALF - 1, yy, z, stone());
+          setB(TX + HALF + 1, yy, z, stone());
         }
-        for (let ox = -1; ox <= 1; ox++) setB(TX + ox, fy + 4, z, "minecraft:chiseled_stone_bricks");
-        setB(TX, fy + 3, z, "minecraft:lantern");
+      } else {                                          // solid abutment north of the gulf
+        for (let ox = -HALF - 1; ox <= HALF + 1; ox++) {
+          if (Math.abs(ox) <= 2) continue;              // leave the bridge portal open
+          for (let yy = FLOORB; yy <= CEIL; yy++) setB(TX + ox, yy, z, stone());
+        }
+        for (let ox = -2; ox <= 2; ox++) for (let yy = DECK - 3; yy < DECK; yy++) setB(TX + ox, yy, z, stone());
+      }
+      // the level deck + low rails — identical at every z, so the walk never slopes
+      for (let ox = -2; ox <= 2; ox++) setB(TX + ox, DECK, z, stone());
+      for (let ox = -1; ox <= 1; ox++) { air(TX + ox, DECK + 1, z); air(TX + ox, DECK + 2, z); air(TX + ox, DECK + 3, z); }
+      setB(TX - 2, DECK + 1, z, "minecraft:cobblestone_wall");   // rail the whole length
+      setB(TX + 2, DECK + 1, z, "minecraft:cobblestone_wall");
+      if ((z - BSTART) % 4 === 1) {                     // sparse low light; flanks stay dark
+        setB(TX - 2, DECK + 2, z, "minecraft:soul_lantern");
+        setB(TX + 2, DECK + 2, z, "minecraft:soul_lantern");
       }
       yield;
     }
-    // ---- join the spiral foot to the tunnel mouth ----
-    for (let oy = 0; oy <= 3; oy++) {
-      air(SX, sBot + oy, SZ + 1); air(SX - 1, sBot + oy, SZ + 1);
-      air(TX, sBot + oy, Z0 - 1);
+    // ===== 4. pierce the Chamber's north wall with a level stone arch =====
+    for (let ox = -1; ox <= 1; ox++) {
+      setB(TX + ox, DECK, CWALL, stone());                       // threshold floor (no dip)
+      for (let oy = 1; oy <= 4; oy++) air(TX + ox, DECK + oy, CWALL);   // doorway opening
     }
-    setB(SX, sBot - 1, SZ + 1, stone()); setB(SX - 1, sBot - 1, SZ + 1, stone());
-    setB(TX, sBot - 1, Z0 - 1, stone());
-    // ---- pierce the Chamber of Fate's north wall with a stone arch ----
-    for (let ox = -1; ox <= 1; ox++) for (let oy = 0; oy <= 3; oy++) air(TX + ox, CFY + oy, CWALL);
-    for (let oy = 0; oy <= 4; oy++) {
-      setB(TX - 2, CFY + oy, CWALL, "minecraft:chiseled_stone_bricks");
-      setB(TX + 2, CFY + oy, CWALL, "minecraft:chiseled_stone_bricks");
+    for (let oy = 1; oy <= 5; oy++) {                            // chiseled jambs
+      setB(TX - 2, DECK + oy, CWALL, "minecraft:chiseled_stone_bricks");
+      setB(TX + 2, DECK + oy, CWALL, "minecraft:chiseled_stone_bricks");
     }
+    for (let ox = -2; ox <= 2; ox++) setB(TX + ox, DECK + 5, CWALL, "minecraft:chiseled_stone_bricks"); // lintel
+    setB(TX, DECK + 4, CWALL, "minecraft:lantern");              // arch lantern
   };
   try { system.runJob(work()); world.setDynamicProperty("fc_guild_caves_done", true); } catch { }
 }
