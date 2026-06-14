@@ -234,9 +234,11 @@ const GUILD_TA = "fc_guild_keep";  // ticking area that force-loads the campus
 function forceLoadGuild(dim, p, base) {
   if (world.getDynamicProperty("fc_guild_ta")) return;
   const cmd = `tickingarea add ${base.x - 4} 0 ${base.z - 4} ${base.x + 96} 319 ${base.z + 104} ${GUILD_TA}`;
-  for (const runner of [dim, p]) {
-    try { runner.runCommand(cmd); world.setDynamicProperty("fc_guild_ta", true); return; } catch { }
-  }
+  dim.runCommandAsync(cmd).then(() => {
+    world.setDynamicProperty("fc_guild_ta", true);
+  }).catch(() => {
+    try { p.runCommandAsync(cmd); world.setDynamicProperty("fc_guild_ta", true); } catch { }
+  });
 }
 
 function placeGuildNear(p) {
@@ -261,11 +263,13 @@ function buildGuildWhenReady(p, dim, base, attempt) {
   if (world.getDynamicProperty("fc_guild_placed")) return;
   world.setDynamicProperty("fc_guild_build_tick", system.currentTick);  // keep the guard fresh while working
   forceLoadGuild(dim, p, base);
-  const y = sampleGroundY(dim, base.x, base.z, 92, 100);
+  const y = sampleGroundY(dim, base.x, base.z, 92, 100, true);
   if (y === null) {  // chunks still loading — try again shortly
     if (attempt < 600) system.runTimeout(() => buildGuildWhenReady(p, dim, base, attempt + 1), 10);
     return;  // else stop refreshing — the stale tick lets the next sweep restart us
   }
+  p.onScreenDisplay.setTitle("§6Founding Guild...", { fadeInDuration: 0, stayDuration: 200, fadeOutDuration: 0, subtitle: "§ePlease wait..." });
+  system.runTimeout(() => {
   try {
     // The Heroes' Guild is ONE connected 92x30x100 structure on a single floor
     // level. The heart is the domed Map Room rotunda at local (34,44); the
@@ -332,6 +336,7 @@ function buildGuildWhenReady(p, dim, base, attempt) {
       p.sendMessage("§6⚔ You awaken in the Heroes' Guild. The §bCullis Gate§6 glows in the Map Room's south-west nook; the §aSkill Shrine§6 waits to the north-west.");
     } catch { }
   }, 10);
+  }, 5);
 }
 
 // The Guild hall itself is a single connected structure placed by
@@ -575,12 +580,12 @@ function guardArmour(dim, loc, faceLoc) {
   } catch { }
 }
 
-function groundY(dim, x, z) {
+function groundY(dim, x, z, allowLiquid = false) {
   for (let y = 120; y > 40; y--) {
     try {
       const b = dim.getBlock({ x, y, z });
       const below = dim.getBlock({ x, y: y - 1, z });
-      if (b?.isAir && below && !below.isAir && !below.isLiquid) return y;
+      if (b?.isAir && below && !below.isAir && (allowLiquid || !below.isLiquid)) return y;
     } catch { return null; }
   }
   return null;
@@ -1764,6 +1769,7 @@ function questBoard(p) {
         P.setJ(p, "fc_quest", { id: q.id, progress: q.objectives.map(() => 0) });
         p.playSound("random.orb");
         p.sendMessage(`§e✦ Quest accepted: ${q.name}`);
+        if (q.id === "join_guild") placeGuildNear(p);
       });
   });
 }
@@ -2971,14 +2977,14 @@ function fillLootChests(dim, x0, y0, z0, w, h, d, themeId) {
 // floating above it or sinking into it. Returns null if most of the
 // footprint has no solid ground beneath it (e.g. open water) — callers
 // should skip placement in that case.
-function sampleGroundY(dim, x0, z0, w, d) {
+function sampleGroundY(dim, x0, z0, w, d, allowLiquid = false) {
   const pts = [
     [x0 + 1, z0 + 1], [x0 + w - 2, z0 + 1], [x0 + 1, z0 + d - 2],
     [x0 + w - 2, z0 + d - 2], [x0 + Math.floor(w / 2), z0 + Math.floor(d / 2)],
   ];
   const ys = [];
   for (const [x, z] of pts) {
-    const y = groundY(dim, x, z);
+    const y = groundY(dim, x, z, allowLiquid);
     if (y !== null) ys.push(y);
   }
   if (ys.length < 3) return null;
