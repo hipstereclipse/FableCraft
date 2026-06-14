@@ -622,41 +622,45 @@ def guild_hall():
     v.set(ROT_X + 3, UP_Y + 1, ROT_Z - 5, "minecraft:bookshelf")
     v.set(ROT_X + 2, UP_Y + 3, ROT_Z, LANTERN, {"hanging": True})
 
-    # ================= CULLIS GATE (SW nook) =================
-    room(CGX - 3, CGZ - 3, CGX + 3, CGZ + 3, 6, floor=DEEP_TILES, roof="gable")
-    door(CGX + 3, CGZ, axis="x")                    # link toward the rotunda
-    for x in range(CGX + 3, ROT_X - ROT_R + 1):     # short corridor to the rotunda SW
-        v.set(x, 0, CGZ, STONE)
-        v.fill(x, 1, CGZ, x, 3, CGZ, "minecraft:air")
+    # ===== CULLIS GATE + SKILL SHRINE — ROUNDED nooks that merge into the Map
+    #       Room's western wall (apsidal bays, not square out-buildings) =====
+    def merge_nook(cx, cz, rad, wh, floor):
+        for x in range(cx - rad, cx + rad + 1):
+            for z in range(cz - rad, cz + rad + 1):
+                d = math.hypot(x - cx, z - cz)
+                if d <= rad + 0.4:
+                    v.set(x, 0, z, floor)
+                # the curved wall, dropped where it overlaps the rotunda (they fuse)
+                if rad - 0.6 < d <= rad + 0.45 and math.hypot(x - ROT_X, z - ROT_Z) > ROT_R - 0.3:
+                    for y in range(1, wh):
+                        v.set(x, y, z, warm())
+        cone_roof(v, cx, cz, rad, wh, SLATE, tip="minecraft:end_rod")
+        # an open throat fuses the nook interior straight into the rotunda
+        steps = max(1, int(round(math.hypot(ROT_X - cx, ROT_Z - cz))))
+        for i in range(steps + 1):
+            px = round(cx + (ROT_X - cx) * i / steps)
+            pz = round(cz + (ROT_Z - cz) * i / steps)
+            for ox, oz in ((0, 0), (1, 0), (-1, 0), (0, 1), (0, -1)):
+                v.set(px + ox, 0, pz + oz, floor)
+                v.fill(px + ox, 1, pz + oz, px + ox, 3, pz + oz, "minecraft:air")
+    merge_nook(CGX, CGZ, 4, 6, DEEP_TILES)          # Cullis Gate (SW bay)
+    merge_nook(SKX, SKZ, 4, 6, DEEP_TILES)          # Skill Shrine (NW bay)
+    # the Cullis focus
     for x in range(CGX - 2, CGX + 3):
         for z in range(CGZ - 2, CGZ + 3):
-            d = math.hypot(x - CGX, z - CGZ)
-            if d <= 2.6:
-                v.set(x, 0, z, CHISELED if (x + z) % 2 else DEEP_TILES)
-            if 1.7 < d <= 2.6:
+            if 1.7 < math.hypot(x - CGX, z - CGZ) <= 2.6:
                 v.set(x, 1, z, OBSIDIAN if (x + z) % 3 else "minecraft:crying_obsidian")
     v.set(CGX, 1, CGZ, "minecraft:beacon")
     for ang in range(0, 360, 90):
-        px = CGX + round(math.cos(math.radians(ang)) * 2)
-        pz = CGZ + round(math.sin(math.radians(ang)) * 2)
-        v.set(px, 1, pz, "minecraft:sea_lantern")
+        v.set(CGX + round(math.cos(math.radians(ang)) * 2), 1,
+              CGZ + round(math.sin(math.radians(ang)) * 2), "minecraft:sea_lantern")
     v.set(CGX, 5, CGZ, LANTERN, {"hanging": True})
-
-    # ================= SKILL / EXPERIENCE SHRINE (NW nook) =================
-    room(SKX - 3, SKZ - 3, SKX + 3, SKZ + 3, 6, floor=DEEP_TILES, roof="gable")
-    door(SKX + 3, SKZ, axis="x")
-    for x in range(SKX + 3, ROT_X - ROT_R + 1):     # corridor to the rotunda NW
-        v.set(x, 0, SKZ, STONE)
-        v.fill(x, 1, SKZ, x, 3, SKZ, "minecraft:air")
-    for x in range(SKX - 2, SKX + 3):
-        for z in range(SKZ - 2, SKZ + 3):
-            v.set(x, 0, z, CHISELED if (x + z) % 2 else DEEP_TILES)
+    # the green Skill / Experience shrine
     v.set(SKX, 1, SKZ, "minecraft:smooth_quartz")
     v.set(SKX, 2, SKZ, "minecraft:enchanting_table")
     for ang in range(0, 360, 90):
-        px = SKX + round(math.cos(math.radians(ang)) * 2)
-        pz = SKZ + round(math.sin(math.radians(ang)) * 2)
-        v.set(px, 1, pz, "minecraft:amethyst_block")
+        v.set(SKX + round(math.cos(math.radians(ang)) * 2), 1,
+              SKZ + round(math.sin(math.radians(ang)) * 2), "minecraft:amethyst_block")
     v.set(SKX, 1, SKZ + 2, "minecraft:green_stained_glass")
     v.set(SKX, 5, SKZ, LANTERN, {"hanging": True})
 
@@ -954,7 +958,9 @@ def guild_hall():
             v.set(isx - 2, 2, isz, "minecraft:hay_block")
             v.set(isx - 2, 3, isz, "minecraft:carved_pumpkin", {"minecraft:cardinal_direction": "west"})
             v.set(isx + 2, 1, isz - 1, "minecraft:lantern", {"hanging": False})
-    island_plank(49, 78, 55, 83)                            # small isle -> scarecrow isle
+    island_plank(48, 79, 56, 83)                            # small isle <-> scarecrow isle
+    island_plank(47, 81, DOOR_X, DOOR_Z - 1)                # small isle -> Demon Door (south)
+    island_plank(50, 76, 67, 72)                            # small isle -> east training bank
 
     # ================= DEMON DOOR (far south, by the islands) =================
     for x in range(DOOR_X - 5, DOOR_X + 6):
@@ -983,9 +989,8 @@ def guild_hall():
     for bxp in (DOOR_X - 4, DOOR_X + 4):
         v.set(bxp, 1, DOOR_Z - 1, SAND_CHIS)
         v.set(bxp, 2, DOOR_Z - 1, "minecraft:soul_campfire")
-    island_plank(58, 87, DOOR_X, DOOR_Z - 1)          # bridge: scarecrow isle -> door
-    v.set(58, 2, 87, SPRUCE_FENCE)
-    v.set(DOOR_X, 2, DOOR_Z - 2, SPRUCE_FENCE)
+    v.set(DOOR_X, 2, DOOR_Z - 2, SPRUCE_FENCE)        # the bridge arrives from the small isle
+    v.set(DOOR_X - 1, 2, DOOR_Z - 1, SPRUCE_FENCE)
 
     # ============= GROUNDS: covered links, gravel paths, trees & rocks =========
     # short covered passages knit the main complex into one connected mass
@@ -1034,6 +1039,7 @@ def guild_hall():
     lay_path(34, 30, 34, 16)            # complex -> stone hallway
     lay_path(40, 53, 46, 60)            # complex -> tower corridor
     lay_path(20, 42, 26, 55)            # Map Room -> Store / graves
+    lay_path(67, 72, 80, 56)            # island east bank -> Dueling Ring
 
     def open_ground(x, z):
         return (0 <= x < W and 0 <= z < L
