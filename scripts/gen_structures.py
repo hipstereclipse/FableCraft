@@ -1090,48 +1090,47 @@ def guild_hall():
             for zr in (zc - 1, zc + 1):
                 v.set(px, 2, zr, DARKOAK_FENCE)
                 v.set(px, 3, zr, LANTERN, {"hanging": False})
-    arch_bridge(20)
-    arch_bridge(36)
-    arch_bridge(54)                                 # monuments / garden -> east path
+    arch_bridge(20)                                 # beneath the covered stone hallway
+    arch_bridge(28)                                 # map's UPPER "Bridge" -> archery approach
+    arch_bridge(54)                                 # map's LOWER "Bridge" -> dueling / east path
 
     # ================= EAST TRAINING GROUNDS (across the river) =================
-    # the Archery Range — a dirt circle SOUTH of (clear of) the kitchen, with the
-    # straw butt set against the OUTSIDE of the kitchen's south wall
-    arx, arz, arr = 68, 37, 6
-    for x in range(arx - arr, arx + arr + 1):
-        for z in range(arz - arr, arz + arr + 1):
-            d = math.hypot(x - arx, z - arz)
+    # the ARCHERY RANGE — a HALF-COURT (basketball-key) footprint to match the map:
+    # a straight north BASELINE lined with straw butts, and a semicircular firing
+    # FAN bulging south. Archers stand on the curved arc and loose north into the
+    # targets (kitchen wall = backstop); a fence kerb hugs the arc with a west gate
+    # onto the bridge path, and the fletching table sits at the south apex.
+    # (Replaces the old twin dirt rings — the range circle + the practice ring.)
+    acx, abz, arr = 68, 33, 9                        # fan centre-x, baseline z, arc radius
+    for x in range(acx - arr, acx + arr + 1):
+        for z in range(abz, abz + arr + 1):
+            d = math.hypot(x - acx, z - abz)
             if d <= arr + 0.3:
                 v.set(x, 0, z, "minecraft:coarse_dirt" if r.random() < 0.7 else GRAVEL)
-            if arr - 0.7 < d <= arr + 0.3:
+            if arr - 0.7 < d <= arr + 0.3 and z > abz:   # fence kerb hugs the curved arc
                 v.set(x, 1, z, DARKOAK_FENCE)
-    v.set(arx - arr, 1, arz, "minecraft:air")        # gate facing the bridges
-    # the butt: straw-backed targets just SOUTH of the kitchen wall (kz1=28),
-    # firing line to their south — properly OUTSIDE the building now
-    butt_z = kz1 + 1                                 # z=29
-    for x in range(arx - 3, arx + 4):
-        v.set(x, 0, butt_z, "minecraft:coarse_dirt")
-        v.set(x, 1, butt_z, "minecraft:hay_block")
-        v.set(x, 2, butt_z, "minecraft:target")
-        v.set(x, 3, butt_z, "minecraft:target")
-    for z in range(butt_z, arz - arr + 1):           # link the butt to the range floor
-        for x in range(arx - 3, arx + 4):
-            v.set(x, 0, z, "minecraft:coarse_dirt" if r.random() < 0.7 else GRAVEL)
-    # covered shooting stand on the SOUTH edge, firing north at the butt
-    for x in range(arx - 3, arx + 4):
-        v.set(x, 5, arz + arr - 1, DARKOAK if x % 2 else SLATE)
-        v.set(x, 1, arz + arr - 1, SPRUCE_STAIR, {"weirdo_direction": 3, "upside_down_bit": False})
-    for x in (arx - 3, arx + 3):
-        for y in range(1, 5):
-            v.set(x, y, arz + arr - 1, SPRUCE_LOG)
-    v.set(arx, 1, arz + arr - 2, "minecraft:fletching_table")
-    # an additional bare DIRT practice ring in front of (south of) the range,
-    # where training Heroes drill
-    pax, paz, par = arx, arz + arr + 5, 4
-    for x in range(pax - par, pax + par + 1):
-        for z in range(paz - par, paz + par + 1):
-            if math.hypot(x - pax, z - paz) <= par + 0.3:
-                v.set(x, 0, z, "minecraft:coarse_dirt" if r.random() < 0.7 else GRAVEL)
+    for z in range(abz + 3, abz + 6):                # WEST gate (entry from the bridge path)
+        v.set(acx - arr, 1, z, "minecraft:air")
+        v.set(acx - arr + 1, 1, z, "minecraft:air")
+    # a clear lawn approach links the kitchen's south doors (z29) down to the baseline
+    for x in range(acx - 6, acx + 7):
+        for z in range(kz1 + 1, abz):               # z29..32 buffer strip
+            if v.grid[v.idx(x, 1, z)] == v._pid("minecraft:air"):
+                v.set(x, 0, z, GRAVEL if (x + z) % 3 else "minecraft:coarse_dirt")
+    # the BUTT: straw-backed targets stand along the baseline, facing south
+    for x in range(acx - 5, acx + 6):
+        v.set(x, 0, abz, "minecraft:coarse_dirt")
+        v.set(x, 1, abz, "minecraft:hay_block")
+        v.set(x, 2, abz, "minecraft:target")
+        v.set(x, 3, abz, "minecraft:target")
+    # fletching table + a small covered firing point at the south apex of the fan
+    fap = abz + arr - 1                              # apex z (=41)
+    v.set(acx, 1, fap, "minecraft:fletching_table")
+    for x in (acx - 1, acx + 1):
+        for y in range(1, 4):
+            v.set(x, y, fap, SPRUCE_LOG)
+    for x in range(acx - 1, acx + 2):
+        v.set(x, 4, fap, DARKOAK if x % 2 else SLATE)
     # the Dueling Ring — a BARE dirt sparring circle (no kerb) with straw dummies
     drx, drz, drr = 80, 54, 6
     for x in range(drx - drr, drx + drr + 1):
@@ -1617,7 +1616,7 @@ def guild_hall():
     # east training grounds (across the river): the gravel walk leaves the two
     # southern bridges and runs along the WEST side of the ranges, reaching each
     # ring at its EDGE (you step onto the dirt circle), then drops SE to the pond
-    lay_path(58, 36, 64, 37, wide=2)    # centre bridge -> Archery Range (west edge)
+    lay_path(58, 28, 61, 33, wide=2)    # upper bridge (z28) -> Archery Range NW approach
     lay_path(58, 54, 74, 54, wide=2)    # south bridge -> Dueling Ring (west edge), along z54
     lay_path(64, 38, 72, 51, wide=2)    # Archery <-> Dueling (links the two grounds)
     lay_path(74, 58, 67, 80, wide=2)    # Dueling SE -> pond bridge / Demon Door (self-clips at water)
