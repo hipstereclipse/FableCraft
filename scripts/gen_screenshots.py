@@ -437,6 +437,7 @@ BLOCK_COLORS = {
     "minecraft:fletching_table": (178, 150, 102), "minecraft:pumpkin": (212, 132, 40),
     "minecraft:blast_furnace": (78, 80, 86), "minecraft:cake": (228, 214, 188),
     "minecraft:dirt_path": (146, 116, 78), "minecraft:brewing_stand": (122, 110, 100),
+    "minecraft:melon_block": (108, 150, 56),
     # --- warm Fable-Guild stone + trim ---
     "minecraft:smooth_sandstone": (216, 200, 156), "minecraft:cut_sandstone": (212, 196, 152),
     "minecraft:chiseled_sandstone": (210, 194, 150), "minecraft:sandstone_wall": (208, 192, 148),

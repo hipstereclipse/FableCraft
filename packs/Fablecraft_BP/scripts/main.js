@@ -233,7 +233,7 @@ const GUILD_TA = "fc_guild_keep";  // ticking area that force-loads the campus
 // chunks and silently fail to generate. Idempotent — adds the area only once.
 function forceLoadGuild(dim, p, base) {
   if (world.getDynamicProperty("fc_guild_ta")) return;
-  const cmd = `tickingarea add ${base.x - 4} 0 ${base.z - 4} ${base.x + 96} 319 ${base.z + 104} ${GUILD_TA}`;
+  const cmd = `tickingarea add ${base.x - 4} 0 ${base.z - 4} ${base.x + 116} 319 ${base.z + 112} ${GUILD_TA}`;
   dim.runCommandAsync(cmd).then(() => {
     world.setDynamicProperty("fc_guild_ta", true);
   }).catch(() => {
@@ -263,7 +263,7 @@ function buildGuildWhenReady(p, dim, base, attempt) {
   if (world.getDynamicProperty("fc_guild_placed")) return;
   world.setDynamicProperty("fc_guild_build_tick", system.currentTick);  // keep the guard fresh while working
   forceLoadGuild(dim, p, base);
-  const y = sampleGroundY(dim, base.x, base.z, 92, 100, true);
+  const y = sampleGroundY(dim, base.x, base.z, 112, 108, true);
   if (y === null) {  // chunks still loading — try again shortly
     if (attempt < 600) system.runTimeout(() => buildGuildWhenReady(p, dim, base, attempt + 1), 10);
     return;  // else stop refreshing — the stale tick lets the next sweep restart us
@@ -320,10 +320,10 @@ function buildGuildWhenReady(p, dim, base, attempt) {
     guardArmour(dim, { x: base.x + 41, y: y + 1, z: base.z + 72 }, { x: base.x + 40, y: y + 1, z: base.z + 72 });
     guardArmour(dim, { x: base.x + 46, y: y + 1, z: base.z + 67 }, { x: base.x + 46, y: y + 1, z: base.z + 66 });
     ensureDemonDoor(dim, doorLoc, base.z + 86);
-    fillLootChests(dim, base.x, y, base.z, 92, 30, 100, "fc:guild_hall");
-    blendTerrain(dim, base.x, y, base.z, 92, 100);
-    skirtTerrain(dim, base.x, y, base.z, 92, 100, 28);
-    dressSurroundings(dim, base.x, y, base.z, 92, "holy");
+    fillLootChests(dim, base.x, y, base.z, 112, 30, 108, "fc:guild_hall");
+    blendTerrain(dim, base.x, y, base.z, 112, 108);
+    skirtTerrain(dim, base.x, y, base.z, 112, 108, 28);
+    dressSurroundings(dim, base.x, y, base.z, 112, "holy");
     populateSurroundings(dim, base);                 // biome-matched woods around the campus
     layWoodsPath(dim, base);                          // the orange dirt trail out to the Woods
     placeGuildAnnexes(dim);
@@ -483,7 +483,7 @@ function carveGuildCaves(dim, base) {
 // bare ring. Idempotent; bounded; fully wrapped.
 function populateSurroundings(dim, base) {
   if (world.getDynamicProperty("fc_guild_wild_done")) return;
-  const W = 92, D = 100, R = 26;
+  const W = 112, D = 108, R = 26;
   const setBlk = (x, y, z, id) => { try { const b = dim.getBlock({ x, y, z }); if (b) b.setType(id); } catch { } };
   const work = function* () {
     for (let n = 0; n < 240; n++) {
@@ -618,8 +618,8 @@ function guildBounds() {
     base,
     // the Guild is one 92x30x100 structure (rotunda + nave + wings + library +
     // tower + grounds), with the Chamber of Fate buried beneath it
-    minX: base.x - 3, maxX: base.x + 95,
-    minZ: base.z - 3, maxZ: base.z + 103,
+    minX: base.x - 3, maxX: base.x + 115,
+    minZ: base.z - 3, maxZ: base.z + 111,
     minY: base.y - 26, maxY: base.y + 32,
   };
 }
@@ -647,14 +647,14 @@ function layWoodsPath(dim, base) {
   const work = function* () {
     let z = z0;
     for (let i = 0; i < 30; i++) {                   // main trail, heading east
-      const x = base.x + 92 + i;                     // just outside the east wall, onward
+      const x = base.x + 112 + i;                    // just outside the east wall, onward
       if (i > 5 && Math.random() < 0.3) z += (Math.random() < 0.5 ? 1 : -1);  // gentle wander
       for (let dz = -1; dz <= 0; dz++) layPath(dim, x, z + dz);   // 2 wide
       yield;
     }
     let fz = z0;                                     // a fork peeling off to the north-east
     for (let i = 0; i < 14; i++) {
-      const x = base.x + 102 + i;
+      const x = base.x + 122 + i;
       fz -= 1;
       for (let dz = -1; dz <= 0; dz++) layPath(dim, x, fz + dz);
       yield;

@@ -496,8 +496,13 @@ def guild_hall():
     stands the Guild DEMON DOOR. Every room connects and the waking Hero lands
     dry on the crimson runner before the Map."""
     r = rng("struct", "guild")
-    W, H, L = 92, 30, 100
-    v = Vox(W, H, L)
+    W, H, L = 112, 30, 108        # expanded footprint (was 92x100) so the campus
+    v = Vox(W, H, L)              # fits to scale: room for the east grounds + forest
+    #                              buffer, the tower garden and a denser complex.
+    #  NW cluster (rotunda/library/Cullis/Skill/spiral/chamber/caves/gate) keeps its
+    #  local coords so the runtime chamber + cave carve stay coupled; the perimeter
+    #  wall, Exit C and corners derive from W/L and shift out automatically. main.js
+    #  dimension couplings (ticking/sample/blend/skirt/loot/bounds/woods) updated to match.
     warm = lambda: guild_stone(r)
 
     # ---- feature anchors (kept in lock-step with main.js placeGuildNear) ----
@@ -1616,7 +1621,7 @@ def guild_hall():
     # ===== the DIRT PATH branch (the plan's ORANGE): peels off by the Archery
     #       Range and runs east through Exit C to the Guild Woods (continued
     #       beyond the footprint at runtime by layWoodsPath in main.js) =====
-    lay_path(74, 33, 88, 32, wide=2, mat="dirt")
+    lay_path(74, 33, W - 4, 32, wide=2, mat="dirt")   # runs east to the new Exit C wall
 
     # Exit C — a chiseled stone archway through the east wall to the Guild Woods
     ecz = 32
