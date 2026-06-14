@@ -19,6 +19,7 @@
         "attack": "animation.fc.biped.attack",
         "gesture": "animation.fc.biped.gesture",
         "bow": "animation.fc.biped.bow",
+        "greet": "animation.fc.biped.greet",
         "ctrl_move": "controller.animation.fc.biped_move",
         "ctrl_attack": "controller.animation.fc.attack",
         "ctrl_ranged": "controller.animation.fc.ranged"

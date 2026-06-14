@@ -1,0 +1,619 @@
+{
+  "format_version": "1.14.0",
+  "entity_sounds": {
+    "entities": {
+      "fc:arachanox": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.arachanox",
+          "hurt": "fc.entity.arachanox",
+          "death": "fc.entity.arachanox"
+        }
+      },
+      "fc:assassin": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.assassin",
+          "hurt": "fc.entity.assassin",
+          "death": "fc.entity.assassin"
+        }
+      },
+      "fc:balverine": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.balverine",
+          "hurt": "fc.entity.balverine",
+          "death": "fc.entity.balverine"
+        }
+      },
+      "fc:bandit": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.bandit",
+          "hurt": "fc.entity.bandit",
+          "death": "fc.entity.bandit"
+        }
+      },
+      "fc:bandit_archer": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.bandit_archer",
+          "hurt": "fc.entity.bandit_archer",
+          "death": "fc.entity.bandit_archer"
+        }
+      },
+      "fc:banshee": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.banshee",
+          "hurt": "fc.entity.banshee",
+          "death": "fc.entity.banshee"
+        }
+      },
+      "fc:barkeep": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.barkeep",
+          "hurt": "fc.entity.barkeep",
+          "death": "fc.entity.barkeep"
+        }
+      },
+      "fc:beetle": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.beetle",
+          "hurt": "fc.entity.beetle",
+          "death": "fc.entity.beetle"
+        }
+      },
+      "fc:briar_rose": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.briar_rose",
+          "hurt": "fc.entity.briar_rose",
+          "death": "fc.entity.briar_rose"
+        }
+      },
+      "fc:demon_door": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.demon_door",
+          "hurt": "fc.entity.demon_door",
+          "death": "fc.entity.demon_door"
+        }
+      },
+      "fc:earth_troll": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.earth_troll",
+          "hurt": "fc.entity.earth_troll",
+          "death": "fc.entity.earth_troll"
+        }
+      },
+      "fc:frost_balverine": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.frost_balverine",
+          "hurt": "fc.entity.frost_balverine",
+          "death": "fc.entity.frost_balverine"
+        }
+      },
+      "fc:guard_bowerstone": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.guard_bowerstone",
+          "hurt": "fc.entity.guard_bowerstone",
+          "death": "fc.entity.guard_bowerstone"
+        }
+      },
+      "fc:guard_oakvale": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.guard_oakvale",
+          "hurt": "fc.entity.guard_oakvale",
+          "death": "fc.entity.guard_oakvale"
+        }
+      },
+      "fc:guard_snowspire": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.guard_snowspire",
+          "hurt": "fc.entity.guard_snowspire",
+          "death": "fc.entity.guard_snowspire"
+        }
+      },
+      "fc:guild_apprentice_might": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.guild_apprentice_might",
+          "hurt": "fc.entity.guild_apprentice_might",
+          "death": "fc.entity.guild_apprentice_might"
+        }
+      },
+      "fc:guild_apprentice_skill": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.guild_apprentice_skill",
+          "hurt": "fc.entity.guild_apprentice_skill",
+          "death": "fc.entity.guild_apprentice_skill"
+        }
+      },
+      "fc:guild_apprentice_will": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.guild_apprentice_will",
+          "hurt": "fc.entity.guild_apprentice_will",
+          "death": "fc.entity.guild_apprentice_will"
+        }
+      },
+      "fc:guildmaster": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.guildmaster",
+          "hurt": "fc.entity.guildmaster",
+          "death": "fc.entity.guildmaster"
+        }
+      },
+      "fc:hobbe": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.hobbe",
+          "hurt": "fc.entity.hobbe",
+          "death": "fc.entity.hobbe"
+        }
+      },
+      "fc:hobbe_scout": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.hobbe_scout",
+          "hurt": "fc.entity.hobbe_scout",
+          "death": "fc.entity.hobbe_scout"
+        }
+      },
+      "fc:ice_troll": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.ice_troll",
+          "hurt": "fc.entity.ice_troll",
+          "death": "fc.entity.ice_troll"
+        }
+      },
+      "fc:jack_dragon": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.jack_dragon",
+          "hurt": "fc.entity.jack_dragon",
+          "death": "fc.entity.jack_dragon"
+        }
+      },
+      "fc:jack_of_blades": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.jack_of_blades",
+          "hurt": "fc.entity.jack_of_blades",
+          "death": "fc.entity.jack_of_blades"
+        }
+      },
+      "fc:lady_grey": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.lady_grey",
+          "hurt": "fc.entity.lady_grey",
+          "death": "fc.entity.lady_grey"
+        }
+      },
+      "fc:maze": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.maze",
+          "hurt": "fc.entity.maze",
+          "death": "fc.entity.maze"
+        }
+      },
+      "fc:mercenary": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.mercenary",
+          "hurt": "fc.entity.mercenary",
+          "death": "fc.entity.mercenary"
+        }
+      },
+      "fc:minion": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.minion",
+          "hurt": "fc.entity.minion",
+          "death": "fc.entity.minion"
+        }
+      },
+      "fc:nymph": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.nymph",
+          "hurt": "fc.entity.nymph",
+          "death": "fc.entity.nymph"
+        }
+      },
+      "fc:oracle": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.oracle",
+          "hurt": "fc.entity.oracle",
+          "death": "fc.entity.oracle"
+        }
+      },
+      "fc:rock_giant": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.rock_giant",
+          "hurt": "fc.entity.rock_giant",
+          "death": "fc.entity.rock_giant"
+        }
+      },
+      "fc:summoned_balverine": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.summoned_balverine",
+          "hurt": "fc.entity.summoned_balverine",
+          "death": "fc.entity.summoned_balverine"
+        }
+      },
+      "fc:summoned_hobbe": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.summoned_hobbe",
+          "hurt": "fc.entity.summoned_hobbe",
+          "death": "fc.entity.summoned_hobbe"
+        }
+      },
+      "fc:summoned_wasp": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.summoned_wasp",
+          "hurt": "fc.entity.summoned_wasp",
+          "death": "fc.entity.summoned_wasp"
+        }
+      },
+      "fc:summoner": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.summoner",
+          "hurt": "fc.entity.summoner",
+          "death": "fc.entity.summoner"
+        }
+      },
+      "fc:theresa": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.theresa",
+          "hurt": "fc.entity.theresa",
+          "death": "fc.entity.theresa"
+        }
+      },
+      "fc:trader": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.trader",
+          "hurt": "fc.entity.trader",
+          "death": "fc.entity.trader"
+        }
+      },
+      "fc:twinblade": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.twinblade",
+          "hurt": "fc.entity.twinblade",
+          "death": "fc.entity.twinblade"
+        }
+      },
+      "fc:undead": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.undead",
+          "hurt": "fc.entity.undead",
+          "death": "fc.entity.undead"
+        }
+      },
+      "fc:undead_knight": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.undead_knight",
+          "hurt": "fc.entity.undead_knight",
+          "death": "fc.entity.undead_knight"
+        }
+      },
+      "fc:undead_soldier": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.undead_soldier",
+          "hurt": "fc.entity.undead_soldier",
+          "death": "fc.entity.undead_soldier"
+        }
+      },
+      "fc:villager_albion": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.villager_albion",
+          "hurt": "fc.entity.villager_albion",
+          "death": "fc.entity.villager_albion"
+        }
+      },
+      "fc:villager_blacksmith": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.villager_blacksmith",
+          "hurt": "fc.entity.villager_blacksmith",
+          "death": "fc.entity.villager_blacksmith"
+        }
+      },
+      "fc:villager_farmer": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.villager_farmer",
+          "hurt": "fc.entity.villager_farmer",
+          "death": "fc.entity.villager_farmer"
+        }
+      },
+      "fc:villager_fisher": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.villager_fisher",
+          "hurt": "fc.entity.villager_fisher",
+          "death": "fc.entity.villager_fisher"
+        }
+      },
+      "fc:villager_tailor": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.villager_tailor",
+          "hurt": "fc.entity.villager_tailor",
+          "death": "fc.entity.villager_tailor"
+        }
+      },
+      "fc:villager_woman": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.villager_woman",
+          "hurt": "fc.entity.villager_woman",
+          "death": "fc.entity.villager_woman"
+        }
+      },
+      "fc:wasp": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.wasp",
+          "hurt": "fc.entity.wasp",
+          "death": "fc.entity.wasp"
+        }
+      },
+      "fc:wasp_queen": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.wasp_queen",
+          "hurt": "fc.entity.wasp_queen",
+          "death": "fc.entity.wasp_queen"
+        }
+      },
+      "fc:white_balverine": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.white_balverine",
+          "hurt": "fc.entity.white_balverine",
+          "death": "fc.entity.white_balverine"
+        }
+      },
+      "fc:wraith": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.wraith",
+          "hurt": "fc.entity.wraith",
+          "death": "fc.entity.wraith"
+        }
+      }
+    }
+  }
+}

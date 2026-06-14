@@ -4,14 +4,14 @@
     "name": "Fablecraft: Reforged [Resources]",
     "description": "Models, textures, sounds and UI for Fablecraft: Reforged. §eYour appearance reflects your deeds, Hero.§r",
     "uuid": "c6fa4520-48f8-42b9-b946-777aa2e949dd",
-    "version": [2, 1, 0],
+    "version": [2, 2, 0],
     "min_engine_version": [1, 21, 90]
   },
   "modules": [
     {
       "type": "resources",
       "uuid": "964063ac-7416-45c8-af35-80cfa19b0cdd",
-      "version": [2, 1, 0]
+      "version": [2, 2, 0]
     }
   ],
   "metadata": {

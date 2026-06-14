@@ -273,8 +273,8 @@ Grades: S (≥90) A (≥75) B (≥60) C (≥45) D (<45)
 | Asset | Grade | Score | Coverage % | Colours | Contrast | Brightness | Notes |
 |---|---|---|---|---|---|---|---|
 | Demon Door | **S** | 100 | 27.0 | 45 | 0.9 | 0.37 | — |
-| Heroes' Guild | **S** | 100 | 12.0 | 66 | 0.89 | 0.47 | — |
-| Chamber of Fate | **S** | 100 | 34.0 | 17 | 0.82 | 0.45 | — |
+| Heroes' Guild | **S** | 100 | 11.6 | 79 | 0.89 | 0.48 | — |
+| Chamber of Fate | **S** | 100 | 34.1 | 22 | 0.82 | 0.45 | — |
 | Oakvale | **S** | 100 | 11.3 | 54 | 0.83 | 0.53 | — |
 | Bowerstone Market | **S** | 100 | 14.1 | 40 | 0.89 | 0.37 | — |
 | Knothole Glade | **S** | 100 | 12.7 | 46 | 0.87 | 0.35 | — |

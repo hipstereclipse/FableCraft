@@ -114,6 +114,21 @@ def emit_animations():
                     "arm_l": {"rotation": ["-86 + query.target_x_rotation", "query.target_y_rotation + 14", 0]},
                 },
             },
+            # one-shot greeting wave, played on demand when an NPC notices / talks
+            # to a passing Hero (script-driven via Entity.playAnimation)
+            "animation.fc.biped.greet": {
+                "loop": False,
+                "animation_length": 1.5,
+                "bones": {
+                    "arm_r": {"rotation": {
+                        "0.0": [0, 0, 0], "0.25": [-128, 0, 18], "0.55": [-128, 0, -16],
+                        "0.85": [-128, 0, 18], "1.15": [-128, 0, -16], "1.5": [0, 0, 0],
+                    }},
+                    "arm_l": {"rotation": {"0.0": [0, 0, 0], "0.5": [-16, 0, -4], "1.5": [0, 0, 0]}},
+                    "head": {"rotation": {"0.0": [0, 0, 0], "0.4": [9, 0, 0], "1.5": [0, 0, 0]}},
+                    "body": {"rotation": {"0.0": [0, 0, 0], "0.4": [5, 0, 0], "1.5": [0, 0, 0]}},
+                },
+            },
             "animation.fc.quadruped.walk": {
                 "loop": True,
                 "anim_time_update": "query.modified_distance_moved",
@@ -271,7 +286,7 @@ def emit_animation_controllers():
 PLAN_ANIMS = {
     "humanoid": [("walk", "animation.fc.biped.walk"), ("idle", "animation.fc.biped.idle"),
                  ("attack", "animation.fc.biped.attack"), ("gesture", "animation.fc.biped.gesture"),
-                 ("bow", "animation.fc.biped.bow")],
+                 ("bow", "animation.fc.biped.bow"), ("greet", "animation.fc.biped.greet")],
     "hobbe": [("walk", "animation.fc.biped.walk"), ("idle", "animation.fc.biped.idle"),
               ("attack", "animation.fc.biped.attack")],
     "twinblade": [("walk", "animation.fc.biped.walk"), ("idle", "animation.fc.biped.idle"),
@@ -294,8 +309,9 @@ PLAN_ANIMS = {
                    ("open_hold", "animation.fc.door.open_hold")],
 }
 
-# plans driven by the biped state machines instead of always-on layers
-BIPED_PLANS = {"humanoid", "hobbe", "twinblade", "jack", "troll", "balverine"}
+# one-shot clips are fired from script (Entity.playAnimation) and must never sit
+# in the always-on `animate` list, or the pose freezes on their last keyframe.
+ONE_SHOT_ANIMS = {"greet"}
 
 
 # ---------------------------------------------------------------------------
@@ -330,7 +346,16 @@ def emit_client_entity(mob):
     plan = mob["plan"][0]
     anims = PLAN_ANIMS.get(plan, PLAN_ANIMS["humanoid"])
     anim_map = {k: v for k, v in anims}
-    if plan in BIPED_PLANS:
+    keys = [k for k, _ in anims]
+    # A mob is biped-driven if it owns both a walk and an idle clip — those feed
+    # the idle<->walk controller. Deriving this from the clip set (not a hardcoded
+    # plan list) means custom humanoids like Theresa get the blended controllers
+    # too, instead of stacking every clip on top of each other at once.
+    biped = "walk" in keys and "idle" in keys
+    if plan == "demon_door":
+        anim_map["ctrl_door"] = "controller.animation.fc.door"
+        scripts = {"animate": ["ctrl_door"]}
+    elif biped:
         # animation controllers: blended idle/walk + attack overlay (+NPC gestures)
         anim_map["ctrl_move"] = "controller.animation.fc.biped_move"
         anim_map["ctrl_attack"] = "controller.animation.fc.attack"
@@ -343,10 +368,7 @@ def emit_client_entity(mob):
             animate.append("ctrl_ranged")
         scripts = {"animate": animate}
     else:
-        scripts = {"animate": [k for k, _ in anims]}
-    if plan == "demon_door":
-        anim_map["ctrl_door"] = "controller.animation.fc.door"
-        scripts = {"animate": ["ctrl_door"]}
+        scripts = {"animate": [k for k in keys if k not in ONE_SHOT_ANIMS]}
     ghost = plan in GHOST_PLANS or eid == "oracle"
     material = "entity_alphatest"
     ce = {

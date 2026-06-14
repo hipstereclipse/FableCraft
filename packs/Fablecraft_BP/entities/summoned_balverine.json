@@ -51,6 +51,11 @@
       },
       "minecraft:nameable": {},
       "minecraft:leashable": {},
+      "minecraft:ambient_sound_interval": {
+        "value": 9.0,
+        "range": 15.0,
+        "event_name": "ambient"
+      },
       "minecraft:despawn": {
         "despawn_from_distance": {}
       },

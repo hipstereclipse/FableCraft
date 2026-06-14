@@ -224,6 +224,9 @@ def base_components(mob):
         "minecraft:knockback_resistance": {"value": 0.2 if mob["hp"] > 100 else 0.0},
         "minecraft:nameable": {},
         "minecraft:leashable": {},
+        # periodically emit the entity's own voice (wired in RP sounds.json so the
+        # custom fc.entity.<id> cues play); NPCs murmur, beasts growl, doors mutter
+        "minecraft:ambient_sound_interval": {"value": 9.0, "range": 15.0, "event_name": "ambient"},
         "minecraft:despawn": {"despawn_from_distance": {}},
     }
     if mob.get("dmg"):

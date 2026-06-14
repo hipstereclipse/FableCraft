@@ -1120,7 +1120,33 @@ def main():
         {"format_version": "1.14.0", "sound_definitions": definitions},
     )
     print("sound_definitions.json written")
+    emit_entity_sounds(specs)
     write_preview(specs)
+
+
+def emit_entity_sounds(specs):
+    """Wire each entity's voice to its vanilla sound events (ambient/hurt/death)
+    so the custom fc.entity.<id> cues actually play in-world — NPCs murmur and
+    react, beasts growl, the Demon Door mutters. Driven by the entity's
+    minecraft:ambient_sound_interval (event_name "ambient") plus built-in
+    hurt/death events."""
+    entities = {}
+    for spec in specs:
+        key = spec.get("key", "")
+        if not key.startswith("entity/"):
+            continue
+        eid = key.split("/", 1)[1]
+        snd = spec["definition"]                       # "fc.entity.<eid>"
+        entities[f"fc:{eid}"] = {
+            "volume": 1.0,
+            "pitch": [0.85, 1.12],
+            "events": {"ambient": snd, "hurt": snd, "death": snd},
+        }
+    write_json(
+        RP / "sounds.json",
+        {"format_version": "1.14.0", "entity_sounds": {"entities": entities}},
+    )
+    print(f"sounds.json written ({len(entities)} entity voice bindings)")
 
 
 if __name__ == "__main__":

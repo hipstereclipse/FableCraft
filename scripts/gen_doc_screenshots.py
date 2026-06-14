@@ -389,7 +389,7 @@ def ui_bg(kind, size):
             d.text((50, y + 7), f, fill=(210, 228, 244, 255), font=load_font(24, bold=False))
     elif kind == "roadmap":
         d.rectangle([20, 20, w - 20, h - 20], fill=panel, outline=frame, width=3)
-        d.text((36, 40), "Version 2.1.0 Status", fill=(238, 218, 176, 255), font=load_font(34, bold=True))
+        d.text((36, 40), "Version 2.2.0 Status", fill=(238, 218, 176, 255), font=load_font(34, bold=True))
         status = [
             "[x] 45 creatures functional",
             "[x] 185 items obtainable",

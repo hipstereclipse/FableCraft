@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \"from PIL import Image; import glob; [print\\(f, Image.open\\(f\\).size, Image.open\\(f\\).mode\\) for f in glob.glob\\('packs/Fablecraft_RP/textures/models/armor/fc_apprentice_layer_*.png'\\)]\")",
+      "Bash(python3 -)",
+      "Bash(python -)",
+      "Bash(sed -n '1,40p' scripts/build_addon.py)",
+      "Bash(sed -n '/^def main/,/^if __name__/p' scripts/gen_structures.py)",
+      "Bash(python -c \"import ast,sys; ast.parse\\(open\\('scripts/gen_structures.py',encoding='utf-8'\\).read\\(\\)\\); print\\('gen_structures.py parses clean'\\)\")",
+      "Bash(python scripts/gen_entity_textures.py)",
+      "Bash(python scripts/gen_resources.py)"
+    ]
+  }
+}

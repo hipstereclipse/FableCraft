@@ -130,6 +130,10 @@ Eight ancient doors are scattered across the world, each a living stone face car
 
 Beyond the doors, **9 structures** dot Albion — the walled Heroes' Guild (Cullis Gate + training grounds), the Arena, Temple of Avo, Chapel of Skorm, Twinblade's palisaded war-camp, Lychfield graveyard, focus sites, silver-chest ruins and Demon Door crags — all stocked with **lootable chests** and blended into the terrain.
 
+### The Heroes' Guild (rebuilt in 2.2.0)
+
+The Guild is a single connected campus on a curved river. You wake in the domed **Map Room** — the Cullis Gate and Skill Shrine glow in its western nooks — and a single open-arched grand stair climbs to the upper gallery without blocking the four arched doorways that join the Library, Dining Hall and Store. The **Dining Hall** seats two long banquet tables down its length; a grand riverside **stone staircase** with railings and a landing descends from the upper terrace to a gravel **promenade that wraps the whole complex**, knitting every bridge and the **Four Graves** memorial garden (laid out as a `+` around an eternal flame). **Maze's Tower** is now three floors: a wall-hugging spiral past book-lined walls, candles, lecterns and framed art up to Maze's study, with suits of armour standing guard at its two entrances and a north archway opening onto monuments and flower beds. Across the river the **Archery Range** (targets now correctly outside the kitchen wall), **Dueling Ring** and a richly-stocked **Kitchen / Dormitory** sit beside the water. Outside the west gate a **Trader** works a covered cart (random wares *and* vanity titles), and a red carpet leads up the **Boasting Platform** — step onto the stage and, depending on your Renown, the Guild's folk gather to watch you declare your title (an unknown draws a handful; the truly renowned draw the whole campus, cheering). Far beneath, a fixed spiral stair winds down to the **Chamber of Fate** and its flat warded Cullis dais.
+
 ![Temple of Avo](screenshots/docs/13_temple_avo_donation.png)
 ![Places of Power](screenshots/gallery/places.png)
 

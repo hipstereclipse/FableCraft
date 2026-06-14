@@ -160,6 +160,7 @@ function setHeld(p, item) {
 // ---------------------------------------------------------------------------
 world.afterEvents.playerSpawn.subscribe((ev) => {
   const p = ev.player;
+  try { ensureBaseTitles(p); } catch { }         // Sparrow + Apprentice start unlocked
   try { applyTitleTag(p); } catch { }            // re-wear the chosen title
   if (!ev.initialSpawn) {
     // Respawning after death — a Hero of the Guild always carries their seal.
@@ -287,7 +288,7 @@ function buildGuildWhenReady(p, dim, base, attempt) {
   world.setDynamicProperty("fc_guild_train", JSON.stringify({ x: base.x + 15, y, z: base.z + 35 }));
   world.setDynamicProperty("fc_guild_skill", JSON.stringify({ x: base.x + 15, y, z: base.z + 35 }));
   // the Quest lectern at the near (south) edge of the Map relief (local 26,37)
-  world.setDynamicProperty("fc_guild_quest_table", JSON.stringify({ x: base.x + 26, y: y + 1, z: base.z + 37 }));
+  world.setDynamicProperty("fc_guild_quest_table", JSON.stringify({ x: base.x + 29, y: y + 1, z: base.z + 38 }));
   // the Guild's own Demon Door — the crag on the far south bank past the islands
   const doorLoc = { x: base.x + 56, y: y + 1, z: base.z + 94.4 };
   world.setDynamicProperty("fc_guild_door", JSON.stringify(doorLoc));
@@ -300,16 +301,20 @@ function buildGuildWhenReady(p, dim, base, attempt) {
     // Guildmaster greets arrivals at the Map; Maze keeps his tower study; Theresa
     // reads in the Library (north); a trader works the Store (south).
     trySpawn(dim, "fc:guildmaster", { x: base.x + 23, y: y + 1, z: base.z + 42 });
-    trySpawn(dim, "fc:maze", { x: base.x + 46, y: y + 16, z: base.z + 72 });
+    trySpawn(dim, "fc:maze", { x: base.x + 46, y: y + 11, z: base.z + 72 });   // tower floor 3
     trySpawn(dim, "fc:theresa", { x: base.x + 26, y: y + 1, z: base.z + 23 });
-    trySpawn(dim, "fc:trader", { x: base.x + 28, y: y + 1, z: base.z + 55 });
+    // a Trader works the covered cart OUTSIDE the west gate (random wares + a title)
+    trySpawn(dim, "fc:trader", { x: base.x + 5, y: y + 1, z: base.z + 46 });
     // apprentices at work across the grounds
     trySpawn(dim, "fc:guild_apprentice_might", { x: base.x + 12, y: y + 1, z: base.z + 42 });
     trySpawn(dim, "fc:guild_apprentice_might", { x: base.x + 80, y: y + 1, z: base.z + 54 });
-    trySpawn(dim, "fc:guild_apprentice_skill", { x: base.x + 68, y: y + 1, z: base.z + 32 });
+    trySpawn(dim, "fc:guild_apprentice_skill", { x: base.x + 68, y: y + 1, z: base.z + 38 });
     trySpawn(dim, "fc:guild_apprentice_skill", { x: base.x + 42, y: y + 1, z: base.z + 40 });
     trySpawn(dim, "fc:guild_apprentice_will", { x: base.x + 26, y: y + 1, z: base.z + 24 });
     trySpawn(dim, "fc:guild_apprentice_will", { x: base.x + 16, y: y + 1, z: base.z + 35 });
+    // suits of armour stand guard at Maze's Tower's two ground entrances
+    guardArmour(dim, { x: base.x + 41, y: y + 1, z: base.z + 72 }, { x: base.x + 40, y: y + 1, z: base.z + 72 });
+    guardArmour(dim, { x: base.x + 46, y: y + 1, z: base.z + 67 }, { x: base.x + 46, y: y + 1, z: base.z + 66 });
     ensureDemonDoor(dim, doorLoc, base.z + 86);
     fillLootChests(dim, base.x, y, base.z, 92, 30, 100, "fc:guild_hall");
     blendTerrain(dim, base.x, y, base.z, 92, 100);
@@ -344,10 +349,15 @@ function placeGuildAnnexes(dim) {
     try {
       world.structureManager.place("fc:chamber_of_fate", dim, { x: chx, y: chy, z: chz });
       world.setDynamicProperty("fc_guild_chamber_placed", true);
-      registerCullis("Chamber of Fate", { x: chx + 15.5, y: chy + 5, z: chz + 15.5 });
+      registerCullis("Chamber of Fate", { x: chx + 15.5, y: chy + 2, z: chz + 15.5 });
       fillLootChests(dim, chx, chy, chz, 31, 20, 31, "fc:chamber_of_fate");
-      hollowChamber(dim, chx, chy, chz, 31, 20);   // scrub any rock that bled in
       hangChamberArt(dim, chx, chy, chz, 31);       // best-effort vanilla paintings
+      // The Guild's foundation fill (blendTerrain) is an async job that finishes
+      // AFTER this and can leak stone through the dome into the Chamber, so scrub
+      // it now and again on delays once the foundation has fully settled.
+      for (const delay of [10, 200, 600, 1400]) {
+        system.runTimeout(() => { try { hollowChamber(dim, chx, chy, chz, 31, 20); } catch { } }, delay);
+      }
     } catch { }
   }
   carveGuildCaves(dim, base);                       // spiral + ravine to the Chamber
@@ -365,35 +375,42 @@ function carveGuildCaves(dim, base) {
   const air = (x, y, z) => setB(x, y, z, "minecraft:air");
   const stone = () => (Math.random() < 0.25 ? "minecraft:mossy_stone_bricks" : "minecraft:stone_bricks");
   const SX = base.x + 27, SZ = base.z + 14;          // spiral centre (matches the structure)
-  // clockwise ring N,NE,E,SE,S,SW,W,NW — consecutive cells are edge-adjacent
-  const ringCW = [[0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1]];
+  // clockwise ring starting at S (the Library-entry side): S,SW,W,NW,N,NE,E,SE
+  const ringCW = [[0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1], [1, 0], [1, 1]];
   const SPIRAL = 9, sBot = base.y - SPIRAL;           // spiral descends 9 to here
   const TX = base.x + 26, Z0 = base.z + 15, Z1 = base.z + 28, CWALL = base.z + 29;
   const CFY = base.y - 21;                            // Chamber floor level
   const abyss = Math.max(base.y - 34, -60);
   const work = function* () {
-    // ---- the shaft: a hollow 3x3 around a chiseled pillar, OPEN at the top ----
+    // ---- the shaft: a hollow 3x3 around a chiseled pillar, OPEN at the top and
+    //      OPEN on its south face so you can walk straight in off the Library
+    //      alcove (that south wall is the bug the player had to dig through) ----
     for (let y = base.y + 2; y >= sBot - 1; y--) {
       for (let ox = -2; ox <= 2; ox++) for (let oz = -2; oz <= 2; oz++) {
         const cheb = Math.max(Math.abs(ox), Math.abs(oz));
         if (ox === 0 && oz === 0) setB(SX, y, SZ, "minecraft:chiseled_stone_bricks");
-        else if (cheb === 2) setB(SX + ox, y, SZ + oz, stone());   // shaft wall
-        else if (y < base.y) air(SX + ox, y, SZ + oz);             // hollow below the floor
+        else if (cheb === 2) {
+          if (oz === 2 && y >= base.y) air(SX + ox, y, SZ + oz);   // open the entry doorway
+          else setB(SX + ox, y, SZ + oz, stone());                 // shaft wall
+        } else if (y < base.y) air(SX + ox, y, SZ + oz);           // hollow below the floor
       }
       yield;
     }
-    // ---- walkable treads: steps on the edges, flat landings on the corners,
-    //      descending one course every two cells, with torches as you go down ----
-    for (let n = 0; n <= SPIRAL * 2 + 2; n++) {
+    // ---- walkable treads: a true helix winding the 3x3 shaft, descending ONE
+    //      course PER cell so every step is an adjacent block exactly one down
+    //      (the old "one per two cells" made jumbled twin treads you couldn't
+    //      walk). The central pillar glows to light the descent. ----
+    air(SX, base.y, SZ + 1);                            // open the entry mouth
+    for (let n = 0; n <= SPIRAL + 8; n++) {
       const [dx, dz] = ringCW[n % 8];
-      const ty = base.y - 1 - Math.floor(n / 2);
+      const ty = base.y - 1 - n;                        // one step down per cell
       if (ty < sBot) break;
       setB(SX + dx, ty, SZ + dz, stone());             // tread you stand on
       setB(SX + dx, ty - 1, SZ + dz, stone());         // solid beneath
-      air(SX + dx, ty + 1, SZ + dz);                   // headroom
+      air(SX + dx, ty + 1, SZ + dz);                   // 3 of headroom for the step-down
       air(SX + dx, ty + 2, SZ + dz);
-      if (n === 0) air(SX + dx, base.y, SZ + dz);       // open the entry hole at the top
-      if (n % 6 === 1) setB(SX + dx, ty + 2, SZ + dz, "minecraft:torch");
+      air(SX + dx, ty + 3, SZ + dz);
+      if (n % 3 === 0) setB(SX, ty + 1, SZ, "minecraft:glowstone");   // glowing newel
     }
     // ---- a descending, arched stone tunnel south to the Chamber, with a deep
     //      dark RAVINE crossed by a bridge midway ----
@@ -539,6 +556,24 @@ function hangChamberArt(dim, x0, y0, z0, S) {
 }
 
 function trySpawn(dim, type, loc) { try { return dim.spawnEntity(type, loc); } catch { return undefined; } }
+
+// A "suit of armour" on guard: an armour stand kitted in iron, facing the door.
+// Idempotent — won't stack duplicates if the build sweep re-runs.
+function guardArmour(dim, loc, faceLoc) {
+  try {
+    if (dim.getEntities({ location: loc, maxDistance: 2, type: "minecraft:armor_stand" }).length) return;
+    const a = dim.spawnEntity("minecraft:armor_stand", loc);
+    try { a.teleport(loc, { facingLocation: faceLoc }); } catch { }
+    const eq = a.getComponent("minecraft:equippable");
+    if (eq) {
+      eq.setEquipment(EquipmentSlot.Head, new ItemStack("minecraft:iron_helmet"));
+      eq.setEquipment(EquipmentSlot.Chest, new ItemStack("minecraft:iron_chestplate"));
+      eq.setEquipment(EquipmentSlot.Legs, new ItemStack("minecraft:iron_leggings"));
+      eq.setEquipment(EquipmentSlot.Feet, new ItemStack("minecraft:iron_boots"));
+      eq.setEquipment(EquipmentSlot.Mainhand, new ItemStack("minecraft:iron_sword"));
+    }
+  } catch { }
+}
 
 function groundY(dim, x, z) {
   for (let y = 120; y > 40; y--) {
@@ -1660,7 +1695,16 @@ function applyTitleTag(p) {
 // How an NPC addresses the Hero — by their worn title if they have one.
 function heroAddress(p) { return activeTitle(p) || "Hero"; }
 
+// Every Hero starts with the two earliest Guild titles already unlocked.
+function ensureBaseTitles(p) {
+  const titles = P.getJ(p, "fc_titles", []);
+  let changed = false;
+  for (const t of ["Sparrow", "Apprentice"]) if (!titles.includes(t)) { titles.push(t); changed = true; }
+  if (changed) P.setJ(p, "fc_titles", titles);
+}
+
 function titlesMenu(p) {
+  ensureBaseTitles(p);
   const titles = P.getJ(p, "fc_titles", []);
   const active = activeTitle(p);
   const f = new ActionFormData().title(fableTitle("Titles & Renown")).body([
@@ -1835,7 +1879,16 @@ world.beforeEvents.playerInteractWithEntity.subscribe((ev) => {
     "fc:villager_farmer", "fc:villager_tailor", "fc:villager_blacksmith", "fc:villager_fisher",
     "fc:guild_apprentice_might", "fc:guild_apprentice_skill", "fc:guild_apprentice_will", "fc:mercenary",
     "fc:guard_bowerstone", "fc:guard_oakvale", "fc:guard_snowspire"];
-  if (NPC_TYPES.includes(t)) { ev.cancel = true; system.run(() => npcTalk(p, target)); }
+  if (NPC_TYPES.includes(t)) {
+    ev.cancel = true;
+    system.run(() => {
+      // a one-shot wave the moment the Hero is greeted (humanoid NPCs only; the
+      // call is a harmless no-op on plans without the clip, e.g. the Oracle)
+      try { target.playAnimation("animation.fc.biped.greet", { blendOutTime: 0.4 }); } catch { }
+      try { target.lookAt?.(p.getHeadLocation()); } catch { }
+      npcTalk(p, target);
+    });
+  }
 });
 
 // the Quest Table lectern in the Heroes' Guild great hall opens the quest board
@@ -2221,9 +2274,10 @@ function shopMenu(p, title) {
   const tierNote = { wary: "§c(wary — prices up 15%)", neutral: "", friendly: "§a(friendly — 10% off)", revered: "§6(revered — 20% off)" }[tier] ?? "";
   const f = new ActionFormData().title(fableTitle(title.replace(/§./g, "")))
     .body(`${FABLE_RULE}\n§7Your gold: §6${countItem(p, "fc:gold_coin")} coins ${tierNote}\n${FABLE_RULE}`)
-    .button("§a❖ BUY").button("§e❖ SELL trophies").button("§8❖ Leave");
+    .button("§a❖ BUY").button("§e❖ SELL trophies").button("§d✦ BUY a Title").button("§8❖ Leave");
   f.show(p).then((r) => {
-    if (r.canceled || r.selection === 2) return;
+    if (r.canceled || r.selection === 3) return;
+    if (r.selection === 2) { traderTitleMenu(p, title); return; }
     if (r.selection === 0) {
       const b = new ActionFormData().title(fableTitle("Buy"));
       const priced = SHOP_STOCK.map((s) => ({ ...s, cost: Math.max(1, Math.round(s.cost * mult)) }));
@@ -2251,6 +2305,33 @@ function shopMenu(p, title) {
       } else p.sendMessage("§7Nothing in your pack interests the trader.");
       shopMenu(p, title);
     }
+  });
+}
+
+// The trader also peddles vanity TITLES for gold — wear one and boast it.
+const TRADER_TITLES = [
+  { t: "Wanderer", cost: 8 }, { t: "Sellsword", cost: 16 }, { t: "Gilded", cost: 32 },
+];
+function traderTitleMenu(p, shopTitle) {
+  const owned = P.getJ(p, "fc_titles", []);
+  const b = new ActionFormData().title(fableTitle("Titles for Sale")).body(
+    `${FABLE_RULE}\n§7Your gold: §6${countItem(p, "fc:gold_coin")}\n` +
+    "§7§oA title bought is a title earned… more or less.§r\n" + FABLE_RULE);
+  for (const s of TRADER_TITLES) {
+    b.button(owned.includes(s.t) ? `§a● ${s.t} §7(owned)` : `§e✦ ${s.t}\n§6${s.cost} gold`);
+  }
+  b.button("§8❖ Back");
+  b.show(p).then((res) => {
+    if (res.canceled) return;
+    if (res.selection === TRADER_TITLES.length) { shopMenu(p, shopTitle); return; }
+    const s = TRADER_TITLES[res.selection];
+    if (owned.includes(s.t)) { p.sendMessage('§7Trader: "You already wear that one, friend."'); shopMenu(p, shopTitle); return; }
+    if (removeItem(p, "fc:gold_coin", s.cost)) {
+      addTitle(p, s.t);
+      p.playSound("random.orb");
+      p.sendMessage(`§6Trader: "A pleasure — you're a §e${s.t}§6 now. Go boast it on the platform!"`);
+    } else p.sendMessage('§7Trader: "No coin, no title."');
+    shopMenu(p, shopTitle);
   });
 }
 
@@ -2450,59 +2531,166 @@ system.runInterval(() => {
   }
 }, 20);
 
-// The Boasting Platform (west of the gate): stand on it and the crowd hushes —
-// declare which earned Title you wear. Albion's folk then address you by it.
+// The Boasting Platform (NW of the gate): step onto the raised stage and, over
+// five seconds, the crowd gathers — how many turn out depends on your Renown —
+// then you declare the Title you wear. Albion's folk address you by it after.
 const boastDwell = new Map();
+const boastCrowded = new Set();
 system.runInterval(() => {
   const raw = world.getDynamicProperty("fc_guild_base");
   if (!raw) return;
   let base; try { base = JSON.parse(raw); } catch { return; }
-  const bx = base.x + 4, by = base.y + 1, bz = base.z + 27;     // platform centre
+  const bx = base.x + 4, by = base.y + 3, bz = base.z + 26;     // raised stage deck centre
   const dim = OW();
   for (const p of world.getPlayers()) {
-    if (Math.hypot(p.location.x - bx, p.location.z - bz) > 3 || Math.abs(p.location.y - by) > 3) {
-      boastDwell.delete(p.id); continue;
-    }
-    try { dim.spawnParticle("minecraft:villager_happy", { x: bx + (Math.random() - 0.5) * 2, y: by + 1.5, z: bz + (Math.random() - 0.5) * 2 }); } catch { }
+    const on = Math.abs(p.location.x - bx) <= 3 && Math.abs(p.location.z - bz) <= 3.5
+      && Math.abs(p.location.y - by) <= 2;
+    if (!on) { boastDwell.delete(p.id); boastCrowded.delete(p.id); continue; }
+    try { dim.spawnParticle("minecraft:villager_happy", { x: bx + (Math.random() - 0.5) * 3, y: by + 1.2, z: bz + (Math.random() - 0.5) * 3 }); } catch { }
     const d = (boastDwell.get(p.id) ?? 0) + 1;
     boastDwell.set(p.id, d);
-    if (d < 3) { p.onScreenDisplay.setActionBar("§6❖ Boasting Platform §7— hold to declare your title"); continue; }
-    if (d === 3) { try { p.playSound("random.orb"); } catch { } titlesMenu(p); }
+    if (d === 2 && !boastCrowded.has(p.id)) { boastCrowded.add(p.id); boastGatherCrowd(p, base); }
+    if (d < 5) { p.onScreenDisplay.setActionBar(`§6❖ Boasting Platform §7— the crowd gathers… §e${5 - d}s`); continue; }
+    if (d === 5) { try { p.playSound("random.orb"); } catch { } boastMenu(p, base); }
   }
 }, 20);
+
+// Gather the Guild's folk to the lawn before the stage — a thin turnout for an
+// unknown Hero (maybe the trader and a guard just outside), the whole complex
+// for the truly renowned, who all cheer out front.
+function boastGatherCrowd(p, base) {
+  const renown = P.get(p, "fc_renown", 0);
+  const radius = renown >= 500 ? 90 : renown >= 150 ? 50 : renown >= 30 ? 24 : 11;
+  const dim = OW();
+  let folk;
+  try {
+    folk = dim.getEntities({
+      location: { x: base.x + 34, y: base.y + 1, z: base.z + 45 },
+      maxDistance: radius, families: ["fc_friendly"],
+    });
+  } catch { return; }
+  folk = folk.filter((e) => e.typeId && e.typeId.startsWith("fc:")
+    && e.typeId !== "fc:oracle" && e.typeId !== "fc:demon_door" && e.typeId !== "fc:maze");
+  folk = folk.slice(0, renown < 30 ? 2 : 24);            // almost nobody for an unknown
+  const fx0 = base.x + 8, fz0 = base.z + 31;             // lawn just before the stage
+  const face = { x: base.x + 4, y: base.y + 3, z: base.z + 27 };
+  let i = 0;
+  for (const e of folk) {
+    const row = Math.floor(i / 6), col = i % 6;
+    try { e.teleport({ x: fx0 + col - 2.5 + row * 0.5, y: base.y + 1, z: fz0 + row * 1.4 }, { facingLocation: face }); } catch { }
+    try { e.playAnimation("animation.fc.biped.greet", { blendOutTime: 0.4 }); } catch { }
+    i++;
+  }
+  p.setDynamicProperty("fc_boast_crowd", folk.length);
+  try {
+    p.sendMessage(renown >= 500 ? "§6The whole Guild pours out to watch you boast!"
+      : renown >= 30 ? "§6A crowd gathers to hear your boast."
+        : "§7A couple of curious folk wander over.");
+  } catch { }
+}
+
+// The boast: declare the title you wear (always offering no-title, Sparrow and
+// Apprentice plus any you've earned); the gathered crowd then cheers.
+function boastMenu(p, base) {
+  ensureBaseTitles(p);
+  const titles = P.getJ(p, "fc_titles", []);
+  const ordered = ["Sparrow", "Apprentice", ...titles.filter((t) => t !== "Sparrow" && t !== "Apprentice")];
+  const active = activeTitle(p);
+  const f = new ActionFormData().title(fableTitle("Boast")).body([
+    FABLE_RULE,
+    `§dRenown: §f${P.get(p, "fc_renown", 0)}`,
+    `§7Now wearing: §e${active || "(none)"}`,
+    FABLE_RULE,
+    "§6Declare the title you wear before the crowd:",
+  ].join("\n"));
+  f.button("§8✦ Wear no title");
+  for (const t of ordered) f.button((t === active ? "§a● " : "§e✦ ") + t);
+  f.show(p).then((res) => {
+    if (res.canceled) return;
+    if (res.selection === 0) { P.setJ(p, "fc_active_title", ""); applyTitleTag(p); p.sendMessage("§7You wear no title."); return; }
+    const t = ordered[res.selection - 1];
+    P.setJ(p, "fc_active_title", t); applyTitleTag(p);
+    p.sendMessage(`§6✦ You declare yourself §e${t}§6 before Albion!`);
+    boastCheer(p, base);
+  });
+}
+
+function boastCheer(p, base) {
+  const n = p.getDynamicProperty("fc_boast_crowd") ?? 0;
+  if (!n) return;
+  const dim = OW();
+  const cx = base.x + 8, cz = base.z + 32;
+  for (let k = 0; k < 6; k++) {
+    system.runTimeout(() => {
+      try {
+        for (let j = 0; j < Math.min(8, n); j++)
+          dim.spawnParticle("minecraft:totem_particle",
+            { x: cx + (Math.random() - 0.5) * 6, y: base.y + 2 + Math.random() * 2, z: cz + (Math.random() - 0.5) * 4 });
+      } catch { }
+      try { for (const q of world.getPlayers()) q.playSound("random.levelup", { volume: 0.45 }); } catch { }
+    }, k * 8);
+  }
+}
 
 // NPCs murmur and react as the Hero passes — a villager sound and the odd
 // remark, addressed by the Hero's worn title.
 const NPC_VOICE = {
   "fc:guildmaster": ["Mind your stance, {you}.", "Renown is earned, not given."],
+  "fc:maze": ["The Will stirs around you, {you}.", "Knowledge is the deadliest blade."],
   "fc:trader": ["Finest wares in Albion, {you}!", "Browse a while, no pressure."],
   "fc:theresa": ["The future bends around you, {you}.", "I see paths you cannot."],
+  "fc:oracle": ["The deep ice remembers your name, {you}.", "Ask, and the truth may wound you."],
+  "fc:briar_rose": ["Demon Doors love a riddle, {you}.", "Mind the wilds after dark."],
+  "fc:lady_grey": ["Bowerstone watches you closely, {you}.", "Charm opens more doors than steel."],
+  "fc:mercenary": ["Coin first, questions later, {you}.", "I've bled in worse places than this."],
   "fc:barkeep": ["Ale, {you}? Best in the guild.", "Mind the floor, just mopped."],
   "fc:guild_apprentice_might": ["One day I'll best you, {you}.", "*grunts, swinging a practice sword*"],
   "fc:guild_apprentice_skill": ["Bullseye! See that, {you}?", "*looses an arrow at the butt*"],
   "fc:guild_apprentice_will": ["The Will hums today…", "*sparks crackle between their fingers*"],
   "fc:villager_albion": ["A real Hero! Bless you, {you}.", "Did you hear the news from Bowerstone?"],
+  "fc:villager_woman": ["Stay safe out there, {you}.", "My, but you've grown famous, {you}."],
+  "fc:villager_farmer": ["Crops won't tend themselves, {you}.", "Hobbes got into the turnips again."],
+  "fc:villager_tailor": ["I could let out that jerkin, {you}.", "Fine cloth from Bowerstone, just in."],
+  "fc:villager_blacksmith": ["Keep that blade keen, {you}.", "*hammer rings on hot iron*"],
+  "fc:villager_fisher": ["The catch is good by the quay, {you}.", "Smells like rain off the coast."],
+  "fc:guard_bowerstone": ["Move along, {you}.", "No trouble on my watch."],
+  "fc:guard_oakvale": ["Quiet village, let's keep it so, {you}.", "Eyes open after dusk."],
+  "fc:guard_snowspire": ["Cold enough for you, {you}?", "The Oracle sees all who pass."],
 };
 const NPC_NAME = {
-  "fc:guildmaster": "Guildmaster", "fc:trader": "Trader", "fc:theresa": "Theresa",
-  "fc:barkeep": "Alfie", "fc:guild_apprentice_might": "Apprentice",
-  "fc:guild_apprentice_skill": "Apprentice", "fc:guild_apprentice_will": "Apprentice",
-  "fc:villager_albion": "Villager",
+  "fc:guildmaster": "Guildmaster", "fc:maze": "Maze", "fc:trader": "Trader",
+  "fc:theresa": "Theresa", "fc:oracle": "The Oracle", "fc:briar_rose": "Briar Rose",
+  "fc:lady_grey": "Lady Grey", "fc:mercenary": "Mercenary", "fc:barkeep": "Alfie",
+  "fc:guild_apprentice_might": "Apprentice", "fc:guild_apprentice_skill": "Apprentice",
+  "fc:guild_apprentice_will": "Apprentice", "fc:villager_albion": "Villager",
+  "fc:villager_woman": "Villager", "fc:villager_farmer": "Farmer",
+  "fc:villager_tailor": "Tailor", "fc:villager_blacksmith": "Blacksmith",
+  "fc:villager_fisher": "Fisher", "fc:guard_bowerstone": "Bowerstone Guard",
+  "fc:guard_oakvale": "Oakvale Guard", "fc:guard_snowspire": "Snowspire Guard",
 };
+// the NPC's own synthesized voice cue (fc.entity.<id>), wired in RP sounds.json
+function npcVoiceSound(typeId) { return "fc.entity." + typeId.slice(3); }
+// a passing Hero is greeted: the NPC waves (limbs move), murmurs its own voice,
+// and remarks, addressed by the Hero's worn title.
+function npcGreet(p, e) {
+  try { e.playAnimation("animation.fc.biped.greet", { blendOutTime: 0.4 }); } catch { }
+  try { p.playSound(npcVoiceSound(e.typeId), { location: e.location, volume: 1.0, pitch: 0.88 + Math.random() * 0.22 }); } catch { }
+}
 const npcSaidAt = new Map();
 system.runInterval(() => {
+  const now = TICKS();
   for (const p of world.getPlayers()) {
     let near;
-    try { near = p.dimension.getEntities({ location: p.location, maxDistance: 6 }); } catch { continue; }
+    try { near = p.dimension.getEntities({ location: p.location, maxDistance: 7 }); } catch { continue; }
     for (const e of near) {
       const lines = NPC_VOICE[e.typeId];
       if (!lines) continue;
-      if ((npcSaidAt.get(e.id) ?? -9999) > TICKS() - 160) continue;   // per-NPC cooldown
-      if (Math.random() > 0.3) continue;
-      npcSaidAt.set(e.id, TICKS());
+      if ((npcSaidAt.get(e.id) ?? -9999) > now - 140) continue;   // per-NPC cooldown
+      if (Math.random() > 0.5) continue;
+      npcSaidAt.set(e.id, now);
       const line = lines[Math.floor(Math.random() * lines.length)].replace("{you}", heroAddress(p));
-      try { p.onScreenDisplay.setActionBar(`§e${NPC_NAME[e.typeId] ?? "Hero"}: §f${line}`); } catch { }
-      try { p.playSound("mob.villager.idle", { pitch: 0.9 + Math.random() * 0.2 }); } catch { }
+      try { p.onScreenDisplay.setActionBar(`§e${NPC_NAME[e.typeId] ?? "Citizen"}: §f${line}`); } catch { }
+      npcGreet(p, e);
       break;
     }
   }
