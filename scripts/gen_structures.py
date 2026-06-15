@@ -1150,19 +1150,18 @@ def guild_hall():
     v.set(kx0 + 6, 1, kz1 - 1, "minecraft:lectern", {"minecraft:cardinal_direction": "north"})
     v.set(kx1 - 6, 1, kz1 - 1, "minecraft:bookshelf")
 
-    # ---- the covered STONE TOP BRIDGE: it leaves the North Wing's NE door, runs
+    # ---- the covered STONE TOP HALLWAY: it leaves the North Wing's NE door, runs
     #      along the very TOP of the campus (z3-5, well clear of the wooden river
-    #      bridges far to the south) and turns down to dock into the NORTH (top)
-    #      face of the NE Kitchen block — not its west side. Deck is flush with the
-    #      ground (so the walk is smooth at both ends) and humps over the river. ----
+    #      bridges far to the south), humps over the river, then continues as a
+    #      covered colonnade along the kitchen's NORTH (top) face ALL THE WAY to
+    #      the building's east end — opening into the kitchen through an arcade so
+    #      the whole top range walks as one hall. Deck is flush at the ends. ----
     segA = {(x, z) for x in range(41, 44) for z in range(4, 9)}        # riser off the wing
-    segB = {(x, z) for x in range(41, KND + 2) for z in range(3, 6)}   # top E-W run (over the river)
-    segC = {(x, z) for x in range(KND - 1, KND + 2) for z in range(4, kz0 + 1)}  # dock into the kitchen
-    deck = segA | segB | segC
-    walk = ({(42, z) for z in range(5, 9)} | {(x, 4) for x in range(42, KND + 1)}
-            | {(KND, z) for z in range(4, kz0 + 1)})
-    joins = {(41, 7), (42, 7), (41, 8), (42, 8),                       # against the wing east door
-             (KND, kz0), (KND - 1, kz0), (KND + 1, kz0)}               # against the kitchen north door
+    segB = {(x, z) for x in range(41, kx1 + 1) for z in range(3, 6)}   # top run to the building's END
+    deck = segA | segB
+    walk = ({(42, z) for z in range(5, 9)} | {(x, 4) for x in range(42, kx1)})   # x88 caps the east end
+    arcade = {(x, 5) for x in range(kx0, kx1 + 1)}                     # opens south into the kitchen
+    joins = {(41, 7), (42, 7), (41, 8), (42, 8)} | arcade             # never wall these
     dky = lambda x: 1 if 50 <= x <= 56 else 0                          # gentle hump over the river
     for (x, z) in deck:
         y = dky(x)
@@ -1181,7 +1180,15 @@ def guild_hall():
                 v.set(x, y, z, warm())
             if (x + z) % 3 == 0:
                 v.set(x, dky(x) + 2, z, GLASS)                        # arched window slits
-    for x in range(45, KND, 6):                                        # hanging lanterns down the run
+    # turn the kitchen's north wall into an open ARCADE so the hallway runs into it
+    for x in range(kx0, kx1 + 1):
+        if x % 3 == 0:
+            for y in range(1, 4):
+                v.set(x, y, kz0, warm())                              # pier
+            v.set(x, 4, kz0, CHISELED)                                # arch springer
+        else:
+            v.fill(x, 1, kz0, x, 3, kz0, "minecraft:air")            # open bay
+    for x in range(45, kx1, 6):                                        # hanging lanterns down the run
         v.set(x, 4, 4, LANTERN, {"hanging": True})
 
     # =========== BRIDGES across the north river (handsome ARCHED spans) ========
