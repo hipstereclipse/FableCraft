@@ -1378,51 +1378,56 @@ def guild_hall():
                 v.set(x, 7, z, r.choice(["minecraft:peony", "minecraft:rose_bush",
                                          "minecraft:allium"]))
 
-    v.fill(28, 1, 59, 29, 4, 59, "minecraft:air")       # doorway through the Store's south wall
+    # The whole L is shifted WEST (toward the curtain wall) so the Four-Graves
+    # courtyard in the crook opens out wide. Columns are parametrised off CLW.
+    CLW = 23                                            # outer (west) wall column  (was 27)
+    CLF0, CLF1 = 24, 25                                 # the two paved floor columns
+    CLA = 26                                            # inner (garden-side) arcade column
+    v.fill(CLF0, 1, 59, CLF1, 4, 59, "minecraft:air")  # doorway through the Store's south wall
     # leg 1 — SOUTH down the WEST flank, ALL the way to the tower's mid-line (z72)
     # so the walk meets the tower's WEST door square-on (outer wall west, arcade east)
     for z in range(59, 73):
-        cl_floor(28, z)
-        cl_floor(29, z)
-        cl_extwall(27, z, slit=(z % 3 == 1))
+        cl_floor(CLF0, z)
+        cl_floor(CLF1, z)
+        cl_extwall(CLW, z, slit=(z % 3 == 1))
     for z in range(59, 70):
-        cl_arcade(30, z, pier=(z % 3 == 0))
+        cl_arcade(CLA, z, pier=(z % 3 == 0))
     for z in range(59, 73):
-        v.set(28, 0, z, RED)                            # crimson runner down the walk
-    # leg 2 — short turn EAST into the tower's WEST entrance, centred on z72
-    # (outer wall south toward the pond, arcade north toward the monument court)
-    for x in range(28, 40):
+        v.set(CLF0, 0, z, RED)                          # crimson runner down the walk
+    # leg 2 — turn EAST into the tower's WEST entrance, centred on z72 (the run is
+    # longer now the vertical leg moved west). Outer wall south, arcade north.
+    for x in range(CLF0, 40):
         cl_floor(x, 71)
         cl_floor(x, 72)
         v.set(x, 0, 72, RED)
-    for x in range(27, 40):
+    for x in range(CLW, 40):
         cl_extwall(x, 73, slit=(x % 3 == 1))
-    for x in range(31, 40):
+    for x in range(CLA + 1, 40):
         cl_arcade(x, 70, pier=(x % 3 == 1))
-    cl_extwall(27, 73)                                  # outer SW corner pier
+    cl_extwall(CLW, 73)                                 # outer SW corner pier
     for y in range(1, 10):                              # inner corner pier of the arcade
-        v.set(30, y, 70, SPRUCE if y == DECK_Y else DARKLOG)
+        v.set(CLA, y, 70, SPRUCE if y == DECK_Y else DARKLOG)
     # north-end stair to the upper storey, with a stairwell void in the deck
-    v.fill(28, DECK_Y, 60, 29, DECK_Y, 64, "minecraft:air")
+    v.fill(CLF0, DECK_Y, 60, CLF1, DECK_Y, 64, "minecraft:air")
     for i in range(1, DECK_Y + 1):
-        v.set(29, i, 59 + i, SBRICK_STAIR, {"weirdo_direction": 2, "upside_down_bit": False})
+        v.set(CLF1, i, 59 + i, SBRICK_STAIR, {"weirdo_direction": 2, "upside_down_bit": False})
         for yy in range(1, i):
-            v.set(29, yy, 59 + i, STONE)
+            v.set(CLF1, yy, 59 + i, STONE)
     # pitched slate roofs over both legs (ridge along the run of each)
-    gable_roof_z(v, 27, 30, 59, 72, 10, SLATE, SAND)
+    gable_roof_z(v, CLW, CLA, 59, 72, 10, SLATE, SAND)
     j = 0
     while 70 + j <= 73 - j:
-        for x in range(27, 41):
+        for x in range(CLW, 41):
             v.set(x, 10 + j, 70 + j, SLATE)
             v.set(x, 10 + j, 73 - j, SLATE)
         for z in range(70 + j + 1, 73 - j):
-            v.set(27, 10 + j, z, SAND)
+            v.set(CLW, 10 + j, z, SAND)
             v.set(40, 10 + j, z, SAND)
         j += 1
     for z in range(60, 72, 3):                          # hanging lanterns light both storeys
-        v.set(28, 4, z, LANTERN, {"hanging": True})
-        v.set(28, 9, z, LANTERN, {"hanging": True})
-    for x in range(31, 40, 3):
+        v.set(CLF0, 4, z, LANTERN, {"hanging": True})
+        v.set(CLF0, 9, z, LANTERN, {"hanging": True})
+    for x in range(CLA + 1, 40, 3):
         v.set(x, 4, 72, LANTERN, {"hanging": True})
         v.set(x, 9, 72, LANTERN, {"hanging": True})
 
@@ -1431,7 +1436,7 @@ def guild_hall():
     #       its south leg. Clipped hedges and flower borders hug those walls; the
     #       four heroes' graves stand to the west, a row of stone MONUMENTS lines
     #       the avenue toward the tower's west entrance =====
-    ggx0, ggx1, ggz0, ggz1 = 31, 39, 60, 69
+    ggx0, ggx1, ggz0, ggz1 = 27, 39, 60, 69     # west edge follows the shifted cloister arcade
     AIRP = v._pid("minecraft:air")
     WATERP = v._pid("minecraft:water")
     FLOWERS = ["minecraft:rose_bush", "minecraft:peony", "minecraft:lilac",
@@ -1459,7 +1464,7 @@ def guild_hall():
     # the FOUR GRAVES arranged as a + (cross) around an open, paved memorial
     # centre with an eternal flame; each arm is a turned-earth mound with a
     # headstone at its outer tip
-    gcx, gcz = 35, 64
+    gcx, gcz = 33, 64                                  # recentred in the widened court
     for x in range(gcx - 1, gcx + 2):                  # paved memorial plot, kept clear
         for z in range(gcz - 1, gcz + 2):
             v.set(x, 0, z, DEEP_TILES if (x + z) % 2 else "minecraft:smooth_stone")
@@ -1673,9 +1678,9 @@ def guild_hall():
     lay_path(50, 17, 50, 70)            # WEST-bank riverside walk (self-clips at the pond)
     lay_path(56, 17, 56, 80)            # EAST-bank riverside walk (self-clips at the pond)
     # south: Store -> Four-Graves garden borders -> the tower's north archway
-    lay_path(27, 56, 31, 60)            # Store -> graves garden NW corner
-    lay_path(31, 60, 31, 70)            # graves garden west border
-    lay_path(31, 70, 45, 70, wide=2)    # graves garden south -> tower north arch
+    lay_path(24, 57, 27, 61)            # Store south door -> graves garden NW corner
+    lay_path(27, 61, 27, 70)            # graves garden west border (hugs the new arcade)
+    lay_path(27, 70, 45, 70, wide=2)    # graves garden south -> tower north arch
     lay_path(40, 70, 44, 67)            # -> tower north archway threshold
     # east training grounds (across the river): the gravel walk leaves the two
     # southern bridges and runs along the WEST side of the ranges, reaching each
