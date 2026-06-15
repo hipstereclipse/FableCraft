@@ -1012,6 +1012,33 @@ def guild_hall():
     long_table(v, dx0 + 3, dx1 - 3, (az0 + az1) // 2, 2, top="minecraft:oak_planks")
     v.set((dx0 + dx1) // 2, 8, (az0 + az1) // 2, LANTERN, {"hanging": True})
 
+    # ===== NW COMMON ROOM — encloses the open west ward (north of the Skill apse,
+    #       west of the Library) into a roofed tables-and-chairs room, so the west
+    #       range reads solid (the map's dense NW). Roofed at the common eave (y9);
+    #       opens east into the Library; arrow-slit lights face the curtain wall. =====
+    nwx0, nwx1, nwz0, nwz1 = 11, 18, 16, 30          # x18 = the Library's west wall (shared)
+    for x in range(nwx0, nwx1):                       # interior x11..17: floor + clear + roof deck
+        for z in range(nwz0, nwz1 + 1):
+            v.set(x, 0, z, STONE if (x + z) % 4 else DEEP_TILES)
+            v.fill(x, 1, z, x, 8, z, "minecraft:air")
+            v.set(x, 9, z, SLATE if (x + z) % 2 else DEEP_TILES)
+    for z in range(nwz0, nwz1 + 1):                   # west wall (x11), y1..8
+        for y in range(1, 9):
+            v.set(nwx0, y, z, warm())
+        if z % 4 == 2:
+            v.set(nwx0, 3, z, GLASS); v.set(nwx0, 6, z, GLASS)   # arrow-slit lights
+    for x in range(nwx0, nwx1 + 1):                   # north (z16) + south (z30) walls, y1..8
+        for y in range(1, 9):
+            v.set(x, y, nwz0, warm())
+            v.set(x, y, nwz1, warm())
+    v.fill(nwx1, 1, nwz0 + 5, nwx1, 3, nwz0 + 7, "minecraft:air")       # arch through the Library wall (x18)
+    v.fill(nwx1 + 1, 1, nwz0 + 5, nwx1 + 1, 3, nwz0 + 7, "minecraft:air")  # clear the Library shelf (x19) behind it
+    for z in range(nwz0 + 2, nwz1, 2):               # bookshelves + a reading nook
+        if z % 2:
+            v.set(nwx0 + 1, 1, z, "minecraft:bookshelf"); v.set(nwx0 + 1, 2, z, "minecraft:bookshelf")
+    long_table(v, nwx0 + 2, nwx1 - 2, (nwz0 + nwz1) // 2, 2, top="minecraft:oak_planks")
+    v.set((nwx0 + nwx1) // 2, 8, (nwz0 + nwz1) // 2, LANTERN, {"hanging": True})
+
     # ================= NE KITCHEN / STORES / DORMITORY (across the river) =======
     # Foundation planted at GROUND level (was a block proud); both flanks opened
     # with arches onto the gravel paths so the Hero can step off the bridge and
