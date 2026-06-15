@@ -527,18 +527,27 @@ def guild_hall():
                   ("minecraft:moss_block" if roll < 0.985 else "minecraft:podzol"))
 
     # ================= THE CURVED RIVER + south pond =================
-    # The river runs straight north-south down the tower's EAST flank, then
-    # broadens into a south pond that laps the tower's SOUTH flank — so Maze's
-    # Tower has open water on exactly TWO sides (east + south). Its NORTH (the
-    # stone cloister + the Four Graves garden approach) and WEST stay dry land.
+    # The river BOWS gently north-south down the tower's EAST flank with ORGANIC
+    # banks (a meander + ragged edge), then broadens into a south pond that laps
+    # the tower's SOUTH flank — so Maze's Tower keeps open water on exactly TWO
+    # sides (east + south). Its NORTH (cloister + graves garden) and WEST stay dry.
+    # The WEST quay column (x<=50) is always kept dry so the riverside causeway,
+    # grand stair and plank-bridge abutments still land on solid ground.
+    def _wh(x, z):                                  # deterministic 0..1 hash (no rng order issues)
+        return (((x * 73856093) ^ (z * 19349663)) & 0xffff) / 65535.0
     def is_water(x, z):
         dt = math.hypot(x - TWR_X, z - TWR_Z)
         if dt <= TWR_R + 0.6:
             return False                       # the tower island itself is dry
-        if 51 <= x <= 55 and 4 <= z <= 76:
-            return True                        # north river -> tower's EAST flank
+        if 4 <= z <= 76:                       # NORTH RIVER: meandering, organic banks
+            cen = 53.2 + 1.1 * math.sin((z - 4) * 0.085)        # gentle bow
+            half = 2.4 + 0.5 * math.sin(z * 0.21)               # width breathes 4..6
+            edge = half + (0.7 if _wh(x, z) < 0.22 else 0.0)    # ragged bank nibbles
+            if abs(x - cen) <= edge and x >= 51:                # keep the west quay dry
+                return True
         if 40 <= x <= 66 and TWR_Z <= z <= 92:     # south pond (islands + Demon Door)
-            if math.hypot((x - 53) * 0.9, (z - 82) * 0.82) <= 15:
+            rr = 15.0 + (1.4 if _wh(x, z) < 0.3 else 0.0)       # organic pond shoreline
+            if math.hypot((x - 53) * 0.9, (z - 82) * 0.82) <= rr:
                 return True
         return False
     for x in range(W):
@@ -1569,13 +1578,15 @@ def guild_hall():
     # isle — "small island with scarecrows". The small isle laps the tower's dry
     # south shore; the scarecrow isle is reached by the arched bridge from the
     # east bank and steps on to the Demon Door's stones. (No log walkways.)
-    for (isx, isz, rad) in ((47, 79, 3), (58, 84, 3)):     # both isles are good-sized now
-        for x in range(isx - rad, isx + rad + 1):
-            for z in range(isz - rad, isz + rad + 1):
-                if 0 <= x < W and 0 <= z < L and math.hypot(x - isx, z - isz) <= rad + 0.4:
-                    v.set(x, 0, z, "minecraft:grass_block")
-                    if r.random() < 0.12:
-                        v.set(x, 1, z, "minecraft:tallgrass")
+    for (isx, isz, rad) in ((47, 79, 3), (58, 84, 4)):     # organic, irregular isles
+        for x in range(isx - rad - 1, isx + rad + 2):
+            for z in range(isz - rad - 1, isz + rad + 2):
+                # ragged shoreline: the radius wobbles per-cell so the isle isn't a disc
+                er = rad + 0.4 + (0.8 if _wh(x, z) < 0.32 else (-0.7 if _wh(x, z) > 0.8 else 0.0))
+                if 0 <= x < W and 0 <= z < L and math.hypot(x - isx, z - isz) <= er:
+                    v.set(x, 0, z, "minecraft:grass_block" if _wh(x, z) > 0.15 else "minecraft:coarse_dirt")
+                    if r.random() < 0.14:
+                        v.set(x, 1, z, "minecraft:tallgrass" if r.random() < 0.6 else "minecraft:fern")
         v.set(isx, 1, isz, "minecraft:oak_fence")
         v.set(isx, 2, isz, "minecraft:hay_block")
         v.set(isx, 3, isz, "minecraft:carved_pumpkin", {"minecraft:cardinal_direction": "north"})
