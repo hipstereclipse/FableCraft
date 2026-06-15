@@ -980,6 +980,38 @@ def guild_hall():
     v.fill(25, 1, 52, 30, 4, 52, "minecraft:air")     # wide opening into the Store
     v.fill(36, 1, 39, 36, 4, 45, "minecraft:air")     # wide opening into the Dining hall
 
+    # ===== NORTH RIVERSIDE ANNEX — closes the open courtyard between the Library,
+    #       the covered hallway and the Dining hall so the north & east ranges read
+    #       as ONE built mass (the map shows rooms here, not a yard). A single-storey
+    #       reading-room roofed at the complex's common eave (y9, BELOW the proud
+    #       two-storey Dining): warm-stone walls continuing the Dining's river face,
+    #       a flat slate roof deck, river windows, bookshelves + a long reading table,
+    #       opening south through a wide arch into the Dining hall. Built before the
+    #       woods/paving passes so trees keep clear of it. =====
+    az0, az1 = 22, dz0 - 1                            # 22..32 (z33 = the Dining's north wall)
+    for x in range(dx0, dx1 + 1):                     # 36..45
+        for z in range(az0, az1 + 1):
+            v.set(x, 0, z, STONE if (x + z) % 4 else DEEP_TILES)   # paved floor
+            v.fill(x, 1, z, x, 8, z, "minecraft:air")              # clear interior (7 headroom)
+            v.set(x, 9, z, SLATE if (x + z) % 2 else DEEP_TILES)   # flat roof deck at common eave
+    for z in range(az0, az1 + 1):                     # west + east (river) walls, y1..8
+        for y in range(1, 9):
+            v.set(dx0, y, z, warm())
+            v.set(dx1, y, z, warm())
+    for x in range(dx0, dx1 + 1):                     # north wall (against the covered hallway)
+        for y in range(1, 9):
+            v.set(x, y, az0, warm())
+    for z in range(az0 + 2, az1 + 1, 3):             # river windows on the east wall
+        v.set(dx1, 3, z, GLASS)
+    v.fill(dx0 + 5, 1, dz0, dx0 + 7, 3, dz0, "minecraft:air")     # wide arch S into the Dining hall
+    v.set(dx0 + 4, 3, dz0, SAND_CHIS); v.set(dx0 + 8, 3, dz0, SAND_CHIS)
+    for z in range(az0 + 2, az1):                     # bookshelves along the side walls
+        if z % 2:
+            v.set(dx0 + 1, 1, z, "minecraft:bookshelf"); v.set(dx0 + 1, 2, z, "minecraft:bookshelf")
+            v.set(dx1 - 1, 1, z, "minecraft:bookshelf"); v.set(dx1 - 1, 2, z, "minecraft:bookshelf")
+    long_table(v, dx0 + 3, dx1 - 3, (az0 + az1) // 2, 2, top="minecraft:oak_planks")
+    v.set((dx0 + dx1) // 2, 8, (az0 + az1) // 2, LANTERN, {"hanging": True})
+
     # ================= NE KITCHEN / STORES / DORMITORY (across the river) =======
     # Foundation planted at GROUND level (was a block proud); both flanks opened
     # with arches onto the gravel paths so the Hero can step off the bridge and
