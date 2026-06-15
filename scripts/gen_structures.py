@@ -906,6 +906,19 @@ def guild_hall():
         v.set(x, 1, dz0 + 1, "minecraft:furnace" if x % 2 else "minecraft:smoker")
     v.set(dx1 - 1, 1, dz0 + 1, "minecraft:barrel")
     v.set(dx1 - 1, 1, dz1 - 1, "minecraft:cauldron")
+    # ---- the FEAST-HALL crimson runner (canon): a red carpet leads east out of the
+    #      Map Room, over a pair of carpeted threshold STEPS, and on down the Dining
+    #      Hall's central aisle. The darker red-wool treads read as carpeted steps. ----
+    AIR_ = v._pid("minecraft:air")
+    for dz in (-1, 0, 1):                            # carpeted step treads at the hall threshold
+        v.set(dx0, 0, ROT_Z + dz, RED)               # darker red-wool "step" band (sits in the doorway)
+        v.set(dx0 + 1, 0, ROT_Z + dz, RED)
+    for x in range(ROT_X + ROT_R, dx1):              # the runner along the entry axis (z=ROT_Z)
+        if v.grid[v.idx(x, 1, ROT_Z)] == AIR_:
+            v.set(x, 1, ROT_Z, "minecraft:red_carpet")
+        for dz in (-1, 1):                           # widen to a 3-wide runner inside the hall
+            if x > dx0 + 1 and v.grid[v.idx(x, 1, ROT_Z + dz)] == AIR_:
+                v.set(x, 1, ROT_Z + dz, "minecraft:red_carpet")
     # ---- second storey: dormitory deck reached by a corner spiral ----
     for x in range(dx0 + 1, dx1):
         for z in range(dz0 + 1, dz1):
