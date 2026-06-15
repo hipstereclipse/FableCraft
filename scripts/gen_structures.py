@@ -1765,6 +1765,56 @@ def guild_hall():
             rx, rz = r.randint(3, W - 3), r.choice([r.randint(3, 11), r.randint(L - 11, L - 3)])
         rock(rx, rz)
 
+    # ===== GO BIG — KNIT THE WEST COMPLEX INTO ONE ROOFED MASS ================
+    # Every open-to-sky cell still sitting INSIDE the building envelope is a
+    # leftover internal courtyard. If it is hemmed by building (wall or roof) on
+    # most sides, roof it at the common eave (y9) so the whole west range reads as
+    # ONE continuous hall from above — the dome and the two-storey Dining keep
+    # rising proud through the deck. Iterated so it grows inward and fills slots up
+    # to a few cells wide, but never the open gate apron (too few built neighbours).
+    EAVE = 9
+    def _solid(x, y, z):
+        p = v.grid[v.idx(x, y, z)]
+        return p != AIR and p != WATERP
+    def _roofed(x, z):
+        return any(_solid(x, y, z) for y in range(5, 16))
+    def _wallcell(x, z):
+        return _solid(x, 1, z) and _solid(x, 2, z)
+    def _building(x, z):
+        return _roofed(x, z) or _wallcell(x, z)
+    def _enclosed(x, z, reach=14):
+        # a cell is INSIDE the building outline only if every cardinal ray hits
+        # built fabric before it escapes — open plaza / garden rays reach lawn first
+        for dx, dz in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            hit = False
+            for s in range(1, reach + 1):
+                nx, nz = x + dx * s, z + dz * s
+                if not (0 <= nx < W and 0 <= nz < L):
+                    break
+                if _building(nx, nz):
+                    hit = True
+                    break
+            if not hit:
+                return False
+        return True
+    for _pass in range(2):
+        fill_cells = []
+        for x in range(11, 46):
+            for z in range(16, 60):
+                if _roofed(x, z) or is_water(x, z):
+                    continue
+                if math.hypot(x - ROT_X, z - ROT_Z) <= ROT_R + 1.0:
+                    continue                          # leave the domed Map Room proud
+                if _enclosed(x, z):
+                    fill_cells.append((x, z))
+        if not fill_cells:
+            break
+        for (x, z) in fill_cells:
+            if v.grid[v.idx(x, 0, z)] == AIR:
+                v.set(x, 0, z, STONE if (x + z) % 4 else DEEP_TILES)   # ensure a floor
+            v.fill(x, 1, z, x, EAVE - 1, z, "minecraft:air")           # clear headroom
+            v.set(x, EAVE, z, SLATE if (x + z) % 2 else DEEP_TILES)    # continuous roof deck
+
     # ===== FULL CIVIC PAVING (match the Inkarnate ground plan) — the developed
     #       complex reads as dense tan FLAGSTONE courtyards, not open lawn. We
     #       convert the still-open ground of the WESTERN civic core — the gate
@@ -1796,7 +1846,9 @@ def guild_hall():
                         and not is_water(x, z):
                     v.set(x, 0, z, flagstone(x, z))
     pave_region(1, 16, 10, 60)         # west gate forecourt + boasting apron
-    pave_region(11, 5, 51, 80)         # the joined complex courtyards + south cloister court
+    pave_region(11, 5, 51, 59)         # the joined complex courtyards (NOT the south garden)
+    # the SOUTH cloister / Four-Graves court (z>=60) is a GREEN garden, not a paved
+    # plaza — leave it as lawn so the design reads "nature where the paving was".
 
     # ---- SMOOTH GROUNDS: a final no-holes sweep. Every ground column must carry
     #      a solid surface block (the lawn is grass/moss/podzol, water is water,
