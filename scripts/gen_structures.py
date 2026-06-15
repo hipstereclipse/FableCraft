@@ -1246,48 +1246,52 @@ def guild_hall():
     arch_bridge(54)                                 # map's LOWER "Bridge" -> dueling / east path
 
     # ================= EAST TRAINING GROUNDS (across the river) =================
-    # the ARCHERY RANGE — a HALF-COURT (basketball-key) footprint to match the map:
-    # a straight north BASELINE lined with straw butts, and a semicircular firing
-    # FAN bulging south. Archers stand on the curved arc and loose north into the
-    # targets (kitchen wall = backstop); a fence kerb hugs the arc with a west gate
-    # onto the bridge path, and the fletching table sits at the south apex.
-    # (Replaces the old twin dirt rings — the range circle + the practice ring.)
-    acx, abz, arr = 68, 33, 9                        # fan centre-x, baseline z, arc radius
+    # the ARCHERY RANGE — a CIRCULAR packed-dirt range (canon design) set hard
+    # against the Kitchen's SOUTH wall (attached to the building), a dirt apron
+    # joining the two; the red bullseye stands on the NORTH backstop and five
+    # straw dummies ring the rim. It sits EAST of the riverside walk and the link
+    # path skirts its edge, so it never blocks the through-route.
+    acx, acz, arr = 68, 37, 6
     for x in range(acx - arr, acx + arr + 1):
-        for z in range(abz, abz + arr + 1):
-            d = math.hypot(x - acx, z - abz)
-            if d <= arr + 0.3:
+        for z in range(acz - arr, acz + arr + 1):
+            if math.hypot(x - acx, z - acz) <= arr + 0.4:
                 v.set(x, 0, z, "minecraft:coarse_dirt" if r.random() < 0.7 else GRAVEL)
-            if arr - 0.7 < d <= arr + 0.3 and z > abz:   # fence kerb hugs the curved arc
-                v.set(x, 1, z, DARKOAK_FENCE)
-    for z in range(abz + 3, abz + 6):                # WEST gate (entry from the bridge path)
-        v.set(acx - arr, 1, z, "minecraft:air")
-        v.set(acx - arr + 1, 1, z, "minecraft:air")
-    # a clear lawn approach links the kitchen's south doors (z29) down to the baseline
-    for x in range(acx - 6, acx + 7):
-        for z in range(kz1 + 1, abz):               # z29..32 buffer strip
+    for x in range(acx - 4, acx + 5):                # dirt apron up to the kitchen south doors
+        for z in range(kz1 + 1, acz - arr + 1):     # z29..31
             if v.grid[v.idx(x, 1, z)] == v._pid("minecraft:air"):
-                v.set(x, 0, z, GRAVEL if (x + z) % 3 else "minecraft:coarse_dirt")
-    # the BUTT: straw-backed targets stand along the baseline, facing south
-    for x in range(acx - 5, acx + 6):
-        v.set(x, 0, abz, "minecraft:coarse_dirt")
-        v.set(x, 1, abz, "minecraft:hay_block")
-        v.set(x, 2, abz, "minecraft:target")
-        v.set(x, 3, abz, "minecraft:target")
-    # fletching table + a small covered firing point at the south apex of the fan
-    fap = abz + arr - 1                              # apex z (=41)
-    v.set(acx, 1, fap, "minecraft:fletching_table")
-    for x in (acx - 1, acx + 1):
-        for y in range(1, 4):
-            v.set(x, y, fap, SPRUCE_LOG)
-    for x in range(acx - 1, acx + 2):
-        v.set(x, 4, fap, DARKOAK if x % 2 else SLATE)
-    # the Dueling Ring — a BARE dirt sparring circle (no kerb) with straw dummies
+                v.set(x, 0, z, "minecraft:coarse_dirt" if (x + z) % 3 else GRAVEL)
+    # bullseye target on the NORTH rim, flanked by straw butts (kitchen = backstop)
+    for x in range(acx - 2, acx + 3):
+        v.set(x, 1, acz - arr, "minecraft:hay_block")
+    v.set(acx, 1, acz - arr, "minecraft:white_wool")
+    v.set(acx, 2, acz - arr, "minecraft:target")     # bullseye, facing the firing line
+    # five straw dummies spaced round the perimeter (facing the centre)
+    for ang in (215, 255, 295, 335, 25):
+        dmx = acx + round(math.cos(math.radians(ang)) * (arr - 1))
+        dmz = acz + round(math.sin(math.radians(ang)) * (arr - 1))
+        face = "north" if dmz > acz else "south"
+        v.set(dmx, 1, dmz, "minecraft:hay_block")
+        v.set(dmx, 2, dmz, "minecraft:hay_block")
+        v.set(dmx, 3, dmz, "minecraft:carved_pumpkin", {"minecraft:cardinal_direction": face})
+    v.set(acx + arr - 1, 1, acz + 1, "minecraft:fletching_table")
+    for (fx, fz) in ((acx - arr, acz - arr), (acx + arr, acz - arr),
+                     (acx - arr, acz + arr), (acx + arr, acz + arr)):   # torch fence posts
+        if 0 <= fx < W and 0 <= fz < L:
+            v.set(fx, 1, fz, SPRUCE_FENCE)
+            v.set(fx, 2, fz, "minecraft:torch")
+    # the DUELING RING — a dirt sparring circle ringed by a LOW stone wall topped
+    # with spruce fence (canon), three straw dummies at its heart
     drx, drz, drr = 80, 54, 6
     for x in range(drx - drr, drx + drr + 1):
         for z in range(drz - drr, drz + drr + 1):
-            if math.hypot(x - drx, z - drz) <= drr + 0.3:
+            d = math.hypot(x - drx, z - drz)
+            if d <= drr + 0.4:
                 v.set(x, 0, z, "minecraft:coarse_dirt" if r.random() < 0.65 else GRAVEL)
+            if drr - 0.6 < d <= drr + 0.5:           # low stone-wall kerb + spruce fence
+                v.set(x, 1, z, "minecraft:stone_brick_wall")
+                v.set(x, 2, z, SPRUCE_FENCE)
+    for ez in range(drz - 2, drz + 3, 2):            # a west gate onto the path
+        v.fill(drx - drr, 1, ez, drx - drr, 2, ez, "minecraft:air")
     for dmx, dmz in ((drx - 2, drz - 2), (drx + 2, drz + 2), (drx + 2, drz - 2)):
         v.set(dmx, 1, dmz, "minecraft:hay_block")
         v.set(dmx, 2, dmz, "minecraft:hay_block")
