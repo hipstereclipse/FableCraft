@@ -3217,48 +3217,53 @@ def chamber_of_fate():
         v.set(px, WALL_TOP - 1, pz, GOLD)
         v.set(px, 2, pz - 1, "minecraft:lantern", {"hanging": False})
 
-    # ---- central CULLIS GATE — a RAISED warded dais: a stepped circular ziggurat
-    #      climbs in three concentric tiers from the chamber floor to a platform 3
-    #      blocks proud, ringed by chiseled/obsidian wards around a glowing core.
-    #      The gradient (stair risers on every rim) makes the centre a raised plat-
-    #      form you walk up onto; the beam + particles animate at runtime. The cave
-    #      causeway arrives at floor level (NORTH) and climbs the north face. ----
-    RAISE = 3
-    TOPY = 1 + RAISE                                  # platform deck (a Hero stands at TOPY+1)
-    for x in range(c - 5, c + 6):                     # solid stepped body (no gaps beneath)
-        for z in range(c - 5, c + 6):
-            d = math.hypot(x - c, z - c)
-            if d > 4.6:
+    # ---- central CULLIS GATE — a RAISED warded dais crowning a broad HILL: the
+    #      whole chamber centre swells into a stone mound that climbs from the floor
+    #      to a flat platform 5 blocks proud, ringed by chiseled/obsidian wards
+    #      around a glowing core. The mound rises 1 block at a time (walkable), so
+    #      the cave causeway arrives at floor level (north) and climbs the slope. ----
+    RAISE = 5
+    TOPY = 1 + RAISE                                  # platform deck y6 (a Hero stands at y7)
+    HILLR = 9
+
+    def _surf(d):                                     # mound surface height (flat top, 1-high steps)
+        if d <= 3.5:
+            return TOPY
+        return max(1, TOPY - int((d - 3.5) * 0.7 + 0.5))
+    for x in range(c - HILLR - 1, c + HILLR + 2):     # solid mound (no gaps beneath)
+        for z in range(c - HILLR - 1, c + HILLR + 2):
+            if not (0 <= x < S and 0 <= z < S):
                 continue
-            tier = TOPY if d <= 2.3 else (TOPY - 1 if d <= 3.4 else TOPY - 2)
-            for y in range(2, tier + 1):
-                v.set(x, y, z, DEEP_TILES if (x + z) % 2 else CHISELED)
-    for (rd, ry) in ((4.4, 2), (3.3, 3), (2.2, TOPY)):   # stair risers ring each rim (gradient up)
-        for ang in range(0, 360, 12):
-            px = c + round(math.cos(math.radians(ang)) * rd)
-            pz = c + round(math.sin(math.radians(ang)) * rd)
-            if 0 <= px < S and 0 <= pz < S and v.grid[v.idx(px, ry, pz)] != v._pid("minecraft:air"):
-                v.set(px, ry, pz, SBRICK_STAIR,
-                      {"weirdo_direction": _stair_dir(c - px, c - pz), "upside_down_bit": False})
-    for x in range(c - 2, c + 3):                     # warded TOP deck: obsidian ring + chiseled
-        for z in range(c - 2, c + 3):
             d = math.hypot(x - c, z - c)
-            if d <= 2.3:
-                v.set(x, TOPY, z, CHISELED if d <= 0.8 else
+            if d > HILLR + 0.6:
+                continue
+            for y in range(2, _surf(d) + 1):
+                v.set(x, y, z, DEEP_TILES if (x + z) % 2 else CHISELED)
+    for x in range(c - 4, c + 5):                     # warded TOP platform: obsidian ring + core
+        for z in range(c - 4, c + 5):
+            d = math.hypot(x - c, z - c)
+            if d <= 3.4:
+                v.set(x, TOPY, z, CHISELED if d <= 1.0 else
                       (OBSIDIAN if (x + z) % 2 else "minecraft:crying_obsidian"))
-    v.set(c, TOPY, c, "minecraft:sea_lantern")        # glowing core, now raised (cullis detect)
-    for ang in range(0, 360, 90):                     # four chiseled corner markers at the base
-        px = c + round(math.cos(math.radians(ang)) * 5)
-        pz = c + round(math.sin(math.radians(ang)) * 5)
+    v.set(c, TOPY, c, "minecraft:sea_lantern")        # glowing core, crowning the hill
+    for ang in range(0, 360, 45):                     # chiseled ward markers ringing the platform
+        px = c + round(math.cos(math.radians(ang)) * 3)
+        pz = c + round(math.sin(math.radians(ang)) * 3)
         if 0 <= px < S and 0 <= pz < S:
-            v.set(px, 1, pz, SAND_CHIS)
+            v.set(px, TOPY, pz, SAND_CHIS)
 
     # ---- cave entrance approach from the NORTH (the runtime tunnel pierces the
-    #      NORTH wall, so the prepared approach now meets it on the same side) ----
-    for z in range(0, c - 4):
+    #      NORTH wall here). A flat entry vestibule meets the tunnel at floor level;
+    #      south of it the approach RAMPS UP the hill's north slope (just clear the
+    #      headroom over the mound, keeping its steps) onto the platform. ----
+    for z in range(0, c - 3):
         for x in range(c - 2, c + 3):
-            v.set(x, 1, z, COBBLE if (x + z) % 2 else MCOBBLE)
-            v.fill(x, 2, z, x, 5, z, "minecraft:air")
+            d = math.hypot(x - c, z - c)
+            if d > HILLR:                                  # flat vestibule beyond the mound toe
+                v.set(x, 1, z, COBBLE if (x + z) % 2 else MCOBBLE)
+                v.fill(x, 2, z, x, 6, z, "minecraft:air")
+            else:                                          # over the slope: clear headroom, keep the ramp
+                v.fill(x, _surf(d) + 1, z, x, _surf(d) + 6, z, "minecraft:air")
 
     # ---- dome shell (thick rings overlap so it is airtight against bleed-in) --
     for y in range(WALL_TOP, H - 2):

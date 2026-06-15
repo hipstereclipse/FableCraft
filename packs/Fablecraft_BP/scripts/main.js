@@ -355,8 +355,8 @@ function placeGuildAnnexes(dim) {
     try {
       world.structureManager.place("fc:chamber_of_fate", dim, { x: chx, y: chy, z: chz });
       world.setDynamicProperty("fc_guild_chamber_placed", true);
-      // the Cullis sits on a RAISED dais now (platform deck local y4, stand y5)
-      registerCullis("Chamber of Fate", { x: chx + 15.5, y: chy + 5, z: chz + 15.5 });
+      // the Cullis crowns a raised HILL now (platform deck local y6, stand y7)
+      registerCullis("Chamber of Fate", { x: chx + 15.5, y: chy + 7, z: chz + 15.5 });
       fillLootChests(dim, chx, chy, chz, 31, 20, 31, "fc:chamber_of_fate");
       hangChamberArt(dim, chx, chy, chz, 31);       // best-effort vanilla paintings
       // The Guild's foundation fill (blendTerrain) is an async job that finishes
