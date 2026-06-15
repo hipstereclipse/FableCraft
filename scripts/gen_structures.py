@@ -822,6 +822,46 @@ def guild_hall():
     v.set(cvx - 2, 4, lz0 - 2, SOUL_LANTERN)
     v.set(cvx + 2, 4, lz0 - 2, SOUL_LANTERN)
 
+    # ===== NORTH WING (the missing top range) — a roofed hall wrapping the Guild-
+    #       Cave stair-well at the very TOP of the complex. It carries the Library's
+    #       stonework NORTH, keeps the spiral shaft (27,14) open as its stair-well,
+    #       links SOUTH into the Library (through the cave alcove + a wide arch) and
+    #       reaches EAST by the covered TOP bridge over the river to the NE block.
+    #       This is the wing the relocated top bridge attaches to. =====
+    nwgx0, nwgx1, nwgz0, nwgz1 = 22, 40, 6, 15
+    for x in range(nwgx0, nwgx1 + 1):
+        for z in range(nwgz0, nwgz1 + 1):
+            alcove = (25 <= x <= 29 and 12 <= z <= 15)     # keep the rough cave alcove blocks
+            if not alcove:
+                v.set(x, 0, z, STONE if (x + z) % 4 else DEEP_TILES)   # paved floor
+                v.fill(x, 1, z, x, 8, z, "minecraft:air")              # clear interior
+            v.set(x, 9, z, SLATE if (x + z) % 2 else DEEP_TILES)       # roof at common eave
+    for x in range(nwgx0, nwgx1 + 1):                  # north wall (z6)
+        for y in range(1, 9):
+            v.set(x, y, nwgz0, warm())
+    for z in range(nwgz0, nwgz1 + 1):                  # west (x22) + east (x40) walls
+        for y in range(1, 9):
+            v.set(nwgx0, y, z, warm())
+            v.set(nwgx1, y, z, warm())
+    for x in range(nwgx0 + 2, nwgx1, 4):               # north windows
+        v.set(x, 3, nwgz0, GLASS); v.set(x, 6, nwgz0, GLASS)
+    for z in range(nwgz0 + 2, nwgz1 - 1, 3):           # west windows
+        v.set(nwgx0, 3, z, GLASS)
+    v.fill(26, 1, 12, 28, 4, 12, "minecraft:air")      # open the alcove's north wall into the wing
+    v.fill(33, 1, 16, 35, 3, 16, "minecraft:air")      # wide arch SOUTH into the Library
+    v.set(32, 3, 16, SAND_CHIS); v.set(36, 3, 16, SAND_CHIS)
+    v.fill(nwgx1, 1, 7, nwgx1, 4, 8, "minecraft:air")  # NE door -> the covered top bridge
+    v.set(nwgx1, 5, 7, SAND_CHIS); v.set(nwgx1, 5, 8, SAND_CHIS)
+    # a low rail ringing the open stair-well, a couple of bunks, a hanging lantern
+    for (rx, rz) in ((24, 13), (24, 14), (24, 15), (30, 13), (30, 14), (30, 15),
+                     (26, 11), (27, 11), (28, 11)):
+        if v.grid[v.idx(rx, 1, rz)] == v._pid("minecraft:air"):
+            v.set(rx, 1, rz, DARKOAK_FENCE)
+    for bz in (7, 9):
+        v.set(nwgx1 - 2, 1, bz, "minecraft:bed", {"direction": 1})
+        v.set(nwgx1 - 1, 1, bz, "minecraft:bed", {"direction": 1, "head_piece_bit": True})
+    v.set((nwgx0 + nwgx1) // 2, 8, nwgz0 + 2, LANTERN, {"hanging": True})
+
     # ================= DINING HALL & KITCHEN (east, two storeys) =================
     # Shortened on its EAST flank (was x49) to open a riverside terrace: the
     # freed strip between the hall and the river becomes a grand tiered stone
@@ -1064,8 +1104,11 @@ def guild_hall():
     for z in range(kz0 + 3, kz1, 4):                 # windows on both long walls
         v.set(kx1, 3, z, GLASS)
         v.set(kx0, 3, z, GLASS)
-    kcz = kz0 + 14
-    v.fill(kx0, 1, kcz - 1, kx0, 3, kcz + 1, "minecraft:air")            # WEST door (bridge)
+    KND = kx0 + 4               # the covered TOP bridge docks into the kitchen's NORTH face
+    v.fill(KND - 1, 1, kz0, KND + 1, 3, kz0, "minecraft:air")            # NORTH (top) door
+    v.set(KND - 2, 1, kz0, SAND_CHIS); v.set(KND + 2, 1, kz0, SAND_CHIS)
+    v.set(KND, 4, kz0, SAND_CHIS)
+    v.set(KND, 0, kz0 + 1, STONE)                                        # threshold inside
     south_doors = (kx0 + 5, kx0 + 13, kx1 - 6)
     for dx in south_doors:                           # SOUTH arches onto archery / grounds
         v.fill(dx - 1, 1, kz1, dx + 1, 3, kz1, "minecraft:air")
@@ -1075,9 +1118,9 @@ def guild_hall():
         v.set(dx, 3, kz1, SAND_CHIS)
         v.set(dx, 0, kz1 + 1, GRAVEL)               # threshold paving out to the path
     # ---- KITCHEN / FOOD STORES (north room) — a busy, well-stocked kitchen ----
-    for x in range(kx0 + 2, kx0 + 9):               # the cooking range along the north wall
+    for x in range(kx0 + 6, kx0 + 11):              # cooking range along the north wall (clear of the door)
         v.set(x, 1, kz0 + 1, "minecraft:furnace" if x % 2 else "minecraft:smoker")
-    v.set(kx0 + 9, 1, kz0 + 1, "minecraft:blast_furnace")
+    v.set(kx0 + 11, 1, kz0 + 1, "minecraft:blast_furnace")
     v.set(kx1 - 2, 1, kz0 + 1, "minecraft:cauldron")
     v.set(kx1 - 4, 1, kz0 + 1, "minecraft:brewing_stand")
     v.set(kx1 - 6, 1, kz0 + 1, "minecraft:cartography_table")
@@ -1107,24 +1150,39 @@ def guild_hall():
     v.set(kx0 + 6, 1, kz1 - 1, "minecraft:lectern", {"minecraft:cardinal_direction": "north"})
     v.set(kx1 - 6, 1, kz1 - 1, "minecraft:bookshelf")
 
-    # ---- the covered STONE hallway/bridge: north of the complex, east over the
-    #      river to the NE block (enclosed on the north flank, open arches south)
-    hbz = kcz
-    for x in range(37, kx0 + 1):                     # 37 .. 64 (over the river)
-        for z in (hbz - 1, hbz, hbz + 1):
-            v.set(x, 1, z, STONE if (x + z) % 2 else DEEP_TILES)   # deck (walk y2)
-            v.fill(x, 2, z, x, 4, z, "minecraft:air")
-            v.set(x, 5, z, SLATE if x % 2 else DEEP_TILES)
-        for y in range(2, 5):
-            v.set(x, y, hbz - 1, warm())             # enclosed exterior (north) wall
-        v.set(x, 2, hbz + 1, SAND_WALL)              # open rail (south)
-    for x in range(40, kx0, 4):
-        v.set(x, 4, hbz, LANTERN, {"hanging": True})
-    for z in (hbz - 1, hbz, hbz + 1):                # steps up at the west end
-        v.set(36, 1, z, SBRICK_STAIR, {"weirdo_direction": 0, "upside_down_bit": False})
-    # connect the hallway's west end down to the library/complex
-    for x in range(34, 37):
-        v.set(x, 0, hbz, STONE)
+    # ---- the covered STONE TOP BRIDGE: it leaves the North Wing's NE door, runs
+    #      along the very TOP of the campus (z3-5, well clear of the wooden river
+    #      bridges far to the south) and turns down to dock into the NORTH (top)
+    #      face of the NE Kitchen block — not its west side. Deck is flush with the
+    #      ground (so the walk is smooth at both ends) and humps over the river. ----
+    segA = {(x, z) for x in range(41, 44) for z in range(4, 9)}        # riser off the wing
+    segB = {(x, z) for x in range(41, KND + 2) for z in range(3, 6)}   # top E-W run (over the river)
+    segC = {(x, z) for x in range(KND - 1, KND + 2) for z in range(4, kz0 + 1)}  # dock into the kitchen
+    deck = segA | segB | segC
+    walk = ({(42, z) for z in range(5, 9)} | {(x, 4) for x in range(42, KND + 1)}
+            | {(KND, z) for z in range(4, kz0 + 1)})
+    joins = {(41, 7), (42, 7), (41, 8), (42, 8),                       # against the wing east door
+             (KND, kz0), (KND - 1, kz0), (KND + 1, kz0)}               # against the kitchen north door
+    dky = lambda x: 1 if 50 <= x <= 56 else 0                          # gentle hump over the river
+    for (x, z) in deck:
+        y = dky(x)
+        v.set(x, y, z, STONE if (x + z) % 2 else DEEP_TILES)           # deck (walk y+1)
+        v.fill(x, y + 1, z, x, 4, z, "minecraft:air")                  # headroom
+        v.set(x, 5, z, SLATE if (x + z) % 2 else DEEP_TILES)           # continuous slate roof
+    for px in (51, 53, 55):                                            # mossy piers in the river
+        v.set(px, 0, 4, MCOBBLE)
+    v.set(49, 0, 4, SBRICK_STAIR, {"weirdo_direction": 0, "upside_down_bit": False})  # up onto the hump
+    v.set(57, 0, 4, SBRICK_STAIR, {"weirdo_direction": 1, "upside_down_bit": False})  # down off it
+    for (x, z) in deck:                                                # side walls carry the roof (no float)
+        if (x, z) in walk or (x, z) in joins:
+            continue
+        if any((x + dx, z + dz) not in deck for dx, dz in ((1, 0), (-1, 0), (0, 1), (0, -1))):
+            for y in range(dky(x) + 1, 5):
+                v.set(x, y, z, warm())
+            if (x + z) % 3 == 0:
+                v.set(x, dky(x) + 2, z, GLASS)                        # arched window slits
+    for x in range(45, KND, 6):                                        # hanging lanterns down the run
+        v.set(x, 4, 4, LANTERN, {"hanging": True})
 
     # =========== BRIDGES across the north river (handsome ARCHED spans) ========
     # A gentle walkable HUMP: the dark-oak deck sits at y1 on the banks and rises
