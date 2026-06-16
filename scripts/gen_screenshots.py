@@ -450,6 +450,8 @@ BLOCK_COLORS = {
     "minecraft:dark_oak_stairs": (78, 56, 34), "minecraft:cobblestone_stairs": (108, 106, 104),
     "minecraft:oak_slab": (162, 130, 78), "minecraft:spruce_slab": (114, 84, 50),
     "minecraft:red_carpet": (160, 48, 44), "minecraft:dark_oak_trapdoor": (70, 50, 30),
+    "minecraft:light_blue_carpet": (108, 158, 206), "minecraft:white_carpet": (228, 230, 232),
+    "minecraft:blue_ice": (116, 168, 224), "minecraft:mossy_stone_brick_slab": (108, 120, 100),
     "minecraft:green_stained_glass": (70, 170, 70), "minecraft:green_stained_glass_pane": (70, 170, 70),
     "minecraft:lime_stained_glass": (110, 200, 80), "minecraft:ladder": (140, 108, 60),
     "minecraft:flower_pot": (150, 96, 70), "minecraft:cartography_table": (110, 92, 80),

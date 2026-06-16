@@ -321,7 +321,9 @@ function buildGuildWhenReady(p, dim, base, attempt) {
     guardArmour(dim, { x: base.x + 46, y: y + 1, z: base.z + 67 }, { x: base.x + 46, y: y + 1, z: base.z + 66 });
     ensureDemonDoor(dim, doorLoc, base.z + 86);
     fillLootChests(dim, base.x, y, base.z, 112, 30, 108, "fc:guild_hall");
-    blendTerrain(dim, base.x, y, base.z, 112, 108);
+    // keep the Guild-cave spiral shaft (local 27,14 +-2) hollow — never re-fill it
+    blendTerrain(dim, base.x, y, base.z, 112, 108,
+      (cx, cz) => cx >= base.x + 25 && cx <= base.x + 29 && cz >= base.z + 12 && cz <= base.z + 16);
     skirtTerrain(dim, base.x, y, base.z, 112, 108, 28);
     dressSurroundings(dim, base.x, y, base.z, 112, "holy");
     populateSurroundings(dim, base);                 // biome-matched woods around the campus
@@ -370,14 +372,18 @@ function placeGuildAnnexes(dim) {
   carveGuildCaves(dim, base);                       // spiral + ravine to the Chamber
 }
 
-// Carve the Guild Caves: a 3x3 spiral stair (central glowing pillar) carries the
-// ENTIRE descent from the Library's caves alcove down to the Chamber floor level,
-// then a long, DEAD-LEVEL stone causeway crosses a wide, deep, DARK gulf and
-// pierces the Chamber of Fate's north wall through a level arch. The descent is
-// all on the spiral; the bridge never slopes, so the walk is jump-free end to
+// Carve the Guild Caves: a 3x3 spiral stair (central glowing pillar) of
+// HALF-BLOCK steps carries the ENTIRE descent from the Library's caves alcove
+// down to the Chamber floor level, then a long, DEAD-LEVEL stone causeway
+// crosses a wide, deep, DARK gulf and pierces the Chamber of Fate's north wall
+// through a level arch. Every spiral tread drops the floor by exactly 0.5 block
+// (slab/full-course alternation), so the walk is jump-free DOWN *and* UP, end to
 // end (alcove -> spiral down -> flat span over darkness -> arch -> Chamber).
 // Runtime-carved because it spans the surface build down to the buried Chamber.
-// Idempotent, bounded, and fully wrapped so it can never break a build.
+// Idempotent, bounded, and fully wrapped so it can never break a build. The
+// shaft footprint is excluded from blendTerrain (foundation fill) so the
+// freshly-carved well is never back-filled with rock — and re-scrubbed on a few
+// delays to defeat any late async fill (see scrubCaveShaft).
 function carveGuildCaves(dim, base) {
   if (world.getDynamicProperty("fc_guild_caves_done")) return;
   if (!world.getDynamicProperty("fc_guild_chamber_placed")) return;
@@ -412,20 +418,26 @@ function carveGuildCaves(dim, base) {
       }
       yield;
     }
-    // ===== 2. the DESCENT: a true helix winding the shaft, ONE course down per
-    //         cell, carrying the WHOLE vertical drop down to deck level so the
-    //         causeway itself can stay dead level. The pillar glows to light it. =====
+    // ===== 2. the DESCENT: a helix of HALF-BLOCK steps. Each tread drops the
+    //         walking surface by exactly 0.5 block (even cells = bottom slabs,
+    //         odd cells = full courses), so a Hero strolls DOWN and back UP it
+    //         without ever jumping (the engine auto-steps 0.5). It takes twice
+    //         the cells of a full-block stair, so the helix simply winds more
+    //         turns to carry the same drop down to deck level (the causeway stays
+    //         dead level). The treads float off the glowing central pillar — the
+    //         cell beneath each is the headroom of the tread one turn below, so we
+    //         leave it open (no posts) to keep the climb jump-free. =====
     air(SX, base.y, SZ + 1);                            // open the entry mouth
+    const slab = () => (Math.random() < 0.22 ? "minecraft:mossy_stone_brick_slab" : "minecraft:stone_brick_slab");
     for (let n = 0; ; n++) {
       const [dx, dz] = ringCW[n % 8];
-      const ty = base.y - 1 - n;                        // one step down per cell
-      if (ty < DECK) break;
-      setB(SX + dx, ty, SZ + dz, stone());             // tread you stand on
-      setB(SX + dx, ty - 1, SZ + dz, stone());         // solid beneath the tread
-      air(SX + dx, ty + 1, SZ + dz);                   // 3 of headroom for the step-down
-      air(SX + dx, ty + 2, SZ + dz);
-      air(SX + dx, ty + 3, SZ + dz);
-      if (n % 3 === 0) setB(SX, ty + 1, SZ, "minecraft:glowstone");   // glowing newel
+      const tx = SX + dx, tz = SZ + dz;
+      // surface = base.y + 0.5 - 0.5*n ; even n -> bottom slab (top at +.5), odd n -> full course
+      const blockY = (n % 2 === 0) ? (base.y - n / 2) : (base.y - (n + 1) / 2);
+      if (blockY < DECK || (blockY === DECK && n % 2 === 0)) break;   // end on the full course at deck level
+      setB(tx, blockY, tz, (n % 2 === 0) ? slab() : stone());        // the tread
+      air(tx, blockY + 1, tz); air(tx, blockY + 2, tz); air(tx, blockY + 3, tz);  // headroom
+      if (n % 4 === 0) setB(SX, blockY + 1, SZ, "minecraft:glowstone");           // glowing newel
       yield;
     }
     // a clean flat landing at the spiral foot (deck level) feeding south to the bridge
@@ -3031,13 +3043,17 @@ function sampleGroundY(dim, x0, z0, w, d, allowLiquid = false) {
   return Math.round(ys.reduce((a, b) => a + b, 0) / ys.length);
 }
 
-function blendTerrain(dim, x0, y0, z0, w, d) {
+function blendTerrain(dim, x0, y0, z0, w, d, skip) {
   // foundation fill: every column under the structure (plus a 1-block
   // border) gets filled from the structure's base down to solid ground —
   // no gaps below buildings, no water pockets trapped underneath.
+  // `skip(x,z)` (optional) masks out columns that must stay hollow — e.g. the
+  // Guild-cave spiral shaft, whose freshly-carved well would otherwise be
+  // back-filled with rock (the "stairs filled in at the top" bug).
   const work = function* () {
     for (let x = x0 - 1; x <= x0 + w; x++) {
       for (let z = z0 - 1; z <= z0 + d; z++) {
+        if (skip && skip(x, z)) continue;
         yield* foundationColumn(dim, x, y0, z);
       }
       yield;

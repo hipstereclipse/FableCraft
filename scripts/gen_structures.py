@@ -1071,8 +1071,25 @@ def guild_hall():
         if z % 2:
             v.set(dx0 + 1, 1, z, "minecraft:bookshelf"); v.set(dx0 + 1, 2, z, "minecraft:bookshelf")
             v.set(dx1 - 1, 1, z, "minecraft:bookshelf"); v.set(dx1 - 1, 2, z, "minecraft:bookshelf")
-    long_table(v, dx0 + 3, dx1 - 3, (az0 + az1) // 2, 2, top="minecraft:oak_planks")
-    v.set((dx0 + dx1) // 2, 8, (az0 + az1) // 2, LANTERN, {"hanging": True})
+    long_table(v, dx0 + 3, dx1 - 4, az0 + 2, 2, top="minecraft:oak_planks")   # reading table (north end)
+    v.set((dx0 + dx1) // 2, 8, az0 + 2, LANTERN, {"hanging": True})
+
+    # ===== §6.2 KITCHEN — the small cook-room at the Dining hall's NE corner
+    #       (local x40..44, z28..32, inside the riverside annex): a cauldron over a
+    #       hearth, a stone oven + smoker, a flour-dusted prep table and apple
+    #       barrels. It opens south into the Dining hall (the annex already links).
+    k2x0, k2x1, k2z0, k2z1 = 40, 44, 28, 32
+    for x in range(k2x0, k2x1):                       # a low screen wall N of the cook-room
+        v.set(x, 1, k2z0 - 1, warm()); v.set(x, 2, k2z0 - 1, warm())
+    v.fill(k2x0 + 1, 1, k2z0 - 1, k2x0 + 2, 2, k2z0 - 1, "minecraft:air")    # doorway in the screen
+    v.set(k2x0, 1, k2z1, "minecraft:cauldron")        # cauldron in the corner
+    v.set(k2x0 + 1, 1, k2z1, "minecraft:furnace")     # stone oven + smoker
+    v.set(k2x0 + 2, 1, k2z1, "minecraft:smoker")
+    long_table(v, k2x0 + 1, k2x0 + 3, k2z0 + 2, 2, top="minecraft:oak_planks")  # prep table
+    v.set(k2x0 + 2, 3, k2z0 + 2, "minecraft:white_carpet")     # flour dusting
+    v.set(k2x0 + 3, 3, k2z0 + 2, "minecraft:hay_block")
+    v.set(k2x0, 1, k2z0, "minecraft:barrel"); v.set(k2x0, 2, k2z0, "minecraft:barrel")
+    v.set(k2x0, 1, k2z0 + 1, "minecraft:chest", {"minecraft:cardinal_direction": "east"})
 
     # ===== NW COMMON ROOM — encloses the open west ward (north of the Skill apse,
     #       west of the Library) into a roofed tables-and-chairs room, so the west
@@ -1105,72 +1122,96 @@ def guild_hall():
     # Foundation planted at GROUND level (was a block proud); both flanks opened
     # with arches onto the gravel paths so the Hero can step off the bridge and
     # head down to the archery range or out across the grounds.
+    # §7.1/§7.2: the block divides N-S into a single-storey KITCHEN / FOOD-STORES
+    # (west, x64..74) and a TWO-STOREY DORMITORY (east, x75..88). The covered
+    # stone hallway docks the food-stores' north face; both halves open south onto
+    # the gravel grounds (the archery apron + the dueling path).
     kx0, kx1, kz0, kz1 = 64, 88, 6, 28
-    for x in range(kx0, kx1 + 1):
+    PX = 74                          # the N-S partition: FOOD-STORES x64..74 | DORMITORY x75..88
+    FS_H, DM_H = 6, 9                # food-stores eave y6 (1 storey); dormitory eave y9 (2 storeys)
+    DM_DECK = 5                      # dormitory upper-floor deck at y5 (a Hero stands at y6)
+    ne_h = lambda x: DM_H if x >= PX else FS_H        # the dormitory half rises taller
+    for x in range(kx0, kx1 + 1):                    # shared ground floor
         for z in range(kz0, kz1 + 1):
-            v.set(x, 0, z, STONE if (x + z) % 3 else DEEP_TILES)        # floor at ground
-    for x in range(kx0, kx1 + 1):
+            v.set(x, 0, z, STONE if (x + z) % 3 else DEEP_TILES)
+    for x in range(kx0, kx1 + 1):                    # north + south outer walls (stepped height)
         for z in (kz0, kz1):
-            for y in range(1, 6):
+            for y in range(1, ne_h(x) + 1):
                 v.set(x, y, z, warm())
     for z in range(kz0, kz1 + 1):
-        for x in (kx0, kx1):
-            for y in range(1, 6):
-                v.set(x, y, z, warm())
-    for x in range(kx0 + 1, kx1):                    # interior partition pierced by an arch
-        for y in range(1, 5):
-            v.set(x, y, kz0 + 11, warm())
-    v.fill(kx0 + 10, 1, kz0 + 11, kx0 + 13, 3, kz0 + 11, "minecraft:air")
-    v.set(kx0 + 9, 4, kz0 + 11, SAND_CHIS); v.set(kx0 + 14, 4, kz0 + 11, SAND_CHIS)
-    hip_roof(v, kx0, kx1, kz0, kz1, 6, SLATE, levels=4, cap=DEEP_TILES)
-    for z in range(kz0 + 3, kz1, 4):                 # windows on both long walls
-        v.set(kx1, 3, z, GLASS)
+        for y in range(1, FS_H + 1):
+            v.set(kx0, y, z, warm())                 # west end wall (food stores)
+        for y in range(1, DM_H + 1):
+            v.set(kx1, y, z, warm())                 # east end wall (dormitory)
+            v.set(PX, y, z, warm())                  # the full-height N-S partition
+    v.fill(PX, 1, kz0 + 10, PX, 3, kz0 + 12, "minecraft:air")     # arch linking the two halves
+    v.set(PX, 4, kz0 + 10, SAND_CHIS); v.set(PX, 4, kz0 + 12, SAND_CHIS)
+    hip_roof(v, kx0, PX, kz0, kz1, FS_H, SLATE, levels=3, cap=DEEP_TILES)   # low roof over the stores
+    hip_roof(v, PX, kx1, kz0, kz1, DM_H, SLATE, levels=4, cap=DEEP_TILES)   # proud roof over the dorm
+    for z in range(kz0 + 3, kz1, 4):                 # windows on the long outer walls
         v.set(kx0, 3, z, GLASS)
-    KND = kx0 + 4               # the covered TOP bridge docks into the kitchen's NORTH face
-    v.fill(KND - 1, 1, kz0, KND + 1, 3, kz0, "minecraft:air")            # NORTH (top) door
+        v.set(kx1, 3, z, GLASS); v.set(kx1, DM_DECK + 2, z, GLASS)
+    KND = kx0 + 4                                    # the covered stone hallway docks the NORTH face
+    v.fill(KND - 1, 1, kz0, KND + 1, 3, kz0, "minecraft:air")
     v.set(KND - 2, 1, kz0, SAND_CHIS); v.set(KND + 2, 1, kz0, SAND_CHIS)
     v.set(KND, 4, kz0, SAND_CHIS)
-    v.set(KND, 0, kz0 + 1, STONE)                                        # threshold inside
-    south_doors = (kx0 + 5, kx0 + 13, kx1 - 6)
-    for dx in south_doors:                           # SOUTH arches onto archery / grounds
+    v.set(KND, 0, kz0 + 1, STONE)
+    for dx in (68, 80):                              # SOUTH arches (68 -> archery, 80 -> grounds)
         v.fill(dx - 1, 1, kz1, dx + 1, 3, kz1, "minecraft:air")
         for x in (dx - 1, dx + 1):
-            v.set(x, 1, kz1, SAND_CHIS)
-            v.set(x, 2, kz1, SAND_CHIS)
+            v.set(x, 1, kz1, SAND_CHIS); v.set(x, 2, kz1, SAND_CHIS)
         v.set(dx, 3, kz1, SAND_CHIS)
-        v.set(dx, 0, kz1 + 1, GRAVEL)               # threshold paving out to the path
-    # ---- KITCHEN / FOOD STORES (north room) — a busy, well-stocked kitchen ----
-    for x in range(kx0 + 6, kx0 + 11):              # cooking range along the north wall (clear of the door)
+        v.set(dx, 0, kz1 + 1, GRAVEL)
+    # ---- KITCHEN / FOOD STORES (west room x64..74) — cooking range + stacked stores ----
+    for x in range(kx0 + 6, PX - 1):                 # cooking range along the north wall (clear of the dock)
         v.set(x, 1, kz0 + 1, "minecraft:furnace" if x % 2 else "minecraft:smoker")
-    v.set(kx0 + 11, 1, kz0 + 1, "minecraft:blast_furnace")
-    v.set(kx1 - 2, 1, kz0 + 1, "minecraft:cauldron")
-    v.set(kx1 - 4, 1, kz0 + 1, "minecraft:brewing_stand")
-    v.set(kx1 - 6, 1, kz0 + 1, "minecraft:cartography_table")
-    long_table(v, kx0 + 5, kx1 - 6, kz0 + 5, 2, top="minecraft:smooth_stone_slab")  # prep island
-    for x in range(kx0 + 6, kx1 - 6, 3):            # produce on the island
-        v.set(x, 3, kz0 + 5, r.choice(["minecraft:pumpkin", "minecraft:melon_block",
+    v.set(PX - 2, 1, kz0 + 1, "minecraft:blast_furnace")
+    v.set(kx0 + 1, 1, kz1 - 1, "minecraft:cauldron")
+    v.set(kx0 + 2, 1, kz1 - 1, "minecraft:brewing_stand")
+    v.set(kx0 + 3, 1, kz1 - 1, "minecraft:cartography_table")
+    long_table(v, kx0 + 4, PX - 2, kz0 + 6, 2, top="minecraft:smooth_stone_slab")  # prep island
+    for x in range(kx0 + 5, PX - 2, 3):              # produce on the island
+        v.set(x, 3, kz0 + 6, r.choice(["minecraft:pumpkin", "minecraft:melon_block",
                                         "minecraft:hay_block", "minecraft:cake"]))
-    for z in range(kz0 + 2, kz0 + 10, 2):           # barrel & crate stores on the east wall
-        v.set(kx1 - 1, 1, z, "minecraft:barrel")
-        v.set(kx1 - 1, 2, z, "minecraft:barrel")
-    v.set(kx0 + 1, 1, kz0 + 8, "minecraft:composter")
-    v.set(kx0 + 2, 1, kz0 + 8, "minecraft:chest", {"minecraft:cardinal_direction": "east"})
-    v.set(kx0 + 1, 1, kz0 + 9, "minecraft:barrel")
-    for hz in (kz0 + 4, kz0 + 8):                   # chandeliers (roof above supports them)
-        v.set(kx0 + 6, 5, hz, LANTERN, {"hanging": True})
-        v.set(kx1 - 6, 5, hz, LANTERN, {"hanging": True})
-    # ---- DORMITORY (south room) — bunks, bedside tables, a warming hearth ----
-    for bz in range(kz0 + 14, kz1 - 1, 3):
-        v.set(kx0 + 2, 1, bz, "minecraft:bed", {"direction": 3})
-        v.set(kx0 + 1, 1, bz, "minecraft:bed", {"direction": 3, "head_piece_bit": True})
-        v.set(kx1 - 2, 1, bz, "minecraft:bed", {"direction": 1})
-        v.set(kx1 - 1, 1, bz, "minecraft:bed", {"direction": 1, "head_piece_bit": True})
-        v.set(kx0 + 3, 1, bz, "minecraft:barrel"); v.set(kx0 + 3, 2, bz, LANTERN, {"hanging": False})
-    for tz in range(kz0 + 15, kz1 - 1, 2):          # a long mess table down the middle
-        v.set((kx0 + kx1) // 2, 2, tz, "minecraft:oak_planks")
-        v.set((kx0 + kx1) // 2, 1, tz, "minecraft:oak_fence") if tz % 4 == 1 else None
-    v.set(kx0 + 6, 1, kz1 - 1, "minecraft:lectern", {"minecraft:cardinal_direction": "north"})
-    v.set(kx1 - 6, 1, kz1 - 1, "minecraft:bookshelf")
+    for z in range(kz0 + 2, kz1 - 1, 2):            # rows of barrels & crates (the stores)
+        v.set(kx0 + 1, 1, z, "minecraft:barrel"); v.set(kx0 + 1, 2, z, "minecraft:barrel")
+        v.set(PX - 1, 1, z, "minecraft:barrel")
+    for (ix, iz) in ((kx0 + 2, kz0 + 9), (kx0 + 6, kz0 + 13)):    # two cold rooms (ice on the floor)
+        for dx in range(0, 3):
+            for dz in range(0, 3):
+                v.set(ix + dx, 0, iz + dz, "minecraft:packed_ice" if (dx + dz) % 2 else "minecraft:blue_ice")
+    v.set(kx0 + 1, 1, kz0 + 7, "minecraft:composter")
+    v.set(kx0 + 2, 1, kz0 + 7, "minecraft:chest", {"minecraft:cardinal_direction": "east"})
+    for hz in (kz0 + 6, kz0 + 14, kz0 + 20):        # chandeliers down the food-stores ceiling
+        v.set(kx0 + 5, FS_H - 1, hz, LANTERN, {"hanging": True})
+    # ---- DORMITORY (east room x75..88) — TWO floors: a common room below, four
+    #      bunk rooms above on a deck reached by a corner spiral stair (§7.2) ----
+    dmx0, dmx1 = PX + 1, kx1                          # 75..88 interior
+    for tz in range(kz0 + 3, kz1 - 2, 2):            # ground: a long common-room table
+        v.set((dmx0 + dmx1) // 2, 2, tz, "minecraft:oak_planks")
+        if tz % 4 == 1:
+            v.set((dmx0 + dmx1) // 2, 1, tz, "minecraft:oak_fence")
+    for hx in (dmx1 - 2, dmx1 - 1, dmx1):            # a warming hearth on the back wall
+        v.set(hx, 1, kz0 + 1, STONE); v.set(hx, 2, kz0 + 1, STONE)
+    v.set(dmx1 - 1, 1, kz0 + 1, "minecraft:campfire")
+    v.set(dmx0 + 1, 1, kz1 - 1, "minecraft:lectern", {"minecraft:cardinal_direction": "north"})  # notice board
+    v.set(dmx0 + 2, 1, kz1 - 1, "minecraft:bookshelf")
+    spiral_stair(v, dmx0 + 2, kz0 + 3, 2, 1, DM_DECK, OAK_STAIR, post=DARKLOG, steps_per_rev=12)
+    for x in range(dmx0, dmx1 + 1):                  # the upper-floor deck (stairwell left open)
+        for z in range(kz0 + 1, kz1):
+            v.set(x, DM_DECK, z, SPRUCE if (x + z) % 5 else DARKOAK)
+    v.fill(dmx0, DM_DECK, kz0 + 1, dmx0 + 4, DM_DECK, kz0 + 5, "minecraft:air")   # stairwell opening
+    DECK_AIR = v._pid("minecraft:air")
+    for (rx0, rz0) in ((dmx0 + 1, kz0 + 1), (dmx0 + 7, kz0 + 1),
+                       (dmx0 + 1, kz0 + 11), (dmx0 + 7, kz0 + 11)):   # four bunk rooms
+        for x in range(rx0, rx0 + 5):
+            for z in range(rz0, rz0 + 6):
+                if 0 <= x < W and 0 <= z < L and v.grid[v.idx(x, DM_DECK, z)] != DECK_AIR:
+                    v.set(x, DM_DECK + 1, z, "minecraft:light_blue_carpet")    # rug
+        v.set(rx0, DM_DECK + 1, rz0 + 1, "minecraft:bed", {"direction": 1})
+        v.set(rx0, DM_DECK + 1, rz0 + 2, "minecraft:bed", {"direction": 1, "head_piece_bit": True})
+        v.set(rx0 + 4, DM_DECK + 1, rz0 + 1, "minecraft:bookshelf")
+    v.set((dmx0 + dmx1) // 2, DM_H - 1, (kz0 + kz1) // 2, LANTERN, {"hanging": True})
 
     # ---- the covered STONE TOP HALLWAY: it leaves the North Wing's NE door, runs
     #      along the very TOP of the campus (z3-5, well clear of the wooden river
@@ -1241,9 +1282,9 @@ def guild_hall():
             for zr in (zc - 1, zc + 1):
                 v.set(px, 2, zr, DARKOAK_FENCE)
                 v.set(px, 3, zr, LANTERN, {"hanging": False})
-    arch_bridge(20)                                 # beneath the covered stone hallway
-    arch_bridge(28)                                 # map's UPPER "Bridge" -> archery approach
-    arch_bridge(54)                                 # map's LOWER "Bridge" -> dueling / east path
+    arch_bridge(20)                                 # WEST plank span (under the stone hallway) -> kitchen
+    arch_bridge(36)                                 # CENTRE plank span -> dining terrace / dormitory
+    arch_bridge(54)                                 # EAST plank span -> dueling / archery east path
 
     # ================= EAST TRAINING GROUNDS (across the river) =================
     # the ARCHERY RANGE — a CIRCULAR packed-dirt range (canon design) set hard
@@ -1604,26 +1645,28 @@ def guild_hall():
     # east bank (the "bridge" marked on the ground plan) — 3-wide dark-oak deck
     # crowned over mossy-stone piers, with railings and lantern gateheads
     def pond_bridge(x0, x1, z):
+        # §9.1: a STONE BRICK arched bridge — stone-brick-stair ramps onto a raised
+        # crown deck, mossy-cobble piers in the water, low stone-wall parapets.
         mid0, mid1 = x0 + 2, x1 - 2
         for x in range(x0, x1 + 1):
             yb = 2 if mid0 <= x <= mid1 else 1               # gentle arch crown
-            if x in (x0 + 1, x1 - 1):                        # ramp up onto the crown
+            if x in (x0 + 1, x1 - 1):                        # stone ramp up onto the crown
                 wd = 0 if x == x0 + 1 else 1
                 for zz in (z - 1, z, z + 1):
-                    v.set(x, 1, zz, SPRUCE_STAIR, {"weirdo_direction": wd, "upside_down_bit": False})
+                    v.set(x, 1, zz, SBRICK_STAIR, {"weirdo_direction": wd, "upside_down_bit": False})
             else:
                 for zz in (z - 1, z, z + 1):
-                    v.set(x, yb, zz, DARKOAK)
-            v.set(x, yb + 1, z - 1, SPRUCE_FENCE)            # railings both sides
-            v.set(x, yb + 1, z + 1, SPRUCE_FENCE)
+                    v.set(x, yb, zz, DEEP_TILES if (x + zz) % 2 else STONE)
+            v.set(x, yb + 1, z - 1, "minecraft:stone_brick_wall")     # stone parapets both sides
+            v.set(x, yb + 1, z + 1, "minecraft:stone_brick_wall")
         for px in (mid0, (x0 + x1) // 2, mid1):              # mossy piers in the water
             v.set(px, 0, z, MCOBBLE)
             v.set(px, 1, z, MCOBBLE)
-        for px in (x0, x1):                                  # lantern gateheads
+        for px in (x0, x1):                                  # chiseled lantern gateheads
             for zr in (z - 1, z + 1):
-                v.set(px, 2, zr, DARKOAK_FENCE)
+                v.set(px, 2, zr, SAND_CHIS)
                 v.set(px, 3, zr, LANTERN, {"hanging": False})
-    pond_bridge(60, 67, 82)                                  # scarecrow isle -> east bank
+    pond_bridge(60, 67, 82)                                  # scarecrow isle -> east bank (stone)
 
     # ---- task 8: tidy (smooth) the river bank by the isle above the bridge and
     #      stand a TRAINING LINE of three scarecrows out along the curve ----
@@ -1778,7 +1821,7 @@ def guild_hall():
     # east training grounds (across the river): the gravel walk leaves the two
     # southern bridges and runs along the WEST side of the ranges, reaching each
     # ring at its EDGE (you step onto the dirt circle), then drops SE to the pond
-    lay_path(58, 28, 61, 33, wide=2)    # upper bridge (z28) -> Archery Range NW approach
+    lay_path(58, 36, 62, 37, wide=2)    # centre bridge (z36) -> Archery Range NW approach
     lay_path(58, 54, 74, 54, wide=2)    # south bridge -> Dueling Ring (west edge), along z54
     lay_path(64, 38, 72, 51, wide=2)    # Archery <-> Dueling (links the two grounds)
     lay_path(74, 58, 67, 80, wide=2)    # Dueling SE -> pond bridge / Demon Door (self-clips at water)
