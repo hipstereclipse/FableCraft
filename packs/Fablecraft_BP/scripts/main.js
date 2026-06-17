@@ -225,6 +225,19 @@ function initHero(p) {
 }
 
 const GUILD_TA = "fc_guild_keep";  // ticking area that force-loads the campus
+const GUILD = Object.freeze({
+  sx: 112, sz: 108,
+  wake: { x: 21, z: 42 },
+  skill: { x: 15, z: 35 },
+  cullis: { x: 15, z: 49 },
+  quest: { x: 29, z: 38 },
+  maze: { x: 46, z: 72, studyY: 12 },
+  demon: { x: 56, z: 96, approachZ: 88 },
+  archery: { x: 76, z: 39 },
+  dueling: { x: 91, z: 61 },
+  cave: { sx: 27, sz: 14, x0: 25, x1: 29, z0: 12, z1: 16 },
+  exitC: { z: 32 },
+});
 
 // Pin the whole 92x100 Guild footprint with a ticking area so every chunk is
 // force-loaded regardless of the player's render/simulation distance. The
@@ -287,45 +300,46 @@ function buildGuildWhenReady(p, dim, base, attempt) {
   world.setDynamicProperty("fc_guild_base", JSON.stringify({ x: base.x, y, z: base.z }));
   // New ground plan: you enter from the WEST onto the crimson runner before the
   // Map Room rotunda (local 26,42). Wake at (21,42), facing east to the Map.
-  world.setDynamicProperty("fc_guild_loc", JSON.stringify({ x: base.x + 21, y, z: base.z + 42 }));
+  world.setDynamicProperty("fc_guild_loc", JSON.stringify({ x: base.x + GUILD.wake.x, y, z: base.z + GUILD.wake.z }));
   // Skill / Experience shrine in the Map Room's NW nook (local 15,35)
-  world.setDynamicProperty("fc_guild_train", JSON.stringify({ x: base.x + 15, y, z: base.z + 35 }));
-  world.setDynamicProperty("fc_guild_skill", JSON.stringify({ x: base.x + 15, y, z: base.z + 35 }));
+  world.setDynamicProperty("fc_guild_train", JSON.stringify({ x: base.x + GUILD.skill.x, y, z: base.z + GUILD.skill.z }));
+  world.setDynamicProperty("fc_guild_skill", JSON.stringify({ x: base.x + GUILD.skill.x, y, z: base.z + GUILD.skill.z }));
   // the Quest lectern at the near (south) edge of the Map relief (local 26,37)
-  world.setDynamicProperty("fc_guild_quest_table", JSON.stringify({ x: base.x + 29, y: y + 1, z: base.z + 38 }));
+  world.setDynamicProperty("fc_guild_quest_table", JSON.stringify({ x: base.x + GUILD.quest.x, y: y + 1, z: base.z + GUILD.quest.z }));
   // the Guild's own Demon Door — the crag on the far south bank past the islands
-  const doorLoc = { x: base.x + 56, y: y + 1, z: base.z + 94.4 };
+  const doorLoc = { x: base.x + GUILD.demon.x, y: y + 1, z: base.z + GUILD.demon.z };
   world.setDynamicProperty("fc_guild_door", JSON.stringify(doorLoc));
   // Everything below is decoration: NPCs, the Cullis registration, loot, terrain
   // and the buried Chamber. The Guild is already PLACED above, so none of this is
   // allowed to abort the build — wrap it so a single failure can't matter.
   try {
     // the Cullis Gate beacon core in the Map Room's SW nook (local 15,49)
-    registerCullis("Heroes' Guild", { x: base.x + 15, y: y + 1, z: base.z + 49 });
+    registerCullis("Heroes' Guild", { x: base.x + GUILD.cullis.x, y: y + 1, z: base.z + GUILD.cullis.z });
     // Guildmaster greets arrivals at the Map; Maze keeps his tower study; Theresa
     // reads in the Library (north); a trader works the Store (south).
     trySpawn(dim, "fc:guildmaster", { x: base.x + 23, y: y + 1, z: base.z + 42 });
-    trySpawn(dim, "fc:maze", { x: base.x + 46, y: y + 11, z: base.z + 72 });   // tower floor 3
+    trySpawn(dim, "fc:maze", { x: base.x + GUILD.maze.x, y: y + GUILD.maze.studyY, z: base.z + GUILD.maze.z });   // tower floor 3
     trySpawn(dim, "fc:theresa", { x: base.x + 26, y: y + 1, z: base.z + 23 });
     // a Trader works the covered cart OUTSIDE the west gate (random wares + a title)
     trySpawn(dim, "fc:trader", { x: base.x + 5, y: y + 1, z: base.z + 46 });
     // apprentices at work across the grounds
     trySpawn(dim, "fc:guild_apprentice_might", { x: base.x + 12, y: y + 1, z: base.z + 42 });
-    trySpawn(dim, "fc:guild_apprentice_might", { x: base.x + 80, y: y + 1, z: base.z + 54 });
-    trySpawn(dim, "fc:guild_apprentice_skill", { x: base.x + 68, y: y + 1, z: base.z + 38 });
+    trySpawn(dim, "fc:guild_apprentice_might", { x: base.x + GUILD.dueling.x, y: y + 1, z: base.z + GUILD.dueling.z });
+    trySpawn(dim, "fc:guild_apprentice_skill", { x: base.x + GUILD.archery.x, y: y + 1, z: base.z + GUILD.archery.z });
     trySpawn(dim, "fc:guild_apprentice_skill", { x: base.x + 42, y: y + 1, z: base.z + 40 });
     trySpawn(dim, "fc:guild_apprentice_will", { x: base.x + 26, y: y + 1, z: base.z + 24 });
     trySpawn(dim, "fc:guild_apprentice_will", { x: base.x + 16, y: y + 1, z: base.z + 35 });
     // suits of armour stand guard at Maze's Tower's two ground entrances
     guardArmour(dim, { x: base.x + 41, y: y + 1, z: base.z + 72 }, { x: base.x + 40, y: y + 1, z: base.z + 72 });
     guardArmour(dim, { x: base.x + 46, y: y + 1, z: base.z + 67 }, { x: base.x + 46, y: y + 1, z: base.z + 66 });
-    ensureDemonDoor(dim, doorLoc, base.z + 86);
-    fillLootChests(dim, base.x, y, base.z, 112, 30, 108, "fc:guild_hall");
+    ensureDemonDoor(dim, doorLoc, base.z + GUILD.demon.approachZ);
+    fillLootChests(dim, base.x, y, base.z, GUILD.sx, 30, GUILD.sz, "fc:guild_hall");
     // keep the Guild-cave spiral shaft (local 27,14 +-2) hollow — never re-fill it
-    blendTerrain(dim, base.x, y, base.z, 112, 108,
-      (cx, cz) => cx >= base.x + 25 && cx <= base.x + 29 && cz >= base.z + 12 && cz <= base.z + 16);
-    skirtTerrain(dim, base.x, y, base.z, 112, 108, 28);
-    dressSurroundings(dim, base.x, y, base.z, 112, "holy");
+    blendTerrain(dim, base.x, y, base.z, GUILD.sx, GUILD.sz,
+      (cx, cz) => cx >= base.x + GUILD.cave.x0 && cx <= base.x + GUILD.cave.x1
+        && cz >= base.z + GUILD.cave.z0 && cz <= base.z + GUILD.cave.z1);
+    skirtTerrain(dim, base.x, y, base.z, GUILD.sx, GUILD.sz, 28);
+    dressSurroundings(dim, base.x, y, base.z, GUILD.sx, "holy");
     populateSurroundings(dim, base);                 // biome-matched woods around the campus
     layWoodsPath(dim, base);                          // the orange dirt trail out to the Woods
     placeGuildAnnexes(dim);
@@ -334,7 +348,7 @@ function buildGuildWhenReady(p, dim, base, attempt) {
   // wake the new Hero on the dry crimson runner, facing north to the Map Room
   system.runTimeout(() => {
     try {
-      p.teleport({ x: base.x + 21.5, y: y + 1, z: base.z + 42.5 },
+      p.teleport({ x: base.x + GUILD.wake.x + 0.5, y: y + 1, z: base.z + GUILD.wake.z + 0.5 },
         { facingLocation: { x: base.x + 26, y: y + 2, z: base.z + 42 } });
       p.sendMessage("§6⚔ You awaken in the Heroes' Guild. The §bCullis Gate§6 glows in the Map Room's south-west nook; the §aSkill Shrine§6 waits to the north-west.");
     } catch { }

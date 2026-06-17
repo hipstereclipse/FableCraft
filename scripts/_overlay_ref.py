@@ -12,6 +12,7 @@ Usage:  python scripts/_overlay_ref.py [W0 E N S] [alpha]
 import sys, os
 from PIL import Image
 import numpy as np
+from gen_structures import GUILD_LAYOUT
 
 REF = r"C:\Users\Eclipse\Downloads\Screenshot 2026-06-13 150337.png"
 TD  = "screenshots/structures/_guild_topdown.png"
@@ -19,7 +20,7 @@ GT  = "screenshots/structures/_guild_ground_top.png"
 OUT_DIR = "scripts/_align"
 
 # Reference campus rectangle (pixel edges) — tune these.
-REF_W0, REF_E, REF_N, REF_S = 185, 880, 20, 690
+REF_W0, REF_E, REF_N, REF_S = GUILD_LAYOUT["ref_rect"]
 ALPHA = 0.55
 
 args = sys.argv[1:]

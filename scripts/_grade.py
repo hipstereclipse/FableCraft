@@ -18,20 +18,32 @@ import gen_structures as GS
 
 REF = r"C:\Users\Eclipse\Downloads\Screenshot 2026-06-13 150337.png"
 OUT = "scripts/_align/GRADE.png"
-W, L = 112, 108
+W, _, L = GS.GUILD_LAYOUT["size"]
 
-REF_W0, REF_E, REF_N, REF_S = 185, 886, 42, 694
+REF_W0, REF_E, REF_N, REF_S = GS.GUILD_LAYOUT["ref_rect"]
 a = sys.argv[1:]
 if len(a) >= 4:
     REF_W0, REF_E, REF_N, REF_S = map(int, a[:4])
 
 # anchors (local x=east, z=south); colour-coded to the canon's circles
+ROT_X, ROT_Z, _ = GS.GUILD_LAYOUT["rotunda"]
+TWR_X, TWR_Z, _ = GS.GUILD_LAYOUT["maze_tower"]
+ARCH_X, ARCH_Z, _ = GS.GUILD_LAYOUT["archery"]
+DUEL_X, DUEL_Z, _ = GS.GUILD_LAYOUT["dueling"]
 ANCHORS = {
-    "SKILL(grn)": (15, 35, (80, 255, 80)), "WILL(blu)": (15, 49, (90, 160, 255)),
-    "MAP": (26, 42, (255, 230, 60)), "Library": (26, 22, (255, 255, 255)),
-    "Tower": (46, 72, (255, 255, 255)), "Archery": (68, 33, (255, 255, 255)),
-    "Dueling": (80, 54, (255, 255, 255)), "Kitchen": (76, 17, (255, 255, 255)),
-    "Demon": (56, 94, (255, 255, 255)),
+    "SKILL(grn)": (*GS.GUILD_LAYOUT["skill"], (80, 255, 80)),
+    "WILL(blu)": (*GS.GUILD_LAYOUT["cullis"], (90, 160, 255)),
+    "MAP": (ROT_X, ROT_Z, (255, 230, 60)),
+    "Library": (26, 22, (255, 255, 255)),
+    "Tower": (TWR_X, TWR_Z, (255, 255, 255)),
+    "Archery": (ARCH_X, ARCH_Z, (255, 255, 255)),
+    "Dueling": (DUEL_X, DUEL_Z, (255, 255, 255)),
+    "Bridge N": (53, GS.GUILD_LAYOUT["river_bridges"][0], (255, 180, 80)),
+    "Bridge S": (53, GS.GUILD_LAYOUT["river_bridges"][1], (255, 180, 80)),
+    "River bank": (50, 58, (80, 190, 255)),
+    "Island bridge": (*GS.GUILD_LAYOUT["pond_bridge"][1], (255, 180, 80)),
+    "Demon": (*GS.GUILD_LAYOUT["demon_door"], (255, 255, 255)),
+    "Demon path": (GS.GUILD_LAYOUT["demon_door"][0], GS.GUILD_LAYOUT["demon_door"][1] - 8, (255, 180, 80)),
 }
 PANEL = 1000
 GRID = 20

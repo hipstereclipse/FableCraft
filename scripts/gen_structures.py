@@ -294,6 +294,28 @@ OAK_STAIR = "minecraft:oak_stairs"
 SPRUCE_STAIR = "minecraft:spruce_stairs"
 DARKOAK_FENCE = "minecraft:dark_oak_fence"
 
+GUILD_LAYOUT = {
+    "size": (112, 30, 108),
+    "ref_rect": (185, 886, 20, 694),
+    "rotunda": (26, 42, 8),
+    "cullis": (15, 49),
+    "skill": (15, 35),
+    "wake": (21, 42),
+    "quest": (29, 38),
+    "maze_tower": (46, 72, 6),
+    "maze_study_y": 12,
+    "upper_gallery_y": 9,
+    "demon_door": (56, 96),
+    "river_bridges": (36, 54),
+    "archery": (76, 39, 6),
+    "dueling": (91, 61, 6),
+    "exit_c_z": 32,
+    "cave_shaft": (27, 14),
+    "cave_exclusion": (25, 29, 12, 16),
+    "islands": ((47, 79, 3), (58, 86, 4)),
+    "pond_bridge": ((61, 84), (77, 75)),
+}
+
 
 def _mat(m):
     """Allow callers to pass either a block name or a zero-arg factory that
@@ -496,7 +518,7 @@ def guild_hall():
     stands the Guild DEMON DOOR. Every room connects and the waking Hero lands
     dry on the crimson runner before the Map."""
     r = rng("struct", "guild")
-    W, H, L = 112, 30, 108        # expanded footprint (was 92x100) so the campus
+    W, H, L = GUILD_LAYOUT["size"]        # expanded footprint (was 92x100) so the campus
     v = Vox(W, H, L)              # fits to scale: room for the east grounds + forest
     #                              buffer, the tower garden and a denser complex.
     #  NW cluster (rotunda/library/Cullis/Skill/spiral/chamber/caves/gate) keeps its
@@ -506,15 +528,19 @@ def guild_hall():
     warm = lambda: guild_stone(r)
 
     # ---- feature anchors (kept in lock-step with main.js placeGuildNear) ----
-    ROT_X, ROT_Z, ROT_R = 26, 42, 8     # Map Room rotunda
-    CGX, CGZ = 15, 49                    # Cullis Gate   (SW nook)
-    SKX, SKZ = 15, 35                    # Skill shrine  (NW nook)
-    WAKE_X, WAKE_Z = 21, 42             # wake on the crimson runner, facing east
-    QUEST_X, QUEST_Z = 29, 38           # quest lectern off the central axis (clears the N doorway)
-    TWR_X, TWR_Z, TWR_R = 46, 72, 6     # Maze's Tower
-    STUDY_Y = 11                        # Maze stands on floor 3 (deck local y10, stand y11)
-    UP_Y = 9
-    DOOR_X, DOOR_Z = 56, 94             # Demon Door crag (far south)
+    ROT_X, ROT_Z, ROT_R = GUILD_LAYOUT["rotunda"]       # Map Room rotunda
+    CGX, CGZ = GUILD_LAYOUT["cullis"]                   # Cullis Gate (SW nook)
+    SKX, SKZ = GUILD_LAYOUT["skill"]                    # Skill shrine (NW nook)
+    WAKE_X, WAKE_Z = GUILD_LAYOUT["wake"]               # wake on the crimson runner, facing east
+    QUEST_X, QUEST_Z = GUILD_LAYOUT["quest"]            # quest lectern off the central axis
+    TWR_X, TWR_Z, TWR_R = GUILD_LAYOUT["maze_tower"]    # Maze's Tower
+    STUDY_Y = GUILD_LAYOUT["maze_study_y"]              # Maze stands on floor 3
+    UP_Y = GUILD_LAYOUT["upper_gallery_y"]
+    DOOR_X, DOOR_Z = GUILD_LAYOUT["demon_door"]         # Demon Door crag (far south)
+    BRIDGE_ZS = GUILD_LAYOUT["river_bridges"]
+    ARCH_X, ARCH_Z, ARCH_R = GUILD_LAYOUT["archery"]
+    DUEL_X, DUEL_Z, DUEL_R = GUILD_LAYOUT["dueling"]
+    EXIT_C_Z = GUILD_LAYOUT["exit_c_z"]
 
     # ================= GROUND: a level, SMOOTH grass lawn =================
     # Mostly clean grass with only a faint wash of moss (near-grass green) and the
@@ -523,8 +549,7 @@ def guild_hall():
     for x in range(W):
         for z in range(L):
             roll = r.random()
-            v.set(x, 0, z, "minecraft:grass_block" if roll < 0.92 else
-                  ("minecraft:moss_block" if roll < 0.985 else "minecraft:podzol"))
+            v.set(x, 0, z, "minecraft:grass_block" if roll < 0.965 else "minecraft:moss_block")
 
     # ================= THE CURVED RIVER + south pond =================
     # The river BOWS gently north-south down the tower's EAST flank with ORGANIC
@@ -535,19 +560,48 @@ def guild_hall():
     # grand stair and plank-bridge abutments still land on solid ground.
     def _wh(x, z):                                  # deterministic 0..1 hash (no rng order issues)
         return (((x * 73856093) ^ (z * 19349663)) & 0xffff) / 65535.0
+
+    def _river_center(z):
+        pts = ((4, 53.0), (24, 53.0), (42, 52.4), (58, 53.8),
+               (70, 56.0), (78, 58.0), (88, 55.0))
+        if z <= pts[0][0]:
+            return pts[0][1]
+        for (z0, x0), (z1, x1) in zip(pts, pts[1:]):
+            if z <= z1:
+                t = (z - z0) / max(1, z1 - z0)
+                return x0 + (x1 - x0) * t
+        return pts[-1][1]
+
+    def _river_half_width(z):
+        if z < 42:
+            return 2.1
+        if z < 62:
+            return 2.6
+        if z < 75:
+            return 3.4
+        return 4.2
+
     def is_water(x, z):
         dt = math.hypot(x - TWR_X, z - TWR_Z)
         if dt <= TWR_R + 0.6:
             return False                       # the tower island itself is dry
-        if 4 <= z <= 76:                       # NORTH RIVER: meandering, organic banks
-            cen = 53.2 + 1.1 * math.sin((z - 4) * 0.085)        # gentle bow
-            half = 2.4 + 0.5 * math.sin(z * 0.21)               # width breathes 4..6
-            edge = half + (0.7 if _wh(x, z) < 0.22 else 0.0)    # ragged bank nibbles
-            if abs(x - cen) <= edge and x >= 51:                # keep the west quay dry
+        for ix, iz, ir in GUILD_LAYOUT["islands"]:
+            if math.hypot((x - ix) * 1.05, z - iz) <= ir + 0.25:
+                return False
+        if 4 <= z <= 82:
+            cen = _river_center(z)
+            half = _river_half_width(z)
+            edge = half + (0.45 if _wh(x, z) < 0.18 else 0.0)
+            if abs(x - cen) <= edge and x >= 50:
                 return True
-        if 40 <= x <= 66 and TWR_Z <= z <= 92:     # south pond (islands + Demon Door)
-            rr = 15.0 + (1.4 if _wh(x, z) < 0.3 else 0.0)       # organic pond shoreline
-            if math.hypot((x - 53) * 0.9, (z - 82) * 0.82) <= rr:
+        if 36 <= x <= 80 and 70 <= z <= 100:
+            wobble = 0.8 if _wh(x, z) < 0.22 else (-0.35 if _wh(x, z) > 0.86 else 0.0)
+            tower_moat = ((x - 49) / 9.0) ** 2 + ((z - 75) / 7.2) ** 2 <= 1.0 + wobble * 0.04
+            river_mouth = ((x - 56) / 7.0) ** 2 + ((z - 76) / 6.0) ** 2 <= 1.0 + wobble * 0.04
+            island_basin = ((x - 54) / 13.5) ** 2 + ((z - 86) / 12.2) ** 2 <= 1.0 + wobble * 0.05
+            south_basin = ((x - 57) / 16.0) ** 2 + ((z - 91) / 8.8) ** 2 <= 1.0 + wobble * 0.05
+            east_channel = ((x - 66) / 10.5) ** 2 + ((z - 81) / 6.2) ** 2 <= 1.0 + wobble * 0.05
+            if tower_moat or river_mouth or island_basin or south_basin or east_channel:
                 return True
         return False
     for x in range(W):
@@ -712,9 +766,10 @@ def guild_hall():
     # runs ride on slim off-axis piers (never on the x=ROT_X doorway line), so all
     # four ground arches stay walkable: the south approach passes clean UNDER the
     # stairs. (The upper stone-arch BRIDGE to the Dining hall joins this gallery.)
-    EAST_Z, WEST_Z = ROT_Z + 5, ROT_Z + 4          # z47 (ascends east), z46 (ascends west) — clear of the wall band
-    EAST_PIERS = (ROT_X - 5, ROT_X - 1, ROT_X + 3)   # x21,25,29 — off the doorway axis
-    WEST_PIERS = (ROT_X - 2, ROT_X + 4)              # x24,30     — off the doorway axis
+    LOWER_Z, UPPER_Z = ROT_Z + 4, ROT_Z + 5
+    EAST_Z, WEST_Z = UPPER_Z, LOWER_Z
+    EAST_PIERS = (ROT_X - 6, ROT_X - 2, ROT_X + 2)
+    WEST_PIERS = (ROT_X + 6, ROT_X + 2, ROT_X - 2)
     tread_cells = set()
     for i in range(1, UP_Y + 1):
         ex = ROT_X - 6 + i                           # east flight treads x21..29 (y1..9)
@@ -741,10 +796,11 @@ def guild_hall():
             d = math.hypot(x - ROT_X, z - ROT_Z)
             if 2.6 < d <= 3.5 and v.grid[v.idx(x, UP_Y, z)] == v._pid(SPRUCE):
                 v.set(x, UP_Y + 1, z, DARKOAK_FENCE)
-    for dz in (ROT_Z - 5, ROT_Z - 3):               # a couple of beds on the north arc
-        v.set(ROT_X - 1, UP_Y + 1, dz, "minecraft:bed", {"direction": 1})
-        v.set(ROT_X, UP_Y + 1, dz, "minecraft:bed", {"direction": 1, "head_piece_bit": True})
-    v.set(ROT_X + 4, UP_Y + 1, ROT_Z - 5, "minecraft:bookshelf")
+    for dz in (ROT_Z - 5, ROT_Z - 3):               # quiet gallery seating, not dorm beds
+        v.set(ROT_X - 2, UP_Y + 1, dz, SPRUCE_STAIR, {"weirdo_direction": 1, "upside_down_bit": False})
+        v.set(ROT_X + 2, UP_Y + 1, dz, SPRUCE_STAIR, {"weirdo_direction": 0, "upside_down_bit": False})
+    for bx, bz in ((ROT_X + 4, ROT_Z - 5), (ROT_X - 4, ROT_Z - 5)):
+        v.set(bx, UP_Y + 1, bz, "minecraft:bookshelf")
     v.set(ROT_X, UP_Y - 1, ROT_Z - 4, LANTERN, {"hanging": True})   # hangs under the gallery
 
     # ===== CULLIS GATE + SKILL SHRINE — ROUNDED nooks that merge into the Map
@@ -1282,9 +1338,8 @@ def guild_hall():
             for zr in (zc - 1, zc + 1):
                 v.set(px, 2, zr, DARKOAK_FENCE)
                 v.set(px, 3, zr, LANTERN, {"hanging": False})
-    arch_bridge(20)                                 # WEST plank span (under the stone hallway) -> kitchen
-    arch_bridge(36)                                 # CENTRE plank span -> dining terrace / dormitory
-    arch_bridge(54)                                 # EAST plank span -> dueling / archery east path
+    for bridge_z in BRIDGE_ZS:
+        arch_bridge(bridge_z)
 
     # ================= EAST TRAINING GROUNDS (across the river) =================
     # the ARCHERY RANGE — a CIRCULAR packed-dirt range (canon design) set hard
@@ -1292,7 +1347,7 @@ def guild_hall():
     # joining the two; the red bullseye stands on the NORTH backstop and five
     # straw dummies ring the rim. It sits EAST of the riverside walk and the link
     # path skirts its edge, so it never blocks the through-route.
-    acx, acz, arr = 68, 37, 6
+    acx, acz, arr = ARCH_X, ARCH_Z, ARCH_R
     for x in range(acx - arr, acx + arr + 1):
         for z in range(acz - arr, acz + arr + 1):
             if math.hypot(x - acx, z - acz) <= arr + 0.4:
@@ -1301,13 +1356,14 @@ def guild_hall():
         for z in range(kz1 + 1, acz - arr + 1):     # z29..31
             if v.grid[v.idx(x, 1, z)] == v._pid("minecraft:air"):
                 v.set(x, 0, z, "minecraft:coarse_dirt" if (x + z) % 3 else GRAVEL)
-    # bullseye target on the NORTH rim, flanked by straw butts (kitchen = backstop)
-    for x in range(acx - 2, acx + 3):
-        v.set(x, 1, acz - arr, "minecraft:hay_block")
-    v.set(acx, 1, acz - arr, "minecraft:white_wool")
-    v.set(acx, 2, acz - arr, "minecraft:target")     # bullseye, facing the firing line
+    # staged target lane from the building wall down to the circular range
+    for tx, tz, width in ((68, kz1 + 3, 1), (74, kz1 + 5, 1), (77, kz1 + 8, 2), (73, acz - arr + 1, 1)):
+        for dx in range(-width, width + 1):
+            v.set(tx + dx, 1, tz, "minecraft:hay_block")
+        v.set(tx, 2, tz, "minecraft:target")
+        v.set(tx, 0, tz + 1, "minecraft:coarse_dirt")
     # five straw dummies spaced round the perimeter (facing the centre)
-    for ang in (215, 255, 295, 335, 25):
+    for ang in (155, 210, 270, 325, 25):
         dmx = acx + round(math.cos(math.radians(ang)) * (arr - 1))
         dmz = acz + round(math.sin(math.radians(ang)) * (arr - 1))
         face = "north" if dmz > acz else "south"
@@ -1322,15 +1378,14 @@ def guild_hall():
             v.set(fx, 2, fz, "minecraft:torch")
     # the DUELING RING — a dirt sparring circle ringed by a LOW stone wall topped
     # with spruce fence (canon), three straw dummies at its heart
-    drx, drz, drr = 80, 54, 6
+    drx, drz, drr = DUEL_X, DUEL_Z, DUEL_R
     for x in range(drx - drr, drx + drr + 1):
         for z in range(drz - drr, drz + drr + 1):
             d = math.hypot(x - drx, z - drz)
             if d <= drr + 0.4:
                 v.set(x, 0, z, "minecraft:coarse_dirt" if r.random() < 0.65 else GRAVEL)
-            if drr - 0.6 < d <= drr + 0.5:           # low stone-wall kerb + spruce fence
-                v.set(x, 1, z, "minecraft:stone_brick_wall")
-                v.set(x, 2, z, SPRUCE_FENCE)
+            if drr - 0.6 < d <= drr + 0.5:
+                v.set(x, 1, z, "minecraft:mossy_stone_brick_slab" if (x + z) % 5 == 0 else "minecraft:stone_brick_slab")
     for ez in range(drz - 2, drz + 3, 2):            # a west gate onto the path
         v.fill(drx - drr, 1, ez, drx - drr, 2, ez, "minecraft:air")
     for dmx, dmz in ((drx - 2, drz - 2), (drx + 2, drz + 2), (drx + 2, drz - 2)):
@@ -1346,33 +1401,56 @@ def guild_hall():
     # study. Two ground entrances (WEST to the cloister, NORTH to the graves
     # garden) are guarded by suits of armour (spawned at runtime); floor 2 meets
     # the cloister's upper deck so the second storeys all link.
-    F2, F3, TOP = 5, 10, 14                          # floor-2 / floor-3 / parapet base
+    F2, F3, TOP = 6, 11, 16                          # floor-2 / floor-3 / parapet base
     SPR_R = 4                                         # spiral radius (winds inside the wall)
+    def tower_stone():
+        roll = r.random()
+        if roll < 0.68:
+            return SAND_SMOOTH
+        if roll < 0.90:
+            return SAND_CUT
+        return STONE
     for x in range(TWR_X - TWR_R - 1, TWR_X + TWR_R + 2):
         for z in range(TWR_Z - TWR_R - 1, TWR_Z + TWR_R + 2):
             if 0 <= x < W and 0 <= z < L and math.hypot(x - TWR_X, z - TWR_Z) <= TWR_R + 0.4:
-                v.set(x, 0, z, MCOBBLE if r.random() < 0.4 else COBBLE)   # island shore
+                v.set(x, 0, z, "minecraft:grass_block" if math.hypot(x - TWR_X, z - TWR_Z) > TWR_R - 0.3 else DEEP_TILES)
     cylinder(v, TWR_X, TWR_Z, TWR_R, 0, 0, DEEP_TILES, fill_mat=DEEP_TILES)
     # outer wall with two GROUND doorways: 180=west (cloister), 270=north (garden)
-    ring_wall(v, TWR_X, TWR_Z, TWR_R, 1, TOP, warm, gaps=[(180, 16), (270, 16)])
-    # the wall-hugging spiral from the ground all the way to the top study floor
-    sp = spiral_stair(v, TWR_X, TWR_Z, SPR_R, 1, F3, SBRICK_STAIR,
-                      post="minecraft:chiseled_stone_bricks", steps_per_rev=14)
-    for yy in range(2, F3 + 3, 3):                   # glowing central newel
-        v.set(TWR_X, yy, TWR_Z, "minecraft:sea_lantern")
-    for (px, py, pz) in sp:                          # a fence handrail on the open side
-        ox = 1 if px > TWR_X else (-1 if px < TWR_X else 0)
-        oz = 1 if pz > TWR_Z else (-1 if pz < TWR_Z else 0)
-        rx, rz = px - ox, pz - oz
-        if (ox or oz) and math.hypot(rx - TWR_X, rz - TWR_Z) < SPR_R - 1.2:
-            v.set(rx, py, rz, DARKOAK_FENCE)
-    # floor decks at F2 and F3, each leaving the spiral's footprint open
+    ring_wall(v, TWR_X, TWR_Z, TWR_R, 1, TOP, tower_stone, gaps=[(180, 16), (270, 16)])
+
+    def tower_spiral_points(y0, y1):
+        pts = []
+        prev = None
+        for i, y in enumerate(range(y0, y1 + 1)):
+            ang = math.radians(25 + i * (360 / 16))
+            outer = (TWR_X + round(math.cos(ang) * SPR_R),
+                     TWR_Z + round(math.sin(ang) * SPR_R))
+            inner = (TWR_X + round(math.cos(ang) * (SPR_R - 1)),
+                     TWR_Z + round(math.sin(ang) * (SPR_R - 1)))
+            dx, dz = (outer[0] - prev[0], outer[1] - prev[1]) if prev else (-1, 0)
+            st = {"weirdo_direction": _stair_dir(dx or -1, dz), "upside_down_bit": False}
+            pts.append((outer[0], y, outer[1], st))
+            if inner != outer:
+                pts.append((inner[0], y, inner[1], st))
+            prev = outer
+        return pts
+
+    stair_pts = tower_spiral_points(1, F3)
+    stair_xy = {(x, z) for x, _, z, _ in stair_pts}
+    # floor decks at F2 and F3, each leaving a clean stairwell and landing edge
     for deck in (F2, F3):
-        near = {(t[0], t[2]) for t in sp if abs(t[1] - deck) <= 1}
+        near = {(x, z) for x, y, z, _ in stair_pts if abs(y - deck) <= 1}
         for x in range(TWR_X - TWR_R, TWR_X + TWR_R + 1):
             for z in range(TWR_Z - TWR_R, TWR_Z + TWR_R + 1):
                 if math.hypot(x - TWR_X, z - TWR_Z) < TWR_R - 0.4 and (x, z) not in near:
-                    v.set(x, deck, z, SPRUCE)
+                    v.set(x, deck, z, DARKOAK if deck == F3 else SPRUCE)
+        # positive landings beside the opening so the stair path resolves onto each floor
+        for x, y, z, _ in stair_pts:
+            if y == deck:
+                for dx, dz in ((1, 0), (0, 1), (-1, 0), (0, -1)):
+                    lx, lz = x + dx, z + dz
+                    if math.hypot(lx - TWR_X, lz - TWR_Z) < TWR_R - 0.8 and (lx, lz) not in near:
+                        v.set(lx, deck, lz, DARKOAK if deck == F3 else SPRUCE)
     # per-floor: arched windows in the wall + a ring of bookshelves just inside it
     ART = ["minecraft:blue_glazed_terracotta", "minecraft:cyan_glazed_terracotta",
            "minecraft:purple_glazed_terracotta"]
@@ -1390,26 +1468,66 @@ def guild_hall():
                 v.set(wx_, base_y + 2, wz_, GLASS)
                 v.set(wx_, base_y + 3, wz_, CHISELED)
             else:                                   # book-lined wall (with candles/art)
-                if (ix, iz) != (TWR_X, TWR_Z):
+                if (ix, iz) != (TWR_X, TWR_Z) and (ix, iz) not in stair_xy:
                     v.set(ix, base_y, iz, "minecraft:bookshelf")
                     v.set(ix, base_y + 1, iz, "minecraft:bookshelf" if ang % 90 else r.choice(ART))
                     v.set(ix, base_y + 2, iz, "minecraft:white_candle")
+    # carve clear entrance corridors AFTER shelves/windows so neither doorway is boxed in
+    v.fill(TWR_X - TWR_R, 1, TWR_Z - 1, TWR_X - 2, 4, TWR_Z + 1, "minecraft:air")
+    v.fill(TWR_X - 1, 1, TWR_Z - TWR_R, TWR_X + 1, 4, TWR_Z - 2, "minecraft:air")
     # ---- FLOOR 1 (entry hall): armour-guarded doorways + a reading nook ----
-    v.set(TWR_X - 3, 1, TWR_Z + 2, "minecraft:lectern", {"minecraft:cardinal_direction": "east"})
-    v.set(TWR_X + 3, 1, TWR_Z + 2, "minecraft:chest", {"minecraft:cardinal_direction": "west"})
-    for (ax, az) in ((TWR_X - TWR_R + 1, TWR_Z), (TWR_X, TWR_Z - TWR_R + 1)):   # armour plinths
+    v.set(TWR_X + 2, 1, TWR_Z + 2, "minecraft:lectern", {"minecraft:cardinal_direction": "west"})
+    v.set(TWR_X + 3, 1, TWR_Z - 2, "minecraft:chest", {"minecraft:cardinal_direction": "west"})
+    for (ax, az) in ((TWR_X - 3, TWR_Z + 2), (TWR_X + 2, TWR_Z - 3)):   # armour plinths beside, not in, the entries
         v.set(ax, 1, az, "minecraft:chiseled_stone_bricks")
     # ---- FLOOR 2 (scriptorium): lecterns, a desk, candles ----
-    v.set(TWR_X - 2, F2 + 1, TWR_Z, "minecraft:lectern", {"minecraft:cardinal_direction": "east"})
-    v.set(TWR_X + 2, F2 + 1, TWR_Z, "minecraft:lectern", {"minecraft:cardinal_direction": "west"})
+    v.set(TWR_X - 2, F2 + 1, TWR_Z + 1, "minecraft:lectern", {"minecraft:cardinal_direction": "east"})
+    v.set(TWR_X + 2, F2 + 1, TWR_Z - 1, "minecraft:lectern", {"minecraft:cardinal_direction": "west"})
     v.set(TWR_X, F2 + 1, TWR_Z + 2, "minecraft:cartography_table")
     v.set(TWR_X - 1, F2 + 1, TWR_Z + 2, "minecraft:white_candle")
     # ---- FLOOR 3 (Maze's study): enchanting, bed, lectern, hanging light ----
-    v.set(TWR_X - 2, F3 + 1, TWR_Z, "minecraft:lectern", {"minecraft:cardinal_direction": "east"})
+    v.set(TWR_X - 2, F3 + 1, TWR_Z + 1, "minecraft:lectern", {"minecraft:cardinal_direction": "east"})
     v.set(TWR_X + 2, F3 + 1, TWR_Z, "minecraft:enchanting_table")
-    v.set(TWR_X - 2, F3 + 1, TWR_Z - 2, "minecraft:purple_bed", {"direction": 0})
-    v.set(TWR_X - 2, F3 + 1, TWR_Z - 1, "minecraft:purple_bed", {"direction": 0, "head_piece_bit": True})
-    v.set(TWR_X, F3 + 3, TWR_Z, "minecraft:sea_lantern")
+    v.set(TWR_X - 1, F3 + 1, TWR_Z - 3, "minecraft:purple_bed", {"direction": 1})
+    v.set(TWR_X, F3 + 1, TWR_Z - 3, "minecraft:purple_bed", {"direction": 1, "head_piece_bit": True})
+    v.set(TWR_X, F3 + 3, TWR_Z, "minecraft:amethyst_block")
+    v.set(TWR_X, F3 + 4, TWR_Z, "minecraft:lantern", {"hanging": True})
+    # place the stair last and clear its headroom so it cannot be overwritten by floors or decor
+    for x, y, z, st in stair_pts:
+        v.set(x, y, z, SBRICK_STAIR, st)
+        for yy in range(y + 1, min(TOP, y + 4)):
+            v.set(x, yy, z, "minecraft:air")
+    for yy in range(1, F3 + 3):                      # dark newel with arcane lamps
+        v.set(TWR_X, yy, TWR_Z, "minecraft:chiseled_deepslate" if yy % 3 else "minecraft:amethyst_block")
+    for x, y, z, _ in stair_pts:                     # inner rail; kept off entrance corridors
+        ox = 1 if x > TWR_X else (-1 if x < TWR_X else 0)
+        oz = 1 if z > TWR_Z else (-1 if z < TWR_Z else 0)
+        rx, rz = x - ox, z - oz
+        if (rx, rz) not in ((TWR_X, TWR_Z), (TWR_X - 1, TWR_Z), (TWR_X, TWR_Z - 1)):
+            v.set(rx, y, rz, DARKOAK_FENCE)
+    # richer wizard interior: carpets, apparatus and shelves kept off the spiral path.
+    tower_clear = {(x, z) for x, _, z, _ in stair_pts}
+    tower_clear |= {(x, z) for x in range(TWR_X - TWR_R, TWR_X - 1) for z in range(TWR_Z - 1, TWR_Z + 2)}
+    tower_clear |= {(x, z) for x in range(TWR_X - 1, TWR_X + 2) for z in range(TWR_Z - TWR_R, TWR_Z - 1)}
+    for fx, fz in ((TWR_X + 1, TWR_Z + 1), (TWR_X - 1, TWR_Z + 1),
+                   (TWR_X + 1, TWR_Z - 1), (TWR_X - 1, TWR_Z - 1)):
+        if (fx, fz) not in tower_clear:
+            v.set(fx, 1, fz, "minecraft:purple_carpet")
+            v.set(fx, F2 + 1, fz, "minecraft:blue_carpet")
+            v.set(fx, F3 + 1, fz, "minecraft:purple_carpet")
+    for bx, bz in ((TWR_X + 3, TWR_Z + 1), (TWR_X + 3, TWR_Z - 1),
+                   (TWR_X - 1, TWR_Z + 3), (TWR_X + 1, TWR_Z + 3)):
+        if (bx, bz) not in tower_clear:
+            v.set(bx, F2 + 1, bz, "minecraft:bookshelf")
+            v.set(bx, F2 + 2, bz, "minecraft:bookshelf")
+    for obj in ((TWR_X - 3, F2 + 1, TWR_Z - 1, "minecraft:brewing_stand"),
+                (TWR_X - 3, F2 + 1, TWR_Z + 1, "minecraft:cauldron"),
+                (TWR_X + 1, F3 + 1, TWR_Z + 2, "minecraft:amethyst_block"),
+                (TWR_X + 3, F3 + 1, TWR_Z + 1, "minecraft:bookshelf"),
+                (TWR_X + 3, F3 + 2, TWR_Z + 1, "minecraft:bookshelf")):
+        ox, oy, oz, block = obj
+        if (ox, oz) not in tower_clear:
+            v.set(ox, oy, oz, block)
     # link FLOOR 2 to the cloister's upper deck: a doorway in the WEST wall at F2
     v.fill(TWR_X - TWR_R, F2 + 1, TWR_Z - 1, TWR_X - TWR_R, F2 + 3, TWR_Z + 1, "minecraft:air")
     for x in range(TWR_X - TWR_R - 1, TWR_X - TWR_R + 1):    # a short bridge to the cloister
@@ -1417,28 +1535,92 @@ def guild_hall():
         v.set(x, F2, TWR_Z - 1, SPRUCE)
         v.set(x, F2, TWR_Z + 1, SPRUCE)
 
-    # ---- exterior: stepped plinth, buttress pilasters, parapet, circular spire --
-    for ang in range(0, 360, 20):                    # stepped plinth (tiered base)
+    # ---- exterior: darker base, vertical buttresses, arched bays, tall spire --
+    for ang in range(0, 360, 15):                    # dark stone skirt against the moat
         for rr, yy in ((TWR_R + 2, 1), (TWR_R + 1, 2)):
             bx = TWR_X + round(math.cos(math.radians(ang)) * rr)
             bz = TWR_Z + round(math.sin(math.radians(ang)) * rr)
             if 0 <= bx < W and 0 <= bz < L and not is_water(bx, bz):
-                v.set(bx, yy, bz, SAND_CUT if (bx + bz) % 2 else SAND)
-    for ang in range(0, 360, 60):                    # exterior buttress pilasters
+                v.set(bx, yy, bz, DEEP_TILES if yy == 1 else CHISELED)
+    for ang in range(0, 360, 45):                    # eight slim buttress ribs
         bx = TWR_X + round(math.cos(math.radians(ang)) * (TWR_R + 1))
         bz = TWR_Z + round(math.sin(math.radians(ang)) * (TWR_R + 1))
         if 0 <= bx < W and 0 <= bz < L and not is_water(bx, bz):
-            for y in range(1, TOP):
-                v.set(bx, y, bz, CHISELED if y % 5 == 0 else SAND_CUT)
-            v.set(bx, TOP, bz, SAND_CHIS)
-    ring_wall(v, TWR_X, TWR_Z, TWR_R, TOP, TOP + 1, warm)        # parapet ring
-    for ang in range(0, 360, 30):                    # crenellations
+            for y in range(1, TOP + 1):
+                v.set(bx, y, bz, CHISELED if y in (1, 5, 10, 15) else SAND_CUT)
+            v.set(bx, TOP + 1, bz, SAND_CHIS)
+    for base_y in (2, F2 + 2, F3 + 2):               # framed gothic window bays
+        for ang in (0, 45, 90, 135, 315):
+            if ang in (135, 180, 225, 270):
+                continue
+            rad = math.radians(ang)
+            wx_ = TWR_X + round(math.cos(rad) * TWR_R)
+            wz_ = TWR_Z + round(math.sin(rad) * TWR_R)
+            lx = TWR_X + round(math.cos(rad + 0.22) * TWR_R)
+            lz = TWR_Z + round(math.sin(rad + 0.22) * TWR_R)
+            rx = TWR_X + round(math.cos(rad - 0.22) * TWR_R)
+            rz = TWR_Z + round(math.sin(rad - 0.22) * TWR_R)
+            for yy in range(base_y, base_y + 3):
+                v.set(lx, yy, lz, CHISELED)
+                v.set(rx, yy, rz, CHISELED)
+            v.set(wx_, base_y, wz_, GLASS)
+            v.set(wx_, base_y + 1, wz_, GLASS)
+            v.set(wx_, base_y + 2, wz_, "minecraft:amethyst_block" if base_y > 8 else CHISELED)
+    ring_wall(v, TWR_X, TWR_Z, TWR_R, TOP, TOP + 1, tower_stone)        # parapet ring
+    def lancet_window(ang):
+        rad = math.radians(ang)
+        cxw = TWR_X + round(math.cos(rad) * TWR_R)
+        czw = TWR_Z + round(math.sin(rad) * TWR_R)
+        tx = round(-math.sin(rad))
+        tz = round(math.cos(rad))
+        base_y = F3 + 2
+        bottom = ((cxw - tx, czw - tz), (cxw, czw), (cxw + tx, czw + tz))
+        mid = ((cxw - tx, czw - tz), (cxw, czw), (cxw + tx, czw + tz))
+        for x, z in bottom:
+            v.set(x, base_y, z, GLASS)
+            v.set(x, base_y + 1, z, GLASS)
+        for x, z in mid:
+            v.set(x, base_y - 1, z, CHISELED)
+        v.set(cxw, base_y + 2, czw, GLASS)
+        v.set(cxw, base_y + 3, czw, "minecraft:amethyst_block")
+        for x, z in ((cxw - 2 * tx, czw - 2 * tz), (cxw + 2 * tx, czw + 2 * tz)):
+            for yy in range(base_y - 1, base_y + 3):
+                v.set(x, yy, z, CHISELED)
+        v.set(cxw, base_y + 4, czw, SAND_CHIS)
+
+    for ang in range(0, 360, 45):
+        lancet_window(ang)
+    for ang in range(0, 360, 30):                    # crenellations with warm lamps
         px = TWR_X + round(math.cos(math.radians(ang)) * TWR_R)
         pz = TWR_Z + round(math.sin(math.radians(ang)) * TWR_R)
         v.set(px, TOP + 1, pz, SAND_WALL)
         if ang % 60 == 0:
-            v.set(px, TOP + 2, pz, "minecraft:lantern", {"hanging": False})
-    cone_roof(v, TWR_X, TWR_Z, TWR_R - 1, TOP + 2, SLATE, tip="minecraft:end_rod")
+            v.set(px, TOP + 2, pz, LANTERN, {"hanging": False})
+
+    def tower_spire(cx, cz, y0):
+        courses = [(5, 0), (5, 1), (4, 2), (4, 3), (3, 4), (3, 5),
+                   (2, 6), (2, 7), (1, 8), (1, 9), (0, 10)]
+        for rr, dy in courses:
+            yy = y0 + dy
+            for x in range(cx - rr, cx + rr + 1):
+                for z in range(cz - rr, cz + rr + 1):
+                    d = math.hypot(x - cx, z - cz)
+                    if d <= rr + 0.4 and (rr <= 1 or d >= rr - 1.2):
+                        v.set(x, yy, z, SLATE if dy % 2 == 0 else DEEP_TILES)
+        v.set(cx, y0 + 11, cz, "minecraft:amethyst_block")
+        v.set(cx, y0 + 12, cz, "minecraft:end_rod")
+
+    # broad eave under the pointed roof so the spire reads medieval instead of flat.
+    for x in range(TWR_X - TWR_R, TWR_X + TWR_R + 1):
+        for z in range(TWR_Z - TWR_R, TWR_Z + TWR_R + 1):
+            if TWR_R - 0.8 <= math.hypot(x - TWR_X, z - TWR_Z) <= TWR_R + 0.6:
+                v.set(x, TOP + 2, z, DEEP_TILES)
+    tower_spire(TWR_X, TWR_Z, TOP + 3)
+    for ang in (45, 135, 225, 315):                  # purple mage banners on diagonal faces
+        bx = TWR_X + round(math.cos(math.radians(ang)) * (TWR_R + 1))
+        bz = TWR_Z + round(math.sin(math.radians(ang)) * (TWR_R + 1))
+        for yy in range(7, 11):
+            v.set(bx, yy, bz, "minecraft:purple_wool" if yy < 10 else "minecraft:purple_carpet")
 
     # ---- task 7: a small ARCHWAY ENTRANCE on the tower's NORTH side with monuments
     #      and flower gardens on the LEFT (toward the Four Graves to the NW) ----
@@ -1623,7 +1805,7 @@ def guild_hall():
     # isle — "small island with scarecrows". The small isle laps the tower's dry
     # south shore; the scarecrow isle is reached by the arched bridge from the
     # east bank and steps on to the Demon Door's stones. (No log walkways.)
-    for (isx, isz, rad) in ((47, 79, 3), (58, 84, 4)):     # organic, irregular isles
+    for (isx, isz, rad) in GUILD_LAYOUT["islands"]:     # organic, irregular isles
         for x in range(isx - rad - 1, isx + rad + 2):
             for z in range(isz - rad - 1, isz + rad + 2):
                 # ragged shoreline: the radius wobbles per-cell so the isle isn't a disc
@@ -1666,7 +1848,39 @@ def guild_hall():
             for zr in (z - 1, z + 1):
                 v.set(px, 2, zr, SAND_CHIS)
                 v.set(px, 3, zr, LANTERN, {"hanging": False})
-    pond_bridge(60, 67, 82)                                  # scarecrow isle -> east bank (stone)
+    def pond_bridge_diag(start, end):
+        x0, z0 = start
+        x1, z1 = end
+        steps = max(abs(x1 - x0), abs(z1 - z0), 1)
+        centers = []
+        for i in range(steps + 1):
+            cx = round(x0 + (x1 - x0) * i / steps)
+            cz = round(z0 + (z1 - z0) * i / steps)
+            if not centers or centers[-1] != (cx, cz):
+                centers.append((cx, cz))
+        for i, (cx, cz) in enumerate(centers):
+            edge = min(i, len(centers) - 1 - i)
+            if edge <= 0:
+                deck_y, deck_mat, rail_y = 1, "minecraft:spruce_slab", 2
+            elif edge <= 2:
+                deck_y, deck_mat, rail_y = 1, DARKOAK, 2
+            else:
+                deck_y, deck_mat, rail_y = 2, "minecraft:spruce_slab", 3
+            for dx, dz in ((0, 0), (0, 1), (-1, 0), (-1, 1)):
+                v.set(cx + dx, deck_y, cz + dz, deck_mat)
+            if 2 < i < len(centers) - 3 and i % 5 == 0:
+                for px, pz in ((cx, cz), (cx - 1, cz + 1)):
+                    if is_water(px, pz):
+                        v.set(px, 1, pz, MCOBBLE)
+            for rx, rz in ((cx - 1, cz + 2), (cx + 1, cz - 1)):
+                if 0 <= rx < W and 0 <= rz < L:
+                    v.set(rx, rail_y, rz, SPRUCE_FENCE)
+            if i in (0, len(centers) - 1):
+                for dx, dz in ((0, 1), (-1, 0)):
+                    v.set(cx + dx, rail_y, cz + dz, DARKOAK_FENCE)
+                    v.set(cx + dx, rail_y + 1, cz + dz, LANTERN, {"hanging": False})
+
+    pond_bridge_diag(*GUILD_LAYOUT["pond_bridge"])
 
     # ---- task 8: tidy (smooth) the river bank by the isle above the bridge and
     #      stand a TRAINING LINE of three scarecrows out along the curve ----
@@ -1698,44 +1912,57 @@ def guild_hall():
     # An Old-Kingdom temple front sculpted into a glaring FACE — glowing eyes, a
     # stone brow and a deep mouth-archway — reached by stepping stones laid across
     # the shallow pond (an ESO-style sculpted gate).
-    for x in range(DOOR_X - 7, DOOR_X + 8):
-        for z in range(DOOR_Z - 1, L - 1):
+    for x in range(DOOR_X - 4, DOOR_X + 5):
+        for z in range(DOOR_Z - 1, min(L - 1, DOOR_Z + 2)):
             if 0 <= x < W:
                 v.set(x, 0, z, MCOBBLE if r.random() < 0.45 else COBBLE)
-    for z in range(DOOR_Z, L - 1):                    # the facade/crag rises behind
-        t = (z - DOOR_Z) / max(1, (L - 2 - DOOR_Z))
-        for x in range(DOOR_X - 7, DOOR_X + 8):
+    for z in range(DOOR_Z, min(L - 1, DOOR_Z + 2)):   # shallow facade/crag behind the door
+        t = (z - DOOR_Z) / 2
+        for x in range(DOOR_X - 3, DOOR_X + 4):
             if not (0 <= x < W):
                 continue
-            h = int(4 + t * 8) - max(0, abs(x - DOOR_X) - 4)
+            h = int(4 + t) - max(0, abs(x - DOOR_X) - 2)
             for y in range(1, max(1, h)):
                 roll = r.random()
                 v.set(x, y, z, STONE if roll < 0.4 else
                       (MOSSY if roll < 0.62 else (CRACK if roll < 0.8 else COBBLE)))
+    for z in range(DOOR_Z + 1, min(L - 2, DOOR_Z + 8)):   # rocky cliff face behind the shore door
+        t = (z - DOOR_Z) / 7
+        for x in range(DOOR_X - 6, DOOR_X + 7):
+            edge = max(0, abs(x - DOOR_X) - 3)
+            h = max(1, int(3 + t * 5) - edge + (1 if _wh(x, z) < 0.28 else 0))
+            if h <= 1:
+                continue
+            v.set(x, 0, z, MCOBBLE if _wh(x, z) < 0.35 else COBBLE)
+            for y in range(1, h + 1):
+                roll = _wh(x + y * 7, z)
+                v.set(x, y, z, MOSSY if roll < 0.22 else (CRACK if roll < 0.44 else COBBLE))
+            if h >= 5 and _wh(x, z + h) < 0.18:
+                v.set(x, h + 1, z, "minecraft:vine", {"vine_direction_bits": 2})
     for side in (-1, 1):                              # tiered buttresses (temple front)
-        for tier, dx in enumerate((6, 5, 4)):
-            for y in range(1, 5 + tier * 2):
+        for tier, dx in enumerate((4, 3)):
+            for y in range(1, 5 + tier):
                 v.set(DOOR_X + side * dx, y, DOOR_Z, CHISELED if y % 3 == 0 else STONE)
-            v.set(DOOR_X + side * dx, 5 + tier * 2, DOOR_Z, "minecraft:chiseled_deepslate")
-    v.fill(DOOR_X - 1, 1, DOOR_Z, DOOR_X + 1, 5, DOOR_Z, "minecraft:air")   # the mouth
-    for y in range(1, 6):
+            v.set(DOOR_X + side * dx, 5 + tier, DOOR_Z, "minecraft:chiseled_deepslate")
+    v.fill(DOOR_X - 1, 1, DOOR_Z, DOOR_X + 1, 4, DOOR_Z, "minecraft:air")   # the mouth
+    for y in range(1, 5):
         v.set(DOOR_X - 2, y, DOOR_Z, CHISELED)
         v.set(DOOR_X + 2, y, DOOR_Z, CHISELED)
     for x in range(DOOR_X - 2, DOOR_X + 3):
-        v.set(x, 6, DOOR_Z, CHISELED)
-    for yy in (7, 8, 9):                              # carved brow / nose ridge
+        v.set(x, 5, DOOR_Z, CHISELED)
+    for yy in (6, 7):                                 # carved brow / nose ridge
         v.set(DOOR_X, yy, DOOR_Z, "minecraft:chiseled_deepslate")
     for ex in (DOOR_X - 3, DOOR_X + 3):              # the glaring eyes
-        v.set(ex, 7, DOOR_Z, "minecraft:iron_bars")
-        v.set(ex, 7, DOOR_Z + 1, "minecraft:glowstone")
-        v.set(ex, 8, DOOR_Z, CHISELED)
+        v.set(ex, 6, DOOR_Z, "minecraft:iron_bars")
+        v.set(ex, 6, DOOR_Z + 1, "minecraft:glowstone")
+        v.set(ex, 7, DOOR_Z, CHISELED)
     v.set(DOOR_X - 1, 3, DOOR_Z, SOUL_LANTERN)
     v.set(DOOR_X + 1, 3, DOOR_Z, SOUL_LANTERN)
-    for bxp in (DOOR_X - 5, DOOR_X + 5):             # flanking braziers
+    for bxp in (DOOR_X - 4, DOOR_X + 4):             # flanking braziers
         v.set(bxp, 1, DOOR_Z - 1, SAND_CHIS)
         v.set(bxp, 2, DOOR_Z - 1, "minecraft:soul_campfire")
     # stepping stones across the shallow pond up to the threshold
-    for i, zz in enumerate(range(DOOR_Z - 9, DOOR_Z)):
+    for i, zz in enumerate(range(DOOR_Z - 11, DOOR_Z)):
         sxp = DOOR_X + (i % 3 - 1)
         if 0 <= sxp < W and 0 <= zz < L:
             v.set(sxp, 0, zz, CHISELED if i % 2 else COBBLE)
@@ -1798,40 +2025,54 @@ def guild_hall():
                             and v.grid[v.idx(ax, 1, az)] == AIR:   # open lawn only (no paving under flowers/decor)
                         if mat == "gravel":          # SMOOTH grey gravelled lane (full
                             # flat blocks only — no sunk path tiles, so it reads even)
-                            v.set(ax, 0, az, GRAVEL if r.random() < 0.86 else MCOBBLE)
+                            v.set(ax, 0, az, COBBLE if r.random() < 0.84 else MCOBBLE)
                         else:                        # a worn earthen track (the east branch)
                             v.set(ax, 0, az, "minecraft:coarse_dirt" if r.random() < 0.5 else PATH)
     # ===== the campus GRAVEL circuit (the plan's PURPLE paths): one connected,
     #       SMOOTH gravelled walk that reaches every feature. lay_path is clipped
     #       to open lawn, so it never paves a floor, wall, garden bed or the water
     #       — the grounds stay continuous with no pocked holes. =====
-    # west: the gate / Cullis lawn, wrapping the rotunda's open south to the Store
-    lay_path(12, 47, 20, 50, wide=2)    # gate & Cullis lawn -> south of the Map Room
-    lay_path(20, 50, 27, 52, wide=2)    # -> Store doorway approach
-    lay_path(34, 44, 49, 44, wide=2)    # Map Room east lawn -> river west bank
-    lay_path(34, 30, 34, 17)            # main complex -> covered stone hallway (north)
-    # both river banks knit every plank bridge + the terrace into the circuit
-    lay_path(50, 17, 50, 70)            # WEST-bank riverside walk (self-clips at the pond)
-    lay_path(56, 17, 56, 80)            # EAST-bank riverside walk (self-clips at the pond)
-    # south: Store -> Four-Graves garden borders -> the tower's north archway
-    lay_path(24, 57, 27, 61)            # Store south door -> graves garden NW corner
-    lay_path(27, 61, 27, 70)            # graves garden west border (hugs the new arcade)
-    lay_path(27, 70, 45, 70, wide=2)    # graves garden south -> tower north arch
-    lay_path(40, 70, 44, 67)            # -> tower north archway threshold
-    # east training grounds (across the river): the gravel walk leaves the two
-    # southern bridges and runs along the WEST side of the ranges, reaching each
-    # ring at its EDGE (you step onto the dirt circle), then drops SE to the pond
-    lay_path(58, 36, 62, 37, wide=2)    # centre bridge (z36) -> Archery Range NW approach
-    lay_path(58, 54, 74, 54, wide=2)    # south bridge -> Dueling Ring (west edge), along z54
-    lay_path(64, 38, 72, 51, wide=2)    # Archery <-> Dueling (links the two grounds)
-    lay_path(74, 58, 67, 80, wide=2)    # Dueling SE -> pond bridge / Demon Door (self-clips at water)
+    # west: the gate / Cullis lawn and Boasting Platform match the left purple mark
+    lay_path(0, 36, 10, 36, wide=2)
+    lay_path(4, 29, 4, 39, wide=1)
+    lay_path(12, 47, 20, 50, wide=1)
+    lay_path(20, 50, 27, 52, wide=1)
+    lay_path(34, 30, 34, 17)
+    # west riverbank: vertical path by the kitchen/stairs, with short bridge spurs
+    lay_path(50, 31, 50, 58, wide=1)
+    lay_path(47, BRIDGE_ZS[0], 50, BRIDGE_ZS[0], wide=1)
+    lay_path(45, BRIDGE_ZS[1], 50, BRIDGE_ZS[1], wide=1)
+    lay_path(35, 44, 50, 44, wide=1)
+    lay_path(34, 56, 50, 56, wide=1)
+    # Four Graves loop and monument garden, centered on the purple outline
+    lay_path(24, 57, 27, 61)
+    lay_path(27, 61, 27, 70)
+    lay_path(29, 61, 38, 61, wide=1)
+    lay_path(29, 68, 38, 68, wide=1)
+    lay_path(29, 61, 29, 68, wide=1)
+    lay_path(38, 61, 38, 68, wide=1)
+    lay_path(33, 59, 33, 70, wide=1)
+    lay_path(27, 70, 45, 70, wide=1)
+    lay_path(40, 70, 44, 67)
+    lay_path(40, 60, 47, 60, wide=1)
+    lay_path(47, 60, 47, 70, wide=1)
+    # east riverbank/training path: curved line beside the river, then down the
+    # west side of archery and dueling. Stop before the island bridge; the bridge
+    # itself stays wooden rather than getting a gravel overlay.
+    lay_path(58, 30, 60, BRIDGE_ZS[0], wide=1)
+    lay_path(60, BRIDGE_ZS[0], 65, 48, wide=1)
+    lay_path(65, 48, 59, BRIDGE_ZS[1], wide=1)
+    lay_path(58, BRIDGE_ZS[-1], ARCH_X - ARCH_R - 1, BRIDGE_ZS[-1], wide=1)
+    lay_path(ARCH_X - ARCH_R - 1, BRIDGE_ZS[-1], ARCH_X - ARCH_R - 1, ARCH_Z + ARCH_R, wide=1)
+    lay_path(ARCH_X - ARCH_R + 1, ARCH_Z + ARCH_R, DUEL_X - DUEL_R - 3, DUEL_Z - 2, wide=1)
+    lay_path(DUEL_X - DUEL_R - 3, DUEL_Z - 2, 72, 80, wide=1)
     # ===== the DIRT PATH branch (the plan's ORANGE): peels off by the Archery
     #       Range and runs east through Exit C to the Guild Woods (continued
     #       beyond the footprint at runtime by layWoodsPath in main.js) =====
-    lay_path(74, 33, W - 4, 32, wide=2, mat="dirt")   # runs east to the new Exit C wall
+    lay_path(ARCH_X + ARCH_R - 1, ARCH_Z - 2, W - 4, EXIT_C_Z, wide=1, mat="dirt")
 
     # Exit C — a chiseled stone archway through the east wall to the Guild Woods
-    ecz = 32
+    ecz = EXIT_C_Z
     v.fill(W - 3, 1, ecz - 1, W - 3, 4, ecz + 1, "minecraft:air")
     for y in range(1, 6):
         v.set(W - 3, y, ecz - 2, CHISELED)
@@ -1974,7 +2215,7 @@ def guild_hall():
         if roll < 0.05:
             return STONE                          # occasional grey inlay
         if roll < 0.09:
-            return MCOBBLE                        # mossy weathering between flags
+            return GRAVEL                         # worn grit between flags
         if roll < 0.15:
             return SAND                           # plain sandstone tonal variation
         return SAND_SMOOTH
@@ -1986,8 +2227,9 @@ def guild_hall():
                 if v.grid[v.idx(x, 1, z)] == AIR and v.grid[v.idx(x, 0, z)] in PAVE_OK \
                         and not is_water(x, z):
                     v.set(x, 0, z, flagstone(x, z))
-    pave_region(1, 16, 10, 60)         # west gate forecourt + boasting apron
-    pave_region(11, 5, 51, 59)         # the joined complex courtyards (NOT the south garden)
+    pave_region(1, 22, 10, 54)         # west gate forecourt + boasting apron
+    pave_region(11, 34, 18, 52)        # entry apron and rounded nook thresholds
+    pave_region(22, 51, 33, 59)        # store threshold court only
     # the SOUTH cloister / Four-Graves court (z>=60) is a GREEN garden, not a paved
     # plaza — leave it as lawn so the design reads "nature where the paving was".
 
