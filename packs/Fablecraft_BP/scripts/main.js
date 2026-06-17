@@ -227,10 +227,11 @@ function initHero(p) {
 const GUILD_TA = "fc_guild_keep";  // ticking area that force-loads the campus
 const GUILD = Object.freeze({
   sx: 112, sz: 108,
-  wake: { x: 21, z: 42 },
+  wake: { x: 20, z: 42 },
   skill: { x: 15, z: 35 },
   cullis: { x: 15, z: 49 },
-  quest: { x: 29, z: 38 },
+  quest: { x: 22, z: 42 },
+  questTables: [{ x: 22, z: 42 }, { x: 28, z: 39 }, { x: 28, z: 45 }],
   maze: { x: 46, z: 72, studyY: 12 },
   demon: { x: 56, z: 96, approachZ: 88 },
   archery: { x: 76, z: 39 },
@@ -299,13 +300,14 @@ function buildGuildWhenReady(p, dim, base, attempt) {
   world.setDynamicProperty("fc_guild_placed", true);
   world.setDynamicProperty("fc_guild_base", JSON.stringify({ x: base.x, y, z: base.z }));
   // New ground plan: you enter from the WEST onto the crimson runner before the
-  // Map Room rotunda (local 26,42). Wake at (21,42), facing east to the Map.
+  // Map Room rotunda (local 26,42). Wake at (20,42), facing east to the Map.
   world.setDynamicProperty("fc_guild_loc", JSON.stringify({ x: base.x + GUILD.wake.x, y, z: base.z + GUILD.wake.z }));
   // Skill / Experience shrine in the Map Room's NW nook (local 15,35)
   world.setDynamicProperty("fc_guild_train", JSON.stringify({ x: base.x + GUILD.skill.x, y, z: base.z + GUILD.skill.z }));
   world.setDynamicProperty("fc_guild_skill", JSON.stringify({ x: base.x + GUILD.skill.x, y, z: base.z + GUILD.skill.z }));
-  // the Quest lectern at the near (south) edge of the Map relief (local 26,37)
+  // three Quest lecterns ring the lowered Map relief; keep a single legacy point too
   world.setDynamicProperty("fc_guild_quest_table", JSON.stringify({ x: base.x + GUILD.quest.x, y: y + 1, z: base.z + GUILD.quest.z }));
+  world.setDynamicProperty("fc_guild_quest_tables", JSON.stringify(GUILD.questTables.map((q) => ({ x: base.x + q.x, y: y + 1, z: base.z + q.z }))));
   // the Guild's own Demon Door — the crag on the far south bank past the islands
   const doorLoc = { x: base.x + GUILD.demon.x, y: y + 1, z: base.z + GUILD.demon.z };
   world.setDynamicProperty("fc_guild_door", JSON.stringify(doorLoc));
@@ -1966,11 +1968,22 @@ world.beforeEvents.playerInteractWithEntity.subscribe((ev) => {
 // the Quest Table lectern in the Heroes' Guild great hall opens the quest board
 world.beforeEvents.playerInteractWithBlock.subscribe((ev) => {
   if (ev.block?.typeId !== "minecraft:lectern") return;
-  const raw = world.getDynamicProperty("fc_guild_quest_table");
-  if (!raw) return;
-  const loc = JSON.parse(raw);
   const b = ev.block.location;
-  if (b.x !== loc.x || b.y !== loc.y || b.z !== loc.z) return;
+  const rawList = world.getDynamicProperty("fc_guild_quest_tables");
+  let matched = false;
+  if (rawList) {
+    try {
+      const locs = JSON.parse(rawList);
+      matched = Array.isArray(locs) && locs.some((loc) => b.x === loc.x && b.y === loc.y && b.z === loc.z);
+    } catch { matched = false; }
+  }
+  if (!matched) {
+    const raw = world.getDynamicProperty("fc_guild_quest_table");
+    if (!raw) return;
+    const loc = JSON.parse(raw);
+    matched = b.x === loc.x && b.y === loc.y && b.z === loc.z;
+  }
+  if (!matched) return;
   ev.cancel = true;
   const p = ev.player;
   system.run(() => questBoard(p));

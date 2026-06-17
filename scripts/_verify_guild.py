@@ -167,7 +167,10 @@ def audit_tower_stairs():
     study_y = GS.GUILD_LAYOUT["maze_study_y"]
     spr_r = 4
     route = []
-    for i, y in enumerate(range(1, study_y)):
+    for i in range((study_y - 1) * 2):
+        y = 1 + i // 2
+        if y >= study_y:
+            break
         ang = math.radians(25 + i * (360 / 16))
         route.append((cx + round(math.cos(ang) * spr_r), y,
                       cz + round(math.sin(ang) * spr_r)))
