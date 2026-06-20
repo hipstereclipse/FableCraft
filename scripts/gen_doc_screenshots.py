@@ -389,20 +389,30 @@ def ui_bg(kind, size):
             d.text((50, y + 7), f, fill=(210, 228, 244, 255), font=load_font(24, bold=False))
     elif kind == "roadmap":
         d.rectangle([20, 20, w - 20, h - 20], fill=panel, outline=frame, width=3)
-        d.text((36, 40), "Version 2.2.0 Status", fill=(238, 218, 176, 255), font=load_font(34, bold=True))
+        d.text((36, 40), "Version 2.4.0 Status", fill=(238, 218, 176, 255), font=load_font(34, bold=True))
         status = [
-            "[x] 45 creatures functional",
-            "[x] 185 items obtainable",
-            "[x] 122 recipes working",
-            "[x] 17 spells tested",
-            "[x] 14 quests completable",
-            "[x] 8 Demon Doors operational",
-            "[x] 9 structures generating",
-            "[ ] Multiplayer sync improvements",
-            "[ ] 10 additional side quests",
+            ("h", "Shipped & playable"),
+            ("x", "51 creatures & NPCs, fully animated"),
+            ("x", "193 items, 130 recipes, augment forge"),
+            ("x", "17 Will powers + 31 Fable expressions"),
+            ("x", "15 quests, 8 Demon Doors, 9 structures"),
+            ("x", "Morality halo/horns, 5-faction reputation"),
+            ("x", "Settlement bounty & jail, Cullis travel"),
+            ("h", "Roadmap"),
+            (" ", "Full towns: Bowerstone / Oakvale / Snowspire"),
+            (" ", "NPC daily routines + multiplayer sync"),
+            (" ", "Will & Destiny Phases 2-3"),
+            (" ", "Procedural quest generator"),
         ]
-        for i, line in enumerate(status):
-            d.text((44, 102 + i * 44), line, fill=(222, 198, 162, 255), font=load_font(24, bold=False))
+        y = 100
+        for mark, text in status:
+            if mark == "h":
+                y += 8
+                d.text((40, y), text, fill=(238, 218, 176, 255), font=load_font(26, bold=True))
+                y += 44
+            else:
+                d.text((52, y), f"[{mark}] {text}", fill=(222, 198, 162, 255), font=load_font(24, bold=False))
+                y += 42
     else:
         return cached_backdrop(size, "stone")
     return img

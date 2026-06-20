@@ -25,6 +25,9 @@
         "ctrl_ranged": "controller.animation.fc.ranged"
       },
       "scripts": {
+        "initialize": [
+          "variable.anim_offset = math.random(0, 360);"
+        ],
         "animate": [
           "ctrl_move",
           "ctrl_attack",

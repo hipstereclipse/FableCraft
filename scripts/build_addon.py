@@ -5,6 +5,7 @@ Usage:
   python scripts/build_addon.py --full     # regen all assets first
 """
 import json
+import re
 import subprocess
 import sys
 import zipfile
@@ -14,9 +15,12 @@ from fc_lib import ROOT, BP, RP, DIST
 
 GENERATORS = [
     "gen_item_textures.py",
+    "gen_ui.py",
+    "gen_hud_font.py",
     "gen_entity_textures.py",
     "gen_behavior.py",
     "gen_resources.py",
+    "gen_emotes.py",
     "gen_structures.py",
     "gen_sounds.py",
 ]
@@ -86,7 +90,87 @@ def validate():
         loot = data["minecraft:entity"]["components"].get("minecraft:loot", {}).get("table")
         if loot and not (BP / loot).exists():
             errors.append(f"entity {f.stem}: missing loot table {loot}")
+    for script in (BP / "scripts").rglob("*.js"):
+        script_text = script.read_text(encoding="utf-8")
+        if "runCommandAsync(" in script_text:
+            errors.append(
+                f"{script.relative_to(ROOT)}: @minecraft/server 2.1.0 "
+                "does not expose runCommandAsync; use runCommand"
+            )
+        for texture in re.findall(r'"(textures/items/[A-Za-z0-9_]+)"', script_text):
+            if not (RP / f"{texture}.png").exists():
+                errors.append(f"{script.relative_to(ROOT)}: form texture '{texture}' is missing")
+    main_script = (BP / "scripts" / "main.js").read_text(encoding="utf-8")
+    for contract in (
+        "const maxX = x0 + w - 1;",
+        "const maxZ = z0 + d - 1;",
+        "Math.min(maxX, x)",
+        "Math.min(maxZ, z)",
+        "clearSkirtCover(dim, x, z, info.coverBottom, info.coverTop);",
+        'world.setDynamicProperty("fc_guild_skirt_veg_v1", true);',
+        'world.setDynamicProperty("fc_guild_terrain_v2", true);',
+        'world.setDynamicProperty("fc_guild_terrain_v3", true);',
+        'world.setDynamicProperty("fc_guild_ocean_cleanup_v1", true);',
+        "const GUILD_TERRAIN_RADIUS = 40;",
+        "const OVERWORLD_SEA_LEVEL = 62;",
+        "const y = Math.max(OVERWORLD_SEA_LEVEL, sampledY - 1);",
+        "const y = naturalGroundY(dim, x, z, allowLiquid);",
+        '{ cap: "minecraft:sand", fill: "minecraft:sandstone" }',
+    ):
+        if contract not in main_script:
+            errors.append(
+                "scripts/main.js: terrain skirt must use inclusive "
+                f"width-1/depth-1 footprint bounds (missing {contract!r})"
+            )
+    required_ui = [
+        "dialog_background_hollow_3",
+        "button_borderless_light",
+        "button_borderless_lighthover",
+        "button_borderless_lightpressed",
+        "button_borderless_lightpressednohover",
+        "ScrollRail",
+        "ScrollHandle",
+    ]
+    for name in required_ui:
+        for suffix in (".json", ".png"):
+            path = RP / "textures" / "ui" / f"{name}{suffix}"
+            if not path.exists():
+                errors.append(f"required generated UI asset missing: {path.relative_to(ROOT)}")
+    required_fable_hud = [
+        RP / "ui" / "_ui_defs.json",
+        RP / "ui" / "hud_screen.json",
+        RP / "font" / "glyph_E9.png",
+        *(RP / "textures" / "ui" / "fable_hud" / f"{name}.png" for name in (
+            "status_frame", "minimap", "eye_frame", "eye_open", "eye_partial", "eye_closed",
+            "multiplier", "gold", "clock", "hunger_slot", "map_details", "wanted_star",
+        )),
+    ]
+    for path in required_fable_hud:
+        if not path.exists():
+            errors.append(f"required Fable HUD asset missing: {path.relative_to(ROOT)}")
     print(f"validated: {counts}")
+    audit = subprocess.run(
+        [sys.executable, str(ROOT / "scripts" / "verify_emotes.py")],
+        capture_output=True,
+        text=True,
+    )
+    if audit.stdout.strip():
+        print(audit.stdout.strip())
+    if audit.returncode != 0:
+        if audit.stderr.strip():
+            print(audit.stderr.strip())
+        errors.append("Fable expression audit failed")
+    hud_audit = subprocess.run(
+        [sys.executable, str(ROOT / "scripts" / "audit_hud.py"), "--check"],
+        capture_output=True,
+        text=True,
+    )
+    if hud_audit.stdout.strip():
+        print(hud_audit.stdout.strip())
+    if hud_audit.returncode != 0:
+        if hud_audit.stderr.strip():
+            print(hud_audit.stderr.strip())
+        errors.append("Fable HUD audit failed")
     if errors:
         print("\n".join("  ERROR " + e for e in errors))
         sys.exit(f"{len(errors)} validation error(s)")

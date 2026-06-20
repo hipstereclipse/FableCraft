@@ -1,0 +1,28 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "wd:divine_halo",
+      "materials": {
+        "default": "entity_emissive_alpha"
+      },
+      "textures": {
+        "default": "textures/entity/divine_halo"
+      },
+      "geometry": {
+        "default": "geometry.wd.divine_halo"
+      },
+      "render_controllers": [
+        "controller.render.fc_default"
+      ],
+      "animations": {
+        "float": "animation.wd.divine_halo.float"
+      },
+      "scripts": {
+        "animate": [
+          "float"
+        ]
+      }
+    }
+  }
+}

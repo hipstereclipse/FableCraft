@@ -580,6 +580,9 @@
     },
     "orb_will": {
       "textures": "textures/items/orb_will"
+    },
+    "will_focus": {
+      "textures": "textures/items/will_focus"
     }
   }
 }

@@ -18,6 +18,9 @@
         "hover": "animation.fc.hover"
       },
       "scripts": {
+        "initialize": [
+          "variable.anim_offset = math.random(0, 360);"
+        ],
         "animate": [
           "fly",
           "hover"

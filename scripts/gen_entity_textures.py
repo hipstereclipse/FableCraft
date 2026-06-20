@@ -14,7 +14,7 @@ import math
 from PIL import Image
 
 from fc_lib import RP, Px, mix, ramp, rng, shade, with_alpha
-from fc_mobs import MOBS, build_parts, mob_palette, pack_uvs
+from fc_mobs import MOBS, build_parts, mob_palette, pack_uvs, is_romanceable
 
 OUT = RP / "textures" / "entity"
 
@@ -926,7 +926,10 @@ def decorate_front(p, x, y, w, h, decor, pal, glow, r):
                     p.px(xx, yy, (40, 36, 46, 255))
 
 
-def paint_mob(mob):
+def _render_mob(mob):
+    """Paint the full skin and hand back the canvas plus the parts/UV map, so a
+    variant skin (e.g. the married 'wedding finery' layer) can stamp extra detail
+    onto the exact same front faces without duplicating the paint loop."""
     parts = build_parts(mob)
     tw, th, uv = pack_uvs(parts)
     p = Px(tw, th)
@@ -960,15 +963,121 @@ def paint_mob(mob):
             fill_face(p, u + sz + sx + sz, v + sz, sx, sy, shade(base, 0.72)[:3], style, r)  # back
             if ci == decor_cube and part.get("decor"):
                 decorate_front(p, u + sz, v + sz, sx, sy, part["decor"], pal, glow, r)
+    return p, parts, uv, tw, th
+
+
+def paint_mob(mob):
+    p, parts, uv, tw, th = _render_mob(mob)
     p.save(OUT / f"{mob['id']}.png")
     return tw, th
 
 
+# ---------------------------------------------------------------------------
+# MARRIAGE — the "wedding finery" skin worn once an NPC is wed. The render
+# controller swaps to {id}_married on the client-synced fc:married property.
+# ---------------------------------------------------------------------------
+WED_GOLD = (214, 178, 74, 255)
+WED_GOLD_HI = (245, 220, 130, 255)
+WED_WHITE = (244, 242, 250, 255)
+WED_GEM = (208, 48, 86, 255)
+
+
+def _front_rect(parts, uv, name):
+    """The (x, y, w, h) of a named part's first cube FRONT face, matching the
+    box-UV layout documented at the top of this file."""
+    for pi, part in enumerate(parts):
+        if part.get("name") == name:
+            cube = part["cubes"][0]
+            sx, sy, sz = (max(1, round(val)) for val in cube["size"])
+            u, v = uv[(pi, 0)]
+            return (u + sz, v + sz, sx, sy)
+    return None
+
+
+def paint_mob_married(mob):
+    """A gold circlet + gem on the brow and a white bridal collar with a gold
+    pendant on the chest, stamped onto the same front faces the base skin paints
+    — so the finery lines up on every humanoid body plan."""
+    p, parts, uv, tw, th = _render_mob(mob)
+    head = _front_rect(parts, uv, "head")
+    if head:
+        hx, hy, hw, hh = head
+        brow = hy + 1                       # a row below the hairline
+        for xx in range(hx, hx + hw):
+            p.px(xx, brow, WED_GOLD)
+            p.px(xx, brow + 1, WED_GOLD_HI if (xx - hx) % 2 == 0 else WED_GOLD)
+        gx = hx + hw // 2                   # central gem
+        p.px(gx, brow, WED_GEM)
+        p.px(gx, max(hy, brow - 1), WED_GEM)
+    body = _front_rect(parts, uv, "body")
+    if body:
+        bx, by, bw, bh = body
+        for xx in range(bx, bx + bw):       # bridal collar across the shoulders
+            p.px(xx, by, WED_WHITE)
+            p.px(xx, by + 1, WED_WHITE)
+        cx = bx + bw // 2                    # V-neckline + gold pendant
+        if bh >= 5:
+            p.px(cx, by + 2, WED_WHITE)
+            p.px(cx, by + 3, WED_GOLD)
+            p.px(cx, by + 4, WED_GEM)
+    p.save(OUT / f"{mob['id']}_married.png")
+
+
+def paint_ring_particle():
+    """A small gold wedding band that floats above a married NPC's head, spawned
+    by the marriage tick in main.js (particle identifier fc:wedding_ring_float)."""
+    p = Px(16, 16)
+    cx, cy = 7.5, 8.5
+    for yy in range(16):
+        for xx in range(16):
+            d = math.hypot(xx - cx, yy - cy)
+            if 4.2 <= d <= 6.0:
+                p.px(xx, yy, WED_GOLD_HI if (xx + yy) % 2 == 0 else WED_GOLD)
+    # a diamond at the crown of the band
+    p.px(8, 1, WED_WHITE)
+    p.px(7, 2, WED_GEM)
+    p.px(8, 2, WED_WHITE)
+    p.px(9, 2, WED_GEM)
+    p.px(8, 3, WED_GEM)
+    p.save(RP / "textures" / "particle" / "fc_wedding_ring.png")
+
+
+def paint_heart_particle():
+    """A red heart that floats over an NPC warming to the Hero. main.js scales it
+    from small (just starting to like you) to full (in love) via variable.size on
+    the fc:love_heart_float particle, so a single texture serves the whole growth."""
+    p = Px(16, 16)
+    red = (214, 40, 56, 255)
+    dark = (150, 18, 38, 255)
+    hi = (255, 152, 166, 255)
+    for yy in range(16):
+        for xx in range(16):
+            nx = (xx - 7.5) / 5.4
+            ny = (7.3 - yy) / 4.8          # +y up; scaled so lobes + top notch fit
+            f = (nx * nx + ny * ny - 1.0) ** 3 - nx * nx * ny * ny * ny
+            if f <= 0.0:
+                if ny < -0.45:             # the lower point of the heart
+                    c = dark
+                elif -0.7 < nx < -0.15 and 0.3 < ny < 0.95:  # glint on the left lobe
+                    c = hi
+                else:
+                    c = red
+                p.px(xx, yy, c)
+    p.outline((92, 8, 22, 255))
+    p.save(RP / "textures" / "particle" / "fc_love_heart.png")
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
+    married = 0
     for mob in MOBS:
         tw, th = paint_mob(mob)
-    print(f"painted {len(MOBS)} entity textures -> {OUT}")
+        if is_romanceable(mob):
+            paint_mob_married(mob)
+            married += 1
+    paint_ring_particle()
+    paint_heart_particle()
+    print(f"painted {len(MOBS)} entity textures (+{married} married variants) -> {OUT}")
     paint_all_armor_layers()
 
 

@@ -5,7 +5,114 @@
       "identifier": "fc:barkeep",
       "is_spawnable": true,
       "is_summonable": true,
+      "properties": {
+        "fc:love_hate": {
+          "type": "int",
+          "range": [
+            -100,
+            100
+          ],
+          "default": 0,
+          "client_sync": true
+        },
+        "fc:fear_funny": {
+          "type": "int",
+          "range": [
+            -100,
+            100
+          ],
+          "default": 0,
+          "client_sync": true
+        },
+        "fc:ugly_attractive": {
+          "type": "int",
+          "range": [
+            -100,
+            100
+          ],
+          "default": 0,
+          "client_sync": true
+        },
+        "fc:married": {
+          "type": "int",
+          "range": [
+            0,
+            1
+          ],
+          "default": 0,
+          "client_sync": true
+        }
+      },
       "spawn_category": "creature"
+    },
+    "component_groups": {
+      "fc:reaction_flee": {
+        "minecraft:behavior.avoid_mob_type": {
+          "priority": 1,
+          "ignore_visibility": true,
+          "max_dist": 16,
+          "max_flee": 20,
+          "sprint_distance": 12,
+          "walk_speed_multiplier": 1.35,
+          "sprint_speed_multiplier": 1.9,
+          "entity_types": [
+            {
+              "filters": {
+                "test": "is_family",
+                "subject": "other",
+                "value": "player"
+              },
+              "max_dist": 16,
+              "walk_speed_multiplier": 1.35,
+              "sprint_speed_multiplier": 1.9
+            }
+          ]
+        }
+      },
+      "fc:reaction_follow": {
+        "minecraft:behavior.follow_mob": {
+          "priority": 1,
+          "search_range": 20,
+          "speed_multiplier": 1.05,
+          "stop_distance": 3,
+          "use_home_position_restriction": false,
+          "filters": {
+            "test": "is_family",
+            "subject": "other",
+            "value": "player"
+          }
+        }
+      },
+      "fc:reaction_watch": {
+        "minecraft:behavior.look_at_player": {
+          "priority": 1,
+          "look_distance": 16.0,
+          "probability": 1.0
+        }
+      },
+      "fc:reaction_attack": {
+        "minecraft:behavior.nearest_attackable_target": {
+          "priority": 1,
+          "must_see": false,
+          "reselect_targets": true,
+          "within_radius": 80.0,
+          "entity_types": [
+            {
+              "filters": {
+                "test": "is_family",
+                "subject": "other",
+                "value": "player"
+              },
+              "max_dist": 80
+            }
+          ]
+        },
+        "minecraft:behavior.melee_box_attack": {
+          "priority": 2,
+          "speed_multiplier": 1.35,
+          "track_target": true
+        }
+      }
     },
     "components": {
       "minecraft:type_family": {
@@ -50,9 +157,6 @@
         "range": 15.0,
         "event_name": "ambient"
       },
-      "minecraft:despawn": {
-        "despawn_from_distance": {}
-      },
       "minecraft:attack": {
         "damage": 1
       },
@@ -77,6 +181,78 @@
         ]
       },
       "minecraft:persistent": {}
+    },
+    "events": {
+      "fc:react_flee": {
+        "remove": {
+          "component_groups": [
+            "fc:reaction_flee",
+            "fc:reaction_follow",
+            "fc:reaction_watch",
+            "fc:reaction_attack"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "fc:reaction_flee"
+          ]
+        }
+      },
+      "fc:react_follow": {
+        "remove": {
+          "component_groups": [
+            "fc:reaction_flee",
+            "fc:reaction_follow",
+            "fc:reaction_watch",
+            "fc:reaction_attack"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "fc:reaction_follow"
+          ]
+        }
+      },
+      "fc:react_watch": {
+        "remove": {
+          "component_groups": [
+            "fc:reaction_flee",
+            "fc:reaction_follow",
+            "fc:reaction_watch",
+            "fc:reaction_attack"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "fc:reaction_watch"
+          ]
+        }
+      },
+      "fc:react_attack": {
+        "remove": {
+          "component_groups": [
+            "fc:reaction_flee",
+            "fc:reaction_follow",
+            "fc:reaction_watch",
+            "fc:reaction_attack"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "fc:reaction_attack"
+          ]
+        }
+      },
+      "fc:react_neutral": {
+        "remove": {
+          "component_groups": [
+            "fc:reaction_flee",
+            "fc:reaction_follow",
+            "fc:reaction_watch",
+            "fc:reaction_attack"
+          ]
+        }
+      }
     }
   }
 }

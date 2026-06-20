@@ -370,6 +370,7 @@ BLOCK_COLORS = {
     "minecraft:stone_bricks": (124, 120, 116), "minecraft:mossy_stone_bricks": (110, 122, 100),
     "minecraft:cracked_stone_bricks": (112, 106, 100), "minecraft:cobblestone": (108, 106, 104),
     "minecraft:mossy_cobblestone": (96, 110, 88), "minecraft:dark_oak_planks": (78, 56, 34),
+    "minecraft:dark_oak_slab": (78, 56, 34),
     "minecraft:dark_oak_log": (58, 42, 26), "minecraft:spruce_planks": (114, 84, 50),
     "minecraft:lantern": (250, 190, 90), "minecraft:soul_lantern": (120, 220, 220),
     "minecraft:chiseled_stone_bricks": (134, 130, 124), "minecraft:obsidian": (28, 22, 44),

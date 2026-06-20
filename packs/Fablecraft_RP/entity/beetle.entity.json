@@ -14,11 +14,19 @@
         "default": "geometry.fc.beetle"
       },
       "animations": {
-        "walk": "animation.fc.scorpion.walk"
+        "walk": "animation.fc.beetle.walk",
+        "idle": "animation.fc.beetle.idle",
+        "attack": "animation.fc.beetle.attack",
+        "ctrl_move": "controller.animation.fc.biped_move",
+        "ctrl_attack": "controller.animation.fc.attack"
       },
       "scripts": {
+        "initialize": [
+          "variable.anim_offset = math.random(0, 360);"
+        ],
         "animate": [
-          "walk"
+          "ctrl_move",
+          "ctrl_attack"
         ]
       },
       "render_controllers": [

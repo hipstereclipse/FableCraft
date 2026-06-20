@@ -8,7 +8,8 @@
           "animations": [
             "idle"
           ],
-          "blend_transition": 0.25,
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true,
           "transitions": [
             {
               "walk": "query.modified_move_speed > 0.04"
@@ -19,10 +20,55 @@
           "animations": [
             "walk"
           ],
-          "blend_transition": 0.2,
+          "blend_transition": 0.14,
+          "blend_via_shortest_path": true,
           "transitions": [
             {
               "idle": "query.modified_move_speed <= 0.04"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.npc.move": {
+      "initial_state": "idle",
+      "states": {
+        "idle": {
+          "animations": [
+            "idle"
+          ],
+          "blend_transition": 0.3,
+          "blend_via_shortest_path": true,
+          "transitions": [
+            {
+              "walk": "query.modified_move_speed > 0.02"
+            }
+          ]
+        },
+        "walk": {
+          "animations": [
+            "walk"
+          ],
+          "blend_transition": 0.14,
+          "blend_via_shortest_path": true,
+          "transitions": [
+            {
+              "run": "query.modified_move_speed > 0.34"
+            },
+            {
+              "idle": "query.modified_move_speed <= 0.02"
+            }
+          ]
+        },
+        "run": {
+          "animations": [
+            "run"
+          ],
+          "blend_transition": 0.1,
+          "blend_via_shortest_path": true,
+          "transitions": [
+            {
+              "walk": "query.modified_move_speed <= 0.34"
             }
           ]
         }
@@ -34,7 +80,7 @@
         "calm": {
           "transitions": [
             {
-              "strike": "query.attack_time > 0.0"
+              "strike": "variable.attack_time > 0.0"
             }
           ]
         },
@@ -43,9 +89,10 @@
             "attack"
           ],
           "blend_transition": 0.1,
+          "blend_via_shortest_path": true,
           "transitions": [
             {
-              "calm": "query.attack_time <= 0.0"
+              "calm": "variable.attack_time <= 0.0"
             }
           ]
         }
@@ -57,7 +104,7 @@
         "quiet": {
           "transitions": [
             {
-              "chat": "math.mod(query.life_time, 16) < 4 && query.modified_move_speed < 0.04"
+              "chat": "math.mod(query.life_time + variable.anim_offset / 22.5, 16) < 4 && query.modified_move_speed < 0.04"
             }
           ]
         },
@@ -66,9 +113,10 @@
             "gesture"
           ],
           "blend_transition": 0.4,
+          "blend_via_shortest_path": true,
           "transitions": [
             {
-              "quiet": "math.mod(query.life_time, 16) >= 4 || query.modified_move_speed >= 0.04"
+              "quiet": "math.mod(query.life_time + variable.anim_offset / 22.5, 16) >= 4 || query.modified_move_speed >= 0.04"
             }
           ]
         }
@@ -89,6 +137,7 @@
             "bow"
           ],
           "blend_transition": 0.2,
+          "blend_via_shortest_path": true,
           "transitions": [
             {
               "calm": "!query.has_target"

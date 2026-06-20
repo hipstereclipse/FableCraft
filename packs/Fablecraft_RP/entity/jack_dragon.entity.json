@@ -14,11 +14,17 @@
         "default": "geometry.fc.jack_dragon"
       },
       "animations": {
-        "fly": "animation.fc.dragon.fly"
+        "fly": "animation.fc.dragon.fly",
+        "attack": "animation.fc.dragon.attack",
+        "ctrl_attack": "controller.animation.fc.attack"
       },
       "scripts": {
+        "initialize": [
+          "variable.anim_offset = math.random(0, 360);"
+        ],
         "animate": [
-          "fly"
+          "fly",
+          "ctrl_attack"
         ],
         "scale": "2.2"
       },

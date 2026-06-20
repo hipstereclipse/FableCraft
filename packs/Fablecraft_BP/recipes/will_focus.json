@@ -1,0 +1,36 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "wd:craft_will_focus"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " AS",
+      " BA",
+      "B  "
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:amethyst_shard"
+      },
+      "B": {
+        "item": "minecraft:blaze_rod"
+      },
+      "S": {
+        "item": "fc:will_shard"
+      }
+    },
+    "unlock": [
+      {
+        "item": "fc:will_shard"
+      }
+    ],
+    "result": {
+      "item": "wd:will_focus",
+      "count": 1
+    }
+  }
+}

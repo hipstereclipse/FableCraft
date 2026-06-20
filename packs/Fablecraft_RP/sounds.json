@@ -362,6 +362,18 @@
           "death": "fc.entity.oracle"
         }
       },
+      "fc:player": {
+        "volume": 1.0,
+        "pitch": [
+          0.85,
+          1.12
+        ],
+        "events": {
+          "ambient": "fc.entity.player",
+          "hurt": "fc.entity.player",
+          "death": "fc.entity.player"
+        }
+      },
       "fc:rock_giant": {
         "volume": 1.0,
         "pitch": [

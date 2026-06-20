@@ -28,6 +28,25 @@
         "b": 0.8,
         "a": 0.5
       }
+    },
+    "controller.render.fc_npc_married": {
+      "arrays": {
+        "textures": {
+          "Array.skins": [
+            "Texture.default",
+            "Texture.married"
+          ]
+        }
+      },
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Array.skins[math.clamp(query.property('fc:married'), 0, 1)]"
+      ]
     }
   }
 }

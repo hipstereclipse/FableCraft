@@ -14,13 +14,16 @@
         "default": "geometry.fc.rock_giant"
       },
       "animations": {
-        "walk": "animation.fc.biped.walk",
-        "idle": "animation.fc.biped.idle",
-        "attack": "animation.fc.biped.attack",
+        "walk": "animation.fc.troll.walk",
+        "idle": "animation.fc.troll.idle",
+        "attack": "animation.fc.troll.attack",
         "ctrl_move": "controller.animation.fc.biped_move",
         "ctrl_attack": "controller.animation.fc.attack"
       },
       "scripts": {
+        "initialize": [
+          "variable.anim_offset = math.random(0, 360);"
+        ],
         "animate": [
           "ctrl_move",
           "ctrl_attack"

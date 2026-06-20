@@ -6,7 +6,7 @@ import json
 
 from fc_lib import BP, NAMESPACE, write_json, write_text
 import fc_data
-from fc_mobs import MOBS
+from fc_mobs import MOBS, is_romanceable
 
 FV_ITEM = "1.21.30"
 FV_ENT = "1.21.0"
@@ -259,6 +259,7 @@ def melee_behaviors(mob, target_players=True):
 def emit_entity(mob):
     eid = mob["id"]
     behavior = mob["behavior"]
+    social_npc = behavior in ("npc", "guard") or eid == "mercenary"
     comp = base_components(mob)
     events = {}
     cgroups = {}
@@ -336,6 +337,72 @@ def emit_entity(mob):
         }
         events["fc:turn_hostile"] = {"add": {"component_groups": ["fc:hostile"]}}
         events["fc:calm"] = {"remove": {"component_groups": ["fc:hostile"]}}
+        town = eid.removeprefix("guard_")
+        wanted_filter = {
+            "all_of": [
+                {"test": "is_family", "subject": "other", "value": "player"},
+                {"test": "has_tag", "subject": "other", "value": f"fc_wanted_{town}"},
+            ]
+        }
+        cgroups["fc:bounty_approach"] = {
+            "minecraft:behavior.follow_mob": {
+                "priority": 0,
+                "search_range": 32,
+                "speed_multiplier": 1.35,
+                "stop_distance": 4,
+                "use_home_position_restriction": False,
+                "filters": wanted_filter,
+            }
+        }
+        cgroups["fc:bounty_hostile"] = {
+            "minecraft:behavior.nearest_attackable_target": {
+                "priority": 0,
+                "must_see": False,
+                "reselect_targets": True,
+                "within_radius": 32.0,
+                "entity_types": [{"filters": wanted_filter, "max_dist": 32}],
+            },
+            "minecraft:behavior.melee_box_attack": {
+                "priority": 1, "speed_multiplier": 1.4, "track_target": True,
+            },
+        }
+        tier_groups = ["fc:bounty_tier_1", "fc:bounty_tier_2", "fc:bounty_tier_3"]
+        cgroups["fc:bounty_tier_1"] = {
+            "minecraft:health": {"value": mob["hp"], "max": mob["hp"]},
+            "minecraft:attack": {"damage": mob["dmg"]},
+            "minecraft:movement": {"value": mob["speed"]},
+            "minecraft:knockback_resistance": {"value": 0.0},
+        }
+        cgroups["fc:bounty_tier_2"] = {
+            "minecraft:health": {"value": round(mob["hp"] * 1.35), "max": round(mob["hp"] * 1.35)},
+            "minecraft:attack": {"damage": round(mob["dmg"] * 1.3)},
+            "minecraft:movement": {"value": round(mob["speed"] * 1.08, 3)},
+            "minecraft:knockback_resistance": {"value": 0.1},
+        }
+        cgroups["fc:bounty_tier_3"] = {
+            "minecraft:health": {"value": round(mob["hp"] * 1.65), "max": round(mob["hp"] * 1.65)},
+            "minecraft:attack": {"damage": round(mob["dmg"] * 1.6)},
+            "minecraft:movement": {"value": round(mob["speed"] * 1.18, 3)},
+            "minecraft:knockback_resistance": {"value": 0.22},
+        }
+        events["fc:bounty_approach"] = {
+            "remove": {"component_groups": ["fc:bounty_hostile"]},
+            "add": {"component_groups": ["fc:bounty_approach"]},
+        }
+        events["fc:bounty_hostile"] = {
+            "remove": {"component_groups": ["fc:bounty_approach"]},
+            "add": {"component_groups": ["fc:bounty_hostile"]},
+        }
+        events["fc:bounty_calm"] = {
+            "remove": {"component_groups": [
+                "fc:bounty_approach", "fc:bounty_hostile", *tier_groups,
+            ]}
+        }
+        for tier, group in enumerate(tier_groups, 1):
+            events[f"fc:bounty_tier_{tier}"] = {
+                "remove": {"component_groups": [g for g in tier_groups if g != group]},
+                "add": {"component_groups": [group]},
+            }
     elif behavior in ("ally",):
         comp["minecraft:behavior.nearest_attackable_target"] = {
             "priority": 2, "must_see": True, "within_radius": 18.0,
@@ -370,6 +437,103 @@ def emit_entity(mob):
         cgroups["fc:door_open"] = {"minecraft:variant": {"value": 1}}
         events["fc:open"] = {"add": {"component_groups": ["fc:door_open"]}}
 
+    # The daytime Guild training scheduler positions apprentices inside the
+    # dueling ring / archery range. Freeze movement while assigned so their
+    # normal random-stroll goal cannot pull them out of the training areas.
+    if eid.startswith("guild_apprentice_"):
+        cgroups["fc:guild_training"] = {
+            "minecraft:movement": {"value": 0.0},
+            "minecraft:knockback_resistance": {"value": 1.0},
+            "minecraft:pushable": {
+                "is_pushable": False,
+                "is_pushable_by_piston": False,
+            },
+        }
+        events["fc:guild_training_start"] = {
+            "add": {"component_groups": ["fc:guild_training"]}
+        }
+        events["fc:guild_training_stop"] = {
+            "remove": {"component_groups": ["fc:guild_training"]}
+        }
+
+    # Fable's social simulation is represented as three signed axes. Script
+    # updates the properties and switches these component groups so the visible
+    # AI response matches the accumulated disposition.
+    if social_npc:
+        social_groups = [
+            "fc:reaction_flee", "fc:reaction_follow", "fc:reaction_watch",
+            "fc:reaction_attack",
+        ]
+        cgroups["fc:reaction_flee"] = {
+            "minecraft:behavior.avoid_mob_type": {
+                "priority": 1,
+                "ignore_visibility": True,
+                "max_dist": 16,
+                "max_flee": 20,
+                "sprint_distance": 12,
+                "walk_speed_multiplier": 1.35,
+                "sprint_speed_multiplier": 1.9,
+                "entity_types": [{
+                    "filters": {
+                        "test": "is_family", "subject": "other", "value": "player"
+                    },
+                    "max_dist": 16,
+                    "walk_speed_multiplier": 1.35,
+                    "sprint_speed_multiplier": 1.9,
+                }],
+            }
+        }
+        cgroups["fc:reaction_follow"] = {
+            "minecraft:behavior.follow_mob": {
+                "priority": 1,
+                "search_range": 20,
+                "speed_multiplier": 1.05,
+                "stop_distance": 3,
+                "use_home_position_restriction": False,
+                "filters": {
+                    "test": "is_family", "subject": "other", "value": "player"
+                },
+            }
+        }
+        cgroups["fc:reaction_watch"] = {
+            "minecraft:behavior.look_at_player": {
+                "priority": 1, "look_distance": 16.0, "probability": 1.0
+            }
+        }
+        # A provoked defender hunts the player across a wide radius — the Heroes'
+        # Guild campus is ~122x108, so a 24-block leash meant a rallied guild only
+        # had the handful of members standing next to the Hero actually give chase.
+        # 80 ≈ the campus half-diagonal, so a brawl anywhere on the grounds pulls in
+        # the whole guild (must_see:false lets them path even through walls).
+        cgroups["fc:reaction_attack"] = {
+            "minecraft:behavior.nearest_attackable_target": {
+                "priority": 1,
+                "must_see": False,
+                "reselect_targets": True,
+                "within_radius": 80.0,
+                "entity_types": [{
+                    "filters": {
+                        "test": "is_family", "subject": "other", "value": "player"
+                    },
+                    "max_dist": 80,
+                }],
+            },
+            "minecraft:behavior.melee_box_attack": {
+                "priority": 2, "speed_multiplier": 1.35, "track_target": True
+            },
+        }
+        for event_name, group in (
+            ("fc:react_flee", "fc:reaction_flee"),
+            ("fc:react_follow", "fc:reaction_follow"),
+            ("fc:react_watch", "fc:reaction_watch"),
+            ("fc:react_attack", "fc:reaction_attack"),
+        ):
+            events[event_name] = {
+                "remove": {"component_groups": social_groups},
+                "add": {"component_groups": [group]},
+            }
+        events["fc:react_neutral"] = {"remove": {"component_groups": social_groups}}
+
     if mob.get("despawn"):
         comp["minecraft:timer"] = {"looping": False, "time": mob["despawn"] / 20.0,
                                    "time_down_event": {"event": "fc:expire"}}
@@ -379,14 +543,39 @@ def emit_entity(mob):
     if mob.get("fire"):
         comp["minecraft:fire_immune"] = {}
 
-    if behavior in ("npc", "guard", "door"):
+    if social_npc or behavior == "door":
         comp["minecraft:persistent"] = {}
+        # A persistent NPC must NOT also carry the default distance-despawn from
+        # base_components — the two contradict and the NPC vanishes for good once
+        # the Hero roams away (or after a reaction chases it from its post). Drop
+        # it so guild/town residents always stay put. (Hostile mobs keep theirs.)
+        comp.pop("minecraft:despawn", None)
 
     desc = {
         "identifier": f"{NAMESPACE}:{eid}",
         "is_spawnable": True,
         "is_summonable": True,
     }
+    if social_npc:
+        desc["properties"] = {
+            "fc:love_hate": {
+                "type": "int", "range": [-100, 100], "default": 0, "client_sync": True
+            },
+            "fc:fear_funny": {
+                "type": "int", "range": [-100, 100], "default": 0, "client_sync": True
+            },
+            "fc:ugly_attractive": {
+                "type": "int", "range": [-100, 100], "default": 0, "client_sync": True
+            },
+        }
+        # Courtable NPCs gain a married flag. It is client_sync so the render
+        # controller can swap to the wedding skin and the scale Molang can puff
+        # the spouse up a touch — both react with no per-tick script. Entity
+        # properties persist per-entity, so a marriage survives world reloads.
+        if is_romanceable(mob):
+            desc["properties"]["fc:married"] = {
+                "type": "int", "range": [0, 1], "default": 0, "client_sync": True
+            }
     spawn_cat = "monster" if "monster" in mob["family"] else "creature"
     desc["spawn_category"] = spawn_cat
 
@@ -609,6 +798,54 @@ def emit_azurite():
     })
 
 
+def emit_alignment_cosmetics():
+    """Script-driven, non-colliding overlays that preserve the player's skin."""
+    for entity_id in ("evil_horns", "divine_halo"):
+        write_json(BP / "entities" / f"{entity_id}.json", {
+            "format_version": FV_ENT,
+            "minecraft:entity": {
+                "description": {
+                    "identifier": f"wd:{entity_id}",
+                    "is_spawnable": False,
+                    "is_summonable": True,
+                    "spawn_category": "creature",
+                },
+                "components": {
+                    "minecraft:type_family": {
+                        "family": ["wd_alignment_cosmetic"],
+                    },
+                    "minecraft:health": {
+                        "value": 1,
+                        "max": 1,
+                    },
+                    "minecraft:collision_box": {
+                        "width": 0.01,
+                        "height": 0.01,
+                    },
+                    "minecraft:movement": {
+                        "value": 0.0,
+                    },
+                    "minecraft:physics": {
+                        "has_collision": False,
+                        "has_gravity": False,
+                    },
+                    "minecraft:pushable": {
+                        "is_pushable": False,
+                        "is_pushable_by_piston": False,
+                    },
+                    "minecraft:damage_sensor": {
+                        "triggers": [{
+                            "cause": "all",
+                            "deals_damage": False,
+                        }],
+                    },
+                    "minecraft:fire_immune": {},
+                    "minecraft:persistent": {},
+                },
+            },
+        })
+
+
 def main():
     items = fc_data.all_items()
     for item in items:
@@ -628,8 +865,9 @@ def main():
     emit_script_data()
     n_rec = emit_recipes()
     emit_azurite()
+    emit_alignment_cosmetics()
     print(f"emitted {len(items)} items, {len(MOBS)} entities + loot + spawn rules, "
-          f"{n_rec} recipes, azurite ore (block+feature)")
+          f"{n_rec} recipes, azurite ore (block+feature), alignment cosmetics")
 
 
 if __name__ == "__main__":

@@ -145,8 +145,11 @@ def audit_endpoint_contact(label, center):
 
 
 def audit_island_channel(route):
+    # The span must cross WATER, not a land causeway. Mossy/cobble PIERS standing in
+    # the water are legitimate bridge supports, so they don't count as "land".
     water = vox._pid("minecraft:water")
     air = vox._pid("minecraft:air")
+    piers = {vox._pid("minecraft:mossy_cobblestone"), vox._pid("minecraft:cobblestone")}
     dry = 0
     wet = 0
     for cx, cz in route[3:-3]:
@@ -156,6 +159,8 @@ def audit_island_channel(route):
             ground = vox.grid[vox.idx(x, 0, z)]
             if ground == water:
                 wet += 1
+            elif ground in piers:
+                continue                              # a pier in the water — fine
             elif ground != air:
                 dry += 1
     status = "OK" if wet > 0 and dry == 0 else "CHECK"
@@ -219,8 +224,31 @@ def audit_ground_holes():
     print(f"ground hole audit: {'OK' if holes == 0 else 'CHECK'}, holes {holes}")
 
 
+def audit_training():
+    """Each training disc must be FLAT (every interior cell solid at y0) and free of
+    GRAVITY blocks (gravel/sand fall into the async foundation fill and leave pits)."""
+    grav = {"minecraft:gravel", "minecraft:sand", "minecraft:red_sand"}
+    walk_block = {"minecraft:air", "minecraft:water"}
+    for name in ("archery", "dueling"):
+        cx, cz, rr = GS.GUILD_LAYOUT[name]
+        holes = gravity = cells = 0
+        for x in range(cx - rr, cx + rr + 1):
+            for z in range(cz - rr, cz + rr + 1):
+                if math.hypot(x - cx, z - cz) > rr - 0.3:
+                    continue
+                cells += 1
+                n0 = block_name(x, 0, z)
+                if n0 in walk_block:
+                    holes += 1
+                if n0 in grav:
+                    gravity += 1
+        status = "OK" if holes == 0 and gravity == 0 else "CHECK"
+        print(f"training {name}: {status}, holes {holes}, gravity {gravity}, cells {cells}")
+
+
+_E = getattr(GS, "GUILD_EAST", 0)
 for zc in GS.GUILD_LAYOUT["river_bridges"]:
-    audit_bridge(f"river z{zc}", [(x, zc) for x in range(48, 59)])
+    audit_bridge(f"river z{zc}", [(x, zc) for x in range(48 + _E, 59 + _E)])
 
 pb0, pb1 = GS.GUILD_LAYOUT["pond_bridge"]
 steps = max(abs(pb1[0] - pb0[0]), abs(pb1[1] - pb0[1]), 1)
@@ -237,4 +265,5 @@ audit_island_channel(island_route)
 audit_tower_stairs()
 audit_tower_entrances()
 audit_ground_holes()
+audit_training()
 print("rendered topdown / iso / iso_se / crop_iso / crop_top / crop_noroof(+top) / ground_top")

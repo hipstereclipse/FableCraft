@@ -14,11 +14,17 @@
         "default": "geometry.fc.banshee"
       },
       "animations": {
-        "float": "animation.fc.ghost.float"
+        "float": "animation.fc.ghost.float",
+        "attack": "animation.fc.ghost.attack",
+        "ctrl_attack": "controller.animation.fc.attack"
       },
       "scripts": {
+        "initialize": [
+          "variable.anim_offset = math.random(0, 360);"
+        ],
         "animate": [
-          "float"
+          "float",
+          "ctrl_attack"
         ],
         "scale": "1.05"
       },

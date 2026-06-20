@@ -629,6 +629,23 @@
         }
       ]
     },
+    "fc.entity.player": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/fc/entity/player_1",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/player_2",
+          "volume": 0.9
+        },
+        {
+          "name": "sounds/fc/entity/player_3",
+          "volume": 0.9
+        }
+      ]
+    },
     "fc.entity.rock_giant": {
       "category": "hostile",
       "sounds": [

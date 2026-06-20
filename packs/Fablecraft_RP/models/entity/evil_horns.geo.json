@@ -1,0 +1,213 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:geometry": [
+    {
+      "description": {
+        "identifier": "geometry.wd.evil_horns",
+        "texture_width": 32,
+        "texture_height": 32,
+        "visible_bounds_width": 3,
+        "visible_bounds_height": 3.5,
+        "visible_bounds_offset": [
+          0,
+          1.25,
+          0
+        ]
+      },
+      "bones": [
+        {
+          "name": "horn_left_base",
+          "pivot": [
+            -3.2,
+            30.0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            -18
+          ],
+          "cubes": [
+            {
+              "origin": [
+                -4.8,
+                29.0,
+                -1.6
+              ],
+              "size": [
+                2.8,
+                4.8,
+                3.2
+              ],
+              "uv": [
+                0,
+                0
+              ],
+              "inflate": 0.04
+            }
+          ]
+        },
+        {
+          "name": "horn_left_mid",
+          "parent": "horn_left_base",
+          "pivot": [
+            -3.6,
+            33.0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            -20
+          ],
+          "cubes": [
+            {
+              "origin": [
+                -4.7,
+                32.2,
+                -1.25
+              ],
+              "size": [
+                2.1,
+                4.5,
+                2.5
+              ],
+              "uv": [
+                0,
+                10
+              ]
+            }
+          ]
+        },
+        {
+          "name": "horn_left_tip",
+          "parent": "horn_left_mid",
+          "pivot": [
+            -3.9,
+            36.0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            -24
+          ],
+          "cubes": [
+            {
+              "origin": [
+                -4.45,
+                35.3,
+                -0.75
+              ],
+              "size": [
+                1.2,
+                3.7,
+                1.5
+              ],
+              "uv": [
+                16,
+                0
+              ]
+            }
+          ]
+        },
+        {
+          "name": "horn_right_base",
+          "pivot": [
+            3.2,
+            30.0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            18
+          ],
+          "cubes": [
+            {
+              "origin": [
+                2.0,
+                29.0,
+                -1.6
+              ],
+              "size": [
+                2.8,
+                4.8,
+                3.2
+              ],
+              "uv": [
+                0,
+                0
+              ],
+              "inflate": 0.04
+            }
+          ]
+        },
+        {
+          "name": "horn_right_mid",
+          "parent": "horn_right_base",
+          "pivot": [
+            3.6,
+            33.0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            20
+          ],
+          "cubes": [
+            {
+              "origin": [
+                2.6,
+                32.2,
+                -1.25
+              ],
+              "size": [
+                2.1,
+                4.5,
+                2.5
+              ],
+              "uv": [
+                0,
+                10
+              ]
+            }
+          ]
+        },
+        {
+          "name": "horn_right_tip",
+          "parent": "horn_right_mid",
+          "pivot": [
+            3.9,
+            36.0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            24
+          ],
+          "cubes": [
+            {
+              "origin": [
+                3.25,
+                35.3,
+                -0.75
+              ],
+              "size": [
+                1.2,
+                3.7,
+                1.5
+              ],
+              "uv": [
+                16,
+                0
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

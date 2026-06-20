@@ -8,23 +8,31 @@
         "ghost": "entity_alphablend"
       },
       "textures": {
-        "default": "textures/entity/guild_apprentice_might"
+        "default": "textures/entity/guild_apprentice_might",
+        "married": "textures/entity/guild_apprentice_might_married"
       },
       "geometry": {
         "default": "geometry.fc.guild_apprentice_might"
       },
       "animations": {
-        "walk": "animation.fc.biped.walk",
-        "idle": "animation.fc.biped.idle",
+        "walk": "animation.npc.walk",
+        "idle": "animation.npc.idle",
+        "run": "animation.npc.run",
         "attack": "animation.fc.biped.attack",
         "gesture": "animation.fc.biped.gesture",
         "bow": "animation.fc.biped.bow",
         "greet": "animation.fc.biped.greet",
-        "ctrl_move": "controller.animation.fc.biped_move",
+        "spar": "animation.npc.spar",
+        "block": "animation.npc.block",
+        "archery_shot": "animation.npc.archery_shot",
+        "ctrl_move": "controller.animation.npc.move",
         "ctrl_attack": "controller.animation.fc.attack",
         "ctrl_gesture": "controller.animation.fc.gesture"
       },
       "scripts": {
+        "initialize": [
+          "variable.anim_offset = math.random(0, 360);"
+        ],
         "animate": [
           "ctrl_move",
           "ctrl_attack",
@@ -33,7 +41,7 @@
         "scale": "0.98"
       },
       "render_controllers": [
-        "controller.render.fc_default"
+        "controller.render.fc_npc_married"
       ],
       "spawn_egg": {
         "base_color": "#c6966a",

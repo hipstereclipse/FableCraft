@@ -1,0 +1,22 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.wd.divine_halo.float": {
+      "loop": true,
+      "bones": {
+        "halo_root": {
+          "position": [
+            0,
+            "math.sin(query.life_time * 90) * 0.35",
+            0
+          ],
+          "rotation": [
+            0,
+            "query.life_time * 24",
+            0
+          ]
+        }
+      }
+    }
+  }
+}

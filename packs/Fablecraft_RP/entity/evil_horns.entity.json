@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "wd:evil_horns",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/evil_horns"
+      },
+      "geometry": {
+        "default": "geometry.wd.evil_horns"
+      },
+      "render_controllers": [
+        "controller.render.fc_default"
+      ]
+    }
+  }
+}

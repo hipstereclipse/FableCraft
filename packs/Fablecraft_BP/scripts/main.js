@@ -5,12 +5,18 @@
 // boss phases (Jack of Blades), augments, and the Guild.
 // ============================================================================
 import {
-  world, system, EquipmentSlot, EntityDamageCause, ItemStack,
+  world, system, EquipmentSlot, EntityDamageCause, ItemStack, MolangVariableMap,
 } from "@minecraft/server";
 import {
   ActionFormData, MessageFormData, ModalFormData,
 } from "@minecraft/server-ui";
 import { DATA } from "./fc_gamedata.js";
+import {
+  performFableEmote, refreshFableEmoteUnlocks,
+} from "./fable_emotes.js";
+import { FABLE_EMOTES } from "./fable_emote_registry.js";
+import { showHudNotice } from "./fable_hud.js";
+import "./wd/main.js";
 
 const OW = () => world.getDimension("overworld");
 const TICKS = () => system.currentTick;
@@ -25,6 +31,16 @@ const P = {
   getJ(p, k, d) { const v = p.getDynamicProperty(k); if (!v) return d; try { return JSON.parse(v); } catch { return d; } },
   setJ(p, k, o) { p.setDynamicProperty(k, JSON.stringify(o)); },
 };
+
+function showHeroActionBar(p, text, holdTicks = 30) {
+  showHudNotice(p, text, holdTicks);
+  return undefined;
+}
+
+function showHeroTitle(p, title, options = {}) {
+  const stayDuration = options.stayDuration ?? 40;
+  showHudNotice(p, `${title}${options.subtitle ? ` §7— ${options.subtitle}` : ""}`, stayDuration);
+}
 
 const XP_KEYS = { general: "fc_xp_general", strength: "fc_xp_strength", skill: "fc_xp_skill", will: "fc_xp_will" };
 const XP_COLOR = { general: "§a", strength: "§c", skill: "§9", will: "§e" };
@@ -50,6 +66,13 @@ const npcSoundCooldown = new Map();
 const FABLE_RULE = "§8════════════§6❦§8════════════";
 const FABLE_DOT = "§6❖ ";
 function fableTitle(t) { return `§8‹§6❦§8› §6§l${t}§r §8‹§6❦§8›`; }
+
+function fableBody(lines) { return [FABLE_RULE, ...lines, FABLE_RULE].join("\n"); }
+function displayName(id) {
+  return id.replace(/^(fc|wd):/, "").split("_")
+    .map((word) => word ? word[0].toUpperCase() + word.slice(1) : "")
+    .join(" ");
+}
 
 function maybePlayNpcCue(p, e, cue) {
   const key = `${p.id}|${e.id}|${cue.sound}`;
@@ -162,13 +185,8 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
   const p = ev.player;
   try { ensureBaseTitles(p); } catch { }         // Sparrow + Apprentice start unlocked
   try { applyTitleTag(p); } catch { }            // re-wear the chosen title
-  if (!ev.initialSpawn) {
-    // Respawning after death — a Hero of the Guild always carries their seal.
-    ensureGuildSeal(p);
-    setGuildSpawn(p);
-    return;
-  }
-  system.runTimeout(() => initHero(p), 20);
+  // Use one idempotent recovery path for first spawn and later joins.
+  system.runTimeout(() => initHero(p), ev.initialSpawn ? 20 : 5);
 });
 
 // Point the player's respawn location at the Guild rather than whatever
@@ -207,52 +225,121 @@ function ensureDryLanding(p) {
   }
 }
 
-function initHero(p) {
-  if (P.get(p, "fc_init", false)) return;
-  P.set(p, "fc_init", true);
-  P.set(p, "fc_will", 100);
-  for (const it of ["fc:stick", "fc:guild_seal", "fc:quest_card",
-    "fc:apprentice_helm", "fc:apprentice_torso", "fc:apprentice_legs", "fc:apprentice_boots",
-    "fc:health_potion", "fc:apple_pie"]) giveItem(p, it, 1);
+const STARTER_KIT_VERSION = 235;
+const STARTER_KIT_ITEMS = [
+  "fc:stick", "fc:guild_seal", "fc:quest_card",
+  "fc:apprentice_helm", "fc:apprentice_torso", "fc:apprentice_legs", "fc:apprentice_boots",
+  "fc:health_potion", "fc:apple_pie",
+];
+
+function grantStarterKit(p) {
+  for (const itemId of STARTER_KIT_ITEMS) {
+    if (countItem(p, itemId) < 1) giveItem(p, itemId, 1);
+  }
   ensureGuildSeal(p);
-  giveItem(p, "fc:gold_coin", 5);
-  p.onScreenDisplay.setTitle("§6Fablecraft", { fadeInDuration: 10, stayDuration: 70, fadeOutDuration: 20, subtitle: "§eReforged — Welcome to Albion" });
-  p.sendMessage("§6═══ The Guildmaster ═══");
-  p.sendMessage("§f\"Ah, the new apprentice wakes. Your §eGuild Seal§f opens the Hero menu. Use a §eQuest Card§f to begin your training. Albion is watching, little sparrow.\"");
-  ensureDryLanding(p);
+  const goldNeeded = Math.max(0, 5 - countItem(p, "fc:gold_coin"));
+  if (goldNeeded > 0) giveItem(p, "fc:gold_coin", goldNeeded);
+  const complete = STARTER_KIT_ITEMS.every((itemId) => countItem(p, itemId) > 0)
+    && countItem(p, "fc:gold_coin") >= 5;
+  if (complete) {
+    P.set(p, "fc_starter_kit_version", STARTER_KIT_VERSION);
+  }
+}
+
+function initHero(p) {
+  const firstInit = !P.get(p, "fc_init", false);
+  if (P.get(p, "fc_starter_kit_version", 0) < STARTER_KIT_VERSION) {
+    grantStarterKit(p);
+  } else {
+    ensureGuildSeal(p);
+  }
+  if (firstInit) {
+    P.set(p, "fc_init", true);
+    P.set(p, "fc_will", 100);
+    showHeroTitle(p, "§6Fablecraft", { fadeInDuration: 10, stayDuration: 70, fadeOutDuration: 20, subtitle: "§eReforged — Welcome to Albion" });
+    p.sendMessage("§6═══ The Guildmaster ═══");
+    p.sendMessage("§f\"Ah, the new apprentice wakes. Your §eGuild Seal§f opens the Hero menu. Use a §eQuest Card§f to begin your training. Albion is watching, little sparrow.\"");
+    ensureDryLanding(p);
+  }
+  // Retry unfinished placement on every join. The world-level completion flag
+  // keeps this idempotent after the Guild has been successfully assembled.
   placeGuildNear(p);
   setGuildSpawn(p);
 }
 
-const GUILD_TA = "fc_guild_keep";  // ticking area that force-loads the campus
+const GUILD_TA = "fc_guild_keep";  // legacy core ticking area
+const GUILD_TERRAIN_RADIUS = 40;
+const GUILD_TA_MARGIN = GUILD_TERRAIN_RADIUS + 4;
+const OVERWORLD_SEA_LEVEL = 62;
+// NOTE: the campus + the river/east features were shifted EAST by GUILD_EAST=10
+// in gen_structures.py (the reference puts the river at ~0.53 of width). The
+// width grew 112 -> 122 and the east anchors (archery/dueling/demon) moved +10.
+// The NW cluster (wake/skill/cullis/quest/cave), the Library spawns and Maze's
+// Tower (x46) stayed put, so their couplings are unchanged.
 const GUILD = Object.freeze({
-  sx: 112, sz: 108,
+  sx: 122, sz: 108,
   wake: { x: 20, z: 42 },
   skill: { x: 15, z: 35 },
   cullis: { x: 15, z: 49 },
   quest: { x: 22, z: 42 },
   questTables: [{ x: 22, z: 42 }, { x: 28, z: 39 }, { x: 28, z: 45 }],
   maze: { x: 46, z: 72, studyY: 12 },
-  demon: { x: 56, z: 96, approachZ: 88 },
-  archery: { x: 76, z: 39 },
-  dueling: { x: 91, z: 61 },
+  demon: { x: 66, z: 96, approachZ: 88 },
+  archery: { x: 86, z: 39 },
+  dueling: { x: 101, z: 61 },
+  training: {
+    ringA: { x: 99.5, z: 61.5 },
+    ringB: { x: 102.5, z: 61.5 },
+    range: { x: 83.5, z: 39.5 },
+    target: { x: 83.5, z: 34.5 },
+  },
   cave: { sx: 27, sz: 14, x0: 25, x1: 29, z0: 12, z1: 16 },
   exitC: { z: 32 },
 });
 
-// Pin the whole 92x100 Guild footprint with a ticking area so every chunk is
-// force-loaded regardless of the player's render/simulation distance. The
-// campus is far wider than the few chunks a low render distance keeps live, so
-// without this the far rooms (Library, Maze's Tower) would land in unloaded
-// chunks and silently fail to generate. Idempotent — adds the area only once.
+// Keep the campus and its 40-block terrain grade loaded regardless of render
+// distance. The expanded bounds are split below to stay under Bedrock's
+// per-ticking-area chunk limit.
+function ensureGuildTickingArea(dim, p, property, name, minX, minZ, maxX, maxZ) {
+  if (world.getDynamicProperty(property)) return true;
+  const cmd = `tickingarea add ${minX} 0 ${minZ} ${maxX} 319 ${maxZ} ${name}`;
+  try {
+    dim.runCommand(cmd);
+    world.setDynamicProperty(property, true);
+    return true;
+  } catch {
+    try {
+      p?.runCommand(cmd);
+      world.setDynamicProperty(property, true);
+      return true;
+    } catch { return false; }
+  }
+}
+
 function forceLoadGuild(dim, p, base) {
-  if (world.getDynamicProperty("fc_guild_ta")) return;
-  const cmd = `tickingarea add ${base.x - 4} 0 ${base.z - 4} ${base.x + 116} 319 ${base.z + 112} ${GUILD_TA}`;
-  dim.runCommandAsync(cmd).then(() => {
+  const minX = base.x - GUILD_TA_MARGIN;
+  const maxX = base.x + GUILD.sx - 1 + GUILD_TA_MARGIN;
+  const minZ = base.z - GUILD_TA_MARGIN;
+  const maxZ = base.z + GUILD.sz - 1 + GUILD_TA_MARGIN;
+  const midX = base.x + Math.floor((GUILD.sx - 1) / 2);
+  const midZ = base.z + Math.floor((GUILD.sz - 1) / 2);
+  const areas = [
+    ["fc_guild_ta_nw_v2", "fc_guild_t_nw", minX, minZ, midX, midZ],
+    ["fc_guild_ta_ne_v2", "fc_guild_t_ne", midX + 1, minZ, maxX, midZ],
+    ["fc_guild_ta_sw_v2", "fc_guild_t_sw", minX, midZ + 1, midX, maxZ],
+    ["fc_guild_ta_se_v2", "fc_guild_t_se", midX + 1, midZ + 1, maxX, maxZ],
+  ];
+  let complete = true;
+  for (const [property, name, ax0, az0, ax1, az1] of areas) {
+    complete = ensureGuildTickingArea(dim, p, property, name, ax0, az0, ax1, az1) && complete;
+  }
+  if (complete) {
     world.setDynamicProperty("fc_guild_ta", true);
-  }).catch(() => {
-    try { p.runCommandAsync(cmd); world.setDynamicProperty("fc_guild_ta", true); } catch { }
-  });
+    return true;
+  }
+  ensureGuildTickingArea(dim, p, "fc_guild_ta", GUILD_TA,
+    base.x - 4, base.z - 4, base.x + GUILD.sx + 4, base.z + GUILD.sz + 4);
+  return false;
 }
 
 function placeGuildNear(p) {
@@ -271,22 +358,26 @@ function placeGuildNear(p) {
 }
 
 // Force-load the footprint, wait for the chunks to report ready, then build the
-// whole Guild in one place call. Retries for ~5 minutes so generation succeeds
+// Guild from <=56-block tiles. Retries for ~5 minutes so generation succeeds
 // even when the player's render distance leaves most of the campus unloaded.
 function buildGuildWhenReady(p, dim, base, attempt) {
   if (world.getDynamicProperty("fc_guild_placed")) return;
   world.setDynamicProperty("fc_guild_build_tick", system.currentTick);  // keep the guard fresh while working
-  forceLoadGuild(dim, p, base);
-  const y = sampleGroundY(dim, base.x, base.z, 112, 108, true);
-  if (y === null) {  // chunks still loading — try again shortly
+  const terrainAreaReady = forceLoadGuild(dim, p, base);
+  const sampledY = sampleGroundY(dim, base.x, base.z, 122, 108, true);
+  if (sampledY === null) {  // chunks still loading — try again shortly
     if (attempt < 600) system.runTimeout(() => buildGuildWhenReady(p, dim, base, attempt + 1), 10);
     return;  // else stop refreshing — the stale tick lets the next sweep restart us
   }
-  p.onScreenDisplay.setTitle("§6Founding Guild...", { fadeInDuration: 0, stayDuration: 200, fadeOutDuration: 0, subtitle: "§ePlease wait..." });
+  // The structure's baked local-y0 ground replaces the natural surface, but
+  // never place that platform below the overworld waterline.
+  const y = Math.max(OVERWORLD_SEA_LEVEL, sampledY - 1);
+  showHeroTitle(p, "§6Founding Guild...", { fadeInDuration: 0, stayDuration: 200, fadeOutDuration: 0, subtitle: "§ePlease wait..." });
   system.runTimeout(() => {
   try {
-    // The Heroes' Guild is ONE connected 92x30x100 structure on a single floor
-    // level. The heart is the domed Map Room rotunda at local (34,44); the
+    // The Heroes' Guild is one connected campus placed as a single structure
+    // on a single floor level. The heart is the domed Map Room rotunda at
+    // local (34,44); the
     // Cullis Gate glows in its LEFT/west alcove (21,44) and the green Skill
     // portal in its RIGHT/east alcove (47,44). The pillared nave runs south to
     // the gatehouse; the Dining Hall lies east; the two-storey Library runs
@@ -331,18 +422,23 @@ function buildGuildWhenReady(p, dim, base, attempt) {
     trySpawn(dim, "fc:guild_apprentice_skill", { x: base.x + 42, y: y + 1, z: base.z + 40 });
     trySpawn(dim, "fc:guild_apprentice_will", { x: base.x + 26, y: y + 1, z: base.z + 24 });
     trySpawn(dim, "fc:guild_apprentice_will", { x: base.x + 16, y: y + 1, z: base.z + 35 });
+    // two watchmen keep the Guild's west entrance and answer violence on the grounds
+    for (const post of [{ x: 10, z: 39 }, { x: 10, z: 45 }]) {
+      const guard = trySpawn(dim, "fc:guard_bowerstone",
+        { x: base.x + post.x, y: y + 1, z: base.z + post.z });
+      try {
+        guard?.addTag("fc_guild_npc");
+        guard?.addTag("fc_guild_guard");
+      } catch { }
+    }
     // suits of armour stand guard at Maze's Tower's two ground entrances
     guardArmour(dim, { x: base.x + 41, y: y + 1, z: base.z + 72 }, { x: base.x + 40, y: y + 1, z: base.z + 72 });
     guardArmour(dim, { x: base.x + 46, y: y + 1, z: base.z + 67 }, { x: base.x + 46, y: y + 1, z: base.z + 66 });
     ensureDemonDoor(dim, doorLoc, base.z + GUILD.demon.approachZ);
     fillLootChests(dim, base.x, y, base.z, GUILD.sx, 30, GUILD.sz, "fc:guild_hall");
     // keep the Guild-cave spiral shaft (local 27,14 +-2) hollow — never re-fill it
-    blendTerrain(dim, base.x, y, base.z, GUILD.sx, GUILD.sz,
-      (cx, cz) => cx >= base.x + GUILD.cave.x0 && cx <= base.x + GUILD.cave.x1
-        && cz >= base.z + GUILD.cave.z0 && cz <= base.z + GUILD.cave.z1);
-    skirtTerrain(dim, base.x, y, base.z, GUILD.sx, GUILD.sz, 28);
+    if (terrainAreaReady) settleGuildTerrain(dim, { x: base.x, y, z: base.z });
     dressSurroundings(dim, base.x, y, base.z, GUILD.sx, "holy");
-    populateSurroundings(dim, base);                 // biome-matched woods around the campus
     layWoodsPath(dim, base);                          // the orange dirt trail out to the Woods
     placeGuildAnnexes(dim);
     setGuildSpawn(p);
@@ -510,9 +606,9 @@ function carveGuildCaves(dim, base) {
 // Populate the land just outside the Guild with biome-matched trees and ground
 // cover so the campus melts into the surrounding wilds instead of sitting on a
 // bare ring. Idempotent; bounded; fully wrapped.
-function populateSurroundings(dim, base) {
-  if (world.getDynamicProperty("fc_guild_wild_done")) return;
-  const W = 112, D = 108, R = 26;
+function populateSurroundings(dim, base, force = false) {
+  if (!force && world.getDynamicProperty("fc_guild_wild_done")) return;
+  const W = 122, D = 108, R = 26;
   const setBlk = (x, y, z, id) => { try { const b = dim.getBlock({ x, y, z }); if (b) b.setType(id); } catch { } };
   const work = function* () {
     for (let n = 0; n < 240; n++) {
@@ -528,15 +624,18 @@ function populateSurroundings(dim, base) {
       const slot = (() => { try { return dim.getBlock({ x: px, y: gy, z: pz }); } catch { return null; } })();
       if (!g || !slot || !slot.isAir) { yield; continue; }
       const t = g.typeId;
-      const grassy = t.includes("grass") || t === "minecraft:dirt" || t.includes("podzol") || t.includes("moss");
       if (t.includes("water") || t.includes("ice")) { yield; continue; }
-      if (Math.random() < 0.35) {                      // ground cover
-        setBlk(px, gy, pz, t.includes("snow") ? "minecraft:snow_layer"
-          : (Math.random() < 0.5 ? "minecraft:tallgrass" : "minecraft:fern"));
+      const sandy = t.includes("sand");
+      const snowy = t.includes("snow");
+      const grassy = t.includes("grass") || t === "minecraft:dirt" || t.includes("podzol") || t.includes("moss") || t.includes("mycelium");
+      if (Math.random() < 0.35) {                      // biome-matched ground cover
+        if (snowy) setBlk(px, gy, pz, "minecraft:snow_layer");
+        else if (sandy) { if (Math.random() < 0.25) setBlk(px, gy, pz, "minecraft:deadbush"); }
+        else if (grassy) setBlk(px, gy, pz, Math.random() < 0.5 ? "minecraft:tallgrass" : "minecraft:fern");
         yield; continue;
       }
-      if (!grassy && !t.includes("snow")) { yield; continue; }
-      const spruce = t.includes("podzol") || t.includes("snow") || t.includes("spruce") || t.includes("moss");
+      if (!grassy && !snowy) { yield; continue; }      // sand / bare rock: keep the shore & slopes open, no woods
+      const spruce = t.includes("podzol") || snowy || t.includes("spruce") || t.includes("moss");
       const trunk = spruce ? "minecraft:spruce_log" : (Math.random() < 0.3 ? "minecraft:birch_log" : "minecraft:oak_log");
       const leaf = spruce ? "minecraft:spruce_leaves" : (trunk.includes("birch") ? "minecraft:birch_leaves" : "minecraft:oak_leaves");
       const h = 4 + Math.floor(Math.random() * 3);
@@ -634,6 +733,27 @@ function groundY(dim, x, z, allowLiquid = false) {
   return null;
 }
 
+// Find actual terrain, not the top of a tree. Guild placement used groundY()
+// here previously, so a jungle canopy was interpreted as a buildable plateau.
+function naturalGroundY(dim, x, z, allowLiquid = false) {
+  try {
+    const top = dim.getTopmostBlock({ x, z });
+    if (!top) return null;
+    const topY = top.y ?? top.location?.y;
+    if (typeof topY !== "number") return null;
+    const lo = Math.max(-64, topY - 128);
+    for (let y = topY; y >= lo; y--) {
+      const b = dim.getBlock({ x, y, z });
+      if (!b || b.isAir) continue;
+      if (b.isLiquid) return allowLiquid ? y + 1 : null;
+      const t = b.typeId;
+      if (t === "minecraft:snow_layer" || isSkirtVeg(t)) continue;
+      return y + 1;
+    }
+  } catch { }
+  return null;
+}
+
 // ---------------------------------------------------------------------------
 // Guild wards — the grounds around the Guild Hall are sacred: hostile mobs
 // are turned away at the boundary, and any that get close to a defender
@@ -645,9 +765,9 @@ function guildBounds() {
   let base; try { base = JSON.parse(raw); } catch { return null; }
   return {
     base,
-    // the Guild is one 92x30x100 structure (rotunda + nave + wings + library +
-    // tower + grounds), with the Chamber of Fate buried beneath it
-    minX: base.x - 3, maxX: base.x + 115,
+    // the Guild is one 122x30x108 tiled campus (rotunda + nave + wings +
+    // library + tower + grounds), with the Chamber of Fate buried beneath it
+    minX: base.x - 3, maxX: base.x + 125,
     minZ: base.z - 3, maxZ: base.z + 111,
     minY: base.y - 26, maxY: base.y + 32,
   };
@@ -676,14 +796,14 @@ function layWoodsPath(dim, base) {
   const work = function* () {
     let z = z0;
     for (let i = 0; i < 30; i++) {                   // main trail, heading east
-      const x = base.x + 112 + i;                    // just outside the east wall, onward
+      const x = base.x + 122 + i;                    // just outside the east wall, onward
       if (i > 5 && Math.random() < 0.3) z += (Math.random() < 0.5 ? 1 : -1);  // gentle wander
       for (let dz = -1; dz <= 0; dz++) layPath(dim, x, z + dz);   // 2 wide
       yield;
     }
     let fz = z0;                                     // a fork peeling off to the north-east
     for (let i = 0; i < 14; i++) {
-      const x = base.x + 122 + i;
+      const x = base.x + 132 + i;
       fz -= 1;
       for (let dz = -1; dz <= 0; dz++) layPath(dim, x, fz + dz);
       yield;
@@ -734,7 +854,11 @@ system.runInterval(() => {
   for (const mob of dim.getEntities({ location: { x: cx, y: b.base.y, z: cz }, maxDistance: radius + 24, families: ["monster"] })) {
     const loc = mob.location;
     if (loc.x < b.minX || loc.x > b.maxX || loc.z < b.minZ || loc.z > b.maxZ || loc.y < b.minY || loc.y > b.maxY) continue;
-    // Guild grounds are fully protected: hostile mobs cannot remain inside.
+    // Only NORMALLY-hostile mobs are turned away. A friendly resident that has
+    // been provoked (fc_aggravated) is allowed to be hostile on the grounds, and
+    // guards are always exempt so the guard/bounty mechanics keep working here.
+    if (entityHasFamily(mob, "fc_friendly") || entityHasFamily(mob, "fc_guard")) continue;
+    try { if (mob.hasTag("fc_aggravated")) continue; } catch { }
     const defender = dim.getEntities({ location: loc, maxDistance: 24, families: ["fc_guild_defender"] })[0];
     try {
       if (defender) mob.applyDamage(1000, { cause: EntityDamageCause.entityAttack, damagingEntity: defender });
@@ -747,6 +871,464 @@ system.runInterval(() => {
 }, 10);
 
 // ---------------------------------------------------------------------------
+// Guild apprentice training — two apprentices spar inside the dueling ring
+// while one Skill apprentice shoots the north target in the archery range.
+// Assignments run only during daylight. Training component groups freeze normal
+// random-stroll movement; this scheduler maintains position/facing and drives
+// one-shot animation exchanges plus real, short-lived practice arrows.
+// ---------------------------------------------------------------------------
+const APPRENTICE_TYPES = [
+  "fc:guild_apprentice_might",
+  "fc:guild_apprentice_skill",
+  "fc:guild_apprentice_will",
+];
+const TRAINING_TAGS = ["fc_train_ring_a", "fc_train_ring_b", "fc_train_range"];
+let nextSparTick = 0;
+let nextArcheryTick = 0;
+let sparTurn = 0;
+// Apprentices drill in intermittent SESSIONS instead of manning the ring all day:
+// a short TRAIN window pins a sparring pair + an archer to the grounds, then a
+// longer REST window empties the training areas and sends them to roam the halls.
+// Tuned so the dueling ring / archery range are staffed only ~1/3 of daylight.
+const TRAIN_SESSION_TICKS = 1200;             // ~60s drilling
+const REST_SESSION_TICKS = 2400;              // ~120s roaming the halls
+const TRAIN_CYCLE_TICKS = TRAIN_SESSION_TICKS + REST_SESSION_TICKS;
+let lastTrainPhase = false;                   // were we drilling last pass?
+// Scattered hall posts (guild-local) the dispersing apprentices return to when a
+// session closes. These reuse existing NPC home tiles in the west complex, so
+// they are guaranteed clear, walkable floor.
+const GUILD_HALL_POSTS = [
+  { x: 12, z: 42 }, { x: 16, z: 35 }, { x: 23, z: 42 },
+  { x: 26, z: 24 }, { x: 42, z: 40 },
+];
+
+function guildApprentices(dim, base) {
+  const centre = { x: base.x + 61, y: base.y + 1, z: base.z + 54 };
+  const apprentices = [];
+  for (const type of APPRENTICE_TYPES) {
+    try {
+      apprentices.push(...dim.getEntities({ type, location: centre, maxDistance: 100 }));
+    } catch { }
+  }
+  return apprentices;
+}
+
+function localGuildPoint(base, point, yOffset = 1) {
+  return { x: base.x + point.x, y: base.y + yOffset, z: base.z + point.z };
+}
+
+function distanceXZ(entity, point) {
+  return Math.hypot(entity.location.x - point.x, entity.location.z - point.z);
+}
+
+function setTrainingRole(entity, role) {
+  let tags = [];
+  try { tags = entity.getTags(); } catch { }
+  for (const tag of TRAINING_TAGS) {
+    if (tag !== role && tags.includes(tag)) {
+      try { entity.removeTag(tag); } catch { }
+    }
+  }
+  if (!tags.includes(role)) {
+    try { entity.addTag(role); } catch { }
+    try { entity.triggerEvent("fc:guild_training_start"); } catch { }
+  }
+}
+
+function clearTrainingRole(entity) {
+  let hadRole = false;
+  let tags = [];
+  try { tags = entity.getTags(); } catch { }
+  for (const tag of TRAINING_TAGS) {
+    if (!tags.includes(tag)) continue;
+    hadRole = true;
+    try { entity.removeTag(tag); } catch { }
+  }
+  if (!hadRole) return;
+  try { entity.triggerEvent("fc:guild_training_stop"); } catch { }
+  try { entity.playAnimation("animation.npc.idle", { blendOutTime: 0.2 }); } catch { }
+}
+
+function lockTrainingPosition(entity, point, facing) {
+  try {
+    entity.teleport(point, { facingLocation: facing });
+  } catch { }
+}
+
+function clearGuildRingScarecrows(dim, base) {
+  if (world.getDynamicProperty("fc_guild_ring_scarecrows_removed")) return;
+  const columns = [
+    { x: GUILD.dueling.x - 2, z: GUILD.dueling.z - 2 },
+    { x: GUILD.dueling.x + 2, z: GUILD.dueling.z + 2 },
+    { x: GUILD.dueling.x + 2, z: GUILD.dueling.z - 2 },
+  ];
+  for (const column of columns) {
+    for (let y = 1; y <= 3; y++) {
+      try {
+        const block = dim.getBlock({
+          x: base.x + column.x,
+          y: base.y + y,
+          z: base.z + column.z,
+        });
+        if (block?.typeId === "minecraft:hay_block"
+          || block?.typeId === "minecraft:carved_pumpkin") {
+          block.setType("minecraft:air");
+        }
+      } catch { }
+    }
+  }
+  world.setDynamicProperty("fc_guild_ring_scarecrows_removed", true);
+}
+
+function repairGuildDemonApproach(dim, base) {
+  if (world.getDynamicProperty("fc_guild_demon_approach_v2")) return;
+  let complete = true;
+  const setCobble = (x, z, clearHeadroom) => {
+    try {
+      const ground = dim.getBlock({
+        x: base.x + x,
+        y: base.y,
+        z: base.z + z,
+      });
+      if (!ground) {
+        complete = false;
+        return;
+      }
+      ground.setType((x + z) % 4 === 0
+        ? "minecraft:mossy_cobblestone"
+        : "minecraft:cobblestone");
+      if (!clearHeadroom) return;
+      const headroom = dim.getBlock({
+        x: base.x + x,
+        y: base.y + 1,
+        z: base.z + z,
+      });
+      if (headroom) headroom.setType("minecraft:air");
+      else complete = false;
+    } catch { complete = false; }
+  };
+
+  const bridgeX = GUILD.demon.x - 1;
+  const bridgeZ = 84;
+  const pathLength = GUILD.demon.z - 1 - bridgeZ;
+  for (let z = bridgeZ; z < GUILD.demon.z; z++) {
+    const x = Math.round(bridgeX
+      + (GUILD.demon.x - bridgeX) * (z - bridgeZ) / pathLength);
+    for (const pathX of [x, x + 1]) {
+      setCobble(pathX, z, z > bridgeZ + 1);
+    }
+  }
+
+  // Join the east-bank cobblestone network to the bridge's bank-side apron.
+  const bankX = GUILD.demon.x + 9;
+  const bankZ = 76;
+  const eastPathX = GUILD.demon.x + 16;
+  const eastPathZ = 80;
+  const eastSteps = Math.max(Math.abs(eastPathX - (bankX + 2)),
+    Math.abs(eastPathZ - bankZ), 1);
+  for (let i = 0; i <= eastSteps; i++) {
+    const x = Math.round(eastPathX + (bankX + 2 - eastPathX) * i / eastSteps);
+    const z = Math.round(eastPathZ + (bankZ - eastPathZ) * i / eastSteps);
+    for (let dx = 0; dx <= 1; dx++) {
+      for (let dz = 0; dz <= 1; dz++) {
+        setCobble(x + dx, z + dz, true);
+      }
+    }
+  }
+
+  // Remove only the island scarecrow closest to the Demon Door.
+  const scarecrowX = GUILD.demon.x - 3;
+  const scarecrowZ = GUILD.demon.z - 9;
+  const parts = [
+    { x: scarecrowX, y: 1, z: scarecrowZ, type: "minecraft:oak_fence" },
+    { x: scarecrowX, y: 2, z: scarecrowZ, type: "minecraft:hay_block" },
+    { x: scarecrowX, y: 3, z: scarecrowZ, type: "minecraft:carved_pumpkin" },
+    { x: scarecrowX, y: 2, z: scarecrowZ - 1, type: "minecraft:oak_fence" },
+    { x: scarecrowX, y: 2, z: scarecrowZ + 1, type: "minecraft:oak_fence" },
+  ];
+  for (const part of parts) {
+    try {
+      const block = dim.getBlock({
+        x: base.x + part.x,
+        y: base.y + part.y,
+        z: base.z + part.z,
+      });
+      if (!block) {
+        complete = false;
+        continue;
+      }
+      if (block?.typeId === part.type) block.setType("minecraft:air");
+    } catch { complete = false; }
+  }
+  if (complete) world.setDynamicProperty("fc_guild_demon_approach_v2", true);
+}
+
+let guildSkirtVegetationRepairRunning = false;
+let guildTerrainRepairRunning = false;
+
+function guildCaveColumn(base, x, z) {
+  return x >= base.x + GUILD.cave.x0 && x <= base.x + GUILD.cave.x1
+    && z >= base.z + GUILD.cave.z0 && z <= base.z + GUILD.cave.z1;
+}
+
+// Foundation first, skirt second. The delay gives newly-added ticking areas
+// time to load their outer chunks before the grading scan starts.
+function settleGuildTerrain(dim, base) {
+  if (world.getDynamicProperty("fc_guild_terrain_v3") || guildTerrainRepairRunning) return;
+  guildTerrainRepairRunning = true;
+  const grade = () => {
+    blendTerrain(dim, base.x, base.y, base.z, GUILD.sx, GUILD.sz,
+      (x, z) => guildCaveColumn(base, x, z),
+      () => skirtTerrain(dim, base.x, base.y, base.z, GUILD.sx, GUILD.sz, GUILD_TERRAIN_RADIUS, () => {
+        world.setDynamicProperty("fc_guild_terrain_v2", true);
+        world.setDynamicProperty("fc_guild_terrain_v3", true);
+        world.setDynamicProperty("fc_guild_skirt_veg_v1", true);
+        guildTerrainRepairRunning = false;
+        guildSkirtVegetationRepairRunning = false;
+        populateSurroundings(dim, base, true);
+      }));
+  };
+  system.runTimeout(() => {
+    if (world.getDynamicProperty("fc_guild_terrain_v2")) {
+      repairLegacyGuildOcean(dim, base, grade);
+    } else {
+      grade();
+    }
+  }, 20);
+}
+
+// Upgrade already-generated worlds in place; the Guild does not need to be
+// deleted and recreated for the foundation and surrounding grade to be fixed.
+function repairGuildTerrain(dim, base) {
+  if (world.getDynamicProperty("fc_guild_terrain_v3") || guildTerrainRepairRunning) return;
+  const p = world.getPlayers().find((player) => player.dimension.id === dim.id);
+  if (!forceLoadGuild(dim, p, base)) return;
+  settleGuildTerrain(dim, base);
+}
+
+// Worlds generated before the skirt cleanup retained the original mountain
+// trees after their supporting terrain was carved away. Clear vegetation from
+// the reshaped inner apron once, then plant a fresh grounded transition layer.
+function repairGuildSkirtVegetation(dim, base) {
+  if (world.getDynamicProperty("fc_guild_skirt_veg_v1")
+    || guildSkirtVegetationRepairRunning || guildTerrainRepairRunning) return;
+  guildSkirtVegetationRepairRunning = true;
+  const radius = 28;
+  const maxX = base.x + GUILD.sx - 1;
+  const maxZ = base.z + GUILD.sz - 1;
+  const hi = Math.min(250, base.y + 80);
+  const lo = Math.max(-60, base.y - 4);
+  const work = function* () {
+    for (let x = base.x - radius; x <= maxX + radius; x++) {
+      for (let z = base.z - radius; z <= maxZ + radius; z++) {
+        const cx = Math.max(base.x, Math.min(maxX, x));
+        const cz = Math.max(base.z, Math.min(maxZ, z));
+        const dist = Math.hypot(x - cx, z - cz);
+        if (dist < 1 || dist > radius - 2) continue;
+        clearSkirtCover(dim, x, z, lo, hi);
+        yield;
+      }
+      yield;
+    }
+    world.setDynamicProperty("fc_guild_skirt_veg_v1", true);
+    guildSkirtVegetationRepairRunning = false;
+    populateSurroundings(dim, base, true);
+  };
+  try {
+    system.runJob(work());
+  } catch {
+    guildSkirtVegetationRepairRunning = false;
+  }
+}
+
+function playSparExchange(attacker, defender) {
+  try { attacker.playAnimation("animation.npc.spar", { blendOutTime: 0.15 }); } catch { }
+  try { defender.playAnimation("animation.npc.block", { blendOutTime: 0.15 }); } catch { }
+  system.runTimeout(() => {
+    try {
+      const hit = {
+        x: (attacker.location.x + defender.location.x) / 2,
+        y: defender.location.y + 1.25,
+        z: (attacker.location.z + defender.location.z) / 2,
+      };
+      defender.dimension.spawnParticle("minecraft:critical_hit_emitter", hit);
+      defender.dimension.playSound("fc.sword_clash", hit, {
+        volume: 0.35,
+        pitch: 1.05 + Math.random() * 0.12,
+      });
+    } catch { }
+  }, 8);
+}
+
+function firePracticeArrow(archer, target) {
+  try {
+    const origin = {
+      x: archer.location.x,
+      y: archer.location.y + 1.35,
+      z: archer.location.z,
+    };
+    const dx = target.x - origin.x;
+    const dy = target.y - origin.y;
+    const dz = target.z - origin.z;
+    const length = Math.max(0.001, Math.hypot(dx, dy, dz));
+    const speed = 1.45;
+    const arrow = archer.dimension.spawnEntity("minecraft:arrow", origin);
+    arrow.addTag("fc_training_arrow");
+    const projectile = arrow.getComponent("minecraft:projectile");
+    if (projectile) {
+      projectile.owner = archer;
+      projectile.shoot({
+        x: dx / length * speed,
+        y: dy / length * speed + 0.035,
+        z: dz / length * speed,
+      });
+    }
+    archer.dimension.playSound("random.bow", origin, { volume: 0.45, pitch: 1.1 });
+    system.runTimeout(() => { try { arrow.remove(); } catch { } }, 60);
+  } catch { }
+}
+
+system.runInterval(() => {
+  const bounds = guildBounds();
+  if (!bounds || !world.getDynamicProperty("fc_guild_placed")) return;
+  const dim = OW();
+  const base = bounds.base;
+  clearGuildRingScarecrows(dim, base);
+  repairGuildDemonApproach(dim, base);
+  repairGuildTerrain(dim, base);
+  repairGuildSkirtVegetation(dim, base);
+  const apprentices = guildApprentices(dim, base);
+  if (!apprentices.length) return;
+
+  // Combat overrides the daytime training script. Without this, the scheduler
+  // immediately re-applies movement=0 and teleports aggravated apprentices back
+  // to their marks while they are trying to defend the Guild.
+  const available = [];
+  for (const apprentice of apprentices) {
+    let aggravated = false;
+    try { aggravated = apprentice.hasTag("fc_aggravated"); } catch { }
+    if (aggravated) clearTrainingRole(apprentice);
+    else available.push(apprentice);
+  }
+
+  const time = world.getTimeOfDay();
+  const daylight = time >= 0 && time < 12000;
+  // Intermittent drilling: a TRAIN window pins the sparring pair + archer to the
+  // grounds; a REST window (or night) releases everyone. On the closing edge of a
+  // session, the apprentices who were drilling are walked back to scattered hall
+  // posts so the campus — not the dueling ring — is where most of the Guild lives.
+  const training = daylight && (TICKS() % TRAIN_CYCLE_TICKS) < TRAIN_SESSION_TICKS;
+  const sessionEnded = lastTrainPhase && !training;
+  lastTrainPhase = training;
+  if (!training) {
+    let dispersed = 0;
+    const centre = { x: base.x + 61, y: base.y + 1, z: base.z + 54 };
+    for (const apprentice of available) {
+      let onMark = false;
+      try { onMark = TRAINING_TAGS.some((t) => apprentice.hasTag(t)); } catch { }
+      clearTrainingRole(apprentice);
+      if (sessionEnded && onMark) {
+        const post = GUILD_HALL_POSTS[dispersed++ % GUILD_HALL_POSTS.length];
+        lockTrainingPosition(apprentice, localGuildPoint(base, post), centre);
+      }
+    }
+    return;
+  }
+
+  const ringA = localGuildPoint(base, GUILD.training.ringA);
+  const ringB = localGuildPoint(base, GUILD.training.ringB);
+  const range = localGuildPoint(base, GUILD.training.range);
+  const target = localGuildPoint(base, GUILD.training.target, 2.45);
+
+  const skill = available
+    .filter((entity) => entity.typeId === "fc:guild_apprentice_skill")
+    .sort((a, b) => distanceXZ(a, range) - distanceXZ(b, range))[0];
+  const fighterPool = available
+    .filter((entity) => entity.id !== skill?.id)
+    .sort((a, b) => {
+      const aMight = a.typeId === "fc:guild_apprentice_might" ? 0 : 1;
+      const bMight = b.typeId === "fc:guild_apprentice_might" ? 0 : 1;
+      return aMight - bMight || distanceXZ(a, ringA) - distanceXZ(b, ringA);
+    });
+  const fighterA = fighterPool[0];
+  const fighterB = fighterPool[1];
+  const selected = new Set([fighterA?.id, fighterB?.id, skill?.id].filter(Boolean));
+
+  for (const apprentice of apprentices) {
+    if (!selected.has(apprentice.id)) clearTrainingRole(apprentice);
+  }
+  if (fighterA && fighterB) {
+    setTrainingRole(fighterA, "fc_train_ring_a");
+    setTrainingRole(fighterB, "fc_train_ring_b");
+    lockTrainingPosition(fighterA, ringA, ringB);
+    lockTrainingPosition(fighterB, ringB, ringA);
+    if (TICKS() >= nextSparTick) {
+      playSparExchange(sparTurn === 0 ? fighterA : fighterB,
+        sparTurn === 0 ? fighterB : fighterA);
+      sparTurn = 1 - sparTurn;
+      nextSparTick = TICKS() + 36;
+    }
+  }
+  if (skill) {
+    setTrainingRole(skill, "fc_train_range");
+    lockTrainingPosition(skill, range, target);
+    if (TICKS() >= nextArcheryTick) {
+      try { skill.playAnimation("animation.npc.archery_shot", { blendOutTime: 0.15 }); } catch { }
+      system.runTimeout(() => {
+        let tags = [];
+        try { tags = skill.getTags(); } catch { }
+        if (tags.includes("fc_train_range") && world.getTimeOfDay() < 12000) {
+          firePracticeArrow(skill, target);
+        }
+      }, 16);
+      nextArcheryTick = TICKS() + 58;
+    }
+  }
+}, 10);
+
+// ---------------------------------------------------------------------------
+// GUILD ROSTER — the Guild's residents are persistent (the distance-despawn was
+// removed in gen_behavior), but this restores any that were lost before that fix
+// or that a build hiccup never spawned. Runs only while a Hero is on the grounds
+// (so a wedded apprentice following the Hero elsewhere is never duplicated), and
+// counts the force-loaded campus, respawning only the shortfall at home posts.
+// ---------------------------------------------------------------------------
+const GUILD_ROSTER = [
+  { type: "fc:guildmaster", homes: [{ x: 23, z: 42 }] },
+  { type: "fc:maze", homes: [{ x: GUILD.maze.x, y: GUILD.maze.studyY, z: GUILD.maze.z }] },
+  { type: "fc:theresa", homes: [{ x: 26, z: 23 }] },
+  { type: "fc:trader", homes: [{ x: 5, z: 46 }] },
+  { type: "fc:guard_bowerstone", tag: "fc_guild_guard", homes: [{ x: 10, z: 39 }, { x: 10, z: 45 }] },
+  { type: "fc:guild_apprentice_might", homes: [{ x: 12, z: 42 }, { x: GUILD.dueling.x, z: GUILD.dueling.z }] },
+  { type: "fc:guild_apprentice_skill", homes: [{ x: GUILD.archery.x, z: GUILD.archery.z }, { x: 42, z: 40 }] },
+  { type: "fc:guild_apprentice_will", homes: [{ x: 26, z: 24 }, { x: 16, z: 35 }] },
+];
+system.runInterval(() => {
+  const b = guildBounds();
+  if (!b || !world.getDynamicProperty("fc_guild_placed")) return;
+  if (!world.getPlayers().some((p) => isInsideGuild(p.location, p.dimension.id))) return;
+  const dim = OW();
+  const base = b.base;
+  const centre = { x: base.x + 61, y: base.y + 1, z: base.z + 54 };
+  for (const entry of GUILD_ROSTER) {
+    let present = 0;
+    try {
+      const query = { type: entry.type, location: centre, maxDistance: 140 };
+      if (entry.tag) query.tags = [entry.tag];
+      present = dim.getEntities(query).length;
+    } catch { continue; }
+    for (let i = present; i < entry.homes.length; i++) {
+      const h = entry.homes[i];
+      const e = trySpawn(dim, entry.type, { x: base.x + h.x, y: base.y + (h.y ?? 1), z: base.z + h.z });
+      if (e) {
+        try { e.addTag("fc_guild_npc"); } catch { }
+        try { if (entry.tag) e.addTag(entry.tag); } catch { }
+      }
+    }
+  }
+}, 200);
+
+// ---------------------------------------------------------------------------
 // Combat multiplier + kill XP + morality + augment effects
 // ---------------------------------------------------------------------------
 world.afterEvents.entityHitEntity.subscribe((ev) => {
@@ -754,8 +1336,11 @@ world.afterEvents.entityHitEntity.subscribe((ev) => {
   if (src?.typeId !== "minecraft:player" || !tgt) return;
   const p = src;
   // combat multiplier
-  P.add(p, "fc_mult", 1);
+  const multiplier = P.add(p, "fc_mult", 1);
   P.set(p, "fc_lastHit", TICKS());
+  if (!currentBounty(p)) {
+    showHeroActionBar(p, `§6⚔ Combat Multiplier §f×${multiplier}`, 15);
+  }
   // augment effects from held weapon lore
   const it = heldItem(p);
   if (it && DATA.weapons[it.typeId]) {
@@ -767,9 +1352,28 @@ world.afterEvents.entityHitEntity.subscribe((ev) => {
 
 world.afterEvents.entityHurt.subscribe((ev) => {
   const e = ev.hurtEntity;
-  if (e?.typeId !== "minecraft:player") return;
+  if (!e) return;
+  if (e.typeId !== "minecraft:player") {
+    let attacker = ev.damageSource?.damagingEntity;
+    if (attacker?.typeId !== "minecraft:player" && ev.damageSource?.damagingProjectile) {
+      try {
+        attacker = ev.damageSource.damagingProjectile
+          .getComponent("minecraft:projectile")?.owner;
+      } catch { }
+    }
+    // Use the damage event rather than the melee-only hit event so arrows, Will
+    // powers and other scripted player damage also alert local protectors.
+    if (attacker?.typeId === "minecraft:player") handlePlayerAssault(attacker, e);
+    return;
+  }
   // taking damage resets the multiplier — Fable rules
-  if (ev.damage > 0) P.set(e, "fc_mult", 0);
+  if (ev.damage > 0) {
+    const prior = P.get(e, "fc_mult", 0);
+    P.set(e, "fc_mult", 0);
+    if (prior > 0 && !currentBounty(e)) {
+      showHeroActionBar(e, "§c⚔ Combat Multiplier broken");
+    }
+  }
   // Resurrection Phial: cheat death at the brink
   const hp = e.getComponent("minecraft:health");
   if (hp && hp.currentValue > 0 && hp.currentValue <= 3 && countItem(e, "fc:resurrection_phial") > 0) {
@@ -818,6 +1422,14 @@ world.afterEvents.entityDie.subscribe((ev) => {
     factionKillHooks(p, dead, fam);
     dropOrbs(dead.dimension, dead.location, src, fam);
   }
+  accrueSettlementBounty(p, dead);
+  // Spilling the blood of a guild member on guild ground spikes Guild Heat hard,
+  // over and above the assault registered by the killing blow.
+  try {
+    if (entityHasFamily(dead, "fc_friendly") && isInsideGuild(dead.location, dead.dimension.id)) {
+      addGuildHeat(p, 4, "§4You have slain one of the Guild's own!");
+    }
+  } catch { }
   if (dead.typeId === "fc:twinblade") {
     world.sendMessage("§6§l⚔ Twinblade has fallen. The camps whisper of a new power in Albion.");
   }
@@ -961,13 +1573,17 @@ world.afterEvents.itemUse.subscribe((ev) => {
   }
   if (id === "fc:quest_card") return questBoard(p);
   if (id.startsWith("fc:spell_")) return castSpell(p, id.substring("fc:spell_".length));
+  if (id === "wd:will_focus") {
+    if (p.isSneaking) return willAttuneMenu(p);
+    return castActiveWill(p);
+  }
   if (ORB_XP[id]) {
     const [type, amt] = ORB_XP[id];
     removeItem(p, id, 1);
     giveXp(p, type, amt);
     p.playSound("random.orb", { pitch: 1.2 });
     try { p.dimension.spawnParticle("minecraft:villager_happy", { x: p.location.x, y: p.location.y + 1.6, z: p.location.z }); } catch { }
-    p.onScreenDisplay.setActionBar(`${XP_COLOR[type]}✦ +${amt} ${type} experience absorbed`);
+    showHeroActionBar(p, `${XP_COLOR[type]}✦ +${amt} ${type} experience absorbed`);
     return;
   }
   if (DATA.augments[id]) return applyAugment(p, it, DATA.augments[id]);
@@ -1117,6 +1733,7 @@ function spellLevel(p, id) { return Math.max(1, P.get(p, `fc_spell_lvl_${id}`, 1
 function castSpell(p, id, fromGrimoire = false) {
   const s = DATA.spells[id];
   if (!s) return;
+  learnWillSpell(p, id);
   const m = morality(p);
   if (s.align > 0 && m < 100) return p.sendMessage("§7Your soul is not pure enough for this Will power.");
   if (s.align < 0 && m > -100) return p.sendMessage("§7Your soul is not dark enough for this Will power.");
@@ -1125,13 +1742,13 @@ function castSpell(p, id, fromGrimoire = false) {
   const lvl = spellLevel(p, id);
   const cd = Math.max(10, s.cd - lvl * 5);
   if (TICKS() - last < cd) {
-    return p.onScreenDisplay.setActionBar("§b…the Will is still gathering…");
+    return showHeroActionBar(p, "§b…the Will is still gathering…");
   }
   // good spells cost more for evil heroes and vice versa
   let cost = s.will;
   if (s.align > 0 && m < 0) cost = Math.round(cost * 1.5);
   if (s.align < 0 && m > 0) cost = Math.round(cost * 1.5);
-  if (!spendWill(p, cost)) return p.onScreenDisplay.setActionBar("§9Not enough Will energy.");
+  if (!spendWill(p, cost)) return showHeroActionBar(p, "§9Not enough Will energy.");
   spellCd.set(key, TICKS());
   giveXp(p, "will", Math.round(cost * 0.6));
   p.playSound("fc.spell_cast", { pitch: 0.85 + lvl * 0.08 });
@@ -1254,7 +1871,7 @@ const SPELL_FX = {
         try { n.applyDamage(4 + lvl * 2, { cause: EntityDamageCause.fire, damagingEntity: p }); n.setOnFire(3, true); } catch { }
       }
     } else {
-      p.onScreenDisplay.setActionBar("§6The fireball scorches the ground ahead.");
+      showHeroActionBar(p, "§6The fireball scorches the ground ahead.");
     }
   },
   lightning(p, lvl) {
@@ -1274,7 +1891,7 @@ const SPELL_FX = {
         }
       } catch { }
     }
-    if (!struck) p.onScreenDisplay.setActionBar("§9The arc finds no target.");
+    if (!struck) showHeroActionBar(p, "§9The arc finds no target.");
   },
   force_push(p, lvl) {
     p.dimension.spawnParticle("minecraft:knockback_roar_particle", p.location);
@@ -1311,7 +1928,7 @@ const SPELL_FX = {
   assassin_rush(p, lvl) {
     const hits = p.getEntitiesFromViewDirection({ maxDistance: 10 + lvl * 3 });
     const tgt = hits.find((h) => h.entity && h.entity.typeId !== "minecraft:player")?.entity;
-    if (!tgt) return p.onScreenDisplay.setActionBar("§9No target in sight.");
+    if (!tgt) return showHeroActionBar(p, "§9No target in sight.");
     const dir = p.getViewDirection();
     p.teleport({ x: tgt.location.x + dir.x * 1.2, y: tgt.location.y, z: tgt.location.z + dir.z * 1.2 }, { facingLocation: tgt.location });
     p.addEffect("strength", 60, { amplifier: lvl - 1, showParticles: false });
@@ -1328,7 +1945,7 @@ const SPELL_FX = {
   turncoat(p, lvl) {
     const hits = p.getEntitiesFromViewDirection({ maxDistance: 14 });
     const tgt = hits.find((h) => h.entity && h.entity.typeId !== "minecraft:player")?.entity;
-    if (!tgt) return p.onScreenDisplay.setActionBar("§9No mind to bend.");
+    if (!tgt) return showHeroActionBar(p, "§9No mind to bend.");
     try {
       tgt.addEffect("weakness", (6 + lvl * 3) * 20, { amplifier: 2, showParticles: true });
       tgt.dimension.spawnParticle("minecraft:heart_particle", { x: tgt.location.x, y: tgt.location.y + 2, z: tgt.location.z });
@@ -1353,7 +1970,7 @@ const SPELL_FX = {
   multi_strike(p, lvl) {
     p.addEffect("haste", (5 + lvl * 2) * 20, { amplifier: 2 + lvl, showParticles: false });
     p.addEffect("strength", (5 + lvl * 2) * 20, { amplifier: 0, showParticles: false });
-    p.onScreenDisplay.setActionBar("§6Your blade blurs with impossible speed!");
+    showHeroActionBar(p, "§6Your blade blurs with impossible speed!");
   },
   battle_charge(p, lvl) {
     const dir = p.getViewDirection();
@@ -1412,59 +2029,469 @@ function heroMenu(p) {
   const aq = activeQuest(p);
   const q = aq ? DATA.quests.find((x) => x.id === aq.id) : null;
   const questLine = q
-    ? `§e◈ Quest: §f${q.name} §8(${q.objectives.filter((o, i) => (o.type === "collect" ? countItem(p, o.item) : aq.progress[i]) >= o.count).length}/${q.objectives.length} objectives)`
-    : "§7◈ No active quest — the Quest Table awaits in the Great Hall.";
+    ? `§e◈ ${q.name} §8(${q.objectives.filter((o, i) => (o.type === "collect" ? countItem(p, o.item) : aq.progress[i]) >= o.count).length}/${q.objectives.length})`
+    : "§7◈ No active Quest Card";
   const f = new ActionFormData()
     .title(fableTitle("Hero of Albion"))
-    .body([
-      FABLE_RULE,
-      `§7"${moralityTitle(p)}§7 — that is what they call you."`,
+    .body(fableBody([
+      `§6${activeTitle(p) || "Hero"} §8· ${moralityTitle(p)}`,
       questLine,
-      `§8Renown §d${P.get(p, "fc_renown", 0)}  §8·  Gold §6${countItem(p, "fc:gold_coin")}`,
-      `§b◈ Will: ${bar(willEnergy(p), maxWill(p), "§b", 14)} §f${willEnergy(p)}/${maxWill(p)}`,
-      FABLE_RULE,
-    ].join("\n"))
-    .button("§2❖ Stats & Personality", "textures/items/guild_seal")
-    .button("§e❖ Quest Log", "textures/items/quest_card")
-    .button("§6❖ Weapon Locker", "textures/items/sharpening_augment")
-    .button("§b❖ Map of Albion", "textures/items/septimal_key")
-    .button("§c❖ Guild Training (Upgrades)", "textures/items/health_augment")
-    .button("§9❖ Will Powers", "textures/items/spell_fireball")
-    .button("§d❖ Titles & Renown", "textures/items/gold_coin")
-    .button("§a❖ Factions & Standing", "textures/items/wedding_ring");
+      `§cHealth §f${Math.ceil(p.getComponent("minecraft:health")?.currentValue ?? 0)}  §8·  §bWill §f${willEnergy(p)}/${maxWill(p)}`,
+      `§dRenown §f${P.get(p, "fc_renown", 0)}  §8·  §6Gold §f${countItem(p, "fc:gold_coin")}  §8·  §cPhials §f${countItem(p, "fc:resurrection_phial")}`,
+      `§6Combat Multiplier §f×${P.get(p, "fc_mult", 0)}`,
+      "§8The Guild Seal contains Albion's book of record.",
+    ]))
+    .button("§6Items", "textures/items/health_potion")
+    .button("§cWeapons", "textures/items/iron_longsword")
+    .button("§9Magic", "textures/items/spell_fireball")
+    .button("§7Clothing", "textures/items/apprentice_torso")
+    .button("§dExpressions", "textures/items/wedding_ring")
+    .button("§eQuests", "textures/items/quest_card")
+    .button("§2Stats", "textures/items/guild_seal")
+    .button("§6Logbook", "textures/items/summoners_grimoire")
+    .button("§bMap", "textures/items/septimal_key");
   f.show(p).then((r) => {
     if (r.canceled) return;
-    [statsMenu, questMenu, weaponLockerMenu, mapMenu, trainMenu, spellMenu, titlesMenu, factionMenu][r.selection]?.(p);
-  });
+    [
+      itemsMenu, weaponLockerMenu, magicMenu, clothingMenu, expressionsMenu,
+      questJournalMenu, statsMenu, logbookMenu, mapMenu,
+    ][r.selection]?.(p);
+  }).catch(() => { });
+}
+
+function inventoryEntries(p, predicate) {
+  const c = inv(p);
+  const entries = [];
+  if (!c) return entries;
+  for (let slot = 0; slot < c.size; slot++) {
+    const item = c.getItem(slot);
+    if (item && predicate(item)) entries.push({ slot, item });
+  }
+  return entries;
+}
+
+function moveSlotToHand(p, slot) {
+  const c = inv(p);
+  if (!c) return;
+  const selected = p.selectedSlotIndex ?? 0;
+  if (slot === selected) return;
+  const chosen = c.getItem(slot);
+  const current = c.getItem(selected);
+  c.setItem(selected, chosen);
+  c.setItem(slot, current);
+}
+
+function customItemKind(id) {
+  if (DATA.consumables[id]) return "Provisions";
+  if (DATA.augments[id] || id === "fc:augment_remover") return "Augments";
+  if (id.startsWith("fc:orb_")) return "Experience Orbs";
+  return "Quest & Other";
+}
+
+function itemsMenu(p) {
+  const entries = inventoryEntries(p, (item) => (item.typeId.startsWith("fc:") || item.typeId.startsWith("wd:"))
+    && !DATA.weapons[item.typeId] && !DATA.armor[item.typeId] && !item.typeId.startsWith("fc:spell_"));
+  const groups = ["Provisions", "Augments", "Experience Orbs", "Quest & Other"];
+  const f = new ActionFormData().title(fableTitle("Items")).body(fableBody([
+    "§7Select a page of your inventory.",
+    `§8${entries.length} Fablecraft stacks carried`,
+  ]));
+  for (const group of groups) {
+    const count = entries.filter(({ item }) => customItemKind(item.typeId) === group)
+      .reduce((sum, { item }) => sum + item.amount, 0);
+    f.button(`§6${group}\n§8${count} carried`);
+  }
+  f.button("§8Back");
+  f.show(p).then((r) => {
+    if (r.canceled) return;
+    if (r.selection >= groups.length) return heroMenu(p);
+    itemCategoryMenu(p, groups[r.selection]);
+  }).catch(() => { });
+}
+
+function itemCategoryMenu(p, group) {
+  const entries = inventoryEntries(p, (item) => (item.typeId.startsWith("fc:") || item.typeId.startsWith("wd:"))
+    && customItemKind(item.typeId) === group
+    && !DATA.weapons[item.typeId] && !DATA.armor[item.typeId] && !item.typeId.startsWith("fc:spell_"));
+  const f = new ActionFormData().title(fableTitle(group)).body(fableBody([
+    entries.length ? "§7Choose an item to use or ready." : "§8This page is empty.",
+  ]));
+  for (const { item } of entries) {
+    f.button(`§f${displayName(item.typeId)}\n§8${item.amount} carried`,
+      `textures/items/${item.typeId.replace(/^(fc|wd):/, "")}`);
+  }
+  f.button("§8Back");
+  f.show(p).then((r) => {
+    if (r.canceled) return;
+    if (r.selection >= entries.length) return itemsMenu(p);
+    itemActionMenu(p, entries[r.selection], group);
+  }).catch(() => { });
+}
+
+function itemActionMenu(p, entry, group) {
+  const { item, slot } = entry;
+  const f = new ActionFormData().title(fableTitle(displayName(item.typeId)))
+    .body(fableBody([`§7Quantity: §f${item.amount}`, `§8${group}`]));
+  const actions = [];
+  if (DATA.consumables[item.typeId] || item.typeId.startsWith("fc:orb_")) {
+    actions.push({ label: "§aUse one", run: () => useInventoryItem(p, item.typeId) });
+  }
+  if (item.typeId === "fc:quest_card") actions.push({ label: "§eRead Quest Cards", run: () => questBoard(p) });
+  if (DATA.augments[item.typeId]) actions.push({ label: "§6Open Augmentation Forge", run: () => applyAugment(p, item, DATA.augments[item.typeId]) });
+  if (item.typeId === "fc:augment_remover") actions.push({ label: "§6Strip a weapon", run: () => removeAugments(p) });
+  if (item.typeId === "fc:summoners_grimoire") actions.push({ label: "§9Cast Summon", run: () => castSpell(p, "summon", true) });
+  actions.push({ label: "§fMove to active hotbar slot", run: () => { moveSlotToHand(p, slot); itemCategoryMenu(p, group); } });
+  for (const action of actions) f.button(action.label);
+  f.button("§8Back");
+  f.show(p).then((r) => {
+    if (r.canceled) return;
+    if (r.selection >= actions.length) return itemCategoryMenu(p, group);
+    actions[r.selection].run();
+  }).catch(() => { });
+}
+
+function useInventoryItem(p, id) {
+  const c = DATA.consumables[id];
+  if (c) {
+    if (!removeItem(p, id, 1)) return;
+    if (c.heal) healPlayer(p, c.heal);
+    if (c.will) P.set(p, "fc_will", Math.min(maxWill(p), willEnergy(p) + c.will));
+    if (c.food) p.addEffect("saturation", 2, { amplifier: Math.max(0, c.food - 1), showParticles: false });
+    if (c.morality) addMorality(p, c.morality);
+    if (c.xp) giveXp(p, c.xp, c.xp_amount);
+    if (c.max_hp) {
+      P.add(p, "fc_bonus_hp", c.max_hp);
+      p.sendMessage("§d✦ Your life force expands permanently.");
+    }
+    p.playSound(id.includes("potion") || id.includes("elixir") || id.includes("phial") ? "random.drink" : "random.eat");
+    return itemsMenu(p);
+  }
+  if (ORB_XP[id]) {
+    const [type, amount] = ORB_XP[id];
+    if (!removeItem(p, id, 1)) return;
+    giveXp(p, type, amount);
+    p.playSound("random.orb", { pitch: 1.2 });
+    showHeroActionBar(p, `${XP_COLOR[type]}✦ +${amount} ${type} experience absorbed`);
+    return itemsMenu(p);
+  }
+}
+
+function carriedWeapons(p) {
+  return inventoryEntries(p, (item) => !!DATA.weapons[item.typeId]);
 }
 
 function weaponLockerMenu(p) {
+  const weapons = carriedWeapons(p);
   const held = heldItem(p);
-  const lines = [FABLE_RULE];
-  const wd = held && DATA.weapons[held.typeId];
-  if (wd) {
-    const name = held.typeId.replace("fc:", "").split("_").map((w) => w[0].toUpperCase() + w.slice(1)).join(" ");
-    const augs = weaponAugments(held);
-    lines.push(`§e◈ Wielding: §f${name}`);
-    lines.push(`§7   Damage §c${wd.fable}§7 (Fable)`);
-    if (wd.slots > 0) {
-      lines.push(`§7   Augment slots: §f${augs.length}/${wd.slots}`);
-      for (const a of augs) {
-        const info = DATA.augmentInfo?.[a];
-        lines.push(`   §6⬩ §f${info?.name ?? a} §8— §7${info?.desc ?? ""}`);
-      }
-      for (let i = augs.length; i < wd.slots; i++) lines.push("   §8⬩ (empty augment slot)");
-    } else {
-      lines.push("§7   This weapon has no augment slots.");
-    }
-  } else {
-    lines.push("§7Hold a weapon to inspect it here.");
+  const f = new ActionFormData().title(fableTitle("Weapons")).body(fableBody([
+    held && DATA.weapons[held.typeId] ? `§6Drawn: §f${displayName(held.typeId)}` : "§7No Fable weapon drawn.",
+    "§8Choose a weapon to inspect or equip.",
+  ]));
+  for (const { item } of weapons) {
+    const data = DATA.weapons[item.typeId];
+    const augments = weaponAugments(item);
+    f.button(`${item.typeId === held?.typeId ? "§a● " : "§f"}${displayName(item.typeId)}\n§c${data.fable} damage §8· §6${augments.length}/${data.slots} augments`,
+      `textures/items/${item.typeId.replace("fc:", "")}`);
   }
-  lines.push(FABLE_RULE);
-  lines.push("§7Use an §6augmentation stone§7 from your pack to open the");
-  lines.push("§7Augmentation Forge and bind new powers to a weapon.");
-  new ActionFormData().title(fableTitle("Weapon Locker")).body(lines.join("\n")).button("§8❖ Back")
-    .show(p).then((r) => { if (!r.canceled) heroMenu(p); });
+  f.button("§8Back");
+  f.show(p).then((r) => {
+    if (r.canceled) return;
+    if (r.selection >= weapons.length) return heroMenu(p);
+    weaponDetailMenu(p, weapons[r.selection]);
+  }).catch(() => { });
+}
+
+function weaponDetailMenu(p, entry) {
+  const data = DATA.weapons[entry.item.typeId];
+  const augments = weaponAugments(entry.item);
+  const lines = [
+    `§cDamage: §f${data.fable}`,
+    `§6Augment slots: §f${augments.length}/${data.slots}`,
+    ...(augments.length ? augments.map((id) => `§6⬩ §f${DATA.augmentInfo?.[id]?.name ?? displayName(id)}`) : ["§8No powers bound."]),
+  ];
+  const f = new ActionFormData().title(fableTitle(displayName(entry.item.typeId)))
+    .body(fableBody(lines))
+    .button("§aEquip weapon")
+    .button("§8Back");
+  f.show(p).then((r) => {
+    if (r.canceled) return;
+    if (r.selection === 0) {
+      moveSlotToHand(p, entry.slot);
+      p.playSound("random.armor_equip_generic");
+    }
+    weaponLockerMenu(p);
+  }).catch(() => { });
+}
+
+function magicMenu(p) {
+  const owned = willOwnedSpells(p);
+  const f = new ActionFormData().title(fableTitle("Magic")).body(fableBody([
+    `§bWill: §f${willEnergy(p)}/${maxWill(p)}`,
+    `§9Known powers: §f${owned.length}/${Object.keys(DATA.spells).length}`,
+    "§8Learned powers stay available without occupying quick-cast inventory slots.",
+  ]))
+    .button("§9Will Powers & Upgrades", "textures/items/spell_fireball")
+    .button("§bAttune Will Hotkeys", "textures/items/spell_lightning")
+    .button("§dWill Focus", "textures/items/will_focus")
+    .button("§8Back");
+  f.show(p).then((r) => {
+    if (r.canceled) return;
+    if (r.selection === 0) return spellMenu(p);
+    if (r.selection === 1) return willAttuneMenu(p);
+    if (r.selection === 2) return willAttuneMenu(p);
+    heroMenu(p);
+  }).catch(() => { });
+}
+
+const ARMOR_EQUIPMENT = {
+  helm: EquipmentSlot.Head,
+  torso: EquipmentSlot.Chest,
+  legs: EquipmentSlot.Legs,
+  boots: EquipmentSlot.Feet,
+};
+
+function equipArmorEntry(p, entry) {
+  const data = DATA.armor[entry.item.typeId];
+  const equipmentSlot = data && ARMOR_EQUIPMENT[data.slot];
+  const c = inv(p);
+  const eq = p.getComponent("minecraft:equippable");
+  if (!c || !eq || !equipmentSlot) return false;
+  const chosen = c.getItem(entry.slot);
+  if (!chosen || chosen.typeId !== entry.item.typeId) return false;
+  const old = eq.getEquipment(equipmentSlot);
+  c.setItem(entry.slot, undefined);
+  eq.setEquipment(equipmentSlot, chosen);
+  if (old) c.setItem(entry.slot, old);
+  return true;
+}
+
+function equippedArmor(p) {
+  const eq = p.getComponent("minecraft:equippable");
+  if (!eq) return [];
+  return Object.values(ARMOR_EQUIPMENT)
+    .map((slot) => eq.getEquipment(slot))
+    .filter((item) => item && DATA.armor[item.typeId]);
+}
+
+function clothingMenu(p) {
+  const carried = inventoryEntries(p, (item) => !!DATA.armor[item.typeId]);
+  const equipped = equippedArmor(p);
+  const sets = new Map();
+  for (const entry of carried) {
+    const set = DATA.armor[entry.item.typeId].set;
+    if (!sets.has(set)) sets.set(set, []);
+    sets.get(set).push(entry);
+  }
+  const f = new ActionFormData().title(fableTitle("Clothing")).body(fableBody([
+    `§7Equipped: §f${equipped.length}/4 pieces`,
+    "§8Equip a whole suit or choose individual pieces.",
+  ]));
+  if (equipped.length) f.button("§7Unequip all clothing");
+  for (const [set, entries] of sets) {
+    const complete = new Set(entries.map(({ item }) => DATA.armor[item.typeId].slot)).size >= 4;
+    f.button(`§f${displayName(set)}\n${complete ? "§aComplete suit" : `§8${entries.length} piece${entries.length === 1 ? "" : "s"}`}`,
+      `textures/items/${entries[0].item.typeId.replace("fc:", "")}`);
+  }
+  f.button("§8Back");
+  const setEntries = [...sets.entries()];
+  f.show(p).then((r) => {
+    if (r.canceled) return;
+    let index = r.selection;
+    if (equipped.length) {
+      if (index === 0) {
+        unequipAllClothing(p);
+        return clothingMenu(p);
+      }
+      index--;
+    }
+    if (index >= setEntries.length) return heroMenu(p);
+    clothingSetMenu(p, setEntries[index][0]);
+  }).catch(() => { });
+}
+
+function unequipAllClothing(p) {
+  const c = inv(p);
+  const eq = p.getComponent("minecraft:equippable");
+  if (!c || !eq) return;
+  for (const slot of Object.values(ARMOR_EQUIPMENT)) {
+    const item = eq.getEquipment(slot);
+    if (!item) continue;
+    const leftover = c.addItem(item);
+    if (leftover) p.dimension.spawnItem(leftover, p.location);
+    eq.setEquipment(slot, undefined);
+  }
+  p.playSound("random.armor_equip_generic", { pitch: 0.8 });
+}
+
+function clothingSetMenu(p, setId) {
+  const entries = inventoryEntries(p, (item) => DATA.armor[item.typeId]?.set === setId);
+  const f = new ActionFormData().title(fableTitle(displayName(setId))).body(fableBody([
+    "§7Clothing records its attractiveness, scariness and moral character.",
+  ]));
+  const complete = new Set(entries.map(({ item }) => DATA.armor[item.typeId].slot)).size >= 4;
+  if (complete) f.button("§aEquip complete suit");
+  for (const entry of entries) {
+    const data = DATA.armor[entry.item.typeId];
+    f.button(`§f${displayName(entry.item.typeId)}\n§8${displayName(data.slot)}`,
+      `textures/items/${entry.item.typeId.replace("fc:", "")}`);
+  }
+  f.button("§8Back");
+  f.show(p).then((r) => {
+    if (r.canceled) return;
+    let index = r.selection;
+    if (complete) {
+      if (index === 0) {
+        for (const entry of entries) equipArmorEntry(p, entry);
+        p.playSound("random.armor_equip_generic");
+        return clothingMenu(p);
+      }
+      index--;
+    }
+    if (index >= entries.length) return clothingMenu(p);
+    if (equipArmorEntry(p, entries[index])) p.playSound("random.armor_equip_generic");
+    clothingSetMenu(p, setId);
+  }).catch(() => { });
+}
+
+const EXPRESSION_CATEGORIES = [
+  ["friendly", "Friendly"],
+  ["romantic", "Romantic"],
+  ["funny", "Funny"],
+  ["scary", "Scary"],
+  ["rude", "Rude"],
+  ["criminal", "Criminal"],
+  ["oracle", "Oracle"],
+];
+
+function expressionsMenu(p) {
+  const unlocked = new Set(refreshFableEmoteUnlocks(p));
+  const f = new ActionFormData().title(fableTitle("Expressions")).body(fableBody([
+    `§dLearned: §f${unlocked.size}/${FABLE_EMOTES.length}`,
+    "§7Expressions affect nearby townsfolk and may perform special actions.",
+  ]));
+  for (const [id, label] of EXPRESSION_CATEGORIES) {
+    const all = FABLE_EMOTES.filter((entry) => entry.category === id);
+    const known = all.filter((entry) => unlocked.has(entry.id)).length;
+    f.button(`§d${label}\n§8${known}/${all.length} learned`);
+  }
+  f.button("§8Back");
+  f.show(p).then((r) => {
+    if (r.canceled) return;
+    if (r.selection >= EXPRESSION_CATEGORIES.length) return heroMenu(p);
+    expressionCategoryMenu(p, EXPRESSION_CATEGORIES[r.selection][0], EXPRESSION_CATEGORIES[r.selection][1]);
+  }).catch(() => { });
+}
+
+function expressionCategoryMenu(p, category, label) {
+  const unlocked = new Set(refreshFableEmoteUnlocks(p));
+  const entries = FABLE_EMOTES.filter((entry) => entry.category === category);
+  const f = new ActionFormData().title(fableTitle(label)).body(fableBody([
+    "§7Select an expression. Nearby people will react.",
+  ]));
+  for (const emote of entries) {
+    const status = unlocked.has(emote.id) ? "§aLearned" : "§8Locked";
+    f.button(`${unlocked.has(emote.id) ? "§f" : "§8"}${emote.name}\n${status}`);
+  }
+  f.button("§8Back");
+  f.show(p).then((r) => {
+    if (r.canceled) return;
+    if (r.selection >= entries.length) return expressionsMenu(p);
+    const emote = entries[r.selection];
+    if (!unlocked.has(emote.id)) {
+      performFableEmote(p, emote.id, { camera: false, react: false, functional: false });
+      return expressionCategoryMenu(p, category, label);
+    }
+    performFableEmote(p, emote.id);
+  }).catch(() => { });
+}
+
+function questJournalMenu(p) {
+  const active = activeQuest(p);
+  const done = doneQuests(p);
+  const f = new ActionFormData().title(fableTitle("Quests")).body(fableBody([
+    active ? `§eActive: §f${DATA.quests.find((q) => q.id === active.id)?.name ?? active.id}` : "§7No active quest.",
+    `§6Completed: §f${done.length}/${DATA.quests.length}`,
+  ]))
+    .button("§eActive Quest", "textures/items/quest_card")
+    .button("§6Available Quest Cards", "textures/items/quest_card")
+    .button("§7Completed Quests", "textures/items/summoners_grimoire")
+    .button("§8Back");
+  f.show(p).then((r) => {
+    if (r.canceled) return;
+    if (r.selection === 0) return active ? questMenu(p) : questJournalMenu(p);
+    if (r.selection === 1) return questBoard(p);
+    if (r.selection === 2) return completedQuestsMenu(p);
+    heroMenu(p);
+  }).catch(() => { });
+}
+
+function completedQuestsMenu(p) {
+  const done = doneQuests(p);
+  const quests = DATA.quests.filter((q) => done.includes(q.id));
+  const f = new ActionFormData().title(fableTitle("Quest History")).body(fableBody([
+    quests.length ? "§7Albion remembers these deeds." : "§8No completed Quest Cards yet.",
+  ]));
+  for (const q of quests) f.button(`§a✔ §f${q.name}\n§8${q.giver} · ${q.renown} renown`);
+  f.button("§8Back");
+  f.show(p).then((r) => {
+    if (r.canceled) return;
+    if (r.selection >= quests.length) return questJournalMenu(p);
+    const q = quests[r.selection];
+    new ActionFormData().title(fableTitle(q.name))
+      .body(fableBody([`§o"${q.desc}"`, `§dRenown earned: §f${q.renown}`]))
+      .button("§8Back").show(p).then(() => completedQuestsMenu(p));
+  }).catch(() => { });
+}
+
+function logbookMenu(p) {
+  const f = new ActionFormData().title(fableTitle("Logbook")).body(fableBody([
+    "§7A Guild reference for the systems active in this world.",
+  ]))
+    .button("§6Hero's Handbook")
+    .button("§9Will & Quick-Cast")
+    .button("§bCullis Gates")
+    .button("§4Crime & Bounties")
+    .button("§aFactions & Standing")
+    .button("§dTitles & Renown")
+    .button("§cGuild Training")
+    .button("§8Back");
+  const pages = [
+    ["Hero's Handbook", [
+      "Use the Guild Seal to open this book.",
+      "Sneak-use the Seal to recall to the Heroes' Guild.",
+      "Use Quest Cards or the Guild lecterns to accept work.",
+      "Experience is divided into General, Strength, Skill and Will.",
+    ]],
+    ["Will & Quick-Cast", [
+      "Spell tomes cast their bound power when used.",
+      "Attune three virtual powers, then cast with Sneak + 7, 8 or 9.",
+      "These bindings do not replace the items in your hotbar.",
+      "The Will Focus casts the active power; sneak-use it to attune.",
+    ]],
+    ["Cullis Gates", [
+      "Discovered Focus Sites join the Cullis lattice.",
+      "Stand on a gate and sneak, or choose Map from the Guild Seal.",
+      "TLC navigation uses destinations and quest markers—not a golden trail.",
+    ]],
+    ["Crime & Bounties", [
+      "Witnessed murder creates a settlement-specific bounty.",
+      "Guards may demand payment, jail, or resistance.",
+      "Leave the region long enough and its warrant expires.",
+    ]],
+  ];
+  f.show(p).then((r) => {
+    if (r.canceled) return;
+    if (r.selection < pages.length) return logbookPage(p, pages[r.selection][0], pages[r.selection][1]);
+    if (r.selection === 4) return factionMenu(p);
+    if (r.selection === 5) return titlesMenu(p);
+    if (r.selection === 6) return trainMenu(p);
+    heroMenu(p);
+  }).catch(() => { });
+}
+
+function logbookPage(p, title, lines) {
+  new ActionFormData().title(fableTitle(title)).body(fableBody(lines.map((line) => `§7${line}`)))
+    .button("§8Back").show(p).then(() => logbookMenu(p)).catch(() => { });
 }
 
 function mapMenu(p) {
@@ -1478,11 +2505,15 @@ function mapMenu(p) {
         FABLE_RULE,
       ].join("\n"))
       .button("§8❖ Back")
-      .show(p).then((r) => { if (!r.canceled) heroMenu(p); });
+      .show(p).then((r) => { if (!r.canceled) heroMenu(p); }).catch(() => { });
     return;
   }
   const f = new ActionFormData().title(fableTitle("Map of Albion"))
-    .body(`${FABLE_RULE}\n§7The lattice of Albion bends to your Will.\n§7Choose a Focus Site to travel.\n${FABLE_RULE}`);
+    .body(fableBody([
+      "§7The Cullis lattice bends Albion to your Will.",
+      "§8Travel is destination-based; there is no breadcrumb trail.",
+    ]))
+    .button("§9Recall to the Heroes' Guild", "textures/items/guild_seal");
   for (const s of sites) {
     const d = Math.round(Math.hypot(p.location.x - s.x, p.location.z - s.z));
     f.button(`§b◈ ${s.name}\n§8${d}m distant`, "textures/items/septimal_key");
@@ -1490,14 +2521,15 @@ function mapMenu(p) {
   f.button("§8❖ Back");
   f.show(p).then((r) => {
     if (r.canceled) return;
-    if (r.selection >= sites.length) return heroMenu(p);
-    const s = sites[r.selection];
+    if (r.selection === 0) return recallToGuild(p);
+    if (r.selection > sites.length) return heroMenu(p);
+    const s = sites[r.selection - 1];
     try { p.dimension.spawnParticle("minecraft:huge_explosion_emitter", p.location); } catch { }
     p.playSound("fc.spell_cast", { pitch: 0.6 });
     p.teleport({ x: s.x + 0.5, y: s.y + 1, z: s.z + 0.5 });
     p.playSound("mob.endermen.portal");
-    p.onScreenDisplay.setTitle("§b◈", { fadeInDuration: 2, stayDuration: 16, fadeOutDuration: 8, subtitle: `§f${s.name}` });
-  });
+    showHeroTitle(p, "§b◈", { fadeInDuration: 2, stayDuration: 16, fadeOutDuration: 8, subtitle: `§f${s.name}` });
+  }).catch(() => { });
 }
 
 function bar(v, max, color, width = 20) {
@@ -1507,6 +2539,12 @@ function bar(v, max, color, width = 20) {
 
 function statsMenu(p) {
   const m = morality(p);
+  const worn = equippedArmor(p);
+  const attractiveness = worn.reduce((sum, item) => sum + (DATA.armor[item.typeId]?.attract ?? 0), 0);
+  const scariness = worn.reduce((sum, item) => sum + (DATA.armor[item.typeId]?.scary ?? 0), 0);
+  const time = world.getTimeOfDay();
+  const hour = Math.floor(((time + 6000) % 24000) / 1000);
+  const minute = Math.floor((((time + 6000) % 1000) / 1000) * 60);
   const morBar = (() => {
     const pos = Math.round(((m + 1000) / 2000) * 20);
     let s = "§5";
@@ -1518,6 +2556,12 @@ function statsMenu(p) {
     `${FABLE_DOT}§lAlignment§r  ${moralityTitle(p)} §7(${m})`,
     morBar,
     FABLE_RULE,
+    `§d ◈ Renown: §f${P.get(p, "fc_renown", 0)} §8· title: §e${activeTitle(p) || "none"}`,
+    `§d ◈ Attractiveness: §f${attractiveness}`,
+    `§4 ◈ Scariness: §f${scariness}`,
+    `§d ◈ Marital status: §f${P.get(p, "fc_married", false) ? "Married to Lady Grey" : "Unmarried"}`,
+    `§7 ◈ Albion time: §f${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`,
+    FABLE_RULE,
     `§a ◈ General XP: §f${P.get(p, "fc_xp_general", 0)}`,
     `§c ◈ Strength XP: §f${P.get(p, "fc_xp_strength", 0)}`,
     `§9 ◈ Skill XP: §f${P.get(p, "fc_xp_skill", 0)}`,
@@ -1525,13 +2569,22 @@ function statsMenu(p) {
     "",
     `§b ◈ Will Energy: ${bar(willEnergy(p), maxWill(p), "§b")} §f${willEnergy(p)}/${maxWill(p)}`,
     `§6 ◈ Combat Multiplier: §f${P.get(p, "fc_mult", 0)}`,
-    `§d ◈ Renown: §f${P.get(p, "fc_renown", 0)}`,
     FABLE_RULE,
     "§7Guild disciplines:",
     ...Object.values(DATA.upgrades).map((u) => `  §f${u.name}: §6${"◆".repeat(P.get(p, `fc_up_${u.id}`, 0))}§8${"◇".repeat(u.max - P.get(p, `fc_up_${u.id}`, 0))}`),
   ];
-  new ActionFormData().title(fableTitle("Stats · Personality")).body(lines.join("\n")).button("§8❖ Back")
-    .show(p).then((r) => { if (!r.canceled) heroMenu(p); });
+  new ActionFormData().title(fableTitle("Stats · Personality")).body(lines.join("\n"))
+    .button("§cGuild Training")
+    .button("§dTitles & Renown")
+    .button("§aFactions & Bounties")
+    .button("§8Back")
+    .show(p).then((r) => {
+      if (r.canceled) return;
+      if (r.selection === 0) return trainMenu(p);
+      if (r.selection === 1) return titlesMenu(p);
+      if (r.selection === 2) return factionMenu(p);
+      heroMenu(p);
+    }).catch(() => { });
 }
 
 function factionMenu(p) {
@@ -1547,6 +2600,7 @@ function factionMenu(p) {
     "§7all treat you by your standing.",
     FABLE_RULE,
     ...rows,
+    ...bountySummaryLines(p),
     "",
     "§8Defend towns and finish quests to rise.",
     "§8Murder and banditry are... remembered.",
@@ -1609,23 +2663,31 @@ function applyUpgrades(p) {
 }
 
 function spellMenu(p) {
-  const f = new ActionFormData().title(fableTitle("Will Powers"));
+  const f = new ActionFormData().title(fableTitle("Will Powers")).body(fableBody([
+    `§bWill energy: §f${willEnergy(p)}/${maxWill(p)}`,
+    `§eWill experience: §f${P.get(p, "fc_xp_will", 0)}`,
+    "§8Learn powers by finding their spell tomes.",
+  ]));
   const ids = Object.keys(DATA.spells);
   for (const id of ids) {
     const s = DATA.spells[id];
     const lvl = spellLevel(p, id);
-    const owned = countItem(p, `fc:spell_${id}`) > 0;
+    const owned = willOwnedSpells(p).includes(id);
     const alignTag = s.align > 0 ? " §e[Good]" : s.align < 0 ? " §5[Evil]" : "";
-    f.button(`${owned ? "§b❖ " : "§8❖ "}${s.name}${alignTag} §7Lv${lvl}\n§8${s.will} Will · upgrade: ${lvl * 150} Will XP`);
+    f.button(`${owned ? "§b❖ " : "§8◇ "}${s.name}${alignTag} ${owned ? `§7Lv${lvl}` : "§8Locked"}\n§8${s.will} Will${owned ? ` · upgrade ${lvl * 150} XP` : ""}`);
   }
-  f.button("§b⚡ Attune Quick-Cast Slots", "textures/items/spell_fireball");
+  f.button("§b⚡ Attune Will Hotkeys", "textures/items/spell_fireball");
   f.button("§8❖ Back");
   f.show(p).then((r) => {
     if (r.canceled) return;
     if (r.selection === ids.length) return willAttuneMenu(p);
-    if (r.selection > ids.length) return heroMenu(p);
+    if (r.selection > ids.length) return magicMenu(p);
     const id = ids[r.selection];
     const lvl = spellLevel(p, id);
+    if (!willOwnedSpells(p).includes(id)) {
+      p.sendMessage(`§7Find the ${DATA.spells[id].name} spell tome before training this power.`);
+      return spellMenu(p);
+    }
     if (lvl >= 4) { p.sendMessage("§7This Will power is already mastered."); return spellMenu(p); }
     const cost = lvl * 150;
     if (P.get(p, "fc_xp_will", 0) < cost) { p.sendMessage(`§7You need ${cost} Will XP to deepen this power.`); return spellMenu(p); }
@@ -1634,132 +2696,457 @@ function spellMenu(p) {
     p.playSound("fc.level_up", { pitch: 1.3 });
     p.sendMessage(`§9✦ ${DATA.spells[id].name} flows stronger (level ${lvl + 1}).`);
     spellMenu(p);
-  });
+  }).catch(() => { });
 }
 
 // ---------------------------------------------------------------------------
-// WILL QUICK-CAST BAR — once a Hero unlocks Will, their three attuned powers
-// live in the three rightmost hotbar slots (6/7/8 → keys 7/8/9, the right edge
-// of the screen). Selecting a slot and using it casts. Bedrock cannot bind
-// custom hotkeys, so the hotbar IS the quick bar; it is sortable from the
-// attunement menu and by dragging in the inventory.
+// WILL QUICK-CAST — learned powers and the three attuned slots are virtual.
+// Sneak + hotbar keys 7/8/9 casts the matching power without replacing the
+// item stored in that hotbar slot. The Will Focus casts the active slot.
 // ---------------------------------------------------------------------------
+function learnWillSpell(p, id) {
+  if (!DATA.spells[id]) return false;
+  const known = P.getJ(p, "fc_will_known", []);
+  if (known.includes(id)) return false;
+  known.push(id);
+  P.setJ(p, "fc_will_known", known);
+  return true;
+}
+
+function learnInventoryWillSpells(p) {
+  const c = inv(p);
+  if (!c) return;
+  const known = P.getJ(p, "fc_will_known", []);
+  const found = new Set(known);
+  let changed = false;
+  for (let slot = 0; slot < c.size; slot++) {
+    const item = c.getItem(slot);
+    if (!item?.typeId.startsWith("fc:spell_")) continue;
+    const id = item.typeId.substring("fc:spell_".length);
+    if (!DATA.spells[id] || found.has(id)) continue;
+    found.add(id);
+    changed = true;
+  }
+  if (changed) P.setJ(p, "fc_will_known", [...found]);
+}
+
 function willOwnedSpells(p) {
-  return Object.keys(DATA.spells).filter((id) => countItem(p, `fc:spell_${id}`) > 0);
+  learnInventoryWillSpells(p);
+  return P.getJ(p, "fc_will_known", []).filter((id) => !!DATA.spells[id]);
 }
-function applyWillLabel(st, p, id) {
-  const s = DATA.spells[id];
-  if (!s) return;
-  try {
-    st.nameTag = `§b❖ ${s.name} §7Lv${spellLevel(p, id)}`;
-    st.setLore([`§9Will cost: §f${s.will}`, "§8Quick-cast — select this slot and use"]);
-  } catch { }
-}
-// Explicit placement (attune / init): put exactly one tome in the target slot,
-// stripping stray copies and rehoming whatever was displaced.
-function forceAttune(p, target, id) {
-  const c = inv(p); if (!c) return;
-  const tomeId = `fc:spell_${id}`;
-  const displaced = c.getItem(target);
-  for (let j = 0; j < c.size; j++) { const it = c.getItem(j); if (it?.typeId === tomeId) c.setItem(j, undefined); }
-  const st = new ItemStack(tomeId, 1);
-  applyWillLabel(st, p, id);
-  c.setItem(target, st);
-  if (displaced && displaced.typeId !== tomeId) { try { c.addItem(displaced); } catch { } }
-}
-// Gentle upkeep: only fills an EMPTY bar slot when the power tome is wholly
-// missing (death/relog), so it never clobbers the player's own arrangement.
-function maintainWillSlot(p, c, target, id) {
-  if (!id) return;
-  const tomeId = `fc:spell_${id}`;
-  const cur = c.getItem(target);
-  if (cur) return;                          // already in place / busy — leave it
-  if (countItem(p, tomeId) > 0) return;     // owned elsewhere — respect arrangement
-  const st = new ItemStack(tomeId, 1);
-  applyWillLabel(st, p, id);
-  c.setItem(target, st);
-}
-function gatherWillBar(p) {
-  if (!P.get(p, "fc_will_bar", 1)) { p.sendMessage("§7Enable the Quick-Cast Bar first."); return; }
+
+function normalizedWillSlots(p) {
   const slots = P.getJ(p, "fc_will_slots", [null, null, null]);
-  for (let i = 0; i < 3; i++) if (slots[i]) forceAttune(p, 6 + i, slots[i]);
-  p.sendMessage("§9❖ Will powers gathered to slots §f7 · 8 · 9§9.");
+  return [0, 1, 2].map((index) => DATA.spells[slots[index]] ? slots[index] : null);
+}
+
+function releaseLegacyWillBar(p) {
+  if (P.get(p, "fc_will_virtual_migrated", 0)) return;
+  const c = inv(p);
+  if (!c) return;
+  for (let source = 6; source <= 8; source++) {
+    const item = c.getItem(source);
+    if (!item?.typeId.startsWith("fc:spell_")) continue;
+    let target = -1;
+    for (let slot = 9; slot < c.size; slot++) {
+      if (!c.getItem(slot)) { target = slot; break; }
+    }
+    if (target < 0) {
+      for (let slot = 0; slot < 6; slot++) {
+        if (!c.getItem(slot)) { target = slot; break; }
+      }
+    }
+    if (target >= 0) {
+      c.setItem(target, item);
+      c.setItem(source, undefined);
+    }
+  }
+  P.set(p, "fc_will_virtual_migrated", 1);
+}
+
+function castActiveWill(p) {
+  const slots = normalizedWillSlots(p);
+  const active = Math.max(0, Math.min(2, P.get(p, "fc_will_active", 0)));
+  const id = slots[active] ?? slots.find(Boolean);
+  if (!id) {
+    showHeroActionBar(p, "§9No Will power is attuned. Sneak-use the Will Focus to choose one.");
+    return;
+  }
+  P.set(p, "fc_will_active", slots.indexOf(id));
+  castSpell(p, id);
 }
 
 const willGreeted = new Set();
 system.runInterval(() => {
   for (const p of world.getPlayers()) {
-    let slots = P.getJ(p, "fc_will_slots", null);
-    if (slots === null) {
-      const owned = willOwnedSpells(p);
-      if (!owned.length) continue;          // Will not unlocked yet
-      slots = [owned[0] ?? null, owned[1] ?? null, owned[2] ?? null];
-      P.setJ(p, "fc_will_slots", slots);
-      if (P.get(p, "fc_will_bar", -1) === -1) P.set(p, "fc_will_bar", 1);
-      for (let i = 0; i < 3; i++) if (slots[i]) forceAttune(p, 6 + i, slots[i]);
-      if (!willGreeted.has(p.id)) {
-        willGreeted.add(p.id);
-        p.sendMessage("§9❖ Will unlocked — your powers are bound to the three rightmost hotbar slots (keys §f7 · 8 · 9§9). Select one and use it to cast. Re-bind them via Guild Seal → Will Powers → Attune.");
-        p.playSound("fc.level_up", { pitch: 1.1 });
-      }
-      continue;
+    learnInventoryWillSpells(p);
+    releaseLegacyWillBar(p);
+    if (P.getJ(p, "fc_will_slots", null) !== null) continue;
+    const owned = willOwnedSpells(p);
+    if (!owned.length) continue;
+    P.setJ(p, "fc_will_slots", [owned[0] ?? null, owned[1] ?? null, owned[2] ?? null]);
+    P.set(p, "fc_will_active", 0);
+    if (!willGreeted.has(p.id)) {
+      willGreeted.add(p.id);
+      p.sendMessage("§9Will unlocked: press Sneak + 7, 8, or 9 to cast an attuned power. Your hotbar items remain untouched.");
+      p.playSound("fc.level_up", { pitch: 1.1 });
     }
-    if (!P.get(p, "fc_will_bar", 1)) continue;
-    const c = inv(p); if (!c) continue;
-    for (let i = 0; i < 3; i++) maintainWillSlot(p, c, 6 + i, slots[i]);
   }
 }, 40);
 
 function willAttuneMenu(p) {
-  const slots = P.getJ(p, "fc_will_slots", [null, null, null]);
-  const on = P.get(p, "fc_will_bar", 1);
-  const f = new ActionFormData().title(fableTitle("Attune Quick-Cast"))
-    .body(`${FABLE_RULE}\n§7Bind up to three Will powers to the rightmost hotbar\n§7slots — keys §f7 · 8 · 9§7. Select a slot to change it.\n§7Quick-Cast Bar: ${on ? "§aON" : "§cOFF"}\n${FABLE_RULE}`);
+  const slots = normalizedWillSlots(p);
+  const active = Math.max(0, Math.min(2, P.get(p, "fc_will_active", 0)));
+  const f = new ActionFormData().title(fableTitle("Attune Will Hotkeys"))
+    .body(`${FABLE_RULE}\n§7Bind three learned powers without using inventory space.\n§7Cast with §fSneak + 7 / 8 / 9§7. The Will Focus casts the active slot.\n${FABLE_RULE}`);
   for (let i = 0; i < 3; i++) {
     const id = slots[i];
     const name = id ? (DATA.spells[id]?.name ?? id) : "§8(empty)";
-    f.button(`§bSlot ${i + 1} §7(key ${7 + i})\n§f${name}`, "textures/items/spell_fireball");
+    f.button(
+      `${i === active ? "§b▶ " : "§7"}Key ${7 + i}\n§f${name}`,
+      id ? `textures/items/spell_${id}` : "textures/items/will_focus",
+    );
   }
-  f.button(on ? "§e⏼ Disable Quick-Cast Bar" : "§a⏼ Enable Quick-Cast Bar");
-  f.button("§b⇅ Gather powers to bar");
   f.button("§8❖ Back");
   f.show(p).then((r) => {
     if (r.canceled) return;
     if (r.selection < 3) return willSlotPicker(p, r.selection);
-    if (r.selection === 3) { P.set(p, "fc_will_bar", on ? 0 : 1); return willAttuneMenu(p); }
-    if (r.selection === 4) { gatherWillBar(p); return willAttuneMenu(p); }
-    return spellMenu(p);
-  });
+    return magicMenu(p);
+  }).catch(() => { });
 }
 
 function willSlotPicker(p, slotIdx) {
   const owned = willOwnedSpells(p);
+  const slots = normalizedWillSlots(p);
+  const current = slots[slotIdx];
   const f = new ActionFormData().title(fableTitle(`Slot ${slotIdx + 1}`))
-    .body(`${FABLE_RULE}\n§7Choose the Will power for key §f${7 + slotIdx}§7.\n${FABLE_RULE}`);
+    .body(`${FABLE_RULE}\n§7Choose the Will power for Sneak + §f${7 + slotIdx}§7.\n${FABLE_RULE}`);
+  if (current) f.button(`§bUse with Will Focus\n§f${DATA.spells[current].name}`);
   for (const id of owned) f.button(`§b❖ ${DATA.spells[id].name}\n§8${DATA.spells[id].will} Will`);
   f.button("§7✖ Clear slot");
   f.button("§8❖ Back");
   f.show(p).then((r) => {
     if (r.canceled) return willAttuneMenu(p);
-    const slots = P.getJ(p, "fc_will_slots", [null, null, null]);
-    if (r.selection < owned.length) {
-      const id = owned[r.selection];
-      for (let k = 0; k < 3; k++) if (slots[k] === id) slots[k] = null;  // de-dupe
+    const offset = current ? 1 : 0;
+    if (current && r.selection === 0) {
+      P.set(p, "fc_will_active", slotIdx);
+      return willAttuneMenu(p);
+    }
+    if (r.selection >= offset && r.selection < owned.length + offset) {
+      const id = owned[r.selection - offset];
+      for (let k = 0; k < 3; k++) if (slots[k] === id) slots[k] = null;
       slots[slotIdx] = id;
       P.setJ(p, "fc_will_slots", slots);
-      if (P.get(p, "fc_will_bar", 1)) forceAttune(p, 6 + slotIdx, id);
-    } else if (r.selection === owned.length) {
-      const c = inv(p);
-      if (c) {
-        const cur = c.getItem(6 + slotIdx);
-        if (cur?.typeId.startsWith("fc:spell_")) { c.setItem(6 + slotIdx, undefined); try { c.addItem(cur); } catch { } }
-      }
+      P.set(p, "fc_will_active", slotIdx);
+    } else if (r.selection === owned.length + offset) {
       slots[slotIdx] = null;
       P.setJ(p, "fc_will_slots", slots);
+      if (P.get(p, "fc_will_active", 0) === slotIdx) {
+        const fallback = slots.findIndex(Boolean);
+        P.set(p, "fc_will_active", fallback < 0 ? 0 : fallback);
+      }
     }
     willAttuneMenu(p);
-  });
+  }).catch(() => { });
 }
+
+const willHotkeyState = new Map();
+system.runInterval(() => {
+  for (const p of world.getPlayers()) {
+    const selected = p.selectedSlotIndex ?? 0;
+    const previous = willHotkeyState.get(p.id) ?? {
+      selected,
+      sneaking: false,
+      restoreSlot: selected < 6 ? selected : 0,
+      lastCastTick: -999,
+    };
+    if (!p.isSneaking && selected < 6) previous.restoreSlot = selected;
+    const pressedHotkey = p.isSneaking && selected >= 6 && selected <= 8
+      && (!previous.sneaking || previous.selected !== selected)
+      && TICKS() - previous.lastCastTick > 3;
+    if (pressedHotkey) {
+      const slotIndex = selected - 6;
+      const id = normalizedWillSlots(p)[slotIndex];
+      previous.lastCastTick = TICKS();
+      if (id) {
+        P.set(p, "fc_will_active", slotIndex);
+        castSpell(p, id);
+      } else {
+        showHeroActionBar(p, `§7No Will power is bound to key ${selected + 1}.`);
+      }
+      system.run(() => {
+        try { p.selectedSlotIndex = previous.restoreSlot; } catch { }
+      });
+    }
+    previous.selected = selected;
+    previous.sneaking = p.isSneaking;
+    willHotkeyState.set(p.id, previous);
+  }
+}, 1);
+
+const COMPASS_POINTS = ["S", "SW", "W", "NW", "N", "NE", "E", "SE"];
+function compassPoint(yaw) {
+  const normalized = ((yaw % 360) + 360) % 360;
+  return COMPASS_POINTS[Math.round(normalized / 45) % 8];
+}
+
+function nearestHudLandmark(p) {
+  const markers = [];
+  try {
+    const guild = JSON.parse(world.getDynamicProperty("fc_guild_loc") ?? "null");
+    if (guild) markers.push({ name: "Guild", x: guild.x, z: guild.z });
+  } catch { }
+  try {
+    const sites = JSON.parse(world.getDynamicProperty("fc_cullis") ?? "[]");
+    for (const site of sites) markers.push(site);
+  } catch { }
+  let nearest = null;
+  for (const marker of markers) {
+    if (!Number.isFinite(marker.x) || !Number.isFinite(marker.z)) continue;
+    const distance = Math.round(Math.hypot(marker.x - p.location.x, marker.z - p.location.z));
+    if (!nearest || distance < nearest.distance) nearest = { ...marker, distance };
+  }
+  return nearest;
+}
+
+function compactHudBar(value, maximum, width = 10) {
+  const filled = maximum > 0
+    ? Math.max(0, Math.min(width, Math.round(value / maximum * width)))
+    : 0;
+  return `${"■".repeat(filled)}§8${"□".repeat(width - filled)}`;
+}
+
+function scaledHudBarWidth(maximum, baseMaximum, perSegment, cap = 28) {
+  return Math.max(10, Math.min(cap, 10 + Math.floor(Math.max(0, maximum - baseMaximum) / perSegment)));
+}
+
+function heroStatusText(p) {
+  const health = p.getComponent("minecraft:health");
+  const hp = Math.ceil(health?.currentValue ?? 0);
+  const hpMax = Math.ceil(health?.effectiveMax ?? 20);
+  const will = willEnergy(p);
+  const willMax = maxWill(p);
+  const hunger = p.getComponent("minecraft:player.hunger") ?? p.getComponent("minecraft:hunger");
+  const hungerCurrent = Math.ceil(hunger?.currentValue ?? 20);
+  const hungerMax = Math.ceil(hunger?.effectiveMax ?? hunger?.defaultValue ?? 20);
+  const healthWidth = scaledHudBarWidth(hpMax, 20, 4, 24);
+  const willWidth = scaledHudBarWidth(willMax, 100, 25, 28);
+  const multiplier = P.get(p, "fc_mult", 0);
+  const lines = [
+    `§c${compactHudBar(hp, hpMax, healthWidth)} §f${hp}/${hpMax}`,
+    `§9${compactHudBar(will, willMax, willWidth)} §f${will}/${willMax}`,
+    `§6${compactHudBar(hungerCurrent, hungerMax, 10)} §f${hungerCurrent}/${hungerMax}`,
+  ];
+  if (multiplier > 0) lines.push(`§6× ${multiplier}`);
+  return lines.join("\n");
+}
+
+function npcCanSeeHero(npc, p, maxDistance) {
+  try {
+    const head = npc.getHeadLocation?.() ?? {
+      x: npc.location.x,
+      y: npc.location.y + 1.5,
+      z: npc.location.z,
+    };
+    const target = p.getHeadLocation?.() ?? {
+      x: p.location.x,
+      y: p.location.y + 1.5,
+      z: p.location.z,
+    };
+    const dx = target.x - head.x;
+    const dy = target.y - head.y;
+    const dz = target.z - head.z;
+    const distance = Math.max(0.001, Math.hypot(dx, dy, dz));
+    if (distance > maxDistance) return false;
+    const direction = { x: dx / distance, y: dy / distance, z: dz / distance };
+    const look = npc.getViewDirection();
+    const fieldOfView = p.isSneaking ? 0.55 : 0.25;
+    if (look.x * direction.x + look.y * direction.y + look.z * direction.z < fieldOfView) {
+      return false;
+    }
+    try {
+      const obstruction = npc.dimension.getBlockFromRay(head, direction, {
+        maxDistance: Math.max(0, distance - 0.6),
+        includeLiquidBlocks: false,
+        includePassableBlocks: false,
+      });
+      if (obstruction) return false;
+    } catch { }
+    return true;
+  } catch { return false; }
+}
+
+function heroVisibleToNpc(p) {
+  const maxDistance = p.isSneaking ? 10 : 18;
+  let observers = [];
+  try {
+    observers = p.dimension.getEntities({
+      location: p.location,
+      maxDistance,
+      families: ["fc_friendly"],
+    });
+  } catch { }
+  observers.sort((a, b) => {
+    const da = Math.hypot(a.location.x - p.location.x, a.location.z - p.location.z);
+    const db = Math.hypot(b.location.x - p.location.x, b.location.z - p.location.z);
+    return da - db;
+  });
+  return observers.slice(0, 16).some((npc) => npcCanSeeHero(npc, p, maxDistance));
+}
+
+function albionClockText() {
+  const ticks = world.getTimeOfDay();
+  const hour = (Math.floor(ticks / 1000) + 6) % 24;
+  const minute = Math.floor((ticks % 1000) * 60 / 1000);
+  const phase = ticks >= 13000 && ticks < 23000 ? "NIGHT" : "DAY";
+  return `${phase} ${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
+}
+
+function radarLandmarks() {
+  const markers = [];
+  try {
+    const guild = JSON.parse(world.getDynamicProperty("fc_guild_loc") ?? "null");
+    if (guild) markers.push({ name: "Guild", x: guild.x, z: guild.z });
+  } catch { }
+  try {
+    const sites = JSON.parse(world.getDynamicProperty("fc_cullis") ?? "[]");
+    for (const site of sites) markers.push(site);
+  } catch { }
+  return markers.filter((marker) => Number.isFinite(marker.x) && Number.isFinite(marker.z));
+}
+
+function liveRadarRows(p) {
+  const size = 9;
+  const middle = Math.floor(size / 2);
+  const blocksPerCell = 4;
+  const forward = p.getViewDirection();
+  const right = { x: -forward.z, z: forward.x };
+  const cells = Array.from({ length: size }, () => Array(size).fill(" "));
+  const priorities = Array.from({ length: size }, () => Array(size).fill(0));
+  const terrainGlyph = (block) => {
+    if (!block) return "§8·";
+    const id = block.typeId;
+    const dy = block.location.y - p.location.y;
+    if (id.includes("water") || id.includes("ice")) return "§b≈";
+    if (id.includes("lava") || id.includes("fire") || id.includes("magma")) return "§c≈";
+    if (id.includes("snow")) return "§f·";
+    if (id.includes("sand") || id.includes("sandstone")) return "§e·";
+    if (id.includes("leaves") || id.includes("log") || id.includes("wood")) return "§2♣";
+    if (id.includes("grass") || id.includes("moss") || id.includes("azalea")) return "§a·";
+    if (id.includes("path") || id.includes("plank") || id.includes("brick")
+      || id.includes("cobble") || id.includes("concrete")) return "§6▪";
+    if (id.includes("stone") || id.includes("ore") || id.includes("deepslate")
+      || id.includes("tuff") || id.includes("gravel")) return dy > 4 ? "§7▲" : "§8▪";
+    if (id.includes("dirt") || id.includes("mud") || id.includes("clay")) return "§6·";
+    return dy > 4 ? "§7▲" : dy < -4 ? "§8▽" : "§7·";
+  };
+
+  for (let row = 0; row < size; row++) {
+    for (let column = 0; column < size; column++) {
+      const localX = column - middle;
+      const localZ = middle - row;
+      if (Math.hypot(localX, localZ) > middle + 0.25) continue;
+      const x = Math.floor(p.location.x
+        + right.x * localX * blocksPerCell
+        + forward.x * localZ * blocksPerCell);
+      const z = Math.floor(p.location.z
+        + right.z * localX * blocksPerCell
+        + forward.z * localZ * blocksPerCell);
+      try {
+        cells[row][column] = terrainGlyph(p.dimension.getTopmostBlock({ x, z }));
+      } catch {
+        try { cells[row][column] = terrainGlyph(p.dimension.getBlock({ x, y: Math.floor(p.location.y) - 1, z })); } catch { }
+      }
+    }
+  }
+
+  const place = (location, glyph, priority, clampToEdge = false) => {
+    const dx = location.x - p.location.x;
+    const dz = location.z - p.location.z;
+    let column = middle + Math.round((dx * right.x + dz * right.z) / blocksPerCell);
+    let row = middle - Math.round((dx * forward.x + dz * forward.z) / blocksPerCell);
+    if (clampToEdge) {
+      column = Math.max(0, Math.min(size - 1, column));
+      row = Math.max(0, Math.min(size - 1, row));
+    }
+    if (row < 0 || row >= size || column < 0 || column >= size) return;
+    if (priority < priorities[row][column]) return;
+    cells[row][column] = glyph;
+    priorities[row][column] = priority;
+  };
+
+  for (const landmark of radarLandmarks()) place(landmark, "§6◆", 1, true);
+  try {
+    for (const npc of p.dimension.getEntities({
+      location: p.location,
+      maxDistance: 27,
+      families: ["fc_friendly"],
+    })) {
+      place(npc.location, "§a•", 2);
+    }
+  } catch { }
+  try {
+    for (const hostile of p.dimension.getEntities({
+      location: p.location,
+      maxDistance: 27,
+      families: ["monster"],
+    })) {
+      place(hostile.location, "§c!", 3);
+    }
+  } catch { }
+  cells[middle][middle] = "§f▲";
+  return cells.map((row) => row.join(" "));
+}
+
+function heroRadarText(p) {
+  const heading = compassPoint(p.getRotation().y);
+  const landmark = nearestHudLandmark(p);
+  const nav = landmark
+    ? `${heading} · ${landmark.name} · ${landmark.distance}m`
+    : `${heading} · ${Math.floor(p.location.x)}, ${Math.floor(p.location.z)}`;
+  const seen = heroVisibleToNpc(p);
+  const eye = seen ? "§c◉" : "§a—";
+  const radarPadding = "               ";
+  return [
+    `     ${eye}                    §e${albionClockText()}`,
+    "",
+    ...liveRadarRows(p).map((row) => `${radarPadding}${row}`),
+    `${radarPadding}§6${nav}`,
+  ].join("\n");
+}
+
+// Live HUD output is owned by fable_hud.js.
+if (false) system.runInterval(() => {
+  for (const p of world.getPlayers()) {
+    if (TICKS() >= (titleHoldUntil.get(p.id) ?? 0)) {
+      try {
+        p.onScreenDisplay.setTitle(heroStatusText(p), {
+          fadeInDuration: 0,
+          stayDuration: 16,
+          fadeOutDuration: 0,
+          subtitle: heroRadarText(p),
+        });
+      } catch { }
+    }
+    const notice = heroNotice.get(p.id);
+    const message = notice && TICKS() < notice.until ? notice.text : "";
+    if (notice && !message) heroNotice.delete(p.id);
+    try {
+      p.onScreenDisplay.setActionBar(`§6${countItem(p, "fc:gold_coin")}\n${message}`);
+    } catch { }
+  }
+}, 10);
+
+system.runInterval(() => {
+  for (const p of world.getPlayers()) {
+    const regen = 1 + P.get(p, "fc_up_magic_power", 0);
+    P.set(p, "fc_will", Math.min(maxWill(p), willEnergy(p) + regen));
+    if (TICKS() - P.get(p, "fc_lastHit", 0) > 240 && P.get(p, "fc_mult", 0) > 0) {
+      P.set(p, "fc_mult", Math.max(0, P.get(p, "fc_mult", 0) - 2));
+    }
+    applyUpgrades(p);
+  }
+}, 20);
 
 function activeTitle(p) { return P.getJ(p, "fc_active_title", ""); }
 function applyTitleTag(p) {
@@ -1826,8 +3213,10 @@ function questBoard(p) {
     const tag = q.chain === "main" ? "§6[MAIN]" : q.chain === "side" ? "§a[SIDE]" : "§b[JOB]";
     f.button(`${tag} §f${q.name}\n§7${q.giver} · ${q.renown} renown`, "textures/items/quest_card");
   }
+  f.button("§8Back");
   f.show(p).then((r) => {
     if (r.canceled) return;
+    if (r.selection >= avail.length) return questJournalMenu(p);
     const q = avail[r.selection];
     new MessageFormData().title(`§e${q.name}`)
       .body(`§o"${q.desc}"§r\n\n§7Objectives:\n${q.objectives.map((o) => " §f• " + o.label).join("\n")}\n\n§7Rewards: §6${q.rewards.gold} gold§7${q.rewards.items.length ? ", items" : ""}, XP`)
@@ -1839,7 +3228,7 @@ function questBoard(p) {
         p.sendMessage(`§e✦ Quest accepted: ${q.name}`);
         if (q.id === "join_guild") placeGuildNear(p);
       });
-  });
+  }).catch(() => { });
 }
 
 function questMenu(p) {
@@ -1857,15 +3246,18 @@ function questMenu(p) {
   const f = new ActionFormData().title(`§e${q.name}`)
     .body(`§o"${q.desc}"§r\n\n${lines.join("\n")}`)
     .button(complete ? "§a§lTURN IN" : "§8(objectives incomplete)")
-    .button("§cAbandon quest");
+    .button("§cAbandon quest")
+    .button("§8Back");
   f.show(p).then((r) => {
     if (r.canceled) return;
     if (r.selection === 0 && complete) return completeQuest(p, q);
     if (r.selection === 1) {
       P.set(p, "fc_quest", undefined);
       p.sendMessage("§7The quest card crumbles. The Guild will not be impressed.");
+      return questJournalMenu(p);
     }
-  });
+    if (r.selection === 2 || (r.selection === 0 && !complete)) return questJournalMenu(p);
+  }).catch(() => { });
 }
 
 function completeQuest(p, q) {
@@ -1882,7 +3274,7 @@ function completeQuest(p, q) {
   addRep(p, "guild", Math.max(2, Math.round(q.renown / 50)));
   p.playSound("fc.level_up");
   p.dimension.spawnParticle("minecraft:totem_particle", p.location);
-  p.onScreenDisplay.setTitle("§6Quest Complete", { fadeInDuration: 5, stayDuration: 50, fadeOutDuration: 15, subtitle: `§e${q.name}` });
+  showHeroTitle(p, "§6Quest Complete", { fadeInDuration: 5, stayDuration: 50, fadeOutDuration: 15, subtitle: `§e${q.name}` });
   // chain spawns
   if (q.id === "wasp_menace") spawnQuestBoss(p, "fc:wasp_queen", "§4The Wasp Queen descends!");
   if (q.next) p.sendMessage(`§7A new quest card waits in the Map Room: §e${DATA.quests.find((x) => x.id === q.next)?.name ?? q.next}`);
@@ -1901,7 +3293,7 @@ function questKill(p, fam, typeId) {
     if (o.family === fam || `fc:${o.family.replace("fc_", "")}` === typeId || o.family === typeId) {
       aq.progress[i]++;
       changed = true;
-      p.onScreenDisplay.setActionBar(`§e${o.label}: §f${aq.progress[i]}/${o.count}`);
+      showHeroActionBar(p, `§e${o.label}: §f${aq.progress[i]}/${o.count}`);
     }
   });
   if (changed) P.setJ(p, "fc_quest", aq);
@@ -1955,11 +3347,20 @@ world.beforeEvents.playerInteractWithEntity.subscribe((ev) => {
     "fc:guard_bowerstone", "fc:guard_oakvale", "fc:guard_snowspire"];
   if (NPC_TYPES.includes(t)) {
     ev.cancel = true;
+    const usedItem = ev.itemStack?.typeId;
     system.run(() => {
       // a one-shot wave the moment the Hero is greeted (humanoid NPCs only; the
       // call is a harmless no-op on plans without the clip, e.g. the Oracle)
       try { target.playAnimation("animation.fc.biped.greet", { blendOutTime: 0.4 }); } catch { }
       try { target.lookAt?.(p.getHeadLocation()); } catch { }
+      // ROMANCE: a wedded spouse opens the marriage menu; offering a ring to a
+      // courtable NPC proposes; offering a flower/pie/gold courts them. Otherwise
+      // fall through to the normal conversation.
+      if (isRomanceable(target)) {
+        if (isMySpouse(target, p)) { spouseMenu(p, target); return; }
+        if (usedItem === "fc:wedding_ring") { proposeMenu(p, target); return; }
+        if (usedItem && HELD_GIFTS[usedItem] !== undefined) { offerGift(p, target, usedItem); return; }
+      }
       npcTalk(p, target);
     });
   }
@@ -2101,7 +3502,7 @@ function openDemonDoor(p, door, d) {
   giveXp(p, "general", d.reward.xp);
   addRep(p, "guild", 5);
   addTitle(p, "Door-Speaker");
-  p.onScreenDisplay.setTitle("§5Demon Door Opened", { fadeInDuration: 8, stayDuration: 60, fadeOutDuration: 15, subtitle: `§7${d.name}` });
+  showHeroTitle(p, "§5Demon Door Opened", { fadeInDuration: 8, stayDuration: 60, fadeOutDuration: 15, subtitle: `§7${d.name}` });
 }
 
 function animateDoorOpening(door) {
@@ -2156,6 +3557,221 @@ const SELL_PRICES = {
   "fc:banshees_tear": 8, "fc:frost_balverine_hide": 4, "fc:minion_flesh": 1,
   "fc:queens_stinger": 15, "fc:scorpion_stinger": 25, "fc:giants_core": 30,
 };
+
+// ===========================================================================
+// ROMANCE & MARRIAGE
+// A high NPC opinion (fc:love_hate, raised by expressions and by gifts) floats a
+// red heart over the NPC's head. Court them with flowers/pies/gold, then offer a
+// Wedding Ring to wed: the NPC dons wedding finery (a render-controller skin swap
+// keyed on the client-synced fc:married property), the heart becomes a gold ring,
+// and a full spouse conversation menu opens. Eligibility mirrors is_romanceable()
+// in fc_mobs.py — every social NPC except the unique story characters, and Lady
+// Grey / Briar Rose keep their own bespoke marriage flow.
+// ===========================================================================
+const LOVE_HEART = 60;            // love_hate at/above this = full heart & allows a proposal
+const LIKE_HEART_MIN = 18;        // opinion at which a *small* heart first appears (warming to you)
+const HEART_MIN_SIZE = 0.12;      // billboard size of the just-starting-to-like heart
+const HEART_FULL_SIZE = 0.42;     // billboard size once they're in love (>= LOVE_HEART)
+const HEART_MV = new MolangVariableMap(); // reused to drive variable.size on fc:love_heart_float
+const GIFT_COOLDOWN_TICKS = 200;  // ~10s between accepted gifts per NPC
+
+// Items a Hero can press into an NPC's hands to win their heart (value -> love).
+// Gold is deliberately NOT here: the trader/barkeep are courtable and players
+// hold gold to shop, so a gold-in-hand interact must still open their store.
+const HELD_GIFTS = {
+  "fc:apple_pie": 7, "fc:golden_carrot_brew": 6,
+  "minecraft:poppy": 9, "minecraft:dandelion": 6, "minecraft:cornflower": 8,
+  "minecraft:oxeye_daisy": 7, "minecraft:azure_bluet": 7, "minecraft:allium": 8,
+  "minecraft:blue_orchid": 9, "minecraft:lily_of_the_valley": 9, "minecraft:rose_bush": 10,
+  "minecraft:pink_tulip": 8, "minecraft:red_tulip": 8, "minecraft:orange_tulip": 7,
+  "minecraft:white_tulip": 7, "minecraft:wither_rose": 4,
+};
+const PET_NAMES = ["Beloved", "Sweetheart", "Darling", "My Heart", "Treasure", "Dearest"];
+
+function isRomanceable(e) {
+  try { return typeof e.getProperty("fc:married") === "number"; } catch { return false; }
+}
+function npcLove(npc) {
+  try { const v = npc.getProperty("fc:love_hate"); if (typeof v === "number") return v; } catch { }
+  return 0;
+}
+function setNpcLove(npc, v) {
+  const n = Math.max(-100, Math.min(100, Math.round(v)));
+  try { npc.setProperty("fc:love_hate", n); } catch { }
+  return n;
+}
+function isMarried(npc) {
+  try { return (npc.getProperty("fc:married") || 0) > 0; } catch { return false; }
+}
+function isMySpouse(npc, p) {
+  return isMarried(npc) && npc.getDynamicProperty("fc_spouse_player") === p.id;
+}
+function npcName(npc) { return displayName(npc.typeId); }
+
+function marryNpc(p, npc) {
+  if (!removeItem(p, "fc:wedding_ring", 1)) { p.sendMessage("§7You no longer have a wedding ring."); return; }
+  setNpcLove(npc, 100);
+  try { npc.setProperty("fc:married", 1); } catch { }
+  npc.setDynamicProperty("fc_spouse_player", p.id);
+  const base = npcName(npc);
+  const pet = PET_NAMES[Math.floor(Math.random() * PET_NAMES.length)];
+  try { npc.nameTag = `§d${pet} ♥ §r§7(${base})`; } catch { }
+  const list = P.getJ(p, "fc_spouses", []);
+  if (!list.includes(npc.id)) { list.push(npc.id); P.setJ(p, "fc_spouses", list); }
+  addMorality(p, 40);
+  try { npc.triggerEvent("fc:react_follow"); } catch { }
+  try { npc.playAnimation("animation.npc.cheer", { blendOutTime: 0.3 }); } catch { }
+  try { p.playSound("random.levelup"); } catch { }
+  try {
+    const l = npc.location;
+    for (let i = 0; i < 8; i++) {
+      npc.dimension.spawnParticle("minecraft:heart_particle",
+        { x: l.x, y: l.y + 1.6 + Math.random() * 0.9, z: l.z });
+    }
+  } catch { }
+  p.sendMessage(`§d♥ You and ${base} are wed! They will follow your heart now.`);
+}
+
+function proposeMenu(p, npc) {
+  const base = npcName(npc);
+  if (isMarried(npc)) {
+    p.sendMessage(npc.getDynamicProperty("fc_spouse_player") === p.id
+      ? `§d${base} is already your beloved.` : `§7${base} is already wed to another.`);
+    return;
+  }
+  if (npcLove(npc) < LOVE_HEART) {
+    new MessageFormData().title("§dToo soon...")
+      .body(`§f§o"${base} eyes the ring and steps back. 'We barely know one another, Hero. Win my heart first — a kind word, a thoughtful gift...'"§r`)
+      .button1("§7Of course").button2("§8Back").show(p).catch(() => { });
+    return;
+  }
+  new MessageFormData().title("§d♥ A Proposal")
+    .body(`§f§o"${base} sees the ring glinting in your hand, and their breath catches..."§r`)
+    .button1("§dOffer the ring").button2("§8Not yet").show(p).then((r) => {
+      if (r.canceled || r.selection !== 0) return;
+      marryNpc(p, npc);
+    }).catch(() => { });
+}
+
+function offerGift(p, npc, itemId) {
+  const base = npcName(npc);
+  if (isMarried(npc) && npc.getDynamicProperty("fc_spouse_player") !== p.id) {
+    p.sendMessage(`§7${base} politely declines — their heart belongs to another.`);
+    return;
+  }
+  const cd = npc.getDynamicProperty("fc_gift_cd");
+  if (typeof cd === "number" && system.currentTick < cd) {
+    p.sendMessage(`§7${base} is still glowing from your last gift.`);
+    return;
+  }
+  if (!removeItem(p, itemId, 1)) { p.sendMessage("§7You have nothing to give."); return; }
+  npc.setDynamicProperty("fc_gift_cd", system.currentTick + GIFT_COOLDOWN_TICKS);
+  const before = npcLove(npc);
+  const after = setNpcLove(npc, before + (HELD_GIFTS[itemId] ?? 4));
+  try { npc.playAnimation("animation.fc.biped.greet", { blendOutTime: 0.4 }); } catch { }
+  try { npc.lookAt?.(p.getHeadLocation()); } catch { }
+  try { p.playSound("random.orb"); } catch { }
+  p.sendMessage(`§d${base}: §o"For me? You're too kind, Hero."`);
+  if (before < LOVE_HEART && after >= LOVE_HEART) {
+    p.sendMessage(`§d♥ ${base} has fallen for you. A wedding ring would not go amiss now...`);
+    try { p.playSound("random.levelup"); } catch { }
+  }
+}
+
+function bestGiftInBag(p) {
+  for (const id of Object.keys(HELD_GIFTS)) if (countItem(p, id) > 0) return id;
+  return undefined;
+}
+
+function divorceConfirm(p, npc) {
+  const base = npcName(npc);
+  new MessageFormData().title("§cPart Ways")
+    .body(`§f§o"You wish to end your marriage to ${base}? They will be heartbroken."§r`)
+    .button1("§cYes, part ways").button2("§8No, stay wed").show(p).then((r) => {
+      if (r.canceled || r.selection !== 0) return;
+      try { npc.setProperty("fc:married", 0); } catch { }
+      setNpcLove(npc, 20);
+      npc.setDynamicProperty("fc_spouse_player", "");
+      try { npc.nameTag = ""; } catch { }
+      P.setJ(p, "fc_spouses", P.getJ(p, "fc_spouses", []).filter((id) => id !== npc.id));
+      try { npc.triggerEvent("fc:react_neutral"); } catch { }
+      addMorality(p, -30);
+      p.sendMessage(`§7You and ${base} have parted ways.`);
+    }).catch(() => { });
+}
+
+function spouseMenu(p, npc) {
+  const base = npcName(npc);
+  const m = morality(p);
+  const greet = m > 200 ? "My love! The whole village glows when you visit."
+    : m < -200 ? "You're back. They whisper such things about you... I don't believe a word. Mostly."
+      : "There you are, my heart. I've missed you.";
+  new ActionFormData().title(`§d${base} ♥`)
+    .body(`§f§o"${greet}"§r`)
+    .button("§dSweet nothings")
+    .button("§aFollow me")
+    .button("§eWait here")
+    .button("§6Give a gift")
+    .button("§cPart ways")
+    .button("§8Farewell")
+    .show(p).then((r) => {
+      if (r.canceled) return;
+      if (r.selection === 0) {
+        const lines = [
+          "You make a hard world soft, Hero.",
+          "Come home safe. The hearth's warm and the kettle's on.",
+          "Whatever Albion throws at you, throw me a wink first.",
+          "I keep your trophies dusted. Mostly the less grisly ones.",
+        ];
+        setNpcLove(npc, Math.min(100, npcLove(npc) + 1));
+        try { npc.playAnimation("animation.npc.cheer", { blendOutTime: 0.3 }); } catch { }
+        p.sendMessage(`§d${base}: §o"${lines[Math.floor(Math.random() * lines.length)]}"`);
+      } else if (r.selection === 1) {
+        try { npc.triggerEvent("fc:react_follow"); } catch { }
+        try { npc.lookAt?.(p.getHeadLocation()); } catch { }
+        p.sendMessage(`§d${base}: §o"Lead on, my love."`);
+      } else if (r.selection === 2) {
+        try { npc.triggerEvent("fc:react_neutral"); } catch { }
+        p.sendMessage(`§d${base}: §o"I'll wait right here for you."`);
+      } else if (r.selection === 3) {
+        const id = bestGiftInBag(p);
+        if (!id) { p.sendMessage("§7You have nothing to give. Try a flower or an apple pie."); return; }
+        offerGift(p, npc, id);
+      } else if (r.selection === 4) {
+        divorceConfirm(p, npc);
+      }
+    }).catch(() => { });
+}
+
+// Float a heart over smitten NPCs and a gold ring over wedded ones. Driven from
+// the server (the proven Fablecraft pattern) off the synced opinion value. The
+// heart appears small the moment an NPC starts to LIKE the Hero (love_hate >=
+// LIKE_HEART_MIN) and swells to full size by the time they LOVE you (LOVE_HEART):
+// the custom fc:love_heart_float particle reads variable.size, which we lerp from
+// HEART_MIN_SIZE to HEART_FULL_SIZE across that window.
+system.runInterval(() => {
+  const players = world.getAllPlayers();
+  if (!players.length) return;
+  const seen = new Set();
+  for (const p of players) {
+    let nearby;
+    try { nearby = p.dimension.getEntities({ location: p.location, maxDistance: 22 }); } catch { continue; }
+    for (const e of nearby) {
+      if (seen.has(e.id) || !isRomanceable(e)) continue;
+      seen.add(e.id);
+      let loc; try { loc = e.location; } catch { continue; }
+      const at = { x: loc.x, y: loc.y + 2.15, z: loc.z };
+      try {
+        if (isMarried(e)) { e.dimension.spawnParticle("fc:wedding_ring_float", at); continue; }
+        const love = npcLove(e);
+        if (love < LIKE_HEART_MIN) continue;
+        const t = Math.max(0, Math.min(1, (love - LIKE_HEART_MIN) / (LOVE_HEART - LIKE_HEART_MIN)));
+        HEART_MV.setFloat("variable.size", HEART_MIN_SIZE + (HEART_FULL_SIZE - HEART_MIN_SIZE) * t);
+        e.dimension.spawnParticle("fc:love_heart_float", at, HEART_MV);
+      } catch { }
+    }
+  }
+}, 16);
 
 function npcTalk(p, npc) {
   const t = npc.typeId;
@@ -2367,30 +3983,120 @@ function shopMenu(p, title) {
       const b = new ActionFormData().title(fableTitle("Buy"));
       const priced = SHOP_STOCK.map((s) => ({ ...s, cost: Math.max(1, Math.round(s.cost * mult)) }));
       for (const s of priced) b.button(`§f${s.label}\n§6${s.cost} gold`, `textures/items/${s.id.replace("fc:", "")}`);
+      b.button("§8Back");
       b.show(p).then((res) => {
         if (res.canceled) return;
+        if (res.selection >= priced.length) return shopMenu(p, title);
         const s = priced[res.selection];
-        if (removeItem(p, "fc:gold_coin", s.cost)) {
-          giveItem(p, s.id, 1);
-          p.playSound("mob.villager.yes");
-        } else p.sendMessage("§7Trader: \"Coin first, hero second.\"");
-        shopMenu(p, title);
-      });
+        buyQuantityMenu(p, title, s);
+      }).catch(() => { });
     } else {
-      let sold = 0;
-      for (const [id, price] of Object.entries(SELL_PRICES)) {
-        const n = countItem(p, id);
-        if (n > 0) { removeItem(p, id, n); sold += n * price; }
-      }
-      if (sold > 0) {
-        sold = tier === "friendly" || tier === "revered" ? Math.round(sold * 1.1) : sold;
-        giveItem(p, "fc:gold_coin", Math.min(64, sold));
-        p.playSound("random.orb");
-        p.sendMessage(`§6Sold your trophies for ${sold} gold.`);
-      } else p.sendMessage("§7Nothing in your pack interests the trader.");
-      shopMenu(p, title);
+      sellMenu(p, title, tier);
     }
-  });
+  }).catch(() => { });
+}
+
+function buyQuantityMenu(p, shopTitle, stock) {
+  const max = Math.min(64, Math.floor(countItem(p, "fc:gold_coin") / stock.cost));
+  if (max < 1) {
+    p.sendMessage("§7Trader: \"Coin first, hero second.\"");
+    return shopMenu(p, shopTitle);
+  }
+  new ActionFormData().title(fableTitle(stock.label)).body(fableBody([
+    `§6Price: §f${stock.cost} gold each`,
+    `§7Your purse: §f${countItem(p, "fc:gold_coin")} gold`,
+  ]))
+    .button(`§aBuy one\n§8${stock.cost} gold`)
+    .button(`§6Buy maximum (${max})\n§8${max * stock.cost} gold`)
+    .button("§eChoose amount")
+    .button("§8Back")
+    .show(p).then((r) => {
+      if (r.canceled) return;
+      if (r.selection === 0) return completePurchase(p, shopTitle, stock, 1);
+      if (r.selection === 1) return completePurchase(p, shopTitle, stock, max);
+      if (r.selection === 2) {
+        return new ModalFormData().title(fableTitle("Choose Amount"))
+          .slider(`${stock.label} (1–${max})`, 1, max, 1, max)
+          .submitButton("Buy")
+          .show(p).then((response) => {
+            if (response.canceled) return buyQuantityMenu(p, shopTitle, stock);
+            completePurchase(p, shopTitle, stock, Math.round(response.formValues?.[0] ?? 1));
+          });
+      }
+      shopMenu(p, shopTitle);
+    }).catch(() => { });
+}
+
+function completePurchase(p, shopTitle, stock, quantity) {
+  const amount = Math.max(1, Math.min(64, quantity));
+  const cost = stock.cost * amount;
+  if (!removeItem(p, "fc:gold_coin", cost)) {
+    p.sendMessage("§7Trader: \"Your purse comes up short.\"");
+    return shopMenu(p, shopTitle);
+  }
+  giveItem(p, stock.id, amount);
+  p.playSound("mob.villager.yes");
+  p.sendMessage(`§6Bought ${amount} ${stock.label}${amount === 1 ? "" : "s"} for ${cost} gold.`);
+  shopMenu(p, shopTitle);
+}
+
+function sellMenu(p, shopTitle, tier) {
+  const bonus = tier === "friendly" || tier === "revered" ? 1.1 : 1;
+  const entries = Object.entries(SELL_PRICES)
+    .map(([id, base]) => ({ id, count: countItem(p, id), price: Math.max(1, Math.round(base * bonus)) }))
+    .filter((entry) => entry.count > 0);
+  const f = new ActionFormData().title(fableTitle("Sell Trophies")).body(fableBody([
+    entries.length ? "§7Choose a trophy and quantity." : "§8Nothing in your pack interests the trader.",
+  ]));
+  for (const entry of entries) {
+    f.button(`§f${displayName(entry.id)} ×${entry.count}\n§6${entry.price} gold each`,
+      `textures/items/${entry.id.replace("fc:", "")}`);
+  }
+  f.button("§8Back");
+  f.show(p).then((r) => {
+    if (r.canceled) return;
+    if (r.selection >= entries.length) return shopMenu(p, shopTitle);
+    sellQuantityMenu(p, shopTitle, tier, entries[r.selection]);
+  }).catch(() => { });
+}
+
+function sellQuantityMenu(p, shopTitle, tier, entry) {
+  new ActionFormData().title(fableTitle(displayName(entry.id))).body(fableBody([
+    `§7Carried: §f${entry.count}`,
+    `§6Trader offers: §f${entry.price} gold each`,
+  ]))
+    .button(`§aSell one\n§8${entry.price} gold`)
+    .button(`§6Sell maximum (${entry.count})\n§8${entry.count * entry.price} gold`)
+    .button("§eChoose amount")
+    .button("§8Back")
+    .show(p).then((r) => {
+      if (r.canceled) return;
+      if (r.selection === 0) return completeSale(p, shopTitle, tier, entry, 1);
+      if (r.selection === 1) return completeSale(p, shopTitle, tier, entry, entry.count);
+      if (r.selection === 2) {
+        return new ModalFormData().title(fableTitle("Choose Amount"))
+          .slider(`${displayName(entry.id)} (1–${entry.count})`, 1, entry.count, 1, entry.count)
+          .submitButton("Sell")
+          .show(p).then((response) => {
+            if (response.canceled) return sellQuantityMenu(p, shopTitle, tier, entry);
+            completeSale(p, shopTitle, tier, entry, Math.round(response.formValues?.[0] ?? 1));
+          });
+      }
+      sellMenu(p, shopTitle, tier);
+    }).catch(() => { });
+}
+
+function completeSale(p, shopTitle, tier, entry, quantity) {
+  const amount = Math.max(1, Math.min(entry.count, quantity));
+  if (!removeItem(p, entry.id, amount)) {
+    p.sendMessage("§7Trader: \"Those goods are no longer in your pack.\"");
+    return sellMenu(p, shopTitle, tier);
+  }
+  const gold = amount * entry.price;
+  giveItem(p, "fc:gold_coin", gold);
+  p.playSound("random.orb");
+  p.sendMessage(`§6Sold ${amount} ${displayName(entry.id)} for ${gold} gold.`);
+  sellMenu(p, shopTitle, tier);
 }
 
 // The trader also peddles vanity TITLES for gold — wear one and boast it.
@@ -2425,8 +4131,13 @@ function traderTitleMenu(p, shopTitle) {
 // ---------------------------------------------------------------------------
 function registerCullis(name, loc) {
   const sites = JSON.parse(world.getDynamicProperty("fc_cullis") ?? "[]");
-  if (sites.some((s) => s.name === name)) return;
-  sites.push({ name, x: Math.floor(loc.x), y: Math.floor(loc.y), z: Math.floor(loc.z) });
+  const x = Math.floor(loc.x), y = Math.floor(loc.y), z = Math.floor(loc.z);
+  const existing = sites.find((s) => s.name === name);
+  if (existing) {                 // re-anchor an existing gate (Guild rebuilt/moved) — never leave it stale
+    existing.x = x; existing.y = y; existing.z = z;
+  } else {
+    sites.push({ name, x, y, z });
+  }
   world.setDynamicProperty("fc_cullis", JSON.stringify(sites));
 }
 
@@ -2518,7 +4229,7 @@ system.runInterval(() => {
       const inCentre = Math.hypot(p.location.x - (near.x + 0.5), p.location.z - (near.z + 0.5)) < 1.3;
       if (!inCentre) {
         cullisDwell.delete(dwellKey);
-        p.onScreenDisplay.setActionBar("§b◈ Cullis Gate §7— step into the light to travel");
+        showHeroActionBar(p, "§b◈ Cullis Gate §7— step into the light to travel");
         continue;
       }
       const NEED = 3;                             // intervals of 20t ≈ 3 seconds
@@ -2533,7 +4244,7 @@ system.runInterval(() => {
           }
         } catch { }
         p.playSound("note.bell", { pitch: 0.6 + 0.3 * d });
-        p.onScreenDisplay.setActionBar(`§b◈ The Gate awakens… §f${"▮".repeat(d)}§8${"▯".repeat(NEED - d)}`);
+        showHeroActionBar(p, `§b◈ The Gate awakens… §f${"▮".repeat(d)}§8${"▯".repeat(NEED - d)}`);
         continue;
       }
       const last = cullisCd.get(p.id) ?? -9999;
@@ -2545,7 +4256,7 @@ system.runInterval(() => {
     } else {
       // bare travel-point — keep the sneak-to-travel fallback
       if (!p.isSneaking) {
-        p.onScreenDisplay.setActionBar("§b◈ Cullis Gate §7— sneak to focus your Will and travel");
+        showHeroActionBar(p, "§b◈ Cullis Gate §7— sneak to focus your Will and travel");
         continue;
       }
       const last = cullisCd.get(p.id) ?? -9999;
@@ -2588,7 +4299,7 @@ system.runInterval(() => {
     if (dist > 2.8 || Math.abs(p.location.y - s.y) > 3) { skillDwell.delete(p.id); continue; }
     if (dist > 1.4) {                              // near but not centred
       skillDwell.delete(p.id);
-      p.onScreenDisplay.setActionBar("§a✦ Experience Shrine §7— step into the green light to train");
+      showHeroActionBar(p, "§a✦ Experience Shrine §7— step into the green light to train");
       continue;
     }
     const NEED = 3;                                // intervals of 20t ≈ 3 seconds
@@ -2603,7 +4314,7 @@ system.runInterval(() => {
         }
       } catch { }
       p.playSound("note.bell", { pitch: 1.0 + 0.3 * d });
-      p.onScreenDisplay.setActionBar(`§a✦ The Shrine drinks your deeds… §f${"▮".repeat(d)}§8${"▯".repeat(NEED - d)}`);
+      showHeroActionBar(p, `§a✦ The Shrine drinks your deeds… §f${"▮".repeat(d)}§8${"▯".repeat(NEED - d)}`);
       continue;
     }
     const last = skillAltarCd.get(p.id) ?? -9999;
@@ -2635,7 +4346,7 @@ system.runInterval(() => {
     const d = (boastDwell.get(p.id) ?? 0) + 1;
     boastDwell.set(p.id, d);
     if (d === 2 && !boastCrowded.has(p.id)) { boastCrowded.add(p.id); boastGatherCrowd(p, base); }
-    if (d < 5) { p.onScreenDisplay.setActionBar(`§6❖ Boasting Platform §7— the crowd gathers… §e${5 - d}s`); continue; }
+    if (d < 5) { showHeroActionBar(p, `§6❖ Boasting Platform §7— the crowd gathers… §e${5 - d}s`); continue; }
     if (d === 5) { try { p.playSound("random.orb"); } catch { } boastMenu(p, base); }
   }
 }, 20);
@@ -2774,7 +4485,7 @@ system.runInterval(() => {
       if (Math.random() > 0.5) continue;
       npcSaidAt.set(e.id, now);
       const line = lines[Math.floor(Math.random() * lines.length)].replace("{you}", heroAddress(p));
-      try { p.onScreenDisplay.setActionBar(`§e${NPC_NAME[e.typeId] ?? "Citizen"}: §f${line}`); } catch { }
+      showHeroActionBar(p, `§e${NPC_NAME[e.typeId] ?? "Citizen"}: §f${line}`);
       npcGreet(p, e);
       break;
     }
@@ -2799,7 +4510,7 @@ function cullisTravel(p, sites, here) {
     p.playSound("fc.spell_cast", { pitch: 0.6 });
     p.teleport({ x: s.x + 0.5, y: s.y + 1, z: s.z + 0.5 });
     p.playSound("mob.endermen.portal");
-    p.onScreenDisplay.setTitle("§b◈", { fadeInDuration: 2, stayDuration: 16, fadeOutDuration: 8, subtitle: `§f${s.name}` });
+    showHeroTitle(p, "§b◈", { fadeInDuration: 2, stayDuration: 16, fadeOutDuration: 8, subtitle: `§f${s.name}` });
   });
 }
 
@@ -2858,6 +4569,557 @@ const VILLAGER_TOWN = {
   "fc:villager_blacksmith": "bowerstone", "fc:villager_fisher": "oakvale",
 };
 
+// ---------------------------------------------------------------------------
+// SETTLEMENT BOUNTIES — per-player, per-location crime and guard response
+// ---------------------------------------------------------------------------
+const BOUNTY_KEY = "fc_bounties";
+const BOUNTY_TIMER_BASE_MS = 90 * 1000;
+const BOUNTY_TIMER_PER_KILL_MS = 90 * 1000;
+const BOUNTY_TIMER_MAX_MS = 15 * 60 * 1000;
+const BOUNTY_GUARD_DETECTION_RADIUS = 36;
+const BOUNTY_TOWNS = ["bowerstone", "oakvale", "snowspire"];
+const BOUNTY_WANTED_TAG = {
+  bowerstone: "fc_wanted_bowerstone",
+  oakvale: "fc_wanted_oakvale",
+  snowspire: "fc_wanted_snowspire",
+};
+const BOUNTY_GUARD_TYPE = {
+  bowerstone: "fc:guard_bowerstone",
+  oakvale: "fc:guard_oakvale",
+  snowspire: "fc:guard_snowspire",
+};
+const SETTLEMENT_META = {
+  "fc:bowerstone_market": ["bowerstone", "Bowerstone Market"],
+  "fc:lookout_point": ["bowerstone", "Lookout Point"],
+  "fc:darkwood_camp": ["bowerstone", "Darkwood Trading Camp"],
+  "fc:oakvale_village": ["oakvale", "Oakvale"],
+  "fc:power_oakvale_quay": ["oakvale", "Oakvale Quay"],
+  "fc:knothole_glade": ["oakvale", "Knothole Glade"],
+  "fc:orchard_farm": ["oakvale", "Orchard Farm"],
+  "fc:fisher_creek": ["oakvale", "Fisher Creek"],
+  "fc:rose_cottage": ["oakvale", "Rose Cottage"],
+  "fc:windmill_hill": ["oakvale", "Windmill Hill"],
+  "fc:hook_coast": ["snowspire", "Hook Coast"],
+  "fc:power_snowspire_oracle": ["snowspire", "Snowspire"],
+};
+const CIVILIAN_TOWN = {
+  ...VILLAGER_TOWN,
+  "minecraft:villager": "bowerstone",
+  "minecraft:villager_v2": "bowerstone",
+  "fc:trader": "bowerstone",
+  "fc:barkeep": "bowerstone",
+  "fc:lady_grey": "bowerstone",
+  "fc:oracle": "snowspire",
+  "fc:briar_rose": "oakvale",
+};
+const bountyDemand = new Map(); // player id -> { placeKey, startedTick, prompted }
+const bountySpawnCooldown = new Map(); // player id|place -> last reinforcement tick
+
+function getBounties(p) {
+  const value = P.getJ(p, BOUNTY_KEY, {});
+  return value && typeof value === "object" && !Array.isArray(value) ? value : {};
+}
+function setBounties(p, records) { P.setJ(p, BOUNTY_KEY, records); }
+function bountyKillCount(record) {
+  return Math.max(0, record.civilianKills ?? 0) + Math.max(0, record.guardKills ?? 0);
+}
+function bountyResponseTier(record) {
+  if (record.amount >= 200) return { tier: 3, cap: 4, label: "elite" };
+  if (record.amount >= 75) return { tier: 2, cap: 3, label: "veteran" };
+  return { tier: 1, cap: 2, label: "standard" };
+}
+function bountyHeatLevel(record) {
+  const amount = Math.max(0, record?.amount ?? 0);
+  if (amount >= 200) return 5;
+  if (amount >= 125) return 4;
+  if (amount >= 75) return 3;
+  if (amount >= 25) return 2;
+  return amount > 0 ? 1 : 0;
+}
+function bountyDurationMs(record) {
+  return Math.min(BOUNTY_TIMER_MAX_MS,
+    BOUNTY_TIMER_BASE_MS + bountyKillCount(record) * BOUNTY_TIMER_PER_KILL_MS);
+}
+function formatBountyTime(ms) {
+  const seconds = Math.max(0, Math.ceil(ms / 1000));
+  const minutes = Math.floor(seconds / 60);
+  return minutes > 0 ? `${minutes}m ${seconds % 60}s` : `${seconds}s`;
+}
+function bountySummaryLines(p) {
+  const entries = Object.values(getBounties(p));
+  if (!entries.length) return [];
+  const now = Date.now();
+  return [
+    "",
+    "§4Active bounties:",
+    ...entries.map((record) => {
+      const response = bountyResponseTier(record);
+      const timer = record.expiresAtMs > 0
+        ? ` §8(${formatBountyTime(record.expiresAtMs - now)})`
+        : " §8(timer starts outside town)";
+      return ` §c⚖ ${record.name}: §6${record.amount}g §7· ${response.cap} ${response.label} guards${timer}`;
+    }),
+  ];
+}
+function entityHasFamily(entity, family) {
+  try { return entity.getComponent("minecraft:type_family")?.hasTypeFamily(family) === true; } catch { return false; }
+}
+function bountyCrimeKind(entity) {
+  if (entityHasFamily(entity, "fc_guard")) return "guard";
+  if (entity.typeId === "minecraft:villager" || entity.typeId === "minecraft:villager_v2") return "civilian";
+  if (entityHasFamily(entity, "fc_friendly") && !entityHasFamily(entity, "fc_ally")) return "civilian";
+  return null;
+}
+function settlementTown(place, victimType) {
+  if (SETTLEMENT_META[place.id]) return SETTLEMENT_META[place.id][0];
+  if (place.theme === "snow") return "snowspire";
+  if (place.theme === "farm") return "oakvale";
+  if (place.theme === "village") return CIVILIAN_TOWN[victimType] ?? "oakvale";
+  return null;
+}
+function settlementName(place, town) {
+  if (SETTLEMENT_META[place.id]) return SETTLEMENT_META[place.id][1];
+  if (place.name) return place.name;
+  if (place.id?.startsWith("fc:")) {
+    return place.id.substring(3).split("_")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join(" ");
+  }
+  return `${FACTION_NAMES[town]} Outskirts`;
+}
+function locationInsideSettlement(location, dimensionId, record, margin = 0) {
+  if (record.dimension !== dimensionId) return false;
+  return location.x >= record.x - margin && location.x <= record.x + record.w + margin
+    && location.z >= record.z - margin && location.z <= record.z + record.w + margin;
+}
+function settlementForCrime(p, dead) {
+  const existing = getBounties(p);
+  try {
+    const assignedKey = dead.getDynamicProperty("fc_bounty_place");
+    if (typeof assignedKey === "string" && existing[assignedKey]) return existing[assignedKey];
+  } catch { }
+
+  let places = [];
+  try { places = JSON.parse(world.getDynamicProperty("fc_places") ?? "[]"); } catch { }
+  let best = null, bestDistance = Infinity;
+  for (const place of places) {
+    const town = settlementTown(place, dead.typeId);
+    if (!town) continue;
+    const cx = place.x + place.w / 2, cz = place.z + place.w / 2;
+    const distance = Math.hypot(dead.location.x - cx, dead.location.z - cz);
+    const inside = dead.location.x >= place.x - 10 && dead.location.x <= place.x + place.w + 10
+      && dead.location.z >= place.z - 10 && dead.location.z <= place.z + place.w + 10;
+    if (inside && distance < bestDistance) {
+      bestDistance = distance;
+      best = {
+        key: place.k ?? `${place.x}_${place.z}`,
+        id: place.id,
+        theme: place.theme,
+        x: place.x,
+        z: place.z,
+        w: place.w,
+        town,
+        name: settlementName(place, town),
+        dimension: dead.dimension.id,
+      };
+    }
+  }
+  if (best) return best;
+
+  const town = CIVILIAN_TOWN[dead.typeId] ?? GUARD_TOWN[dead.typeId];
+  if (!town) return null;
+  const cellX = Math.floor(dead.location.x / 64) * 64;
+  const cellZ = Math.floor(dead.location.z / 64) * 64;
+  return {
+    key: `outskirts_${town}_${cellX}_${cellZ}`,
+    id: `fc:${town}_outskirts`,
+    theme: town === "snowspire" ? "snow" : "village",
+    x: cellX,
+    z: cellZ,
+    w: 64,
+    town,
+    name: `${FACTION_NAMES[town]} Outskirts`,
+    dimension: dead.dimension.id,
+  };
+}
+function currentBounty(p, records = getBounties(p)) {
+  let best = null, bestDistance = Infinity;
+  for (const record of Object.values(records)) {
+    if (!locationInsideSettlement(p.location, p.dimension.id, record, 10)) continue;
+    const distance = Math.hypot(
+      p.location.x - (record.x + record.w / 2),
+      p.location.z - (record.z + record.w / 2));
+    if (distance < bestDistance) { bestDistance = distance; best = record; }
+  }
+  return best;
+}
+function syncWantedTags(p, activeRecord) {
+  for (const town of BOUNTY_TOWNS) {
+    const tag = BOUNTY_WANTED_TAG[town];
+    try {
+      if (activeRecord?.town === town) p.addTag(tag);
+      else p.removeTag(tag);
+    } catch { }
+  }
+}
+function matchingGuardInRange(p, record) {
+  if (!record || p.dimension.id !== record.dimension) return false;
+  try {
+    return p.dimension.getEntities({
+      location: p.location,
+      maxDistance: BOUNTY_GUARD_DETECTION_RADIUS,
+      type: BOUNTY_GUARD_TYPE[record.town],
+    }).some((guard) => {
+      try {
+        const owner = guard.getDynamicProperty("fc_bounty_owner");
+        const place = guard.getDynamicProperty("fc_bounty_place");
+        if (owner || place) return owner === p.id && place === record.key;
+      } catch { }
+      return locationInsideSettlement(guard.location, guard.dimension.id, record, 18);
+    });
+  } catch {
+    return false;
+  }
+}
+function syncWantedHeat(p, activeRecord) {
+  const heat = activeRecord && matchingGuardInRange(p, activeRecord)
+    ? bountyHeatLevel(activeRecord)
+    : 0;
+  try {
+    if (p.getDynamicProperty("fc_wanted_heat") !== heat) {
+      p.setDynamicProperty("fc_wanted_heat", heat);
+    }
+  } catch { }
+}
+function assignedBountyGuards(p, record) {
+  let guards = [];
+  try {
+    guards = p.dimension.getEntities({
+      location: { x: record.x + record.w / 2, y: p.location.y, z: record.z + record.w / 2 },
+      maxDistance: record.w + 72,
+      families: ["fc_guard"],
+    });
+  } catch { return []; }
+  return guards.filter((guard) => {
+    try {
+      return guard.getDynamicProperty("fc_bounty_owner") === p.id
+        && guard.getDynamicProperty("fc_bounty_place") === record.key;
+    } catch { return false; }
+  });
+}
+function removeBountyGuards(p, record) {
+  if (p.dimension.id !== record.dimension) return;
+  for (const guard of assignedBountyGuards(p, record)) {
+    try { guard.remove(); } catch { }
+  }
+}
+function setBountyGuardMode(guard, mode, record) {
+  const response = bountyResponseTier(record);
+  try {
+    guard.triggerEvent("fc:calm");
+    if (guard.getDynamicProperty("fc_bounty_tier_applied") !== response.tier) {
+      guard.triggerEvent(`fc:bounty_tier_${response.tier}`);
+      guard.setDynamicProperty("fc_bounty_tier_applied", response.tier);
+    }
+    guard.triggerEvent(mode === "approach" ? "fc:bounty_approach" : "fc:bounty_hostile");
+  } catch { }
+}
+function guardSpawnLocation(p) {
+  const view = p.getViewDirection();
+  for (let attempt = 0; attempt < 28; attempt++) {
+    const angle = Math.random() * Math.PI * 2;
+    const radius = 18 + Math.random() * 10;
+    const dx = Math.cos(angle) * radius, dz = Math.sin(angle) * radius;
+    const dot = (dx / radius) * view.x + (dz / radius) * view.z;
+    if (attempt < 18 && dot > 0.15) continue;
+    const x = Math.floor(p.location.x + dx);
+    const z = Math.floor(p.location.z + dz);
+    const y = groundY(p.dimension, x, z);
+    if (y === null) continue;
+    try {
+      const feet = p.dimension.getBlock({ x, y, z });
+      const head = p.dimension.getBlock({ x, y: y + 1, z });
+      if (feet?.isAir && head?.isAir) return { x: x + 0.5, y, z: z + 0.5 };
+    } catch { }
+  }
+  return null;
+}
+function spawnBountyGuards(p, record, mode, naturalGuardCount = 0) {
+  if (p.dimension.id !== record.dimension) return;
+  const targetCount = Math.max(0, bountyResponseTier(record).cap - naturalGuardCount);
+  const existing = assignedBountyGuards(p, record);
+  for (const guard of existing.slice(0, targetCount)) setBountyGuardMode(guard, mode, record);
+  for (const guard of existing.slice(targetCount)) {
+    try { guard.remove(); } catch { }
+  }
+  let missing = Math.max(0, targetCount - existing.length);
+  while (missing-- > 0) {
+    const location = guardSpawnLocation(p);
+    if (!location) break;
+    const guard = trySpawn(p.dimension, BOUNTY_GUARD_TYPE[record.town], location);
+    if (!guard) continue;
+    try {
+      guard.setDynamicProperty("fc_bounty_owner", p.id);
+      guard.setDynamicProperty("fc_bounty_place", record.key);
+      guard.addTag("fc_bounty_guard");
+      setBountyGuardMode(guard, mode, record);
+    } catch { }
+  }
+}
+function activateLocalGuards(p, record, mode) {
+  syncWantedTags(p, record);
+  const cap = bountyResponseTier(record).cap;
+  const assignedIds = new Set(assignedBountyGuards(p, record).map((guard) => guard.id));
+  let naturalGuards = [];
+  try {
+    naturalGuards = p.dimension.getEntities({
+      location: p.location, maxDistance: 32, type: BOUNTY_GUARD_TYPE[record.town],
+    }).filter((guard) => !assignedIds.has(guard.id))
+      .sort((a, b) => Math.hypot(a.location.x - p.location.x, a.location.z - p.location.z)
+        - Math.hypot(b.location.x - p.location.x, b.location.z - p.location.z));
+  } catch { }
+  const selected = naturalGuards.slice(0, cap);
+  for (const guard of selected) setBountyGuardMode(guard, mode, record);
+  for (const guard of naturalGuards.slice(cap)) {
+    try {
+      guard.triggerEvent("fc:bounty_calm");
+      guard.setDynamicProperty("fc_bounty_tier_applied", 0);
+    } catch { }
+  }
+  spawnBountyGuards(p, record, mode, selected.length);
+}
+function markBountyHostile(p, record) {
+  const records = getBounties(p);
+  const current = records[record.key];
+  if (!current) return;
+  current.enforcement = "hostile";
+  current.expiresAtMs = 0;
+  setBounties(p, records);
+  bountyDemand.delete(p.id);
+  activateLocalGuards(p, current, "hostile");
+}
+function accrueSettlementBounty(p, dead) {
+  const kind = bountyCrimeKind(dead);
+  if (!kind) return;
+  const settlement = settlementForCrime(p, dead);
+  if (!settlement || !BOUNTY_GUARD_TYPE[settlement.town]) return;
+  const records = getBounties(p);
+  const record = records[settlement.key] ?? {
+    ...settlement,
+    amount: 0,
+    civilianKills: 0,
+    guardKills: 0,
+    expiresAtMs: 0,
+    enforcement: "hostile",
+  };
+  const priorKills = bountyKillCount(record);
+  if (kind === "guard") record.guardKills++;
+  else record.civilianKills++;
+  record.amount = Math.min(9999, record.amount + (kind === "guard" ? 35 : 20) + priorKills * 15);
+  record.expiresAtMs = 0;
+  record.enforcement = "hostile";
+  records[record.key] = record;
+  setBounties(p, records);
+  const response = bountyResponseTier(record);
+  p.sendMessage([
+    `§4⚖ MURDER WITNESSED — ${record.name}`,
+    `§cBounty: §6${record.amount} gold §8(${bountyKillCount(record)} slain)`,
+    `§7Response: ${response.cap} ${response.label} guards. Leave town and keep away until the warrant expires.`,
+  ].join("\n"));
+  try { p.playSound("raid.horn", { volume: 0.7, pitch: 1.1 }); } catch { }
+  activateLocalGuards(p, record, "hostile");
+}
+function protectedFromJail(item) {
+  if (!item) return false;
+  return item.typeId === "fc:guild_seal"
+    || item.typeId === "wd:will_focus"
+    || item.typeId === "fc:summoners_grimoire"
+    || item.typeId.startsWith("fc:spell_");
+}
+function confiscateForJail(p) {
+  const preserved = [];
+  const container = inv(p);
+  if (container) {
+    for (let slot = 0; slot < container.size; slot++) {
+      const item = container.getItem(slot);
+      if (protectedFromJail(item)) preserved.push(item);
+      container.setItem(slot, undefined);
+    }
+  }
+  const equippable = p.getComponent("minecraft:equippable");
+  if (equippable) {
+    try {
+      const offhand = equippable.getEquipment(EquipmentSlot.Offhand);
+      if (protectedFromJail(offhand)) preserved.push(offhand);
+    } catch { }
+    for (const slot of [EquipmentSlot.Head, EquipmentSlot.Chest, EquipmentSlot.Legs,
+      EquipmentSlot.Feet, EquipmentSlot.Offhand]) {
+      try { equippable.setEquipment(slot, undefined); } catch { }
+    }
+  }
+  for (const item of preserved) {
+    try {
+      const leftover = container?.addItem(item);
+      if (leftover) p.dimension.spawnItem(leftover, p.location);
+    } catch { }
+  }
+  ensureGuildSeal(p);
+}
+function outsideSettlementLocation(p, record) {
+  const distances = [
+    { side: "west", value: Math.abs(p.location.x - record.x) },
+    { side: "east", value: Math.abs(p.location.x - (record.x + record.w)) },
+    { side: "north", value: Math.abs(p.location.z - record.z) },
+    { side: "south", value: Math.abs(p.location.z - (record.z + record.w)) },
+  ].sort((a, b) => a.value - b.value);
+  let x = Math.max(record.x + 1, Math.min(record.x + record.w - 1, p.location.x));
+  let z = Math.max(record.z + 1, Math.min(record.z + record.w - 1, p.location.z));
+  if (distances[0].side === "west") x = record.x - 14;
+  else if (distances[0].side === "east") x = record.x + record.w + 14;
+  else if (distances[0].side === "north") z = record.z - 14;
+  else z = record.z + record.w + 14;
+  const y = groundY(p.dimension, Math.floor(x), Math.floor(z)) ?? Math.floor(p.location.y);
+  return { x: Math.floor(x) + 0.5, y, z: Math.floor(z) + 0.5 };
+}
+function clearSettlementBounty(p, placeKey, reason) {
+  const records = getBounties(p);
+  const record = records[placeKey];
+  if (!record) return;
+  removeBountyGuards(p, record);
+  delete records[placeKey];
+  setBounties(p, records);
+  bountyDemand.delete(p.id);
+  const nextActive = currentBounty(p, records);
+  syncWantedTags(p, nextActive);
+  syncWantedHeat(p, nextActive);
+  if (reason) p.sendMessage(`§a⚖ ${record.name} bounty cleared — ${reason}.`);
+}
+function sendToJail(p, record) {
+  const release = outsideSettlementLocation(p, record);
+  confiscateForJail(p);
+  clearSettlementBounty(p, record.key);
+  p.teleport(release);
+  showHeroTitle(p, "§8SENTENCED", {
+    fadeInDuration: 5, stayDuration: 50, fadeOutDuration: 15,
+    subtitle: `§7Released outside ${record.name}; possessions confiscated`,
+  });
+  p.sendMessage("§7The guards release you beyond the town limits with only your Guild Seal and Will powers.");
+}
+function demandBountyResolution(p, record) {
+  const records = getBounties(p);
+  const current = records[record.key];
+  if (!current) return;
+  const state = bountyDemand.get(p.id);
+  if (state) state.prompted = true;
+  const kills = bountyKillCount(current);
+  const charge = kills > 0 ? `${kills} deaths` : "assaulting the townsfolk";
+  new ActionFormData()
+    .title(`§4Warrant — ${current.name}`)
+    .body([
+      `§c"Hold there. You owe ${current.amount} gold for ${charge}."`,
+      "",
+      `§7Your purse: §6${countItem(p, "fc:gold_coin")} gold`,
+      "§7Pay the warrant, surrender your possessions and accept exile, or resist arrest.",
+    ].join("\n"))
+    .button(`§6Pay ${current.amount} gold`)
+    .button("§8Go to jail")
+    .button("§4Resist arrest")
+    .show(p).then((response) => {
+      if (!getBounties(p)[current.key]) return;
+      if (!response.canceled && response.selection === 0) {
+        if (removeItem(p, "fc:gold_coin", current.amount)) {
+          clearSettlementBounty(p, current.key, "fine paid");
+          try { p.playSound("random.orb", { pitch: 0.8 }); } catch { }
+          return;
+        }
+        p.sendMessage("§cYou cannot pay the full bounty. The guards draw their weapons.");
+      } else if (!response.canceled && response.selection === 1) {
+        sendToJail(p, current);
+        return;
+      }
+      p.sendMessage("§4Guard: \"Then you leave us no choice!\"");
+      markBountyHostile(p, current);
+    }).catch(() => {
+      const pending = bountyDemand.get(p.id);
+      if (pending?.placeKey === current.key) pending.prompted = false;
+    });
+}
+function beginBountyDemand(p, record) {
+  activateLocalGuards(p, record, "approach");
+  bountyDemand.set(p.id, { placeKey: record.key, startedTick: TICKS(), prompted: false });
+}
+
+system.runInterval(() => {
+  const now = Date.now();
+  for (const p of world.getPlayers()) {
+    const records = getBounties(p);
+    let changed = false;
+    const expired = [];
+    for (const [key, record] of Object.entries(records)) {
+      const inside = locationInsideSettlement(p.location, p.dimension.id, record, 10);
+      if (!inside && record.expiresAtMs <= 0) {
+        record.expiresAtMs = now + bountyDurationMs(record);
+        record.enforcement = "away";
+        removeBountyGuards(p, record);
+        changed = true;
+      }
+      if (!inside && record.expiresAtMs > 0 && now >= record.expiresAtMs) expired.push(key);
+    }
+    for (const key of expired) {
+      const record = records[key];
+      removeBountyGuards(p, record);
+      delete records[key];
+      p.sendMessage(`§a⚖ The warrant from ${record.name} has expired.`);
+      changed = true;
+    }
+    if (changed) setBounties(p, records);
+
+    const active = currentBounty(p, records);
+    syncWantedTags(p, active);
+    if (!active) {
+      bountyDemand.delete(p.id);
+      syncWantedHeat(p, null);
+      continue;
+    }
+    const response = bountyResponseTier(active);
+    const timer = active.expiresAtMs > 0
+      ? ` §8· ${formatBountyTime(active.expiresAtMs - now)}`
+      : "";
+    showHeroActionBar(
+      p,
+      `§4⚖ ${active.name} §8· §6${active.amount} gold §8· §c${response.label} guard response${timer}`,
+      30,
+    );
+    if (active.expiresAtMs > 0) {
+      active.expiresAtMs = 0;
+      active.enforcement = "approach";
+      setBounties(p, records);
+      beginBountyDemand(p, active);
+    } else if (active.enforcement === "hostile") {
+      const cdKey = `${p.id}|${active.key}`;
+      if (TICKS() - (bountySpawnCooldown.get(cdKey) ?? -9999) >= 100) {
+        bountySpawnCooldown.set(cdKey, TICKS());
+        activateLocalGuards(p, active, "hostile");
+      }
+    } else if (active.enforcement === "approach") {
+      let pending = bountyDemand.get(p.id);
+      if (!pending || pending.placeKey !== active.key) {
+        beginBountyDemand(p, active);
+        pending = bountyDemand.get(p.id);
+      }
+      if (!pending.prompted) {
+        let guardClose = false;
+        try {
+          guardClose = p.dimension.getEntities({
+            location: p.location, maxDistance: 9, type: BOUNTY_GUARD_TYPE[active.town],
+          }).length > 0;
+        } catch { }
+        if (guardClose || TICKS() - pending.startedTick >= 120) demandBountyResolution(p, active);
+      }
+    }
+    syncWantedHeat(p, active);
+  }
+}, 20);
+
 function factionKillHooks(p, dead, fam) {
   const t = dead.typeId;
   if (fam === "fc_twinblade") {
@@ -2883,18 +5145,262 @@ function factionKillHooks(p, dead, fam) {
   }
 }
 
-// guards remember: infamous players get attacked on sight
+// Guards enforce active local warrants. Their AI filters on town-specific
+// player tags, so a wanted Hero does not make guards attack innocent players.
 system.runInterval(() => {
+  const wantedByDimension = new Map();
   for (const p of world.getPlayers()) {
-    for (const g of p.dimension.getEntities({ location: p.location, maxDistance: 18, families: ["fc_guard"] })) {
-      const town = GUARD_TOWN[g.typeId];
+    const active = currentBounty(p);
+    syncWantedTags(p, active);
+    if (!active) continue;
+    const wanted = wantedByDimension.get(p.dimension.id) ?? [];
+    wanted.push({ player: p, record: active });
+    wantedByDimension.set(p.dimension.id, wanted);
+  }
+  for (const p of world.getPlayers()) {
+    let guards = [];
+    try {
+      guards = p.dimension.getEntities({
+        location: p.location,
+        maxDistance: BOUNTY_GUARD_DETECTION_RADIUS,
+        families: ["fc_guard"],
+      });
+    } catch { }
+    const wanted = wantedByDimension.get(p.dimension.id) ?? [];
+    for (const guard of guards) {
+      const town = GUARD_TOWN[guard.typeId];
       if (!town) continue;
-      try {
-        g.triggerEvent(rep(p, town) <= -100 ? "fc:turn_hostile" : "fc:calm");
-      } catch { }
+      const hasNearbyWarrant = wanted.some(({ player, record }) => record.town === town
+        && Math.hypot(player.location.x - guard.location.x, player.location.z - guard.location.z)
+          <= BOUNTY_GUARD_DETECTION_RADIUS);
+      if (!hasNearbyWarrant) {
+        try {
+          guard.triggerEvent("fc:bounty_calm");
+          guard.triggerEvent("fc:calm");
+          guard.setDynamicProperty("fc_bounty_tier_applied", 0);
+        } catch { }
+      }
     }
   }
-}, 100);
+}, 80);
+
+// ---------------------------------------------------------------------------
+// ASSAULTING FRIENDLY NPCs — they no longer stand there and take it. Striking a
+// townsperson, guard or guild member triggers the reaction AI that already lives
+// on every social NPC (fc:react_flee / fc:react_attack) and raises local heat.
+// Per the owner's call: civilians FLEE and summon protectors; guards, guild
+// members and your own hired blades FIGHT BACK; inside the Guild it's the Guild's
+// own defenders that respond, governed by a per-Hero Guild Heat meter.
+// ---------------------------------------------------------------------------
+const CIVILIAN_FLEE_TICKS = 220;  // ~11s of panic before a civilian settles
+const GUARD_AGGRO_TICKS = 320;    // ~16s of hunting before a defender stands down
+
+function isAssaultableNpc(e) {
+  try {
+    if (!e || e.typeId === "minecraft:player") return false;
+    return entityHasFamily(e, "fc_friendly");
+  } catch { return false; }
+}
+// Combatants that draw steel when struck (rather than flee): town guards, the
+// Hero's own mercenaries, and — anywhere — the Guild's defenders.
+function isGuildDefenderType(e) {
+  try {
+    return e.typeId === "fc:guildmaster" || e.typeId === "fc:maze"
+      || entityHasFamily(e, "fc_guild") || entityHasFamily(e, "fc_guard");
+  } catch { return false; }
+}
+function aggravate(npc, event, ticks) {
+  try { npc.triggerEvent(event); } catch { }
+  try { npc.addTag("fc_aggravated"); } catch { }
+  try { npc.setDynamicProperty("fc_aggro_until", TICKS() + ticks); } catch { }
+}
+function calmNpc(npc) {
+  try { npc.triggerEvent("fc:react_neutral"); } catch { }
+  try { npc.removeTag("fc_aggravated"); } catch { }
+  try { npc.setDynamicProperty("fc_aggro_until", undefined); } catch { }
+}
+// When a civilian is struck, any guard or guild defender nearby comes to enforce.
+function alertProtectors(victim) {
+  let guards = [];
+  try {
+    guards = victim.dimension.getEntities({
+      location: victim.location, maxDistance: 22, families: ["fc_friendly"],
+    });
+  } catch { }
+  for (const g of guards) {
+    if (isGuildDefenderType(g)) aggravate(g, "fc:react_attack", GUARD_AGGRO_TICKS);
+  }
+}
+function isInsideGuild(loc, dimensionId) {
+  if (dimensionId && dimensionId !== "minecraft:overworld") return false;
+  const b = guildBounds();
+  if (!b || !loc) return false;
+  return loc.x >= b.minX && loc.x <= b.maxX
+    && loc.z >= b.minZ && loc.z <= b.maxZ
+    && loc.y >= b.minY && loc.y <= b.maxY;
+}
+
+function handlePlayerAssault(p, tgt) {
+  if (!isAssaultableNpc(tgt)) return;
+  let loc; try { loc = tgt.location; } catch { return; }
+  const inGuild = isInsideGuild(loc, tgt.dimension.id);
+  let already = false; try { already = tgt.hasTag("fc_aggravated"); } catch { }
+  // Their opinion of you sours sharply.
+  try { if (typeof tgt.getProperty("fc:love_hate") === "number") setNpcLove(tgt, npcLove(tgt) - (already ? 3 : 14)); } catch { }
+  // Defenders fight; everyone else flees.
+  const fightsBack = isGuildDefenderType(tgt) || entityHasFamily(tgt, "fc_ally");
+  aggravate(tgt, fightsBack ? "fc:react_attack" : "fc:react_flee",
+    fightsBack ? GUARD_AGGRO_TICKS : CIVILIAN_FLEE_TICKS);
+  // Raising a hand against ANYONE on Guild ground turns the whole Guild on you.
+  // Every blow re-rallies the defenders (so a fresh swing always re-aggros the
+  // campus) while heat is still only tallied once per distinct provocation.
+  if (inGuild) {
+    if (already) rallyGuildDefenders(p);
+    else addGuildHeat(p, fightsBack ? 2 : 1, fightsBack ? "§4The Guild draws steel against you!" : null);
+    return;
+  }
+  if (already) return;            // this provocation has already been counted
+  if (bountyCrimeKind(tgt)) {
+    // A struck guard escalates to a lethal hunt; assaulting a civilian only
+    // brings the watch over to demand a fine.
+    accrueAssault(p, tgt, entityHasFamily(tgt, "fc_guard") ? "guard" : "civilian");
+  } else {
+    alertProtectors(tgt);          // ally/wilderness fallback (no warrant applies)
+  }
+}
+
+// A non-lethal cousin of accrueSettlementBounty: a witnessed assault opens (or
+// tops up) a small warrant. Striking a civilian brings the guards over to demand
+// satisfaction; striking a guard escalates to the lethal hunt a murder triggers.
+function accrueAssault(p, victim, kind) {
+  const settlement = settlementForCrime(p, victim);
+  if (!settlement || !BOUNTY_GUARD_TYPE[settlement.town]) {
+    // No registered settlement here — just rouse whatever guards are around.
+    alertProtectors(victim);
+    return;
+  }
+  const records = getBounties(p);
+  const existed = !!records[settlement.key];
+  const record = records[settlement.key] ?? {
+    ...settlement, amount: 0, civilianKills: 0, guardKills: 0,
+    expiresAtMs: 0, enforcement: "approach",
+  };
+  record.amount = Math.min(9999, record.amount + (kind === "guard" ? 15 : 8));
+  record.expiresAtMs = 0;
+  if (record.enforcement !== "hostile") record.enforcement = kind === "guard" ? "hostile" : "approach";
+  records[record.key] = record;
+  setBounties(p, records);
+  if (!existed) {
+    p.sendMessage(kind === "guard"
+      ? `§4⚖ You struck a guard of ${record.name}! The watch turns on you.`
+      : `§6⚖ Assault witnessed — ${record.name}. The guards move to confront you.`);
+    try { p.playSound("note.bass", { pitch: 0.7 }); } catch { }
+  }
+  activateLocalGuards(p, record, record.enforcement === "hostile" ? "hostile" : "approach");
+}
+
+// ---------------------------------------------------------------------------
+// GUILD HEAT — order on the Heroes' Guild grounds is kept by the Guild itself.
+// Striking guild members builds a per-Hero heat meter; while it burns the Guild's
+// defenders (Guildmaster, Maze, the apprentices, the town guards) turn on you.
+// Leave and behave and it cools; let it max out and the Guild casts you off its
+// grounds. (Self-contained — it does not touch the settlement warrant system.)
+// ---------------------------------------------------------------------------
+const GUILD_HEAT_KEY = "fc_guild_heat";
+const GUILD_HEAT_DECAY_KEY = "fc_guild_heat_decay";
+const GUILD_HEAT_MAX = 12;
+
+function guildHeat(p) { return P.get(p, GUILD_HEAT_KEY, 0); }
+function setGuildHeat(p, v) { P.set(p, GUILD_HEAT_KEY, Math.max(0, Math.min(GUILD_HEAT_MAX, v))); }
+function addGuildHeat(p, amount, message) {
+  if (!guildBounds()) return;
+  const before = guildHeat(p);
+  setGuildHeat(p, before + amount);
+  P.set(p, GUILD_HEAT_DECAY_KEY, TICKS());
+  if (before === 0) {
+    p.sendMessage("§4⚖ You raise your hand against the Heroes' Guild — its defenders turn on you!");
+    try { p.playSound("raid.horn", { volume: 0.7, pitch: 1.2 }); } catch { }
+  } else if (message) {
+    p.sendMessage(message);
+  }
+  rallyGuildDefenders(p);
+}
+function guildDefendersNear(p, tags) {
+  const b = guildBounds();
+  if (!b) return [];
+  const opts = {
+    location: { x: (b.minX + b.maxX) / 2, y: b.base.y, z: (b.minZ + b.maxZ) / 2 },
+    maxDistance: Math.max(b.maxX - b.minX, b.maxZ - b.minZ),
+    families: ["fc_friendly"],
+  };
+  if (tags) opts.tags = tags;
+  let ents = [];
+  try { ents = p.dimension.getEntities(opts); } catch { }
+  return ents.filter(isGuildDefenderType);
+}
+function rallyGuildDefenders(p) {
+  for (const e of guildDefendersNear(p)) aggravate(e, "fc:react_attack", 200);
+}
+function calmGuildDefenders(p) {
+  for (const e of guildDefendersNear(p, ["fc_aggravated"])) calmNpc(e);
+}
+function expelFromGuild(p) {
+  const b = guildBounds();
+  if (!b) return;
+  const base = b.base;
+  const x = base.x + 22, z = base.z - 34;       // out past the Sentinel Gate
+  const y = groundY(p.dimension, x, z) ?? (base.y + 1);
+  try { p.teleport({ x: x + 0.5, y, z: z + 0.5 }); } catch { }
+  setGuildHeat(p, 0);
+  P.set(p, GUILD_HEAT_DECAY_KEY, TICKS());
+  calmGuildDefenders(p);
+  addMorality(p, -25);
+  showHeroTitle(p, "§4CAST OUT", {
+    fadeInDuration: 5, stayDuration: 50, fadeOutDuration: 15,
+    subtitle: "§7The Heroes' Guild drives you from its grounds",
+  });
+  p.sendMessage("§4The Guild's defenders cast you out. Return when you've cooled your blood.");
+  try { p.playSound("mob.wither.spawn", { volume: 0.5, pitch: 1.4 }); } catch { }
+}
+
+system.runInterval(() => {
+  for (const p of world.getPlayers()) {
+    const heat = guildHeat(p);
+    if (heat <= 0) continue;
+    if (isInsideGuild(p.location, p.dimension.id)) {
+      if (heat >= GUILD_HEAT_MAX) { expelFromGuild(p); continue; }
+      rallyGuildDefenders(p);
+      showHeroActionBar(p, `§4⚠ Guild Heat §c${heat}§8/§7${GUILD_HEAT_MAX}`, 30);
+    } else {
+      // Out of the grounds and behaving — the Guild's temper cools.
+      if (TICKS() - P.get(p, GUILD_HEAT_DECAY_KEY, 0) >= 100) {
+        P.set(p, GUILD_HEAT_DECAY_KEY, TICKS());
+        setGuildHeat(p, heat - 1);
+        if (heat - 1 <= 0) {
+          calmGuildDefenders(p);
+          p.sendMessage("§7The Heroes' Guild's anger toward you has cooled.");
+        }
+      }
+    }
+  }
+}, 20);
+
+// Aggravated NPCs return to their daily routine once enough time passes without
+// fresh provocation. Guild defenders are kept hot by the Guild Heat loop above,
+// so this only calms them after the heat itself has burned out.
+system.runInterval(() => {
+  const handled = new Set();
+  for (const p of world.getPlayers()) {
+    let ents = [];
+    try { ents = p.dimension.getEntities({ location: p.location, maxDistance: 64, tags: ["fc_aggravated"] }); } catch { continue; }
+    for (const e of ents) {
+      if (handled.has(e.id)) continue;
+      handled.add(e.id);
+      let until; try { until = e.getDynamicProperty("fc_aggro_until"); } catch { continue; }
+      if (typeof until === "number" && TICKS() >= until) calmNpc(e);
+    }
+  }
+}, 40);
 
 // ---------------------------------------------------------------------------
 // EXPERIENCE ORBS — slain foes shed coloured essence (use to absorb)
@@ -2919,7 +5425,9 @@ const ORB_XP = {
 };
 
 // ---------------------------------------------------------------------------
-// World decoration: deterministic, biome-aware region structures
+// World decoration: deterministic, biome-aware region structures. Driven by the
+// region sweep + maybePlace below — as the Hero explores, each REGION cell rolls
+// at most one of these and grades it into the surrounding land.
 // ---------------------------------------------------------------------------
 const REGION = 160;
 // Each entry: weight = relative pick frequency; surf = ground categories the
@@ -2967,6 +5475,130 @@ const STRUCTS = [
   { id: "fc:windmill_hill", w: 21, weight: 8, surf: ["grass"], theme: "farm",
     mobs: ["fc:villager_farmer"] },
 ];
+const STRUCTS_TOTAL_W = STRUCTS.reduce((a, s) => a + s.weight, 0);
+
+// Stable 0..1 hash so the same region always rolls the same build — no two
+// players (or relogs) ever generate a region differently.
+function hash2(x, z) {
+  let h = ((x | 0) * 374761393 + (z | 0) * 668265263) ^ 1407;
+  h = (h ^ (h >> 13)) * 1274126177;
+  h = h ^ (h >> 16);
+  return ((h >>> 0) % 100000) / 100000;
+}
+function pickStruct(h) {
+  let r = h * STRUCTS_TOTAL_W;
+  for (const s of STRUCTS) { r -= s.weight; if (r < 0) return s; }
+  return STRUCTS[STRUCTS.length - 1];
+}
+
+// Classify the natural ground at a point into the categories STRUCTS.surf uses,
+// so a build only settles where it belongs (a coast camp on sand, a tomb on
+// stone, a village on grass). Returns null over water/void so nothing places in
+// a lake. "dark" (dread-themed sites) is treated as at home on grass or rock.
+function surfaceCategory(dim, x, z) {
+  const y = groundY(dim, x, z);
+  if (y === null) return null;
+  let t; try { t = dim.getBlock({ x, y: y - 1, z })?.typeId ?? ""; } catch { return null; }
+  if (t.includes("water") || t.includes("ice")) return null;
+  if (t.includes("snow")) return "snow";
+  if (t.includes("sand")) return "sand";
+  if (t.includes("stone") || t.includes("andesite") || t.includes("granite") || t.includes("diorite")
+    || t.includes("gravel") || t.includes("tuff") || t.includes("deepslate") || t.includes("cobblestone")
+    || t.includes("calcite")) return "rock";
+  if (t.includes("grass") || t.includes("dirt") || t.includes("podzol") || t.includes("moss")
+    || t.includes("mycelium") || t.includes("mud")) return "grass";
+  return "grass";
+}
+function surfMatch(surf, cat) {
+  if (!cat) return false;
+  if (surf.includes(cat)) return true;
+  return surf.includes("dark") && (cat === "grass" || cat === "rock");
+}
+function cullisLabel(id) {
+  const m = {
+    "fc:oakvale_village": "Oakvale", "fc:bowerstone_market": "Bowerstone",
+    "fc:knothole_glade": "Knothole Glade", "fc:hook_coast": "Hook Coast",
+    "fc:power_oakvale_quay": "Oakvale Quay", "fc:power_snowspire_oracle": "Snowspire Oracle",
+    "fc:power_necropolis": "Necropolis", "fc:focus_site": "Focus Site",
+  };
+  return m[id] ?? id.replace("fc:", "").replace(/_/g, " ");
+}
+
+// World generation sweep: as the Hero explores, each REGION cell deterministically
+// rolls at most one POI from STRUCTS, settles it onto the land, and dresses it
+// (loot, mobs, Demon Door faces, Cullis travel points). Each placed build runs
+// the same blendTerrain + skirtTerrain grading as the Guild, so its edges meet
+// the surrounding biome (beaches into water, slopes up to mountains) instead of
+// dropping off. Idempotent per region via the `fc_rgn_*` flag.
+system.runInterval(() => {
+  for (const p of world.getPlayers()) {
+    if (p.dimension.id !== "minecraft:overworld") continue;
+    const rx = Math.floor(p.location.x / REGION), rz = Math.floor(p.location.z / REGION);
+    for (let dx = -1; dx <= 1; dx++) {
+      for (let dz = -1; dz <= 1; dz++) {
+        try { maybePlace(p, rx + dx, rz + dz); } catch { /* one bad region never stalls the sweep */ }
+      }
+    }
+  }
+}, 80);
+
+function maybePlace(p, rx, rz) {
+  const key = `fc_rgn_${rx}_${rz}`;
+  if (world.getDynamicProperty(key)) return;
+
+  // deterministic jittered anchor (NW corner) well inside the region cell
+  const jx = Math.floor(hash2(rx * 7 + 1, rz) * (REGION - 56)) + 28;
+  const jz = Math.floor(hash2(rx, rz * 7 + 1) * (REGION - 56)) + 28;
+  const x = rx * REGION + jx, z = rz * REGION + jz;
+
+  // not every cell gets a build — retire empties immediately (deterministic, no
+  // chunks needed) so the sweep never revisits them
+  if (hash2(rx + 31, rz + 17) >= 0.5) { world.setDynamicProperty(key, 1); return; }
+  const pick = pickStruct(hash2(rx * 13 + 5, rz * 13 + 9));
+  if (!pick) { world.setDynamicProperty(key, 1); return; }
+  const w = pick.w;
+
+  // act only when the cell is in the live placement window — close enough that
+  // its chunks are loaded, far enough not to pop in the Hero's face
+  const cxw = x + (w >> 1), czw = z + (w >> 1);
+  const dist = Math.hypot(cxw - p.location.x, czw - p.location.z);
+  if (dist > 120 || dist < 28) return;            // outside window — retry next sweep
+
+  const dim = p.dimension;
+  const cy = sampleGroundY(dim, x, z, w, w);       // null over water / chunks not ready
+  if (cy === null) return;                          // retry once the ground is there
+  if (!surfMatch(pick.surf, surfaceCategory(dim, cxw, czw))) { world.setDynamicProperty(key, 1); return; }
+  if (tooCloseToExisting(x, z, w, 24)) { world.setDynamicProperty(key, 1); return; }
+
+  const pY = cy - 1;                                // baked ground (local y0) flush with the land
+  try {
+    world.structureManager.place(pick.id, dim, { x, y: pY, z });
+  } catch { return; }                               // chunk-edge race — retry next sweep
+  world.setDynamicProperty(key, 1);
+  recordPlace(x, z, w, pick.id, pick.theme);
+
+  // settle into the land, then grade the edges out to meet the biome
+  try {
+    blendTerrain(dim, x, pY, z, w, w);
+    skirtTerrain(dim, x, pY, z, w, w, Math.max(6, Math.min(16, Math.round(w / 3))));
+    fillLootChests(dim, x, pY, z, w, 24, w, pick.id);
+  } catch { }
+
+  // population + props — best-effort, never aborts a placement that succeeded
+  try {
+    const floorY = pY + 1;
+    for (const mtype of pick.mobs ?? []) {
+      trySpawn(dim, mtype, { x: x + 4 + Math.random() * (w - 8), y: floorY, z: z + 4 + Math.random() * (w - 8) });
+    }
+    if (pick.door) {
+      // the arch opening is centred on the face wall (local x=w/2, z=5)
+      const dl = { x: cxw + 0.5, y: floorY, z: z + 5.5 };
+      ensureDemonDoor(dim, dl, z + 2);
+      recordDemonDoor({ x: cxw, y: floorY, z: z + 5 }, z + 2);
+    }
+    if (pick.cullis) registerCullis(`${cullisLabel(pick.id)} (${x},${z})`, { x: cxw, y: floorY, z: czw });
+  } catch { }
+}
 
 // themed loot rolled into every chest found inside a placed structure
 const CHEST_LOOT = {
@@ -3051,26 +5683,30 @@ function fillLootChests(dim, x0, y0, z0, w, h, d, themeId) {
   try { system.runJob(work()); } catch { for (const _ of work()) { } }
 }
 
-// Sample several points across a footprint (corners + centre) and return a
-// representative ground height, so a structure sits on the land instead of
-// floating above it or sinking into it. Returns null if most of the
-// footprint has no solid ground beneath it (e.g. open water) — callers
-// should skip placement in that case.
+// Sample a 5x5 grid across the footprint and use its median actual-terrain
+// height. Trees and ground cover are ignored, and requiring 60% coverage keeps
+// placement waiting until enough of the footprint is loaded.
 function sampleGroundY(dim, x0, z0, w, d, allowLiquid = false) {
-  const pts = [
-    [x0 + 1, z0 + 1], [x0 + w - 2, z0 + 1], [x0 + 1, z0 + d - 2],
-    [x0 + w - 2, z0 + d - 2], [x0 + Math.floor(w / 2), z0 + Math.floor(d / 2)],
-  ];
+  const pts = [];
+  for (let gx = 0; gx < 5; gx++) {
+    for (let gz = 0; gz < 5; gz++) {
+      pts.push([
+        x0 + 1 + Math.round((w - 3) * gx / 4),
+        z0 + 1 + Math.round((d - 3) * gz / 4),
+      ]);
+    }
+  }
   const ys = [];
   for (const [x, z] of pts) {
-    const y = groundY(dim, x, z, allowLiquid);
+    const y = naturalGroundY(dim, x, z, allowLiquid);
     if (y !== null) ys.push(y);
   }
-  if (ys.length < 3) return null;
-  return Math.round(ys.reduce((a, b) => a + b, 0) / ys.length);
+  if (ys.length < Math.ceil(pts.length * 0.6)) return null;
+  ys.sort((a, b) => a - b);
+  return ys[Math.floor(ys.length / 2)];
 }
 
-function blendTerrain(dim, x0, y0, z0, w, d, skip) {
+function blendTerrain(dim, x0, y0, z0, w, d, skip, onDone) {
   // foundation fill: every column under the structure (plus a 1-block
   // border) gets filled from the structure's base down to solid ground —
   // no gaps below buildings, no water pockets trapped underneath.
@@ -3085,433 +5721,286 @@ function blendTerrain(dim, x0, y0, z0, w, d, skip) {
       }
       yield;
     }
+    try { onDone?.(); } catch { }
   };
-  try { system.runJob(work()); } catch { /* skip blending if jobs unavailable */ }
+  try { system.runJob(work()); } catch { try { onDone?.(); } catch { } }
 }
 
-function* foundationColumn(dim, x, yTop, z) {
-  for (let y = yTop - 1; y > yTop - 16; y--) {
+function* foundationColumn(dim, x, y0, z) {
+  const lo = Math.max(-64, y0 - 64);
+  for (let y = y0 - 1; y >= lo; y--) {
     let b;
     try { b = dim.getBlock({ x, y, z }); } catch { return; }
     if (!b) return;
-    if (!b.isAir && !b.isLiquid) return; // reached solid ground
-    try {
-      b.setType(y > yTop - 4
-        ? (Math.random() < 0.5 ? "minecraft:cobblestone" : "minecraft:stone")
-        : (Math.random() < 0.4 ? "minecraft:deepslate" : "minecraft:stone"));
-    } catch { return; }
+    if (!b.isAir && !b.isLiquid && !isSkirtVeg(b.typeId)) break;
+    const depth = y0 - y;
+    const fill = depth <= 3 ? "minecraft:dirt"
+      : (depth <= 18 ? "minecraft:stone" : "minecraft:deepslate");
+    try { b.setType(fill); } catch { return; }
     yield;
   }
 }
 
-// Feather the plinth into the surrounding land. blendTerrain only fills the
-// void *under* a build; on sloping ground that leaves the lawn ending in a
-// sheer rectangular cliff (the "floating slab" look). skirtTerrain rings the
-// footprint with a GENTLE, organic earthen bank — the step boundary is jittered
-// so it never reads as a square terrace, the grade is shallow (~1 down per 1.6
-// out), and grass caps are softened with tufts — so each site melts into the
-// hillside it grew from instead of perching on a dropped slab.
-function skirtTerrain(dim, x0, y0, z0, w, d, R) {
-  const { cap, sub } = skirtBiome(dim, x0, z0, w, d, R);
+// Vegetation / cover that should NOT count as "the ground" when sampling a
+// column's natural surface — trees and plants sit *on* the land, not in it.
+function isSkirtVeg(t) {
+  return t.includes("leaves") || t.includes("log") || t.includes("tallgrass")
+    || t.includes("tall_grass") || t.includes("short_grass") || t.includes("double_plant")
+    || t.includes("fern") || t.includes("flower") || t.includes("sapling")
+    || t.includes("mushroom") || t.includes("vine") || t.includes("bamboo")
+    || t.includes("deadbush") || t.includes("sugar_cane") || t.includes("cactus")
+    || t.includes("roots") || t.includes("azalea") || t.includes("cocoa")
+    || t.includes("kelp") || t.includes("seagrass") || t.includes("lily_pad");
+}
+
+// Read a column's natural surface so the skirt can meet whatever the biome put
+// there. Returns { y, top, water, waterY, snowy } where `y` is the first AIR
+// cell above the highest real solid block (so the solid top is y-1), `top` is
+// that solid's id (used to match the biome), and water/waterY describe any open
+// liquid resting above it (lake/sea/river). Returns null if the column has no
+// solid ground in the scanned window.
+function columnScan(dim, x, z, hi, lo) {
+  let waterY = null, snowy = false, coverTop = null, coverBottom = null;
+  for (let y = hi; y > lo; y--) {
+    let b; try { b = dim.getBlock({ x, y, z }); } catch { return null; }
+    if (!b || b.isAir) continue;
+    if (b.isLiquid) { if (waterY === null) waterY = y; continue; }
+    const t = b.typeId;
+    if (t === "minecraft:snow_layer" || isSkirtVeg(t)) {
+      snowy ||= t === "minecraft:snow_layer";
+      coverTop ??= y;
+      coverBottom = y;
+      continue;                                      // trees/plants don't count as ground
+    }
+    return {
+      y: y + 1,
+      top: t,
+      water: waterY !== null,
+      waterY,
+      snowy,
+      coverTop,
+      coverBottom,
+    };
+  }
+  return null;
+}
+
+function clearSkirtCover(dim, x, z, fromY, toY) {
+  if (fromY === null || toY === null) return;
+  for (let y = fromY; y <= toY; y++) {
+    let b;
+    try { b = dim.getBlock({ x, y, z }); } catch { continue; }
+    if (b && (b.typeId === "minecraft:snow_layer" || isSkirtVeg(b.typeId))) {
+      try { b.setType("minecraft:air"); } catch { }
+    }
+  }
+}
+
+function dominantGuildWaterY(dim, base) {
+  const radius = GUILD_TERRAIN_RADIUS + 2;
+  const maxX = base.x + GUILD.sx - 1;
+  const maxZ = base.z + GUILD.sz - 1;
+  const hi = Math.min(319, base.y + 96);
+  const lo = Math.max(-64, base.y - 96);
+  const samples = [];
+  for (let x = base.x; x <= maxX; x += 12) {
+    samples.push([x, base.z - radius], [x, maxZ + radius]);
+  }
+  for (let z = base.z; z <= maxZ; z += 12) {
+    samples.push([base.x - radius, z], [maxX + radius, z]);
+  }
+  const tally = new Map();
+  let loaded = 0;
+  for (const [x, z] of samples) {
+    const info = columnScan(dim, x, z, hi, lo);
+    if (info) loaded++;
+    if (!info?.water) continue;
+    tally.set(info.waterY, (tally.get(info.waterY) ?? 0) + 1);
+  }
+  let bestY = null, bestCount = 0;
+  for (const [y, count] of tally) {
+    if (count > bestCount) { bestY = y; bestCount = count; }
+  }
+  return {
+    ready: loaded >= Math.ceil(samples.length * 0.6),
+    waterY: bestCount >= 6 ? bestY : null,
+  };
+}
+
+// Terrain v2 raised ocean columns to sea level with unsupported sand, creating
+// the large square beach wall and collapse holes. Generated columns are deep
+// vertical runs of falling sand ending exactly at the dominant waterline.
+function repairLegacyGuildOcean(dim, base, onDone) {
+  if (world.getDynamicProperty("fc_guild_ocean_cleanup_v1")) {
+    try { onDone?.(); } catch { }
+    return;
+  }
+  const scan = dominantGuildWaterY(dim, base);
+  if (!scan.ready) {
+    system.runTimeout(() => repairLegacyGuildOcean(dim, base, onDone), 20);
+    return;
+  }
+  const waterY = scan.waterY;
+  if (waterY === null) {
+    world.setDynamicProperty("fc_guild_ocean_cleanup_v1", true);
+    try { onDone?.(); } catch { }
+    return;
+  }
+  const maxX = base.x + GUILD.sx - 1;
+  const maxZ = base.z + GUILD.sz - 1;
+  const radius = GUILD_TERRAIN_RADIUS;
   const work = function* () {
-    for (let x = x0 - R; x < x0 + w + R; x++) {
-      for (let z = z0 - R; z < z0 + d + R; z++) {
-        const ox = x < x0 ? x0 - x : (x >= x0 + w ? x - (x0 + w - 1) : 0);
-        const oz = z < z0 ? z0 - z : (z >= z0 + d ? z - (z0 + d - 1) : 0);
-        const out = Math.max(ox, oz);
-        if (out === 0) continue;          // inside the footprint — leave it
-        // a BROAD, gently-graded earthen apron that eases out from the plinth and
-        // melts into the natural ground over a wide radius (no perched shelf): a
-        // ~0.6:1 slope, steepest at the plinth and flattening outward, lightly
-        // jittered so the toe of the bank reads natural rather than ruled
-        const j = hash2(x * 2 + 7, z * 2 + 3) * 1.3;
-        const grade = Math.pow(out / R, 0.85) * R * 0.62;  // gentle, easing curve
-        const step = Math.max(0, Math.round(grade - j));
-        skirtColumn(dim, x, z, y0, y0 - step, cap, sub);
+    for (let x = base.x - radius; x <= maxX + radius; x++) {
+      for (let z = base.z - radius; z <= maxZ + radius; z++) {
+        const cx = Math.max(base.x, Math.min(maxX, x));
+        const cz = Math.max(base.z, Math.min(maxZ, z));
+        const dist = Math.hypot(x - cx, z - cz);
+        if (dist < 1 || dist > radius) continue;
+        // Falling sand may already have left air/water holes at the top. Look a
+        // few blocks below the waterline for the remaining artificial column.
+        let sandTopY = null, sandId = null;
+        for (let y = waterY; y >= waterY - 8; y--) {
+          let b;
+          try { b = dim.getBlock({ x, y, z }); } catch { b = null; }
+          if (!b) break;
+          if (b.typeId === "minecraft:sand" || b.typeId === "minecraft:red_sand") {
+            sandTopY = y;
+            sandId = b.typeId;
+            break;
+          }
+          if (!b.isAir && !b.isLiquid) break;
+        }
+        if (sandTopY === null || sandId === null) continue;
+        let supportY = sandTopY;
+        let run = 0;
+        for (let y = sandTopY; y >= Math.max(-63, waterY - 64); y--) {
+          let b;
+          try { b = dim.getBlock({ x, y, z }); } catch { b = null; }
+          if (!b || b.typeId !== sandId) { supportY = y; break; }
+          run++;
+        }
+        if (run < 6) continue;
+        try { dim.getBlock({ x, y: supportY + 1, z })?.setType(sandId); } catch { }
+        for (let y = supportY + 2; y <= waterY; y++) {
+          try { dim.getBlock({ x, y, z })?.setType("minecraft:water"); } catch { }
+        }
         yield;
       }
-    }
-  };
-  try { system.runJob(work()); } catch { }
-}
-
-// Choose the skirt's surface material from the untouched land just outside the
-// footprint, so the ramp wears snow on snow, sand on sand, etc.
-function skirtBiome(dim, x0, z0, w, d, R) {
-  const pts = [
-    [x0 + (w >> 1), z0 - R - 3], [x0 + (w >> 1), z0 + d + R + 2],
-    [x0 - R - 3, z0 + (d >> 1)], [x0 + w + R + 2, z0 + (d >> 1)],
-    [x0 - R - 3, z0 - R - 3], [x0 + w + R + 2, z0 + d + R + 2],
-  ];
-  const tally = {};
-  for (const [px, pz] of pts) {
-    const gy = groundY(dim, px, pz);
-    if (gy === null) continue;
-    let t = "";
-    try { t = dim.getBlock({ x: px, y: gy - 1, z: pz })?.typeId ?? ""; } catch { }
-    let k = "grass";
-    if (t.includes("snow") || t.includes("ice")) k = "snow";
-    else if (t.includes("sand")) k = "sand";
-    else if (t.includes("stone") || t.includes("deepslate") || t.includes("gravel")
-      || t.includes("andesite") || t.includes("diorite") || t.includes("granite")
-      || t.includes("tuff") || t.includes("calcite")) k = "rock";
-    tally[k] = (tally[k] ?? 0) + 1;
-  }
-  let best = "grass", n = -1;
-  for (const k in tally) if (tally[k] > n) { n = tally[k]; best = k; }
-  return ({
-    snow: { cap: "minecraft:snow", sub: "minecraft:dirt" },
-    sand: { cap: "minecraft:sand", sub: "minecraft:sandstone" },
-    rock: { cap: "minecraft:stone", sub: "minecraft:stone" },
-    grass: { cap: "minecraft:grass_block", sub: "minecraft:dirt" },
-  })[best];
-}
-
-function skirtColumn(dim, x, z, yPlinth, targetTop, cap, sub) {
-  const gy = groundY(dim, x, z);
-  if (gy === null) return;                 // open water / unloaded — skip
-  const natTop = gy - 1;                    // highest natural solid block here
-  if (natTop > targetTop) return;           // a real hill rises here — leave it
-  for (let y = natTop + 1; y < targetTop; y++) skirtSet(dim, x, y, z, sub);
-  skirtSet(dim, x, targetTop, z, cap);
-  // shave any exposed foundation wall / plinth overhang above the bank
-  for (let y = targetTop + 1; y <= yPlinth + 1; y++) {
-    try { const b = dim.getBlock({ x, y, z }); if (b && !b.isAir) b.setType("minecraft:air"); } catch { }
-  }
-  // soften grassy banks with the odd tuft of grass or fern
-  if (cap === "minecraft:grass_block" && hash2(x * 5 + 1, z * 5 + 9) < 0.16) {
-    try {
-      const t = dim.getBlock({ x, y: targetTop + 1, z });
-      if (t && t.isAir) t.setType(hash2(x, z) < 0.5 ? "minecraft:tallgrass" : "minecraft:fern");
-    } catch { }
-  }
-}
-
-function skirtSet(dim, x, y, z, id) {
-  try { const b = dim.getBlock({ x, y, z }); if (b && (b.isAir || b.isLiquid || b.typeId !== id)) b.setType(id); } catch { }
-}
-
-function hash2(x, z) {
-  let h = (x * 374761393 + z * 668265263) ^ 1407;
-  h = (h ^ (h >> 13)) * 1274126177;
-  h = h ^ (h >> 16);
-  return ((h >>> 0) % 100000) / 100000;
-}
-
-// classify the ground so structures land where they belong
-function surfaceCategory(dim, x, z) {
-  const y = groundY(dim, x, z);
-  if (y === null) return null;
-  let b;
-  try { b = dim.getBlock({ x, y: y - 1, z }); } catch { return null; }
-  if (!b) return null;
-  const t = b.typeId;
-  if (t.includes("snow") || t.includes("ice")) return "snow";
-  if (t.includes("sand")) return "sand";
-  if (t === "minecraft:podzol" || t === "minecraft:mycelium" || t === "minecraft:mud"
-    || t === "minecraft:coarse_dirt") return "dark";
-  if (t === "minecraft:grass_block" || t === "minecraft:dirt" || t === "minecraft:grass_path"
-    || t === "minecraft:dirt_path" || t === "minecraft:moss_block") return "grass";
-  if (t.includes("stone") || t.includes("gravel") || t.includes("deepslate")
-    || t.includes("andesite") || t.includes("diorite") || t.includes("granite")
-    || t.includes("tuff") || t.includes("calcite")) return "rock";
-  return "grass";
-}
-
-// scatter themed set-dressing in a ring around a placed structure so each
-// site bleeds naturally into the surrounding terrain
-const THEME_DECOR = {
-  forest: ["minecraft:fern", "minecraft:mossy_cobblestone", "minecraft:tallgrass", "minecraft:oak_leaves"],
-  village: ["minecraft:poppy", "minecraft:oxeye_daisy", "minecraft:dirt_path", "minecraft:cornflower"],
-  farm: ["minecraft:hay_block", "minecraft:poppy", "minecraft:oxeye_daisy", "minecraft:dirt_path"],
-  dark: ["minecraft:deadbush", "minecraft:brown_mushroom", "minecraft:soul_torch", "minecraft:mossy_cobblestone"],
-  snow: ["minecraft:snow_layer", "minecraft:snow_layer", "minecraft:spruce_fence", "minecraft:lantern"],
-  holy: ["minecraft:oxeye_daisy", "minecraft:white_candle", "minecraft:smooth_quartz", "minecraft:cornflower"],
-};
-
-function dressSurroundings(dim, x0, y0, z0, w, theme) {
-  const deco = THEME_DECOR[theme];
-  if (!deco) return;
-  const cx = x0 + w / 2, cz = z0 + w / 2;
-  const work = function* () {
-    const n = 26;
-    for (let i = 0; i < n; i++) {
-      const ang = (i / n) * Math.PI * 2 + Math.random() * 0.4;
-      const rad = w / 2 + 2 + Math.random() * 8;
-      const px = Math.floor(cx + Math.cos(ang) * rad);
-      const pz = Math.floor(cz + Math.sin(ang) * rad);
-      const py = groundY(dim, px, pz);
-      if (py === null) { yield; continue; }
-      try {
-        const ground = dim.getBlock({ x: px, y: py - 1, z: pz });
-        const slot = dim.getBlock({ x: px, y: py, z: pz });
-        if (!ground || !slot || !slot.isAir || ground.isLiquid) { yield; continue; }
-        const id = deco[Math.floor(Math.random() * deco.length)];
-        if (id === "minecraft:dirt_path") ground.setType(id);
-        else slot.setType(id);
-      } catch { }
       yield;
     }
+    world.setDynamicProperty("fc_guild_ocean_cleanup_v1", true);
+    try { onDone?.(); } catch { }
   };
-  try { system.runJob(work()); } catch { }
+  try { system.runJob(work()); } catch { try { onDone?.(); } catch { } }
 }
 
-system.runInterval(() => {
-  for (const p of world.getPlayers()) {
-    // Guild placement comes FIRST and is isolated: a failure anywhere else in
-    // this sweep (doors, world structures) must never stop the Guild spawning.
-    try {
-      if (!world.getDynamicProperty("fc_guild_placed")) placeGuildNear(p);
-      else if (!world.getDynamicProperty("fc_guild_chamber_placed")) placeGuildAnnexes(p.dimension);
-    } catch { }
-    try { ensureAllDemonDoors(p.dimension); } catch { }   // keep every carved arch wearing its face
-    try {
-      const rx = Math.floor(p.location.x / REGION), rz = Math.floor(p.location.z / REGION);
-      for (let dx = -1; dx <= 1; dx++) {
-        for (let dz = -1; dz <= 1; dz++) {
-          maybePlace(p, rx + dx, rz + dz);
-        }
-      }
-    } catch { }
+// Pick fill/cap blocks that read as the same biome as the column's natural
+// surface, so the transition ground looks like its surroundings instead of a
+// generic dirt apron.
+function skirtPalette(top, snowy) {
+  const t = top || "";
+  if (snowy || t.includes("snow")) return { cap: "minecraft:grass_block", fill: "minecraft:dirt", cover: "minecraft:snow_layer" };
+  if (t.includes("sand") || t.includes("sandstone")) {
+    const red = t.includes("red");
+    return { cap: red ? "minecraft:red_sand" : "minecraft:sand", fill: red ? "minecraft:red_sandstone" : "minecraft:sandstone", cover: null };
   }
-}, 80);
-
-function maybePlace(p, rx, rz) {
-  const key = `fc_s_${rx}_${rz}`;
-  if (world.getDynamicProperty(key)) return;
-  const jx = Math.floor(hash2(rx * 7 + 1, rz) * (REGION - 40)) + 20;
-  const jz = Math.floor(hash2(rx, rz * 7 + 1) * (REGION - 40)) + 20;
-  let x = rx * REGION + jx, z = rz * REGION + jz;
-  const dx = x - p.location.x, dz = z - p.location.z;
-  const dist = Math.hypot(dx, dz);
-  if (dist > 96 || dist < 20) return; // wait until in sweet placement range
-  const dim = p.dimension;
-  // what ground are we standing on? (null = chunk not ready — retry later)
-  const surf = surfaceCategory(dim, x + 11, z + 11);
-  if (surf === null) return;
-  // deterministic weighted pick among structures suited to this terrain,
-  // with a slice of "nothing here" so the world keeps breathing room
-  const pool = STRUCTS.filter((s) => s.surf.includes(surf));
-  if (!pool.length) { world.setDynamicProperty(key, 1); return; }
-  const total = pool.reduce((a, s) => a + s.weight, 0);
-  const noneSlice = Math.max(12, Math.round(total * 0.18));
-  let roll = hash2(rx * 13 + 5, rz * 7 + 3) * (total + noneSlice);
-  let pick = null;
-  for (const s of pool) { if (roll < s.weight) { pick = s; break; } roll -= s.weight; }
-  if (!pick) { world.setDynamicProperty(key, 1); return; }
-  // Demon Doors seek rising ground so the carved hillside meets a real slope
-  if (pick.door) {
-    let best = null, bestSlope = -1;
-    for (let probe = 0; probe < 6; probe++) {
-      const px = x + (probe % 3 - 1) * 14, pz = z + (Math.floor(probe / 3) - 0.5) * 28;
-      const fy = groundY(dim, px + 11, pz + 1);
-      const by = groundY(dim, px + 11, pz + 11);
-      if (fy === null || by === null) continue;
-      const slope = by - fy;
-      if (slope > bestSlope) { bestSlope = slope; best = { x: px, z: pz }; }
-    }
-    if (best) { x = Math.floor(best.x); z = Math.floor(best.z); }
+  if (t.includes("podzol")) return { cap: "minecraft:podzol", fill: "minecraft:dirt", cover: null };
+  if (t.includes("mycelium")) return { cap: "minecraft:mycelium", fill: "minecraft:dirt", cover: null };
+  if (t.includes("gravel")) return { cap: "minecraft:gravel", fill: "minecraft:stone", cover: null };
+  if (t.includes("stone") || t.includes("andesite") || t.includes("granite") || t.includes("diorite")
+    || t.includes("tuff") || t.includes("deepslate") || t.includes("cobblestone") || t.includes("calcite")) {
+    return { cap: "minecraft:stone", fill: "minecraft:stone", cover: null };   // mountain / stony shore
   }
-  // keep clear of the Guild grounds and of any build we already rendered
-  if (tooCloseToExisting(x, z, pick.w, 24)) { world.setDynamicProperty(key, 1); return; }
-  const y = sampleGroundY(dim, x, z, pick.w, pick.w);
-  if (y === null) return;
-  try {
-    world.structureManager.place(pick.id, dim, { x, y: y - 1, z });
-    world.setDynamicProperty(key, 1);
-    recordPlace(x, z, pick.w, pick.id, pick.theme);
-    if (pick.door) {
-      const doorLoc = { x: x + 11.5, y: y, z: z + 4.6 };
-      recordDemonDoor(doorLoc, z - 6);   // faces the approach (lower z)
-      ensureDemonDoor(dim, doorLoc, z - 6);
-    }
-    if (pick.cullis) registerCullis(`Focus Site ${rx},${rz}`, { x: x + 6.5, y, z: z + 6.5 });
-    for (const mtype of pick.mobs ?? []) {
-      trySpawn(dim, mtype, { x: x + 5 + Math.random() * (pick.w - 10), y: y + 1, z: z + 5 + Math.random() * (pick.w - 10) });
-    }
-    if (pick.loot === "ruin") {
-      trySpawn(dim, "fc:wraith", { x: x + 4, y: y + 1, z: z + 6 });
-    }
-    fillLootChests(dim, x, y - 1, z, pick.w, 28, pick.w, pick.id);
-    blendTerrain(dim, x, y - 1, z, pick.w, pick.w);
-    skirtTerrain(dim, x, y - 1, z, pick.w, pick.w, 6);
-    dressSurroundings(dim, x, y - 1, z, pick.w, pick.theme);
-  } catch { /* chunk edge; try next sweep */ }
+  return { cap: "minecraft:grass_block", fill: "minecraft:dirt", cover: null }; // temperate default
 }
 
-// ---------------------------------------------------------------------------
-// First-entry live encounters: the first time a Hero sets foot inside a
-// rendered location it reacts — a greeter hails them, or its denizens stir.
-// One-shot per location per player, keyed off the fc_places footprints.
-// ---------------------------------------------------------------------------
-const ENTRY_BY_THEME = {
-  village: { line: "§e\"Well met, Hero. Mind the guards and you'll do fine here.\"", spawn: ["fc:villager_albion"], sound: "random.levelup", hostile: false },
-  farm: { line: "§e\"Visitors! Don't go trampling the crops, eh?\"", spawn: ["fc:villager_farmer"], sound: "random.levelup", hostile: false },
-  forest: { line: "§a Something rustles in the trees — you are being watched.", spawn: ["fc:mercenary"], sound: "mob.wolf.growl", hostile: false },
-  holy: { line: "§f A hush falls — Avo's light warms this place.", spawn: [], sound: "beacon.activate", hostile: false },
-  snow: { line: "§b The wind bites. A lone watcher marks your arrival.", spawn: ["fc:villager_woman"], sound: "random.levelup", hostile: false },
-  dark: { line: "§5 The air turns cold — something here resents the living.", spawn: ["fc:undead", "fc:undead_soldier"], sound: "ambient.cave", hostile: true },
-};
-const ENTRY_BY_ID = {
-  "fc:bandit_camp": { line: "§c\"Intruder in the camp — cut them down!\"", spawn: ["fc:bandit", "fc:bandit_archer"], sound: "mob.zombie.say", hostile: true },
-  "fc:graveyard": { line: "§5 The graves crack open at your trespass…", spawn: ["fc:undead", "fc:undead_soldier"], sound: "ambient.cave", hostile: true },
-  "fc:hobbe_cave": { line: "§c Shrieks echo from the dark — the hobbes have your scent!", spawn: ["fc:hobbe", "fc:hobbe"], sound: "mob.zombie.say", hostile: true },
-  "fc:bowerstone_market": { line: "§e A Bowerstone guard strides over: \"State your business, stranger.\"", spawn: ["fc:guard_bowerstone"], sound: "random.levelup", hostile: false },
-  "fc:arena_ring": { line: "§6 The crowd roars — a challenger steps into the sand!", spawn: ["fc:hobbe", "fc:beetle"], sound: "random.levelup", hostile: true },
-  "fc:temple_avo": { line: "§f Avo's light embraces you; your spirit feels lighter.", spawn: [], sound: "beacon.activate", hostile: false },
-  "fc:chapel_skorm": { line: "§4 A cold dread seeps from the altar of Skorm.", spawn: ["fc:undead"], sound: "ambient.cave", hostile: true },
-};
-function firstEntryFor(place) {
-  return ENTRY_BY_ID[place.id] ?? ENTRY_BY_THEME[place.theme] ?? null;
-}
-const entryCd = new Map();
-system.runInterval(() => {
-  const places = JSON.parse(world.getDynamicProperty("fc_places") ?? "[]");
-  if (!places.length) return;
-  for (const p of world.getPlayers()) {
-    const visited = P.getJ(p, "fc_visited", []);
-    const px = p.location.x, pz = p.location.z;
-    for (const pl of places) {
-      // require the player to be well inside the footprint before it reacts
-      if (px < pl.x + 3 || px > pl.x + pl.w - 3 || pz < pl.z + 3 || pz > pl.z + pl.w - 3) continue;
-      if (visited.includes(pl.k)) continue;
-      const last = entryCd.get(p.id) ?? -9999;
-      if (TICKS() - last < 40) break;  // one trigger per player per pass
-      entryCd.set(p.id, TICKS());
-      visited.push(pl.k);
-      if (visited.length > 200) visited.splice(0, visited.length - 200);
-      P.setJ(p, "fc_visited", visited);
-      fireFirstEntry(p, pl);
-      break;
-    }
+// Raise or carve a single column so its surface sits at targetY, capped with the
+// biome surface block and resting on solid fill. `curTop` is the column's
+// current highest solid block. Carving only removes what's above targetY (the
+// skirt runs OUTSIDE the build footprint, so the structure is never touched).
+function shapeColumn(dim, x, z, targetY, curTop, pal, cover) {
+  const set = (y, id) => { try { dim.getBlock({ x, y, z })?.setType(id); } catch { } };
+  if (targetY > curTop) {                       // low ground / water — raise up to the slope
+    for (let y = curTop + 1; y <= targetY; y++) set(y, pal.fill);
+  } else if (targetY < curTop) {                // higher ground (mountain) — pare it down to the slope
+    for (let y = curTop; y > targetY; y--) set(y, "minecraft:air");
   }
-}, 20);
-
-function fireFirstEntry(p, pl) {
-  const e = firstEntryFor(pl);
-  if (!e) return;
-  const dim = p.dimension;
-  try { p.playSound(e.sound, { pitch: 1.0 }); } catch { }
-  p.sendMessage(e.line);
-  let i = 0;
-  for (const type of e.spawn) {
-    const ang = (Math.PI * 2 * i) / Math.max(1, e.spawn.length) + Math.random();
-    const sx = p.location.x + Math.cos(ang) * 5;
-    const sz = p.location.z + Math.sin(ang) * 5;
-    const sy = groundY(dim, Math.floor(sx), Math.floor(sz)) ?? (Math.floor(p.location.y) + 1);
-    trySpawn(dim, type, { x: sx, y: sy, z: sz });
-    i++;
+  for (let y = targetY - 1; y >= targetY - 2; y--) {   // guarantee solid support under the new surface
+    let b; try { b = dim.getBlock({ x, y, z }); } catch { b = null; }
+    if (b && (b.isAir || b.isLiquid)) set(y, pal.fill);
   }
-  if (e.hostile) {
-    try { dim.spawnParticle("minecraft:knockback_roar_particle", { x: p.location.x, y: p.location.y + 1, z: p.location.z }); } catch { }
+  set(targetY, pal.cap);
+  if (cover) set(targetY + 1, cover);
+  else {                                         // expose the cap: clear leftover plant/snow directly on top
+    let a; try { a = dim.getBlock({ x, y: targetY + 1, z }); } catch { a = null; }
+    if (a && !a.isAir && !a.isLiquid && (a.typeId === "minecraft:snow_layer" || isSkirtVeg(a.typeId))) set(targetY + 1, "minecraft:air");
   }
 }
 
-// ---------------------------------------------------------------------------
-// Boss minion summoning + characterful mob voices + ally cleanup
-// ---------------------------------------------------------------------------
-system.runInterval(() => {
-  for (const p of world.getPlayers()) {
-    const dim = p.dimension;
-    for (const [type, cue] of Object.entries(NPC_SOUND_CUES)) {
-      for (const e of dim.getEntities({ location: p.location, maxDistance: cue.range, type })) {
-        maybePlayNpcCue(p, e, cue);
-      }
-    }
-    for (const boss of dim.getEntities({ location: p.location, maxDistance: 40, families: ["fc_boss"] })) {
-      const minionType = boss.typeId === "fc:white_balverine" ? "fc:balverine"
-        : boss.typeId === "fc:wasp_queen" ? "fc:wasp"
-          : boss.typeId === "fc:jack_of_blades" ? "fc:undead" : null;
-      if (!minionType) continue;
-      const existing = dim.getEntities({ location: boss.location, maxDistance: 24, type: minionType }).length;
-      if (existing < 3 && Math.random() < 0.4) {
-        const e = trySpawn(dim, minionType, { x: boss.location.x + 2, y: boss.location.y + 1, z: boss.location.z });
-        if (e) dim.spawnParticle("minecraft:mobspawn_emitter", e.location);
-      }
-    }
-    // banshee shriek
-    for (const b of dim.getEntities({ location: p.location, maxDistance: 12, type: "fc:banshee" })) {
-      if (Math.random() < 0.2) {
-        p.addEffect("nausea", 100, { amplifier: 0, showParticles: false });
-        p.addEffect("darkness", 60, { amplifier: 0, showParticles: false });
-        p.playSound("fc.banshee_shriek", { volume: 0.8 });
-      }
-    }
-  }
-}, 160);
+// Ring the footprint with a graded apron that *meets the surrounding land*
+// rather than ending in a cliff. For every column out to `radius` we slope from
+// the build's edge height (y0) toward that column's own natural height, so the
+// ground steps DOWN to lower terrain and RISES UP to meet mountains. Water is
+// turned into a sand beach that wades into the shoreline instead of dropping
+// off. The cap matches the local biome (snow/sand/stone/grass) so the transition
+// reads as nature, not a built plinth.
+function skirtTerrain(dim, x0, y0, z0, w, d, radius, onDone) {
+  const ease = (t) => t * t * (3 - 2 * t);            // smoothstep — a natural, settling curve
+  const hi = Math.min(319, y0 + 96), lo = Math.max(-64, y0 - 80);
+  // Structure dimensions are counts, so the occupied footprint ends at
+  // x0+w-1 / z0+d-1. Treating x0+w or z0+d as interior leaves the first
+  // positive-edge mountain column untouched and creates a vertical seam.
+  const maxX = x0 + w - 1;
+  const maxZ = z0 + d - 1;
+  const work = function* () {
+    for (let x = x0 - radius; x <= maxX + radius; x++) {
+      for (let z = z0 - radius; z <= maxZ + radius; z++) {
+        const cx = Math.max(x0, Math.min(maxX, x));
+        const cz = Math.max(z0, Math.min(maxZ, z));
+        const dist = Math.hypot(x - cx, z - cz);
+        if (dist > radius || dist < 1) continue;
+        const info = columnScan(dim, x, z, hi, lo);
+        if (!info) continue;
+        const t = ease(Math.min(1, dist / radius));     // 0 hugging the build → 1 out in the wild
+        const curTop = info.y - 1;
 
-// ---------------------------------------------------------------------------
-// HUD + Will regen + morph auras + multiplier decay
-// ---------------------------------------------------------------------------
-let auraPhase = 0;
-system.runInterval(() => {
-  auraPhase++;
-  for (const p of world.getPlayers()) {
-    // Will regen
-    const regen = 1 + P.get(p, "fc_up_magic_power", 0);
-    P.set(p, "fc_will", Math.min(maxWill(p), willEnergy(p) + regen));
-    // multiplier decay
-    if (TICKS() - P.get(p, "fc_lastHit", 0) > 240 && P.get(p, "fc_mult", 0) > 0) {
-      P.set(p, "fc_mult", Math.max(0, P.get(p, "fc_mult", 0) - 2));
-    }
-    // HUD
-    const mult = P.get(p, "fc_mult", 0);
-    const aq = activeQuest(p);
-    const qname = aq ? DATA.quests.find((q) => q.id === aq.id)?.name : null;
-    p.onScreenDisplay.setActionBar(
-      `§b✦ Will ${bar(willEnergy(p), maxWill(p), "§b", 10)} §f${willEnergy(p)} ` +
-      (mult > 0 ? ` §6⚔ x${mult} ` : "") +
-      ` ${moralityTitle(p)}` +
-      (qname ? ` §8| §e${qname}` : ""));
-    // morph aura
-    const m = morality(p);
-    const willLv = P.get(p, "fc_up_magic_power", 0);
-    if (auraPhase % 3 === 0) {
-      try {
-        if (m >= 400) p.dimension.spawnParticle("minecraft:villager_happy", { x: p.location.x, y: p.location.y + 2.3, z: p.location.z });
-        if (m >= 750) p.dimension.spawnParticle("minecraft:totem_particle", { x: p.location.x + (Math.random() - 0.5), y: p.location.y + 2.5, z: p.location.z + (Math.random() - 0.5) });
-        if (m <= -400) p.dimension.spawnParticle("minecraft:basic_smoke_particle", { x: p.location.x + (Math.random() - 0.5), y: p.location.y + 1.8, z: p.location.z + (Math.random() - 0.5) });
-        if (m <= -750) p.dimension.spawnParticle("minecraft:soul_particle", { x: p.location.x, y: p.location.y + 1.2, z: p.location.z });
-        if (willLv >= 3) p.dimension.spawnParticle("minecraft:enchanting_table_particle", { x: p.location.x, y: p.location.y + 1.5, z: p.location.z });
-      } catch { }
-    }
-    // augmented weapons hum with the colours of their bound powers
-    if (auraPhase % 5 === 0) {
-      try {
-        const held = heldItem(p);
-        if (held && DATA.weapons[held.typeId]) {
-          const augs = weaponAugments(held);
-          if (augs.length) {
-            const fx = AUGMENT_FX[augs[(auraPhase / 5) % augs.length]];
-            const dir = p.getViewDirection();
-            p.dimension.spawnParticle(fx?.particle ?? "minecraft:enchanting_table_particle", {
-              x: p.location.x + dir.x * 0.8 + (Math.random() - 0.5) * 0.2,
-              y: p.location.y + 1 + (Math.random() - 0.5) * 0.2,
-              z: p.location.z + dir.z * 0.8 + (Math.random() - 0.5) * 0.2,
-            });
+        if (info.water) {
+          // Return to the ORIGINAL seabed at the outside edge. Interpolating to
+          // the waterline created a giant square sand wall around ocean builds.
+          // Sand is only a supported cap; sandstone carries the shelf.
+          const wy = info.waterY;
+          const shelfY = Math.max(curTop, Math.round(y0 + (curTop - y0) * t));
+          if (shelfY > curTop) {
+            clearSkirtCover(dim, x, z, info.coverBottom, info.coverTop);
+            shapeColumn(dim, x, z, shelfY, curTop,
+              { cap: "minecraft:sand", fill: "minecraft:sandstone" }, null);
+            for (let yy = shelfY + 1; yy <= wy; yy++) {
+              try {
+                const b = dim.getBlock({ x, y: yy, z });
+                if (b?.isAir) b.setType("minecraft:water");
+              } catch { }
+            }
           }
+          yield; continue;
         }
-      } catch { }
+
+        // Land: interpolate from the platform height out to the column's own
+        // natural height — rising to mountains, easing down to valleys.
+        const targetY = Math.round(y0 + (curTop - y0) * t);
+        const pal = skirtPalette(info.top, info.snowy);
+        if (targetY !== curTop) {
+          clearSkirtCover(dim, x, z, info.coverBottom, info.coverTop);
+        }
+        shapeColumn(dim, x, z, targetY, curTop, pal, pal.cover);
+        yield;
+      }
+      yield;
     }
-    applyUpgrades(p);
-  }
-}, 20);
+    try { onDone?.(); } catch { }
+  };
+  try { system.runJob(work()); } catch { try { onDone?.(); } catch { } }
+}
 
-// renown attracts ambushes: famous heroes get jumped by assassins
-system.runInterval(() => {
-  for (const p of world.getPlayers()) {
-    const renown = P.get(p, "fc_renown", 0);
-    if (renown < 400) continue;
-    if (Math.random() > Math.min(0.25, renown / 8000)) continue;
-    const t = world.getTimeOfDay();
-    if (t < 13000) continue; // night ambushes only
-    const ang = Math.random() * Math.PI * 2;
-    const loc = { x: p.location.x + Math.cos(ang) * 14, y: p.location.y + 1, z: p.location.z + Math.sin(ang) * 14 };
-    const n = renown > 1500 ? 3 : 2;
-    let spawned = 0;
-    for (let i = 0; i < n; i++) if (trySpawn(p.dimension, "fc:assassin", loc)) spawned++;
-    if (spawned) p.sendMessage("§4✦ Your fame has a price — assassins emerge from the dark!");
-  }
-}, 1200);
-
-console.warn("[Fablecraft] Reforged systems online. Albion awaits.");
+function dressSurroundings(dim, x0, y0, z0, w, mood) {
+  // Additional custom decoration stub
+}

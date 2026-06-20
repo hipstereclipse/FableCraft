@@ -20,6 +20,9 @@
         "ctrl_door": "controller.animation.fc.door"
       },
       "scripts": {
+        "initialize": [
+          "variable.anim_offset = math.random(0, 360);"
+        ],
         "animate": [
           "ctrl_door"
         ]

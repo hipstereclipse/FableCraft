@@ -968,9 +968,58 @@ PLAN_BUILDERS = {
 }
 
 
+def _add_training_bow(parts):
+    """Model a wooden longbow into a humanoid's right hand (the Skill apprentice
+    is an archer — it already wears a quiver — but had nothing to shoot with). The
+    bow is parented to arm_r so it swings with the arm and the archery animation.
+    Right hand sits near (x -6, y 11, z 0); the stave is held just in front of the
+    fist. Painted automatically by gen_entity_textures from the cube roles."""
+    parts.append({
+        "name": "training_bow", "pivot": [-6, 11, -3], "rot": [0, 0, 0], "parent": "arm_r",
+        "cubes": [
+            _cube([-6.5, 9, -3.5], [1, 5, 1]),     # grip
+            _cube([-6.5, 13, -4.0], [1, 6, 1]),    # upper limb (bows forward)
+            _cube([-6.5, 19, -3.5], [1, 2, 1]),    # upper tip (recurves back)
+            _cube([-6.5, 3, -4.0], [1, 6, 1]),     # lower limb
+            _cube([-6.5, 1, -3.5], [1, 2, 1]),     # lower tip
+            _cube([-6.0, 2, -2.7], [0.4, 19, 0.4]),  # string, on the inner side
+        ],
+        "cube_roles": {5: "horn"},                 # string reads pale; limbs = wood
+        "role": "boots", "decor": []})
+
+
+def _add_training_stick(parts):
+    """Model a wooden practice stick into a sparring apprentice's right hand.
+    The stick is parented to arm_r so the existing spar and block animations
+    carry it through each exchange instead of leaving the apprentices miming
+    weapon strikes."""
+    parts.append({
+        "name": "training_stick", "pivot": [-6, 10, -3], "rot": [0, 0, 0], "parent": "arm_r",
+        "cubes": [
+            _cube([-6.5, 2, -3.5], [1, 18, 1]),       # wooden shaft
+            _cube([-6.7, 8, -3.7], [1.4, 4, 1.4]),   # wrapped hand grip
+        ],
+        "cube_roles": {1: "belt"},
+        "role": "boots", "decor": []})
+
+
+# Per-mob accessory parts appended after the base plan is built (build_parts is
+# shared by the geometry, texture and married generators, so a hook here keeps all
+# three in agreement). Keyed by mob id.
+ACCESSORY_BUILDERS = {
+    "guild_apprentice_might": _add_training_stick,
+    "guild_apprentice_skill": _add_training_bow,
+    "guild_apprentice_will": _add_training_stick,
+}
+
+
 def build_parts(mob):
     plan, kwargs = mob["plan"]
-    return PLAN_BUILDERS[plan](**kwargs)
+    parts = PLAN_BUILDERS[plan](**kwargs)
+    accessory = ACCESSORY_BUILDERS.get(mob["id"])
+    if accessory:
+        accessory(parts)
+    return parts
 
 
 def mob_palette(mob):
@@ -1010,9 +1059,28 @@ def pack_uvs(parts):
     return tex_w, max(size, 64), uv
 
 
+# ---------------------------------------------------------------------------
+# ROMANCE / MARRIAGE eligibility — shared by the behaviour, resource and texture
+# generators so the entity property, render controller and married skin always
+# agree on which NPCs can be courted. Unique story characters are excluded
+# (the Guildmaster/Maze/Theresa/Oracle are plot fixtures; Lady Grey and Briar
+# Rose already have their own bespoke marriage flow in main.js).
+# ---------------------------------------------------------------------------
+SPOUSE_EXCLUDE = {"guildmaster", "maze", "theresa", "oracle", "lady_grey", "briar_rose"}
+
+
+def is_social_npc(mob):
+    return mob.get("behavior") in ("npc", "guard") or mob["id"] == "mercenary"
+
+
+def is_romanceable(mob):
+    return is_social_npc(mob) and mob["id"] not in SPOUSE_EXCLUDE
+
+
 if __name__ == "__main__":
     for m in MOBS:
         parts = build_parts(m)
         w, h, uv = pack_uvs(parts)
         print(f"{m['id']:24s} parts={len(parts):2d} cubes={sum(len(p['cubes']) for p in parts):2d} tex={w}x{h}")
     print(f"{len(MOBS)} mobs total")
+    print("romanceable:", [m["id"] for m in MOBS if is_romanceable(m)])
