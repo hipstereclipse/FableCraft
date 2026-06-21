@@ -848,6 +848,7 @@ SPELL_SIGILS = {
     "spell_turncoat": "swirl", "spell_multi_arrow": "arrows",
     "spell_multi_strike": "blades", "spell_battle_charge": "charge",
     "spell_berserk": "claws", "spell_divine_fury": "sun", "spell_summon": "ring",
+    "spell_ghost_sword": "blades",
 }
 
 

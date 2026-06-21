@@ -1,0 +1,29 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.wd_overlay.idle": {
+      "loop": true,
+      "bones": {
+        "shell_body": {
+          "scale": [
+            "q.property('wd:morph') ? 1 + q.property('wd:strength_tier') * 0.04 : 1",
+            "q.property('wd:morph') ? 1 + q.property('wd:skill_tier') * 0.05 : 1",
+            "q.property('wd:morph') ? 1 + q.property('wd:strength_tier') * 0.04 : 1"
+          ]
+        },
+        "halo": {
+          "position": [
+            0,
+            "math.sin(q.life_time * 90) * 0.4",
+            0
+          ],
+          "rotation": [
+            0,
+            "q.life_time * 26",
+            0
+          ]
+        }
+      }
+    }
+  }
+}

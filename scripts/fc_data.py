@@ -462,6 +462,8 @@ SPELLS = [
      "color": (255, 240, 150), "desc": "Holy radiance sears the wicked. (Good Heroes only)"},
     {"id": "infernal_wrath", "name": "Infernal Wrath", "will": 35, "cd": 300, "align": -1,
      "color": (180, 40, 200), "desc": "Darkness devours all around you. (Evil Heroes only)"},
+    {"id": "ghost_sword", "name": "Ghost Sword", "will": 16, "cd": 90, "align": 0,
+     "color": (180, 220, 255), "desc": "Summon ethereal blades to fight at your side."},
 ]
 
 # ---------------------------------------------------------------------------

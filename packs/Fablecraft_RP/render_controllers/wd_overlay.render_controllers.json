@@ -1,0 +1,100 @@
+{
+  "format_version": "1.10.0",
+  "render_controllers": {
+    "controller.render.wd_overlay_shell": {
+      "arrays": {
+        "textures": {
+          "Array.skin": [
+            "Texture.skin_good",
+            "Texture.skin_evil"
+          ]
+        }
+      },
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.shell"
+        }
+      ],
+      "textures": [
+        "Array.skin[q.property('wd:alignment_tier') < 0 ? 1 : 0]"
+      ],
+      "part_visibility": [
+        {
+          "*": false
+        },
+        {
+          "shell_body": "math.abs(q.property('wd:alignment_tier')) >= 1"
+        },
+        {
+          "shell_head": "math.abs(q.property('wd:alignment_tier')) >= 1"
+        },
+        {
+          "shell_arm_r": "math.abs(q.property('wd:alignment_tier')) >= 1"
+        },
+        {
+          "shell_arm_l": "math.abs(q.property('wd:alignment_tier')) >= 1"
+        },
+        {
+          "shell_leg_r": "math.abs(q.property('wd:alignment_tier')) >= 2"
+        },
+        {
+          "shell_leg_l": "math.abs(q.property('wd:alignment_tier')) >= 2"
+        },
+        {
+          "horn_r": "q.property('wd:alignment_tier') <= -2"
+        },
+        {
+          "horn_l": "q.property('wd:alignment_tier') <= -2"
+        },
+        {
+          "halo": "q.property('wd:alignment_tier') >= 2"
+        }
+      ]
+    },
+    "controller.render.wd_overlay_runes": {
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.emissive"
+        }
+      ],
+      "textures": [
+        "Texture.will_lines"
+      ],
+      "part_visibility": [
+        {
+          "*": false
+        },
+        {
+          "rune_chest": "q.property('wd:will_tier') >= 1"
+        },
+        {
+          "rune_arm_r": "q.property('wd:will_tier') >= 3"
+        },
+        {
+          "rune_arm_l": "q.property('wd:will_tier') >= 3"
+        }
+      ]
+    },
+    "controller.render.wd_overlay_eyes": {
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.emissive"
+        }
+      ],
+      "textures": [
+        "Texture.eyes"
+      ],
+      "part_visibility": [
+        {
+          "*": false
+        },
+        {
+          "eyes": "math.abs(q.property('wd:alignment_tier')) >= 2"
+        }
+      ]
+    }
+  }
+}

@@ -470,6 +470,9 @@
     "spell_infernal_wrath": {
       "textures": "textures/items/spell_infernal_wrath"
     },
+    "spell_ghost_sword": {
+      "textures": "textures/items/spell_ghost_sword"
+    },
     "gold_coin": {
       "textures": "textures/items/gold_coin"
     },

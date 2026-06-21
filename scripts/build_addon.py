@@ -20,6 +20,7 @@ GENERATORS = [
     "gen_entity_textures.py",
     "gen_behavior.py",
     "gen_resources.py",
+    "gen_wd.py",
     "gen_emotes.py",
     "gen_structures.py",
     "gen_sounds.py",

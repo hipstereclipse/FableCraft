@@ -1,0 +1,36 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "wd:overlay",
+      "materials": {
+        "shell": "entity_alphatest",
+        "emissive": "entity_emissive_alpha"
+      },
+      "textures": {
+        "skin_good": "textures/entity/wd/skin_good",
+        "skin_evil": "textures/entity/wd/skin_evil",
+        "eyes": "textures/entity/wd/eyes",
+        "will_lines": "textures/entity/wd/will_lines",
+        "body_hair": "textures/entity/wd/body_hair"
+      },
+      "geometry": {
+        "default": "geometry.wd_overlay"
+      },
+      "render_controllers": [
+        "controller.render.wd_overlay_shell",
+        "controller.render.wd_overlay_runes",
+        "controller.render.wd_overlay_eyes"
+      ],
+      "animations": {
+        "idle": "animation.wd_overlay.idle",
+        "ctrl": "controller.animation.wd_overlay.main"
+      },
+      "scripts": {
+        "animate": [
+          "ctrl"
+        ]
+      }
+    }
+  }
+}

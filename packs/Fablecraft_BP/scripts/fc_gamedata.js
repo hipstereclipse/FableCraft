@@ -1054,6 +1054,13 @@ export const DATA = {
    "cd": 300,
    "align": -1,
    "desc": "Darkness devours all around you. (Evil Heroes only)"
+  },
+  "ghost_sword": {
+   "name": "Ghost Sword",
+   "will": 16,
+   "cd": 90,
+   "align": 0,
+   "desc": "Summon ethereal blades to fight at your side."
   }
  },
  "upgrades": {

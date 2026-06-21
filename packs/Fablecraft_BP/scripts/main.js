@@ -17,6 +17,8 @@ import {
 import { FABLE_EMOTES } from "./fable_emote_registry.js";
 import { showHudNotice } from "./fable_hud.js";
 import "./wd/main.js";
+import { openHeroMenu as wdOpenHeroMenu } from "./wd/herobook.js";
+import { LEGACY_MENU } from "./wd/menu_bridge.js";
 
 const OW = () => world.getDimension("overworld");
 const TICKS = () => system.currentTick;
@@ -265,7 +267,66 @@ function initHero(p) {
   // keeps this idempotent after the Guild has been successfully assembled.
   placeGuildNear(p);
   setGuildSpawn(p);
+  repairGuildAnchors();
 }
+
+// Re-derive the Guild's interactive anchors (Skill shrine + Cullis Gate) from
+// the recorded base on every join. The campus itself is placed only once, but
+// its layout constants can shift between versions; refreshing the live anchors
+// here keeps the Cullis Gate, Skill shrine and Boasting platform from going dead
+// on a world whose Guild was built by an earlier layout. Harmless when current.
+function repairGuildAnchors() {
+  if (!world.getDynamicProperty("fc_guild_placed")) return;
+  const raw = world.getDynamicProperty("fc_guild_base");
+  if (!raw) return;
+  let base; try { base = JSON.parse(raw); } catch { return; }
+  const y = base.y;
+  try {
+    const skill = JSON.stringify({ x: base.x + GUILD.skill.x, y, z: base.z + GUILD.skill.z });
+    world.setDynamicProperty("fc_guild_skill", skill);
+    world.setDynamicProperty("fc_guild_train", skill);
+    registerCullis("Heroes' Guild", { x: base.x + GUILD.cullis.x, y: y + 1, z: base.z + GUILD.cullis.z });
+  } catch { }
+}
+
+// In-game diagnostics / repair (run from chat):
+//   /scriptevent fc:reanchor   — re-derive the Cullis/Skill/Boast anchors and
+//                                report where they sit relative to you.
+//   /scriptevent fc:wanted     — list your active warrants.
+//   /scriptevent fc:clearwanted — drop all your warrants (testing aid).
+system.afterEvents.scriptEventReceive.subscribe((ev) => {
+  const p = ev.sourceEntity;
+  if (ev.id === "fc:reanchor") {
+    repairGuildAnchors();
+    const raw = world.getDynamicProperty("fc_guild_base");
+    if (!raw) { try { p?.sendMessage("§cNo Guild base recorded in this world yet."); } catch { } return; }
+    let base; try { base = JSON.parse(raw); } catch { return; }
+    const cullis = { x: base.x + GUILD.cullis.x, y: base.y + 1, z: base.z + GUILD.cullis.z };
+    const skill = { x: base.x + GUILD.skill.x, y: base.y, z: base.z + GUILD.skill.z };
+    const boast = { x: base.x + 4, y: base.y + 3, z: base.z + 26 };
+    const here = p?.location;
+    const dist = (a) => here ? `${Math.round(Math.hypot(here.x - a.x, here.z - a.z))}m` : "?";
+    try {
+      p?.sendMessage([
+        "§6⚙ Guild anchors re-derived from base:",
+        `§b◈ Cullis §7${cullis.x},${cullis.y},${cullis.z} §8(${dist(cullis)} away)`,
+        `§a✦ Skill §7${skill.x},${skill.y},${skill.z} §8(${dist(skill)} away)`,
+        `§6❖ Boast §7${boast.x},${boast.y},${boast.z} §8(${dist(boast)} away)`,
+        "§7Stand on each spot and re-run — it should read ~0–2m. If it's far off,",
+        "§7the structure and the layout constants are out of sync.",
+      ].join("\n"));
+    } catch { }
+    return;
+  }
+  if (p?.typeId !== "minecraft:player") return;
+  if (ev.id === "fc:wanted") {
+    const lines = bountySummaryLines(p);
+    try { p.sendMessage(lines.length ? lines.join("\n") : "§7You have no active warrants."); } catch { }
+  } else if (ev.id === "fc:clearwanted") {
+    for (const key of Object.keys(getBounties(p))) clearSettlementBounty(p, key, "cleared by command");
+    try { p.sendMessage("§aAll your warrants cleared."); } catch { }
+  }
+});
 
 const GUILD_TA = "fc_guild_keep";  // legacy core ticking area
 const GUILD_TERRAIN_RADIUS = 40;
@@ -1422,14 +1483,8 @@ world.afterEvents.entityDie.subscribe((ev) => {
     factionKillHooks(p, dead, fam);
     dropOrbs(dead.dimension, dead.location, src, fam);
   }
-  accrueSettlementBounty(p, dead);
-  // Spilling the blood of a guild member on guild ground spikes Guild Heat hard,
-  // over and above the assault registered by the killing blow.
-  try {
-    if (entityHasFamily(dead, "fc_friendly") && isInsideGuild(dead.location, dead.dimension.id)) {
-      addGuildHeat(p, 4, "§4You have slain one of the Guild's own!");
-    }
-  } catch { }
+  // A killing blow is the gravest crime — towns AND the Heroes' Guild answer it.
+  accrueCrime(p, dead, "kill");
   if (dead.typeId === "fc:twinblade") {
     world.sendMessage("§6§l⚔ Twinblade has fallen. The camps whisper of a new power in Albion.");
   }
@@ -1569,14 +1624,14 @@ world.afterEvents.itemUse.subscribe((ev) => {
   const id = it.typeId;
   if (id === "fc:guild_seal") {
     if (p.isSneaking) return recallToGuild(p);
-    return heroMenu(p);
+    // Will & Destiny (Phase 2): the storybook Hero Menu. Its deep ledger pages
+    // fall back to the legacy heroMenu via menu_bridge.js.
+    return wdOpenHeroMenu(p);
   }
   if (id === "fc:quest_card") return questBoard(p);
-  if (id.startsWith("fc:spell_")) return castSpell(p, id.substring("fc:spell_".length));
-  if (id === "wd:will_focus") {
-    if (p.isSneaking) return willAttuneMenu(p);
-    return castActiveWill(p);
-  }
+  // Will & Destiny (Phase 2): spell tomes are consumed to permanently learn a
+  // power (wd/learn.js) and the Will Focus charge/cast is handled by
+  // wd/quickcast.js. Both subscribe to itemUse directly, so no branch here.
   if (ORB_XP[id]) {
     const [type, amt] = ORB_XP[id];
     removeItem(p, id, 1);
@@ -1588,7 +1643,7 @@ world.afterEvents.itemUse.subscribe((ev) => {
   }
   if (DATA.augments[id]) return applyAugment(p, it, DATA.augments[id]);
   if (id === "fc:augment_remover") return removeAugments(p);
-  if (id === "fc:summoners_grimoire") return castSpell(p, "summon", true);
+  // fc:summoners_grimoire is now a learn-tome for Summon (wd/learn.js).
 });
 
 function recallToGuild(p) {
@@ -1600,6 +1655,11 @@ function recallToGuild(p) {
   p.playSound("mob.endermen.portal");
   p.sendMessage("§9✦ The Guild Seal carries you home.");
 }
+
+// Expose the legacy ledgers to the storybook Hero Menu (wd/herobook.js). These
+// are hoisted function declarations, so the bridge resolves them at click time.
+LEGACY_MENU.heroMenu = heroMenu;
+LEGACY_MENU.recall = recallToGuild;
 
 // Opens the Augmentation Forge: lets the Hero choose which weapon in their
 // pack should receive the stone, then binds it with a flourish of effects.
@@ -2850,39 +2910,11 @@ function willSlotPicker(p, slotIdx) {
   }).catch(() => { });
 }
 
-const willHotkeyState = new Map();
-system.runInterval(() => {
-  for (const p of world.getPlayers()) {
-    const selected = p.selectedSlotIndex ?? 0;
-    const previous = willHotkeyState.get(p.id) ?? {
-      selected,
-      sneaking: false,
-      restoreSlot: selected < 6 ? selected : 0,
-      lastCastTick: -999,
-    };
-    if (!p.isSneaking && selected < 6) previous.restoreSlot = selected;
-    const pressedHotkey = p.isSneaking && selected >= 6 && selected <= 8
-      && (!previous.sneaking || previous.selected !== selected)
-      && TICKS() - previous.lastCastTick > 3;
-    if (pressedHotkey) {
-      const slotIndex = selected - 6;
-      const id = normalizedWillSlots(p)[slotIndex];
-      previous.lastCastTick = TICKS();
-      if (id) {
-        P.set(p, "fc_will_active", slotIndex);
-        castSpell(p, id);
-      } else {
-        showHeroActionBar(p, `§7No Will power is bound to key ${selected + 1}.`);
-      }
-      system.run(() => {
-        try { p.selectedSlotIndex = previous.restoreSlot; } catch { }
-      });
-    }
-    previous.selected = selected;
-    previous.sneaking = p.isSneaking;
-    willHotkeyState.set(p.id, previous);
-  }
-}, 1);
+// Will & Destiny (Phase 2) retires the Sneak+7/8/9 virtual-hotbar caster. The
+// permanent Will Focus now casts on use and hot-swaps on crouch+use, and quick-
+// slots are assigned in the storybook Hero Menu's Magic page (wd/quickcast.js,
+// wd/herobook.js). The legacy attune helpers above are left inert for any older
+// save data and are no longer reachable from the live menu.
 
 const COMPASS_POINTS = ["S", "SW", "W", "NW", "N", "NE", "E", "SE"];
 function compassPoint(yaw) {
@@ -4224,6 +4256,17 @@ system.runInterval(() => {
       continue;
     }
     const dwellKey = `${p.id}|${near.name}`;
+    // A reliable fallback at ANY gate: sneak while standing in it to travel at
+    // once. (So the network always works even if the portal ring reads wrong.)
+    if (p.isSneaking) {
+      const last = cullisCd.get(p.id) ?? -9999;
+      if (TICKS() - last < 80) continue;
+      cullisCd.set(p.id, TICKS());
+      cullisDwell.delete(dwellKey);
+      try { dim.spawnParticle("minecraft:huge_explosion_emitter", { x: near.x + 0.5, y: near.y + 1, z: near.z + 0.5 }); } catch { }
+      cullisTravel(p, sites, near);
+      continue;
+    }
     if (isCullisConfigured(dim, near)) {
       // PORTAL: stand in the central blue light for ~3s to be carried away
       const inCentre = Math.hypot(p.location.x - (near.x + 0.5), p.location.z - (near.z + 0.5)) < 1.3;
@@ -4275,7 +4318,16 @@ const skillDwell = new Map();
 let skillPhase = 0;
 system.runInterval(() => {
   skillPhase++;
-  const raw = world.getDynamicProperty("fc_guild_skill");
+  let raw = world.getDynamicProperty("fc_guild_skill");
+  if (!raw) {                                  // self-heal: derive from the Guild base
+    const baseRaw = world.getDynamicProperty("fc_guild_base");
+    if (baseRaw) {
+      try {
+        const b = JSON.parse(baseRaw);
+        raw = JSON.stringify({ x: b.x + GUILD.skill.x, y: b.y, z: b.z + GUILD.skill.z });
+      } catch { }
+    }
+  }
   if (!raw) return;
   let s; try { s = JSON.parse(raw); } catch { return; }
   const dim = OW();
@@ -4573,11 +4625,25 @@ const VILLAGER_TOWN = {
 // SETTLEMENT BOUNTIES — per-player, per-location crime and guard response
 // ---------------------------------------------------------------------------
 const BOUNTY_KEY = "fc_bounties";
-const BOUNTY_TIMER_BASE_MS = 90 * 1000;
-const BOUNTY_TIMER_PER_KILL_MS = 90 * 1000;
-const BOUNTY_TIMER_MAX_MS = 15 * 60 * 1000;
+// Harsh / Fable-tough wanted tuning (owner's call). EVERY blow and every kill
+// adds to the bounty by severity, and tops up a live countdown; let the timer
+// run out and the warrant fades on its own.
+const BOUNTY_AMOUNT = {
+  punch: { civilian: 10, guard: 20 },   // a struck townsfolk vs a struck guard/guild member
+  kill: { civilian: 40, guard: 80 },
+};
+const BOUNTY_TIME_MS = {                 // how much each crime adds to the countdown
+  punch: 40 * 1000,
+  kill: 120 * 1000,
+};
+const BOUNTY_TIMER_START_MS = 120 * 1000;   // a fresh warrant's opening countdown
+const BOUNTY_TIMER_MAX_MS = 15 * 60 * 1000; // hard cap on the countdown
 const BOUNTY_GUARD_DETECTION_RADIUS = 36;
 const BOUNTY_TOWNS = ["bowerstone", "oakvale", "snowspire"];
+// The Heroes' Guild keeps its own order: it is its own bounty jurisdiction,
+// enforced by the Guild's standing defenders rather than spawned town watch.
+const GUILD_TOWN_KEY = "guild";
+const GUILD_BOUNTY_KEY = "guild_heroes";
 const BOUNTY_WANTED_TAG = {
   bowerstone: "fc_wanted_bowerstone",
   oakvale: "fc_wanted_oakvale",
@@ -4630,15 +4696,43 @@ function bountyResponseTier(record) {
 }
 function bountyHeatLevel(record) {
   const amount = Math.max(0, record?.amount ?? 0);
-  if (amount >= 200) return 5;
-  if (amount >= 125) return 4;
-  if (amount >= 75) return 3;
-  if (amount >= 25) return 2;
+  if (amount >= 175) return 5;
+  if (amount >= 110) return 4;
+  if (amount >= 60) return 3;
+  if (amount >= 20) return 2;
   return amount > 0 ? 1 : 0;
 }
-function bountyDurationMs(record) {
-  return Math.min(BOUNTY_TIMER_MAX_MS,
-    BOUNTY_TIMER_BASE_MS + bountyKillCount(record) * BOUNTY_TIMER_PER_KILL_MS);
+// The warrant the player most needs to worry about drives the HUD heat + timer.
+function dominantBounty(records) {
+  const all = Object.values(records);
+  return all.length ? all.reduce((a, b) => (b.amount >= a.amount ? b : a)) : null;
+}
+// Push the active wanted level (stars) and remaining countdown (seconds) to the
+// HUD. Shown whenever a warrant is live — wherever the Hero is.
+function refreshWantedHud(p, dominant, now = Date.now()) {
+  const stars = dominant ? bountyHeatLevel(dominant) : 0;
+  const secs = dominant ? Math.max(0, Math.ceil((dominant.expiresAtMs - now) / 1000)) : 0;
+  try {
+    if (p.getDynamicProperty("fc_wanted_heat") !== stars) p.setDynamicProperty("fc_wanted_heat", stars);
+    if (p.getDynamicProperty("fc_wanted_timer") !== secs) p.setDynamicProperty("fc_wanted_timer", secs);
+  } catch { }
+}
+// A settlement-shaped descriptor for the Heroes' Guild so the bounty machinery
+// can treat the campus as its own jurisdiction (enforced by its own defenders).
+function guildJurisdiction() {
+  const b = guildBounds();
+  if (!b) return null;
+  return {
+    key: GUILD_BOUNTY_KEY,
+    id: "fc:guild_hall",
+    theme: "guild",
+    x: b.minX,
+    z: b.minZ,
+    w: Math.max(b.maxX - b.minX, b.maxZ - b.minZ),
+    town: GUILD_TOWN_KEY,
+    name: "Heroes' Guild",
+    dimension: OW().id,
+  };
 }
 function formatBountyTime(ms) {
   const seconds = Math.max(0, Math.ceil(ms / 1000));
@@ -4654,10 +4748,10 @@ function bountySummaryLines(p) {
     "§4Active bounties:",
     ...entries.map((record) => {
       const response = bountyResponseTier(record);
-      const timer = record.expiresAtMs > 0
-        ? ` §8(${formatBountyTime(record.expiresAtMs - now)})`
-        : " §8(timer starts outside town)";
-      return ` §c⚖ ${record.name}: §6${record.amount}g §7· ${response.cap} ${response.label} guards${timer}`;
+      const timer = record.expiresAtMs > 0 ? ` §8(${formatBountyTime(record.expiresAtMs - now)} left)` : "";
+      const enforcers = record.town === GUILD_TOWN_KEY
+        ? "Guild defenders" : `${response.cap} ${response.label} guards`;
+      return ` §c⚖ ${record.name}: §6${record.amount}g §7· §e${"★".repeat(bountyHeatLevel(record))}§7 · ${enforcers}${timer}`;
     }),
   ];
 }
@@ -4666,6 +4760,8 @@ function entityHasFamily(entity, family) {
 }
 function bountyCrimeKind(entity) {
   if (entityHasFamily(entity, "fc_guard")) return "guard";
+  // Guild defenders (Guildmaster, Maze, fighting apprentices) answer like guards.
+  if (isGuildDefenderType(entity)) return "guard";
   if (entity.typeId === "minecraft:villager" || entity.typeId === "minecraft:villager_v2") return "civilian";
   if (entityHasFamily(entity, "fc_friendly") && !entityHasFamily(entity, "fc_ally")) return "civilian";
   return null;
@@ -4696,6 +4792,14 @@ function settlementForCrime(p, dead) {
   try {
     const assignedKey = dead.getDynamicProperty("fc_bounty_place");
     if (typeof assignedKey === "string" && existing[assignedKey]) return existing[assignedKey];
+  } catch { }
+
+  // Any crime on Guild ground answers to the Guild, not the town watch.
+  try {
+    if (isInsideGuild(dead.location, dead.dimension.id)) {
+      const guild = guildJurisdiction();
+      if (guild) return guild;
+    }
   } catch { }
 
   let places = [];
@@ -4752,43 +4856,17 @@ function currentBounty(p, records = getBounties(p)) {
   }
   return best;
 }
-function syncWantedTags(p, activeRecord) {
+// Tag the Hero wanted in every town that currently holds a warrant, so each
+// town's guard AI (which filters on its own tag) hunts only the guilty player.
+function syncWantedTags(p, records = getBounties(p)) {
+  const wantedTowns = new Set(Object.values(records).map((r) => r.town));
   for (const town of BOUNTY_TOWNS) {
     const tag = BOUNTY_WANTED_TAG[town];
     try {
-      if (activeRecord?.town === town) p.addTag(tag);
+      if (wantedTowns.has(town)) p.addTag(tag);
       else p.removeTag(tag);
     } catch { }
   }
-}
-function matchingGuardInRange(p, record) {
-  if (!record || p.dimension.id !== record.dimension) return false;
-  try {
-    return p.dimension.getEntities({
-      location: p.location,
-      maxDistance: BOUNTY_GUARD_DETECTION_RADIUS,
-      type: BOUNTY_GUARD_TYPE[record.town],
-    }).some((guard) => {
-      try {
-        const owner = guard.getDynamicProperty("fc_bounty_owner");
-        const place = guard.getDynamicProperty("fc_bounty_place");
-        if (owner || place) return owner === p.id && place === record.key;
-      } catch { }
-      return locationInsideSettlement(guard.location, guard.dimension.id, record, 18);
-    });
-  } catch {
-    return false;
-  }
-}
-function syncWantedHeat(p, activeRecord) {
-  const heat = activeRecord && matchingGuardInRange(p, activeRecord)
-    ? bountyHeatLevel(activeRecord)
-    : 0;
-  try {
-    if (p.getDynamicProperty("fc_wanted_heat") !== heat) {
-      p.setDynamicProperty("fc_wanted_heat", heat);
-    }
-  } catch { }
 }
 function assignedBountyGuards(p, record) {
   let guards = [];
@@ -4866,7 +4944,7 @@ function spawnBountyGuards(p, record, mode, naturalGuardCount = 0) {
   }
 }
 function activateLocalGuards(p, record, mode) {
-  syncWantedTags(p, record);
+  syncWantedTags(p);
   const cap = bountyResponseTier(record).cap;
   const assignedIds = new Set(assignedBountyGuards(p, record).map((guard) => guard.id));
   let naturalGuards = [];
@@ -4892,41 +4970,71 @@ function markBountyHostile(p, record) {
   const current = records[record.key];
   if (!current) return;
   current.enforcement = "hostile";
-  current.expiresAtMs = 0;
+  current.expiresAtMs = Date.now() + BOUNTY_TIMER_START_MS;   // resisting restarts the clock
   setBounties(p, records);
   bountyDemand.delete(p.id);
   activateLocalGuards(p, current, "hostile");
 }
-function accrueSettlementBounty(p, dead) {
-  const kind = bountyCrimeKind(dead);
-  if (!kind) return;
-  const settlement = settlementForCrime(p, dead);
-  if (!settlement || !BOUNTY_GUARD_TYPE[settlement.town]) return;
+// Activate the right enforcers for a warrant: the town watch in settlements,
+// the Guild's own standing defenders on Guild ground.
+function activateEnforcers(p, record, mode) {
+  if (record.town === GUILD_TOWN_KEY) rallyGuildDefenders(p);
+  else activateLocalGuards(p, record, mode);
+}
+// THE unified crime entry point. Every punch and every kill runs through here:
+// it raises the bounty for the responsible jurisdiction (town OR the Heroes'
+// Guild) by a severity-scaled amount, tops up the countdown that clears the
+// warrant, and rouses the local enforcers. Returns false if the place is not
+// policed (so the caller can fall back to rousing whoever is nearby).
+function accrueCrime(p, victim, severity) {   // severity: "punch" | "kill"
+  const kind = bountyCrimeKind(victim);       // "civilian" | "guard" | null
+  if (!kind) return false;
+  const jur = settlementForCrime(p, victim);
+  if (!jur) return false;
+  const isGuild = jur.town === GUILD_TOWN_KEY;
+  if (!isGuild && !BOUNTY_GUARD_TYPE[jur.town]) return false;
+
+  const now = Date.now();
   const records = getBounties(p);
-  const record = records[settlement.key] ?? {
-    ...settlement,
-    amount: 0,
-    civilianKills: 0,
-    guardKills: 0,
-    expiresAtMs: 0,
-    enforcement: "hostile",
+  const existed = !!records[jur.key];
+  const record = records[jur.key] ?? {
+    ...jur, amount: 0, civilianKills: 0, guardKills: 0, punches: 0,
+    expiresAtMs: 0, enforcement: "approach",
   };
-  const priorKills = bountyKillCount(record);
-  if (kind === "guard") record.guardKills++;
-  else record.civilianKills++;
-  record.amount = Math.min(9999, record.amount + (kind === "guard" ? 35 : 20) + priorKills * 15);
-  record.expiresAtMs = 0;
-  record.enforcement = "hostile";
-  records[record.key] = record;
+  const priorStars = bountyHeatLevel(record);
+
+  const addAmount = BOUNTY_AMOUNT[severity][kind];
+  record.amount = Math.min(9999, record.amount + addAmount);
+  if (severity === "kill") {
+    if (kind === "guard") record.guardKills++; else record.civilianKills++;
+  } else {
+    record.punches = (record.punches ?? 0) + 1;
+  }
+  // Top up the countdown: extend from whatever time is left (or from now for a
+  // fresh warrant), capped. Every crime buys the law more time to hunt you.
+  const floor = existed ? Math.max(record.expiresAtMs, now) : now + BOUNTY_TIMER_START_MS;
+  record.expiresAtMs = Math.min(now + BOUNTY_TIMER_MAX_MS, floor + BOUNTY_TIME_MS[severity]);
+  // Murder, or any violence against a guard / guild defender, is an immediate
+  // lethal hunt; merely cuffing a civilian only brings the watch over to fine you.
+  const hostile = severity === "kill" || kind === "guard" || isGuild;
+  if (record.enforcement !== "hostile") record.enforcement = hostile ? "hostile" : "approach";
+  records[jur.key] = record;
   setBounties(p, records);
-  const response = bountyResponseTier(record);
-  p.sendMessage([
-    `§4⚖ MURDER WITNESSED — ${record.name}`,
-    `§cBounty: §6${record.amount} gold §8(${bountyKillCount(record)} slain)`,
-    `§7Response: ${response.cap} ${response.label} guards. Leave town and keep away until the warrant expires.`,
-  ].join("\n"));
-  try { p.playSound("raid.horn", { volume: 0.7, pitch: 1.1 }); } catch { }
-  activateLocalGuards(p, record, "hostile");
+
+  const stars = bountyHeatLevel(record);
+  refreshWantedHud(p, dominantBounty(records), now);
+  showHeroActionBar(p, `§4⚖ +${addAmount}g §8· §6${record.amount}g §8· §e${"★".repeat(Math.max(1, stars))} §8· ${formatBountyTime(record.expiresAtMs - now)}`, 45);
+  if (!existed) {
+    p.sendMessage(severity === "kill"
+      ? `§4⚖ MURDER WITNESSED — you are WANTED in ${record.name}.`
+      : `§4⚖ ASSAULT WITNESSED — you are WANTED in ${record.name}.`);
+    try { p.playSound("raid.horn", { volume: 0.7, pitch: 1.1 }); } catch { }
+  } else if (stars > priorStars) {
+    p.sendMessage(`§4⚖ Your wanted level in ${record.name} rises to §e${"★".repeat(stars)}§4.`);
+    try { p.playSound("raid.horn", { volume: 0.5, pitch: 1.0 + stars * 0.05 }); } catch { }
+  }
+  activateEnforcers(p, record, record.enforcement === "hostile" ? "hostile" : "approach");
+  return true;
 }
 function protectedFromJail(item) {
   if (!item) return false;
@@ -4984,13 +5092,13 @@ function clearSettlementBounty(p, placeKey, reason) {
   const records = getBounties(p);
   const record = records[placeKey];
   if (!record) return;
-  removeBountyGuards(p, record);
+  if (record.town === GUILD_TOWN_KEY) calmGuildDefenders(p);
+  else removeBountyGuards(p, record);
   delete records[placeKey];
   setBounties(p, records);
   bountyDemand.delete(p.id);
-  const nextActive = currentBounty(p, records);
-  syncWantedTags(p, nextActive);
-  syncWantedHeat(p, nextActive);
+  syncWantedTags(p, records);
+  refreshWantedHud(p, dominantBounty(records));
   if (reason) p.sendMessage(`§a⚖ ${record.name} bounty cleared — ${reason}.`);
 }
 function sendToJail(p, record) {
@@ -5053,70 +5161,59 @@ system.runInterval(() => {
   for (const p of world.getPlayers()) {
     const records = getBounties(p);
     let changed = false;
-    const expired = [];
+
+    // The countdown runs EVERYWHERE — committing more crime tops it up, but left
+    // alone every warrant ticks down and fades on its own.
     for (const [key, record] of Object.entries(records)) {
-      const inside = locationInsideSettlement(p.location, p.dimension.id, record, 10);
-      if (!inside && record.expiresAtMs <= 0) {
-        record.expiresAtMs = now + bountyDurationMs(record);
-        record.enforcement = "away";
-        removeBountyGuards(p, record);
+      if (!(record.expiresAtMs > 0)) { record.expiresAtMs = now + BOUNTY_TIMER_START_MS; changed = true; }
+      if (now >= record.expiresAtMs) {
+        if (record.town === GUILD_TOWN_KEY) calmGuildDefenders(p);
+        else removeBountyGuards(p, record);
+        delete records[key];
+        bountyDemand.delete(p.id);
+        p.sendMessage(`§a⚖ Your wanted level in ${record.name} has faded.`);
+        try { p.playSound("random.orb", { pitch: 0.7 }); } catch { }
         changed = true;
       }
-      if (!inside && record.expiresAtMs > 0 && now >= record.expiresAtMs) expired.push(key);
-    }
-    for (const key of expired) {
-      const record = records[key];
-      removeBountyGuards(p, record);
-      delete records[key];
-      p.sendMessage(`§a⚖ The warrant from ${record.name} has expired.`);
-      changed = true;
     }
     if (changed) setBounties(p, records);
+    syncWantedTags(p, records);
 
-    const active = currentBounty(p, records);
-    syncWantedTags(p, active);
-    if (!active) {
-      bountyDemand.delete(p.id);
-      syncWantedHeat(p, null);
-      continue;
-    }
-    const response = bountyResponseTier(active);
-    const timer = active.expiresAtMs > 0
-      ? ` §8· ${formatBountyTime(active.expiresAtMs - now)}`
-      : "";
-    showHeroActionBar(
-      p,
-      `§4⚖ ${active.name} §8· §6${active.amount} gold §8· §c${response.label} guard response${timer}`,
-      30,
-    );
-    if (active.expiresAtMs > 0) {
-      active.expiresAtMs = 0;
-      active.enforcement = "approach";
-      setBounties(p, records);
-      beginBountyDemand(p, active);
-    } else if (active.enforcement === "hostile") {
-      const cdKey = `${p.id}|${active.key}`;
-      if (TICKS() - (bountySpawnCooldown.get(cdKey) ?? -9999) >= 100) {
-        bountySpawnCooldown.set(cdKey, TICKS());
-        activateLocalGuards(p, active, "hostile");
+    // The most serious warrant drives the on-screen stars + countdown.
+    const dominant = dominantBounty(records);
+    refreshWantedHud(p, dominant, now);
+    if (!dominant) { bountyDemand.delete(p.id); continue; }
+
+    // Enforce each warrant whose jurisdiction the Hero currently stands in.
+    for (const record of Object.values(records)) {
+      if (record.town === GUILD_TOWN_KEY) {
+        if (isInsideGuild(p.location, p.dimension.id)) rallyGuildDefenders(p);
+        continue;
       }
-    } else if (active.enforcement === "approach") {
-      let pending = bountyDemand.get(p.id);
-      if (!pending || pending.placeKey !== active.key) {
-        beginBountyDemand(p, active);
-        pending = bountyDemand.get(p.id);
-      }
-      if (!pending.prompted) {
-        let guardClose = false;
-        try {
-          guardClose = p.dimension.getEntities({
-            location: p.location, maxDistance: 9, type: BOUNTY_GUARD_TYPE[active.town],
-          }).length > 0;
-        } catch { }
-        if (guardClose || TICKS() - pending.startedTick >= 120) demandBountyResolution(p, active);
+      if (!locationInsideSettlement(p.location, p.dimension.id, record, 10)) continue;
+      if (record.enforcement === "hostile") {
+        const cdKey = `${p.id}|${record.key}`;
+        if (TICKS() - (bountySpawnCooldown.get(cdKey) ?? -9999) >= 100) {
+          bountySpawnCooldown.set(cdKey, TICKS());
+          activateLocalGuards(p, record, "hostile");
+        }
+      } else {                                   // "approach" — the watch comes to fine you
+        let pending = bountyDemand.get(p.id);
+        if (!pending || pending.placeKey !== record.key) {
+          beginBountyDemand(p, record);
+          pending = bountyDemand.get(p.id);
+        }
+        if (pending && !pending.prompted) {
+          let guardClose = false;
+          try {
+            guardClose = p.dimension.getEntities({
+              location: p.location, maxDistance: 9, type: BOUNTY_GUARD_TYPE[record.town],
+            }).length > 0;
+          } catch { }
+          if (guardClose || TICKS() - pending.startedTick >= 120) demandBountyResolution(p, record);
+        }
       }
     }
-    syncWantedHeat(p, active);
   }
 }, 20);
 
@@ -5150,12 +5247,15 @@ function factionKillHooks(p, dead, fam) {
 system.runInterval(() => {
   const wantedByDimension = new Map();
   for (const p of world.getPlayers()) {
-    const active = currentBounty(p);
-    syncWantedTags(p, active);
-    if (!active) continue;
-    const wanted = wantedByDimension.get(p.dimension.id) ?? [];
-    wanted.push({ player: p, record: active });
-    wantedByDimension.set(p.dimension.id, wanted);
+    const records = getBounties(p);
+    syncWantedTags(p, records);
+    for (const record of Object.values(records)) {
+      if (record.town === GUILD_TOWN_KEY) continue;   // the Guild fields its own defenders
+      if (!locationInsideSettlement(p.location, p.dimension.id, record, 10)) continue;
+      const wanted = wantedByDimension.get(p.dimension.id) ?? [];
+      wanted.push({ player: p, record });
+      wantedByDimension.set(p.dimension.id, wanted);
+    }
   }
   for (const p of world.getPlayers()) {
     let guards = [];
@@ -5240,91 +5340,40 @@ function isInsideGuild(loc, dimensionId) {
     && loc.y >= b.minY && loc.y <= b.maxY;
 }
 
+// Coalesce a flurry of hits / continuous damage on one victim so each distinct
+// swing counts once toward the bounty (rather than every damage tick).
+const assaultCd = new Map();   // `${playerId}|${victimId}` -> tick
+
 function handlePlayerAssault(p, tgt) {
   if (!isAssaultableNpc(tgt)) return;
   let loc; try { loc = tgt.location; } catch { return; }
-  const inGuild = isInsideGuild(loc, tgt.dimension.id);
-  let already = false; try { already = tgt.hasTag("fc_aggravated"); } catch { }
-  // Their opinion of you sours sharply.
-  try { if (typeof tgt.getProperty("fc:love_hate") === "number") setNpcLove(tgt, npcLove(tgt) - (already ? 3 : 14)); } catch { }
-  // Defenders fight; everyone else flees.
+  void loc;
+  // Their opinion of you sours, and they react — defenders fight, others flee.
   const fightsBack = isGuildDefenderType(tgt) || entityHasFamily(tgt, "fc_ally");
   aggravate(tgt, fightsBack ? "fc:react_attack" : "fc:react_flee",
     fightsBack ? GUARD_AGGRO_TICKS : CIVILIAN_FLEE_TICKS);
-  // Raising a hand against ANYONE on Guild ground turns the whole Guild on you.
-  // Every blow re-rallies the defenders (so a fresh swing always re-aggros the
-  // campus) while heat is still only tallied once per distinct provocation.
-  if (inGuild) {
-    if (already) rallyGuildDefenders(p);
-    else addGuildHeat(p, fightsBack ? 2 : 1, fightsBack ? "§4The Guild draws steel against you!" : null);
-    return;
-  }
-  if (already) return;            // this provocation has already been counted
+
+  const cdKey = `${p.id}|${tgt.id}`;
+  const fresh = TICKS() - (assaultCd.get(cdKey) ?? -9999) >= 6;
+  assaultCd.set(cdKey, TICKS());
+  if (!fresh) return;            // same swing / continuous damage — already counted
+
+  try { if (typeof tgt.getProperty("fc:love_hate") === "number") setNpcLove(tgt, npcLove(tgt) - 14); } catch { }
+  // Every blow adds to your bounty (severity-scaled), tops up the wanted
+  // countdown and rouses the local enforcers — towns and the Guild alike.
   if (bountyCrimeKind(tgt)) {
-    // A struck guard escalates to a lethal hunt; assaulting a civilian only
-    // brings the watch over to demand a fine.
-    accrueAssault(p, tgt, entityHasFamily(tgt, "fc_guard") ? "guard" : "civilian");
+    if (!accrueCrime(p, tgt, "punch")) alertProtectors(tgt);
   } else {
-    alertProtectors(tgt);          // ally/wilderness fallback (no warrant applies)
+    alertProtectors(tgt);         // ally / wilderness fallback (no warrant applies)
   }
-}
-
-// A non-lethal cousin of accrueSettlementBounty: a witnessed assault opens (or
-// tops up) a small warrant. Striking a civilian brings the guards over to demand
-// satisfaction; striking a guard escalates to the lethal hunt a murder triggers.
-function accrueAssault(p, victim, kind) {
-  const settlement = settlementForCrime(p, victim);
-  if (!settlement || !BOUNTY_GUARD_TYPE[settlement.town]) {
-    // No registered settlement here — just rouse whatever guards are around.
-    alertProtectors(victim);
-    return;
-  }
-  const records = getBounties(p);
-  const existed = !!records[settlement.key];
-  const record = records[settlement.key] ?? {
-    ...settlement, amount: 0, civilianKills: 0, guardKills: 0,
-    expiresAtMs: 0, enforcement: "approach",
-  };
-  record.amount = Math.min(9999, record.amount + (kind === "guard" ? 15 : 8));
-  record.expiresAtMs = 0;
-  if (record.enforcement !== "hostile") record.enforcement = kind === "guard" ? "hostile" : "approach";
-  records[record.key] = record;
-  setBounties(p, records);
-  if (!existed) {
-    p.sendMessage(kind === "guard"
-      ? `§4⚖ You struck a guard of ${record.name}! The watch turns on you.`
-      : `§6⚖ Assault witnessed — ${record.name}. The guards move to confront you.`);
-    try { p.playSound("note.bass", { pitch: 0.7 }); } catch { }
-  }
-  activateLocalGuards(p, record, record.enforcement === "hostile" ? "hostile" : "approach");
 }
 
 // ---------------------------------------------------------------------------
-// GUILD HEAT — order on the Heroes' Guild grounds is kept by the Guild itself.
-// Striking guild members builds a per-Hero heat meter; while it burns the Guild's
-// defenders (Guildmaster, Maze, the apprentices, the town guards) turn on you.
-// Leave and behave and it cools; let it max out and the Guild casts you off its
-// grounds. (Self-contained — it does not touch the settlement warrant system.)
+// Order on the Heroes' Guild grounds is kept by the Guild's own standing
+// defenders (Guildmaster, Maze, the apprentices, the gate guards). They are
+// roused by the unified bounty system: a Guild warrant rallies them, and they
+// stand down when the warrant is paid off or its countdown fades.
 // ---------------------------------------------------------------------------
-const GUILD_HEAT_KEY = "fc_guild_heat";
-const GUILD_HEAT_DECAY_KEY = "fc_guild_heat_decay";
-const GUILD_HEAT_MAX = 12;
-
-function guildHeat(p) { return P.get(p, GUILD_HEAT_KEY, 0); }
-function setGuildHeat(p, v) { P.set(p, GUILD_HEAT_KEY, Math.max(0, Math.min(GUILD_HEAT_MAX, v))); }
-function addGuildHeat(p, amount, message) {
-  if (!guildBounds()) return;
-  const before = guildHeat(p);
-  setGuildHeat(p, before + amount);
-  P.set(p, GUILD_HEAT_DECAY_KEY, TICKS());
-  if (before === 0) {
-    p.sendMessage("§4⚖ You raise your hand against the Heroes' Guild — its defenders turn on you!");
-    try { p.playSound("raid.horn", { volume: 0.7, pitch: 1.2 }); } catch { }
-  } else if (message) {
-    p.sendMessage(message);
-  }
-  rallyGuildDefenders(p);
-}
 function guildDefendersNear(p, tags) {
   const b = guildBounds();
   if (!b) return [];
@@ -5344,50 +5393,10 @@ function rallyGuildDefenders(p) {
 function calmGuildDefenders(p) {
   for (const e of guildDefendersNear(p, ["fc_aggravated"])) calmNpc(e);
 }
-function expelFromGuild(p) {
-  const b = guildBounds();
-  if (!b) return;
-  const base = b.base;
-  const x = base.x + 22, z = base.z - 34;       // out past the Sentinel Gate
-  const y = groundY(p.dimension, x, z) ?? (base.y + 1);
-  try { p.teleport({ x: x + 0.5, y, z: z + 0.5 }); } catch { }
-  setGuildHeat(p, 0);
-  P.set(p, GUILD_HEAT_DECAY_KEY, TICKS());
-  calmGuildDefenders(p);
-  addMorality(p, -25);
-  showHeroTitle(p, "§4CAST OUT", {
-    fadeInDuration: 5, stayDuration: 50, fadeOutDuration: 15,
-    subtitle: "§7The Heroes' Guild drives you from its grounds",
-  });
-  p.sendMessage("§4The Guild's defenders cast you out. Return when you've cooled your blood.");
-  try { p.playSound("mob.wither.spawn", { volume: 0.5, pitch: 1.4 }); } catch { }
-}
-
-system.runInterval(() => {
-  for (const p of world.getPlayers()) {
-    const heat = guildHeat(p);
-    if (heat <= 0) continue;
-    if (isInsideGuild(p.location, p.dimension.id)) {
-      if (heat >= GUILD_HEAT_MAX) { expelFromGuild(p); continue; }
-      rallyGuildDefenders(p);
-      showHeroActionBar(p, `§4⚠ Guild Heat §c${heat}§8/§7${GUILD_HEAT_MAX}`, 30);
-    } else {
-      // Out of the grounds and behaving — the Guild's temper cools.
-      if (TICKS() - P.get(p, GUILD_HEAT_DECAY_KEY, 0) >= 100) {
-        P.set(p, GUILD_HEAT_DECAY_KEY, TICKS());
-        setGuildHeat(p, heat - 1);
-        if (heat - 1 <= 0) {
-          calmGuildDefenders(p);
-          p.sendMessage("§7The Heroes' Guild's anger toward you has cooled.");
-        }
-      }
-    }
-  }
-}, 20);
 
 // Aggravated NPCs return to their daily routine once enough time passes without
-// fresh provocation. Guild defenders are kept hot by the Guild Heat loop above,
-// so this only calms them after the heat itself has burned out.
+// fresh provocation. Guild defenders are kept hot by the active Guild warrant in
+// the bounty loop, so this only calms them after that warrant has faded.
 system.runInterval(() => {
   const handled = new Set();
   for (const p of world.getPlayers()) {

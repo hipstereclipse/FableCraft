@@ -19,6 +19,10 @@
         "category": "wd_will_focus",
         "duration": 0.05
       },
+      "minecraft:use_modifiers": {
+        "use_duration": 3600,
+        "movement_modifier": 0.35
+      },
       "minecraft:tags": {
         "tags": [
           "wd:will_focus"

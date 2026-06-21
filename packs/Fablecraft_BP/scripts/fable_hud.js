@@ -358,7 +358,14 @@ function radarLines(player) {
 
 function wantedStars(player) {
   const heat = Math.max(0, Math.min(5, Math.floor(property(player, "fc_wanted_heat", 0))));
-  return heat > 0 ? `§f${"\uE946".repeat(heat)}` : CG.blank;
+  if (heat <= 0) return CG.blank;
+  const stars = `§f${"\uE946".repeat(heat)}`;
+  // The live countdown until the warrant fades (topped up by every fresh crime).
+  const secs = Math.max(0, Math.floor(property(player, "fc_wanted_timer", 0)));
+  if (secs <= 0) return stars;
+  const minutes = Math.floor(secs / 60);
+  const clock = minutes > 0 ? `${minutes}:${String(secs % 60).padStart(2, "0")}` : `${secs}s`;
+  return `${stars} §c${clock}`;
 }
 
 function payload(player) {
