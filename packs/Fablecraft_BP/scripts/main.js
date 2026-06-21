@@ -19,6 +19,11 @@ import { showHudNotice } from "./fable_hud.js";
 import "./wd/main.js";
 import { openHeroMenu as wdOpenHeroMenu } from "./wd/herobook.js";
 import { LEGACY_MENU } from "./wd/menu_bridge.js";
+// Phase 3 cutover: the legacy progression mutators below funnel through wd/ so
+// wd:state is the source of truth. The rich legacy deed-detection (quests,
+// factions, bounty, bosses, loot) stays; only the morality/XP STORAGE moves.
+import { changeAlignment } from "./wd/alignment.js";
+import { addDisciplineXp } from "./wd/stats.js";
 
 const OW = () => world.getDimension("overworld");
 const TICKS = () => system.currentTick;
@@ -90,14 +95,18 @@ function giveXp(p, type, amount) {
   if (amount <= 0) return;
   const mult = 1 + Math.min(25, P.get(p, "fc_mult", 0)) * 0.08;
   const total = Math.round(amount * mult);
-  P.add(p, XP_KEYS[type], total);
-  if (type !== "general") P.add(p, XP_KEYS.general, Math.round(total * 0.4));
+  // Cutover: funnel through wd/. addDisciplineXp writes wd:state.xp AND the
+  // fc_xp_* legacy keys (and applies the typed->general spillover), so we no
+  // longer P.add the legacy keys directly here.
+  addDisciplineXp(p, type === "general" ? "generic" : type, total);
 }
 
 function morality(p) { return P.get(p, "fc_morality", 0); }
 function addMorality(p, dv) {
-  const v = Math.max(-1000, Math.min(1000, morality(p) + dv));
-  P.set(p, "fc_morality", v);
+  // Cutover: wd:state is authoritative for alignment. changeAlignment updates it
+  // and derives fc_morality back, so every legacy reader (this morality() getter
+  // included) stays correct. Keep the legacy chat flavour for large swings.
+  const v = changeAlignment(p, dv, false);
   if (Math.abs(dv) >= 25) {
     p.sendMessage(dv > 0 ? `§e✦ The light favours you. (+${dv} morality)` : `§5✦ Darkness seeps into your soul. (${dv} morality)`);
   }
@@ -1790,7 +1799,14 @@ const spellCd = new Map(); // playerId|spell -> tick
 
 function spellLevel(p, id) { return Math.max(1, P.get(p, `fc_spell_lvl_${id}`, 1)); }
 
+// RETIRED by the Phase 3 cutover. This legacy caster and the SPELL_FX table below
+// are no longer reached (Will Focus -> wd/quickcast.js, tomes -> wd/learn.js). They
+// are left in place — rather than excised — to avoid destabilising the entangled
+// monolith without an in-world test loop; safe to delete once the cutover is
+// verified in-game. The early return makes the path provably inert.
 function castSpell(p, id, fromGrimoire = false) {
+  return; // legacy cast path retired; wd/ owns all casting
+  // eslint-disable-next-line no-unreachable
   const s = DATA.spells[id];
   if (!s) return;
   learnWillSpell(p, id);
@@ -2199,7 +2215,8 @@ function itemActionMenu(p, entry, group) {
   if (item.typeId === "fc:quest_card") actions.push({ label: "§eRead Quest Cards", run: () => questBoard(p) });
   if (DATA.augments[item.typeId]) actions.push({ label: "§6Open Augmentation Forge", run: () => applyAugment(p, item, DATA.augments[item.typeId]) });
   if (item.typeId === "fc:augment_remover") actions.push({ label: "§6Strip a weapon", run: () => removeAugments(p) });
-  if (item.typeId === "fc:summoners_grimoire") actions.push({ label: "§9Cast Summon", run: () => castSpell(p, "summon", true) });
+  // Cutover: the Summoner's Grimoire is a learn-tome now (use it to learn Summon
+  // via wd/learn.js). The legacy "Cast Summon" action is retired — wd/ owns casting.
   actions.push({ label: "§fMove to active hotbar slot", run: () => { moveSlotToHand(p, slot); itemCategoryMenu(p, group); } });
   for (const action of actions) f.button(action.label);
   f.button("§8Back");
@@ -2824,17 +2841,9 @@ function releaseLegacyWillBar(p) {
   P.set(p, "fc_will_virtual_migrated", 1);
 }
 
-function castActiveWill(p) {
-  const slots = normalizedWillSlots(p);
-  const active = Math.max(0, Math.min(2, P.get(p, "fc_will_active", 0)));
-  const id = slots[active] ?? slots.find(Boolean);
-  if (!id) {
-    showHeroActionBar(p, "§9No Will power is attuned. Sneak-use the Will Focus to choose one.");
-    return;
-  }
-  P.set(p, "fc_will_active", slots.indexOf(id));
-  castSpell(p, id);
-}
+// Cutover: castActiveWill (the old sneak-hotbar caster) is retired and removed.
+// Casting is owned by wd/quickcast.js (Will Focus) — no legacy cast entry points
+// remain, so the legacy castSpell()/SPELL_FX below are now unreachable.
 
 const willGreeted = new Set();
 system.runInterval(() => {

@@ -4,7 +4,7 @@ import { WD_CONFIG } from "./config.js";
 import { syncAlignmentAppearance } from "./appearance.js";
 import { emitAlignmentAuras } from "./auras.js";
 import { regenerateMana } from "./mana.js";
-import { getState, mutateState } from "./state.js";
+import { getState, mutateState, reconcileLegacyProgression } from "./state.js";
 import { registerStatEvents } from "./stats.js";
 import { initializePlayerProperties, syncPlayerProperties } from "./visuals.js";
 import { setAlignment } from "./alignment.js";
@@ -75,6 +75,9 @@ system.runInterval(() => {
 
 system.runInterval(() => {
   for (const player of world.getPlayers()) {
+    // Post-cutover: keep wd:state and the legacy fc_* properties reconciled in
+    // each field's authoritative direction before mirroring tiers to the client.
+    reconcileLegacyProgression(player);
     syncPlayerProperties(player);
   }
 }, 20);

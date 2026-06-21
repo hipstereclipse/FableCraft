@@ -1,6 +1,7 @@
 // Will & Destiny morality. This module owns alignment changes and tier mapping.
-import { WD_CONFIG } from "./config.js";
-import { bridgeLegacyProgression, clamp, getState, mutateState } from "./state.js";
+// Post-cutover, wd:state is authoritative for alignment; every change derives
+// back to the legacy fc_morality property for the monolith's readers.
+import { clamp, getState, mutateState } from "./state.js";
 
 export const ALIGNMENT_DEEDS = Object.freeze({
   hostileKill: 3,
@@ -28,10 +29,7 @@ export function alignmentTier(alignment) {
 }
 
 export function getAlignment(player) {
-  const state = WD_CONFIG.useLegacyFcProgressionBridge
-    ? bridgeLegacyProgression(player)
-    : getState(player);
-  return state.alignment;
+  return getState(player).alignment;
 }
 
 export function setAlignment(player, value, showFeedback = true) {
@@ -40,12 +38,12 @@ export function setAlignment(player, value, showFeedback = true) {
   mutateState(player, (state) => {
     state.alignment = after;
   });
-  if (WD_CONFIG.useLegacyFcProgressionBridge) {
-    try {
-      player.setDynamicProperty("fc_morality", after);
-    } catch {
-      // The wd:state value remains authoritative if the legacy property fails.
-    }
+  // Derive the legacy property unconditionally (wd:state is authoritative; this
+  // keeps the monolith's many fc_morality readers correct without the bridge).
+  try {
+    player.setDynamicProperty("fc_morality", after);
+  } catch {
+    // The wd:state value remains authoritative if the legacy property fails.
   }
   if (showFeedback && before !== after) {
     const delta = after - before;

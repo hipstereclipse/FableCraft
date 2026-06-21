@@ -13,10 +13,16 @@ export const WD_CONFIG = Object.freeze({
   combatMultiplierEnabled: false,
   agingEnabled: false,
 
-  // Fablecraft already has live fc_* progression. Keep it authoritative while
-  // Phase 1/2 migrate existing worlds into the versioned wd:state document.
-  // The legacy bridge stays ON for all of Phase 2; the cutover is Phase 3.
-  useLegacyFcProgressionBridge: true,
+  // Phase 3 cutover (flipped from true): the old forward-only bridge (fc_* ->
+  // wd:state) is retired. wd:state is now authoritative for ALIGNMENT — the sole
+  // legacy writer (addMorality) is funnelled through wd/alignment, and alignment
+  // derives back to fc_morality (so the monolith's many readers stay correct).
+  // XP / Magic Power are still driven by the legacy guild upgrade platform (which
+  // spends fc_xp_* directly), so they mirror fc_* -> wd:state via
+  // reconcileLegacyProgression. Mana is independent in both systems (unchanged).
+  // To ROLL BACK the cutover, `git revert` the cutover commit (this whole change
+  // is isolated there).
+  useLegacyFcProgressionBridge: false,
 
   // --- Phase 2: controls & charging ---
   chargeEnabledDefault: true,   // hold-to-charge default; players may disable

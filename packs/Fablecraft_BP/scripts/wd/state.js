@@ -289,10 +289,19 @@ export function mutateState(player, mutator) {
   return saveState(player, state);
 }
 
-export function bridgeLegacyProgression(player) {
-  if (!WD_CONFIG.useLegacyFcProgressionBridge) return getState(player);
+// Phase 3 cutover reconciliation (replaces the Phase 1/2 forward-only bridge).
+// Each progression field is synced in the direction of its true authority:
+//   * ALIGNMENT is wd:state-authoritative (the only legacy writer, addMorality,
+//     is funnelled through wd/alignment), so it derives wd:state -> fc_morality.
+//   * XP / Magic Power / Fireball level are still driven by the legacy guild
+//     training & upgrade platform (which spends fc_xp_* directly), so they mirror
+//     fc_* -> wd:state. Will gains routed through wd/ also write fc_xp_*, so the
+//     two stay equal and there is no double-count.
+//   * Mana is independent in both systems and is intentionally left untouched.
+// Called every sync tick from wd/main.js.
+export function reconcileLegacyProgression(player) {
   return mutateState(player, (state) => {
-    state.alignment = clamp(Math.floor(legacyNumber(player, "fc_morality", state.alignment)), -1000, 1000);
+    // Legacy-driven inputs mirror INTO wd:state.
     state.xp.generic = Math.max(0, Math.floor(legacyNumber(player, "fc_xp_general", state.xp.generic)));
     state.xp.strength = Math.max(0, Math.floor(legacyNumber(player, "fc_xp_strength", state.xp.strength)));
     state.xp.skill = Math.max(0, Math.floor(legacyNumber(player, "fc_xp_skill", state.xp.skill)));
@@ -307,5 +316,12 @@ export function bridgeLegacyProgression(player) {
       1,
       4,
     );
+    // wd:state-authoritative output derives BACK to the legacy property so the
+    // monolith's fc_morality readers (NPC reactions, shops, titles) stay correct.
+    try {
+      player.setDynamicProperty("fc_morality", clamp(Math.floor(state.alignment), -1000, 1000));
+    } catch {
+      // wd:state remains authoritative if the legacy property write fails.
+    }
   });
 }

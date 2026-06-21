@@ -1,7 +1,7 @@
 // Will & Destiny client sync. This module owns wd:* entity property updates.
 import { system } from "@minecraft/server";
 import { alignmentTier } from "./alignment.js";
-import { bridgeLegacyProgression, getState } from "./state.js";
+import { getState } from "./state.js";
 import { getDisciplineTiers } from "./stats.js";
 
 // Gesture ids live on the spell records (registry.js). 0 = idle. setCasting
@@ -17,7 +17,9 @@ function setProperty(player, id, value) {
 }
 
 export function syncPlayerProperties(player) {
-  const state = bridgeLegacyProgression(player);
+  // Post-cutover: wd:state is already reconciled with fc_* on the sync tick
+  // (reconcileLegacyProgression runs first in wd/main.js), so read it directly.
+  const state = getState(player);
   const tiers = getDisciplineTiers(state);
   setProperty(player, "wd:alignment_tier", alignmentTier(state.alignment));
   setProperty(player, "wd:strength_tier", tiers.strength);
