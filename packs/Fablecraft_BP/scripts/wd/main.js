@@ -16,6 +16,7 @@ import "./learn.js";
 // on import; reconcileSummons clears a player's stale summon ledger on join.
 import { reconcileSummons } from "./summons.js";
 import "./allegiance.js";
+import "./combat_hooks.js";
 import { getSpell, SPELL_ORDER } from "./spells/registry.js";
 import { castSpellById } from "./spells/shared/cast.js";
 

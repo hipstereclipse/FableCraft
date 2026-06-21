@@ -6,9 +6,9 @@
       "bones": {
         "shell_body": {
           "scale": [
-            "q.property('wd:morph') ? 1 + q.property('wd:strength_tier') * 0.04 : 1",
-            "q.property('wd:morph') ? 1 + q.property('wd:skill_tier') * 0.05 : 1",
-            "q.property('wd:morph') ? 1 + q.property('wd:strength_tier') * 0.04 : 1"
+            "(q.property('wd:morph') ? 1 + q.property('wd:strength_tier') * 0.04 : 1) * (q.property('wd:casting') == 15 ? 1.12 + math.sin(q.life_time * 600) * 0.06 : 1)",
+            "(q.property('wd:morph') ? 1 + q.property('wd:skill_tier') * 0.05 : 1) * (q.property('wd:casting') == 15 ? 1.12 + math.sin(q.life_time * 600) * 0.06 : 1)",
+            "(q.property('wd:morph') ? 1 + q.property('wd:strength_tier') * 0.04 : 1) * (q.property('wd:casting') == 15 ? 1.12 + math.sin(q.life_time * 600) * 0.06 : 1)"
           ]
         },
         "halo": {
@@ -22,6 +22,21 @@
             "q.life_time * 26",
             0
           ]
+        },
+        "eyes": {
+          "scale": "1 + q.property('wd:casting_level') * 0.22"
+        },
+        "rune_chest": {
+          "scale": "1 + q.property('wd:casting_level') * 0.22"
+        },
+        "rune_arm_r": {
+          "scale": "1 + q.property('wd:casting_level') * 0.22"
+        },
+        "rune_arm_l": {
+          "scale": "1 + q.property('wd:casting_level') * 0.22"
+        },
+        "shield": {
+          "scale": "0.92 + q.property('wd:mana_ratio') * 0.14 + math.sin(q.life_time * 200) * 0.02"
         }
       }
     }

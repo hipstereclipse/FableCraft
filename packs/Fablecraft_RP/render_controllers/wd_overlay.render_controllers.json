@@ -67,13 +67,13 @@
           "*": false
         },
         {
-          "rune_chest": "q.property('wd:will_tier') >= 1"
+          "rune_chest": "q.property('wd:will_tier') >= 1 || q.property('wd:casting_level') > 0"
         },
         {
-          "rune_arm_r": "q.property('wd:will_tier') >= 3"
+          "rune_arm_r": "q.property('wd:will_tier') >= 3 || q.property('wd:casting_level') > 0"
         },
         {
-          "rune_arm_l": "q.property('wd:will_tier') >= 3"
+          "rune_arm_l": "q.property('wd:will_tier') >= 3 || q.property('wd:casting_level') > 0"
         }
       ]
     },
@@ -92,7 +92,26 @@
           "*": false
         },
         {
-          "eyes": "math.abs(q.property('wd:alignment_tier')) >= 2"
+          "eyes": "math.abs(q.property('wd:alignment_tier')) >= 2 || q.property('wd:casting_level') > 0"
+        }
+      ]
+    },
+    "controller.render.wd_overlay_shield": {
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.emissive"
+        }
+      ],
+      "textures": [
+        "Texture.will_lines"
+      ],
+      "part_visibility": [
+        {
+          "*": false
+        },
+        {
+          "shield": "q.property('wd:shield_active')"
         }
       ]
     }

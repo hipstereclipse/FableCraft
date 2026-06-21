@@ -9,8 +9,15 @@ import { WD_CONFIG } from "./config.js";
 const OVERLAY_ID = "wd:overlay";
 const LEGACY_IDS = ["wd:evil_horns", "wd:divine_halo"];
 
-// Properties always mirrored from the player onto the overlay entity.
-const ALWAYS_MIRROR = ["wd:casting", "wd:casting_level", "wd:mana_ratio", "wd:shield_active"];
+// Reactive-appearance properties mirrored from the player onto the overlay. When
+// reactiveAppearance is disabled they are pinned to these inert defaults so the
+// overlay shows no cast flares or shield shell.
+const REACTIVE_DEFAULTS = {
+  "wd:casting": 0,
+  "wd:casting_level": 0,
+  "wd:mana_ratio": 1.0,
+  "wd:shield_active": false,
+};
 
 const overlays = new Map(); // playerId -> entity
 
@@ -68,7 +75,10 @@ function mirrorProperties(player, entity, detail) {
   setProp(entity, "wd:skill_tier", showShells ? getPlayerProp(player, "wd:skill_tier", 0) : 0);
   setProp(entity, "wd:will_tier", showShells ? getPlayerProp(player, "wd:will_tier", 0) : 0);
   setProp(entity, "wd:morph", detail === "full");
-  for (const prop of ALWAYS_MIRROR) setProp(entity, prop, getPlayerProp(player, prop, 0));
+  const reactive = WD_CONFIG.reactiveAppearance !== false;
+  for (const [prop, fallback] of Object.entries(REACTIVE_DEFAULTS)) {
+    setProp(entity, prop, reactive ? getPlayerProp(player, prop, fallback) : fallback);
+  }
 }
 
 function follow(player, entity) {

@@ -17,6 +17,11 @@ import { slowTimeCast } from "./slow_time.js";
 import { summonCast } from "./summon.js";
 import { turncoatCast } from "./turncoat.js";
 import { ghostSwordCast } from "./ghost_sword.js";
+import { multiArrowCast } from "./multi_arrow.js";
+import { multiStrikeCast } from "./multi_strike.js";
+import { berserkCast } from "./berserk.js";
+import { divineFuryCast } from "./divine_fury.js";
+import { infernalWrathCast } from "./infernal_wrath.js";
 
 // category: attack | physical | surround  (Fable taxonomy)
 // alignLock: 0 none | 1 good-only | -1 evil-only
@@ -49,15 +54,15 @@ const SPELLS = [
   { id: "turncoat", name: "Turncoat", category: "surround", gesture: 12, alignLock: -1, alignCost: 0,
     charges: false, color: [220, 150, 240], baseMana: 18, cooldown: 160, cast: turncoatCast },
   { id: "multi_arrow", name: "Multi Arrow", category: "physical", gesture: 13, alignLock: 0, alignCost: 0,
-    charges: false, color: [200, 230, 150], baseMana: 10, cooldown: 60, cast: null },
+    charges: false, color: [200, 230, 150], baseMana: 10, cooldown: 60, cast: multiArrowCast },
   { id: "multi_strike", name: "Multi Strike", category: "attack", gesture: 14, alignLock: 0, alignCost: 0,
-    charges: false, color: [255, 200, 90], baseMana: 12, cooldown: 120, cast: null },
+    charges: false, color: [255, 200, 90], baseMana: 12, cooldown: 120, cast: multiStrikeCast },
   { id: "berserk", name: "Berserk", category: "physical", gesture: 15, alignLock: -1, alignCost: 0,
-    charges: false, color: [255, 60, 40], baseMana: 20, cooldown: 240, cast: null },
+    charges: false, color: [255, 60, 40], baseMana: 20, cooldown: 240, cast: berserkCast },
   { id: "divine_fury", name: "Divine Fury", category: "attack", gesture: 16, alignLock: 1, alignCost: 1,
-    charges: true, color: [255, 240, 150], baseMana: 35, cooldown: 300, cast: null },
+    charges: true, color: [255, 240, 150], baseMana: 35, cooldown: 300, cast: divineFuryCast },
   { id: "infernal_wrath", name: "Infernal Wrath", category: "attack", gesture: 17, alignLock: -1, alignCost: -1,
-    charges: true, color: [180, 40, 200], baseMana: 35, cooldown: 300, cast: null },
+    charges: true, color: [180, 40, 200], baseMana: 35, cooldown: 300, cast: infernalWrathCast },
   { id: "ghost_sword", name: "Ghost Sword", category: "physical", gesture: 18, alignLock: 0, alignCost: 0,
     charges: false, color: [180, 220, 255], baseMana: 16, cooldown: 90, cast: ghostSwordCast },
 ];

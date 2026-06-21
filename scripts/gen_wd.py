@@ -77,6 +77,17 @@ SPELL_PARTICLES = {
     "wd:slowtime_glyph":   dict(material="particles_add", radius=0.10, speed=0.01, drag=0.95, life="0.60 + variable.particle_random_1 * 0.40"),
     "wd:rush_streak":      dict(material="particles_add", radius=0.08, speed=0.04, drag=0.6, life="0.28 + variable.particle_random_1 * 0.20"),
     "wd:charge_wave":      dict(material="particles_add", radius=0.12, speed=0.08, drag=0.5, life="0.30 + variable.particle_random_1 * 0.20", size_scale=1.1),
+    # --- Phase 3 spells ---
+    "wd:summon_sigil":     dict(material="particles_add", radius=0.05, speed=0.0, drag=1.0, life="0.50 + variable.particle_random_1 * 0.30", size_scale=1.2),
+    "wd:summon_soul":      dict(material="particles_add", radius=0.12, speed=0.06, gravity=0.6, drag=0.5, life="0.45 + variable.particle_random_1 * 0.35"),
+    "wd:charm_tendril":    dict(material="particles_add", radius=0.04, speed=0.0, drag=1.0, life="0.18 + variable.particle_random_1 * 0.12", size_scale=0.7),
+    "wd:charm_mote":       dict(material="particles_add", radius=0.12, speed=0.05, gravity=0.3, drag=0.6, life="0.40 + variable.particle_random_1 * 0.30"),
+    "wd:ghost_blade":      dict(material="particles_add", radius=0.06, speed=0.04, drag=0.6, life="0.26 + variable.particle_random_1 * 0.18", size_scale=0.9),
+    "wd:multi_mote":       dict(material="particles_add", radius=0.14, speed=0.03, drag=0.7, life="0.45 + variable.particle_random_1 * 0.35"),
+    "wd:blade_arc":        dict(material="particles_add", radius=0.06, speed=0.05, drag=0.6, life="0.20 + variable.particle_random_1 * 0.14", size_scale=1.0),
+    "wd:rage_heat":        dict(material="particles_add", radius=0.16, speed=0.10, gravity=0.8, drag=0.3, life="0.40 + variable.particle_random_1 * 0.30"),
+    "wd:radiant_beam":     dict(material="particles_add", radius=0.05, speed=0.0, drag=1.0, life="0.30 + variable.particle_random_1 * 0.20", size_scale=1.1),
+    "wd:nether_portal":    dict(material="particles_blend", radius=0.10, speed=0.04, direction="inwards", drag=0.5, life="0.45 + variable.particle_random_1 * 0.30", size_scale=1.2),
 }
 
 
@@ -193,6 +204,10 @@ def emit_overlay_geometry():
          "cubes": [_cube([-8.7, 12, -2], [0, 12, 4], (0, 0))]},
         {"name": "rune_arm_l", "parent": "shell_arm_l", "pivot": [6, 18, 0],
          "cubes": [_cube([8.7, 12, -2], [0, 12, 4], (0, 0))]},
+        # Physical Shield — a warded sphere shell enclosing the Hero (Phase 3
+        # reactive: shown on wd:shield_active, sized by wd:mana_ratio).
+        {"name": "shield", "parent": "root", "pivot": [0, 18, 0],
+         "cubes": [_cube([-5, 10, -5], [10, 18, 10], (0, 0), 2.0)]},
     ]
     geo = {
         "format_version": "1.12.0",
@@ -237,15 +252,17 @@ def emit_overlay_render_controllers():
             {"halo": "q.property('wd:alignment_tier') >= 2"},
         ],
     }
+    # Will Lines glow with learned Will AND brighten during any cast/charge
+    # (q.property('wd:casting_level') > 0) — the Phase 3 reactive flare.
     emissive = {
         "geometry": "Geometry.default",
         "materials": [{"*": "Material.emissive"}],
         "textures": ["Texture.will_lines"],
         "part_visibility": [
             {"*": False},
-            {"rune_chest": "q.property('wd:will_tier') >= 1"},
-            {"rune_arm_r": "q.property('wd:will_tier') >= 3"},
-            {"rune_arm_l": "q.property('wd:will_tier') >= 3"},
+            {"rune_chest": "q.property('wd:will_tier') >= 1 || q.property('wd:casting_level') > 0"},
+            {"rune_arm_r": "q.property('wd:will_tier') >= 3 || q.property('wd:casting_level') > 0"},
+            {"rune_arm_l": "q.property('wd:will_tier') >= 3 || q.property('wd:casting_level') > 0"},
         ],
     }
     eyes = {
@@ -254,7 +271,17 @@ def emit_overlay_render_controllers():
         "textures": ["Texture.eyes"],
         "part_visibility": [
             {"*": False},
-            {"eyes": "math.abs(q.property('wd:alignment_tier')) >= 2"},
+            {"eyes": "math.abs(q.property('wd:alignment_tier')) >= 2 || q.property('wd:casting_level') > 0"},
+        ],
+    }
+    # Physical Shield shell — emissive warded sphere, shown while the shield is up.
+    shield = {
+        "geometry": "Geometry.default",
+        "materials": [{"*": "Material.emissive"}],
+        "textures": ["Texture.will_lines"],
+        "part_visibility": [
+            {"*": False},
+            {"shield": "q.property('wd:shield_active')"},
         ],
     }
     write_json(RP / "render_controllers" / "wd_overlay.render_controllers.json", {
@@ -263,12 +290,17 @@ def emit_overlay_render_controllers():
             "controller.render.wd_overlay_shell": shell,
             "controller.render.wd_overlay_runes": emissive,
             "controller.render.wd_overlay_eyes": eyes,
+            "controller.render.wd_overlay_shield": shield,
         },
     })
 
 
 def emit_overlay_animation():
-    # Physique/height morph via Molang bone-scale; halo float + slow spin.
+    # Physique/height morph via Molang bone-scale; halo float + slow spin. Phase 3
+    # reactive layer: a Berserk (gesture 15) size pulse on the body, Will-Line /
+    # eye flares that grow with wd:casting_level, and a mana-linked shield shell.
+    berserk_pulse = "(q.property('wd:casting') == 15 ? 1.12 + math.sin(q.life_time * 600) * 0.06 : 1)"
+    flare = "1 + q.property('wd:casting_level') * 0.22"
     write_json(RP / "animations" / "wd_overlay.animation.json", {
         "format_version": "1.8.0",
         "animations": {
@@ -277,14 +309,21 @@ def emit_overlay_animation():
                 "bones": {
                     "shell_body": {
                         "scale": [
-                            "q.property('wd:morph') ? 1 + q.property('wd:strength_tier') * 0.04 : 1",
-                            "q.property('wd:morph') ? 1 + q.property('wd:skill_tier') * 0.05 : 1",
-                            "q.property('wd:morph') ? 1 + q.property('wd:strength_tier') * 0.04 : 1",
+                            f"(q.property('wd:morph') ? 1 + q.property('wd:strength_tier') * 0.04 : 1) * {berserk_pulse}",
+                            f"(q.property('wd:morph') ? 1 + q.property('wd:skill_tier') * 0.05 : 1) * {berserk_pulse}",
+                            f"(q.property('wd:morph') ? 1 + q.property('wd:strength_tier') * 0.04 : 1) * {berserk_pulse}",
                         ],
                     },
                     "halo": {
                         "position": [0, "math.sin(q.life_time * 90) * 0.4", 0],
                         "rotation": [0, "q.life_time * 26", 0],
+                    },
+                    "eyes": {"scale": flare},
+                    "rune_chest": {"scale": flare},
+                    "rune_arm_r": {"scale": flare},
+                    "rune_arm_l": {"scale": flare},
+                    "shield": {
+                        "scale": "0.92 + q.property('wd:mana_ratio') * 0.14 + math.sin(q.life_time * 200) * 0.02",
                     },
                 },
             },
@@ -319,6 +358,7 @@ def emit_overlay_client_entity():
             "controller.render.wd_overlay_shell",
             "controller.render.wd_overlay_runes",
             "controller.render.wd_overlay_eyes",
+            "controller.render.wd_overlay_shield",
         ],
         "animations": {
             "idle": "animation.wd_overlay.idle",
