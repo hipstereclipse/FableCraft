@@ -17,6 +17,8 @@ import "./learn.js";
 import { reconcileSummons } from "./summons.js";
 import "./allegiance.js";
 import "./combat_hooks.js";
+import "./logbook.js";
+import "./parity.js";
 import { getSpell, SPELL_ORDER } from "./spells/registry.js";
 import { castSpellById } from "./spells/shared/cast.js";
 

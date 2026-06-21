@@ -54,4 +54,5 @@ export const WD_CONFIG = Object.freeze({
   reactiveAppearance: true,     // master switch for cast-driven appearance (Phase 3 overlay rig)
   maxVfxMarkersPerCast: 8,      // cap on portals / beams / sigils spawned by a single cast
   entityBudgetPerServer: 200,   // soft cap for overlays + summons + charmed + markers
+  deedParityCheck: true,        // log any drift between wd:state.alignment and fc_morality (diagnostic)
 });

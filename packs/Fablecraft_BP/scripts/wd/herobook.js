@@ -11,6 +11,7 @@ import { getState, mutateState } from "./state.js";
 import { spawnParticle } from "./particles.js";
 import { getSpell, SPELL_ORDER, CATEGORY_LABEL } from "./spells/registry.js";
 import { LEGACY_MENU } from "./menu_bridge.js";
+import { chronicle } from "./logbook.js";
 
 const SIGIL = "textures/ui/wd"; // generated storybook sigils (cosmetic if absent)
 
@@ -98,6 +99,7 @@ export function openHeroMenu(player) {
       case 0: return heroPage(player);
       case 1: return magicPage(player);
       case 2: return appearancePage(player);
+      case 8: return logbookPage(player);
       default: return openLegacy(player);
     }
   }).catch(() => {});
@@ -201,6 +203,21 @@ function bindSlotPage(player, id) {
     }
     magicPage(player);
   }).catch(() => {});
+}
+
+// ---------------------------------------------------------------------------
+// Logbook — the narrated chronicle (kills, deeds, bestiary, "story so far")
+// ---------------------------------------------------------------------------
+function logbookPage(player) {
+  mutateState(player, (d) => { d.ui.lastPage = "logbook"; });
+  const { lines } = chronicle(player);
+  new ActionFormData()
+    .title("§0✦ The Logbook ✦")
+    .body(lines.join("\n"))
+    .button("§8❖ Back")
+    .show(player)
+    .then((r) => { if (!r.canceled) openHeroMenu(player); })
+    .catch(() => {});
 }
 
 // ---------------------------------------------------------------------------
