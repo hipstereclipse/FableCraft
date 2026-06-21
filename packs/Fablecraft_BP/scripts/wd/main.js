@@ -43,12 +43,15 @@ function ensureFocus(player) {
     player.setDynamicProperty("wd:focus_granted", true);
     return;
   }
-  if (player.getDynamicProperty("wd:focus_granted")) return;
+  // Always re-grant a MISSING focus, on every spawn — the Hero must never be left
+  // without it, including after a death drops their inventory. The granted flag
+  // only gates the welcome message so respawns don't re-announce it.
+  const firstTime = !player.getDynamicProperty("wd:focus_granted");
   try {
     const leftover = inventory(player)?.addItem(new ItemStack(FOCUS_ID, 1));
     if (leftover) player.dimension.spawnItem(leftover, player.location);
     player.setDynamicProperty("wd:focus_granted", true);
-    player.sendMessage("§9✦ A Will Focus answers your touch. Use it to cast; sneak-use to attune.");
+    if (firstTime) player.sendMessage("§9✦ A Will Focus answers your touch. Use it to cast; sneak-use to attune.");
   } catch {
     // A full inventory leaves the craftable focus available through its recipe.
   }

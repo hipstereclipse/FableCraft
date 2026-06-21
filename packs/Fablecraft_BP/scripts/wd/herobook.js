@@ -71,8 +71,10 @@ function slotSummary(state) {
 // ---------------------------------------------------------------------------
 // Root
 // ---------------------------------------------------------------------------
-export function openHeroMenu(player) {
-  flourish(player);
+// The single Hero Menu hub. `silent` suppresses the Guild-Seal flourish so that
+// returning here from a sub-page (legacy or storybook) doesn't re-chime.
+export function openHeroMenu(player, silent = false) {
+  if (!silent) flourish(player);
   const state = getState(player);
   mutateState(player, (d) => { d.ui.lastPage = "hero"; });
 
@@ -83,55 +85,47 @@ export function openHeroMenu(player) {
         `${alignmentTitle(state.alignment)} §8· §7morality §f${state.alignment}\n` +
         `§7Will §9${Math.round(state.mana.current)}§7/§9${state.mana.max}`,
     )
+    // Buttons 1/2/10 use the storybook pages in this file; the rest open the deep
+    // legacy ledgers through the menu bridge. The case map below MUST stay in
+    // lockstep with this button order.
     .button("The Hero", `${SIGIL}/sigil_hero`)
     .button("Magic", `${SIGIL}/sigil_magic`)
     .button("Appearance", `${SIGIL}/sigil_appearance`)
     .button("Weapons", `${SIGIL}/sigil_weapons`)
     .button("Inventory", `${SIGIL}/sigil_inventory`)
+    .button("Clothing", `${SIGIL}/sigil_inventory`)
+    .button("Expressions", `${SIGIL}/sigil_factions`)
     .button("Quests", `${SIGIL}/sigil_quests`)
-    .button("Map of Albion", `${SIGIL}/sigil_map`)
     .button("Factions", `${SIGIL}/sigil_factions`)
+    .button("Map of Albion", `${SIGIL}/sigil_map`)
     .button("Logbook", `${SIGIL}/sigil_logbook`);
 
   form.show(player).then((res) => {
     if (res.canceled) return;
     switch (res.selection) {
-      case 0: return heroPage(player);
+      case 0: return openLegacy(player, "stats");      // Hero Status (renown, XP, training, titles)
       case 1: return magicPage(player);
       case 2: return appearancePage(player);
-      case 8: return logbookPage(player);
-      default: return openLegacy(player);
+      case 3: return openLegacy(player, "weapons");
+      case 4: return openLegacy(player, "items");
+      case 5: return openLegacy(player, "clothing");
+      case 6: return openLegacy(player, "expressions");
+      case 7: return openLegacy(player, "quests");
+      case 8: return openLegacy(player, "factions");
+      case 9: return openLegacy(player, "map");
+      case 10: return logbookPage(player);
+      default: return undefined;
     }
   }).catch(() => {});
 }
 
-function openLegacy(player) {
+// Open a deep legacy ledger page by bridge key, falling back to the hub if main.js
+// has not registered it yet (e.g. very early in load).
+function openLegacy(player, page) {
+  const opener = LEGACY_MENU[page];
+  if (typeof opener === "function") return opener(player);
   if (typeof LEGACY_MENU.heroMenu === "function") return LEGACY_MENU.heroMenu(player);
   player.sendMessage("§7That page of the ledger is not yet bound.");
-}
-
-// ---------------------------------------------------------------------------
-// The Hero (Stats)
-// ---------------------------------------------------------------------------
-function heroPage(player) {
-  const state = getState(player);
-  const tiers = state.appearance.tiers;
-  const body = [
-    `${alignmentTitle(state.alignment)} §8(${state.alignment}/1000)`,
-    "",
-    `§7Magic Power §f${state.attributes.magicPower}`,
-    `§7Will §9${Math.round(state.mana.current)}§7/§9${state.mana.max}`,
-    "",
-    `§7Strength tier §f${tiers.strength}  §7Skill tier §f${tiers.skill}  §7Will tier §f${tiers.will}`,
-    `§7Powers learned §f${ownedSpells(state).length}§7/§f${SPELL_ORDER.length}`,
-  ].join("\n");
-  new ActionFormData()
-    .title("§0The Hero")
-    .body(body)
-    .button("§8❖ Back")
-    .show(player)
-    .then((r) => { if (!r.canceled) openHeroMenu(player); })
-    .catch(() => {});
 }
 
 // ---------------------------------------------------------------------------
@@ -164,7 +158,7 @@ function magicPage(player) {
 
   form.show(player).then((res) => {
     if (res.canceled) return;
-    if (res.selection === owned.length) return openHeroMenu(player);
+    if (res.selection === owned.length) return openHeroMenu(player, true);
     const id = owned[res.selection];
     if (id) return bindSlotPage(player, id);
   }).catch(() => {});
@@ -216,7 +210,7 @@ function logbookPage(player) {
     .body(lines.join("\n"))
     .button("§8❖ Back")
     .show(player)
-    .then((r) => { if (!r.canceled) openHeroMenu(player); })
+    .then((r) => { if (!r.canceled) openHeroMenu(player, true); })
     .catch(() => {});
 }
 
@@ -241,7 +235,7 @@ function appearancePage(player) {
     .slider("Aura density", 0, 2, 1, Math.round(state.options.auraDensity ?? 1))
     .show(player)
     .then((res) => {
-      if (res.canceled) return openHeroMenu(player);
+      if (res.canceled) return openHeroMenu(player, true);
       const [detailIdx, morphEnabled, chargeEnabled, auraDensity] = res.formValues;
       mutateState(player, (d) => {
         d.options.appearanceDetail = detailOptions[detailIdx] ?? "full";
@@ -249,7 +243,7 @@ function appearancePage(player) {
         d.options.chargeEnabled = chargeEnabled === true;
         d.options.auraDensity = Math.max(0, Math.min(2, Number(auraDensity) || 1));
       });
-      openHeroMenu(player);
+      openHeroMenu(player, true);
     })
     .catch(() => {});
 }

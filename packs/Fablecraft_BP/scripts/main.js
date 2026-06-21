@@ -1667,8 +1667,17 @@ function recallToGuild(p) {
 
 // Expose the legacy ledgers to the storybook Hero Menu (wd/herobook.js). These
 // are hoisted function declarations, so the bridge resolves them at click time.
+// Each storybook category button opens the matching page here directly.
 LEGACY_MENU.heroMenu = heroMenu;
 LEGACY_MENU.recall = recallToGuild;
+LEGACY_MENU.stats = statsMenu;
+LEGACY_MENU.items = itemsMenu;
+LEGACY_MENU.weapons = weaponLockerMenu;
+LEGACY_MENU.clothing = clothingMenu;
+LEGACY_MENU.expressions = expressionsMenu;
+LEGACY_MENU.quests = questJournalMenu;
+LEGACY_MENU.factions = factionMenu;
+LEGACY_MENU.map = mapMenu;
 
 // Opens the Augmentation Forge: lets the Hero choose which weapon in their
 // pack should receive the stone, then binds it with a flourish of effects.
@@ -2101,38 +2110,12 @@ function ringParticles(dim, loc, r, particle) {
 // ---------------------------------------------------------------------------
 // HERO MENU (Guild Seal)
 // ---------------------------------------------------------------------------
+// The Guild Seal now opens the storybook Hero Menu (wd/herobook.js) as the single
+// hub; its category buttons route straight to the deep ledger pages below via the
+// menu bridge. This delegator keeps every legacy "back to the menu" call landing
+// on that one hub instead of resurrecting the old, separate root form.
 function heroMenu(p) {
-  const aq = activeQuest(p);
-  const q = aq ? DATA.quests.find((x) => x.id === aq.id) : null;
-  const questLine = q
-    ? `§e◈ ${q.name} §8(${q.objectives.filter((o, i) => (o.type === "collect" ? countItem(p, o.item) : aq.progress[i]) >= o.count).length}/${q.objectives.length})`
-    : "§7◈ No active Quest Card";
-  const f = new ActionFormData()
-    .title(fableTitle("Hero of Albion"))
-    .body(fableBody([
-      `§6${activeTitle(p) || "Hero"} §8· ${moralityTitle(p)}`,
-      questLine,
-      `§cHealth §f${Math.ceil(p.getComponent("minecraft:health")?.currentValue ?? 0)}  §8·  §bWill §f${willEnergy(p)}/${maxWill(p)}`,
-      `§dRenown §f${P.get(p, "fc_renown", 0)}  §8·  §6Gold §f${countItem(p, "fc:gold_coin")}  §8·  §cPhials §f${countItem(p, "fc:resurrection_phial")}`,
-      `§6Combat Multiplier §f×${P.get(p, "fc_mult", 0)}`,
-      "§8The Guild Seal contains Albion's book of record.",
-    ]))
-    .button("§6Items", "textures/items/health_potion")
-    .button("§cWeapons", "textures/items/iron_longsword")
-    .button("§9Magic", "textures/items/spell_fireball")
-    .button("§7Clothing", "textures/items/apprentice_torso")
-    .button("§dExpressions", "textures/items/wedding_ring")
-    .button("§eQuests", "textures/items/quest_card")
-    .button("§2Stats", "textures/items/guild_seal")
-    .button("§6Logbook", "textures/items/summoners_grimoire")
-    .button("§bMap", "textures/items/septimal_key");
-  f.show(p).then((r) => {
-    if (r.canceled) return;
-    [
-      itemsMenu, weaponLockerMenu, magicMenu, clothingMenu, expressionsMenu,
-      questJournalMenu, statsMenu, logbookMenu, mapMenu,
-    ][r.selection]?.(p);
-  }).catch(() => { });
+  return wdOpenHeroMenu(p, true); // silent: no Guild-Seal flourish on internal returns
 }
 
 function inventoryEntries(p, predicate) {
@@ -4634,6 +4617,11 @@ const VILLAGER_TOWN = {
 // SETTLEMENT BOUNTIES — per-player, per-location crime and guard response
 // ---------------------------------------------------------------------------
 const BOUNTY_KEY = "fc_bounties";
+// The wanted timer runs on the game's tick clock (20 tps), NOT wall-clock
+// nowMs(). This keeps the countdown in lockstep with the rest of the mod,
+// pauses warrants while the game is paused, and avoids any host runtime where
+// nowMs() is unavailable — which would have aborted the whole crime path.
+function nowMs() { return TICKS() * 50; }
 // Harsh / Fable-tough wanted tuning (owner's call). EVERY blow and every kill
 // adds to the bounty by severity, and tops up a live countdown; let the timer
 // run out and the warrant fades on its own.
@@ -4718,7 +4706,7 @@ function dominantBounty(records) {
 }
 // Push the active wanted level (stars) and remaining countdown (seconds) to the
 // HUD. Shown whenever a warrant is live — wherever the Hero is.
-function refreshWantedHud(p, dominant, now = Date.now()) {
+function refreshWantedHud(p, dominant, now = nowMs()) {
   const stars = dominant ? bountyHeatLevel(dominant) : 0;
   const secs = dominant ? Math.max(0, Math.ceil((dominant.expiresAtMs - now) / 1000)) : 0;
   try {
@@ -4751,7 +4739,7 @@ function formatBountyTime(ms) {
 function bountySummaryLines(p) {
   const entries = Object.values(getBounties(p));
   if (!entries.length) return [];
-  const now = Date.now();
+  const now = nowMs();
   return [
     "",
     "§4Active bounties:",
@@ -4838,7 +4826,21 @@ function settlementForCrime(p, dead) {
   }
   if (best) return best;
 
-  const town = CIVILIAN_TOWN[dead.typeId] ?? GUARD_TOWN[dead.typeId];
+  let town = CIVILIAN_TOWN[dead.typeId] ?? GUARD_TOWN[dead.typeId];
+  // A recognised victim with no explicit town mapping (a generic social NPC) is
+  // still under the law: bind the crime to the nearest known settlement so a
+  // warrant always forms, defaulting to the starting region if none are known.
+  if (!town && bountyCrimeKind(dead)) {
+    let nearestDist = Infinity;
+    for (const place of places) {
+      const t = settlementTown(place, dead.typeId);
+      if (!t) continue;
+      const cx = place.x + place.w / 2, cz = place.z + place.w / 2;
+      const d = Math.hypot(dead.location.x - cx, dead.location.z - cz);
+      if (d < nearestDist) { nearestDist = d; town = t; }
+    }
+    if (!town) town = "bowerstone";
+  }
   if (!town) return null;
   const cellX = Math.floor(dead.location.x / 64) * 64;
   const cellZ = Math.floor(dead.location.z / 64) * 64;
@@ -4979,7 +4981,7 @@ function markBountyHostile(p, record) {
   const current = records[record.key];
   if (!current) return;
   current.enforcement = "hostile";
-  current.expiresAtMs = Date.now() + BOUNTY_TIMER_START_MS;   // resisting restarts the clock
+  current.expiresAtMs = nowMs() + BOUNTY_TIMER_START_MS;   // resisting restarts the clock
   setBounties(p, records);
   bountyDemand.delete(p.id);
   activateLocalGuards(p, current, "hostile");
@@ -5003,7 +5005,7 @@ function accrueCrime(p, victim, severity) {   // severity: "punch" | "kill"
   const isGuild = jur.town === GUILD_TOWN_KEY;
   if (!isGuild && !BOUNTY_GUARD_TYPE[jur.town]) return false;
 
-  const now = Date.now();
+  const now = nowMs();
   const records = getBounties(p);
   const existed = !!records[jur.key];
   const record = records[jur.key] ?? {
@@ -5166,7 +5168,7 @@ function beginBountyDemand(p, record) {
 }
 
 system.runInterval(() => {
-  const now = Date.now();
+  const now = nowMs();
   for (const p of world.getPlayers()) {
     const records = getBounties(p);
     let changed = false;
@@ -5174,7 +5176,13 @@ system.runInterval(() => {
     // The countdown runs EVERYWHERE — committing more crime tops it up, but left
     // alone every warrant ticks down and fades on its own.
     for (const [key, record] of Object.entries(records)) {
-      if (!(record.expiresAtMs > 0)) { record.expiresAtMs = now + BOUNTY_TIMER_START_MS; changed = true; }
+      // Renormalise a missing or implausible timer — including legacy warrants
+      // stamped under the old wall-clock (epoch-ms) timer, whose huge value the
+      // tick clock would never reach — onto a fresh tick-based countdown.
+      if (!(record.expiresAtMs > 0) || record.expiresAtMs > now + BOUNTY_TIMER_MAX_MS) {
+        record.expiresAtMs = now + BOUNTY_TIMER_START_MS;
+        changed = true;
+      }
       if (now >= record.expiresAtMs) {
         if (record.town === GUILD_TOWN_KEY) calmGuildDefenders(p);
         else removeBountyGuards(p, record);
@@ -5354,13 +5362,20 @@ function isInsideGuild(loc, dimensionId) {
 const assaultCd = new Map();   // `${playerId}|${victimId}` -> tick
 
 function handlePlayerAssault(p, tgt) {
-  if (!isAssaultableNpc(tgt)) return;
-  let loc; try { loc = tgt.location; } catch { return; }
-  void loc;
-  // Their opinion of you sours, and they react — defenders fight, others flee.
-  const fightsBack = isGuildDefenderType(tgt) || entityHasFamily(tgt, "fc_ally");
-  aggravate(tgt, fightsBack ? "fc:react_attack" : "fc:react_flee",
-    fightsBack ? GUARD_AGGRO_TICKS : CIVILIAN_FLEE_TICKS);
+  const crimeKind = bountyCrimeKind(tgt);      // "civilian" | "guard" | null
+  const assaultable = isAssaultableNpc(tgt);   // an fc-social NPC with reaction AI
+  // Ignore only beings that are neither protected by the law nor socially aware
+  // (wild creatures, the Hero's own charmed minions, etc.).
+  if (!assaultable && !crimeKind) return;
+  try { void tgt.location; } catch { return; }
+
+  // fc-social NPCs run the reaction AI — defenders fight back, civilians flee.
+  // Vanilla villagers carry no fc:react events, so only trigger it when present.
+  if (assaultable) {
+    const fightsBack = isGuildDefenderType(tgt) || entityHasFamily(tgt, "fc_ally");
+    aggravate(tgt, fightsBack ? "fc:react_attack" : "fc:react_flee",
+      fightsBack ? GUARD_AGGRO_TICKS : CIVILIAN_FLEE_TICKS);
+  }
 
   const cdKey = `${p.id}|${tgt.id}`;
   const fresh = TICKS() - (assaultCd.get(cdKey) ?? -9999) >= 6;
@@ -5370,7 +5385,7 @@ function handlePlayerAssault(p, tgt) {
   try { if (typeof tgt.getProperty("fc:love_hate") === "number") setNpcLove(tgt, npcLove(tgt) - 14); } catch { }
   // Every blow adds to your bounty (severity-scaled), tops up the wanted
   // countdown and rouses the local enforcers — towns and the Guild alike.
-  if (bountyCrimeKind(tgt)) {
+  if (crimeKind) {
     if (!accrueCrime(p, tgt, "punch")) alertProtectors(tgt);
   } else {
     alertProtectors(tgt);         // ally / wilderness fallback (no warrant applies)
