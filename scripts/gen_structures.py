@@ -5261,6 +5261,93 @@ def bargate_prison():
     v.save("bargate_prison")
 
 
+
+def archon_shrine():
+    """Northern shrine, three decorative soul sockets and sealed Bronze Gate.
+
+    [B] Shared scatter footprint and interaction coordinates: ARCHON_SHRINE.md.
+    The Cullis disc stays at the runtime's center/y0; no soul quest is implied.
+    """
+    v = Vox(49, 24, 57)
+    r = rng("struct", "archon_shrine")
+    for x in range(49):
+        for z in range(57):
+            v.set(x, 0, z, "minecraft:snow_block" if (x < 5 or x > 43 or z > 53)
+                  else (CRACK if r.random() < .16 else STONE))
+    # Two stepped circular courses and a round room with a true curved shell.
+    for x in range(12, 37):
+        for z in range(2, 27):
+            d = math.hypot(x-24, z-14)
+            if d <= 11.4: v.set(x, 1, z, STONE)
+            if d <= 10.4: v.set(x, 2, z, CHISELED if d > 9.4 else STONE)
+    cylinder(v, 24, 14, 10, 3, 8, STONE)
+    for x, z in ((17,7),(31,7),(14,14),(34,14),(17,21),(31,21)):
+        v.fill(x,3,z,x,9,z,CHISELED)
+    # Hemispherical thickness avoids the generic linear/conical dome helper.
+    for x in range(13,36):
+        for z in range(3,26):
+            for y in range(9,20):
+                radius = math.sqrt((x-24)**2 + (z-14)**2 + (y-9)**2)
+                if 9.4 <= radius <= 10.4:
+                    v.set(x,y,z,"minecraft:smooth_stone" if y%3 else CHISELED)
+    v.fill(22,3,3,26,6,5,"minecraft:air")
+    for z,y in ((3,1),(4,2)):
+        v.fill(22,y,z,26,y,z,"minecraft:stone_brick_stairs",
+               {"weirdo_direction":2,"upside_down_bit":False})
+    # Three distinct recessed floor sockets; no portal cores or invented quest.
+    for x in (20,24,28):
+        v.fill(x-1,2,13,x+1,2,15,OBSIDIAN)
+        v.set(x,2,14,"minecraft:blue_glazed_terracotta")
+    for x in (18,30):
+        v.set(x,3,17,"minecraft:chest",{"minecraft:cardinal_direction":"north"})
+    for x,z in ((18,10),(30,10),(24,21)):
+        v.set(x,3,z,SOUL_LANTERN,{"hanging":False})
+    # Walk around the shrine on level flanking lanes into the gate plaza.
+    for x0,x1 in ((7,10),(38,41)):
+        v.fill(x0,0,0,x1,0,39,STONE)
+    v.fill(7,0,28,41,0,32,STONE)
+    v.fill(22,0,28,26,0,46,STONE)
+    # Travel detector's established disc pattern, exactly at scatter center.
+    for x in range(18,31):
+        for z in range(22,35):
+            d = math.hypot(x-24,z-28)
+            if d <= 5.6:
+                v.set(x,0,z,CHISELED if d>4.6 else
+                      ("minecraft:blue_glazed_terracotta" if 3.3<d<=4.2 else STONE))
+    # The raised shrine edge ends at z25; keep the disc's north approach clear.
+    v.fill(21,1,25,27,2,34,"minecraft:air")
+    for dx,dz in ((2,0),(-2,0),(0,2),(0,-2),(3,0),(-3,0),(0,3),(0,-3)):
+        v.set(24+dx,0,28+dz,CHISELED)
+    v.set(24,0,28,"minecraft:sea_lantern")
+    # Monumental twin bronze leaves in a buttressed ancient stone frame.
+    for x0,x1 in ((13,16),(32,35)):
+        v.fill(x0,1,46,x1,20,50,STONE)
+        v.fill(x0,1,44,x1,6,52,CHISELED)
+        v.fill(x0,20,45,x1,21,51,"minecraft:snow_block")
+    v.fill(13,18,46,35,20,50,STONE)
+    v.fill(16,21,47,32,22,49,CHISELED)
+    v.fill(17,1,47,31,17,49,"minecraft:waxed_cut_copper")
+    for x in (17,23,25,31):
+        v.fill(x,1,46,x,17,46,"minecraft:waxed_weathered_cut_copper")
+    for y in (1,8,17):
+        v.fill(17,y,46,31,y,46,"minecraft:waxed_weathered_cut_copper")
+    v.fill(24,1,46,24,17,46,DEEP_TILES)
+    # TLC guide shot shows a circular mechanism, not plain rectangular leaves.
+    # Recess its dark center into a broad bronze rim; block art is original.
+    for x in range(15,34):
+        for y in range(2,21):
+            d = math.hypot(x-24,y-11)
+            if d <= 9.4:
+                v.set(x,y,45,"minecraft:waxed_weathered_cut_copper" if d>8.2 else
+                      ("minecraft:waxed_cut_copper" if d>6.8 else DEEP_TILES))
+    for x,y in ((24,3),(24,19),(16,11),(32,11)):
+        v.set(x,y,44,CHISELED)
+    for x in (9,39):
+        v.fill(x,1,40,x,3,40,CHISELED)
+        v.set(x,4,40,SOUL_LANTERN,{"hanging":False})
+    v.save("archon_shrine")
+
+
 def main():
     print("building structures:")
     demon_door_arch()
@@ -5283,6 +5370,7 @@ def main():
     graveyard()
     grey_house()
     bargate_prison()
+    archon_shrine()
     temple_avo()
     chapel_skorm()
     arena_ring()

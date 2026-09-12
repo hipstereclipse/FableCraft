@@ -10,23 +10,28 @@ six reference snapshots are in docs/. User override (2026-09-12): finish the spe
 WIP and continue as far as practical without permission questions. Keep separate
 milestone commits, validation, immediate pushes, evidence and fresh handoffs.
 
-Current milestone: W3.1 — Bargate Prison; status in-progress.
-Last resolved prior commit: 40a92e78c95f2ee281e40d754f6371f51e4e7fb1 (pushed).
-Containing commit: TLC Conformance — W3.1: add Bargate Prison and underground chamber.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — W3.1: add Bargate Prison and underground chamber'.
+Current milestone: W3.2 — Bronze Gate and Archon Shrine; status in-progress.
+Last resolved prior commit: a2141634495e7a89dc9bd1f1453d649fe6601acc (pushed).
+Containing commit: TLC Conformance — W3.2: add Archon Shrine and Bronze Gate.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — W3.2: add Archon Shrine and Bronze Gate'.
 Replace previous SELF with the actual hash next step; never invent a self-hash.
 
-W3.1 adds fc:bargate_prison, 41x20x49, weight 4, grass/rock, dark theme. Courtyard
-and three cell-block silhouettes (two open), four connected ramparts, east barracks,
-lower west torture room and upper warden office sit above a navigable basin chamber.
-Three ordinary chests and three Bowerstone guards have clear tested anchors. The
-first route test found rear entrances blocked by the third block; north entrances
-fix that. Seven groups pass, including independent blocked-cell/chamber fixtures.
-Route tests permit one-block height changes; the chamber stair top has a full-block
-transition, so jump-free movement is unproven. No prison quest, confiscation/recovery,
-rescue, cell locks or Kraken. TLC reference
-images show a much larger round domed basin hall with waterfall; our small flat
-rectangular room is a major visual gap. See docs/BARGATE_PRISON.md and W3.1 evidence.
+W3.2 adds fc:archon_shrine, 49x24x57, weight 4, snow/rock, snow theme. Round
+stepped shrine, curved dome, three floor sockets and two ordinary chests adjoin
+an active center Cullis disc (24,1,28) and sealed monumental Bronze Gate. A TLC
+guide shot prompted a circular bronze mechanism on the gate face; sculpted
+ornament and full shrine reference comparison remain gaps. Seven test groups
+cover routes, stairs, actual scatter/Cullis detection, missing-core/ring/unloaded
+negatives, blocked shrine and blocked arrival. No souls quest, gate opening or
+onward link to Folly. No mobs or Demon Door. See docs/ARCHON_SHRINE.md. Offline
+routes permit one-block steps; engine stair/collision/travel checks remain unrun.
+
+W3.1 at a214163 adds fc:bargate_prison, 41x20x49, weight 4, grass/rock. Seven
+regression groups pass for courtyard/cells/ramparts/office/chamber and guards/loot.
+The underground room is a major visual gap: small, rectangular and flat-roofed
+instead of the TLC round domed basin hall with waterfall. No prison quest,
+equipment confiscation/recovery, rescue, cell locks or Kraken. Chamber top stair
+has a full-block transition; jump-free movement unproven. See docs/BARGATE_PRISON.md.
 
 W2.4 at 40a92e7 adds fc:grey_house, 31x20x35, weight 5, grass/rock, dark theme.
 Raised manor, internal cellar stairs, two coffins/chests and three undead have
@@ -47,23 +52,23 @@ Nostro's onward route is missing: never substitute an unrelated Demon Door riddl
 No fc:place handler exists. Raw /structure load places blocks only; scatter owns
 population, loot and travel. Keep procedural scatter, no fixed map or old-region retrofit.
 
-All 24 local scripts/validate.py gates pass, plus explicit spell and syntax checks.
-C2 covers 31 assets/renders (25 scatter/two fixed/four legacy), 15 contract groups
+All 25 local scripts/validate.py gates pass, plus explicit spell and syntax checks.
+C2 covers 32 assets/renders (26 scatter/two fixed/four legacy), 15 contract groups
 and nine placement cases. Current asset/render hashes match. Full all-category
-pipelines ran through W3.1 in tmp/conformance/<ID>-full-screenshots; W3.1 renders
-28 structure cards. Logs, audits, primary views and explicitly labeled cutaways
+pipelines ran through W3.2 in tmp/conformance/<ID>-full-screenshots; W3.2 renders
+29 structure cards. Logs, audits, primary views and explicitly labeled cutaways
 are in screenshots/validation/<ID>. These are offline evidence, never engine passes.
 C2 checks mobSpawns count/finite shape/feet/head bounds; cross-POI fixtures catch
 Snowspire contamination. Geometry clearance stays in individual POI tests.
 
 C3 requires python scripts/conformance_score.py --write after EVERY checklist change,
 then --check. It tracks 45 leaves, automated/manual counts and appearance separately.
-W2.4 remote CI passed at 40a92e7 (run 34707520542); metadata is in
-screenshots/validation/W2.4/remote-run.json. Inspect newest workflow's actual head next.
+W3.1 remote CI passed at a214163 (run 34708094190); metadata is in
+screenshots/validation/W3.1/remote-run.json. Inspect newest workflow's actual head next.
 All current world rows remain in-progress for manual/reference work, not done.
 
 Next three actions:
-1. git pull --ff-only; start top todo W3.2 Bronze Gate and Archon Shrine.
+1. git pull --ff-only; start top todo W3.3 Archon Folly.
 2. Execute its numbered playbook and base/world validators. Save actual outputs
    under screenshots/validation/<ID>; every unobserved engine check stays unrun.
 3. Update checklist/handoff, explicitly stage one milestone commit, push origin

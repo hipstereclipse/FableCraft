@@ -446,6 +446,8 @@ BLOCK_COLORS = {
     "minecraft:chiseled_sandstone": (210, 194, 150), "minecraft:sandstone_wall": (208, 192, 148),
     "minecraft:sandstone_stairs": (208, 192, 148), "minecraft:smooth_sandstone_stairs": (216, 200, 156),
     "minecraft:bricks": (150, 84, 66), "minecraft:smooth_stone": (158, 158, 158),
+    "minecraft:waxed_cut_copper": (178, 105, 77),
+    "minecraft:waxed_weathered_cut_copper": (92, 139, 107),
     "minecraft:smooth_stone_slab": (158, 158, 158), "minecraft:stone_brick_slab": (124, 120, 116),
     "minecraft:stone_brick_stairs": (124, 120, 116), "minecraft:sandstone_slab": (208, 192, 148),
     "minecraft:oak_stairs": (162, 130, 78), "minecraft:spruce_stairs": (114, 84, 50),
@@ -998,6 +1000,7 @@ def main():
     # ---- structures ----
     import gen_structures as GS
     builders = {
+        "archon_shrine": GS.archon_shrine,
         "bargate_prison": GS.bargate_prison,
         "grey_house": GS.grey_house,
         "demon_door_arch": GS.demon_door_arch, "guild_hall": GS.guild_hall,
@@ -1030,6 +1033,7 @@ def main():
         fn()
     GS.Vox.save = orig_save
     STRUCT_LABELS = {
+        "archon_shrine": ("Archon Shrine", "Domed soul shrine · Cullis disc · monumental Bronze Gate", "frost"),
         "bargate_prison": ("Bargate Prison", "Ramparts · barred cells · warden tower · underground basin", "stone"),
         "grey_house": ("Grey House", "Isolated manor · stone cellar · undead haunt", "dark"),
         "demon_door_arch": ("Demon Door", "Carved arch · dialogue-locked vault", "dark"),

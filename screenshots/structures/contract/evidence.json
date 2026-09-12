@@ -1,6 +1,25 @@
 {
   "scope": "Offline generator renders; grades measure image appearance, not canon or playability.",
   "structures": {
+    "archon_shrine": {
+      "asset_sha256": "55e2965047821ac61698abba4d17f12eddd1afd411a44cd517ec0107f78ada45",
+      "size": [
+        49,
+        24,
+        57
+      ],
+      "image_sha256": "5af64a7d0d3dd72e0ea39e33d42fd31a57475743b18908094a2646309b5bc031",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 13.0,
+        "colors": 24,
+        "contrast": 0.81,
+        "brightness": 0.57,
+        "placeholder": false
+      },
+      "notes": []
+    },
     "arena_ring": {
       "asset_sha256": "ce2684b1a46a8ff01cca93f5ce9a82b1b70d8d4a017aaa66a6ae464f25dc1bb3",
       "size": [

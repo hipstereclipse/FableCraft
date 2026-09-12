@@ -2,6 +2,17 @@
   "version": 1,
   "structures": [
     {
+      "name": "archon_shrine",
+      "generator": "archon_shrine",
+      "kind": "scatter",
+      "size": [
+        49,
+        24,
+        57
+      ],
+      "title": "Archon Shrine and Bronze Gate"
+    },
+    {
       "name": "arena_ring",
       "generator": "arena_ring",
       "kind": "scatter",

@@ -1,0 +1,18 @@
+[
+  {
+    "page": "https://www.gamepressure.com/fablethelostchapters/the-souls-of-heroes/z422",
+    "image": "https://www.gamepressure.com/fablethelostchapters/gfx/word/1214258421.jpg",
+    "sha256": "4510bf8a46b9119a6e9a6e1120a6b5b47616899eb3c46a558fe2b94937ab4243",
+    "provenance": "Guide labeled Fable: The Lost Chapters; updated 2016, screenshot capture date unknown; not independently authenticated.",
+    "review": "Inspected: circular bronze mechanism, projecting rim and sculpted side ornament; character obscures left side. Supports gate face only, not full architecture.",
+    "storage": "Ignored developer scratch only; not packaged or committed"
+  },
+  {
+    "page": "https://www.gamepressure.com/fablethelostchapters/the-souls-of-heroes/z422",
+    "image": "https://www.gamepressure.com/fablethelostchapters/gfx/word/1214258390.jpg",
+    "sha256": "bd897c0f13ff0c5ebd1d31b2581e545d53061492684c34051292dc845d8ac696",
+    "provenance": "Guide labeled Fable: The Lost Chapters; updated 2016, screenshot capture date unknown; not independently authenticated.",
+    "review": "Rejected as shrine evidence: small Guildmaster dialogue image, no shrine exterior visible.",
+    "storage": "Ignored developer scratch only; not packaged or committed"
+  }
+]
