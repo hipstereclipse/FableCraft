@@ -121,9 +121,9 @@ ticket without reconstructing a missing/corrupt ledger. Recovery still requires
 the recorded original source to load and provide safe clearance.
 
 The separate original-image comparison, player-height lighting and room fidelity
-review remain open. A later bounded adapter pass should also reconcile an
+review remain open. DP4 now reconciles an
 explicit disagreement between `fc_guild_door` and the durable door source: the
-current replacement adapter still queries/spawns from the former while face
+DP3 replacement adapter queried/spawned from the former while face
 matching trusts the latter. An injected mismatch produced repeated unkeyed
 faces; ordinary current reanchor does not alter the Guild door, so this is a
-separate persisted-data inconsistency case, not a change included in DP3.
+separate persisted-data inconsistency case, not a change included in DP3. See [the DP4 source-authority repair](LIBRARY_ARCANUM_SOURCE_AUTHORITY.md).

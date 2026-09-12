@@ -3200,21 +3200,24 @@ const guildDoorPilot = createDemonDoorPilot({ world, system, ItemStack,
   report: (message) => console.warn(`[Fablecraft] ${message}`) });
 
 function isGuildDoorSource(dimId, loc) {
-  try {
-    const source = guildDoorPilot.getState()?.source ?? JSON.parse(world.getDynamicProperty("fc_guild_door") ?? "null");
-    return !!source && dimId === (source.dimension ?? "minecraft:overworld")
-      && Math.hypot(source.x - loc.x, source.z - loc.z) < 3 && Math.abs(source.y - loc.y) < 7;
-  } catch { return false; }
+  const sources = [guildDoorPilot.getSource()];
+  // A stale hint is a quarantine alias only: never give its face an ordinary
+  // persona/payout. It cannot authorize placement or move durable progress.
+  try { sources.push(JSON.parse(world.getDynamicProperty("fc_guild_door") ?? "null")); } catch { }
+  return sources.some((source) => source && [source.x, source.y, source.z].every(Number.isFinite)
+      && dimId === (source.dimension ?? "minecraft:overworld")
+      && Math.hypot(source.x - loc.x, source.z - loc.z) < 3 && Math.abs(source.y - loc.y) < 7);
 }
 
 function ensureGuildDoorPilot(dim, source = null, isNew = false) {
   try {
-    source ??= JSON.parse(world.getDynamicProperty("fc_guild_door") ?? "null");
-    if (!source || dim.id !== (source.dimension ?? "minecraft:overworld")) return;
+    source = guildDoorPilot.getSource(source);
+    if (!source || dim.id !== source.dimension) return;
     if (isNew) guildDoorPilot.registerGuild({ ...source, dimension: dim.id }, null, { isNew: true });
     // Read a surviving face BEFORE any replacement to preserve legacy payment.
     const faces = dim.getEntities({ type: "fc:demon_door", location: source, maxDistance: 8 })
-      .filter((face) => isGuildDoorSource(dim.id, face.location));
+      .filter((face) => Math.hypot(face.location.x - source.x, face.location.z - source.z) < 3
+        && Math.abs(face.location.y - source.y) < 7);
     const face = faces.find((entry) => entry.getDynamicProperty("fc_door_open") === true) ?? faces[0];
     const state = guildDoorPilot.registerGuild({ ...source, dimension: dim.id }, face, { isNew });
     if (!state) return; // Invalid persisted progress must never become a new door.
@@ -3237,8 +3240,7 @@ function guildDoorWorldExcluded(p) {
 
 system.runInterval(() => {
   if (TICKS() % 40 === 0) {
-    let source;
-    try { source = JSON.parse(world.getDynamicProperty("fc_guild_door") ?? "null"); } catch { }
+    const source = guildDoorPilot.getSource();
     if (source && world.getPlayers().some((p) => p.dimension.id === (source.dimension ?? "minecraft:overworld")
       && Math.hypot(p.location.x - source.x, p.location.z - source.z) < 80)) {
       ensureGuildDoorPilot(world.getDimension(source.dimension ?? "minecraft:overworld"), source);
@@ -3313,11 +3315,13 @@ function recordDemonDoor(loc, faceZ) {
 
 function ensureAllDemonDoors(dim) {
   const doors = [];
-  const g = world.getDynamicProperty("fc_guild_door");
-  if (g) { try { const d = JSON.parse(g); doors.push({ x: d.x, y: d.y, z: d.z, f: d.z - 14 }); } catch { } }
-  try { for (const d of JSON.parse(world.getDynamicProperty("fc_doors") ?? "[]")) doors.push(d); } catch { }
   const players = world.getPlayers();
+  const source = guildDoorPilot.getSource();
+  if (source?.dimension === dim.id && players.some((p) => p.dimension.id === dim.id
+    && Math.hypot(p.location.x - source.x, p.location.z - source.z) < 80)) ensureGuildDoorPilot(dim, source);
+  try { for (const d of JSON.parse(world.getDynamicProperty("fc_doors") ?? "[]")) doors.push(d); } catch { }
   for (const d of doors) {
+    if (isGuildDoorSource(dim.id, d)) continue;
     const near = players.some((p) => p.dimension.id === dim.id
       && Math.hypot(p.location.x - d.x, p.location.z - d.z) < 80);
     if (near) ensureDemonDoor(dim, { x: d.x, y: d.y, z: d.z }, d.f);

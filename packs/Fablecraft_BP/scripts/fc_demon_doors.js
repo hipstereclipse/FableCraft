@@ -68,6 +68,16 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
     return r;
   }
   function save(r) { world.setDynamicProperty(DOOR_STATE_KEY, JSON.stringify(r)); }
+  function getSource(candidate = null) {
+    try {
+      // Once present, the progress ledger is the sole placement authority.
+      // Corrupt/unavailable history must not fall back to a new source.
+      if (world.getDynamicProperty(DOOR_STATE_KEY) !== undefined) return read()?.source ?? null;
+      const hint = candidate ?? parse(world.getDynamicProperty("fc_guild_door"));
+      const source = { ...hint, dimension: hint?.dimension ?? "minecraft:overworld" };
+      return validSource(source) ? source : null;
+    } catch { return null; }
+  }
   function rawTicket(p) {
     const t = parse(p.getDynamicProperty(DOOR_RETURN_KEY));
     return t?.schema === 1 && t.doorId === "guild" && validSource(t.source)
@@ -485,5 +495,5 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
     if (sourceLease && returnWait.size === 0) removeLease(SOURCE_LEASE);
   }
   return { registerGuild, matchesFace, reconcileFace, interact, tick, requestReturn, occupiedRealm, protectsBlock, excludesWorldPosition,
-    getState: read, getReturnTicket: ticket };
+    getState: read, getSource, getReturnTicket: ticket };
 }

@@ -1,0 +1,104 @@
+✔ production singleton passes canonical data, aperture gate and literal destination placement (12.98648ms)
+✔ production maintenance preserves a paid survivor before removing duplicate mouth faces (9.22617ms)
+✔ new-world registration precedes missing chunks; replacement cannot lose new/legacy status (17.870395ms)
+✔ a transient surviving-face history read defers registration without reauthorizing paid rewards (20.366916ms)
+✔ periodic source re-registration cannot strand a committed visitor at the original return arch (9.96866ms)
+✔ a lone visitor can walk through the remembered exit while the primary ledger is missing, corrupt or unreadable (23.56054ms)
+✔ unavailable-ledger periodic dwell cannot invent return authority for an unticketed or invalid-ticket occupant (54.86728ms)
+✔ a ticket for an occupied old cell survives replacement-ledger return failures and uses its exact source (13.273977ms)
+✔ a lowered ceiling above a fractional source approach selects a clear same-door fallback (7.887047ms)
+✔ replacement-ledger recovery rejects invalid or misplaced tickets and never borrows its source (7.12493ms)
+✔ actual deferred face interaction captures light-use item before event expiry (13.329492ms)
+✔ corrupt Guild progress never falls through to invented legacy challenge/payout (5.986368ms)
+✔ ordinary scattered door retains the existing requirement and payout path (6.397679ms)
+✔ five-tick production schedule repairs after reload without duplicate spawns (7.343525ms)
+✖ conflicting persisted hints cannot spawn repeated unkeyed faces or reset durable progress (7.653533ms)
+✖ periodic maintenance uses the durable source when the old hint is absent, broken, throwing or distant (7.926061ms)
+✖ the all-door sweep cannot recreate a Guild hint as an ordinary door or copy it across dimensions (8.588439ms)
+✖ a stale Guild hint is quarantined from ordinary challenge and reward interactions (6.701126ms)
+✔ invalid or unreadable primary progress permits no fallback registration, spawning or cleanup (32.280049ms)
+✔ production block protection permits native non-sneaking containers and both return landmarks (8.552762ms)
+✔ production explosion and dangerous-item protection preserves unrelated world behavior (7.594441ms)
+✔ production scatter and region retirement exclude realm storage including ground below it (7.879223ms)
+✔ actual recovery command requires a player source and returns the active room visitor (8.034938ms)
+✔ actual recovery command uses an existing ticket when the main room record is corrupt (9.146048ms)
+(node:4) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 20
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 331.994171
+
+✖ failing tests:
+
+test at scripts/tests/demon_door_integration.test.mjs:398:1
+✖ conflicting persisted hints cannot spawn repeated unkeyed faces or reset durable progress (7.653533ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  4 !== 1
+  
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/demon_door_integration.test.mjs:410:10)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 4,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/demon_door_integration.test.mjs:419:1
+✖ periodic maintenance uses the durable source when the old hint is absent, broken, throwing or distant (7.926061ms)
+  AssertionError [ERR_ASSERTION]: missing
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/demon_door_integration.test.mjs:432:12)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/demon_door_integration.test.mjs:439:1
+✖ the all-door sweep cannot recreate a Guild hint as an ordinary door or copy it across dimensions (8.588439ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/demon_door_integration.test.mjs:445:10)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/demon_door_integration.test.mjs:454:1
+✖ a stale Guild hint is quarantined from ordinary challenge and reward interactions (6.701126ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/demon_door_integration.test.mjs:460:10)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

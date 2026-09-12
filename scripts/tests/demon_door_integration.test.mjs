@@ -100,8 +100,8 @@ async function fixture() {
     hash2: () => 0.75,
   });
   vm.runInContext(declarations(['guildDoorAperture', 'guildDoorPilot', 'isGuildDoorSource', 'ensureGuildDoorPilot',
-    'guildDoorWorldExcluded', 'heldItem', 'doorPersona', 'demonDoorTalk', 'ensureDemonDoor', 'REGION', 'maybePlace']), context);
-  const runtime = vm.runInContext('({guildDoorPilot,guildDoorAperture,ensureGuildDoorPilot,isGuildDoorSource,guildDoorWorldExcluded,demonDoorTalk,ensureDemonDoor,maybePlace,REGION})', context);
+    'guildDoorWorldExcluded', 'heldItem', 'doorPersona', 'demonDoorTalk', 'ensureDemonDoor', 'ensureAllDemonDoors', 'REGION', 'maybePlace']), context);
+  const runtime = vm.runInContext('({guildDoorPilot,guildDoorAperture,ensureGuildDoorPilot,isGuildDoorSource,guildDoorWorldExcluded,demonDoorTalk,ensureDemonDoor,ensureAllDemonDoors,maybePlace,REGION})', context);
   function callback(prefix, contains = '', name = prefix) {
     const node = ast.body.find((entry) => entry.type === 'ExpressionStatement' && entry.expression.type === 'CallExpression'
       && text(entry).startsWith(prefix) && text(entry).includes(contains));
@@ -393,6 +393,117 @@ test('five-tick production schedule repairs after reload without duplicate spawn
   assert.equal(f.entities.at(-1).location.y, f.source.y + 5);
   f.system.currentTick = 120; f.portalTick();
   assert.equal(f.entities.filter((e) => !e.removed).length, 1);
+});
+
+test('conflicting persisted hints cannot spawn repeated unkeyed faces or reset durable progress', async () => {
+  const f = await fixture(); f.readyRoom();
+  const record = plain(f.runtime.guildDoorPilot.getState());
+  record.rewards.claimed = [true, false, true, false];
+  f.properties.set(f.pilotApi.DOOR_STATE_KEY, JSON.stringify(record));
+  const saved = f.properties.get(f.pilotApi.DOOR_STATE_KEY);
+  f.entities[0].removed = true;
+  const stale = { ...f.source, x: f.source.x + 300 };
+  f.properties.set('fc_guild_door', JSON.stringify(stale));
+  const unrelated = f.face({ location: stale, index: 7 });
+  for (let i = 0; i < 4; i++) f.runtime.ensureGuildDoorPilot(f.dimension, stale, true);
+  const active = f.entities.filter(e => !e.removed && e !== unrelated);
+  assert.equal(active.length, 1);
+  assert.equal(active[0].props.get('fc_door_identity'), 'guild');
+  assert.deepEqual(active[0].location, { x: f.source.x, y: f.source.y + 5, z: f.source.z });
+  assert.equal(unrelated.removed, undefined, 'No proof authorizes deleting a face at the stale hint');
+  assert.equal(f.properties.get(f.pilotApi.DOOR_STATE_KEY), saved);
+  assert.equal(f.properties.get('fc_guild_door'), JSON.stringify(stale), 'The historical hint is preserved without reanchoring');
+  assert.equal(f.placements.length, 0);
+});
+
+test('periodic maintenance uses the durable source when the old hint is absent, broken, throwing or distant', async () => {
+  for (const hint of ['missing', 'broken', 'throwing', 'distant']) {
+    const f = await fixture(); f.readyRoom(); f.player(); f.entities[0].removed = true;
+    const saved = f.properties.get(f.pilotApi.DOOR_STATE_KEY);
+    if (hint === 'missing') f.properties.delete('fc_guild_door');
+    if (hint === 'broken') f.properties.set('fc_guild_door', '{broken');
+    if (hint === 'distant') f.properties.set('fc_guild_door', JSON.stringify({ ...f.source, x: 1000 }));
+    if (hint === 'throwing') {
+      const native = f.world.getDynamicProperty;
+      f.world.getDynamicProperty = key => { if (key === 'fc_guild_door') throw new Error('unreadable legacy hint'); return native(key); };
+    }
+    for (const tick of [40, 80, 120]) { f.system.currentTick = tick; f.portalTick(); }
+    const active = f.entities.filter(e => !e.removed);
+    assert.equal(active.length, 1, hint);
+    assert.equal(active[0].props.get('fc_door_identity'), 'guild', hint);
+    assert.equal(active[0].location.x, f.source.x, hint);
+    assert.equal(f.properties.get(f.pilotApi.DOOR_STATE_KEY), saved);
+  }
+});
+
+test('the all-door sweep cannot recreate a Guild hint as an ordinary door or copy it across dimensions', async () => {
+  const f = await fixture(); f.readyRoom(); f.entities[0].removed = true;
+  const stale = { ...f.source, x: 400 }, p = f.player();
+  f.properties.set('fc_guild_door', JSON.stringify(stale));
+  f.properties.set('fc_doors', JSON.stringify([{ ...stale, f: 186 }, { x: 700, y: 65, z: 200, f: 186 }]));
+  p.location = { ...stale }; f.runtime.ensureAllDemonDoors(f.dimension);
+  assert.equal(f.entities.filter(e => !e.removed && e.location.x === stale.x).length, 0);
+  p.location = { ...f.source }; f.runtime.ensureAllDemonDoors(f.dimension);
+  assert.equal(f.entities.filter(e => !e.removed && e.props.get('fc_door_identity') === 'guild').length, 1);
+  p.dimension = f.nether; f.runtime.ensureAllDemonDoors(f.nether);
+  assert.equal(f.entities.filter(e => !e.removed && e.dimension.id === f.nether.id).length, 0);
+  p.dimension = f.dimension; p.location.x = 700; f.runtime.ensureAllDemonDoors(f.dimension);
+  assert.equal(f.entities.filter(e => !e.removed && e.location.x === 700).length, 1, 'Unrelated scatter still repairs');
+});
+
+test('a stale Guild hint is quarantined from ordinary challenge and reward interactions', async () => {
+  const f = await fixture(); f.readyRoom();
+  const stale = { ...f.source, x: 400 }, p = f.player(), door = f.face({ location: stale, index: 4 });
+  f.properties.set('fc_guild_door', JSON.stringify(stale)); p.location = { ...stale };
+  const saved = f.properties.get(f.pilotApi.DOOR_STATE_KEY);
+  f.runtime.demonDoorTalk(p, door, 'minecraft:lantern');
+  assert.equal(f.forms.length, 0); assert.equal(f.payouts.length, 0);
+  assert.ok(p.messages.some(message => message.includes('preserved')));
+  assert.equal(door.removed, undefined); assert.equal(f.properties.get(f.pilotApi.DOOR_STATE_KEY), saved);
+});
+
+test('a durable source dimension overrides both a conflicting hint and a supplied founding anchor', async () => {
+  const f = await fixture(), p = f.player(); f.readyRoom(); f.entities[0].removed = true;
+  const record = plain(f.runtime.guildDoorPilot.getState());
+  record.source.dimension = f.nether.id;
+  f.properties.set(f.pilotApi.DOOR_STATE_KEY, JSON.stringify(record));
+  const saved = f.properties.get(f.pilotApi.DOOR_STATE_KEY);
+  f.runtime.ensureGuildDoorPilot(f.dimension, f.source, true);
+  f.runtime.ensureAllDemonDoors(f.dimension);
+  assert.equal(f.entities.filter(e => !e.removed).length, 0);
+  p.dimension = f.nether;
+  f.nether.failScan = true;
+  f.system.currentTick = 40; f.portalTick();
+  assert.equal(f.entities.filter(e => !e.removed).length, 0, 'Failed scan cannot fall back across dimensions');
+  f.nether.failScan = false;
+  for (const tick of [80, 120]) { f.system.currentTick = tick; f.portalTick(); }
+  const active = f.entities.filter(e => !e.removed);
+  assert.equal(active.length, 1); assert.equal(active[0].dimension.id, f.nether.id);
+  assert.equal(active[0].props.get('fc_door_identity'), 'guild');
+  assert.equal(f.properties.get(f.pilotApi.DOOR_STATE_KEY), saved);
+});
+
+test('invalid or unreadable primary progress permits no fallback registration, spawning or cleanup', async () => {
+  for (const failure of ['corrupt', 'throwing', 'invalid-source']) {
+    const f = await fixture(); f.readyRoom(); f.player();
+    const stale = { ...f.source, x: 400 };
+    f.properties.set('fc_guild_door', JSON.stringify(stale));
+    if (failure === 'corrupt') f.properties.set(f.pilotApi.DOOR_STATE_KEY, '{broken');
+    if (failure === 'invalid-source') {
+      const r = plain(f.runtime.guildDoorPilot.getState()); r.source.x = '100';
+      f.properties.set(f.pilotApi.DOOR_STATE_KEY, JSON.stringify(r));
+    }
+    if (failure === 'throwing') {
+      const native = f.world.getDynamicProperty;
+      f.world.getDynamicProperty = key => { if (key === f.pilotApi.DOOR_STATE_KEY) throw new Error('unreadable primary'); return native(key); };
+    }
+    const saved = f.properties.get(f.pilotApi.DOOR_STATE_KEY), before = f.operations.length;
+    f.runtime.ensureGuildDoorPilot(f.dimension, stale, true);
+    f.runtime.ensureAllDemonDoors(f.dimension);
+    f.system.currentTick = 40; f.portalTick();
+    assert.equal(f.operations.slice(before).filter(op => ['spawn', 'remove', 'property'].includes(op.kind)).length, 0, failure);
+    assert.equal(f.properties.get(f.pilotApi.DOOR_STATE_KEY), saved);
+  }
 });
 
 test('production block protection permits native non-sneaking containers and both return landmarks', async () => {

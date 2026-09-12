@@ -38,6 +38,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | GP5 | in-progress | Resumable new cave/Chamber construction, Library threshold, concentric altar steps, water containment and recognized Cullis height correction; legacy geometry preserved; engine acceptance open |
 | GP6 | in-progress | Durable resident identities, conservative legacy adoption and checked new births replace proximity respawn; engine acceptance open |
 | DP3 | in-progress | Original-cell ticket return survives lost/recreated ledgers; unknown paid history defers registration; full standing return clearance; engine acceptance open |
+| DP4 | in-progress | Durable source owns Guild face maintenance; stale hints cannot spawn ordinary doors or reset history; engine acceptance open |
 
 Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
 defects and manual status here. These passes are not completed legacy leaves.
@@ -399,7 +400,7 @@ No generated appearance outputs changed and no engine acceptance is claimed.
 
 ## DP3 — Guild portal return and history recovery (2026-09-12)
 
-Commit: SELF: TLC Conformance — DP3: preserve Demon Door return tickets and paid history.
+Commit: 37c8d98a5ce47aa861f311c34c36fc99af22e7e2 (pushed; exact-head CI 34717404106 passed).
 A committed visitor can use the original exit even after normal source maintenance
 recreates a missing primary record with no room or a different cell. The same
 walk-through return works while the primary record is missing, corrupt or throws
@@ -426,3 +427,28 @@ adding unticketed/invalid-ticket periodic negatives. No visual asset or renderin
 owner changed: the GP6 full rendering pipeline and GP5 Guild diagnostics are
 reused with byte-identical dependency hashes in additional-results.json.
 Both GP5 and GP6 exact-head remote CI passed. All live Bedrock acceptance is unrun.
+
+## DP4 — single Guild door source authority (2026-09-12)
+
+Commit: SELF: TLC Conformance — DP4: unify Guild door source authority.
+The durable pilot source now owns face lookup, replacement, proximity scheduling
+and dimension selection. The old hint is used only before initial registration
+and to quarantine stale Guild positions from ordinary challenges/payouts. It is
+never rewritten; no reanchor, geometry replacement or progress reset occurs.
+Corrupt/unreadable primary history defers repair. Distant stale faces remain
+untouched because their ownership is uncertain. Actual-adapter regressions
+reproduce four prior failures and cover 25 final groups, including dimension
+conflicts and unavailable scans. See [LIBRARY_ARCANUM_SOURCE_AUTHORITY.md](LIBRARY_ARCANUM_SOURCE_AUTHORITY.md)
+and `screenshots/validation/DP4/`. All engine acceptance remains unrun.
+
+The next recursive audit reproduced destructive obsolete Guild approach/scarecrow
+sweeps when old completion flags are absent. Current generated collision volumes
+already satisfy those clearances; retire the obsolete writes separately in GP7.
+NPC Follow/Wait ownership, Will-island routines and reference-led Chamber wall/
+lighting refinement remain ranked work after that saved-world defect.
+
+DP4 validation: all 39 base gates pass from the isolated reviewed-index snapshot,
+plus 25 adapter groups and ESM syntax for all 62 BP scripts. Lint, spells, Guild
+lifecycle/NPC gates and C2 are green. GP6 full renders and GP5 Guild diagnostics
+are reused with matched dependency hashes; no visual owner changed. Independent
+source-authority review found no blocking defect. Live engine tests remain unrun.

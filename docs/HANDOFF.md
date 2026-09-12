@@ -18,11 +18,11 @@ with exploration, reward collection and a reliable portal back to the source.
 This overrides the old instruction to start W3.5 or keep adding unrelated POIs.
 Read docs/GUILD_DEMON_PRIORITIES.md first; it is the active execution queue.
 
-Current checkpoint: DP3 — return tickets survive lost/recreated door ledgers; paid history and fractional clearance repaired
-Last resolved prior commit: 0343a963d49cb480804009e9aa6f30583541430c (pushed; GP6 exact-head CI 34717187758 passed).
+Current checkpoint: DP4 — durable Guild door source controls repair; stale hints cannot spawn ordinary faces or pay rewards
+Last resolved prior commit: 37c8d98a5ce47aa861f311c34c36fc99af22e7e2 (pushed; DP3 exact-head CI 34717404106 passed).
 GP5 f7fb3f97c7932e461bd49336d7dee905ae1e4b47 is pushed; exact-head CI 34716905752 passed.
-Containing commit: TLC Conformance — DP3: preserve Demon Door return tickets and paid history.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — DP3: preserve Demon Door return tickets and paid history'.
+Containing commit: TLC Conformance — DP4: unify Guild door source authority.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — DP4: unify Guild door source authority'.
 Never invent a self-hash. Read the supplemental priority ledger for implementation
 scope, known defects and unrun engine checks.
 
@@ -140,6 +140,13 @@ No geometry/render-owner change: reuse GP6 full rendering and GP5 Guild diagnost
 with matched dependency hashes in evidence. Independent recovery review completed.
 No live engine checks have run.
 
+DP4 resolves persisted-anchor disagreement through one validated durable source
+for lookup/spawn/scheduling/dimensions. The old hint is retained as a quarantine
+alias only; it cannot spawn an ordinary door or change payment/room history.
+Distant stale faces are preserved. No asset/version/anchor changes. Read
+LIBRARY_ARCANUM_SOURCE_AUTHORITY.md and DP4 evidence; 25 adapter groups pass.
+All native Bedrock acceptance remains unrun. GP7 approach sweep retirement is next.
+
 The GP/DP priorities are supplemental, tracked separately from C3's original 45
 leaves; do not inflate the old scoreboard or mark these new deliverables done.
 Defer W3.5 and other unrelated expansion while this cycle has actionable work.
@@ -227,12 +234,13 @@ screenshots/validation/W3.3/remote-run.json. Inspect newest workflow's actual he
 All current world rows remain in-progress for manual/reference work, not done.
 
 Next three actions:
-1. Inspect exact-head CI and current GP5/GP6/DP3 evidence. Run supported Bedrock
+1. Inspect exact-head CI and current GP5/GP6/DP3/DP4 evidence. Run supported Bedrock
    acceptance when available: full surrounding altar stairs/cave loading, two-Hero
    resident departure/reload/death, portal collection/return/crash persistence.
-2. Continue reference-led Guild/door refinement. A reproduced persisted-anchor
-   disagreement (fc_guild_door versus durable pilot source) can spawn repeated
-   unkeyed faces and needs one conservative owner; never reset payment/room history.
+2. Continue reference-led Guild/door refinement. DP4 fixes the persisted-anchor
+   disagreement without resetting payment/room history. GP7 should retire obsolete
+   approach/scarecrow repair sweeps: missing old flags currently authorize destructive
+   repeated writes over player containers; current geometry already owns clearances.
    Chamber wall ribs/materials/lighting, canonical NPC staffing and walking to
    training remain open. Preserve the user's full-circumference altar correction.
 3. Continue separate milestones with base/domain gates, full renders as applicable,
@@ -272,3 +280,9 @@ Git writes/network require escalation here. Use the existing repository author f
 git log via commit-scoped -c options, not global config. Origin is user-authorized
 and verified; separate pushes succeeded. No force push. Preserve local commits and
 report any push failure honestly; never claim remote sync without checking.
+
+DP4 validation: all 39 base gates pass from the isolated reviewed-index snapshot,
+plus 25 adapter groups and ESM syntax for all 62 BP scripts. Lint, spells, Guild
+lifecycle/NPC gates and C2 are green. GP6 full renders and GP5 Guild diagnostics
+are reused with matched dependency hashes; no visual owner changed. Independent
+source-authority review found no blocking defect. Live engine tests remain unrun.
