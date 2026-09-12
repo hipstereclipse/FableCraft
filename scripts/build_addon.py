@@ -186,8 +186,15 @@ def validate(root=ROOT):
 
 def package(root, branding="faithful"):
     # No original distribution until L3/L4 implements the zero-debt release gate.
+    if branding == "original":
+        from scan_branding import Scanner
+        report = Scanner().scan(root / "packs")
+        if not report["clean"]:
+            raise ValueError(f"Original packaging blocked: {len(report['findings'])} naming findings, "
+                             f"{len(report['errors'])} scan errors")
+        raise ValueError("Original packaging blocked: final naming and compatibility review pending (L4)")
     if branding != "faithful":
-        raise ValueError("Original packaging blocked: runtime migration and release scan pending (L3/L4)")
+        raise ValueError(f"Unknown branding mode: {branding}")
     local_root = (ROOT / "tmp/builds").resolve()
     if not root.resolve().is_relative_to(local_root):
         raise ValueError("Faithful packages must remain under local tmp/builds/")

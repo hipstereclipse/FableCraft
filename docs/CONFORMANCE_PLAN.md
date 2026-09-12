@@ -335,7 +335,7 @@ Acceptance: All strings in this file group are table-owned, interpolation correc
 
 References: [B] release policy; LEGAL.md.
 
-Files: `scripts/build_addon.py`, `scripts/fc_strings.py`, `scripts/tests/test_branding.py (new)`, `pack manifests`.
+Files: `scripts/build_addon.py`, `scripts/fc_strings.py`, `scripts/scan_branding.py`, `scripts/tests/test_branding.py`, `scripts/tests/test_branding_scan.py`, `pack manifests`.
 
 1. Prepare original public-name proposals and record the final user-selected name when available. In an autonomous session, a provisional internal name may support tests but must not be represented as the user's final selection.
 2. Implement a recursive scanner over archive filenames, nested archives and all textual payloads (JSON/JS/lang/metadata). Normalize case, escapes and separators; scan exact distinctive phrases/tokens with documented generic-word handling. Local faithful builds must never write release dist paths.
@@ -345,6 +345,8 @@ Files: `scripts/build_addon.py`, `scripts/fc_strings.py`, `scripts/tests/test_br
 6. Run the **base** recipe (base always applies), save evidence, update checklist and HANDOFF, commit this leaf and push.
 
 Acceptance: Zero forbidden packaged literals, no exemptions, negative tests fail, original public title selected, faithful local build isolated; existing saves handled explicitly.
+
+2026-09-12 checkpoint: recursive scanning and 15 regression groups pass; actual original preview still has 2,512 findings. Packaging stays blocked even for a clean static fixture. See docs/RELEASE_SCANNING.md for supported formats, conservative generic-word policy, limitations and remaining remap/review work. L4 is in-progress.
 
 ### W1.1 — Cullis gate
 

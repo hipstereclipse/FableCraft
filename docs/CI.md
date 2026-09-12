@@ -33,5 +33,7 @@ virtual environment and a new node_modules directory; it used no untracked pack
 package.json or existing workspace dependencies. Evidence is under
 `screenshots/validation/C1/` and its `clean/` subdirectory.
 
-The remote run is pending the workflow commit. C1 remains in-progress until its
-actual GitHub Actions result is recorded; local success alone is not CI acceptance.
+GitHub Actions [run 34676941284](https://github.com/hipstereclipse/FableCraft/actions/runs/34676941284)
+completed successfully for `086337c478d6dc8935077778a1d23966ef2aac4d`. The job result and
+actual validator artifact are retained in `screenshots/validation/C1/remote-run.json`
+and `C1/remote/`. C1 is complete; this evidence verifies CI, not in-world behavior.

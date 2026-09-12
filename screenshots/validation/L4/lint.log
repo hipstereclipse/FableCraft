@@ -1,0 +1,26 @@
+npm notice run fablecraft@1.0.0 lint
+npm notice run eslint packs/Fablecraft_BP/scripts
+
+/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/packs/Fablecraft_BP/scripts/main.js
+    55:7   warning  'NPC_SOUND_CUES' is assigned a value but never used  no-unused-vars
+    83:10  warning  'maybePlayNpcCue' is defined but never used          no-unused-vars
+   187:10  warning  'setHeld' is defined but never used                  no-unused-vars
+   883:10  warning  'connectGuildPaths' is defined but never used        no-unused-vars
+  1815:10  warning  'castSpell' is defined but never used                no-unused-vars
+  1815:27  warning  'fromGrimoire' is assigned a value but never used    no-unused-vars
+  2946:10  warning  'heroStatusText' is defined but never used           no-unused-vars
+  3124:10  warning  'heroRadarText' is defined but never used            no-unused-vars
+  3286:25  warning  'p' is defined but never used                        no-unused-vars
+  3286:28  warning  'type' is defined but never used                     no-unused-vars
+  3286:34  warning  'msg' is defined but never used                      no-unused-vars
+  3431:10  warning  'ensureAllDemonDoors' is defined but never used      no-unused-vars
+  5695:53  warning  '_' is assigned a value but never used               no-unused-vars
+  6016:28  warning  'dim' is defined but never used                      no-unused-vars
+  6016:33  warning  'x0' is defined but never used                       no-unused-vars
+  6016:37  warning  'y0' is defined but never used                       no-unused-vars
+  6016:41  warning  'z0' is defined but never used                       no-unused-vars
+  6016:45  warning  'w' is defined but never used                        no-unused-vars
+  6016:48  warning  'mood' is defined but never used                     no-unused-vars
+
+✖ 19 problems (0 errors, 19 warnings)
+

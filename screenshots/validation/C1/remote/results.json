@@ -1,0 +1,81 @@
+{
+  "python": "3.14.7",
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "checks": {
+    "build": {
+      "command": [
+        "/opt/hostedtoolcache/Python/3.14.7/x64/bin/python",
+        "scripts/build_addon.py"
+      ],
+      "exit_code": 0
+    },
+    "lint": {
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "exit_code": 0
+    },
+    "expressions": {
+      "command": [
+        "/opt/hostedtoolcache/Python/3.14.7/x64/bin/python",
+        "scripts/verify_emotes.py"
+      ],
+      "exit_code": 0
+    },
+    "animations": {
+      "command": [
+        "/opt/hostedtoolcache/Python/3.14.7/x64/bin/python",
+        "scripts/_audit_anims.py"
+      ],
+      "exit_code": 0
+    },
+    "hud": {
+      "command": [
+        "/opt/hostedtoolcache/Python/3.14.7/x64/bin/python",
+        "scripts/audit_hud.py",
+        "--check"
+      ],
+      "exit_code": 0
+    },
+    "behavior-tests": {
+      "command": [
+        "/opt/hostedtoolcache/Python/3.14.7/x64/bin/python",
+        "scripts/tests/test_gen_behavior.py"
+      ],
+      "exit_code": 0
+    },
+    "animation-tests": {
+      "command": [
+        "/opt/hostedtoolcache/Python/3.14.7/x64/bin/python",
+        "scripts/tests/test_animation_audit.py"
+      ],
+      "exit_code": 0
+    },
+    "branding-tests": {
+      "command": [
+        "/opt/hostedtoolcache/Python/3.14.7/x64/bin/python",
+        "scripts/tests/test_branding.py"
+      ],
+      "exit_code": 0
+    },
+    "runtime-tests": {
+      "command": [
+        "npm",
+        "test"
+      ],
+      "exit_code": 0
+    },
+    "original-preview": {
+      "command": [
+        "/opt/hostedtoolcache/Python/3.14.7/x64/bin/python",
+        "scripts/build_addon.py",
+        "--branding",
+        "original",
+        "--preview"
+      ],
+      "exit_code": 0
+    }
+  }
+}

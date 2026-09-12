@@ -1,0 +1,26 @@
+{
+  "original": {
+    "report_path": "tmp/conformance/l4-original-scan.json",
+    "report_sha256": "1b15ff44051063220ba9c8b5fdf2686899b2eecb8a9aaf46ae6b040532f1610f",
+    "clean": false,
+    "entries": 1647,
+    "findings": 2512,
+    "read_errors": [],
+    "by_kind": {
+      "filename": 2073,
+      "text": 439
+    }
+  },
+  "faithful-archive": {
+    "report_path": "tmp/conformance/l4-faithful-archive-scan.json",
+    "report_sha256": "4338b6c396bf6275a7fe84aadadbfb428083261301d89feba3ea7230cf8c8f67",
+    "clean": false,
+    "entries": 1648,
+    "findings": 4174,
+    "read_errors": [],
+    "by_kind": {
+      "filename": 3675,
+      "text": 499
+    }
+  }
+}

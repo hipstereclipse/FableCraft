@@ -1,0 +1,31 @@
+Branding scan: 2512 findings, 0 read errors; 1647 entries examined
+  Fablecraft_BP: filename: Fablecraft
+  Fablecraft_BP/blocks: filename: Fablecraft
+  Fablecraft_BP/blocks/azurite_ore.json: filename: Fablecraft
+  Fablecraft_BP/config: filename: Fablecraft
+  Fablecraft_BP/config/fable_emotes.json: filename: Fable
+  Fablecraft_BP/config/fable_emotes.json: filename: Fablecraft
+  Fablecraft_BP/config/fable_emotes.json: text: Avisto
+  Fablecraft_BP/config/fable_emotes.json: text: Calran
+  Fablecraft_BP/config/fable_emotes.json: text: Fable
+  Fablecraft_BP/config/fable_emotes.json: text: Moryk
+  Fablecraft_BP/config/fable_emotes.json: text: Yeron
+  Fablecraft_BP/entities: filename: Fablecraft
+  Fablecraft_BP/entities/arachanox.json: filename: Arachanox
+  Fablecraft_BP/entities/arachanox.json: filename: Fablecraft
+  Fablecraft_BP/entities/arachanox.json: text: Arachanox
+  Fablecraft_BP/entities/assassin.json: filename: Fablecraft
+  Fablecraft_BP/entities/balverine.json: filename: Balverine
+  Fablecraft_BP/entities/balverine.json: filename: Fablecraft
+  Fablecraft_BP/entities/balverine.json: text: Balverine
+  Fablecraft_BP/entities/bandit.json: filename: Fablecraft
+  Fablecraft_BP/entities/bandit_archer.json: filename: Fablecraft
+  Fablecraft_BP/entities/banshee.json: filename: Fablecraft
+  Fablecraft_BP/entities/barkeep.json: filename: Fablecraft
+  Fablecraft_BP/entities/beetle.json: filename: Fablecraft
+  Fablecraft_BP/entities/briar_rose.json: filename: Briar Rose
+  Fablecraft_BP/entities/briar_rose.json: filename: Fablecraft
+  Fablecraft_BP/entities/briar_rose.json: text: Briar Rose
+  Fablecraft_BP/entities/demon_door.json: filename: Demon Door
+  Fablecraft_BP/entities/demon_door.json: filename: Fablecraft
+  Fablecraft_BP/entities/demon_door.json: text: Demon Door

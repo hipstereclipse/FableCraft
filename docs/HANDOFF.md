@@ -10,36 +10,32 @@ six reference snapshots are in docs/. User override (2026-09-12): finish the spe
 and continue as far as practical without permission questions. Retain separate
 milestone commits, validation, immediate pushes, evidence and fresh handoffs.
 
-Current milestone: C1 — add pinned continuous validation and clean-checkout proof; status in-progress.
-Last resolved prior commit: cb9e0db (pushed before this milestone).
-Containing commit: TLC Conformance — C1: add pinned continuous validation and clean-checkout proof.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — C1: add pinned continuous validation and clean-checkout proof'.
+Current milestone: L4 — add recursive release-name scanning; status in-progress.
+Last resolved prior commit: 086337c (pushed before this milestone).
+Containing commit: TLC Conformance — L4: add recursive release-name scanning.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — L4: add recursive release-name scanning'.
 Replace previous SELF evidence with the actual hash next step; never invent a self-hash.
 
-C1 workflow and scripts/validate.py are implemented and locally green. Workflow
-runs push/pull_request with contents:read, pins official v7 action commit hashes and
-Ubuntu24.04/Python3.14.7/Node26.7.0, installs locked dependencies, runs every base and
-regression gate plus original preview, and uploads ONLY tmp/validation logs. It never
-publishes packs or runs --full. scripts/validate.py is the durable shared CI/local
-entry point; use --output to save milestone logs. No untracked tools are required.
+L4 scanner groundwork is implemented; release remains blocked. scripts/scan_branding.py
+checks pack trees/nested archives, filenames, text, PNG/WAV metadata and structure NBT.
+All 15 regression groups pass, as do all eleven shared validator commands. Evidence:
+screenshots/validation/L4/. Real original preview: 2,512 findings/0 read errors; faithful
+nested archive: 4,174 findings/0 errors. docs/RELEASE_SCANNING.md records scope and limits.
+Never use exemptions to bypass identifier/path/comment/legacy-lookup debt. Final public
+name is unselected (Wayfarer Tales is provisional); saved-world remap needs design.
 
-A fresh tracked snapshot of cb9e0db plus the two CI files passed all ten gate commands
-with a new venv and npm ci. Evidence: screenshots/validation/C1/ and C1/clean/. The
-snapshot used 684JSON rather than local685 because the inherited untracked pack-level
-package.json is absent; all assets/tests pass without it. Runtime tests total42
-(spells17, scan3, naming22); Python behavior4groups, animation10, branding16; HUD112/112,
-animations54, expression31/21, lint0errors/19warnings. Local proof is not remote proof.
+C1 is now complete: GitHub run 34676941284 passed at 086337c; downloaded actual logs
+and run metadata are under screenshots/validation/C1/remote*. scripts/validate.py is
+the shared local/CI runner and now includes scanner regressions. Inspect the L4 push's
+new run as well; a previous successful commit does not prove current CI success.
 
-C1 status stays in-progress until the newly pushed workflow's actual GitHub run is
-green. Query gh run list/view for branch phase3-will-destiny and inspect logs on failure;
-record URL/head SHA/result honestly. Actions is enabled and GitHub API access works.
-No user permission is needed to finish authorized CI verification. Naming milestones
-L3.1–L3.3 and0.3 still have manual checks; L3.2/L3.3 also need final vocabulary review.
-Original releases remain blocked by L4 and final naming selection. Do not relax the
-zero-debt release rule merely to make CI green.
+0.3 and L3.1–L3.3 still have manual engine/UI checks. L3.2/L3.3 also need vocabulary
+review. HUD render still has narrow green radar, missing hunger frame and nav bleed;
+passing payload checks does not resolve those visuals. Continue independent C2 work
+while naming/gameplay observations remain pending.
 
 Next three actions:
-1. git pull --ff-only; read the top pending row and start C1 remote-run verification, then L4 scanner groundwork or C2 contracts.
+1. git pull --ff-only; read the top pending row and start C2 structure-manifest contracts.
 2. Execute its numbered playbook steps and applicable base/domain validators; preserve
    real output under screenshots/validation/<ID>/, mark manual observations unrun.
 3. Update checklist/handoff in one explicitly staged milestone commit, push to origin,

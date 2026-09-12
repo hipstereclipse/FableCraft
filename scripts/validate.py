@@ -28,6 +28,7 @@ def main():
         'behavior-tests': [sys.executable, 'scripts/tests/test_gen_behavior.py'],
         'animation-tests': [sys.executable, 'scripts/tests/test_animation_audit.py'],
         'branding-tests': [sys.executable, 'scripts/tests/test_branding.py'],
+        'branding-scan-tests': [sys.executable, 'scripts/tests/test_branding_scan.py'],
         'runtime-tests': ['npm', 'test'],
         'original-preview': [sys.executable, 'scripts/build_addon.py', '--branding', 'original', '--preview'],
     }
