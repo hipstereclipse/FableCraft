@@ -404,6 +404,18 @@ def spiral_stair(v, cx, cz, radius, y0, y1, mat, post=None, steps_per_rev=16,
     return outer
 
 
+def restore_guild_dorm_stair_top(v, treads):
+    """Restore the authored last outer tread after its deck opening/furnishing.
+
+    The NE dormitory's y5 stairwell cut removes this native half-step transition
+    along with the deck. Its existing carriage and adjacent upper landing remain.
+    """
+    x, y, z = treads[-1]
+    px, _, pz = treads[-2]
+    v.set(x, y, z, OAK_STAIR,
+          {"weirdo_direction": _stair_dir(x - px, z - pz), "upside_down_bit": False})
+
+
 def dome(v, cx, cz, radius, y0, mat, ring_mat=None, oculus=None):
     """A stepped hemispherical dome capping a round room, rising from y0."""
     rr = radius
@@ -1484,7 +1496,7 @@ def build_guild_hall():
     v.set(dmx1 - 1, 1, kz0 + 1, "minecraft:campfire")
     v.set(dmx0 + 1, 1, kz1 - 1, "minecraft:lectern", {"minecraft:cardinal_direction": "north"})  # notice board
     v.set(dmx0 + 2, 1, kz1 - 1, "minecraft:bookshelf")
-    spiral_stair(v, dmx0 + 2, kz0 + 3, 2, 1, DM_DECK, OAK_STAIR, post=DARKLOG, steps_per_rev=12)
+    dorm_treads = spiral_stair(v, dmx0 + 2, kz0 + 3, 2, 1, DM_DECK, OAK_STAIR, post=DARKLOG, steps_per_rev=12)
     for x in range(dmx0, dmx1 + 1):                  # the upper-floor deck (stairwell left open)
         for z in range(kz0 + 1, kz1):
             v.set(x, DM_DECK, z, SPRUCE if (x + z) % 5 else DARKOAK)
@@ -1507,6 +1519,9 @@ def build_guild_hall():
         if _decked(rx0 + 4, rz0 + 1):
             v.set(rx0 + 4, DM_DECK + 1, rz0 + 1, "minecraft:bookshelf")
     v.set((dmx0 + dmx1) // 2, DM_H - 1, (kz0 + kz1) // 2, LANTERN, {"hanging": True})
+    # Restore only the erased final outer stair after rugs are placed, so the
+    # landing gains no floating carpet and the surviving lower flight stays put.
+    restore_guild_dorm_stair_top(v, dorm_treads)
 
     # ---- the covered STONE TOP HALLWAY: it leaves the North Wing's NE door, runs
     #      along the very TOP of the campus (z3-5, well clear of the wooden river

@@ -13,20 +13,20 @@ into the original The Lost Chapters game.” Also explicitly find additional onl
 reference photos. Continue autonomously with separate reviewed milestone commits,
 validation/evidence, immediate pushes and fresh handoffs; no routine questions.
 
-Current checkpoint: GP12 — continuous Library bookcases, reading desk and supported lamps
-Last resolved prior commit: e421d237d9d6c3640d239af1a447fe33675d126b (GP11 pushed; exact-head CI 34721007299 passed).
-Containing commit: TLC Conformance — GP12: furnish the Guild Library with supported bookcases and lamps.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP12: furnish the Guild Library with supported bookcases and lamps'.
+Current checkpoint: GP13 — northeast dormitory final stair transition
+Last resolved prior commit: bf5768b70f02e5126eaaaed516028a15eb0b296e (GP12 pushed; exact-head CI 34721620599 passed).
+Containing commit: TLC Conformance — GP13: restore the northeast dormitory stair landing.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP13: restore the northeast dormitory stair landing'.
 Never invent a self-hash. Every supplemental pass remains in-progress where native
 acceptance is unrun; this does not change the 45-leaf legacy C3 denominator.
 
 ## Active facility work
 
-Use original2005 TLC references, not Anniversary, sequels, reboot art or search
+Use original 2005 TLC references, not Anniversary, sequels, reboot art or search
 captions. Inspect actual pixels, verify source/version, preserve URLs/hashes and
 separate visible evidence from chosen block adaptations. External screenshots
 stay in ignored tmp/conformance/reference-guild and reference-guild-additional;
-never put their pixels into packs or committed evidence. The original2005 Prima
+never put their pixels into packs or committed evidence. The original 2005 Prima
 PDF remains ignored tmp/conformance/reference-arcanum/prima-tlc-guide.pdf.
 GP11 additional-online-references.json records four inspected pre-Anniversary
 training/hall shots. See docs/GUILD_ONLINE_REFERENCES.md for 16 additional inspected views.
@@ -37,7 +37,7 @@ neutral Library, dormitory and Maze interior angles where still missing.
 Repeat inspect → compare → fix → regenerate → test → re-inspect across entrance,
 map hall/quest/skill/Cullis interactions, Library/living spaces, Maze's tower,
 courtyard/river/bridges/training, cave/Chamber and Demon Door approach. Fix proven
-route/silhouette/behavior defects before ornament. Preserve Maze(46,12,70), the
+route/silhouette/behavior defects before ornament. Preserve Maze (46,12,70), the
 user's full-circumference shallow altar steps, all saved construction and progress.
 If anchors move, update every owner/consumer/contract together. Reanchor only
 refreshes coordinates and never migrates geometry. No blind occupied-Guild reload.
@@ -51,7 +51,7 @@ Recent pushed implementation scopes (exact hashes/evidence in priority ledger):
 - GP6 persists twelve resident identities with conservative legacy adoption/births.
 - GP7 retires destructive obsolete approach/scarecrow maintenance sweeps.
 - GP8 replaces Chamber posts/bright ceiling/placeholders with attached pointed
-  bays, dark masonry and high lamps. All116 outer-walk cells connect;4419 protected
+  bays, dark masonry and high lamps. All 116 outer-walk cells connect; 4419 protected
   cells stay exact. Frozen scripts/data/guild_chamber_gp5.json lets unfinished
   recognized GP5 journals complete their original plan/appearance. Unknown/edited
   histories defer. Completed/legacy rooms and saved paintings stay untouched.
@@ -60,20 +60,25 @@ Recent pushed implementation scopes (exact hashes/evidence in priority ledger):
   lane. No damage/rewards/block repairs. Existing grass marks refuse practice.
   One-time station placement is an adaptation; purposeful navigation remains open.
 - GP10 replaces the random jewel/beacon map with a low wood-framed land/sea relief.
-  Only38 furniture cells change;37 RNG draws and all lectern/birth routes stay fixed.
+  Only 38 furniture cells change; 37 RNG draws and all lectern/birth routes stay fixed.
 - GP11 removes obsolete indoor tunnel shells beneath the Library/Store arches.
-  Only64 cells change; floors, outside geometry and48 RNG draws remain identical.
+  Only 64 cells change; floors, outside geometry and 48 RNG draws remain identical.
 - GP12 furnishes the Library with continuous framed cases, supported desk/lamps.
-  Only141 fixture cells change; all other geometry, anchors and RNG stay exact.
+  Only 141 fixture cells change; all other geometry, anchors and RNG stay exact.
 
-Next concrete integration: GP13 restores one erased final NE dormitory stair
-voxel at(86,5,11), joining the existing upper deck. Source/tests/evidence may be
-unstaged already. Review the half-cell native-stair collision model, full ascent/
-descent, missing-tread/headroom/wrong-facing failures and independent review.
-GP14 Chamber wall/paving refinement and frozen GP8 compatibility may already be
-underway in separate source hunks. Integrate it after GP13, preserving both GP5
-and GP8 enrolled builds. Then revisit training fixtures using the newly inspected
-photos. Do not infer whole-facility fidelity from passing cutaways or render grades.
+GP13 restores one erased final NE dormitory stair voxel at (86,5,11), joining the
+existing upper deck. Six focused groups prove one bounded half-cell route both
+ways, with missing-tread/headroom/wrong-facing failures. All other geometry/RNG
+stays exact. Native width/turning/carpet collision remains unrun; see
+GUILD_DORM_STAIRS.md. No occupied-world rebuild.
+
+Next concrete integration: GP14 Chamber wall/paving refinement from the new
+neutral photos, plus frozen GP8 compatibility. Source/tests may be unstaged already.
+Preserve both GP5 and GP8 enrolled original plans and every journal check while
+new Chambers gain nested panels, narrow backed colored strips and muted paving.
+Then revisit the archery scenic backboard/rails/target fixtures against the new
+2011 original screenshots. GP15 backboard source/evidence may also be underway, separately from Chamber work.
+Do not infer whole-facility fidelity from passing cutaways or render grades.
 
 NPC Follow/Wait remains a known source defect: generated Follow accepts any
 player, Wait leaves base strolling, and the functional Wait emote broadcasts
@@ -96,22 +101,22 @@ DP3 preserves original-cell return across missing/recreated ledgers; unknown pai
 history defers. DP4 makes durable source authority own Guild face maintenance;
 stale hints cannot create unkeyed ordinary doors or reset room/payment history.
 All engine acceptance remains unrun. Existing occupied mouths get only the prior
-fingerprinted108-cell migration; same-type player replacements are indistinguishable.
+fingerprinted 108-cell migration; same-type player replacements are indistinguishable.
 Ordinary scatter still uses eight legacy immediate-payout personas. More designed
 worlds, canon mapping and story exceptions remain open; never give Nostro a riddle.
 
 ## Validation, ownership and repository landmines
 
-GP12 baseline:44 base gates,62 ESM syntax checks, fresh35-asset C2 and full renders
-(51mobs/55items/130recipes/32structures/13galleries), Guild match/roof/numeric
-checks and six Library groups pass offline. See screenshots/validation/GP12/.
+GP13 baseline: 45 base gates, 62 ESM syntax checks, fresh 35-asset C2 and full renders
+(51 mobs/55 items/130 recipes/32 structures/13 galleries), Guild match/roof/numeric
+checks and six dormitory groups pass offline. See screenshots/validation/GP13/.
 No actual Bedrock engine has run: lighting, fluids, stairs/collision, native NPC
 movement/interruption, two-Hero behavior, portal travel, persistence and collection
-remain unrun, never passed. Existing0.3/L3/spell manual checks stay pending.
+remain unrun, never passed. Existing 0.3/L3/spell manual checks stay pending.
 
 C3: run python scripts/conformance_score.py --write after EVERY checklist edit,
 then --check. No inferred canon grade or changed denominator. Preserve all earlier
-plan rows and their manual/reference gaps. C2 has35 assets; full structure cards32.
+plan rows and their manual/reference gaps. C2 has 35 assets; full structure cards 32.
 
 Run python scripts/tests/test_gen_behavior.py before regeneration. Use targeted
 owners; never hand-edit generated BP/RP entities, models, textures, animations,

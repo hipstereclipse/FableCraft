@@ -1,0 +1,34 @@
+(node:125) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ actual annex records completion only after every assembled Chamber/cave cell is verified (384.212236ms)
+ℹ 25946 final cells; 406 journal pages; largest page 450 bytes; total 111116 bytes
+✔ startup enrolls before earlier decoration exception and actual maintenance still builds (314.961035ms)
+✔ failed enrollment persistence prevents initial Guild placement and the actual build retry recovers (293.179868ms)
+✔ failed surface placement resumes the original enrolled anchor after reload and player movement (318.38002ms)
+✔ overlapping saved build tick schedules founding retry at the original anchor without duplicate placement (419.278388ms)
+✔ fresh founding and delayed callbacks refuse other dimensions; later Overworld founding can recover (279.676481ms)
+✔ permutation resolution and scheduler failures after enrollment retry without losing original ownership (613.22635ms)
+✔ terrain jobs must finish before any Chamber placement; manifest replaces delayed scrubbing (281.696492ms)
+✔ canceled jobs retry through production maintenance; stale generator cannot resume writing (285.700726ms)
+✔ snapshot, partially placed Chamber and verification reloads resume without reseeding (1076.502199ms)
+✔ an enrolled old Chamber plan finishes its exact original geometry across a visual revision (1257.871899ms)
+✔ unknown plan hashes and damaged completed legacy cells never authorize a new revision (357.940065ms)
+✔ the shipped Chamber revision resumes a GP5 build without substituting new wall cells (364.851433ms)
+✔ unloaded and throwing getBlock during snapshot or Chamber placement are retryable (1076.559171ms)
+✔ the audited unavailable bridge head cell prevents completion and maintenance opens it on retry (281.883358ms)
+✔ failed, silently dropped and throwing-after-mutation Chamber writes remain incomplete until retry (793.166682ms)
+✔ journal failure after successful write recognizes the target without writing it twice (301.339727ms)
+✔ foreign underground inventory or masonry refuses the entire snapshot without block writes (188.865194ms)
+✔ player edits to recorded unfinished or completed cells are preserved after reload (392.188177ms)
+✔ same block type with changed permutation is preserved; ready rooms perform no repair (408.13021ms)
+✔ derived wall connections are accepted; lantern supports and skylight containment precede placement (251.981091ms)
+✔ legacy flags, unknown records and changed anchors never authorize occupied-world construction (42.487195ms)
+✔ missing or corrupt saved originals fail closed instead of resnapshotting occupied cells (292.264426ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 10296.358493

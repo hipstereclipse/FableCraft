@@ -45,6 +45,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | GP10 | in-progress | Low wood-framed terrain map replaces random jewel mosaic and beacon; all adjacent interactions preserved; engine acceptance open |
 | GP11 | in-progress | Broad Library/Store arches remain open after removing redundant indoor tunnel shells; floors and adjoining routes preserved; engine acceptance open |
 | GP12 | in-progress | Continuous framed Library bookcases, accessible reading desk and supported lamps; spine/cave/commons routes preserved; engine acceptance open |
+| GP13 | in-progress | Restore one erased NE dormitory top stair; complete bounded ascent/descent with all other campus cells preserved; engine acceptance open |
 
 Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
 defects and manual status here. These passes are not completed legacy leaves.
@@ -631,7 +632,7 @@ geometry evidence. Original reference pixels remain ignored, never pack assets.
 
 ## GP12 — grounded Library bookshelves and reading furnishings (2026-09-12)
 
-Commit: SELF: TLC Conformance — GP12: furnish the Guild Library with supported bookcases and lamps.
+Commit: bf5768b70f02e5126eaaaed516028a15eb0b296e.
 The original generator left disconnected upper shelf bands and lost its sole
 hanging lamp during final decoration because the lamp had no ceiling support.
 The Library now has continuous timber-framed bookcases, a narrow supported
@@ -666,3 +667,36 @@ Chamber, hall, training and entrance views; see [GUILD_ONLINE_REFERENCES.md](GUI
 Their stronger neutral Chamber detail now drives the next GP14 wall/paving pass;
 keep the older enrolled GP5/GP8 manifests available. GP11 exact-head CI 34721007299
 passed. Dorm/Maze neutral interior views remain an explicit search gap.
+
+## GP13 — northeast dormitory final stair transition (2026-09-12)
+
+Commit: SELF: TLC Conformance — GP13: restore the northeast dormitory stair landing.
+The upper deck's stairwell cut removed the original final stair course. The
+highest surviving tread ended one full block below the bedroom landing. Restore
+only its outer west-facing oak stair at local (86,5,11), after rug furnishing, on
+the existing carriage. Exactly one final voxel changes; all lower steps, newel,
+bunks, deck, roof, anchors, outside cells and random state remain identical.
+
+The focused survey extends GP2's vertical collision intervals to half-cell
+horizontal samples for straight native stairs. The before fixture has no route
+to upper feet y6; the repair permits a 21-node route in both directions with no
+rise above 0.5 blocks. Perpendicular same-height stair neighbors are rejected so
+unknown corner shapes cannot silently enter the model. Gate and three bedroom
+approaches compose with the route. This proves a single bounded route, not two
+full-width stair lanes or native entity steering/collision.
+
+Six focused groups reject a missing top tread, blocked headroom and reversed
+facing, and verify exact scope/RNG. Four inspected before/after views use native
+stair half geometry and thin drawn carpets. See [GUILD_DORM_STAIRS.md](GUILD_DORM_STAIRS.md)
+and `screenshots/validation/GP13/`. Forty-five base gates, all 62 ESM syntax checks,
+fresh 35-asset C2, full renders and Guild diagnostics pass in the isolated reviewed
+snapshot. Independent review found no blocker. Official docs verify state names
+and value ranges; cardinal numeric mapping follows the existing repository owner.
+Native width, turn steering, carpet contact and ascent/descent remain unrun.
+No saved-world recarve or geometry migration is introduced. Additional original
+room photos are still missing; this is an access repair, not a canon staircase
+reconstruction. Next: GP14 Chamber details/paving from newly inspected neutral
+photos, then the reference-supported archery training backdrop/fixtures audit.
+
+GP12 exact-head CI 34721620599 passed. GP15 now implements the inspected archery
+scenic backboard in a separately checked clear volume; no continuous rails yet.

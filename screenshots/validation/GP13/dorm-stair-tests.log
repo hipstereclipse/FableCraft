@@ -1,0 +1,11 @@
+test_campus_gate_to_bedroom_route_composes_with_both_stair_directions (__main__.GuildDormRoutes.test_campus_gate_to_bedroom_route_composes_with_both_stair_directions) ... ok
+test_complete_ascent_and_descent_have_contiguous_supported_half_steps (__main__.GuildDormRoutes.test_complete_ascent_and_descent_have_contiguous_supported_half_steps) ... ok
+test_independent_removed_tread_and_blocked_headroom_fail_the_complete_route (__main__.GuildDormRoutes.test_independent_removed_tread_and_blocked_headroom_fail_the_complete_route) ... ok
+test_restores_only_the_erased_authored_outer_top_tread (__main__.GuildDormRoutes.test_restores_only_the_erased_authored_outer_top_tread) ... ok
+test_straight_native_treads_use_half_height_geometry_without_corner_neighbors (__main__.GuildDormRoutes.test_straight_native_treads_use_half_height_geometry_without_corner_neighbors) ... ok
+test_unchanged_bunks_roof_post_and_mazes_fixed_study_remain_protected (__main__.GuildDormRoutes.test_unchanged_bunks_roof_post_and_mazes_fixed_study_remain_protected) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 2.512s
+
+OK

@@ -1,0 +1,8 @@
+{
+  "command": [
+    "python",
+    "scripts/tests/test_gen_behavior.py"
+  ],
+  "exit_code": 0,
+  "working_directory": "tmp/conformance/GP13-reviewed-snapshot"
+}

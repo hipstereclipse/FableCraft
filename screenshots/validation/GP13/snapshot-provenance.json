@@ -1,0 +1,20 @@
+{
+  "source": "reviewed Git index; excludes unstaged parallel implementation and inherited dirtiness",
+  "baseline_head": "bf5768b70f02e5126eaaaed516028a15eb0b296e",
+  "entries": 4672,
+  "reviewed_source_sha256": {
+    "docs/CONFORMANCE_CHECKLIST.md": "254ea07f39b4ae373a82b8cfffa200caf710afb64762a2f9b9b9437b74260a3f",
+    "docs/GUILD_DEMON_PRIORITIES.md": "8a56076c83b41c7cec505f93557d573a4fe03632ff99df1b5f1257d9779e82f5",
+    "docs/GUILD_DORM_STAIRS.md": "4a943b1afce146028345273cd0df6545a6fa422c0a670c7d5ac99af7e2ffdc03",
+    "docs/HANDOFF.md": "bc3644fc1177f47ee1250ab3e1f54150f7d054ce6b82e0e9998a46e550719021",
+    "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure": "c5fc91c4243bff45dad45abdc730a1bfeb1d0bcce9898a51d0e0cdc6df818938",
+    "screenshots/structures/contract/evidence.json": "a2ac655e2d81093a4a19350696e61706a93fa3c2d3273da218f277731dcc3d36",
+    "scripts/gen_structures.py": "0079feb8c168b1c11a3022369d04016ebd3de3e0c9b8b1dd855b604d075f687f",
+    "scripts/tests/test_guild_dorm_routes.py": "fb0774403d4125ecd079561f81f38c9828e3d73ed830904413bdcb175bbd7c2e",
+    "scripts/validate.py": "90db62cd9df1faf3c09c260cbb716a6797d517b880db70ebd6539618fa52b0f6",
+    "screenshots/validation/GP13/regenerate-guild.py": "a2d899da022029f30afa024b8ba7eb7b05599f9b4b84ccd6f71e8eb3d2deb010",
+    "screenshots/validation/GP13/render-dorm-stair.py": "4c19c4a0cc53148e6c167f555608413d0c9964e15c7072bb224822e2b0510779"
+  },
+  "node_dependencies": "same installed locked dependencies via node_modules symlink",
+  "engine_acceptance": "unrun"
+}

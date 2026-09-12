@@ -1,0 +1,12 @@
+test_blocked_side_lane_missing_floor_and_shared_rng_failure_fixtures (__main__.GuildHallLinks.test_blocked_side_lane_missing_floor_and_shared_rng_failure_fixtures) ... ok
+test_both_floor_links_retain_all_48_legacy_masonry_draws (__main__.GuildHallLinks.test_both_floor_links_retain_all_48_legacy_masonry_draws) ... ok
+test_broad_room_arches_and_overhead_bay_roofs_are_preserved (__main__.GuildHallLinks.test_broad_room_arches_and_overhead_bay_roofs_are_preserved) ... ok
+test_complete_campus_delta_is_confined_to_the_two_obsolete_shells (__main__.GuildHallLinks.test_complete_campus_delta_is_confined_to_the_two_obsolete_shells) ... ok
+test_gate_retains_library_cave_store_gallery_and_living_space_routes (__main__.GuildHallLinks.test_gate_retains_library_cave_store_gallery_and_living_space_routes) ... ok
+test_library_and_store_keep_three_contiguous_ground_lanes (__main__.GuildHallLinks.test_library_and_store_keep_three_contiguous_ground_lanes) ... ok
+test_library_eye_height_sightlines_are_clear_across_the_join (__main__.GuildHallLinks.test_library_eye_height_sightlines_are_clear_across_the_join) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 1.400s
+
+OK

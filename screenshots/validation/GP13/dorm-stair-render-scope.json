@@ -1,0 +1,277 @@
+{
+  "baseline_scope": "Current Guild builder with only final tread restoration disabled; reproduces the original deck-cut deletion and unchanged lower native stair.",
+  "scope": "Offline straight native stair boxes, half slabs and 1/16-block carpets; remaining furniture simplified. Approximate material colors, no Bedrock light/pathfinding/corner execution.",
+  "stair_detail": {
+    "x": [
+      85,
+      91
+    ],
+    "y": [
+      0,
+      7
+    ],
+    "z": [
+      7,
+      13
+    ],
+    "removed": "North z<=8 above y4; all geometry outside crop omitted."
+  },
+  "room_cutaway": {
+    "x": [
+      84,
+      98
+    ],
+    "y": [
+      0,
+      8
+    ],
+    "z": [
+      6,
+      27
+    ],
+    "removed": "West x84 and north z6 walls above floor; roof/geometry outside crop omitted."
+  },
+  "changed_final_voxels": 1,
+  "changed_coordinates": [
+    [
+      86,
+      5,
+      11
+    ]
+  ],
+  "before_top": [
+    "minecraft:air",
+    {}
+  ],
+  "after_top": [
+    "minecraft:oak_stairs",
+    {
+      "weirdo_direction": 1,
+      "upside_down_bit": false
+    }
+  ],
+  "baseline_ascent": [],
+  "after_ascent": [
+    [
+      90.25,
+      1.0,
+      9.25
+    ],
+    [
+      89.75,
+      1.5,
+      9.25
+    ],
+    [
+      89.25,
+      1.5,
+      9.25
+    ],
+    [
+      89.25,
+      2.0,
+      9.75
+    ],
+    [
+      89.25,
+      2.5,
+      10.25
+    ],
+    [
+      89.25,
+      3.0,
+      10.75
+    ],
+    [
+      88.75,
+      3.5,
+      10.75
+    ],
+    [
+      88.25,
+      4.0,
+      10.75
+    ],
+    [
+      88.25,
+      4.0,
+      11.25
+    ],
+    [
+      87.75,
+      4.5,
+      11.25
+    ],
+    [
+      87.25,
+      5.0,
+      11.25
+    ],
+    [
+      86.75,
+      5.5,
+      11.25
+    ],
+    [
+      86.75,
+      5.5,
+      11.75
+    ],
+    [
+      86.75,
+      6.0,
+      12.25
+    ],
+    [
+      87.25,
+      6.0,
+      12.25
+    ],
+    [
+      87.75,
+      6.0,
+      12.25
+    ],
+    [
+      88.25,
+      6.0,
+      12.25
+    ],
+    [
+      88.75,
+      6.0,
+      12.25
+    ],
+    [
+      89.25,
+      6.0,
+      12.25
+    ],
+    [
+      89.75,
+      6.0,
+      12.25
+    ],
+    [
+      90.25,
+      6.0,
+      12.25
+    ]
+  ],
+  "after_descent": [
+    [
+      90.25,
+      6.0,
+      12.25
+    ],
+    [
+      89.75,
+      6.0,
+      12.25
+    ],
+    [
+      89.25,
+      6.0,
+      12.25
+    ],
+    [
+      88.75,
+      6.0,
+      12.25
+    ],
+    [
+      88.25,
+      6.0,
+      12.25
+    ],
+    [
+      87.75,
+      6.0,
+      12.25
+    ],
+    [
+      87.25,
+      6.0,
+      12.25
+    ],
+    [
+      86.75,
+      6.0,
+      12.25
+    ],
+    [
+      86.75,
+      5.5,
+      11.75
+    ],
+    [
+      87.25,
+      5.0,
+      11.75
+    ],
+    [
+      87.75,
+      4.5,
+      11.75
+    ],
+    [
+      88.25,
+      4.0,
+      11.75
+    ],
+    [
+      88.75,
+      3.5,
+      11.75
+    ],
+    [
+      88.75,
+      3.5,
+      11.25
+    ],
+    [
+      88.75,
+      3.5,
+      10.75
+    ],
+    [
+      89.25,
+      3.0,
+      10.75
+    ],
+    [
+      89.75,
+      3.0,
+      10.75
+    ],
+    [
+      89.75,
+      2.5,
+      10.25
+    ],
+    [
+      89.75,
+      2.0,
+      9.75
+    ],
+    [
+      89.75,
+      1.5,
+      9.25
+    ],
+    [
+      90.25,
+      1.0,
+      9.25
+    ]
+  ],
+  "route_model": "GP2 interval/headroom/half-step rules, with half-cell horizontal centers resolving each straight native stair's low/high half. Entity width, steering and carpet thickness are not simulated. Tests reject perpendicular same-height stair neighbors.",
+  "normalized_outside_stair_sha256_before": "6381d41ab3bdd551e4cf6291632888afab0b81da952ed25b26a323bf5c3f936e",
+  "normalized_outside_stair_sha256_after": "6381d41ab3bdd551e4cf6291632888afab0b81da952ed25b26a323bf5c3f936e",
+  "normalization": "Local coordinate, block identifier and sorted state properties; palette indices ignored.",
+  "reference_files": {
+    "page-034.png": "e2c8c163126e9e8a12bb234764a748269b0be72c6dec7a8a2acb08794e0ac666",
+    "page-035.png": "a87ea9679c36124efd3277ff6a6159d4e4376827bf06bfee95f3c4f3c2fea84a",
+    "page-036.png": "4a1e42cfcccd0052e017a309cd4ee969ebafb664cc6b8ad1c78e3fdbc75615f4"
+  }
+}

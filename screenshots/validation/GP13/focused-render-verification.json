@@ -1,0 +1,36 @@
+{
+  "scope": "Fresh focused renders from isolated GP12 reviewed index plus separately reviewed GP13 patch; all four rendered PNGs visually inspected after targeted Guild regeneration.",
+  "command": [
+    "python",
+    "screenshots/validation/GP13/render-dorm-stair.py"
+  ],
+  "exit_code": 0,
+  "working_directory": "tmp/conformance/GP13-reviewed-snapshot",
+  "sha256": {
+    "scripts/gen_structures.py": "0079feb8c168b1c11a3022369d04016ebd3de3e0c9b8b1dd855b604d075f687f",
+    "scripts/gen_screenshots.py": "9beb008070bf1b72dbd4081c8e9ddb3402fb6a5221b545a9b3b940dd5c6bdc14",
+    "scripts/fc_lib.py": "c53491f9d640c9e10cb5b3d8f65ea8c85b3f526af03f7631d5d447ab6fe70797",
+    "scripts/fc_data.py": "81ec9a420bdbb01782ba9c00c21efc65bd78ac6f2e52fc5349af14528b6c10c7",
+    "scripts/fc_mobs.py": "cf19fb87027bf031db63451a0a3af24e249bbf8eb4e016188bab49772d824f51",
+    "scripts/tests/test_guild_dorm_routes.py": "fb0774403d4125ecd079561f81f38c9828e3d73ed830904413bdcb175bbd7c2e",
+    "scripts/tests/test_guild_routes.py": "e3323f7b944a03457a9dde9ac10c24256d828a52369497db76edd035691bd889",
+    "scripts/tests/test_guild_map_table.py": "dd6b20e6df87e0dbc09e5a896ff97dabbe3f0eda07aaef5d50e9b0553edb6eff",
+    "screenshots/validation/GP13/render-dorm-stair.py": "4c19c4a0cc53148e6c167f555608413d0c9964e15c7072bb224822e2b0510779",
+    "screenshots/validation/GP13/dorm-stair-render-scope.json": "0ea35e7b873f21bfa25ef9681299e44f9c89368ba3be6393c9aefd8ea12fa512",
+    "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure": "c5fc91c4243bff45dad45abdc730a1bfeb1d0bcce9898a51d0e0cdc6df818938"
+  },
+  "png_sha256": {
+    "dorm-room-cutaway-after.png": "75498144577d617c38d0035897bbfba9b163640ca1d40ca026ae4071bcfa5515",
+    "dorm-room-cutaway-before.png": "56a53935402207c33bbc13be74c8c871c131d80cb88a73fecc209defb30ed751",
+    "dorm-stair-after.png": "a0e167095a8677d130ce31290d5776c75ea57b12ca3e5fbeac92f4ff16c1d9da",
+    "dorm-stair-before.png": "d32581340a11c515a63e46c649134d996d277341cac6b28bf0a97f5b183ce257"
+  },
+  "visual_review": {
+    "dorm-stair-before.png": "Missing final tread leaves the visible upper turn detached from the deck edge.",
+    "dorm-stair-after.png": "Restored oak tread visibly connects the surviving upper turn to the bedroom landing; post and lower flight preserved.",
+    "dorm-room-cutaway-before.png": "Shows the broken stair in the context of the existing upper deck and three bunks.",
+    "dorm-room-cutaway-after.png": "The one restored top tread appears at the landing; bunks, deck, rugs and room envelope are unchanged."
+  },
+  "render_limits": "Offline straight native stairs are two geometric boxes; slabs and carpets use reduced thickness, while furniture and colors remain approximations. No native Bedrock texture, light, collision, steering or pathfinding execution.",
+  "engine_acceptance": "unrun"
+}
