@@ -1,0 +1,84 @@
+{
+  "scope": "Working-tree dependency review only. GP7 changes no asset/generator owner. Existing asset hashes match contract evidence when present. Inherited working-tree fc_mobs.py/fc_lib.py differ from reviewed GP6 inputs and are excluded by the coordinator from the isolated GP7 snapshot. This file does not claim working-tree equivalence for those two dependencies; see additional-results.json for final isolated-snapshot verification.",
+  "prior_full_render": "../GP6/full-render-summary.json",
+  "prior_guild_diagnostics": "../GP5/additional-results.json",
+  "dependency_equivalence": {
+    "scripts/gen_structures.py": {
+      "prior_GP6_sha256": "14e23ab4971798b22ba5299f73aa7aed54d968e8331d66f62f61de30427eb53c",
+      "working_tree_sha256": "14e23ab4971798b22ba5299f73aa7aed54d968e8331d66f62f61de30427eb53c",
+      "identical": true
+    },
+    "scripts/gen_screenshots.py": {
+      "prior_GP6_sha256": "38a8994631baa7e5f0ee6cce3560ac173d92a44b927869dbc871af43e650c0bb",
+      "working_tree_sha256": "38a8994631baa7e5f0ee6cce3560ac173d92a44b927869dbc871af43e650c0bb",
+      "identical": true
+    },
+    "scripts/fc_mobs.py": {
+      "prior_GP6_sha256": "10b93528671072b2dca73ceec55f543613002eeafb8003c54cabda282abb3c3b",
+      "working_tree_sha256": "1362348c3df1db9ca4b3e47f5fc31ca1170dda976ed9fc137b12c5861ed059c4",
+      "identical": false
+    },
+    "scripts/fc_data.py": {
+      "prior_GP6_sha256": "81ec9a420bdbb01782ba9c00c21efc65bd78ac6f2e52fc5349af14528b6c10c7",
+      "working_tree_sha256": "81ec9a420bdbb01782ba9c00c21efc65bd78ac6f2e52fc5349af14528b6c10c7",
+      "identical": true
+    },
+    "scripts/fc_lib.py": {
+      "prior_GP6_sha256": "c53491f9d640c9e10cb5b3d8f65ea8c85b3f526af03f7631d5d447ab6fe70797",
+      "working_tree_sha256": "59753116ed20321b443138b0f3ef872bcac5ded9273964ed607a5a2ea804dec0",
+      "identical": false
+    },
+    "scripts/_audit_match.py": {
+      "prior_GP6_sha256": "be8b7826712236592947a90d35223dd8a895498a7af6e2159a376588df71a0ff",
+      "working_tree_sha256": "be8b7826712236592947a90d35223dd8a895498a7af6e2159a376588df71a0ff",
+      "identical": true
+    },
+    "scripts/_audit_roofs.py": {
+      "prior_GP6_sha256": "4920fc2ca92f2ec40d39ce77579d1d6ff74e5eccbafde5693bc3549e1ea1ebcf",
+      "working_tree_sha256": "4920fc2ca92f2ec40d39ce77579d1d6ff74e5eccbafde5693bc3549e1ea1ebcf",
+      "identical": true
+    },
+    "scripts/_verify_guild.py": {
+      "prior_GP6_sha256": "88c01a8fa786ea48d4f4ea97efc4385483c8eec95a4de729564e9e6ad60a946a",
+      "working_tree_sha256": "88c01a8fa786ea48d4f4ea97efc4385483c8eec95a4de729564e9e6ad60a946a",
+      "identical": true
+    },
+    "scripts/_target_map.py": {
+      "prior_GP6_sha256": "6b5fcbbcd039ccc57e2bbabde209c579721eafc9c0f303d143d7a58eefb69c07",
+      "working_tree_sha256": "6b5fcbbcd039ccc57e2bbabde209c579721eafc9c0f303d143d7a58eefb69c07",
+      "identical": true
+    },
+    "packs/Fablecraft_BP/structures/fc/library_arcanum.mcstructure": {
+      "prior_GP6_sha256": "5e296dd3f30916a064181beb32f5e59692f830611449b7c920031caede9ab7c7",
+      "working_tree_sha256": "5e296dd3f30916a064181beb32f5e59692f830611449b7c920031caede9ab7c7",
+      "identical": true
+    },
+    "screenshots/structures/contract/evidence.json": {
+      "prior_GP6_sha256": "ae7472ac66203ea1abf4a3eeeacb01842a20bead8ff8869f4db905d611857bc0",
+      "working_tree_sha256": "ae7472ac66203ea1abf4a3eeeacb01842a20bead8ff8869f4db905d611857bc0",
+      "identical": true
+    }
+  },
+  "asset_hashes": {
+    "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure": {
+      "working_tree_sha256": "56dab426f9cce940a1ada713b776780897a9de48bd84066433361316cd52adaf",
+      "existing_contract_sha256": "56dab426f9cce940a1ada713b776780897a9de48bd84066433361316cd52adaf"
+    },
+    "packs/Fablecraft_BP/structures/fc/chamber_of_fate.mcstructure": {
+      "working_tree_sha256": "7669d6d6d6e285abdb9982a90cf1757f7f89f60a7108e7b70b6671f33c6ae084",
+      "existing_contract_sha256": "7669d6d6d6e285abdb9982a90cf1757f7f89f60a7108e7b70b6671f33c6ae084"
+    },
+    "packs/Fablecraft_BP/structures/fc/library_arcanum.mcstructure": {
+      "working_tree_sha256": "5e296dd3f30916a064181beb32f5e59692f830611449b7c920031caede9ab7c7",
+      "existing_contract_sha256": "5e296dd3f30916a064181beb32f5e59692f830611449b7c920031caede9ab7c7"
+    }
+  },
+  "existing_views": {
+    "screenshots/validation/GP5/guild-overview-iso.png": "e5c89aed5fa1d2993a052a23a34f6505ebc560b254d666319d61b3ee9bf60686",
+    "screenshots/validation/GP5/chamber-open-cutaway-after.png": "453215ad4644f9ff45023ac6673f4a19195641e7a7001f5005708e345ace1b13",
+    "screenshots/validation/GP5/chamber-altar-stairs-after.png": "44e10607014db274c53c54036dd76aff6c64d712e2eaab2c3b1ec630ef26062e",
+    "screenshots/validation/GP6/guildmaster-static-card.png": "d47446be216fdc6c693b46a8675f9d29bd0a6306a567b4dfc64a9262957a4066",
+    "screenshots/validation/GP6/maze-static-card.png": "c305752ba491fa20a9214b519583b479e74b68af55015e1e99ba8dbf86fb8bef",
+    "screenshots/validation/GP6/guild_apprentice_will-static-card.png": "f9f5241caeb16e842b7724cb120f4c18e8ddba35e054e135a1916c2582cd9e2f"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "destructive_probe": {
+    "command": [
+      "python",
+      "screenshots/validation/GP7/baseline/run_probe.py"
+    ],
+    "exit_code": 0
+  },
+  "before_fix_regression": {
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "scripts/tests/guild_maintenance.test.mjs"
+    ],
+    "exit_code": 1,
+    "result": "8 groups, 1 passed, 7 failed against the actual pre-GP7 maintenance callback."
+  },
+  "initial_probe_attempt": {
+    "command": [
+      "node",
+      "screenshots/validation/GP7/baseline/reproduce.mjs"
+    ],
+    "exit_code": 1,
+    "reason": "Node spawnSync Python returned EPERM; rewritten as a Python parent supplying generated cells to Node before successful probe capture."
+  }
+}

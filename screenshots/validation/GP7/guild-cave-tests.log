@@ -1,0 +1,31 @@
+(node:105) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ actual annex records completion only after every assembled Chamber/cave cell is verified (335.620851ms)
+ℹ 25946 final cells; 406 journal pages; largest page 450 bytes; total 111119 bytes
+✔ startup enrolls before earlier decoration exception and actual maintenance still builds (242.577637ms)
+✔ failed enrollment persistence prevents initial Guild placement and the actual build retry recovers (207.045235ms)
+✔ failed surface placement resumes the original enrolled anchor after reload and player movement (221.725733ms)
+✔ overlapping saved build tick schedules founding retry at the original anchor without duplicate placement (216.954666ms)
+✔ fresh founding and delayed callbacks refuse other dimensions; later Overworld founding can recover (205.36247ms)
+✔ permutation resolution and scheduler failures after enrollment retry without losing original ownership (502.826548ms)
+✔ terrain jobs must finish before any Chamber placement; manifest replaces delayed scrubbing (204.333016ms)
+✔ canceled jobs retry through production maintenance; stale generator cannot resume writing (221.741042ms)
+✔ snapshot, partially placed Chamber and verification reloads resume without reseeding (1000.699621ms)
+✔ unloaded and throwing getBlock during snapshot or Chamber placement are retryable (942.081215ms)
+✔ the audited unavailable bridge head cell prevents completion and maintenance opens it on retry (238.460921ms)
+✔ failed, silently dropped and throwing-after-mutation Chamber writes remain incomplete until retry (643.73279ms)
+✔ journal failure after successful write recognizes the target without writing it twice (260.241316ms)
+✔ foreign underground inventory or masonry refuses the entire snapshot without block writes (155.847786ms)
+✔ player edits to recorded unfinished or completed cells are preserved after reload (334.427624ms)
+✔ same block type with changed permutation is preserved; ready rooms perform no repair (361.497301ms)
+✔ derived wall connections are accepted; lantern supports and skylight containment precede placement (222.914048ms)
+✔ legacy flags, unknown records and changed anchors never authorize occupied-world construction (34.220822ms)
+✔ missing or corrupt saved originals fail closed instead of resnapshotting occupied cells (230.231619ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6792.53906

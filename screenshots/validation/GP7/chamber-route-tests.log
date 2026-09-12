@@ -1,0 +1,15 @@
+test_adjacent_floor_routes_and_warded_dais_remain_connected (__main__.ChamberRoutes.test_adjacent_floor_routes_and_warded_dais_remain_connected) ... ok
+test_all_cardinal_and_diagonal_altar_approaches_climb_and_return (__main__.ChamberRoutes.test_all_cardinal_and_diagonal_altar_approaches_climb_and_return) ... ok
+test_bottom_slab_surfaces_and_swept_headroom (__main__.ChamberRoutes.test_bottom_slab_surfaces_and_swept_headroom) ... ok
+test_concentric_treads_cover_full_circumference_and_join_cardinal_walking_graph (__main__.ChamberRoutes.test_concentric_treads_cover_full_circumference_and_join_cardinal_walking_graph) ... ok
+test_every_cell_outside_concentric_treads_and_water_rim_preserves_gp4_geometry (__main__.ChamberRoutes.test_every_cell_outside_concentric_treads_and_water_rim_preserves_gp4_geometry) ... ok
+test_exported_runtime_plan_matches_final_chamber_and_actual_guild_entry (__main__.ChamberRoutes.test_exported_runtime_plan_matches_final_chamber_and_actual_guild_entry) ... ok
+test_final_emitted_asset_and_generated_interaction_contract (__main__.ChamberRoutes.test_final_emitted_asset_and_generated_interaction_contract) ... ok
+test_independent_local_missing_tread_and_head_obstruction_reject_damaged_approach (__main__.ChamberRoutes.test_independent_local_missing_tread_and_head_obstruction_reject_damaged_approach) ... ok
+test_skylight_water_is_contained_and_independent_missing_rim_fails (__main__.ChamberRoutes.test_skylight_water_is_contained_and_independent_missing_rim_fails) ... ok
+test_three_wide_north_arch_to_cullis_and_return_have_half_steps (__main__.ChamberRoutes.test_three_wide_north_arch_to_cullis_and_return_have_half_steps) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.544s
+
+OK

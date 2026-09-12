@@ -39,6 +39,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | GP6 | in-progress | Durable resident identities, conservative legacy adoption and checked new births replace proximity respawn; engine acceptance open |
 | DP3 | in-progress | Original-cell ticket return survives lost/recreated ledgers; unknown paid history defers registration; full standing return clearance; engine acceptance open |
 | DP4 | in-progress | Durable source owns Guild face maintenance; stale hints cannot spawn ordinary doors or reset history; engine acceptance open |
+| GP7 | in-progress | Retired obsolete approach/scarecrow sweeps preserve saved construction; generated routes and training remain checked; engine acceptance open |
 
 Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
 defects and manual status here. These passes are not completed legacy leaves.
@@ -430,7 +431,7 @@ Both GP5 and GP6 exact-head remote CI passed. All live Bedrock acceptance is unr
 
 ## DP4 — single Guild door source authority (2026-09-12)
 
-Commit: SELF: TLC Conformance — DP4: unify Guild door source authority.
+Commit: 407e0ce0e779bbee772485d7a3b319931d86eab6 (pushed; exact-head CI 34718207560 passed).
 The durable pilot source now owns face lookup, replacement, proximity scheduling
 and dimension selection. The old hint is used only before initial registration
 and to quarantine stale Guild positions from ordinary challenges/payouts. It is
@@ -452,3 +453,45 @@ plus 25 adapter groups and ESM syntax for all 62 BP scripts. Lint, spells, Guild
 lifecycle/NPC gates and C2 are green. GP6 full renders and GP5 Guild diagnostics
 are reused with matched dependency hashes; no visual owner changed. Independent
 source-authority review found no blocking defect. Live engine tests remain unrun.
+
+## GP7 — preserve saved Guild approach and training construction (2026-09-12)
+
+Commit: SELF: TLC Conformance — GP7: retire destructive Guild repair sweeps.
+The actual old maintenance callback repaved a player diamond floor and erased a
+chest when its legacy completion flag was missing. One unrelated unloaded cell
+left the flag absent and repeated those destructive writes on later passes.
+The second obsolete helper also removed player hay/pumpkins at old training
+sites. GP7 removes both helpers and their calls; old flags remain stored unchanged.
+Missing or false flags never enroll a new geometry migration.
+
+Final generator inspection shows the old approach helper supplied no remaining
+collision/headroom repair: only seven cosmetic cobble variants differed. Both
+approaches, bridge aprons, source throat and ring/island clearance are already
+owned by final generated geometry. No regeneration, anchor change, old-world
+recarve or room/reward modification is introduced. Existing obstructed training
+marks are preserved and refused by the actual session controller.
+
+Eight actual-maintenance groups and four Python wrapper/geometry groups cover
+foreign containers/materials, reload/retry/failures, old flags, blocked/clear
+training, both-direction routes and independent missing-floor/headroom failures.
+See [GUILD_MAINTENANCE.md](GUILD_MAINTENANCE.md) and `screenshots/validation/GP7/`.
+The protection claim covers these two retired helpers only. Other terrain/skirt
+repairs remain outside this pass and are mocked as adjacent owners in the new
+suite. Legacy geometry migration still requires a separate provenance audit.
+Live Bedrock loading, movement, saving and collision acceptance remains unrun.
+
+GP7 validation: all 40 base gates pass from `tmp/conformance/GP7-reviewed-snapshot`,
+including the new maintenance gate, all Guild lifecycle/NPC/door gates, lint and
+spells. All 62 BP scripts pass ESM syntax. Independent review found no blocker.
+GP6 full renders and GP5 Guild diagnostics are reused with byte-identical reviewed
+snapshot dependencies. DP4 exact-head CI 34718207560 passed. Native checks remain unrun.
+
+Next NPC source audit: the generated reaction_follow goal accepts any player;
+spouse/emote Follow callers do not bind its requester. Wait removes reaction
+components but leaves base random strolling, and the functional Wait emote sends
+neutral to every nearby NPC. A pending spouse form callback also needs ownership
+revalidation before action/success. This is a source-level finding, not an engine
+repro. A separate activity owner should preserve resident/spouse identity and
+arbitrate requester-specific Follow/Wait with training and defence; avoid permanent
+taming or repeated-teleport shortcuts. Keep canonical staffing and reference-led
+Will/Chamber work open alongside these behavioral repairs.

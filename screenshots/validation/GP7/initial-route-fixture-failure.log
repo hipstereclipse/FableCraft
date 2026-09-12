@@ -1,0 +1,32 @@
+(node:4) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+..F.
+======================================================================
+FAIL: test_final_generator_connects_both_approaches_without_runtime_repairs (__main__.GuildMaintenance.test_final_generator_connects_both_approaches_without_runtime_repairs)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_guild_maintenance.py", line 65, in test_final_generator_connects_both_approaches_without_runtime_repairs
+    self.assertTrue(supported(self.vox, x, 1., z), (x, z))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : (67, 88)
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.421s
+
+FAILED (failures=1)
+✔ missing legacy flags preserve player floors, containers and both scarecrow sites (3.227036ms)
+✔ existing true, false and unknown legacy flag values are retained across reload (4.457803ms)
+✔ unloaded former footprint cells cannot cause repeated clears of new player edits (1.674769ms)
+✔ unreadable cells and write failures never authorize a repair attempt (1.763699ms)
+✔ obsolete flag read failures do not interrupt cave, terrain or apprentice maintenance (0.823564ms)
+✔ unplaced Guilds do not enter maintenance or enroll old geometry (0.783016ms)
+✔ blocked legacy training station is preserved and refused by the actual session owner (2.030224ms)
+✔ clear training stations still acquire once through the actual maintenance callback (1.060213ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 31.825588

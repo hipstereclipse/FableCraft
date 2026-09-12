@@ -18,11 +18,11 @@ with exploration, reward collection and a reliable portal back to the source.
 This overrides the old instruction to start W3.5 or keep adding unrelated POIs.
 Read docs/GUILD_DEMON_PRIORITIES.md first; it is the active execution queue.
 
-Current checkpoint: DP4 — durable Guild door source controls repair; stale hints cannot spawn ordinary faces or pay rewards
-Last resolved prior commit: 37c8d98a5ce47aa861f311c34c36fc99af22e7e2 (pushed; DP3 exact-head CI 34717404106 passed).
+Current checkpoint: GP7 — obsolete Guild approach/scarecrow repairs retired; saved construction preserved
+Last resolved prior commit: 407e0ce0e779bbee772485d7a3b319931d86eab6 (pushed; DP4 exact-head CI 34718207560 passed).
 GP5 f7fb3f97c7932e461bd49336d7dee905ae1e4b47 is pushed; exact-head CI 34716905752 passed.
-Containing commit: TLC Conformance — DP4: unify Guild door source authority.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — DP4: unify Guild door source authority'.
+Containing commit: TLC Conformance — GP7: retire destructive Guild repair sweeps.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP7: retire destructive Guild repair sweeps'.
 Never invent a self-hash. Read the supplemental priority ledger for implementation
 scope, known defects and unrun engine checks.
 
@@ -145,7 +145,16 @@ for lookup/spawn/scheduling/dimensions. The old hint is retained as a quarantine
 alias only; it cannot spawn an ordinary door or change payment/room history.
 Distant stale faces are preserved. No asset/version/anchor changes. Read
 LIBRARY_ARCANUM_SOURCE_AUTHORITY.md and DP4 evidence; 25 adapter groups pass.
-All native Bedrock acceptance remains unrun. GP7 approach sweep retirement is next.
+All native Bedrock acceptance remains unrun. GP7 retires the obsolete approach sweeps.
+
+GP7 removes clearGuildRingScarecrows and repairGuildDemonApproach plus their calls.
+Old flags stay unchanged; missing flags never authorize repaving or deleting player
+containers. The actual baseline made 92 writes; an unloaded cell caused 91 writes
+per retry. Current final generator needs no collision/headroom repair, differing
+only in seven cobble variants. No asset/anchor/geometry migration. Eight callback
+and four Python wrapper/geometry groups cover saved builds and training/routes.
+Read GUILD_MAINTENANCE.md; terrain/skirt repairs remain separate, not proven safe.
+Old blocked marks are retained and refused. All live engine checks remain unrun.
 
 The GP/DP priorities are supplemental, tracked separately from C3's original 45
 leaves; do not inflate the old scoreboard or mark these new deliverables done.
@@ -234,13 +243,16 @@ screenshots/validation/W3.3/remote-run.json. Inspect newest workflow's actual he
 All current world rows remain in-progress for manual/reference work, not done.
 
 Next three actions:
-1. Inspect exact-head CI and current GP5/GP6/DP3/DP4 evidence. Run supported Bedrock
+1. Inspect exact-head CI and current GP5/GP6/DP3/DP4/GP7 evidence. Run supported Bedrock
    acceptance when available: full surrounding altar stairs/cave loading, two-Hero
    resident departure/reload/death, portal collection/return/crash persistence.
 2. Continue reference-led Guild/door refinement. DP4 fixes the persisted-anchor
-   disagreement without resetting payment/room history. GP7 should retire obsolete
-   approach/scarecrow repair sweeps: missing old flags currently authorize destructive
-   repeated writes over player containers; current geometry already owns clearances.
+   disagreement without resetting payment/room history. GP7 retired obsolete
+   approach/scarecrow sweeps; broader terrain/skirt repair needs a separate audit.
+   Next NPC defects: owner-specific Follow/Wait and distinct Will training.
+   Current Follow accepts any player; Wait leaves strolling and its emote broadcasts
+   neutral to all nearby NPCs. Recheck spouse ownership in deferred form actions.
+   Preserve social/resident state; avoid permanent-taming or teleport shortcuts.
    Chamber wall ribs/materials/lighting, canonical NPC staffing and walking to
    training remain open. Preserve the user's full-circumference altar correction.
 3. Continue separate milestones with base/domain gates, full renders as applicable,
@@ -286,3 +298,10 @@ plus 25 adapter groups and ESM syntax for all 62 BP scripts. Lint, spells, Guild
 lifecycle/NPC gates and C2 are green. GP6 full renders and GP5 Guild diagnostics
 are reused with matched dependency hashes; no visual owner changed. Independent
 source-authority review found no blocking defect. Live engine tests remain unrun.
+
+GP7 validation: all 40 base gates pass from the isolated reviewed-index snapshot,
+including 8 maintenance callback groups within 4 Python wrapper/geometry groups,
+all existing Guild/door suites, lint and spells. All 62 BP scripts pass ESM syntax.
+GP6 renders/GP5 diagnostics have matched reviewed dependency hashes. Independent
+review found no blocker. DP4 exact-head CI 34718207560 passed. GP7 native Bedrock
+acceptance remains unrun; inspect its containing commit's actual remote CI next.

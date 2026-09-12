@@ -1,0 +1,178 @@
+(node:12) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ missing legacy flags preserve player floors, containers and both scarecrow sites (4.171219ms)
+✖ existing true, false and unknown legacy flag values are retained across reload (3.655811ms)
+✖ unloaded former footprint cells cannot cause repeated clears of new player edits (2.034332ms)
+✖ unreadable cells and write failures never authorize a repair attempt (1.29033ms)
+✖ obsolete flag read failures do not interrupt cave, terrain or apprentice maintenance (0.773699ms)
+✔ unplaced Guilds do not enter maintenance or enroll old geometry (0.787145ms)
+✖ blocked legacy training station is preserved and refused by the actual session owner (2.166924ms)
+✖ clear training stations still acquire once through the actual maintenance callback (1.579869ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 1
+ℹ fail 7
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 29.390118
+
+✖ failing tests:
+
+test at scripts/tests/guild_maintenance.test.mjs:83:1
+✖ missing legacy flags preserve player floors, containers and both scarecrow sites (4.171219ms)
+  AssertionError [ERR_ASSERTION]: Maintenance attempted to overwrite saved geometry
+  
+  94 !== 0
+  
+      at assertPreserved (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_maintenance.test.mjs:78:10)
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_maintenance.test.mjs:85:12)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.start (node:internal/test_runner/test:1257:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 94,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/guild_maintenance.test.mjs:90:1
+✖ existing true, false and unknown legacy flag values are retained across reload (3.655811ms)
+  AssertionError [ERR_ASSERTION]: Maintenance attempted to overwrite saved geometry
+  
+  94 !== 0
+  
+      at assertPreserved (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_maintenance.test.mjs:78:10)
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_maintenance.test.mjs:93:35)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 94,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/guild_maintenance.test.mjs:98:1
+✖ unloaded former footprint cells cannot cause repeated clears of new player edits (2.034332ms)
+  AssertionError [ERR_ASSERTION]: Maintenance attempted to overwrite saved geometry
+  
+  275 !== 0
+  
+      at assertPreserved (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_maintenance.test.mjs:78:10)
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_maintenance.test.mjs:101:33)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 275,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/guild_maintenance.test.mjs:104:1
+✖ unreadable cells and write failures never authorize a repair attempt (1.29033ms)
+  AssertionError [ERR_ASSERTION]: Missing flags do not enroll a geometry migration
+  
+  1 !== 0
+  
+      at assertPreserved (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_maintenance.test.mjs:80:10)
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_maintenance.test.mjs:107:41)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/guild_maintenance.test.mjs:111:1
+✖ obsolete flag read failures do not interrupt cave, terrain or apprentice maintenance (0.773699ms)
+  AssertionError [ERR_ASSERTION]: Got unwanted exception.
+  Actual message: "Injected old-flag failure"
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_maintenance.test.mjs:112:49)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: Error: Injected old-flag failure
+        at Object.getDynamicProperty (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_maintenance.test.mjs:50:55)
+        at clearGuildRingScarecrows (evalmachine.<anonymous>:80:13)
+        at evalmachine.<anonymous>:7:3
+        at Object.run (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_maintenance.test.mjs:70:13)
+        at file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_maintenance.test.mjs:112:70
+        at getActual (node:assert:580:5)
+        at strict.doesNotThrow (node:assert:748:32)
+        at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_maintenance.test.mjs:112:49)
+        at Test.runInAsyncScope (node:async_hooks:226:14)
+        at Test.run (node:internal/test_runner/test:1397:25),
+    expected: undefined,
+    operator: 'doesNotThrow',
+    diff: 'simple'
+  }
+
+test at scripts/tests/guild_maintenance.test.mjs:123:1
+✖ blocked legacy training station is preserved and refused by the actual session owner (2.166924ms)
+  AssertionError [ERR_ASSERTION]: Maintenance attempted to overwrite saved geometry
+  
+  92 !== 0
+  
+      at assertPreserved (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_maintenance.test.mjs:78:10)
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_maintenance.test.mjs:126:42)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 92,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/guild_maintenance.test.mjs:131:1
+✖ clear training stations still acquire once through the actual maintenance callback (1.579869ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  92 !== 0
+  
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_maintenance.test.mjs:134:10)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 92,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

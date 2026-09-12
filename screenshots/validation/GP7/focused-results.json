@@ -1,0 +1,70 @@
+{
+  "scope": "Focused working-tree checks after GP7 helper retirement; DP4 source update is present. Full isolated validation is owned by the milestone coordinator.",
+  "live_engine": "unrun",
+  "checks": {
+    "guild-maintenance-tests": {
+      "command": [
+        "python",
+        "scripts/tests/test_guild_maintenance.py"
+      ],
+      "exit_code": 0,
+      "groups": {
+        "python": 4,
+        "actual_callbacks": 8
+      },
+      "log_sha256": "f9440af9dcf2a96d01d7b66e146f477438a349f8c286b3214bbf9e5dbb2b3dec",
+      "log": "focused-guild-maintenance-tests.log"
+    },
+    "guild-training-tests": {
+      "command": [
+        "node",
+        "--experimental-vm-modules",
+        "scripts/tests/guild_training.test.mjs"
+      ],
+      "exit_code": 0,
+      "groups": 18,
+      "log_sha256": "98d3e4cbf07b0b7aac27595b62adc907b0eed00f6415efe40f95f8456cdf6e1c",
+      "log": "focused-guild-training-tests.log"
+    },
+    "guild-cave-tests": {
+      "command": [
+        "node",
+        "--experimental-vm-modules",
+        "scripts/tests/guild_caves.test.mjs"
+      ],
+      "exit_code": 0,
+      "groups": 20,
+      "log_sha256": "ab918aaaf97a6555efb48ead5f167cee239651e48187f6e7a5f12392d599f9d1",
+      "log": "focused-guild-cave-tests.log"
+    },
+    "lint": {
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "exit_code": 0,
+      "errors": 0,
+      "warnings": 19,
+      "log_sha256": "7674c97544a78d79b9103cf509404bd2ba1bef2050d323939114dd66869f06e7",
+      "log": "focused-lint.log"
+    },
+    "syntax": {
+      "command": "node --input-type=module --check < packs/Fablecraft_BP/scripts/main.js",
+      "exit_code": 0,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "log": "focused-syntax.log"
+    }
+  },
+  "source_sha256": {
+    "packs/Fablecraft_BP/scripts/main.js": "fd108c5bfad97d229d77d5c8618f08b0fef4ed04e84161dc19112ac4bc47ad2f",
+    "scripts/validate.py": "cbb35285d9bb19fb72252e62b092932ee4e6328dcfd864674d108676f2139d58",
+    "scripts/tests/test_guild_maintenance.py": "6bced64f5538196b22cf92fc5a4c16634663ec463058bd4cf99286b3ac26054f",
+    "scripts/tests/guild_maintenance.test.mjs": "e158b7af1f86fc661ea1541f719b619fef25b564fe89fe4de025eb67ba817897"
+  },
+  "initial_route_fixture_failure": {
+    "exit_code": 1,
+    "log": "initial-route-fixture-failure.log",
+    "reason": "Test assumed straight columns 66/67 at z88/89. Independent survey confirmed the unchanged authored bend uses 65/66 through z89, then 66/67 from z90."
+  }
+}

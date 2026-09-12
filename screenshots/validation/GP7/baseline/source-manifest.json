@@ -1,0 +1,8 @@
+{
+  "baseline_commit_reported_by_coordinator": "37c8d98",
+  "capture": "Actual working-tree helper declarations before GP7 edits; parallel DP4 edits are outside this excerpt.",
+  "owner": "packs/Fablecraft_BP/scripts/main.js",
+  "excerpt_sha256": "3c5915319ed2f73424a5bba4e848b2ef9d85f11594426026cd0ae1b1d002ac55",
+  "generator_sha256": "14e23ab4971798b22ba5299f73aa7aed54d968e8331d66f62f61de30427eb53c",
+  "live_engine": false
+}

@@ -1,0 +1,83 @@
+{
+  "scope": "Frozen actual production helper in memory; not Bedrock execution.",
+  "missingLegacyFlag": {
+    "writes": 92,
+    "floor": "minecraft:mossy_cobblestone",
+    "container": "minecraft:air",
+    "done": true
+  },
+  "unavailableOtherCell": {
+    "firstWrites": 91,
+    "retryWrites": 91,
+    "replacementContainer": "minecraft:air",
+    "done": false
+  },
+  "currentGenerator": {
+    "changes": [
+      {
+        "position": [
+          82,
+          0,
+          81
+        ],
+        "before": "minecraft:mossy_cobblestone",
+        "after": "minecraft:cobblestone"
+      },
+      {
+        "position": [
+          83,
+          0,
+          81
+        ],
+        "before": "minecraft:cobblestone",
+        "after": "minecraft:mossy_cobblestone"
+      },
+      {
+        "position": [
+          81,
+          0,
+          79
+        ],
+        "before": "minecraft:cobblestone",
+        "after": "minecraft:mossy_cobblestone"
+      },
+      {
+        "position": [
+          82,
+          0,
+          79
+        ],
+        "before": "minecraft:mossy_cobblestone",
+        "after": "minecraft:cobblestone"
+      },
+      {
+        "position": [
+          78,
+          0,
+          77
+        ],
+        "before": "minecraft:mossy_cobblestone",
+        "after": "minecraft:cobblestone"
+      },
+      {
+        "position": [
+          79,
+          0,
+          77
+        ],
+        "before": "minecraft:cobblestone",
+        "after": "minecraft:mossy_cobblestone"
+      },
+      {
+        "position": [
+          77,
+          0,
+          76
+        ],
+        "before": "minecraft:mossy_cobblestone",
+        "after": "minecraft:cobblestone"
+      }
+    ],
+    "onlyCobblePaletteChanges": true
+  }
+}

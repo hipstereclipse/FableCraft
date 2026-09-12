@@ -1,0 +1,35 @@
+✔ production singleton passes canonical data, aperture gate and literal destination placement (14.625063ms)
+✔ production maintenance preserves a paid survivor before removing duplicate mouth faces (10.315702ms)
+✔ new-world registration precedes missing chunks; replacement cannot lose new/legacy status (19.341215ms)
+✔ a transient surviving-face history read defers registration without reauthorizing paid rewards (19.851655ms)
+✔ periodic source re-registration cannot strand a committed visitor at the original return arch (10.716343ms)
+✔ a lone visitor can walk through the remembered exit while the primary ledger is missing, corrupt or unreadable (27.37206ms)
+✔ unavailable-ledger periodic dwell cannot invent return authority for an unticketed or invalid-ticket occupant (56.177772ms)
+✔ a ticket for an occupied old cell survives replacement-ledger return failures and uses its exact source (6.982074ms)
+✔ a lowered ceiling above a fractional source approach selects a clear same-door fallback (6.655294ms)
+✔ replacement-ledger recovery rejects invalid or misplaced tickets and never borrows its source (7.186402ms)
+✔ actual deferred face interaction captures light-use item before event expiry (13.780399ms)
+✔ corrupt Guild progress never falls through to invented legacy challenge/payout (5.959412ms)
+✔ ordinary scattered door retains the existing requirement and payout path (7.241046ms)
+✔ five-tick production schedule repairs after reload without duplicate spawns (8.535203ms)
+✔ conflicting persisted hints cannot spawn repeated unkeyed faces or reset durable progress (7.857716ms)
+✔ periodic maintenance uses the durable source when the old hint is absent, broken, throwing or distant (37.090449ms)
+✔ the all-door sweep cannot recreate a Guild hint as an ordinary door or copy it across dimensions (8.680589ms)
+✔ a stale Guild hint is quarantined from ordinary challenge and reward interactions (15.411215ms)
+✔ a durable source dimension overrides both a conflicting hint and a supplied founding anchor (9.191368ms)
+✔ invalid or unreadable primary progress permits no fallback registration, spawning or cleanup (23.687055ms)
+✔ production block protection permits native non-sneaking containers and both return landmarks (9.290887ms)
+✔ production explosion and dangerous-item protection preserves unrelated world behavior (8.282602ms)
+✔ production scatter and region retirement exclude realm storage including ground below it (8.229302ms)
+✔ actual recovery command requires a player source and returns the active room visitor (18.388897ms)
+✔ actual recovery command uses an existing ticket when the main room record is corrupt (7.945683ms)
+(node:158) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 378.715184
