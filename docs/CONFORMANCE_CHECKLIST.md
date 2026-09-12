@@ -16,8 +16,8 @@ replace with a real hash in the next milestone. A mock or render is never an in-
 
 | Item | Status (todo/in-progress/done) | Evidence (commit + screenshot/validator path) | Grade | Date |
 | --- | --- | --- | --- | --- |
-| 0.1 Repair behavior generator | done | SELF: TLC Conformance — 0.1: repair behavior generator; screenshots/validation/0.1/ | PASS (automated) | 2026-09-12 |
-| 0.2 Adopt orphan tools and output policy | todo | — | — | — |
+| 0.1 Repair behavior generator | done | 6835313; screenshots/validation/0.1/ | PASS (automated) | 2026-09-12 |
+| 0.2 Adopt orphan tools and output policy | done | SELF: TLC Conformance — 0.2: adopt audit tooling and output policy; screenshots/validation/0.2/ | PASS (automated) | 2026-09-12 |
 | 0.3 Drive melee strike gates and test the audit | todo | — | — | — |
 | 0.4 Synchronize gameplay documentation | todo | — | — | — |
 

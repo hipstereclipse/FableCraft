@@ -1,0 +1,123 @@
+# HUD Audit
+
+- Checks passed: 112/112
+- Layout reference: supplied Fable HUD composition
+- Map contract: 11×11 yaw-rotating coloured terrain grid
+- Payload contract: eye 4, dial 6, map 19, gold 20, notice 21, wanted heat 22
+
+## Results
+
+- PASS — overlay contains fable_status_frame
+- PASS — fable_status_frame uses top_left
+- PASS — fable_status_frame offset is (3, 3)
+- PASS — fable_status_frame size is (120, 38)
+- PASS — overlay contains fable_minimap
+- PASS — fable_minimap uses top_right
+- PASS — fable_minimap offset is (-14, 20)
+- PASS — fable_minimap size is (72, 72)
+- PASS — overlay contains fable_map_details_frame
+- PASS — fable_map_details_frame uses top_right
+- PASS — fable_map_details_frame offset is (-4, 92)
+- PASS — fable_map_details_frame size is (92, 10)
+- PASS — overlay contains fable_gold_frame
+- PASS — fable_gold_frame uses bottom_left
+- PASS — fable_gold_frame offset is (4, -5)
+- PASS — fable_gold_frame size is (68, 22)
+- PASS — action-bar slicer contains fable_eye_clip
+- PASS — fable_eye_clip uses top_right
+- PASS — fable_eye_clip offset is (-55, 13)
+- PASS — fable_eye_clip size is (22, 18)
+- PASS — fable_eye_clip keeps the shared action-bar payload on logical lines
+- PASS — fable_eye_clip reads action-bar line offset -40
+- PASS — fable_eye_clip font scale is 1.0
+- PASS — fable_eye_clip offset -40 lands on payload line 4 (expected ~-40)
+- PASS — action-bar slicer contains fable_clock_clip
+- PASS — fable_clock_clip uses top_right
+- PASS — fable_clock_clip offset is (-23, 13)
+- PASS — fable_clock_clip size is (18, 18)
+- PASS — fable_clock_clip keeps the shared action-bar payload on logical lines
+- PASS — fable_clock_clip reads action-bar line offset -60
+- PASS — fable_clock_clip font scale is 1.0
+- PASS — fable_clock_clip offset -60 lands on payload line 6 (expected ~-60)
+- PASS — action-bar slicer contains fable_radar_clip
+- PASS — fable_radar_clip uses top_right
+- PASS — fable_radar_clip offset is (-24, 31)
+- PASS — fable_radar_clip size is (52, 39)
+- PASS — fable_radar_clip keeps the shared action-bar payload on logical lines
+- PASS — fable_radar_clip reads action-bar line offset -29
+- PASS — fable_radar_clip font scale is 0.36
+- PASS — fable_radar_clip offset -29 lands on payload line 8 (expected ~-29)
+- PASS — action-bar slicer contains fable_map_details_clip
+- PASS — fable_map_details_clip uses top_right
+- PASS — fable_map_details_clip offset is (-5, 94)
+- PASS — fable_map_details_clip size is (90, 6)
+- PASS — fable_map_details_clip keeps the shared action-bar payload on logical lines
+- PASS — fable_map_details_clip reads action-bar line offset -80
+- PASS — fable_map_details_clip font scale is 0.42
+- PASS — fable_map_details_clip offset -80 lands on payload line 19 (expected ~-80)
+- PASS — action-bar slicer contains fable_gold_clip
+- PASS — fable_gold_clip uses bottom_left
+- PASS — fable_gold_clip offset is (31, -13)
+- PASS — fable_gold_clip size is (32, 6)
+- PASS — fable_gold_clip keeps the shared action-bar payload on logical lines
+- PASS — fable_gold_clip reads action-bar line offset -84
+- PASS — fable_gold_clip font scale is 0.42
+- PASS — fable_gold_clip offset -84 lands on payload line 20 (expected ~-84)
+- PASS — action-bar slicer contains fable_notice_clip
+- PASS — fable_notice_clip uses bottom_right
+- PASS — fable_notice_clip offset is (-6, -31)
+- PASS — fable_notice_clip size is (150, 5)
+- PASS — fable_notice_clip keeps the shared action-bar payload on logical lines
+- PASS — fable_notice_clip reads action-bar line offset -88
+- PASS — fable_notice_clip font scale is 0.42
+- PASS — fable_notice_clip offset -88 lands on payload line 21 (expected ~-88)
+- PASS — action-bar slicer contains fable_wanted_clip
+- PASS — fable_wanted_clip uses top_middle
+- PASS — fable_wanted_clip offset is (0, 6)
+- PASS — fable_wanted_clip size is (112, 18)
+- PASS — fable_wanted_clip keeps the shared action-bar payload on logical lines
+- PASS — fable_wanted_clip reads action-bar line offset -158
+- PASS — fable_wanted_clip font scale is 0.72
+- PASS — fable_wanted_clip offset -158 lands on payload line 22 (expected ~-158)
+- PASS — radar is 11x11
+- PASS — radar samples every 3 blocks
+- PASS — radar uses yaw-stable rotation basis
+- PASS — day dial follows world time
+- PASS — day dial has no text label
+- PASS — map selects baked-colour glyphs
+- PASS — eye and day dial each get a CG.blank spacer so neither bleeds into the other
+- PASS — coin/map line contract is documented
+- PASS — empty multiplier preserves its payload row
+- PASS — empty notice preserves its payload row
+- PASS — wanted heat has a dedicated HUD payload row
+- PASS — wanted heat repeats the authored star glyph
+- PASS — vanilla effect icons do not overlap the custom map header
+- PASS — texture exists: status_frame.png
+- PASS — texture exists: minimap.png
+- PASS — texture exists: map_details.png
+- PASS — texture exists: gold.png
+- PASS — texture exists: eye_open.png
+- PASS — texture exists: eye_partial.png
+- PASS — texture exists: eye_closed.png
+- PASS — texture exists: clock.png
+- PASS — texture exists: wanted_star.png
+- PASS — all three eye states have glyph art
+- PASS — eye glyphs preserve authored full-colour art
+- PASS — all 24 day-cycle glyphs exist
+- PASS — day-cycle frames rotate the whole dial to keep the current time at the top
+- PASS — wanted-star glyph preserves the generated Fable emblem
+- PASS — all coloured map cells exist
+- PASS — map glyph sheet contains a baked RGB palette
+- PASS — status stays in its Fable reference zone
+- PASS — map stays in its Fable reference zone
+- PASS — map_details stays in its Fable reference zone
+- PASS — eye stays in its Fable reference zone
+- PASS — dial stays in its Fable reference zone
+- PASS — gold stays in its Fable reference zone
+- PASS — wanted stays in its Fable reference zone
+- PASS — minimap, map content, and detail rail are centered
+- PASS — eye and day dial slightly overlap the minimap ornament
+- PASS — eye and day dial use the balanced fourteen-unit gap
+- PASS — eye and day dial are balanced over the minimap
+
+Generated by `python scripts/audit_hud.py`.

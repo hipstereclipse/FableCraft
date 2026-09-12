@@ -11,9 +11,6 @@ Fablecraft Reforged.zip
 
 # Node / lint dev tooling (not part of the addon)
 node_modules/
-package.json
-package-lock.json
-.eslintrc.json
 
 # Dead remnants of the abandoned Java/Gradle prototype
 src/
@@ -22,3 +19,9 @@ gradlew
 gradlew.bat
 settings.gradle
 build.gradle
+
+# Local conformance scratch and archived one-off migration
+tmp/
+scripts/_align/_*.png
+screenshots/structures/_chk_*.png
+/patch_guild_tiling.py

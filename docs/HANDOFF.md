@@ -10,23 +10,28 @@ six reference snapshots are in docs/. User override (2026-09-12): finish the spe
 and continue as far as practical without permission questions. Retain separate
 milestone commits, validation, immediate pushes, evidence and fresh handoffs.
 
-Current milestone: 0.1 — repair behavior generator; status done.
-Last resolved prior commit: d9d5f7c (pushed before this milestone).
-Containing commit: TLC Conformance — 0.1: repair behavior generator.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — 0.1: repair behavior generator'.
+Current milestone: 0.2 — adopt audit tooling and output policy; status done.
+Last resolved prior commit: 6835313 (pushed before this milestone).
+Containing commit: TLC Conformance — 0.2: adopt audit tooling and output policy.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — 0.2: adopt audit tooling and output policy'.
 Replace previous SELF evidence with the actual hash next step; never invent a self-hash.
 
-Validator state: base build, expression audit (31/21), HUD (112/112), lint (0 errors,
-19 unused-code warnings), 17 spell mocks and four behavior regression groups GREEN.
-The negative test against the stripped generator correctly failed (199 failures,
-18 errors). Repaired generator matches HEAD/base exactly; Theresa regenerates to
-identical parsed JSON, all social NPCs preserve reactions and all 194 data items
-retain scalar icon formats. No live pack entities/items were rewritten.
-Evidence: screenshots/validation/0.1/ including before.log and after.log.
-Animation live-driver check is not implemented until 0.3; in-world tests UNRUN.
+Validator state: build, expressions (31/21), HUD (112/112), lint (0 errors/19 warnings),
+17 spell mocks and behavior regression GREEN. Six audit tools compile/run. Animation
+clip/bone audit passes 51 mobs; live gate-variable check remains for 0.3.
+Evidence: screenshots/validation/0.2/ and screenshots/ui/. See docs/AUDIT_TOOLING.md.
+Guild diagnostics: 85.3% structural-cell agreement, 0 unsupported clusters, 385 eave
+cells flagged for review (not proven defects). HUD preview has a narrow green radar
+column, missing hunger frame and possible nav-line bleed; no visual/in-world pass.
+Target overlay accepts --reference; no external reference image was needed or bundled.
+One-off tiling patch archived verbatim as docs/archive/patch_guild_tiling.py.txt;
+root copy and scratch renders preserved/ignored. Development dependencies pinned.
+Research for 0.3: official Microsoft query_modified_swing_duration documentation
+explicitly calls variable.attack_time the swing progress; old premise may be false.
+Do not invent a replacement query or falsify a before-fix failure.
 
 Next three actions:
-1. git pull --ff-only; read the top pending row and start 0.2 orphan tooling and output policy.
+1. git pull --ff-only; read the top pending row and start 0.3 attack-gate audit and engine binding verification.
 2. Execute its numbered playbook steps and applicable base/domain validators; preserve
    real output under screenshots/validation/<ID>/, mark manual observations unrun.
 3. Update checklist/handoff in one explicitly staged milestone commit, push to origin,

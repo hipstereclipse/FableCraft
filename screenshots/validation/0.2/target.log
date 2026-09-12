@@ -1,0 +1,3 @@
+Reference overlay not requested; target-only render is not a canon comparison.
+target cell counts: {'outside': 0, 'forest': 904, 'lawn': 7369, 'path': 336, 'training': 274, 'water': 973, 'building': 3320}
+wrote /run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/_align/_target_only.png

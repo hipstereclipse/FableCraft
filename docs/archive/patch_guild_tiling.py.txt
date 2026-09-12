@@ -1,0 +1,230 @@
+#!/usr/bin/env python3
+"""
+patch_guild_tiling.py
+=====================
+Splits FableCraft's oversized Heroes' Guild structure into smaller tiles so it
+loads on spawn. The single 112x30x108 `fc:guild` template is too large for the
+engine to load/place in one piece (smaller structures place fine), so this
+breaks it into <=56-wide pieces and stitches them back together at runtime.
+
+It edits two files in place (a timestamped .bak backup is made before writing):
+
+  1. scripts/gen_structures.py
+       - adds a `save_in_tiles(...)` helper
+       - changes the guild's  v.save("guild")  to
+                               save_in_tiles(v, "guild", tile=56)
+
+  2. packs/Fablecraft_BP/scripts/main.js
+       - injects a `fcPlaceGuildTiles(...)` helper
+       - routes the existing  <obj>.structureManager.place("fc:guild", ...)
+         call through it, preserving every original argument
+
+Usage
+-----
+Run from the repository root:
+
+    python patch_guild_tiling.py
+
+or point it at the repo explicitly:
+
+    python patch_guild_tiling.py /path/to/FableCraft
+
+After it succeeds, regenerate the tiled structures, repackage and reinstall:
+
+    python scripts/build_addon.py --full
+
+The script is safe to re-run; already-applied edits are detected and skipped.
+"""
+
+import re
+import sys
+import shutil
+import datetime
+from pathlib import Path
+
+TILE = 56  # tile footprint in blocks. Keep <= 64 and identical on both sides.
+
+# --- text injected into scripts/gen_structures.py --------------------------
+PY_HELPER = '''def save_in_tiles(src, base, tile=56):
+    """Split a finished Vox into <=tile-footprint pieces saved as
+    fc:<base>_<tx>_<tz>. Air is copied too, so each piece still clears the
+    terrain inside its footprint exactly like the original one-piece build.
+    The runtime places piece (tx, tz) at guild_origin + (tx*tile, 0, tz*tile)."""
+    nx = (src.sx + tile - 1) // tile
+    nz = (src.sz + tile - 1) // tile
+    for tx in range(nx):
+        for tz in range(nz):
+            ox, oz = tx * tile, tz * tile
+            w = min(tile, src.sx - ox)
+            d = min(tile, src.sz - oz)
+            piece = Vox(w, src.sy, d)
+            for x in range(w):
+                for y in range(src.sy):
+                    for z in range(d):
+                        name, states = src.palette[src.grid[src.idx(ox + x, y, oz + z)]]
+                        piece.set(x, y, z, name, states)
+            piece.save(f"{base}_{tx}_{tz}")
+    print(f"  fc:{base} -> tiled into {nx}x{nz} pieces (tile={tile})")
+
+
+'''
+
+# --- text injected into packs/Fablecraft_BP/scripts/main.js ----------------
+JS_HELPER = '''
+// --- FableCraft: place the oversized Heroes' Guild as tiles -----------------
+// The guild is generated as fc:guild_<tx>_<tz> pieces (gen_structures.py ->
+// save_in_tiles). This places every piece at the same origin the single
+// fc:guild placement used, so the whole guild loads on spawn. Keep these
+// constants in sync with GUILD_LAYOUT["size"] and the tile= arg in
+// gen_structures.py. NOTE: if your original place() passed a `rotation` in its
+// options the tile offsets below would also need rotating -- keep the guild
+// unrotated, or ask for the rotation-aware version.
+const FC_GUILD_W = 122, FC_GUILD_L = 108, FC_GUILD_TILE = 56;
+function fcPlaceGuildTiles(manager, _structure, dimension, location, options) {
+  const baseName = _structure.replace("fc:", "");
+  for (let tx = 0; tx * FC_GUILD_TILE < FC_GUILD_W; tx++) {
+    for (let tz = 0; tz * FC_GUILD_TILE < FC_GUILD_L; tz++) {
+      const id = `fc:${baseName}_${tx}_${tz}`;
+      const loc = {
+        x: location.x + tx * FC_GUILD_TILE,
+        y: location.y,
+        z: location.z + tz * FC_GUILD_TILE,
+      };
+
+      
+      try {
+        manager.place(id, dimension, loc, options);
+      } catch (e) {
+        console.warn(`[FableCraft] guild tile ${id} failed: ${e}`);
+      }
+    }
+  }
+}
+// ----------------------------------------------------------------------------
+'''
+
+
+def backup(path):
+    ts = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+    bak = path.parent / (path.name + f".{ts}.bak")
+    shutil.copy2(path, bak)
+    return bak
+
+
+def patch_gen(path):
+    src = path.read_text(encoding="utf-8")
+    out = src
+    notes = []
+
+    # 1) add the save_in_tiles helper just before guild_hall()
+    if "def save_in_tiles(" not in out:
+        anchor = re.search(r'(?m)^def guild_hall\(', out)
+        if anchor:
+            at = anchor.start()
+            out = out[:at] + PY_HELPER + out[at:]
+            notes.append("added save_in_tiles() before guild_hall()")
+        else:
+            out = out.rstrip() + "\n\n\n" + PY_HELPER
+            notes.append("added save_in_tiles() at end of file (guild_hall not found)")
+    else:
+        notes.append("save_in_tiles() already present - left as-is")
+
+    # 2) swap the single guild save for the tiled save
+    save_pat = re.compile(r'(?<![\w.])([A-Za-z_]\w*)\.save\(\s*["\']guild_hall["\']\s*\)')
+    m = save_pat.search(out)
+    if m:
+        var = m.group(1)
+        out = save_pat.sub(f'save_in_tiles({var}, "guild_hall", tile={TILE})', out, count=1)
+        notes.append(f'changed {var}.save("guild_hall") -> save_in_tiles({var}, "guild_hall", tile={TILE})')
+    elif "save_in_tiles(" in out and re.search(r'save_in_tiles\([^)]*["\']guild_hall["\']', out):
+        notes.append("guild save already routed through save_in_tiles")
+    else:
+        notes.append('WARNING: could not find  v.save("guild_hall")  - change it by hand (see notes)')
+
+    if out != src:
+        bak = backup(path)
+        path.write_text(out, encoding="utf-8")
+        notes.append(f"wrote {path.name} (backup: {bak.name})")
+    else:
+        notes.append("no changes written")
+    return notes
+
+
+def patch_main(path):
+    src = path.read_text(encoding="utf-8")
+    out = src
+    notes = []
+
+    # 1) inject the fcPlaceGuildTiles helper (after the last @minecraft import)
+    if "function fcPlaceGuildTiles" not in out:
+        imps = list(re.finditer(r'(?m)^[ \t]*import\b[^\n]*@minecraft/[^\n]*$', out))
+        if imps:
+            at = imps[-1].end()
+            out = out[:at] + "\n" + JS_HELPER + out[at:]
+            notes.append("injected fcPlaceGuildTiles() after the @minecraft imports")
+        else:
+            out = JS_HELPER + "\n" + out
+            notes.append("injected fcPlaceGuildTiles() at top of file (no @minecraft/server import found)")
+    else:
+        notes.append("fcPlaceGuildTiles() already present - left as-is")
+
+    # 2) route the fc:guild placement call through the helper, keeping all args.
+    #    matches  <obj>.place( "fc:guild_hall"  ->  fcPlaceGuildTiles(<obj>, "fc:guild_hall"
+    place_pat = re.compile(r'([\w.$]+?)\.place\s*\(\s*([`\'"])fc:guild_hall\2')
+    hits = place_pat.findall(out)
+    if hits:
+        out = place_pat.sub(r'fcPlaceGuildTiles(\1, \2fc:guild_hall\2', out)
+        notes.append(f'routed {len(hits)} fc:guild_hall placement call(s) through fcPlaceGuildTiles')
+    elif out.count("fcPlaceGuildTiles(") > 1:
+        notes.append("fc:guild_hall placement already routed through fcPlaceGuildTiles")
+    else:
+        notes.append('WARNING: no  <obj>.place("fc:guild_hall", ...)  call found - route it by hand (see notes)')
+
+    if out != src:
+        bak = backup(path)
+        path.write_text(out, encoding="utf-8")
+        notes.append(f"wrote {path.name} (backup: {bak.name})")
+    else:
+        notes.append("no changes written")
+    return notes
+
+
+def main(argv):
+    root = Path(argv[1]).expanduser().resolve() if len(argv) > 1 else Path.cwd()
+    gen = root / "scripts" / "gen_structures.py"
+    mjs = root / "packs" / "Fablecraft_BP" / "scripts" / "main.js"
+
+    missing = [str(p) for p in (gen, mjs) if not p.is_file()]
+    if missing:
+        print("Could not find:")
+        for p in missing:
+            print("   ", p)
+        print("\nRun this from the FableCraft repo root, or pass the repo path:")
+        print("    python patch_guild_tiling.py /path/to/FableCraft")
+        return 1
+
+    print(f"FableCraft guild-tiling patch (tile={TILE})")
+    print(f"repo: {root}\n")
+
+    print(f"[1/2] scripts/gen_structures.py")
+    for n in patch_gen(gen):
+        print("   -", n)
+    print()
+    print(f"[2/2] packs/Fablecraft_BP/scripts/main.js")
+    for n in patch_main(mjs):
+        print("   -", n)
+
+    print("\nDone. Next steps:")
+    print("  1. Rebuild + repackage:   python scripts/build_addon.py --full")
+    print("  2. Reinstall dist/Fablecraft_Reforged.mcaddon and load a NEW world.")
+    print("\nIf you saw a WARNING above, that one edit needs doing by hand:")
+    print('  - gen_structures.py: replace   v.save("guild")   with')
+    print(f'        save_in_tiles(v, "guild", tile={TILE})')
+    print("  - main.js: find your structureManager.place call for the guild and")
+    print("        change just   <obj>.place(   to   fcPlaceGuildTiles(<obj>, ")
+    print('        leaving every original argument (including "fc:guild") intact.')
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main(sys.argv))

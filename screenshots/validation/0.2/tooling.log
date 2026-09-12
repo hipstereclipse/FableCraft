@@ -1,0 +1,2 @@
+PASS: all six adopted Python tools compile and run. Optional external-reference overlay not requested.
+Visual review: screenshots/ui/hud_faithful.png and guild-match.png inspected; unresolved baseline concerns documented in docs/AUDIT_TOOLING.md.
