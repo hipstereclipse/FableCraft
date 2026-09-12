@@ -3079,156 +3079,102 @@ def power_necropolis():
 
 
 def bandit_camp():
-    """Twinblade's war-camp: a 33-block double-staked palisade ring, skull
-    totem gate, TWO watchtowers, the Bandit King's great red pavilion on a
-    raised platform, crew tents, spit-roast fire, supply dump, prisoner cage,
-    war banners and loot chests."""
+    """Two walkable camp rings, a south-facing command tent and fighting circle.
+    Layout/clear spawn coordinates: docs/TWINBLADE_CAMP.md. Stable scatter/save ID.
+    """
     r = rng("struct", "camp")
-    S = 33
-    v = Vox(S, 13, S)
-    cx = cz = S // 2
-    RAD = 15
-    # trampled ground
-    for x in range(S):
-        for z in range(S):
-            d = math.hypot(x - cx, z - cz)
-            if d < RAD + 0.8:
-                roll = r.random()
-                v.set(x, 0, z, "minecraft:coarse_dirt" if roll < 0.5 else
-                      (PATH if roll < 0.8 else GRAVEL))
-    # ring palisade, gate to the south (+z)
+    v = Vox(33, 13, 33)
+    cx = cz = 16
+    # Trampled circular clearing, with a supported south approach at the edge.
+    for x in range(33):
+        for z in range(33):
+            if math.hypot(x - cx, z - cz) < 15.8:
+                v.set(x, 0, z, r.choice(["minecraft:coarse_dirt", PATH, GRAVEL]))
+    v.fill(14, 0, 29, 18, 0, 32, GRAVEL)
+    # Outer staked palisade with a five-wide gate facing the arrival path.
     for ang in range(0, 360, 2):
-        x = cx + round(math.cos(math.radians(ang)) * RAD)
-        z = cz + round(math.sin(math.radians(ang)) * RAD)
-        if 0 <= x < S and 0 <= z < S:
-            if 78 <= ang <= 102:
-                continue  # gate gap
-            h = 4 + (1 if ang % 8 < 4 else 0)
-            for y in range(1, h + 1):
-                v.set(x, y, z, SPRUCE_LOG)
-            v.set(x, h + 1, z, SPRUCE_FENCE)
-            # second inner stake row for heft
-            if ang % 6 < 3:
-                ix = cx + round(math.cos(math.radians(ang)) * (RAD - 1))
-                iz = cz + round(math.sin(math.radians(ang)) * (RAD - 1))
-                for y in range(1, 4):
-                    v.set(ix, y, iz, STRIPPED_SPRUCE)
-    # gate: posts, lintel, skull totems, lanterns
-    gz = cz + RAD
-    gx0, gx1 = cx - 3, cx + 3
-    for y in range(1, 6):
-        v.set(gx0, y, gz, STRIPPED_SPRUCE)
-        v.set(gx1, y, gz, STRIPPED_SPRUCE)
-    for x in range(gx0, gx1 + 1):
-        v.set(x, 6, gz, STRIPPED_SPRUCE)
-    v.set(gx0, 6, gz, "minecraft:chiseled_deepslate")   # skull totems
-    v.set(gx1, 6, gz, "minecraft:chiseled_deepslate")
-    v.set(gx0 + 1, 5, gz, LANTERN, {"hanging": True})
-    v.set(gx1 - 1, 5, gz, LANTERN, {"hanging": True})
-    # ==== TWINBLADE'S GREAT PAVILION (north, raised platform) ====
-    px0, pz0 = cx - 6, cz - RAD + 3
-    for x in range(px0 - 1, px0 + 13):       # platform
-        for z in range(pz0 - 1, pz0 + 9):
-            v.set(x, 0, z, SPRUCE)
-    half = 6
-    for i in range(half + 1):                # big red marquee, front open
-        for z in range(pz0, pz0 + 8):
-            v.set(px0 + i, 1 + i, z, "minecraft:red_wool")
-            v.set(px0 + 12 - i, 1 + i, z, "minecraft:red_wool")
-    for i in range(half):                     # close back wall
-        for x in range(px0 + i + 1, px0 + 12 - i):
-            v.set(x, 1 + i, pz0 + 7, "minecraft:red_wool")
-    # black trim stripe along the eaves
-    for z in range(pz0, pz0 + 8):
-        v.set(px0 + 1, 2, z, "minecraft:black_wool")
-        v.set(px0 + 11, 2, z, "minecraft:black_wool")
-    # throne of the Bandit King: stair throne + gold + war chest
-    tx, tz = px0 + 6, pz0 + 5
-    v.set(tx, 1, tz, GOLD)
-    v.set(tx, 2, tz, "minecraft:red_wool")
-    v.set(tx - 1, 1, tz, SPRUCE_FENCE)
-    v.set(tx + 1, 1, tz, SPRUCE_FENCE)
-    v.set(tx - 2, 1, tz, "minecraft:chest", {"minecraft:cardinal_direction": "south"})
-    v.set(tx + 2, 1, tz, "minecraft:barrel")
-    v.set(tx, 5, tz, LANTERN, {"hanging": True})
-    # twin blades crossed before the throne (end rods on fences)
-    v.set(tx - 1, 1, tz - 2, SPRUCE_FENCE)
-    v.set(tx - 1, 2, tz - 2, "minecraft:end_rod")
-    v.set(tx + 1, 1, tz - 2, SPRUCE_FENCE)
-    v.set(tx + 1, 2, tz - 2, "minecraft:end_rod")
-    # ==== two watchtowers (NE + SW) ====
-    for tx_, tz_ in ((cx + 8, cz - 8), (cx - 11, cz + 6)):
-        for lx, lz in ((tx_, tz_), (tx_ + 2, tz_), (tx_, tz_ + 2), (tx_ + 2, tz_ + 2)):
-            for y in range(1, 7):
-                v.set(lx, y, lz, SPRUCE_LOG)
-        for x in range(tx_ - 1, tx_ + 4):
-            for z in range(tz_ - 1, tz_ + 4):
-                v.set(x, 7, z, SPRUCE)
-                if x in (tx_ - 1, tx_ + 3) or z in (tz_ - 1, tz_ + 3):
-                    v.set(x, 8, z, SPRUCE_FENCE)
-        v.set(tx_ + 1, 8, tz_ + 1, "minecraft:campfire")
-        v.set(tx_ + 1, 1, tz_ + 1, "minecraft:barrel")
-    # ==== crew tents around the fire ====
-    tent(v, cx - 12, cz - 5, 5, 3, "brown", r)
-    tent(v, cx + 6, cz + 2, 5, 3, "black", r)
-    tent(v, cx - 7, cz + 6, 4, 2, "brown", r)
-    tent(v, cx + 2, cz - 9, 4, 2, "black", r)
-    # ==== central spit-roast fire pit ====
-    for dx, dz in ((-1, 0), (1, 0), (0, -1), (0, 1)):
-        v.set(cx + dx, 0, cz + dz, COBBLE)
-    v.set(cx, 1, cz, "minecraft:campfire")
-    for sx_ in (cx - 2, cx + 2):
-        v.set(sx_, 1, cz, SPRUCE_FENCE)
-        v.set(sx_, 2, cz, SPRUCE_FENCE)
-    for x in range(cx - 1, cx + 2):
-        v.set(x, 3, cz, SPRUCE_FENCE)
-    for bz in (cz - 3, cz + 3):              # log benches
-        for x in range(cx - 2, cx + 3):
-            v.set(x, 1, bz, STRIPPED_SPRUCE)
-    # ==== prisoner cage ====
-    cgx, cgz = cx + 9, cz + 7
-    for x in range(cgx, cgx + 4):
-        for z in range(cgz, cgz + 4):
-            if x in (cgx, cgx + 3) or z in (cgz, cgz + 3):
-                v.set(x, 1, z, IRON_BARS)
-                v.set(x, 2, z, IRON_BARS)
-            v.set(x, 3, z, SPRUCE)
-    v.set(cgx + 1, 1, cgz, "minecraft:air")  # cage door gap
-    # ==== supply dump + loot ====
-    sx, sz = cx - 10, cz - 1
-    v.set(sx, 1, sz, "minecraft:barrel")
-    v.set(sx + 1, 1, sz, "minecraft:barrel")
-    v.set(sx, 2, sz, "minecraft:barrel")
-    v.set(sx, 1, sz + 1, "minecraft:bookshelf")
-    v.set(sx + 1, 1, sz - 1, "minecraft:hay_block")
-    v.set(sx + 1, 2, sz - 1, "minecraft:hay_block")
-    v.set(sx - 1, 1, sz, "minecraft:chest", {"minecraft:cardinal_direction": "east"})
-    # supply cart by the gate
-    wx, wz = cx + 5, cz + 10
-    v.set(wx, 1, wz, SPRUCE_LOG)
-    v.set(wx, 1, wz + 2, SPRUCE_LOG)
-    for z in range(wz - 1, wz + 4):
-        for x in range(wx - 1, wx + 2):
-            v.set(x, 2, z, SPRUCE)
-    for x in (wx - 1, wx + 1):
-        for z in (wz - 1, wz + 3):
-            v.set(x, 3, z, SPRUCE_FENCE)
-    v.set(wx, 3, wz, "minecraft:hay_block")
-    v.set(wx, 3, wz + 1, "minecraft:barrel")
-    # training dummy
-    dx_, dz_ = cx - 6, cz - 10
-    v.set(dx_, 1, dz_, "minecraft:hay_block")
-    v.set(dx_, 2, dz_, "minecraft:hay_block")
-    v.set(dx_, 3, dz_, "minecraft:carved_pumpkin", {"minecraft:cardinal_direction": "south"})
-    v.set(dx_ - 1, 2, dz_, SPRUCE_FENCE)
-    v.set(dx_ + 1, 2, dz_, SPRUCE_FENCE)
-    # war banner poles
-    for bx_, bz_ in ((cx + 4, gz - 2), (cx - 4, gz - 2), (px0 - 1, pz0 - 1), (px0 + 13, pz0 - 1)):
-        for y in range(1, 7):
-            v.set(bx_, y, bz_, SPRUCE_FENCE)
-        v.set(bx_, 6, bz_ - 1, "minecraft:red_wool")
-        v.set(bx_, 5, bz_ - 1, "minecraft:red_wool")
-        v.set(bx_, 4, bz_ - 1, "minecraft:black_wool")
+        if 78 <= ang <= 102:
+            continue
+        x = cx + round(math.cos(math.radians(ang)) * 15)
+        z = cz + round(math.sin(math.radians(ang)) * 15)
+        height = 4 + (ang % 8 < 4)
+        v.fill(x, 1, z, x, height, z, SPRUCE_LOG)
+        v.set(x, height + 1, z, SPRUCE_FENCE)
+    for x in (13, 19):
+        v.fill(x, 1, 31, x, 5, 31, STRIPPED_SPRUCE)
+        v.set(x, 6, 31, CHISELED)
+    v.fill(14, 6, 31, 18, 6, 31, STRIPPED_SPRUCE)
+    for x in (14, 18): v.set(x, 5, 31, LANTERN, {"hanging": True})
+    # Inner elite compound: a separate fence loop and an open southern checkpoint.
+    for x in range(9, 24):
+        for z in range(2, 14):
+            if x in (9, 23) or z in (2, 13):
+                if z == 13 and 14 <= x <= 18:
+                    continue
+                v.fill(x, 1, z, x, 3, z, SPRUCE_LOG)
+                v.set(x, 4, z, SPRUCE_FENCE)
+    v.fill(13, 5, 13, 19, 5, 13, STRIPPED_SPRUCE)
+    for x in (13, 19):
+        v.fill(x, 1, 13, x, 4, 13, STRIPPED_SPRUCE)
+        v.set(x, 6, 13, "minecraft:red_wool")
+    # Great hide/canvas pavilion, open toward the checkpoint, closed at the north.
+    v.fill(10, 0, 3, 22, 0, 12, SPRUCE)
+    for step in range(7):
+        for x in (10 + step, 22 - step):
+            v.fill(x, 1 + step, 4, x, 1 + step, 11,
+                   "minecraft:red_wool" if step == 5 else "minecraft:brown_wool")
+        if step < 6:
+            v.fill(11 + step, 1 + step, 4, 21 - step, 1 + step, 4, "minecraft:brown_wool")
+    # Throne and four total camp chests preserve the existing loot opportunities.
+    v.set(16, 1, 7, GOLD)
+    v.set(16, 2, 7, "minecraft:red_wool")
+    v.set(14, 1, 9, "minecraft:chest", {"minecraft:cardinal_direction": "south"})
+    v.set(18, 1, 9, "minecraft:barrel")
+    v.set(16, 5, 8, LANTERN, {"hanging": True})
+    # Twin watchtowers; ladders on their north faces reach openings in the decks.
+    for tx, tz in ((5, 8), (25, 9)):
+        v.fill(tx, 0, tz - 1, tx + 2, 0, tz + 2, "minecraft:coarse_dirt")
+        for x in (tx, tx + 2):
+            for z in (tz, tz + 2): v.fill(x, 1, z, x, 6, z, SPRUCE_LOG)
+        v.fill(tx, 7, tz, tx + 2, 7, tz + 2, SPRUCE)
+        v.fill(tx + 1, 1, tz, tx + 1, 7, tz, SPRUCE_LOG)
+        v.fill(tx + 1, 1, tz - 1, tx + 1, 7, tz - 1, "minecraft:ladder", {"facing_direction": 2})
+        v.set(tx, 8, tz + 2, LANTERN)
+    # Crew canvas tents sit outside the elite compound and face their access lanes.
+    for z in (13, 20):
+        tent(v, 22, z, 5, 3, "brown", r)
+        v.fill(25, 1, z, 25, 2, z + 1, "minecraft:air")
+        v.set(25, 3, z + 2, LANTERN, {"hanging": True})
+    # Three distinct stalls: supplies, drink barrels and provisions; no new shop AI.
+    for index, (x, z) in enumerate(((5, 13), (5, 19), (8, 25))):
+        v.fill(x, 0, z, x + 4, 0, z + 2, SPRUCE)
+        for px in (x, x + 4):
+            for pz in (z, z + 2): v.fill(px, 1, pz, px, 3, pz, SPRUCE_FENCE)
+        v.fill(x, 4, z, x + 4, 4, z + 2, "minecraft:brown_wool")
+        v.fill(x + 1, 1, z + 1, x + 3, 1, z + 1, SPRUCE)
+        if index == 0:
+            v.set(x + 2, 1, z + 1, "minecraft:chest", {"minecraft:cardinal_direction": "north"})
+        elif index == 1:
+            v.set(x + 2, 1, z + 1, "minecraft:barrel")
+        else:
+            v.set(x + 2, 2, z + 1, "minecraft:hay_block")
+    # Fighting circle: a flat, obstacle-free arena distinct from the campfire sites.
+    for x in range(11, 22):
+        for z in range(15, 26):
+            distance = math.hypot(x - 16, z - 20)
+            if distance <= 4.5:
+                v.set(x, 0, z, COBBLE if distance >= 3.6 else "minecraft:coarse_dirt")
+    for x in (10, 22):
+        v.set(x, 0, 18, COBBLE)
+        v.set(x, 1, 18, "minecraft:campfire")
+    # Main route crosses both gates and reaches the command chest from the south.
+    # Side routes connect the outer-ring stalls, crew tents and watchtower ladders.
+    for x0, z0, x1, z1 in ((14, 13, 18, 32), (7, 12, 25, 12),
+                           (7, 17, 14, 17), (10, 24, 14, 24), (19, 19, 25, 19)):
+        for x in range(x0, x1 + 1):
+            for z in range(z0, z1 + 1):
+                if math.hypot(x - 16, z - 20) > 4.5:
+                    v.set(x, 0, z, GRAVEL)
     v.save("bandit_camp")
 
 

@@ -10,38 +10,46 @@ six reference snapshots are in docs/. User override (2026-09-12): finish the spe
 and continue as far as practical without permission questions. Retain separate
 milestone commits, validation, immediate pushes, evidence and fresh handoffs.
 
-Current milestone: W1.2 — Lychfield crypt landmarks and safe spawns; status in-progress.
-Last resolved prior commit: 2db414bbe53fea87f48fdf5c2cfd67da6eec4b0a (pushed).
-Containing commit: TLC Conformance — W1.2: add Lychfield crypt landmarks and safe spawns.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — W1.2: add Lychfield crypt landmarks and safe spawns'.
+Current milestone: W1.3 — Twinblade camp rings and fighting circle; status in-progress.
+Last resolved prior commit: 608edf164b31b48f53c9ed601cde1ef31f67a485 (pushed).
+Containing commit: TLC Conformance — W1.3: connect Twinblade camp rings and fighting circle.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — W1.3: connect Twinblade camp rings and fighting circle'.
 Replace previous SELF evidence with the actual hash next step; never invent a self-hash.
 
-W1.2 retains fc:graveyard and 25x13x25 scatter/loot/save contracts. Nostro's crypt has
-three stone sarcophagi and open walking aisles; a keeper hut and climbable gate-stair
-stone face were added. main.js mobSpawns translates three clear local lane positions;
-other POIs keep their previous spawn policy. Seven geometry/runtime regression groups
-pass, including actual maybePlace with voxel data, both terrain classes and saved-region
-idempotence. The old owner fails four landmark/route contracts. A missing crafting-table
-render palette entry was added. docs/LYCHFIELD_CRYPT.md records routes and scope gaps.
-The sealed stone face has no Nostro command, speech/opening or onward path implemented.
-Do not silently register the unrelated generic Demon Door riddle. No fc:place handler
-exists: raw /structure load places blocks only; scatter handles loot/population.
+W1.3 retains fc:bandit_camp, 33x13x33, surfaces/weight, four enemies and four
+chests with the existing loot table. It has outer and inner palisade checkpoints,
+a south-facing brown command tent with red trim, a clear fighting circle, three
+stalls, two crew tents and two ladder-accessible watchtowers. Fires are outside the
+combat floor. Four mobSpawns anchors use W1.2's runtime translation. Six new groups
+pass; the old owner fails four landmark/route groups. Tests caught and corrected
+a tower ladder approach blocked by the palisade. docs/TWINBLADE_CAMP.md records routes,
+provenance and unrun manual checks. Lakeside setting, checkpoint quests, stall trading
+and a staged duel remain gaps. No fixed map or new Cullis/riddle-door registration.
 
-All 17 local scripts/validate.py gates pass. C2 render/asset hashes are current. The
-full all-category pass uses isolated tmp/conformance/W1.2-full-screenshots; its logs,
-audit and graveyard card are retained under screenshots/validation/W1.2. South/cutaway
-views reveal the face and interiors hidden by the default camera. Original-TLC pixel
-comparison remains pending: the dated MobyGames candidate could not be fetched.
-No canon-A or in-world pass is claimed; every manual check remains explicitly unrun.
+W1.2 at 608edf1 adds the keeper hut, three stone sarcophagi, gate-stair stone face
+and clear undead spawns, retaining fc:graveyard and 25x13x25. Seven tests pass.
+The sealed face has no Nostro command, speech/opening or onward path implemented;
+do not register the unrelated generic Demon Door riddle. docs/LYCHFIELD_CRYPT.md
+has all routes and pending manual checks. No fc:place handler exists: raw
+/structure load places blocks only; scatter initializes population and loot.
+
+All 18 local scripts/validate.py gates pass. poi_population.cjs is the shared
+actual-source placement harness; W1.2's graveyard_placement.cjs remains a wrapper.
+C2 render/asset hashes are current. The full all-category pass runs under isolated
+tmp/conformance/W1.3-full-screenshots; its log, audit and camp card are retained in
+screenshots/validation/W1.3. South/cutaway views show the rings and tent interiors.
+Original-TLC comparison stays pending: the MobyGames Twinblade candidate returned
+HTTP 403, and the graveyard candidate could not be fetched. No canon-A or in-world
+pass is claimed. Existing saved structures are not retrofitted.
 
 C3's scoreboard requires --write after EVERY checklist change:
 python scripts/conformance_score.py --write, then --check. It tracks 45 plan leaves,
 explicit automated/manual counts and offline appearance grades separately.
-W1.1 remote CI passed at 2db414b (run 34678706829); metadata is in
-screenshots/validation/W1.1/remote-run.json. Inspect this milestone's newest pushed
-run for its actual head before the next milestone. C2/C1/C3/L4 CI also passed at
-recorded commits. C2's in-world checklist remains in docs/STRUCTURE_CONTRACT.md.
-No Guild tiling was applied; Maze's corrected spawn remains (46,12,70).
+W1.2 remote CI passed at 608edf1 (run 34699196533); metadata is in
+screenshots/validation/W1.2/remote-run.json. W1.1/C2/C1/C3/L4 also passed at recorded
+commits. Inspect the newest pushed run for its actual head before the next milestone.
+C2's in-world checklist stays pending in docs/STRUCTURE_CONTRACT.md. No Guild tiling
+was applied; Maze's corrected spawn remains (46,12,70).
 
 L4 releases remain blocked: original preview2,512 known-name findings, unselected final
 public title (Wayfarer Tales provisional), and missing saved-world remap. No exemptions.
@@ -49,7 +57,9 @@ public title (Wayfarer Tales provisional), and missing saved-world remap. No exe
 missing hunger frame and nav bleed. Keep these visible rather than scoring them passed.
 
 Next three actions:
-1. git pull --ff-only; read the top pending row and start W1.3 Twinblade tent rings.
+1. git pull --ff-only; read the top pending row and start W1.4 Arena halls.
+   Its current gate comment is reversed: south (+z) is actually barred (gdir == -1).
+   Audit emitted routes before copying comments; waiting room and Hall of Heroes are absent.
 2. Execute its numbered playbook steps and applicable base/domain validators; preserve
    real output under screenshots/validation/<ID>/, mark manual observations unrun.
 3. Update checklist/handoff in one explicitly staged milestone commit, push to origin,

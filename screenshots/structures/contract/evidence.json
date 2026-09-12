@@ -21,19 +21,19 @@
       "notes": []
     },
     "bandit_camp": {
-      "asset_sha256": "91de757c5fae6cab44b580d8f7ea069516205d44986c9469fa3f8ebfffebf071",
+      "asset_sha256": "a884bd51e1a09ea33760d05cc90a13b94a76fd00feb072190a09b14a6fa1a7d6",
       "size": [
         33,
         13,
         33
       ],
-      "image_sha256": "0a18375b2889a10f38b6bd209049b8ce97b87d2627a3a62c888f0171c68287e1",
+      "image_sha256": "58b544a5fa72643f466d40539ca3ed7fca30a8512decdc97d7c0efc42cc8f957",
       "grade": "S",
       "score": 100,
       "metrics": {
-        "coverage": 21.8,
-        "colors": 35,
-        "contrast": 0.87,
+        "coverage": 21.7,
+        "colors": 30,
+        "contrast": 0.8,
         "brightness": 0.28,
         "placeholder": false
       },

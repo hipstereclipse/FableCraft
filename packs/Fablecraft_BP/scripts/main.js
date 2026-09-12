@@ -5449,7 +5449,8 @@ const REGION = 160;
 const STRUCTS = [
   { id: "fc:demon_door_arch", w: 23, h: 18, d: 13, weight: 10, surf: ["grass", "dark", "rock", "snow"], theme: "dark", door: true },
   { id: "fc:silver_chest_ruin", w: 13, h: 8, d: 13, weight: 11, surf: ["grass", "dark", "rock", "sand", "snow"], theme: "forest", loot: "ruin" },
-  { id: "fc:bandit_camp", w: 33, h: 13, d: 33, weight: 9, surf: ["grass", "dark", "rock"], theme: "dark", mobs: ["fc:bandit", "fc:bandit", "fc:bandit_archer", "fc:twinblade"] },
+  { id: "fc:bandit_camp", w: 33, h: 13, d: 33, weight: 9, surf: ["grass", "dark", "rock"], theme: "dark", mobs: ["fc:bandit", "fc:bandit", "fc:bandit_archer", "fc:twinblade"],
+    mobSpawns: [[12.5, 1, 18.5], [20.5, 1, 20.5], [16.5, 1, 27.5], [16.5, 1, 17.5]] }, // gen_structures.bandit_camp lanes and circle
   { id: "fc:graveyard", w: 25, h: 13, d: 25, weight: 7, surf: ["grass", "dark"], theme: "dark", mobs: ["fc:undead", "fc:undead_soldier", "fc:undead_knight"],
     mobSpawns: [[12.5, 1, 12.5], [12.5, 1, 16.5], [15.5, 1, 10.5]] }, // gen_structures.graveyard walking lanes
   { id: "fc:focus_site", w: 13, h: 10, d: 13, weight: 7, surf: ["grass", "dark", "rock", "sand", "snow"], theme: "dark", cullis: true },

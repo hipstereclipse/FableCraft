@@ -1041,7 +1041,7 @@ def main():
         "power_oakvale_quay": ("Oakvale Quay", "Village green, tree, well and coast", "forest"),
         "power_snowspire_oracle": ("Snowspire Oracle", "Frozen lane to the Oracle monolith", "frost"),
         "power_necropolis": ("Necropolis Ruin", "Glyph stones and broken bridge", "dark"),
-        "bandit_camp": ("Bandit Camp", "Twinblade's raiders · tents · loot", "stone"),
+        "bandit_camp": ("Bandit Camp", "Twinblade's tent · checkpoint rings · fighting circle", "stone"),
         "graveyard": ("Lychfield Graveyard", "Nostro's crypt · keeper hut · gate-stair face", "swamp"),
         "temple_avo": ("Temple of Avo", "Donation fountain · sword in the stone", "holy"),
         "chapel_skorm": ("Chapel of Skorm", "Dark sacrifices welcome", "fire"),

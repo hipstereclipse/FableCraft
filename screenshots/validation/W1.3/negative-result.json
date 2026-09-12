@@ -1,0 +1,5 @@
+{
+  "command": "FC_CAMP_TEST_SOURCE=tmp/conformance/gen_structures_before_W1.3.py python scripts/tests/test_bandit_camp.py",
+  "exit_code": 1,
+  "expected": "nonzero: old camp lacks checkpoints, clear fighting circle, stalls and connected interactions"
+}
