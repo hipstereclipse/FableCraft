@@ -4,6 +4,16 @@ Updated 2026-09-12. Leaf rows are the units of execution. See the playbook for r
 acceptance and evidence policy. `SELF` resolves to the commit containing that row update;
 replace with a real hash in the next milestone. A mock or render is never an in-game pass.
 
+## Current execution priority
+
+User override (2026-09-12): improve the Guild layout, NPC behavior and original
+TLC accuracy iteratively; redesign opened Demon Doors as traversable portals to
+individually designed corresponding reward worlds with return travel. Start the
+GP/DP queue in [GUILD_DEMON_PRIORITIES.md](GUILD_DEMON_PRIORITIES.md) before W3.5.
+That newly authorized queue is tracked separately from these 45 historical leaves;
+the existing completion counts do not measure Guild/portal redesign completion.
+No gameplay implementation or manual acceptance is implied by this priority update.
+
 ## Prerequisites and bootstrap
 
 | Item | Status (todo/in-progress/done) | Evidence (commit + screenshot/validator path) | Grade | Date |
@@ -48,7 +58,7 @@ replace with a real hash in the next milestone. A mock or render is never an in-
 | W3.1 Bargate Prison | in-progress | a2141634495e7a89dc9bd1f1453d649fe6601acc; screenshots/validation/W3.1/; docs/BARGATE_PRISON.md | PASS (automated); PENDING (manual/reference comparison) | 2026-09-12 |
 | W3.2 Bronze Gate and Archon Shrine | in-progress | b5db77c333113d7036d8da1d08542bf559634fb5; screenshots/validation/W3.2/; docs/ARCHON_SHRINE.md | PASS (automated); PENDING (manual/reference comparison) | 2026-09-12 |
 | W3.3 Archon Folly | in-progress | c73bbf67398f341e3feb8a50b200d3f0ede3db93; screenshots/validation/W3.3/; docs/ARCHON_FOLLY.md | PASS (automated); C (partial visual); PENDING (manual/reference comparison) | 2026-09-12 |
-| W3.4 Greatwood Gorge toll bridge | in-progress | SELF: TLC Conformance — W3.4: add Greatwood Gorge bridge and checkpoint; screenshots/validation/W3.4/; docs/GREATWOOD_GORGE.md | PASS (automated); PENDING (manual/reference comparison) | 2026-09-12 |
+| W3.4 Greatwood Gorge toll bridge | in-progress | 0a64e764f50ec349da5dff209b2e72e3a0885da2; screenshots/validation/W3.4/; docs/GREATWOOD_GORGE.md | PASS (automated); PENDING (manual/reference comparison) | 2026-09-12 |
 | W3.5 Darkwood Bordello | todo | — | — | — |
 | W4.1 Oakvale walkability | todo | — | — | — |
 | W4.2 Bowerstone walkability | todo | — | — | — |

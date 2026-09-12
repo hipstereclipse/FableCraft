@@ -10,13 +10,53 @@ six reference snapshots are in docs/. User override (2026-09-12): finish the spe
 WIP and continue as far as practical without permission questions. Keep separate
 milestone commits, validation, immediate pushes, evidence and fresh handoffs.
 
-Current milestone: W3.4 — Greatwood Gorge toll bridge; status in-progress.
-Last resolved prior commit: c73bbf67398f341e3feb8a50b200d3f0ede3db93 (pushed).
-Containing commit: TLC Conformance — W3.4: add Greatwood Gorge bridge and checkpoint.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — W3.4: add Greatwood Gorge bridge and checkpoint'.
-Replace previous SELF with the actual hash next step; never invent a self-hash.
+Latest user override (2026-09-12): prioritize recursively improving the Guild
+layout, NPC behavior and fidelity to original 2005 Fable: The Lost Chapters.
+Also prioritize redesigning Demon Doors so opening creates a Nether-portal-like
+walk-through transition to each door's corresponding designed reward room/world,
+with exploration, reward collection and a reliable portal back to the source.
+This overrides the old instruction to start W3.5 or keep adding unrelated POIs.
+Read docs/GUILD_DEMON_PRIORITIES.md first; it is the active execution queue.
 
-W3.4 adds fc:greatwood_gorge, 39x16x43, weight 6, grass/rock, forest theme.
+Current checkpoint: PRIORITY — Guild and Demon Door redesign priorities documented.
+Implementation status: GP1/GP2/GP3/DP1/DP2/GP4 all todo; no redesign implemented here.
+Last resolved prior commit: 0a64e764f50ec349da5dff209b2e72e3a0885da2 (pushed).
+Containing commit: TLC Conformance — PRIORITY: prioritize Guild and Demon Door redesign.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — PRIORITY: prioritize Guild and Demon Door redesign'.
+Never invent a self-hash. Prior W3.4 SELF is resolved in the checklist.
+
+Start with a reference/geometry/NPC defect audit, then a substantive Guild layout
+pass, a Guild NPC pass and a complete Guild Demon Door/destination pilot. Repeat
+inspect → compare → fix → regenerate → test → re-inspect, revisiting adjacent
+rooms, routes and NPCs after changes. Rank concrete fidelity/behavior defects;
+do not stop at a silhouette or a passing render score. Keep the Guild and door
+work advancing; do not defer portals indefinitely behind Guild perfection.
+
+Guild scope: architecture/proportions, connected rooms and interiors, map/quest/
+skill/Cullis interactions, Maze's tower, courtyard/river/bridges/training, cave/
+Chamber of Fate and door approach. Audit NPC purpose, training, dialogue and
+reactions, movement freezing, repeated teleports and respawn/repair loops. Verify
+canonical behavior; label Minecraft adaptations. Current Maze (46,12,70) is an
+audited baseline: redesign may move anchors only with all owners/consumers/tests
+changed together. Reanchor is not geometry migration. Preserve saved-world progress.
+
+Demon Door baseline: doorPersona currently uses a coordinate-derived table index;
+openDemonDoor grants items/XP immediately and animates the face. It does not take
+the player into a reward world. Replace this with stable door/challenge/destination
+mapping, expressive opening, a clear usable portal, unique designed destination,
+in-room reward and safe exact-source return. Persist unlock/room/claim/return state
+beyond face entity lifetime; prevent duplicate rewards and portal bounce loops.
+Audit already-open/paid legacy doors, concurrency, death/reload and failed travel.
+Verify supported Bedrock realm storage/loading APIs before choosing dimensions;
+Nether-like traversal does not mean generic Nether travel. Keep ordinary procedural
+scatter and story-door exceptions such as Nostro. No generic riddle substitutions.
+
+The GP/DP priorities are supplemental, tracked separately from C3's original 45
+leaves; do not inflate the old scoreboard or mark these new deliverables done.
+Defer W3.5 and other unrelated expansion while this cycle has actionable work.
+Missing engine access leaves checks unrun; continue independent priority work.
+
+W3.4 at 0a64e76 adds fc:greatwood_gorge, 39x16x43, weight 6, grass/rock, forest theme.
 Raised banks, five-wide timber bridge/rails, bandit checkpoint/shack, static
 stone face and two stair flights connect the upper route to a dry lower ravine.
 One ordinary chest and three bandits have tested anchors. Six groups cover
@@ -76,7 +116,11 @@ Nostro's onward route is missing: never substitute an unrelated Demon Door riddl
 No fc:place handler exists. Raw /structure load places blocks only; scatter owns
 population, loot and travel. Keep procedural scatter, no fixed map or old-region retrofit.
 
-All 27 local scripts/validate.py gates pass, plus explicit spell and syntax checks.
+The W3.4 baseline has all 27 local scripts/validate.py gates passing, plus spell
+and syntax checks. This docs-only priority checkpoint saves its validation under
+screenshots/validation/PRIORITY/: all 27 gates plus explicit lint/spells pass.
+New renders are not applicable. No new in-engine checks or Guild/portal
+implementation passes are claimed.
 C2 covers 34 assets/renders (28 scatter/two fixed/four legacy), 15 contract groups
 and nine placement cases. Current asset/render hashes match. Full all-category
 pipelines ran through W3.4 in tmp/conformance/<ID>-full-screenshots; W3.4 renders
@@ -92,11 +136,13 @@ screenshots/validation/W3.3/remote-run.json. Inspect newest workflow's actual he
 All current world rows remain in-progress for manual/reference work, not done.
 
 Next three actions:
-1. git pull --ff-only; start top todo W3.5 Darkwood Bordello.
-2. Execute its numbered playbook and base/world validators. Save actual outputs
-   under screenshots/validation/<ID>; every unobserved engine check stays unrun.
-3. Update checklist/handoff, explicitly stage one milestone commit, push origin
-   immediately and continue automatically. At context limits print this prompt verbatim.
+1. git pull --ff-only; read docs/GUILD_DEMON_PRIORITIES.md; begin GP1 Guild
+   reference/layout/NPC audit and ranked defect ledger, not W3.5.
+2. Implement the next bounded Guild/door pass, run its base/domain validators,
+   inspect reference comparisons and record actual engine checks separately.
+3. Save evidence, update the priority ledger/checklist/handoff, commit one coherent
+   pass and push immediately; repeat the prioritized improvement cycle automatically.
+   At context limits print this continuation prompt verbatim.
 
 Landmines: hundreds of apparent edits are CRLF noise. Never git add -A, commit -a,
 renormalize, create .gitattributes or discard unrelated work. Read diffs with
@@ -108,7 +154,8 @@ before regeneration; use targeted owners. Passing 0.1 does not prove unrestricte
 Never hand-edit generator-owned BP entities, RP models/animations/controllers/
 attachables/particles, fable_emote_registry.js, fable_hud.js, fc_gamedata.js or
 texts/languages.json. Find/establish ownership if memory disagrees. Keep GUILD anchors
-coupled to gen_structures; reanchor refreshes but does not audit. Maze stays (46,12,70).
+coupled to gen_structures; reanchor refreshes but does not audit. Maze baseline is
+(46,12,70); change it only as a fully coupled, validated redesign.
 No Guild tiling applied; never run the old patch blindly. All-cross-references-OK
 checks assets only. Keep HUD payload/spacers/clip offsets coupled. wd alignment is
 authoritative; preserve the legacy XP-spending bridge. HUD's narrow green radar,

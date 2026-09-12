@@ -1,0 +1,157 @@
+# Guild and Demon Door priorities
+
+User override, 2026-09-12: prioritize recursively improving the Guild layout,
+NPC behavior and accuracy to the original game, and redesign Demon Doors so an
+opened door acts like a Nether portal into its corresponding Fable-style reward
+room/world. This supersedes the old breadth-first milestone order. This document
+specifies future implementation; this priority update changes no gameplay.
+
+## Execution order and recursive improvement
+
+Begin with GP1, then one substantive Guild layout pass (GP2), one Guild NPC pass
+(GP3), and a complete Guild Demon Door portal/reward-world pilot (DP1/DP2).
+Then repeat Guild and door improvement passes against the largest observed
+remaining defects. Keep both priorities advancing: complete the door pilot after
+the first Guild layout and NPC passes, then alternate by defect priority. Defer W3.5 and other
+unrelated expansion while this priority cycle has actionable work. Required
+validation, compatibility and directly supporting animation/VFX work remain in scope.
+
+Each pass: compare references and current behavior → list concrete defects → fix
+one coherent group through its owners → regenerate affected assets → test routes,
+NPC behavior and interactions → inspect the result → re-evaluate the affected
+rooms, adjoining routes and NPCs. Feed discoveries back into the next pass. This
+is an iterative quality-improvement cycle. Preserve separate commits, immediate
+pushes and fresh handoffs;
+continue without routine permission questions. If an engine check cannot run,
+record it unrun and advance independent work rather than declaring fidelity done.
+
+Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard):
+
+| Pass | Status | Outcome required |
+| --- | --- | --- |
+| GP1 | todo | Guild reference/geometry/NPC audit and ranked defect ledger with baseline views |
+| GP2 | todo | Repeated reference-led layout, architecture, interior and walking-route improvements |
+| GP3 | todo | Repeated character-specific Guild NPC behavior and interaction improvements |
+| DP1 | todo | Verified door/challenge/destination mapping and complete portal/return pilot |
+| DP2 | todo | Individually designed reward worlds and persistent reward/unlock behavior |
+| GP4 | todo | Integrated Guild/door review, regression checks and next ranked improvement pass |
+
+Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
+defects and manual status here. These passes are not completed legacy leaves.
+Keep the existing C3 scoreboard accurate; changing its denominator requires a
+separate explicit implementation of the expanded scoring contract.
+
+## Guild: design and NPC acceptance
+
+Use the original 2005 Fable: The Lost Chapters as the target. Start with the
+architecture, visual_reference, UIofFable and emotes snapshots in
+`docs/references/fable-tlc-expert/`; find the referenced Guild build sample in the
+original local reference directory if available. Verify contradictory details
+and undocumented proportions against actual original-game views, retaining
+source provenance. Keep reference-supported features separate from Minecraft
+adaptations. Do not treat a renderer's S score as evidence of resemblance.
+
+Audit the campus as a connected place: entrance and main hall, map/quest/skill
+and Cullis interactions, library and living spaces, Maze's tower/study, courtyard,
+river/islands/bridges and training grounds, cave/Chamber of Fate and Demon Door
+approach. Establish adjacency, proportions, elevation, sightlines, architecture,
+materials, roofs, interior furnishings and readable routes. Break the audit down
+room by room and revisit adjacent spaces after each change. Prioritize serious
+layout and silhouette mismatches before decorative detail. Track a reference
+comparison and a walk-through for each route, including usable stairs/doorways,
+headroom, NPC access and absence of hidden repairs masking bad generated geometry.
+
+For each relevant Guild character and apprentice, document original-game role,
+location, dialogue, activity and reaction. Improve training/sparring/archery,
+idle activity, interaction interruption/resumption, player proximity and aggression
+responses where supported. Distinguish canonical behavior from chosen background
+routines; do not invent schedules or dialogue as canon. Audit current station
+pinning, periodic teleports, movement freezing, repair sweeps, duplicates after
+reload and friendly-fire handling. Aim for purposeful behavior and believable
+movement without breaking quest/training interactions. Tests must exercise
+state changes and failure paths; static poses do not prove AI execution.
+
+Owners/starting points: `scripts/gen_structures.py` (`guild_hall`, `GUILD_LAYOUT`,
+related chamber builders), `packs/Fablecraft_BP/scripts/main.js` (`GUILD`, initialization, station/training and
+repair loops), `scripts/gen_behavior.py`, `scripts/gen_resources.py`, `scripts/fc_mobs.py`
+and the actual owners of data/dialogue/animation outputs. Never hand-edit generated
+entities, models, controllers, HUD or data exports. Run behavior regression before
+regeneration and review targeted output drift.
+
+Keep GUILD_LAYOUT, GUILD, interaction/spawn anchors, terrain/cave exclusions,
+ticking areas and C2 assertions coupled. Current Maze anchor is (46,12,70): a
+baseline to audit, not a ban on a reference-supported redesign. If any anchor
+moves, change every owner/consumer and its tests together. Reanchor refreshes
+coordinates only; it does not rebuild geometry. Explicitly distinguish new-world
+redesign from any versioned saved-world migration; do not silently overwrite an
+occupied Guild or revive the obsolete tiling patch.
+
+## Demon Doors: complete destination experience
+
+Current code audit: `doorPersona` defaults to a coordinate-derived table index;
+`openDemonDoor` stores `fc_door_open` on the entity, moves the face through
+`animateDoorOpening`, and immediately awards items/XP. `ensureAllDemonDoors` can
+recreate faces. This is the starting implementation, not portal travel. Audit
+`scripts/fc_data.py`, its exporter to `fc_gamedata.js`, the door entity/resource
+owners, and these runtime functions before designing replacements.
+
+For every supported door, maintain an explicit stable mapping of door identity,
+location/archetype, original challenge, dialogue/personality, opening presentation,
+reward realm and reward. Verify the Guild door's own challenge and destination
+first. Then map other doors, including existing scattered ones and static
+landmarks awaiting functional integration. Preserve story-route exceptions such
+as Nostro's onward passage; do not replace them with a generic riddle/reward box.
+Do not let coordinate changes or entity recreation silently select a new persona.
+
+Required experience: locked speaking face → correct challenge → opening animation
+and a visibly traversable portal → player steps into/dwells in the opening →
+transition into that door's individually designed reward world → explore and
+collect its reward → return portal restores the exact source door/dimension with
+safe facing and clearance. An opened door remains a reusable entrance. Preserve
+Fable-style presentation; the Nether-portal analogy describes physical traversal
+and transition, not sending every door into the ordinary Nether or relying only
+on a menu/instant inventory reward. Reward discovery belongs inside the destination.
+
+Each destination needs distinct reference-led layout, atmosphere, architecture or
+landscape, lighting, sound, set dressing, reward placement and exit. Reusing one
+undecorated room for every door does not meet this request. Build original assets
+through generators. The prototype must verify the installed Bedrock version's
+actual dimension/structure/loading APIs against current official documentation;
+do not promise arbitrary custom dimensions without proof. If separate custom
+dimensions are unavailable, design stable isolated realm spaces in supported
+world storage that preserve the distinct-world experience. Keep ordinary-world
+scatter; do not turn Albion into a fixed map. Document the chosen storage and
+allocation model, bounds and isolation before expanding the room catalogue.
+
+Persist door-to-realm identity, unlocks, generated-room version, reward claims
+and source/return dimension/position independently of a replaceable face entity.
+Define shared-world versus per-player reward/access semantics explicitly. Handle
+already-open legacy doors and already-awarded rewards without resetting progress
+or granting duplicates. Build/verify a destination and safe arrival before moving
+the player. Handle interrupted generation, unloaded chunks, death/disconnect,
+concurrent players, retries and failed teleport; leave a recoverable return path.
+Use cooldown/exit clearance to prevent immediate return loops. Confirm that moved
+faces and surrounding blocks no longer obstruct the usable portal aperture.
+
+Validate locked denial, correct/incorrect requirements, single consumption,
+opening completion, approach from both sides, repeated visits, exact-door return,
+missing destination, failed teleport, reload/entity replacement and simultaneous
+players. Verify rewards cannot duplicate and separate doors cannot share the
+wrong room/return anchor. Exercise portal and reward flow in-engine; mocks and
+renders alone leave this priority in-progress.
+
+## Evidence and iteration gate
+
+Use the existing base/world/entity/VFX recipes as applicable, Guild match/roof
+and numeric-anchor audits, structure-manifest tests and meaningful NPC/portal
+regressions. Save original baseline and new exterior/interior views, reference
+comparison notes, route diagrams and actual command results under
+`screenshots/validation/<pass-ID>/`. Label cutaways and unrun engine checks.
+
+At every checkpoint, record what improved, what still differs from the original,
+what actually ran in-engine, and the next highest-impact defect. Return to the
+Guild/door cycle when a pass reveals a related defect. Resume deferred breadth
+only after the prioritized deliverables have evidence-backed acceptance, or
+when all remaining priority work truly depends on unavailable engine/reference
+access; record that dependency and do not mark it done. Merely adding rooms,
+passing asset hashes or generating attractive thumbnails does not close this work.

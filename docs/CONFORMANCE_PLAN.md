@@ -5,6 +5,16 @@ The latest user instruction authorizes finishing the spell WIP and continuing th
 of the plan as practical without permission questions. It supersedes the old per-step pause,
 but not separate commits, validation, pushing or honest handoffs.
 
+## Current priority override — Guild and Demon Doors (2026-09-12)
+
+The user's latest request puts recursive Guild layout/NPC/original-game fidelity
+improvement and Demon Door portal/reward-world redesign ahead of W3.5 and other
+unrelated expansion. Execute [GUILD_DEMON_PRIORITIES.md](GUILD_DEMON_PRIORITIES.md)
+first: baseline audit, Guild layout and NPC passes, complete door/destination pilot,
+then repeat improvement passes. Keep every unfinished old leaf and its evidence.
+The supplemental GP/DP queue is separate from the historical 45-leaf scoreboard.
+The request in this checkpoint is to update priorities, not claim the redesign done.
+
 ## Start here on either machine
 
 1. Read [HANDOFF.md](HANDOFF.md) and [CONFORMANCE_CHECKLIST.md](CONFORMANCE_CHECKLIST.md).
@@ -95,7 +105,8 @@ Do not execute patch_guild_tiling.py: it targets an older layout and requires a 
 ## Mandatory milestone loop (current user override applied)
 
 1. `git pull --ff-only`; read HANDOFF + CHECKLIST; choose the top todo leaf in the active
-   phase and mark in-progress. Order: 0, L, W, E, V, M, C. M0 supplies the planned smoke harness.
+   phase and mark in-progress. The current Guild/Demon Door priority override takes
+   precedence; otherwise use order 0, L, W, E, V, M, C. M0 supplies the planned smoke harness.
 2. Read the numbered instructions below, their references and relevant current source.
 3. Implement only that milestone; do not combine unrelated milestones or touch generated
    outputs by hand. Keep the completed spell prerequisite separate from conformance commits.

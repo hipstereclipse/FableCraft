@@ -1,0 +1,23 @@
+{
+  "checks": {
+    "spells": {
+      "command": [
+        "node",
+        "--experimental-vm-modules",
+        "scripts/tests/spells.test.mjs"
+      ],
+      "exit_code": 0
+    },
+    "explicit-lint": {
+      "command": [
+        "npx",
+        "--no-install",
+        "eslint",
+        "packs/Fablecraft_BP/scripts"
+      ],
+      "exit_code": 0
+    }
+  },
+  "renders": "not applicable: documentation-only priority update",
+  "engine": "unrun; no gameplay changes"
+}
