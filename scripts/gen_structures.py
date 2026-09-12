@@ -618,6 +618,48 @@ def build_guild_circulation(v):
         v.fill(25, 1, z0, 27, 2, z1, "minecraft:air")
 
 
+def build_guild_map_table(v, cx, cz, r):
+    """A low wood-framed land/sea relief, within the existing map footprint.
+
+    The coarse coastline is authored for Minecraft, not copied source geometry.
+    Consume the old 37 map draws so later Guild masonry, trees and furnishing
+    retain their exact shared-RNG sequence when this table changes.
+    """
+    for x in range(cx - 4, cx + 5):
+        for z in range(cz - 4, cz + 5):
+            d = math.hypot(x - cx, z - cz)
+            if d <= 4.3:
+                v.set(x, 0, z, DARKOAK)
+            if d <= 3.4:
+                r.random()  # legacy map allocation; deliberately not a color roll
+    # North ridge and western lowlands surround a connected south-eastern bay.
+    # The polygonal rim, sea and sandy shore stand only half a block above the
+    # floor; earth and moss rise another half block. There is no centre beacon.
+    relief = (
+        "  rrr  ",
+        " rcccr ",
+        "rccmmwr",
+        "rcmmwwr",
+        "rmmhwwr",
+        " rmwwr ",
+        "  rrr  ",
+    )
+    materials = {
+        "r": "minecraft:spruce_slab",
+        "w": "minecraft:dark_prismarine_slab",
+        "h": "minecraft:sandstone_slab",
+        "c": "minecraft:coarse_dirt",
+        "m": "minecraft:moss_block",
+    }
+    for dz, row in enumerate(relief, -3):
+        for dx, symbol in enumerate(row, -3):
+            if symbol == " ":
+                continue
+            material = materials[symbol]
+            states = {"minecraft:vertical_half": "bottom"} if material.endswith("_slab") else None
+            v.set(cx + dx, 1, cz + dz, material, states)
+
+
 def build_guild_hall():
     """The Heroes' Guild of Albion — laid out to match the canonical ground plan.
 
@@ -893,21 +935,8 @@ def build_guild_hall():
     ring_wall(v, ROT_X, ROT_Z, ROT_R, UP_Y, UP_Y + 1, warm)
     dome(v, ROT_X, ROT_Z, ROT_R, UP_Y + 1, SAND_SMOOTH, ring_mat=SLATE,
          oculus="minecraft:sea_lantern")
-    # the breathing relief Map of Albion
-    for x in range(ROT_X - 4, ROT_X + 5):
-        for z in range(ROT_Z - 4, ROT_Z + 5):
-            d = math.hypot(x - ROT_X, z - ROT_Z)
-            if d <= 4.3:
-                v.set(x, 0, z, DARKOAK)
-            if d <= 3.4:
-                roll = r.random()
-                v.set(x, 1, z,
-                      "minecraft:lapis_block" if roll < 0.34 else
-                      "minecraft:moss_block" if roll < 0.62 else
-                      "minecraft:sand" if roll < 0.74 else
-                      "minecraft:emerald_block" if roll < 0.9 else GOLD)
-    v.set(ROT_X, 2, ROT_Z, "minecraft:sea_lantern")
-    v.set(ROT_X, 3, ROT_Z, "minecraft:end_rod")
+    # Low relief Map of Albion; its approach and quest lecterns stay fixed.
+    build_guild_map_table(v, ROT_X, ROT_Z, r)
     quest_dirs = {
         (ROT_X - 4, ROT_Z): "west",
         (ROT_X + 2, ROT_Z - 3): "north",

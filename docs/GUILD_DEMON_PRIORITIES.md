@@ -42,6 +42,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | GP7 | in-progress | Retired obsolete approach/scarecrow sweeps preserve saved construction; generated routes and training remain checked; engine acceptance open |
 | GP8 | in-progress | Pointed Chamber wall bays, subdued masonry and clear outer walk; recognized older construction resumes its original plan; engine acceptance open |
 | GP9 | in-progress | Dedicated Will-island lightning drill and discipline-specific staffing; checked effects stop on interruption; engine acceptance open |
+| GP10 | in-progress | Low wood-framed terrain map replaces random jewel mosaic and beacon; all adjacent interactions preserved; engine acceptance open |
 
 Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
 defects and manual status here. These passes are not completed legacy leaves.
@@ -531,7 +532,7 @@ continued reference/route review across adjoining rooms and NPC activity ownersh
 
 ## GP9 — dedicated Will-island practice (2026-09-12)
 
-Commit: SELF: TLC Conformance — GP9: give Will apprentices island lightning practice.
+Commit: 99f4e4f21b4dcbd33ae99a8116d3aed4f9d62b34.
 The original TLC manual explicitly places lightning practice at magic-response
 dummies on the island. The actual previous scheduler left Will apprentices idle
 or recruited them into the Might sparring pair when one swordsman was absent.
@@ -561,3 +562,30 @@ unrun. The finite pose can outlast cancelled pulses briefly; reactive dummy
 animation, player lessons and walking to training marks remain open.
 Next: the main-hall map relief and broad Library/Store connections, then further
 connected-facility reference review and requester-specific NPC activity ownership.
+
+## GP10 — low main-hall relief map (2026-09-12)
+
+Commit: SELF: TLC Conformance — GP10: restore the Guild map table as a low terrain relief.
+Three inspected original TLC views show a low polygonal wooden frame with earthy
+terrain and teal water, open beneath the hall's twin stairs. The new authored map
+replaces random jewel blocks and a central light column with connected land, a
+recessed bay and a low wood rim. The coarse coastline and block palette remain
+Minecraft adaptations; exact geography and native warm lighting are unverified.
+
+Only 38 final voxels change, all inside existing map furniture. All 37 historical
+random draws remain consumed, and the entire rest of the campus is identical by
+normalized block/state comparison. The table floor footprint, surrounding routes,
+three quest lecterns and Guildmaster birth/interaction anchors remain unchanged.
+Saved Guilds retain their geometry and progress; this has no runtime migration.
+
+See [GUILD_MAP_TABLE.md](GUILD_MAP_TABLE.md), four inspected native-slab detail/
+hall-cutaway views and source provenance in `screenshots/validation/GP10/`.
+Six focused groups test the terrain, footprint, approach routes and complete
+campus scope, including independent broken rim, beacon and random-drift failures.
+Forty-two base gates and all 62 script syntax checks pass in the isolated reviewed
+snapshot. Only the Guild structure is regenerated; fresh 35-asset C2, full renders
+and Guild diagnostics complete. Independent review found no blocker.
+All native lighting, eye-height comparison, NPC movement and quest interaction
+acceptance remains unrun. GP9 exact-head CI 34720288462 passed.
+Next: broad Library/Store joins, supported Library
+bookcases/reading furnishings, then continued whole-facility reference review.

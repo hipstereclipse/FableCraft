@@ -18,10 +18,10 @@ with exploration, reward collection and a reliable portal back to the source.
 This overrides the old instruction to start W3.5 or keep adding unrelated POIs.
 Read docs/GUILD_DEMON_PRIORITIES.md first; it is the active execution queue.
 
-Current checkpoint: GP9 — dedicated Will-island lightning practice
-Last resolved prior commit: 444aef6e59403d0664ca8e872f64a45e841eceb7 (GP8 pushed; exact-head CI 34719947130 passed).
-Containing commit: TLC Conformance — GP9: give Will apprentices island lightning practice.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP9: give Will apprentices island lightning practice'.
+Current checkpoint: GP10 — low wood-framed main-hall map relief
+Last resolved prior commit: 99f4e4f21b4dcbd33ae99a8116d3aed4f9d62b34 (GP9 pushed; exact-head CI 34720288462 passed).
+Containing commit: TLC Conformance — GP10: restore the Guild map table as a low terrain relief.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP10: restore the Guild map table as a low terrain relief'.
 Never invent a self-hash. Read the supplemental priority ledger for implementation
 scope, known defects and unrun engine checks.
 
@@ -327,3 +327,12 @@ Native facing, collision, blending and save/reload remain unrun. See
 GUILD_WILL_TRAINING.md. Next integrate GP10 low map relief and GP11 broad interior
 Library/Store connections separately; source may already be unstaged. Then resume
 whole-facility reference/route review and requester-specific Follow/Wait ownership.
+
+GP10 replaces the random jewel/beacon map with a low wood-framed land/sea relief.
+Exactly 38 map-furniture cells change; all other campus cells and 37 original RNG
+draws are preserved. Quest lecterns, Guildmaster birth and walking approaches stay
+fixed. New Guilds only; no saved-world migration. Six focused groups, 42 base gates,
+62 ESM checks, fresh C2/full renders and Guild diagnostics pass offline. Native
+lighting/interaction/movement remain unrun. See GUILD_MAP_TABLE.md. Next integrate
+GP11 broad Library/Store joins and GP12 supported Library shelves/reading furniture
+as separate reviewed checkpoints; unfinished source may already be unstaged.

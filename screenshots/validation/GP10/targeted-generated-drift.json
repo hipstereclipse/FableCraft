@@ -1,0 +1,17 @@
+{
+  "command": "python screenshots/validation/GP10/regenerate-map-asset.py",
+  "scope": "Only gs.guild_hall() inside isolated staged GP10 snapshot; behavior test8 passed before regeneration",
+  "exit_code": 0,
+  "changed_count": 1,
+  "changes": [
+    {
+      "path": "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure",
+      "before_sha256": "ebc961dad4afe97c7aa35e3a79fa96d89eb1f9ba1fb462e7dda9b82e097e3fa7",
+      "after_sha256": "72bfbf9228b53b7ad1e2fdcbbcefde615accece04aa427fb49cb9e3568bad5e4"
+    }
+  ],
+  "owner_sha256": {
+    "scripts/gen_structures.py": "09bed05f4feaaf3622ffcff092ae3eb3b9e3192ae0cce487ff8875ca89ef18f9",
+    "scripts/fc_lib.py": "c53491f9d640c9e10cb5b3d8f65ea8c85b3f526af03f7631d5d447ab6fe70797"
+  }
+}

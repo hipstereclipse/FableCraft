@@ -1,0 +1,33 @@
+{
+  "scope": "GP10 fresh offline C2 and Guild diagnostics; heuristic labels do not establish original TLC fidelity or in-engine acceptance",
+  "dependency_sha256": {
+    "scripts/gen_structures.py": "09bed05f4feaaf3622ffcff092ae3eb3b9e3192ae0cce487ff8875ca89ef18f9",
+    "scripts/gen_screenshots.py": "9beb008070bf1b72dbd4081c8e9ddb3402fb6a5221b545a9b3b940dd5c6bdc14",
+    "scripts/fc_lib.py": "c53491f9d640c9e10cb5b3d8f65ea8c85b3f526af03f7631d5d447ab6fe70797",
+    "scripts/_audit_match.py": "be8b7826712236592947a90d35223dd8a895498a7af6e2159a376588df71a0ff",
+    "scripts/_target_map.py": "6b5fcbbcd039ccc57e2bbabde209c579721eafc9c0f303d143d7a58eefb69c07",
+    "scripts/_audit_roofs.py": "4920fc2ca92f2ec40d39ce77579d1d6ff74e5eccbafde5693bc3549e1ea1ebcf",
+    "scripts/_verify_guild.py": "88c01a8fa786ea48d4f4ea97efc4385483c8eec95a4de729564e9e6ad60a946a",
+    "scripts/render_structure_contract.py": "b7cd1dc92e3d39b63567d96144bae0a6b1bce7e40a753c614682c13134b9afa1",
+    "scripts/structure_contract.py": "65d86c6c1cdf8a1799ed6a7178db55bbad7318064593c70d4b0174edab2e5f45",
+    "scripts/structure_manifest.json": "f9ccf74f0ab66ebec5fc17efed04d462637d8f0d6f21f759b0ea6d0c6e5ff180"
+  },
+  "C2": {
+    "command": "python tmp/render_visual_checkpoint.py GP10 c2",
+    "exit_code": 0,
+    "structure_count": 35,
+    "evidence_sha256": "fc173b6c77ecad40a337ac572f71eb384e434ca12bad03a4c821258b49fa82c8",
+    "guild_hall_asset_sha256": "72bfbf9228b53b7ad1e2fdcbbcefde615accece04aa427fb49cb9e3568bad5e4"
+  },
+  "diagnostics_results_sha256": "5f2e54f1118d5e5e4c8ffae3d3ab5c67b7360e97469b442fbb1bf81e8756f66b",
+  "findings": {
+    "ground_disconnected_blocks": 0,
+    "roof_eave_heuristic_cells": 388,
+    "roof_eave_heuristic_clusters": 55,
+    "structural_target_cell_agreement_percent": 85.3,
+    "bridge_and_tower_checks": "all offline OK",
+    "ground_holes": 0,
+    "training_holes": 0
+  },
+  "engine_acceptance": "unrun"
+}

@@ -1,0 +1,35 @@
+{
+  "command": "python screenshots/validation/GP10/render-map-details.py",
+  "exit_code": 0,
+  "source": "isolated staged GP10 snapshot excluding parallel GP11/GP12 source",
+  "dependency_sha256": {
+    "scripts/gen_structures.py": "09bed05f4feaaf3622ffcff092ae3eb3b9e3192ae0cce487ff8875ca89ef18f9",
+    "scripts/gen_screenshots.py": "9beb008070bf1b72dbd4081c8e9ddb3402fb6a5221b545a9b3b940dd5c6bdc14",
+    "scripts/fc_lib.py": "c53491f9d640c9e10cb5b3d8f65ea8c85b3f526af03f7631d5d447ab6fe70797",
+    "scripts/tests/test_guild_map_table.py": "dd6b20e6df87e0dbc09e5a896ff97dabbe3f0eda07aaef5d50e9b0553edb6eff",
+    "screenshots/validation/GP10/render-map-details.py": "c1427a935c2883dc3487a6bb5d81bbbac1943751a734affa43175afe75d09c8c"
+  },
+  "generated_guild_hall_sha256": "72bfbf9228b53b7ad1e2fdcbbcefde615accece04aa427fb49cb9e3568bad5e4",
+  "map_render_scope_sha256": "5542717da392d14006a23c375edbb317b1c8953814f71aeb2b675593aeec038d",
+  "image_sha256": {
+    "map-hall-cutaway-after.png": "a2eb7a33e051f893bf2715c29031950d89aeea6da91b53af08d9481d53345988",
+    "map-hall-cutaway-before.png": "14bfcfebaca88a36e46f22fef32c4a56c14dedd4cc845a3ca861425197bbf617",
+    "map-relief-after.png": "9dc8ba03cc70a5992a8cdbd2656d50bdc64147c573127f917ee252ef16cbeedb",
+    "map-relief-before.png": "4bf69fb565265be113f57dafc1a214c44dab509359878787afeb3f523a0cbce2"
+  },
+  "inspected": [
+    "map-relief-before.png",
+    "map-relief-after.png",
+    "map-hall-cutaway-after.png"
+  ],
+  "observations": [
+    "After view removes the tall jewel/light column, showing connected earth/moss and a recessed teal bay within a low wood rim",
+    "Three quest lecterns and adjacent floor remain visible at the same locations",
+    "Hall cutaway keeps both stairs and the open well around the table; source geometry excludes future hall-redesign passes"
+  ],
+  "limits": [
+    "flat-color offline geometry only; slab heights respected",
+    "no native block textures, engine lighting, collision or NPC behavior",
+    "coarse authored coastline is a Minecraft adaptation, not exact Albion geography"
+  ]
+}

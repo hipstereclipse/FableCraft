@@ -1,0 +1,21 @@
+{
+  "source": "reviewed Git index; excludes unstaged parallel implementation and inherited dirtiness",
+  "baseline_head": "99f4e4f21b4dcbd33ae99a8116d3aed4f9d62b34",
+  "entries": 4442,
+  "reviewed_source_sha256": {
+    "docs/CONFORMANCE_CHECKLIST.md": "aa6898f935ab6435534494bb9c6e9da854cd6627734085321f57cc885b137c11",
+    "docs/GUILD_DEMON_PRIORITIES.md": "fd7d3945355fb92ec2b21bb7f165c06d700995bf18605876d347351983b77942",
+    "docs/GUILD_MAP_TABLE.md": "c4430548d11852c6fb08609adcfb0836eef999ed053bd2aad1f86d09d57a43ac",
+    "docs/HANDOFF.md": "296beaa31655dfd624af9b80d2199989279333e92409e3725143a6601384baab",
+    "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure": "72bfbf9228b53b7ad1e2fdcbbcefde615accece04aa427fb49cb9e3568bad5e4",
+    "screenshots/structures/contract/evidence.json": "fc173b6c77ecad40a337ac572f71eb384e434ca12bad03a4c821258b49fa82c8",
+    "scripts/gen_screenshots.py": "9beb008070bf1b72dbd4081c8e9ddb3402fb6a5221b545a9b3b940dd5c6bdc14",
+    "scripts/gen_structures.py": "09bed05f4feaaf3622ffcff092ae3eb3b9e3192ae0cce487ff8875ca89ef18f9",
+    "scripts/tests/test_guild_map_table.py": "dd6b20e6df87e0dbc09e5a896ff97dabbe3f0eda07aaef5d50e9b0553edb6eff",
+    "scripts/validate.py": "8309e9d2f1a25d8fca2d34c111f3516d7b9f8718507b9aa603462b90c5a3d43c",
+    "screenshots/validation/GP10/regenerate-map-asset.py": "f7a5f4d9cb3f7b7e22fdd6a9b1b79180340d69e8bd058f42179c59f3dcb94e6b",
+    "screenshots/validation/GP10/render-map-details.py": "c1427a935c2883dc3487a6bb5d81bbbac1943751a734affa43175afe75d09c8c"
+  },
+  "node_dependencies": "same installed locked dependencies via node_modules symlink",
+  "engine_acceptance": "unrun"
+}
