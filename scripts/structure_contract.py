@@ -89,6 +89,8 @@ def anchor_errors(actual):
             'ringB': {'x': layout['dueling'][0] + 1.5, 'z': layout['dueling'][1] + .5},
             'range': {'x': layout['archery'][0] - 2.5, 'z': layout['archery'][1] + .5},
             'target': {'x': layout['archery'][0] - 2.5, 'z': layout['archery'][1] - 4.5},
+            'will': {'x': layout['will_training'][0] + .5, 'z': layout['will_training'][1] + .5},
+            'willTarget': {'x': layout['islands'][0][0] - 1.5, 'z': layout['islands'][0][1] - .5},
         },
     }
     return [f'Guild anchor mismatch: {key}' for key in sorted(expected.keys() | actual.keys())

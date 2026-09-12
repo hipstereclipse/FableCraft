@@ -25,6 +25,7 @@
         "spar": "animation.npc.spar",
         "block": "animation.npc.block",
         "archery_shot": "animation.npc.archery_shot",
+        "will_practice": "animation.npc.will_practice",
         "ctrl_move": "controller.animation.npc.move",
         "ctrl_attack": "controller.animation.fc.attack",
         "ctrl_gesture": "controller.animation.fc.gesture"

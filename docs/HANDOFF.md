@@ -18,10 +18,10 @@ with exploration, reward collection and a reliable portal back to the source.
 This overrides the old instruction to start W3.5 or keep adding unrelated POIs.
 Read docs/GUILD_DEMON_PRIORITIES.md first; it is the active execution queue.
 
-Current checkpoint: GP8 — pointed Chamber walls, clear outer walk and enrolled-plan compatibility
-Last resolved prior commit: f12b608e84bd4774caf6a39f4b2ba708ef71821b (pushed; GP7 exact-head CI 34718493910 passed).
-Containing commit: TLC Conformance — GP8: refine Chamber walls and preserve enrolled builds.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP8: refine Chamber walls and preserve enrolled builds'.
+Current checkpoint: GP9 — dedicated Will-island lightning practice
+Last resolved prior commit: 444aef6e59403d0664ca8e872f64a45e841eceb7 (GP8 pushed; exact-head CI 34719947130 passed).
+Containing commit: TLC Conformance — GP9: give Will apprentices island lightning practice.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP9: give Will apprentices island lightning practice'.
 Never invent a self-hash. Read the supplemental priority ledger for implementation
 scope, known defects and unrun engine checks.
 
@@ -316,3 +316,14 @@ C2/full renders/Guild diagnostics pass offline. All Bedrock checks remain unrun.
 See docs/GUILD_CHAMBER_INTERIOR.md. Next integrate/review GP9 dedicated Will practice
 and GP10 low map relief as separate checkpoints; source/evidence may already be
 unstaged. Then revisit connected rooms and requester-specific NPC Follow/Wait.
+
+GP9 adds a dedicated Will-island pose/lightning drill and Might-only sparring.
+Actual delayed callbacks recheck tokens/eligibility/dummy/lane before effects;
+failed or edited stations refuse practice without repaving. New Guilds receive a
+one-cell worn mark; existing residents and saved construction remain intact.
+Twenty-five training groups, three final-voxel Will groups, 41 base gates and 62
+ESM syntax checks pass offline. Fresh C2/full renders and Guild diagnostics ran.
+Native facing, collision, blending and save/reload remain unrun. See
+GUILD_WILL_TRAINING.md. Next integrate GP10 low map relief and GP11 broad interior
+Library/Store connections separately; source may already be unstaged. Then resume
+whole-facility reference/route review and requester-specific Follow/Wait ownership.

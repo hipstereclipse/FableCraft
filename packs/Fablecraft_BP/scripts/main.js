@@ -376,6 +376,8 @@ const GUILD = Object.freeze({
     ringB: { x: 102.5, z: 61.5 },
     range: { x: 83.5, z: 39.5 },
     target: { x: 83.5, z: 34.5 },
+    will: { x: 60.5, z: 88.5 },
+    willTarget: { x: 60.5, z: 85.5 },
   },
   cave: { sx: 27, sz: 14, x0: 25, x1: 29, z0: 12, z1: 16 },
   exitC: { z: 32 },
@@ -783,8 +785,8 @@ system.runInterval(() => {
 }, 10);
 
 // ---------------------------------------------------------------------------
-// Guild apprentice training — two apprentices spar inside the dueling ring
-// while one Skill apprentice shoots the north target in the archery range.
+// Guild apprentice training — Might sparring, Skill archery and a Will-island
+// lightning drill. Each discipline has its own station and resident selection.
 // Daylight background sessions are a Minecraft adaptation. Each trainee makes
 // one collision-checked station placement, then performs harmless drills until
 // release. Strolling resumes there; walking to/from marks remains future work.
@@ -796,6 +798,7 @@ const APPRENTICE_TYPES = [
 ];
 let nextSparTick = 0;
 let nextArcheryTick = 0;
+let nextWillTick = 0;
 let sparTurn = 0;
 const guildTraining = createGuildTrainingController({
   now: TICKS,
@@ -954,6 +957,70 @@ function showPracticeShot(archer, target, token) {
   } catch { }
 }
 
+function guildWillLaneClear(apprentice, target, station = apprentice.location) {
+  try {
+    const dim = apprentice.dimension;
+    const x = Math.floor(target.x), y = Math.floor(target.y), z = Math.floor(target.z);
+    // Existing authored dummy, not a living target. Removed/replaced props and
+    // blocked/unloaded lanes refuse the drill without repairing saved blocks.
+    if (dim.getBlock({ x, y, z })?.typeId !== "minecraft:carved_pumpkin"
+      || dim.getBlock({ x, y: y - 1, z })?.typeId !== "minecraft:hay_block") return false;
+    const origin = { x: station.x, y: station.y + 1.35, z: station.z };
+    const steps = Math.ceil(Math.hypot(target.x - origin.x, target.y - origin.y,
+      target.z - origin.z) / 0.25);
+    for (let step = 0; step < steps; step++) {
+      const fraction = step / steps;
+      const point = { x: Math.floor(origin.x + (target.x - origin.x) * fraction),
+        y: Math.floor(origin.y + (target.y - origin.y) * fraction),
+        z: Math.floor(origin.z + (target.z - origin.z) * fraction) };
+      if (point.x === x && point.y === y && point.z === z) continue;
+      if (!dim.getBlock(point)?.isAir) return false;
+    }
+    return true;
+  } catch { return false; }
+}
+
+function showPracticeWill(apprentice, target, token) {
+  if (!guildTraining.isActive(apprentice, token)) return;
+  if (!guildWillLaneClear(apprentice, target)) {
+    guildTraining.interrupt(apprentice);
+    return;
+  }
+  try {
+    const origin = { x: apprentice.location.x, y: apprentice.location.y + 1.35,
+      z: apprentice.location.z };
+    const variables = new MolangVariableMap();
+    variables.setColorRGBA("variable.color", { red: 0.47, green: 0.71, blue: 1, alpha: 0.85 });
+    variables.setFloat("variable.size", 0.22);
+    variables.setFloat("variable.intensity", 0.3);
+    apprentice.dimension.spawnParticle("wd:lightning_spark", origin, variables);
+    // Cosmetic lightning only: never call the player spell, create a native
+    // bolt/projectile, damage an entity, alter the dummy or award experience.
+    for (let step = 1; step <= 8; step++) {
+      const fraction = step / 8;
+      apprentice.dimension.spawnParticle("wd:lightning_arc", {
+        x: origin.x + (target.x - origin.x) * fraction + (step % 2 ? 0.08 : -0.08),
+        y: origin.y + (target.y - origin.y) * fraction,
+        z: origin.z + (target.z - origin.z) * fraction,
+      }, variables);
+    }
+    apprentice.dimension.spawnParticle("wd:lightning_spark", target, variables);
+  } catch { }
+}
+
+function playWillPractice(apprentice, target, token) {
+  if (!guildTraining.isActive(apprentice, token) || !guildWillLaneClear(apprentice, target)) return;
+  try { apprentice.playAnimation("animation.npc.will_practice", { blendOutTime: 0.15 }); } catch { }
+  for (const delay of [8, 12, 16, 20]) {
+    system.runTimeout(() => {
+      showPracticeWill(apprentice, target, token);
+      if (delay === 8 && guildTraining.isActive(apprentice, token)) {
+        try { apprentice.dimension.playSound("fc.spell_cast", apprentice.location, { volume: 0.18, pitch: 1.35 }); } catch { }
+      }
+    }, delay);
+  }
+}
+
 system.runInterval(() => {
   const bounds = guildBounds();
   if (!bounds || !world.getDynamicProperty("fc_guild_placed")) return;
@@ -972,17 +1039,18 @@ system.runInterval(() => {
   const ringB = localGuildPoint(base, GUILD.training.ringB);
   const range = localGuildPoint(base, GUILD.training.range);
   const target = localGuildPoint(base, GUILD.training.target, 2.45);
+  const willStation = localGuildPoint(base, GUILD.training.will);
+  const willTarget = localGuildPoint(base, GUILD.training.willTarget, 3.75);
 
   const skill = available
     .filter((entity) => entity.typeId === "fc:guild_apprentice_skill")
     .sort((a, b) => distanceXZ(a, range) - distanceXZ(b, range))[0];
   const fighterPool = available
-    .filter((entity) => entity.id !== skill?.id)
-    .sort((a, b) => {
-      const aMight = a.typeId === "fc:guild_apprentice_might" ? 0 : 1;
-      const bMight = b.typeId === "fc:guild_apprentice_might" ? 0 : 1;
-      return aMight - bMight || distanceXZ(a, ringA) - distanceXZ(b, ringA);
-    });
+    .filter((entity) => entity.typeId === "fc:guild_apprentice_might")
+    .sort((a, b) => distanceXZ(a, ringA) - distanceXZ(b, ringA));
+  const will = available
+    .filter((entity) => entity.typeId === "fc:guild_apprentice_will")
+    .sort((a, b) => distanceXZ(a, willStation) - distanceXZ(b, willStation))[0];
   const fighterA = fighterPool[0];
   const fighterB = fighterPool[1];
   const selected = new Set();
@@ -1011,6 +1079,14 @@ system.runInterval(() => {
         showPracticeShot(skill, target, token);
       }, 16);
       nextArcheryTick = TICKS() + 58;
+    }
+  }
+  if (will && guildWillLaneClear(will, willTarget, willStation)) {
+    const token = guildTraining.acquire(will, "fc_train_will", willStation, willTarget);
+    if (token !== null) selected.add(will.id);
+    if (token !== null && TICKS() >= nextWillTick) {
+      playWillPractice(will, willTarget, token);
+      nextWillTick = TICKS() + 92;
     }
   }
   guildTraining.retain(selected);

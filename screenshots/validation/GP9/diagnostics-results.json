@@ -1,0 +1,56 @@
+{
+  "scope": "Fresh offline Guild geometry/render diagnostics, not calibrated TLC fidelity or native engine acceptance",
+  "checks": [
+    {
+      "name": "audit-match",
+      "command": [
+        "python",
+        "scripts/_audit_match.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.733,
+      "log": "screenshots/validation/GP9/guild-audit-match.log"
+    },
+    {
+      "name": "audit-roofs",
+      "command": [
+        "python",
+        "scripts/_audit_roofs.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.938,
+      "log": "screenshots/validation/GP9/guild-audit-roofs.log"
+    },
+    {
+      "name": "verify-guild",
+      "command": [
+        "python",
+        "scripts/_verify_guild.py"
+      ],
+      "exit_code": 0,
+      "seconds": 10.996,
+      "log": "screenshots/validation/GP9/guild-verify-guild.log"
+    }
+  ],
+  "dependency_sha256": {
+    "scripts/gen_structures.py": "0bab4c03472774d7d439cdc44bdaaf4521b2a4a252ba2a408298c38912131b29",
+    "scripts/fc_lib.py": "c53491f9d640c9e10cb5b3d8f65ea8c85b3f526af03f7631d5d447ab6fe70797",
+    "scripts/gen_screenshots.py": "38a8994631baa7e5f0ee6cce3560ac173d92a44b927869dbc871af43e650c0bb",
+    "scripts/_audit_match.py": "be8b7826712236592947a90d35223dd8a895498a7af6e2159a376588df71a0ff",
+    "scripts/_target_map.py": "6b5fcbbcd039ccc57e2bbabde209c579721eafc9c0f303d143d7a58eefb69c07",
+    "scripts/_audit_roofs.py": "4920fc2ca92f2ec40d39ce77579d1d6ff74e5eccbafde5693bc3549e1ea1ebcf",
+    "scripts/_verify_guild.py": "88c01a8fa786ea48d4f4ea97efc4385483c8eec95a4de729564e9e6ad60a946a"
+  },
+  "findings": {
+    "ground_disconnected_blocks": 0,
+    "roof_eave_heuristic_cells": 388,
+    "roof_eave_heuristic_clusters": 55,
+    "structural_target_cell_agreement_percent": 85.3,
+    "reference_limit": "Target classifier is the historical project layout, not an independent original TLC fidelity score",
+    "bridge_routes": "all three offline bridge checks OK; worst step 0.5 and no missing cells",
+    "tower_entrances_and_treads": "offline clear",
+    "ground_holes": 0,
+    "training_archery_holes": 0,
+    "training_dueling_holes": 0
+  }
+}

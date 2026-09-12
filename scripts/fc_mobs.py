@@ -1009,7 +1009,6 @@ def _add_training_stick(parts):
 ACCESSORY_BUILDERS = {
     "guild_apprentice_might": _add_training_stick,
     "guild_apprentice_skill": _add_training_bow,
-    "guild_apprentice_will": _add_training_stick,
 }
 
 

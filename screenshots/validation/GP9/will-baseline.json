@@ -1,0 +1,121 @@
+{
+  "source": "tmp/conformance/GP7-reviewed-snapshot/packs/Fablecraft_BP/scripts/main.js",
+  "source_sha256": "fd108c5bfad97d229d77d5c8618f08b0fef4ed04e84161dc19112ac4bc47ad2f",
+  "lifecycle_sha256": "1a0b2b849081553d0f681d40018630af3bd3ab99cc0e4a63893252b0ca93d669",
+  "full_might_pair": [
+    {
+      "id": "might-0",
+      "type": "fc:guild_apprentice_might",
+      "roles": [
+        "fc_train_ring_a"
+      ],
+      "placements": 1,
+      "location": {
+        "x": 99.5,
+        "y": 1,
+        "z": 61.5
+      }
+    },
+    {
+      "id": "might-1",
+      "type": "fc:guild_apprentice_might",
+      "roles": [
+        "fc_train_ring_b"
+      ],
+      "placements": 1,
+      "location": {
+        "x": 102.5,
+        "y": 1,
+        "z": 61.5
+      }
+    },
+    {
+      "id": "skill-2",
+      "type": "fc:guild_apprentice_skill",
+      "roles": [
+        "fc_train_range"
+      ],
+      "placements": 1,
+      "location": {
+        "x": 83.5,
+        "y": 1,
+        "z": 39.5
+      }
+    },
+    {
+      "id": "will-3",
+      "type": "fc:guild_apprentice_will",
+      "roles": [],
+      "placements": 0,
+      "location": {
+        "x": 12,
+        "y": 1,
+        "z": 42
+      }
+    },
+    {
+      "id": "will-4",
+      "type": "fc:guild_apprentice_will",
+      "roles": [],
+      "placements": 0,
+      "location": {
+        "x": 12,
+        "y": 1,
+        "z": 42
+      }
+    }
+  ],
+  "missing_might_partner": [
+    {
+      "id": "might-0",
+      "type": "fc:guild_apprentice_might",
+      "roles": [
+        "fc_train_ring_a"
+      ],
+      "placements": 1,
+      "location": {
+        "x": 99.5,
+        "y": 1,
+        "z": 61.5
+      }
+    },
+    {
+      "id": "skill-1",
+      "type": "fc:guild_apprentice_skill",
+      "roles": [
+        "fc_train_range"
+      ],
+      "placements": 1,
+      "location": {
+        "x": 83.5,
+        "y": 1,
+        "z": 39.5
+      }
+    },
+    {
+      "id": "will-2",
+      "type": "fc:guild_apprentice_will",
+      "roles": [
+        "fc_train_ring_b"
+      ],
+      "placements": 1,
+      "location": {
+        "x": 102.5,
+        "y": 1,
+        "z": 61.5
+      }
+    },
+    {
+      "id": "will-3",
+      "type": "fc:guild_apprentice_will",
+      "roles": [],
+      "placements": 0,
+      "location": {
+        "x": 12,
+        "y": 1,
+        "z": 42
+      }
+    }
+  ],
+  "limits": "Actual scheduler and lifecycle, mocked engine. No Bedrock navigation or animation acceptance."
+}

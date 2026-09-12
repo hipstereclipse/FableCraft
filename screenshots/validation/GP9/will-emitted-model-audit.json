@@ -1,0 +1,45 @@
+{
+  "scope": "Emitted Will model/UV/client/clip inspected against generation owners. Static identity only; pose playback and game appearance unrun.",
+  "bones": 6,
+  "cubes": 13,
+  "texture_dimensions": [
+    128,
+    64
+  ],
+  "all_uv_nets_in_bounds": true,
+  "training_stick_absent": true,
+  "will_alias_resolves": true,
+  "textures": {
+    "guild_apprentice_will.png": {
+      "size": [
+        128,
+        64
+      ],
+      "mode": "RGBA",
+      "sha256": "8d06b4db9b8b7dadfa4c5b1b23be7208727d6407f6cd12232050bb6757b85be9"
+    },
+    "guild_apprentice_will_married.png": {
+      "size": [
+        128,
+        64
+      ],
+      "mode": "RGBA",
+      "sha256": "fa7fbd24744d266c1d575d598b1af137c834e7504d6a3a0a0890ed50ee3b5549"
+    }
+  },
+  "static_card_inspection": {
+    "artifact": "screenshots/validation/GP9/will-static-card.png",
+    "sha256": "e2b1add7dbee17235ba422d2935cf804fc934103e2ddb72da9f7a39bb37fb753",
+    "inspected": true,
+    "observations": [
+      "white hood and robe, blue-grey sleeves, gold cuffs and existing face details remain readable",
+      "both hands are visibly empty; no training stick remains",
+      "model and texture align in this static three-quarter card; no visible missing faces or UV spill"
+    ],
+    "limits": [
+      "neutral static pose only",
+      "cast pose timing and hand/beam alignment remain engine-unrun",
+      "original TLC costume match not measured"
+    ]
+  }
+}

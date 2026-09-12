@@ -41,6 +41,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | DP4 | in-progress | Durable source owns Guild face maintenance; stale hints cannot spawn ordinary doors or reset history; engine acceptance open |
 | GP7 | in-progress | Retired obsolete approach/scarecrow sweeps preserve saved construction; generated routes and training remain checked; engine acceptance open |
 | GP8 | in-progress | Pointed Chamber wall bays, subdued masonry and clear outer walk; recognized older construction resumes its original plan; engine acceptance open |
+| GP9 | in-progress | Dedicated Will-island lightning drill and discipline-specific staffing; checked effects stop on interruption; engine acceptance open |
 
 Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
 defects and manual status here. These passes are not completed legacy leaves.
@@ -499,7 +500,7 @@ Will/Chamber work open alongside these behavioral repairs.
 
 ## GP8 — Chamber wall architecture and construction continuity (2026-09-12)
 
-Commit: SELF: TLC Conformance — GP8: refine Chamber walls and preserve enrolled builds.
+Commit: 444aef6e59403d0664ca8e872f64a45e841eceb7.
 Original TLC battle views support pointed wall ribs, dark paving and broad curved
 altar steps. The new generator replaces isolated quartz/gold posts, colored
 placeholder panels, low fires and the luminous roof with attached pointed stone
@@ -527,3 +528,36 @@ compatibility review found no blocker. GP7 exact-head CI 34718493910 passed.
 All Bedrock movement, light, fluid, saving and gameplay acceptance remains unrun.
 Next: the dedicated Will-island routine and low main-hall map relief, followed by
 continued reference/route review across adjoining rooms and NPC activity ownership.
+
+## GP9 — dedicated Will-island practice (2026-09-12)
+
+Commit: SELF: TLC Conformance — GP9: give Will apprentices island lightning practice.
+The original TLC manual explicitly places lightning practice at magic-response
+dummies on the island. The actual previous scheduler left Will apprentices idle
+or recruited them into the Might sparring pair when one swordsman was absent.
+Now each discipline fills its own role. One Will apprentice acquires a checked
+island mark and performs a finite casting pose with four harmless blue pulses.
+Its model loses the training stick; Might and Skill accessories remain unchanged.
+The timing, anonymous staffing and one-time station placement are adaptations.
+
+Every pulse rechecks its session, eligibility, support, dummy and clear lane.
+Follow/conversation, defence, rest/night and edited or unavailable geometry cancel
+pending effects. The routine never casts a player spell, damages anything, awards
+rewards or repairs player blocks. Resident identities/social history are preserved.
+Only a new Guild receives the one-cell dirt mark. Old unrecognized marks refuse
+practice; no saved-world repaving is introduced. All existing anchors, including
+Maze, stay fixed. The Will mark and target are coupled across geometry/runtime/C2.
+
+See [GUILD_WILL_TRAINING.md](GUILD_WILL_TRAINING.md) and
+`screenshots/validation/GP9/`. Twenty-five training groups and three generated-voxel
+Will groups include interrupted callbacks, failed placement, changed/unavailable
+cells and numeric-anchor negatives. Forty-one base gates and all 62 script syntax
+checks pass in the isolated reviewed-index snapshot. Targeted model/client/texture/
+animation/structure regeneration, fresh C2/full renders and Guild diagnostics are
+recorded with exact output hashes. Independent review found no blocker.
+GP8 exact-head CI 34719947130 passed.
+Live facing, pose blending, particles, navigation, collision and save/reload remain
+unrun. The finite pose can outlast cancelled pulses briefly; reactive dummy
+animation, player lessons and walking to training marks remain open.
+Next: the main-hall map relief and broad Library/Store connections, then further
+connected-facility reference review and requester-specific NPC activity ownership.

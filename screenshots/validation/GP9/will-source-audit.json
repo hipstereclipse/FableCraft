@@ -1,0 +1,62 @@
+{
+  "scope": "GP9 final reviewed-index source audit; excludes parallel map and Library changes",
+  "date": "2026-09-12",
+  "reference": {
+    "source": "original TLC Xbox manual",
+    "url": "https://www.gamesdatabase.org/Media/SYSTEM/Microsoft_Xbox/Manual/formated/Fable-_The_Lost_Chapters_-_Microsoft_Game_Studios.pdf",
+    "printed_pages": [
+      "XII-XIII",
+      "XIV-XV",
+      "XVI-XVII"
+    ],
+    "support": [
+      "distinct Will training area",
+      "small island between two bridges",
+      "magic-response dummies",
+      "lightning practice and first ranged Lightning lesson"
+    ],
+    "not_proven": [
+      "background timetable",
+      "hand pose",
+      "native navigation",
+      "engine collision",
+      "complete Guild fidelity"
+    ]
+  },
+  "station_local": [
+    60.5,
+    1,
+    88.5
+  ],
+  "target_local": [
+    60.5,
+    3.75,
+    85.5
+  ],
+  "checks": [
+    {
+      "command": "node --experimental-vm-modules scripts/tests/guild_training.test.mjs",
+      "groups": 25,
+      "status": "passed"
+    },
+    {
+      "command": "python scripts/tests/test_guild_will.py",
+      "groups": 3,
+      "status": "passed"
+    }
+  ],
+  "generated_assets": "targeted-generated-drift.json; exactly six pack outputs",
+  "engine_acceptance": "unrun",
+  "sha256": {
+    "packs/Fablecraft_BP/scripts/main.js": "c712c39be4aee51bc65e15248e1bd1e27f3cf7a667f7ccae3be53db430521b20",
+    "packs/Fablecraft_BP/scripts/guild_training.js": "baf0ff28090d771fb94b4884090e8cf45ba387aa9a6c3cbe7148082e9a70db41",
+    "scripts/gen_structures.py": "0bab4c03472774d7d439cdc44bdaaf4521b2a4a252ba2a408298c38912131b29",
+    "scripts/gen_emotes.py": "0155a7601b9fd62fc00158a9177dfd11b143af00e0b73b5a230be76cc0d2f13a",
+    "scripts/gen_resources.py": "a777a76f9c71b8db5a17468f432c71ea5947228f7fbf0c855f776c23307b943e",
+    "scripts/fc_mobs.py": "cf19fb87027bf031db63451a0a3af24e249bbf8eb4e016188bab49772d824f51",
+    "scripts/structure_contract.py": "65d86c6c1cdf8a1799ed6a7178db55bbad7318064593c70d4b0174edab2e5f45",
+    "scripts/tests/guild_training.test.mjs": "4a582b4122c5e03140572466834333541609ba9da217f995bf9aefd4f2eba470",
+    "scripts/tests/test_guild_will.py": "aafe7d8ca5315798c97b33b860d2aa768acd24a3292b0802bb51f84984d5a390",
+    "scripts/tests/guild_will_voxels.mjs": "36e6d3ec429c891db3e1cb7f4ee82809a2bac1f3de43180b2864216088db537e"
+  }
+}

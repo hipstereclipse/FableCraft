@@ -1,0 +1,6 @@
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.612s
+
+OK
+{"station":{"x":160.5,"y":65,"z":-111.5},"target":{"x":160.5,"y":67.75,"z":-114.5},"final_generated_preflight":true,"negative_cases":6,"engine_acceptance":"unrun"}

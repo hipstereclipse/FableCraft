@@ -1,0 +1,3 @@
+{"name": "audit-match", "command": ["python", "scripts/_audit_match.py"], "exit_code": 0, "seconds": 0.733, "log": "screenshots/validation/GP9/guild-audit-match.log"}
+{"name": "audit-roofs", "command": ["python", "scripts/_audit_roofs.py"], "exit_code": 0, "seconds": 0.938, "log": "screenshots/validation/GP9/guild-audit-roofs.log"}
+{"name": "verify-guild", "command": ["python", "scripts/_verify_guild.py"], "exit_code": 0, "seconds": 10.996, "log": "screenshots/validation/GP9/guild-verify-guild.log"}

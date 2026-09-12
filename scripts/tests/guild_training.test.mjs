@@ -27,7 +27,7 @@ async function fixture() {
     getEntities(query) { return entities.filter(e=>e.isValid && (!query.type || e.typeId===query.type)
       && (!query.tags || query.tags.every(t=>e.tags.has(t))))
       .filter(e=>!query.location || Math.hypot(e.location.x-query.location.x,e.location.y-query.location.y,e.location.z-query.location.z)<=query.maxDistance); },
-    spawnParticle(id,p) { particles.push({id,p}); },
+    spawnParticle(id,p,variables) { particles.push({id,p,variables}); },
     playSound(id,p) { sounds.push({id,p}); },
     spawnEntity(id,p) { spawned.push({id,p}); throw new Error('Practice must never spawn a projectile'); },
   };
@@ -63,8 +63,9 @@ async function fixture() {
   function pair(a,b) { return ctl.acquirePair({entity:a,role:'fc_train_ring_a',point:pointA,facing:pointB},
     {entity:b,role:'fc_train_ring_b',point:pointB,facing:pointA}); }
   async function runtime() {
-    const bindingNames = ['APPRENTICE_TYPES','GUILD','nextSparTick','nextArcheryTick','sparTurn','guildTraining',
-      'interruptGuildTraining','guildApprentices','localGuildPoint','distanceXZ','playSparExchange','showPracticeShot','boastGatherCrowd'];
+    const bindingNames = ['APPRENTICE_TYPES','GUILD','nextSparTick','nextArcheryTick','nextWillTick','sparTurn','guildTraining',
+      'interruptGuildTraining','guildApprentices','localGuildPoint','distanceXZ','playSparExchange','showPracticeShot',
+      'guildWillLaneClear','showPracticeWill','playWillPractice','boastGatherCrowd'];
     const declarations=bindingNames.map(name=> {
       const node=ast.body.find(n=>n.type==='FunctionDeclaration'&&n.id.name===name || n.type==='VariableDeclaration'&&n.declarations.some(d=>d.id.name===name));
       assert.ok(node,`Production declaration ${name}`);return mainSource.slice(...node.range);
@@ -79,6 +80,9 @@ async function fixture() {
       clearGuildRingScarecrows(){},repairGuildDemonApproach(){},repairGuildTerrain(){},repairGuildSkirtVegetation(){},
       placeGuildAnnexes(){}, // GP5's adjacent owner has its own actual-callback suite.
       isRomanceable:()=>false,npcTalk:(p,e)=>dialogues.push(e.id),P:{get:()=>500},
+      MolangVariableMap:class {
+        values={}; setFloat(key,value){this.values[key]=value;} setColorRGBA(key,value){this.values[key]=value;}
+      },
     });
     vm.runInContext(declarations.join('\n'),context);
     vm.runInContext('bindGuildTrainingReactions(guildTraining)',context);
@@ -92,7 +96,7 @@ async function fixture() {
     const emoteAst=parse(emoteSource,{ecmaVersion:'latest',sourceType:'module',range:true});
     const emoteNode=emoteAst.body.find(n=>n.type==='FunctionDeclaration'&&n.id.name==='triggerNpcEvent');
     context.audit=()=>{};vm.runInContext(emoteSource.slice(...emoteNode.range),context);
-    return {training,interact,dialogues,...vm.runInContext('({controller:guildTraining,emote:triggerNpcEvent,shot:showPracticeShot,boast:boastGatherCrowd})',context)};
+    return {training,interact,dialogues,...vm.runInContext('({controller:guildTraining,emote:triggerNpcEvent,shot:showPracticeShot,boast:boastGatherCrowd,will:showPracticeWill,lane:guildWillLaneClear})',context)};
   }
   return {api,context,ctl,controller,entity,entities,dimension,blocks,particles,sounds,spawned,timers,advance,runDue,acquire,pair,runtime};
 }
@@ -261,4 +265,112 @@ test('production boast excludes active trainees, aggravated defenders and follow
   runtime.boast({setDynamicProperty(){},sendMessage(){}},{x:0,y:0,z:0});
   for(const e of [a,b,archer,guard,follower])assert.equal(e.teleports.length,0,e.typeId);
   assert.equal(a.frozen,true);assert.equal(b.frozen,true);assert.equal(archer.frozen,true);
+});
+
+function willDummy(f) {
+  f.blocks.set('60,2,85',{typeId:'minecraft:hay_block',isAir:false});
+  f.blocks.set('60,3,85',{typeId:'minecraft:carved_pumpkin',isAir:false});
+  f.blocks.set('60,2,86',{typeId:'minecraft:oak_fence',isAir:false});
+}
+
+test('Will practice stays on the island and never substitutes for missing Might fighters',async()=>{
+  const f=await fixture();willDummy(f);
+  const might=f.entity(),skill=f.entity('fc:guild_apprentice_skill'),will=f.entity('fc:guild_apprentice_will');
+  const otherWill=f.entity('fc:guild_apprentice_will');otherWill.location={x:20,y:1,z:40};
+  const runtime=await f.runtime();
+  for(let tick=10;tick<=240;tick+=10){f.advance(tick);runtime.training();f.runDue();}
+  assert.equal(might.placements.length,0);assert.equal(might.frozen,false);
+  assert.equal(skill.hasTag('fc_train_range'),true);
+  const practising=[will,otherWill].find(e=>e.hasTag('fc_train_will'));
+  assert.ok(practising);assert.equal(practising.placements.length,1);
+  assert.deepEqual({...practising.location},{x:60.5,y:1,z:88.5});
+  assert.deepEqual({...practising.placements[0].options.facingLocation},{x:60.5,y:3.75,z:85.5});
+  assert.ok(practising.animations.filter(n=>n==='animation.npc.will_practice').length>=2);
+  assert.equal([will,otherWill].flatMap(e=>e.animations).some(n=>n==='animation.npc.spar'),false);
+  assert.equal(f.spawned.length,0);
+  const arcs=f.particles.filter(p=>p.id==='wd:lightning_arc');assert.ok(arcs.length>=32);
+  assert.equal(arcs[0].variables.values['variable.color'].blue,1);
+  assert.ok(arcs[0].variables.values['variable.size']>0);
+  assert.ok(f.sounds.some(s=>s.id==='fc.spell_cast'));
+  assert.equal([will,otherWill].filter(e=>e.frozen).length,1);
+  f.advance(1200);runtime.training();
+  for(const e of [will,otherWill]){assert.equal(e.frozen,false);assert.equal(e.teleports.length,0);}
+});
+
+test('Will refuses blocked, replaced and unavailable island support, dummy or beam without writes',async()=>{
+  for(const cause of ['head','floor','unloaded','missing_dummy','replaced_dummy','missing_hay','beam']){
+    const f=await fixture();willDummy(f);const will=f.entity('fc:guild_apprentice_will');
+    if(cause==='head')f.blocks.set('60,2,88',{typeId:'minecraft:chest',isAir:false});
+    if(cause==='floor')f.blocks.set('60,0,88',{typeId:'minecraft:diamond_block',isAir:false});
+    if(cause==='unloaded')f.blocks.set('60,2,87',undefined);
+    if(cause==='missing_dummy')f.blocks.delete('60,3,85');
+    if(cause==='replaced_dummy')f.blocks.set('60,3,85',{typeId:'minecraft:chest',isAir:false});
+    if(cause==='missing_hay')f.blocks.delete('60,2,85');
+    if(cause==='beam')f.blocks.set('60,2,87',{typeId:'minecraft:stone',isAir:false});
+    const before=[...f.blocks];const runtime=await f.runtime();
+    for(let tick=10;tick<=60;tick+=10){f.advance(tick);runtime.training();f.runDue();}
+    assert.equal(will.placements.length,0,cause);assert.equal(will.frozen,false,cause);
+    assert.equal(f.particles.length,0,cause);assert.deepEqual([...f.blocks],before,cause);
+  }
+});
+
+test('Will delayed pulses cancel before first release on conversation, Follow, defence and load/session changes',async()=>{
+  for(const cause of ['conversation','follow','watch','aggravation','defence','rest','night','invalid','dimension','displaced','dummy','lane']){
+    const f=await fixture();willDummy(f);const will=f.entity('fc:guild_apprentice_will'),runtime=await f.runtime();
+    runtime.training();assert.equal(will.frozen,true,cause);
+    if(cause==='conversation')runtime.interact({target:will,player:{},cancel:false});
+    if(cause==='follow'||cause==='watch')runtime.emote(will,`fc:react_${cause}`);
+    if(cause==='aggravation')will.addTag('fc_aggravated');
+    if(cause==='defence')will.addTag('fc_guild_defending');
+    if(cause==='invalid')will.isValid=false;
+    if(cause==='dimension')will.dimension={...f.dimension,id:'minecraft:nether'};
+    if(cause==='displaced')will.location={x:65,y:1,z:88};
+    if(cause==='dummy')f.blocks.delete('60,3,85');
+    if(cause==='lane')f.blocks.set('60,2,87',{typeId:'minecraft:chest',isAir:false});
+    f.advance(cause==='rest'?1200:30,cause==='night'?13000:1000);f.runDue();
+    assert.equal(f.particles.length,0,cause);assert.equal(f.sounds.length,0,cause);assert.equal(f.spawned.length,0,cause);
+    assert.equal(will.placements.length,1,cause);
+  }
+});
+
+test('Will interruption between pulses cancels all remaining feedback and retains social and resident identity',async()=>{
+  const f=await fixture();willDummy(f);const will=f.entity('fc:guild_apprentice_will'),runtime=await f.runtime();
+  const properties={fc_guild_resident_slot:'saved-will-hall',fc_spouse_player:'hero-a',fc_love:90,fc_gift_tick:100};
+  will.properties=properties;will.nameTag='Named resident';const id=will.id;
+  runtime.training();f.advance(18);f.runDue();assert.equal(f.particles.length,10);
+  runtime.emote(will,'fc:react_follow');f.advance(40);f.runDue();runtime.training();
+  assert.equal(f.particles.length,10);assert.equal(will.frozen,false);assert.equal(will.hasTag('fc_guild_following'),true);
+  assert.equal(will.reaction,'fc:react_follow');assert.equal(will.id,id);assert.equal(will.nameTag,'Named resident');
+  assert.strictEqual(will.properties,properties);assert.equal(will.placements.length,1);
+  f.advance(3600);runtime.training();assert.equal(will.placements.length,1);
+});
+
+test('Will cleanup retries failed events and reconciles old Will role tags after reload',async()=>{
+  const f=await fixture();willDummy(f);const will=f.entity('fc:guild_apprentice_will'),runtime=await f.runtime();
+  runtime.training();will.errors.set('fc:guild_training_stop',1);runtime.controller.interrupt(will);
+  assert.equal(will.hasTag('fc_train_will'),true);assert.equal(will.frozen,true);
+  f.advance(30);f.runDue();assert.equal(f.particles.length,0);runtime.training();
+  assert.equal(will.hasTag('fc_train_will'),false);assert.equal(will.frozen,false);
+  will.frozen=true;will.addTag('fc_train_will');f.advance(1500);
+  const reloaded=f.controller();reloaded.beginPass([will]);
+  assert.equal(will.hasTag('fc_train_will'),false);assert.equal(will.frozen,false);
+});
+
+test('Will engine placement failure never retries during the session or falls back to teleport',async()=>{
+  for(const fail of ['false','throw']){
+    const f=await fixture();willDummy(f);const will=f.entity('fc:guild_apprentice_will'),runtime=await f.runtime();
+    if(fail==='false')will.blocked=true;else will.errors.set('tryTeleport',1);
+    runtime.training();f.advance(20);runtime.training();f.advance(40);f.runDue();
+    assert.equal(will.placements.length,1,fail);assert.equal(will.teleports.length,0);assert.equal(will.frozen,false);
+    assert.equal(f.particles.length,0);assert.equal(f.spawned.length,0);
+  }
+});
+
+test('old Will callbacks cannot release a newly acquired later session',async()=>{
+  const f=await fixture();willDummy(f);const will=f.entity('fc:guild_apprentice_will'),runtime=await f.runtime();
+  runtime.training();const oldTimers=f.timers.splice(0);
+  f.advance(1200);runtime.training();f.advance(3600);runtime.training();
+  assert.equal(will.placements.length,2);oldTimers.forEach(t=>t.fn());
+  assert.equal(f.particles.length,0);assert.equal(will.frozen,true);assert.equal(will.hasTag('fc_train_will'),true);
+  f.advance(3620);f.runDue();assert.equal(f.particles.length,40);
 });

@@ -1,0 +1,29 @@
+=== per-class match (recall = of target cells, how many gen got right) ===
+  building  target= 3320 gen= 3394 recall= 86.7% precision= 84.8%
+  water     target=  973 gen=  954 recall= 72.6% precision= 74.0%
+  training  target=  274 gen=  282 recall= 73.0% precision= 70.9%
+  path      target=  336 gen=  616 recall= 25.3% precision= 13.8%
+  lawn      target= 7369 gen= 7930 recall= 86.8% precision= 80.6%
+  -> structural cell agreement (building/water/training/lawn): 85.3%
+
+=== worst mismatch buckets (x..x+8, z..z+8) — aim corrective edits here ===
+  x  0-  8 z 40- 48: missing=  0 extra= 45  target=none
+  x  8- 16 z 16- 24: missing=  0 extra= 40  target=building
+  x  0-  8 z 24- 32: missing= 40 extra=  0  target=building
+  x  8- 16 z 24- 32: missing=  3 extra= 35  target=building
+  x 64- 72 z 72- 80: missing=  0 extra= 35  target=water
+  x 40- 48 z 24- 32: missing=  8 extra= 24  target=building
+  x 72- 80 z 88- 96: missing=  0 extra= 29  target=building/water
+  x 56- 64 z 80- 88: missing= 28 extra=  0  target=water
+  x 56- 64 z 72- 80: missing=  1 extra= 25  target=water
+  x 80- 88 z 88- 96: missing=  0 extra= 24  target=none
+  x 48- 56 z 88- 96: missing= 24 extra=  0  target=water
+  x 32- 40 z  0-  8: missing= 24 extra=  0  target=building
+  x 24- 32 z  0-  8: missing= 24 extra=  0  target=building
+  x 72- 80 z 80- 88: missing=  0 extra= 21  target=water
+  x 64- 72 z 88- 96: missing= 21 extra=  0  target=building/water
+  x 56- 64 z 64- 72: missing= 12 extra=  9  target=water
+  x 64- 72 z 64- 72: missing=  0 extra= 20  target=water
+  x 56- 64 z 96-104: missing= 20 extra=  0  target=building/water
+
+wrote scripts/_align/_audit.png

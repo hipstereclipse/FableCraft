@@ -1,11 +1,11 @@
 // Background training is a Minecraft adaptation. A session acquires a clear
 // station once; normal strolling resumes on release. It is not NPC pathfinding.
 export const GUILD_TRAINING_TAGS = Object.freeze([
-  "fc_train_ring_a", "fc_train_ring_b", "fc_train_range",
+  "fc_train_ring_a", "fc_train_ring_b", "fc_train_range", "fc_train_will",
 ]);
 const TRAIN_TICKS = 1200;
 const CYCLE_TICKS = 3600;
-// gen_structures.py authors both training discs from these two floor blocks.
+// gen_structures.py authors the training discs and island mark from these floors.
 // Block.isSolid is pre-release, unavailable to our stable @minecraft/server 2.1.
 // Refuse unknown replacement floors rather than guessing their support shape.
 const STATION_FLOORS = new Set(["minecraft:coarse_dirt", "minecraft:dirt_path"]);

@@ -1124,6 +1124,8 @@ def emit_client_entity(mob):
             ("block", "animation.npc.block"),
             ("archery_shot", "animation.npc.archery_shot"),
         ]
+    if eid == "guild_apprentice_will":
+        anims = [*anims, ("will_practice", "animation.npc.will_practice")]
     anim_map = {k: v for k, v in anims}
     keys = [k for k, _ in anims]
     # variable.attack_time is engine-owned swing progress (not a missing query).

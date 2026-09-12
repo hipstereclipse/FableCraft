@@ -323,6 +323,7 @@ GUILD_LAYOUT = {
     "cave_shaft": (27, 14),
     "cave_exclusion": (25, 29, 12, 16),
     "islands": ((52 + GUILD_EAST, 86, 4),),                 # ONE scarecrow island in the south pond
+    "will_training": (50 + GUILD_EAST, 88),  # local standing column; main.js centres it
     "pond_bridge": ((55 + GUILD_EAST, 84), (65 + GUILD_EAST, 76)),
 }
 
@@ -2091,6 +2092,11 @@ def build_guild_hall():
     _isx, _isz, _isr = GUILD_LAYOUT["islands"][0]        # the single scarecrow island
     scarecrow(_isx - 2, _isz - 1, "north")               # scarecrows stand on the island
     scarecrow(_isx, _isz - 2, "north")
+    # Will apprentice's small worn mark, south of the west magic-response dummy.
+    # The GP9 runtime only acquires this generated support; it never repaves it.
+    _will_x, _will_z = GUILD_LAYOUT["will_training"]
+    v.set(_will_x, 0, _will_z, "minecraft:coarse_dirt")
+    v.fill(_will_x, 1, _will_z, _will_x, 2, _will_z, "minecraft:air")
 
     # ================= DEMON DOOR (far south, by the islands) =================
     # An Old-Kingdom temple front sculpted into a glaring FACE — glowing eyes, a

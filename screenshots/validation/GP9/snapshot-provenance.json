@@ -1,0 +1,32 @@
+{
+  "source": "reviewed Git index; excludes unstaged parallel implementation and inherited dirtiness",
+  "baseline_head": "444aef6e59403d0664ca8e872f64a45e841eceb7",
+  "entries": 4369,
+  "reviewed_source_sha256": {
+    "docs/CONFORMANCE_CHECKLIST.md": "0f2a0434ca9c7636e90219f7bb07e8e4ab793c03eea47722893e808bf1372696",
+    "docs/GUILD_DEMON_PRIORITIES.md": "b989b88afb5ea815606108ca3ade22be33abc8c4d31407bec890c0cc5e065642",
+    "docs/GUILD_WILL_TRAINING.md": "184081e4dd1ff5356872b7dbb1e4c94550a94062a550c5c6bb5fcc049706d6e6",
+    "docs/HANDOFF.md": "2909cba8bc423e40394efec4322fa5b79607c6a4f60bc4388270f7c71acccf94",
+    "packs/Fablecraft_BP/scripts/guild_training.js": "baf0ff28090d771fb94b4884090e8cf45ba387aa9a6c3cbe7148082e9a70db41",
+    "packs/Fablecraft_BP/scripts/main.js": "c712c39be4aee51bc65e15248e1bd1e27f3cf7a667f7ccae3be53db430521b20",
+    "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure": "ebc961dad4afe97c7aa35e3a79fa96d89eb1f9ba1fb462e7dda9b82e097e3fa7",
+    "packs/Fablecraft_RP/animations/fable_npc.animation.json": "fec9ef847adb5b4995a4e20f70c00cf58ff692aa5710dc65448ffc8c332ec4ed",
+    "packs/Fablecraft_RP/entity/guild_apprentice_will.entity.json": "19ecfa1b667f465bab5a607fb74d2f4522a267d57220ed8ecf583504ba459141",
+    "packs/Fablecraft_RP/models/entity/guild_apprentice_will.geo.json": "8d80f78c8df183c7daee235ff6f8cc5a22afc1f2afa503ff6d80f24c878634f7",
+    "packs/Fablecraft_RP/textures/entity/guild_apprentice_will.png": "8d06b4db9b8b7dadfa4c5b1b23be7208727d6407f6cd12232050bb6757b85be9",
+    "packs/Fablecraft_RP/textures/entity/guild_apprentice_will_married.png": "fa7fbd24744d266c1d575d598b1af137c834e7504d6a3a0a0890ed50ee3b5549",
+    "screenshots/structures/contract/evidence.json": "db93f72b4e834c382f2c64a919c9b1b2ab8ce18974855b7e97ef4c09c12123d7",
+    "scripts/fc_mobs.py": "cf19fb87027bf031db63451a0a3af24e249bbf8eb4e016188bab49772d824f51",
+    "scripts/gen_emotes.py": "0155a7601b9fd62fc00158a9177dfd11b143af00e0b73b5a230be76cc0d2f13a",
+    "scripts/gen_resources.py": "a777a76f9c71b8db5a17468f432c71ea5947228f7fbf0c855f776c23307b943e",
+    "scripts/gen_structures.py": "0bab4c03472774d7d439cdc44bdaaf4521b2a4a252ba2a408298c38912131b29",
+    "scripts/structure_contract.py": "65d86c6c1cdf8a1799ed6a7178db55bbad7318064593c70d4b0174edab2e5f45",
+    "scripts/tests/guild_training.test.mjs": "4a582b4122c5e03140572466834333541609ba9da217f995bf9aefd4f2eba470",
+    "scripts/tests/guild_will_voxels.mjs": "36e6d3ec429c891db3e1cb7f4ee82809a2bac1f3de43180b2864216088db537e",
+    "scripts/tests/test_guild_will.py": "aafe7d8ca5315798c97b33b860d2aa768acd24a3292b0802bb51f84984d5a390",
+    "scripts/validate.py": "8084e67f97216ee54b6aa81a5c5dc774fa7ed2d385b8a74d35486164bba1e9cb",
+    "screenshots/validation/GP9/regenerate-will-assets.py": "8114f43f1fd21878968c7333f8a73a84ba82f7559338f8a345863a1a54bfe4bd"
+  },
+  "node_dependencies": "same installed locked dependencies via node_modules symlink",
+  "engine_acceptance": "unrun"
+}
