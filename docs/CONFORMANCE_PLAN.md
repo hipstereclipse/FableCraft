@@ -278,16 +278,16 @@ Acceptance: All required notice elements present, no monetization solicitations,
 
 References: [B] original names; [C] fablecraft_index.md: data IDs.
 
-Files: `scripts/fc_strings.py (new)`, `scripts/fc_data.py`, `scripts/fc_mobs.py`, `scripts/gen_behavior.py`, `scripts/gen_resources.py`, `scripts/build_addon.py`.
+Files: `scripts/fc_strings.py`, `scripts/fc_branding.py`, `scripts/gen_behavior.py`, `scripts/gen_resources.py`, `scripts/build_addon.py`, `scripts/tests/test_branding.py`. Canonical faithful catalogs fc_data/fc_mobs remain unchanged; their display output routes through emitters.
 
 1. Inventory user-facing proper nouns across data, items, lore, languages, manifests, names and generated scripts using `rg -n "Fable|Albion|Guild|Bowerstone|Oakvale|Jack|Avo|Skorm" scripts packs`. Expand the inventory beyond this seed, record every pair in fc_strings.py, and keep generic words separate from distinctive names.
 2. Implement faithful/original pairs with stable semantic keys and a strict accessor that errors on missing keys/modes. Add argparse --branding=faithful|original, explicit local-vs-release output policy, and pass mode to generators. Preserve saved-world IDs unless an explicit migration maps them.
-3. Route all generator-owned display text (including item display_name/lore, generated fc_gamedata, actual .lang contents and manifests) through the table. languages.json is only a language list; do not mistake changing it for translating the text. Generate only through owners.
+3. Route the L2 generator-owned display text (item display_name/lore, generated fc_gamedata, actual .lang contents and manifests; emotes/HUD owners follow in L3.3) through the table. languages.json is only a language list; do not mistake changing it for translating the text. Generate only through owners.
 4. Add tests for missing keys, both modes, interpolation and accented/color-coded strings. Build both modes into separate temporary staging trees so an original build cannot contaminate local faithful sources. Do not claim zero packaged literals until L3/L4 finishes.
-5. Write a temporary tracked debt inventory of remaining runtime literals by file; no silent release bypass. Keep original-mode packaging blocked until complete.
+5. Use `python scripts/build_addon.py --branding original --preview` for the isolated original tree, and `python scripts/tests/test_branding.py` for the generator/isolation and negative audit tests. Write a temporary tracked debt inventory of remaining runtime literals by file; no silent release bypass. Keep original-mode packaging blocked until complete.
 6. Run the **base** recipe (base always applies), save evidence, update checklist and HANDOFF, commit this leaf and push.
 
-Acceptance: Both naming modes produce consistent generated text; saved IDs unchanged or migrated; tests verify routing and isolation; no false release-ready claim.
+Acceptance: Both naming modes produce consistent L2 generated text; saved IDs unchanged or migrated; tests verify routing and isolation; no false release-ready claim.
 
 ### L3.1 — Runtime strings and menu hub
 

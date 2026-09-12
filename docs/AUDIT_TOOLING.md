@@ -51,7 +51,10 @@ rotation, failure recovery and existing worlds.
   A selected diagnostic is copied into screenshots/validation/<milestone>/ for evidence.
 - npm package manifests/flat lint config and requirements-dev.txt are development tooling,
   committed for reproducibility. .eslintrc.json is an obsolete local file, not used by ESLint 10.
-- Run build_addon only at milestone validation boundaries; it rebuilds three local archives.
+- Run build_addon only at milestone validation boundaries; it builds three local archives under `tmp/builds/faithful-<run>/dist/`.
+  Since L2 it copies packs into a fresh staging tree and audits that actual tree.
+  `--branding original --preview` validates an isolated naming preview; original
+  archives remain blocked pending L3/L4. See [BRANDING.md](BRANDING.md).
   Until L4, never stage or publish those faithful artifacts. After L4, release dist only at
   an accepted milestone, with original branding, zero forbidden literals and provenance.
 - Required build dependencies must be tracked. Optional external reference images remain

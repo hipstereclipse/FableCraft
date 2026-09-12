@@ -465,11 +465,20 @@ def report(results, mean_error=None):
 
 
 def main():
+    global ROOT, RP, HUD_JSON, HUD_SCRIPT, HUD_TEXTURES, GLYPHS, OUTPUT
     parser = argparse.ArgumentParser()
     parser.add_argument("--check", action="store_true", help="validate without writing audit images")
     parser.add_argument("--reference", type=Path)
     parser.add_argument("--capture", type=Path)
+    parser.add_argument("--root", type=Path, default=ROOT, help="root containing packs/ to audit")
     args = parser.parse_args()
+    ROOT = args.root.resolve()
+    RP = ROOT / "packs/Fablecraft_RP"
+    HUD_JSON = RP / "ui/hud_screen.json"
+    HUD_SCRIPT = ROOT / "packs/Fablecraft_BP/scripts/fable_hud.js"
+    HUD_TEXTURES = RP / "textures/ui/fable_hud"
+    GLYPHS = RP / "font/glyph_E9.png"
+    OUTPUT = ROOT / "screenshots/ui"
     if bool(args.reference) != bool(args.capture):
         parser.error("--reference and --capture must be provided together")
 

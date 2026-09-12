@@ -1,9 +1,11 @@
 """build_addon.py — full pipeline: regenerate everything, validate, package.
 
 Usage:
-  python scripts/build_addon.py            # validate + package only
-  python scripts/build_addon.py --full     # regen all assets first
+  python scripts/build_addon.py            # stage, validate, package locally under tmp/builds/
+  python scripts/build_addon.py --full     # regen live faithful assets first
+  python scripts/build_addon.py --branding original --preview  # isolated text preview; no archives
 """
+import argparse
 import json
 import re
 import subprocess
@@ -11,7 +13,8 @@ import sys
 import zipfile
 from pathlib import Path
 
-from fc_lib import ROOT, BP, RP, DIST
+from fc_lib import ROOT
+from fc_branding import stage_packs, write_debt_report
 
 GENERATORS = [
     "gen_item_textures.py",
@@ -39,7 +42,8 @@ def run_generators():
         print(r.stdout.strip())
 
 
-def validate():
+def validate(root=ROOT):
+    BP, RP = root / "packs/Fablecraft_BP", root / "packs/Fablecraft_RP"
     errors = []
     counts = {"json": 0, "png": 0, "wav": 0, "mcstructure": 0, "js": 0}
     for pack in (BP, RP):
@@ -52,7 +56,7 @@ def validate():
                 try:
                     json.loads(f.read_text(encoding="utf-8"))
                 except Exception as e:
-                    errors.append(f"{f.relative_to(ROOT)}: {e}")
+                    errors.append(f"{f.relative_to(root)}: {e}")
             elif ext == ".png":
                 counts["png"] += 1
             elif ext == ".wav":
@@ -95,12 +99,12 @@ def validate():
         script_text = script.read_text(encoding="utf-8")
         if "runCommandAsync(" in script_text:
             errors.append(
-                f"{script.relative_to(ROOT)}: @minecraft/server 2.1.0 "
+                f"{script.relative_to(root)}: @minecraft/server 2.1.0 "
                 "does not expose runCommandAsync; use runCommand"
             )
         for texture in re.findall(r'"(textures/items/[A-Za-z0-9_]+)"', script_text):
             if not (RP / f"{texture}.png").exists():
-                errors.append(f"{script.relative_to(ROOT)}: form texture '{texture}' is missing")
+                errors.append(f"{script.relative_to(root)}: form texture '{texture}' is missing")
     main_script = (BP / "scripts" / "main.js").read_text(encoding="utf-8")
     for contract in (
         "const maxX = x0 + w - 1;",
@@ -136,7 +140,7 @@ def validate():
         for suffix in (".json", ".png"):
             path = RP / "textures" / "ui" / f"{name}{suffix}"
             if not path.exists():
-                errors.append(f"required generated UI asset missing: {path.relative_to(ROOT)}")
+                errors.append(f"required generated UI asset missing: {path.relative_to(root)}")
     required_fable_hud = [
         RP / "ui" / "_ui_defs.json",
         RP / "ui" / "hud_screen.json",
@@ -148,10 +152,10 @@ def validate():
     ]
     for path in required_fable_hud:
         if not path.exists():
-            errors.append(f"required Fable HUD asset missing: {path.relative_to(ROOT)}")
+            errors.append(f"required Fable HUD asset missing: {path.relative_to(root)}")
     print(f"validated: {counts}")
     audit = subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / "verify_emotes.py")],
+        [sys.executable, str(ROOT / "scripts" / "verify_emotes.py"), "--root", str(root)],
         capture_output=True,
         text=True,
     )
@@ -162,7 +166,7 @@ def validate():
             print(audit.stderr.strip())
         errors.append("Fable expression audit failed")
     hud_audit = subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / "audit_hud.py"), "--check"],
+        [sys.executable, str(ROOT / "scripts" / "audit_hud.py"), "--check", "--root", str(root)],
         capture_output=True,
         text=True,
     )
@@ -178,7 +182,14 @@ def validate():
     print("all cross-references OK")
 
 
-def package():
+def package(root, branding="faithful"):
+    # No original distribution until L3/L4 implements the zero-debt release gate.
+    if branding != "faithful":
+        raise ValueError("Original packaging blocked: runtime migration and release scan pending (L3/L4)")
+    local_root = (ROOT / "tmp/builds").resolve()
+    if not root.resolve().is_relative_to(local_root):
+        raise ValueError("Faithful packages must remain under local tmp/builds/")
+    BP, RP, DIST = root / "packs/Fablecraft_BP", root / "packs/Fablecraft_RP", root / "dist"
     DIST.mkdir(exist_ok=True)
     out = DIST / "Fablecraft_Reforged.mcaddon"
     if out.exists():
@@ -189,7 +200,7 @@ def package():
                 if f.is_file():
                     z.write(f, f"{prefix}/{f.relative_to(pack)}")
     size = out.stat().st_size
-    print(f"packaged {out.name}: {size/1024/1024:.2f} MB")
+    print(f"local-only package {out}: {size/1024/1024:.2f} MB")
     # also emit separate .mcpack files for convenience
     for pack, label in ((BP, "Fablecraft_BP"), (RP, "Fablecraft_RP")):
         mp = DIST / f"{label}.mcpack"
@@ -202,8 +213,27 @@ def package():
         print(f"packaged {mp.name}: {mp.stat().st_size/1024/1024:.2f} MB")
 
 
-if __name__ == "__main__":
-    if "--full" in sys.argv:
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--full", action="store_true", help="regenerate live faithful assets first")
+    parser.add_argument("--branding", choices=("faithful", "original"), default="faithful")
+    parser.add_argument("--preview", action="store_true", help="stage and validate only; no archives")
+    args = parser.parse_args(argv)
+    if args.branding == "original" and not args.preview:
+        parser.error("Original packaging is blocked until L3/L4; use --branding original --preview for local review")
+    if args.full and args.branding != "faithful":
+        parser.error("--full only regenerates live faithful assets; original previews use isolated display emitters")
+    if args.full:
         run_generators()
-    validate()
-    package()
+    root = stage_packs(ROOT, args.branding)
+    print(f"Local {args.branding} staging tree: {root}", flush=True)
+    validate(root)
+    report = write_debt_report(root)
+    print(f"Known display-name debt: {report['file_count']} files; see {root / 'branding-debt.json'}")
+    if not args.preview:
+        package(root, args.branding)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

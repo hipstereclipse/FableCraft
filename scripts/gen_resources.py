@@ -7,6 +7,7 @@ import json
 
 from fc_lib import Px, RP, NAMESPACE, write_json, write_text
 import fc_data
+from fc_strings import text as branded_text
 from fc_mobs import MOBS, build_parts, mob_palette, pack_uvs, is_romanceable
 
 FV_GEO = "1.12.0"
@@ -1299,7 +1300,10 @@ def emit_lang(items):
         "fc.hud.title=Fablecraft: Reforged",
         "fc.guild.welcome=Welcome to the Heroes' Guild",
     ]
-    write_text(RP / "texts" / "en_US.lang", "\n".join(lines) + "\n")
+    write_text(RP / "texts" / "en_US.lang", "\n".join(
+        line.split("=", 1)[0] + "=" + branded_text(line.split("=", 1)[1])
+        if "=" in line and not line.startswith("#") else branded_text(line)
+        for line in lines) + "\n")
     write_json(RP / "texts" / "languages.json", ["en_US"])
 
 

@@ -1,4 +1,5 @@
 """Static audit for the generated Fable expression and NPC animation system."""
+import argparse
 import json
 import sys
 from pathlib import Path
@@ -144,4 +145,9 @@ def main():
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--root", type=Path, default=ROOT, help="root containing packs/ to audit")
+    args = parser.parse_args()
+    ROOT = args.root.resolve()
+    BP, RP = ROOT / "packs/Fablecraft_BP", ROOT / "packs/Fablecraft_RP"
     sys.exit(main())

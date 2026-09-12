@@ -33,13 +33,13 @@ Counts verified 2026-09-12: 51 roster definitions plus player/overlay assets pro
 
 ## 📥 Installing
 
-1. For local development, build with `python scripts/build_addon.py` and open **`dist/Fablecraft_Reforged.mcaddon`**. Tracked archives may predate current source; public distribution remains gated by [LEGAL.md](LEGAL.md).
+1. For local development, build with `python scripts/build_addon.py` and open **`tmp/builds/faithful-<run>/dist/Fablecraft_Reforged.mcaddon`** (the build prints the exact path). Tracked archives may predate current source; public distribution remains gated by [LEGAL.md](LEGAL.md).
 2. Double-click it (or open it with Minecraft). Both packs import automatically.
 3. Create a new world → **Add** the Behavior Pack *Fablecraft: Reforged [Behavior]* (the Resource Pack joins automatically as a dependency).
 4. Under world settings, ensure **Holiday Creator Features / Beta APIs** toggles required by your Minecraft version are enabled for scripting.
 5. Spawn in. You wake **inside the Heroes' Guild** kitted out in a full apprentice outfit, a Stick, your Guild Seal, a Quest Card and an Apple Pie — the Guildmaster is expecting you.
 
-> Prefer separate packs? `dist/Fablecraft_BP.mcpack` and `dist/Fablecraft_RP.mcpack` install individually.
+> Prefer separate packs? `Fablecraft_BP.mcpack` and `Fablecraft_RP.mcpack` in that same local build folder install individually.
 
 **Requirements:** Minecraft Bedrock **1.21.100+** (Windows / mobile / console via realm host), with the Script API enabled (`@minecraft/server` 2.1.0, `@minecraft/server-ui` 2.0.0).
 
@@ -300,7 +300,7 @@ python -m venv .venv
 | [scripts/gen_doc_screenshots.py](scripts/gen_doc_screenshots.py) | Composites 3D documentation scenes for README/GitHub showcases |
 | [scripts/gen_expression_previews.py](scripts/gen_expression_previews.py) | Renders the Fable expression cards + contact sheet |
 | [scripts/verify_emotes.py](scripts/verify_emotes.py) | Static audit of the expression registry (run inside `build_addon.py`) |
-| [scripts/build_addon.py](scripts/build_addon.py) | Validation + `.mcaddon` packaging |
+| [scripts/build_addon.py](scripts/build_addon.py) | Isolated local builds; `--branding original --preview` previews names without packaging |
 
 Gameplay integration lives in [packs/Fablecraft_BP/scripts/main.js](packs/Fablecraft_BP/scripts/main.js): quests, NPC interactions, shops, faction reputation, settlement/Guild bounties, travel and world placement. All **18 Will powers** cast through [the live wd spell registry](packs/Fablecraft_BP/scripts/wd/spells/registry.js). The legacy XP/spending integration remains a funnel into the modular progression state; morality is wd-authoritative. The old monolithic spell entry point is inert, not a second active casting system.
 

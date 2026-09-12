@@ -10,24 +10,32 @@ six reference snapshots are in docs/. User override (2026-09-12): finish the spe
 and continue as far as practical without permission questions. Retain separate
 milestone commits, validation, immediate pushes, evidence and fresh handoffs.
 
-Current milestone: L1 — verify notices and align license metadata; status done.
-Last resolved prior commit: 88c3f37 (pushed before this milestone).
-Containing commit: TLC Conformance — L1: verify notices and align license metadata.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — L1: verify notices and align license metadata'.
+Current milestone: L2 — isolate naming modes and local build outputs; status done.
+Last resolved prior commit: 727d945 (pushed before this milestone).
+Containing commit: TLC Conformance — L2: isolate naming modes and local build outputs.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — L2: isolate naming modes and local build outputs'.
 Replace previous SELF evidence with the actual hash next step; never invent a self-hash.
 
-Validator state: all base validators and current regression suites GREEN; see
-screenshots/validation/L1/. Required fan-work/original-assets/takedown/non-commercial
-notice elements verified. npm metadata corrected from ISC to the repository's
-Apache-2.0 license; LICENSE itself unchanged. Maintainer non-commercial release
-policy is distinguished from pre-existing code-license permissions. No donation
-solicitations or public-release clearance claims remain in the README notice.
-0.1, 0.2, 0.4 and L1 complete; 0.3 automated work delivered, manual checks UNRUN.
-Spell in-world checklist and the HUD-preview concerns remain pending. The name
-layer is not implemented yet; all generated archives remain local development only.
+L2 is complete for item/data/lang/manifest generation. The shared fc_strings table
+has strict faithful/original access; original alternatives (Wayfarer Tales etc.) are
+provisional proposals, not the final public name. fc_branding copies source packs to
+fresh tmp/builds/<mode>-<run> trees and invokes the display owners there. Both child
+auditors take --root and inspect those copies. Default faithful archives now live in
+that run's dist directory; legacy repository dist is untouched. Original mode requires
+--preview and cannot package while L3/L4 remains incomplete. Source IDs/stats/UUIDs are
+unchanged. docs/BRANDING.md explains ownership and docs/BRANDING_DEBT.md lists ten files
+with remaining known display spellings; this is not the required L4 release scanner.
+
+All L2 validators are green: build, emotes, HUD112/112, animation audit54clients,
+ESLint0errors/19warnings, spell17 + scan3 tests, behavior4 groups, animation10 tests,
+branding14 tests. Tests prove faithful generated text matches current source, original
+items retain stats/IDs, owner paths recover on failure, and staged audit defects fail.
+Evidence: screenshots/validation/L2/. Phase0.3 and spell in-world checks remain manual
+and unrun; no Minecraft runtime is available in this session. Independent work may
+continue without claiming those tests pass.
 
 Next three actions:
-1. git pull --ff-only; read the top pending row and start L2 generator naming layer (0.3 manual checks still pending).
+1. git pull --ff-only; read the top pending row and start L3.1 (runtime string module and menu hub).
 2. Execute its numbered playbook steps and applicable base/domain validators; preserve
    real output under screenshots/validation/<ID>/, mark manual observations unrun.
 3. Update checklist/handoff in one explicitly staged milestone commit, push to origin,
@@ -53,9 +61,9 @@ through wd, so do not delete the legacy progression bridge blindly.
 
 Ghost Sword/Assassin Rush are completed separately in ccafd4c; never stash/revert/refold
 them into conformance. SPELL_COMPANIONS.md has the still-pending in-world checklist.
-Remaining inherited edits include BOUNTY_SYSTEM.md until 0.4, local dist archives and
-four scripts/_align/overlay_*.png renders. Preserve unreviewed scratch files. Required
-builds package locally at milestone boundaries only: do not stage/publish faithful
+BOUNTY_SYSTEM.md was reconciled in 0.4. Remaining inherited edits include local dist
+archives and four scripts/_align/overlay_*.png renders. Preserve unreviewed scratch files. Required
+builds now package under tmp/builds/faithful-<run>/dist at milestone boundaries only: do not stage/publish faithful
 archives. All public builds need original branding and L4 zero-debt scanning first.
 Original/generated assets only, no extracted Fable content, free and never monetized.
 
