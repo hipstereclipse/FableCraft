@@ -85,6 +85,23 @@ class BehaviorRegression(unittest.TestCase):
                         self.assertGreater(live['minecraft:movement']['value'], 0)
                         self.assertTrue(live['minecraft:pushable']['is_pushable'])
 
+    def test_door_stays_anchored_and_open_state_releases_collision(self):
+        mob = next(m for m in MOBS if m['id'] == 'demon_door')
+        gb.emit_entity(mob)
+        data = json.loads((self.bp / 'entities/demon_door.json').read_text())['minecraft:entity']
+        live = dict(data['components'])
+        self.assertFalse(live['minecraft:physics']['has_gravity'])
+        self.assertTrue(live['minecraft:physics']['has_collision'])
+        self.assertFalse(live['minecraft:pushable']['is_pushable'])
+        self.assertFalse(live['minecraft:pushable']['is_pushable_by_piston'])
+        for key in ('minecraft:leashable', 'minecraft:is_stackable', 'minecraft:navigation.walk'):
+            self.assertNotIn(key, live)
+        for _ in range(3):
+            for group in data['events']['fc:open']['add']['component_groups']:
+                live.update(data['component_groups'][group])
+            self.assertFalse(live['minecraft:physics']['has_gravity'])
+            self.assertFalse(live['minecraft:physics']['has_collision'])
+
     def test_all_item_formats(self):
         items = fc_data.all_items()
         self.assertGreaterEqual(len(items), 194)

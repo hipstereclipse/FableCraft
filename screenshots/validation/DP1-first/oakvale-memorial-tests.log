@@ -1,0 +1,36 @@
+test_actual_scatter_population_cullis_and_saved_region (__main__.OakvaleMemorial.test_actual_scatter_population_cullis_and_saved_region) ... FAIL
+test_dimensions_palette_and_retained_runtime_contract (__main__.OakvaleMemorial.test_dimensions_palette_and_retained_runtime_contract) ... ok
+test_hero_separate_legs_head_and_raised_broad_axe (__main__.OakvaleMemorial.test_hero_separate_legs_head_and_raised_broad_axe) ... ok
+test_north_gate_to_garden_statue_graves_residents_and_cullis (__main__.OakvaleMemorial.test_north_gate_to_garden_statue_graves_residents_and_cullis) ... ok
+test_raised_garden_gate_stairs_and_grave_rows (__main__.OakvaleMemorial.test_raised_garden_gate_stairs_and_grave_rows) ... ok
+test_retained_oak_well_field_coast_and_chest_coordinates (__main__.OakvaleMemorial.test_retained_oak_well_field_coast_and_chest_coordinates) ... ok
+
+======================================================================
+FAIL: test_actual_scatter_population_cullis_and_saved_region (__main__.OakvaleMemorial.test_actual_scatter_population_cullis_and_saved_region)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_oakvale_memorial.py", line 105, in test_actual_scatter_population_cullis_and_saved_region
+    self.assertEqual(r.returncode,0,r.stdout+r.stderr);print(r.stdout.strip())
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : evalmachine.<anonymous>:2
+  if (guildDoorWorldExcluded(p)) return;
+  ^
+
+ReferenceError: guildDoorWorldExcluded is not defined
+    at Object.maybePlace (evalmachine.<anonymous>:2:3)
+    at Object.<anonymous> (/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/poi_population.cjs:34:11)
+    at Module._compile (node:internal/modules/cjs/loader:1934:14)
+    at Object..js (node:internal/modules/cjs/loader:2074:10)
+    at Module.load (node:internal/modules/cjs/loader:1656:32)
+    at Module._load (node:internal/modules/cjs/loader:1448:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+
+Node.js v26.7.0
+
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.448s
+
+FAILED (failures=1)

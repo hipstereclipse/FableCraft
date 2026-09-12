@@ -1,0 +1,28 @@
+✔ one checked station placement per active session; release does not teleport home (3.053125ms)
+✔ failed stop keeps state pending and retries; successful cleanup does not repeat (1.24345ms)
+✔ failed start and tag writes clean up and cannot re-place during the same session (4.264674ms)
+✔ reload reconciles both old role tags and tagless frozen components (1.931686ms)
+✔ failed legacy cleanup prevents acquisition until a later successful release (1.225977ms)
+✔ inactive invalid handles are forgotten and a returned id reconciles again (1.210307ms)
+✔ blocked headroom, side footprint, unsupported or unloaded station never acquires (4.186005ms)
+✔ authored floors work with stable 2.1 Block fields and unknown replacements are refused (2.58189ms)
+✔ engine placement false/throw is not retried or replaced by unchecked teleport (2.487642ms)
+✔ pair acquisition is all-or-release; retained lone partner is released (3.125763ms)
+✔ combat, Follow, married state, dimension change and displacement invalidate activity (5.455525ms)
+✔ night, empty scan and invalid/unloaded entity cancel tokens; reloaded entity is reconciled (3.478543ms)
+✔ an old session token cannot interrupt a new assignment or neutralize defence (1.270902ms)
+✔ production scheduler repeats harmless activity without repeated placement and releases on rest (23.780736ms)
+✔ production conversation interrupts immediately and prevents same-session resumption (9.408577ms)
+✔ production scheduler releases a lone fighter when the partner disappears (8.224841ms)
+✔ production delayed archery cancels on aggression, rest, death and social Watch/Follow (39.422242ms)
+✔ production boast excludes active trainees, aggravated defenders and followers (8.457041ms)
+(node:55) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 133.88438

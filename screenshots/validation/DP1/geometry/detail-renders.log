@@ -1,0 +1,5 @@
+structure card: guild_hall
+structure card: library_arcanum
+detail: guild-throat-front
+detail: guild-throat-rear
+detail: arcanum-library-view

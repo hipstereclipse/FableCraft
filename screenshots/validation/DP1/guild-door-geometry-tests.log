@@ -1,0 +1,10 @@
+test_actual_runtime_migrates_frozen_gp1_throat_and_preserves_every_floor (__main__.GuildDoorGeometry.test_actual_runtime_migrates_frozen_gp1_throat_and_preserves_every_floor) ... ok
+test_barriers_remain_in_asset_but_neither_render_nor_occlude_visible_faces (__main__.GuildDoorGeometry.test_barriers_remain_in_asset_but_neither_render_nor_occlude_visible_faces) ... ok
+test_independent_late_obstruction_and_floor_hole_are_rejected (__main__.GuildDoorGeometry.test_independent_late_obstruction_and_floor_hole_are_rejected) ... ok
+test_library_is_explicit_fixed_destination_without_scatter_or_ambient_loot (__main__.GuildDoorGeometry.test_library_is_explicit_fixed_destination_without_scatter_or_ambient_loot) ... ok
+test_three_wide_four_high_tunnel_floor_and_both_approaches (__main__.GuildDoorGeometry.test_three_wide_four_high_tunnel_floor_and_both_approaches) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.450s
+
+OK

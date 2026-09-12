@@ -1,0 +1,22 @@
+✔ production singleton passes canonical data, aperture gate and literal destination placement (9.16507ms)
+✔ production maintenance preserves a paid survivor before removing duplicate mouth faces (7.117947ms)
+✔ new-world registration precedes missing chunks; replacement cannot lose new/legacy status (11.981244ms)
+✔ actual deferred face interaction captures light-use item before event expiry (13.706308ms)
+✔ corrupt Guild progress never falls through to invented legacy challenge/payout (10.754867ms)
+✔ ordinary scattered door retains the existing requirement and payout path (3.98399ms)
+✔ five-tick production schedule repairs after reload without duplicate spawns (5.216057ms)
+✔ production block protection permits native non-sneaking containers and both return landmarks (5.146445ms)
+✔ production explosion and dangerous-item protection preserves unrelated world behavior (5.356394ms)
+✔ production scatter and region retirement exclude realm storage including ground below it (5.542477ms)
+✔ actual recovery command requires a player source and returns the active room visitor (5.83404ms)
+✔ actual recovery command uses an existing ticket when the main room record is corrupt (5.926455ms)
+(node:105) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 99.180294

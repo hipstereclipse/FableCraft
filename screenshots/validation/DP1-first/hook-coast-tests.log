@@ -1,0 +1,36 @@
+test_abbey_terrace_stairs_clear_aisle_and_retained_bell (__main__.HookCoast.test_abbey_terrace_stairs_clear_aisle_and_retained_bell) ... ok
+test_actual_population_and_travel_on_supported_surfaces (__main__.HookCoast.test_actual_population_and_travel_on_supported_surfaces) ... FAIL
+test_entry_routes_to_lamp_abbey_graves_residents_and_all_chests (__main__.HookCoast.test_entry_routes_to_lamp_abbey_graves_residents_and_all_chests) ... ok
+test_graveyard_rows_bell_and_cottage_door_headroom (__main__.HookCoast.test_graveyard_rows_bell_and_cottage_door_headroom) ... ok
+test_lighthouse_internal_stairs_landing_beacon_and_foundation (__main__.HookCoast.test_lighthouse_internal_stairs_landing_beacon_and_foundation) ... ok
+test_stable_dimensions_palette_population_and_new_anchors (__main__.HookCoast.test_stable_dimensions_palette_population_and_new_anchors) ... ok
+
+======================================================================
+FAIL: test_actual_population_and_travel_on_supported_surfaces (__main__.HookCoast.test_actual_population_and_travel_on_supported_surfaces)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_hook_coast.py", line 121, in test_actual_population_and_travel_on_supported_surfaces
+    self.assertEqual(r.returncode,0,r.stdout+r.stderr);print(r.stdout.strip())
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : evalmachine.<anonymous>:2
+  if (guildDoorWorldExcluded(p)) return;
+  ^
+
+ReferenceError: guildDoorWorldExcluded is not defined
+    at Object.maybePlace (evalmachine.<anonymous>:2:3)
+    at Object.<anonymous> (/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/poi_population.cjs:34:11)
+    at Module._compile (node:internal/modules/cjs/loader:1934:14)
+    at Object..js (node:internal/modules/cjs/loader:2074:10)
+    at Module.load (node:internal/modules/cjs/loader:1656:32)
+    at Module._load (node:internal/modules/cjs/loader:1448:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+
+Node.js v26.7.0
+
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.427s
+
+FAILED (failures=1)

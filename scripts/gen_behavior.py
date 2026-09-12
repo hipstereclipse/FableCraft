@@ -431,6 +431,11 @@ def emit_entity(mob):
     elif behavior == "door":
         comp.pop("minecraft:behavior.random_stroll", None)
         comp.pop("minecraft:despawn", None)
+        for key in ("minecraft:leashable", "minecraft:jump.static",
+                    "minecraft:movement.basic", "minecraft:navigation.walk"):
+            comp.pop(key, None)
+        comp["minecraft:physics"] = {"has_gravity": False, "has_collision": True}
+        comp["minecraft:pushable"] = {"is_pushable": False, "is_pushable_by_piston": False}
         comp["minecraft:movement"] = {"value": 0.0}
         comp["minecraft:variant"] = {"value": 0}
         comp["minecraft:knockback_resistance"] = {"value": 1.0}
@@ -438,9 +443,9 @@ def emit_entity(mob):
             {"cause": "all", "deals_damage": False}]}
         comp["minecraft:fire_immune"] = {}
         comp["minecraft:persistent"] = {}
-        comp["minecraft:is_stackable"] = {}
         comp["minecraft:body_rotation_blocked"] = {}
-        cgroups["fc:door_open"] = {"minecraft:variant": {"value": 1}}
+        cgroups["fc:door_open"] = {"minecraft:variant": {"value": 1},
+                                  "minecraft:physics": {"has_gravity": False, "has_collision": False}}
         events["fc:open"] = {"add": {"component_groups": ["fc:door_open"]}}
 
     # The daytime Guild training scheduler positions apprentices inside the
@@ -690,6 +695,8 @@ def emit_script_data():
         "upgrades": {u["id"]: u for u in fc_data.UPGRADES},
         "quests": fc_data.QUESTS,
         "demonDoors": fc_data.DEMON_DOORS,
+        "demonDoorRealms": fc_data.CANONICAL_DEMON_DOORS,
+        "guildDoorAperture": fc_data.GUILD_DOOR_APERTURE,
         "killXp": fc_data.KILL_XP,
         "killMorality": fc_data.KILL_MORALITY,
         "augments": {f"{NAMESPACE}:{a['id']}": a["id"].replace("_augment", "")

@@ -2118,7 +2118,11 @@ def guild_hall():
             for y in range(1, 5 + tier):
                 v.set(DOOR_X + side * dx, y, DOOR_Z, CHISELED if y % 3 == 0 else STONE)
             v.set(DOOR_X + side * dx, 5 + tier, DOOR_Z, "minecraft:chiseled_deepslate")
-    v.fill(DOOR_X - 1, 1, DOOR_Z, DOOR_X + 1, 4, DOOR_Z, "minecraft:air")   # the mouth
+    # A traversable tunnel, not a front-only recess: its rear mouth opens onto
+    # the inside perimeter lane. Existing worlds use the separate fingerprinted
+    # aperture migration; this construction only affects newly placed Guilds.
+    v.fill(DOOR_X - 1, 1, DOOR_Z, DOOR_X + 1, 4, DOOR_Z + 8, "minecraft:air")
+    v.fill(DOOR_X - 1, 0, DOOR_Z, DOOR_X + 1, 0, DOOR_Z + 8, COBBLE)
     for y in range(1, 5):
         v.set(DOOR_X - 2, y, DOOR_Z, CHISELED)
         v.set(DOOR_X + 2, y, DOOR_Z, CHISELED)
@@ -2130,8 +2134,9 @@ def guild_hall():
         v.set(ex, 6, DOOR_Z, "minecraft:iron_bars")
         v.set(ex, 6, DOOR_Z + 1, "minecraft:glowstone")
         v.set(ex, 7, DOOR_Z, CHISELED)
-    v.set(DOOR_X - 1, 3, DOOR_Z, SOUL_LANTERN)
-    v.set(DOOR_X + 1, 3, DOOR_Z, SOUL_LANTERN)
+    for lx in (DOOR_X - 3, DOOR_X + 3):             # lamps stand outside the throat
+        v.fill(lx, 1, DOOR_Z - 1, lx, 2, DOOR_Z - 1, CHISELED)
+        v.set(lx, 3, DOOR_Z - 1, SOUL_LANTERN, {"hanging": False})
     for bxp in (DOOR_X - 4, DOOR_X + 4):             # flanking braziers
         v.set(bxp, 1, DOOR_Z - 1, SAND_CHIS)
         v.set(bxp, 2, DOOR_Z - 1, "minecraft:soul_campfire")
@@ -5438,11 +5443,18 @@ def greatwood_gorge():
     v.save("greatwood_gorge")
 
 
+def library_arcanum():
+    """Explicit owner for the fixed Guild Demon Door destination."""
+    from door_realms import build_library_arcanum
+    return build_library_arcanum(Vox)
+
+
 def main():
     print("building structures:")
     demon_door_arch()
     guild_hall()
     chamber_of_fate()
+    library_arcanum()
     oakvale_village()
     bowerstone_market()
     knothole_glade()

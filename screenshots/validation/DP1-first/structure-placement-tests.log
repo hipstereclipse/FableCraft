@@ -1,0 +1,125 @@
+✖ chapel_skorm: actual placement uses generator dimensions and preserves save envelope (2.202921ms)
+✖ demon_door_arch: actual placement uses generator dimensions and preserves save envelope (0.775221ms)
+✖ power_snowspire_oracle: actual placement uses generator dimensions and preserves save envelope (0.698606ms)
+✖ temple_avo: actual placement uses generator dimensions and preserves save envelope (0.634884ms)
+✖ arena_ring: actual placement uses generator dimensions and preserves save envelope (0.771774ms)
+✖ bowerstone_market: actual placement uses generator dimensions and preserves save envelope (0.765382ms)
+✖ oakvale_village: actual placement uses generator dimensions and preserves save envelope (0.563139ms)
+✖ grey_house: actual placement uses generator dimensions and preserves save envelope (0.552058ms)
+✖ bargate_prison: actual placement uses generator dimensions and preserves save envelope (0.710058ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 0
+ℹ fail 9
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 16.627829
+
+✖ failing tests:
+
+test at scripts/tests/structure_placement.test.cjs:15:3
+✖ chapel_skorm: actual placement uses generator dimensions and preserves save envelope (2.202921ms)
+  ReferenceError: guildDoorWorldExcluded is not defined
+      at Object.maybePlace (evalmachine.<anonymous>:2:3)
+      at TestContext.<anonymous> (/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/structure_placement.test.cjs:31:13)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.start (node:internal/test_runner/test:1257:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)
+
+test at scripts/tests/structure_placement.test.cjs:15:3
+✖ demon_door_arch: actual placement uses generator dimensions and preserves save envelope (0.775221ms)
+  ReferenceError: guildDoorWorldExcluded is not defined
+      at Object.maybePlace (evalmachine.<anonymous>:2:3)
+      at TestContext.<anonymous> (/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/structure_placement.test.cjs:31:13)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+
+test at scripts/tests/structure_placement.test.cjs:15:3
+✖ power_snowspire_oracle: actual placement uses generator dimensions and preserves save envelope (0.698606ms)
+  ReferenceError: guildDoorWorldExcluded is not defined
+      at Object.maybePlace (evalmachine.<anonymous>:2:3)
+      at TestContext.<anonymous> (/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/structure_placement.test.cjs:31:13)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7)
+
+test at scripts/tests/structure_placement.test.cjs:15:3
+✖ temple_avo: actual placement uses generator dimensions and preserves save envelope (0.634884ms)
+  ReferenceError: guildDoorWorldExcluded is not defined
+      at Object.maybePlace (evalmachine.<anonymous>:2:3)
+      at TestContext.<anonymous> (/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/structure_placement.test.cjs:31:13)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7)
+
+test at scripts/tests/structure_placement.test.cjs:15:3
+✖ arena_ring: actual placement uses generator dimensions and preserves save envelope (0.771774ms)
+  ReferenceError: guildDoorWorldExcluded is not defined
+      at Object.maybePlace (evalmachine.<anonymous>:2:3)
+      at TestContext.<anonymous> (/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/structure_placement.test.cjs:31:13)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7)
+
+test at scripts/tests/structure_placement.test.cjs:15:3
+✖ bowerstone_market: actual placement uses generator dimensions and preserves save envelope (0.765382ms)
+  ReferenceError: guildDoorWorldExcluded is not defined
+      at Object.maybePlace (evalmachine.<anonymous>:2:3)
+      at TestContext.<anonymous> (/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/structure_placement.test.cjs:31:13)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7)
+
+test at scripts/tests/structure_placement.test.cjs:15:3
+✖ oakvale_village: actual placement uses generator dimensions and preserves save envelope (0.563139ms)
+  ReferenceError: guildDoorWorldExcluded is not defined
+      at Object.maybePlace (evalmachine.<anonymous>:2:3)
+      at TestContext.<anonymous> (/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/structure_placement.test.cjs:31:13)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7)
+
+test at scripts/tests/structure_placement.test.cjs:15:3
+✖ grey_house: actual placement uses generator dimensions and preserves save envelope (0.552058ms)
+  ReferenceError: guildDoorWorldExcluded is not defined
+      at Object.maybePlace (evalmachine.<anonymous>:2:3)
+      at TestContext.<anonymous> (/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/structure_placement.test.cjs:31:13)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7)
+
+test at scripts/tests/structure_placement.test.cjs:15:3
+✖ bargate_prison: actual placement uses generator dimensions and preserves save envelope (0.710058ms)
+  ReferenceError: guildDoorWorldExcluded is not defined
+      at Object.maybePlace (evalmachine.<anonymous>:2:3)
+      at TestContext.<anonymous> (/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/structure_placement.test.cjs:31:13)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7)

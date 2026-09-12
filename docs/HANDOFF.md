@@ -18,10 +18,10 @@ with exploration, reward collection and a reliable portal back to the source.
 This overrides the old instruction to start W3.5 or keep adding unrelated POIs.
 Read docs/GUILD_DEMON_PRIORITIES.md first; it is the active execution queue.
 
-Current checkpoint: GP3 — first Guild NPC session pass; complete portal/destination pilot next
-Last resolved prior commit: fd95ef16141a2b806cad1146210aea84c71b9dbf (pushed).
-Containing commit: TLC Conformance — GP3: restore Guild training movement and interruption lifecycle.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP3: restore Guild training movement and interruption lifecycle'.
+Current checkpoint: DP1 — Guild walk-through portal and first library reward grove implemented; engine acceptance unrun
+Last resolved prior commit: a61ab803b7ff328313957911b66521cb60d6ff5b (pushed).
+Containing commit: TLC Conformance — DP1: open the Guild door into Library Arcanum.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — DP1: open the Guild door into Library Arcanum'.
 Never invent a self-hash. Read the supplemental priority ledger for implementation
 scope, known defects and unrun engine checks.
 
@@ -40,16 +40,37 @@ canonical behavior; label Minecraft adaptations. Current Maze (46,12,70) is an
 audited baseline: redesign may move anchors only with all owners/consumers/tests
 changed together. Reanchor is not geometry migration. Preserve saved-world progress.
 
-Demon Door baseline: doorPersona currently uses a coordinate-derived table index;
-openDemonDoor grants items/XP immediately and animates the face. It does not take
-the player into a reward world. Replace this with stable door/challenge/destination
-mapping, expressive opening, a clear usable portal, unique designed destination,
-in-room reward and safe exact-source return. Persist unlock/room/claim/return state
-beyond face entity lifetime; prevent duplicate rewards and portal bounce loops.
-Audit already-open/paid legacy doors, concurrency, death/reload and failed travel.
-Verify supported Bedrock realm storage/loading APIs before choosing dimensions;
-Nether-like traversal does not mean generic Nether travel. Keep ordinary procedural
-scatter and story-door exceptions such as Nostro. No generic riddle substitutions.
+Guild portal pilot is implemented in DP1. Read docs/LIBRARY_ARCANUM.md. Stable
+Lamp -> Library Arcanum mapping replaces the Guild's coordinate persona and
+immediate payout. Lantern use opens a 3x4x9 throat, raises the face and admits
+players through light after checked room creation. The original library grove
+has one elixir chest and three minor keepsakes in containers; native collection
+is shared-world and never refilled. World unlock/room/claim state and per-player
+exact-approach tickets survive face replacement, death/reload and travel failure.
+The unused Overworld volume is fully air-scanned; complete barrier containment,
+paths, all reward approaches and lid/arrival/exit clearances are checked before
+admission. No modern custom-dimension APIs or pack/API/UUID changes.
+
+Existing Guilds receive only a fingerprinted 108-cell mouth clear, preserving
+floor and progress; same-type player replacements cannot be distinguished.
+GP2's old-world stair migration remains absent. Legacy open/paid or missing-face
+history suppresses new room rewards; a replaced closed face's older payment
+history is unrecoverable. Ordinary scatter still uses the legacy eight personas
+and immediate payouts. Those conversions, direct TLC view comparisons and all
+engine tests remain open; never substitute riddles for Nostro or other story doors.
+
+GP2 fd95ef1: continuous two-wide half-block lobby/Maze stairs and gallery/dining
+connection; 6 final-voxel regression groups. GP3 a61ab80: session/cleanup/interrupt
+controller, 18 runtime groups and explicit roaming component restoration; one
+checked station acquisition remains an adaptation, walking to marks unresolved.
+Only 3 apprentice BP outputs changed. N5/N7 resident repair and N6 innocent-player
+targeting are the highest next NPC risks. Existing GUILD anchors including Maze
+(46,12,70) remain unchanged; reanchor is not geometry migration.
+
+Current C2 covers 35 assets/renders (28 scatter/3 fixed/4 legacy), and the full
+all-category screenshot pipeline has 32 structure cards. GP2 passed28 gates,
+GP3 passed 29 gates; DP1 passed all 34 gates. All captures/tests are offline,
+including mocked actual runtime callbacks; no live engine access has occurred.
 
 The GP/DP priorities are supplemental, tracked separately from C3's original 45
 leaves; do not inflate the old scoreboard or mark these new deliverables done.
@@ -136,9 +157,11 @@ screenshots/validation/W3.3/remote-run.json. Inspect newest workflow's actual he
 All current world rows remain in-progress for manual/reference work, not done.
 
 Next three actions:
-1. Complete DP1/DP2 Guild lamp challenge and Library Arcanum traversal/rewards/return.
-2. Test legacy aperture migration, loaded destination/return, concurrency and corruption; inspect source and room views.
-3. Run GP4 integrated review and choose next ranked Guild/NPC/door defect; validate and push each coherent pass.
+1. Inspect the current workflow exact head and finish the integrated GP4 review.
+2. Address the highest concrete Guild resident/defence or cave-route defect, then
+   repeat portal/reference review; defer W3.5 and unrelated POIs.
+3. Run base/domain gates, inspect evidence, keep engine checks unrun if unavailable,
+   update the priority ledger/checklist/handoff, commit one coherent pass and push.
    At context limits print this continuation prompt verbatim.
 
 Landmines: hundreds of apparent edits are CRLF noise. Never git add -A, commit -a,

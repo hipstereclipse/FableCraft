@@ -306,7 +306,7 @@
       "notes": []
     },
     "guild_hall": {
-      "asset_sha256": "bf8ca32dbed413c48189c79abc79f19f7f3bf36a86282935532294388d922647",
+      "asset_sha256": "56dab426f9cce940a1ada713b776780897a9de48bd84066433361316cd52adaf",
       "size": [
         122,
         30,
@@ -415,6 +415,25 @@
         "colors": 46,
         "contrast": 0.87,
         "brightness": 0.36,
+        "placeholder": false
+      },
+      "notes": []
+    },
+    "library_arcanum": {
+      "asset_sha256": "a8287b313666ac810c27b913e51d1071472602d7ff5decc8d00d036e24608b52",
+      "size": [
+        49,
+        28,
+        49
+      ],
+      "image_sha256": "b1b96c2aebfe03382742a6b6119584b9063e4e3a795a03a5df93ec65ecb3d2fb",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 17.4,
+        "colors": 41,
+        "contrast": 0.89,
+        "brightness": 0.39,
         "placeholder": false
       },
       "notes": []

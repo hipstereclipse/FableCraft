@@ -1,0 +1,25 @@
+{
+  "base_gates": 34,
+  "base_passed": 34,
+  "source": "tmp/conformance/DP1-reviewed-snapshot",
+  "focused_groups": {
+    "runtime": 13,
+    "main_integration": 12,
+    "source_geometry": 5,
+    "aperture": 4,
+    "destination_geometry": 5,
+    "behavior_owner": 6
+  },
+  "full_render_counts": {
+    "gallery": 13,
+    "items": 55,
+    "mobs": 51,
+    "recipes": 130,
+    "structures": 32
+  },
+  "engine_checks": "unrun",
+  "direct_original_game_visual_comparison": "unrun",
+  "initial_failures": "DP1-first records missing dependency injection in existing scatter fixtures and stale derived scoreboard; fixed fixture dependencies and refreshed scoreboard, then all 34 gates passed. first-room-tests.log retains the caught canopy boundary error.",
+  "source_entity_change": "Only demon_door.json regenerated for no gravity/pushing/leash/navigation and no open collision.",
+  "static_review": "Source tunnel front and rear context and two grove angles inspected. Square outer crags and cuboid foliage/furniture remain adaptations. The rear source mouth is obscured by the campus perimeter wall in the exterior camera; actual voxel route tests establish clearance."
+}

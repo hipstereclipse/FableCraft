@@ -487,7 +487,10 @@ def render_structure(vox, size=(1100, 900), extra_quads=None,
             return grid[vox.idx(x, y, z)]
         return None
 
-    air = {i for i, (n, s) in enumerate(pal) if n == "minecraft:air"}
+    # Invisible containment must neither render as a magenta cube nor occlude
+    # the visible faces beside it. Collision remains in the generated asset.
+    air = {i for i, (n, s) in enumerate(pal)
+           if n in ("minecraft:air", "minecraft:barrier")}
     for x in range(sx):
         for y in range(sy):
             for z in range(sz):
@@ -1008,6 +1011,7 @@ def main():
         "grey_house": GS.grey_house,
         "demon_door_arch": GS.demon_door_arch, "guild_hall": GS.guild_hall,
         "chamber_of_fate": GS.chamber_of_fate,
+        "library_arcanum": GS.library_arcanum,
         "oakvale_village": GS.oakvale_village,
         "bowerstone_market": GS.bowerstone_market,
         "knothole_glade": GS.knothole_glade,
@@ -1044,6 +1048,7 @@ def main():
         "demon_door_arch": ("Demon Door", "Carved arch · dialogue-locked vault", "dark"),
         "guild_hall": ("Heroes' Guild", "Domed Map Room · Cullis Gate · Maze's spiral tower", "holy"),
         "chamber_of_fate": ("Chamber of Fate", "Domed fresco hall · central dais", "royal"),
+        "library_arcanum": ("Library Arcanum", "Library grove · quiet pond · hidden keepsakes", "forest"),
         "oakvale_village": ("Oakvale", "Coastal green · eastern memorial · axe-hero statue", "forest"),
         "bowerstone_market": ("Bowerstone Market", "Class gate · wealthy streets · furnished manor", "stone"),
         "knothole_glade": ("Knothole Glade", "Hidden timber village in Witchwood", "forest"),

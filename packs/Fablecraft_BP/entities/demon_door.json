@@ -11,6 +11,10 @@
       "fc:door_open": {
         "minecraft:variant": {
           "value": 1
+        },
+        "minecraft:physics": {
+          "has_gravity": false,
+          "has_collision": false
         }
       }
     },
@@ -34,23 +38,18 @@
       "minecraft:loot": {
         "table": "loot_tables/entities/demon_door.json"
       },
-      "minecraft:physics": {},
-      "minecraft:pushable": {
-        "is_pushable": true,
-        "is_pushable_by_piston": true
+      "minecraft:physics": {
+        "has_gravity": false,
+        "has_collision": true
       },
-      "minecraft:jump.static": {},
-      "minecraft:movement.basic": {},
-      "minecraft:navigation.walk": {
-        "can_path_over_water": true,
-        "avoid_water": true,
-        "can_walk": true
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
       },
       "minecraft:knockback_resistance": {
         "value": 1.0
       },
       "minecraft:nameable": {},
-      "minecraft:leashable": {},
       "minecraft:ambient_sound_interval": {
         "value": 9.0,
         "range": 15.0,
@@ -69,7 +68,6 @@
       },
       "minecraft:fire_immune": {},
       "minecraft:persistent": {},
-      "minecraft:is_stackable": {},
       "minecraft:body_rotation_blocked": {}
     },
     "events": {

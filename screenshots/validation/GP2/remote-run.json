@@ -1,0 +1,9 @@
+{
+  "databaseId": 34711173114,
+  "headSha": "fd95ef16141a2b806cad1146210aea84c71b9dbf",
+  "status": "completed",
+  "conclusion": "success",
+  "url": "https://github.com/hipstereclipse/FableCraft/actions/runs/34711173114",
+  "workflowName": "Conformance validation",
+  "verified_by": "gh run list --branch phase3-will-destiny --limit 4 --json databaseId,headSha,status,conclusion,url,workflowName,createdAt"
+}

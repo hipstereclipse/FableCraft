@@ -1,0 +1,36 @@
+test_actual_runtime_population_and_saved_region (__main__.BanditCamp.test_actual_runtime_population_and_saved_region) ... FAIL
+test_all_interaction_routes_connected_from_outer_gate (__main__.BanditCamp.test_all_interaction_routes_connected_from_outer_gate) ... ok
+test_fighting_floor_and_external_fires (__main__.BanditCamp.test_fighting_floor_and_external_fires) ... ok
+test_registration_bounds_palette_and_loot (__main__.BanditCamp.test_registration_bounds_palette_and_loot) ... ok
+test_three_stalls_four_openable_chests_and_ladders (__main__.BanditCamp.test_three_stalls_four_openable_chests_and_ladders) ... ok
+test_two_checkpoints_and_command_tent_faces_south (__main__.BanditCamp.test_two_checkpoints_and_command_tent_faces_south) ... ok
+
+======================================================================
+FAIL: test_actual_runtime_population_and_saved_region (__main__.BanditCamp.test_actual_runtime_population_and_saved_region)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_bandit_camp.py", line 106, in test_actual_runtime_population_and_saved_region
+    self.assertEqual(result.returncode,0,result.stdout+result.stderr);print(result.stdout.strip())
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : evalmachine.<anonymous>:2
+  if (guildDoorWorldExcluded(p)) return;
+  ^
+
+ReferenceError: guildDoorWorldExcluded is not defined
+    at Object.maybePlace (evalmachine.<anonymous>:2:3)
+    at Object.<anonymous> (/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/poi_population.cjs:34:11)
+    at Module._compile (node:internal/modules/cjs/loader:1934:14)
+    at Object..js (node:internal/modules/cjs/loader:2074:10)
+    at Module.load (node:internal/modules/cjs/loader:1656:32)
+    at Module._load (node:internal/modules/cjs/loader:1448:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+
+Node.js v26.7.0
+
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.383s
+
+FAILED (failures=1)

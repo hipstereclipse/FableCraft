@@ -32,8 +32,8 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | GP1 | done | Offline reference/geometry/NPC/API audit, ranked defects and baseline views; engine observations unrun |
 | GP2 | in-progress | First layout pass connects lobby/gallery/dining and Maze stairs; further fidelity and engine walking remain open |
 | GP3 | in-progress | First training lifecycle pass fixes repeated teleport/cleanup/interruption defects; navigation, resident identity and targeted defence remain open |
-| DP1 | todo | Verified door/challenge/destination mapping and complete portal/return pilot |
-| DP2 | todo | Individually designed reward worlds and persistent reward/unlock behavior |
+| DP1 | in-progress | Guild lamp/Library Arcanum portal, durable rewards/returns and legacy mouth migration implemented offline; engine acceptance remains unrun |
+| DP2 | in-progress | First library grove and four in-room collectibles implemented; other designed worlds and direct TLC comparison remain open |
 | GP4 | todo | Integrated Guild/door review, regression checks and next ranked improvement pass |
 
 Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
@@ -212,7 +212,7 @@ work. Next: GP3 training lifecycle, then the complete Guild portal/destination p
 
 ## GP3 — training lifecycle and interruptions (2026-09-12)
 
-Commit: SELF: TLC Conformance — GP3: restore Guild training movement and interruption lifecycle.
+Commit: a61ab803b7ff328313957911b66521cb60d6ff5b.
 Eighteen focused runtime groups cover the production controller and actual
 main/emote callbacks. Apprentices acquire stations with one collision-checked
 placement, hold a session without repeated teleports, and resume roaming in place.
@@ -235,3 +235,34 @@ cards were inspected as static visuals only. Uncommitted portal work is excluded
 Engine movement/animation/multiplayer checks remain unrun.
 N5/N7 resident identity/repair and N6 innocent-player targeting remain high
 priority after the door pilot; no complete NPC fidelity claim is made.
+
+## DP1 — Guild portal and first DP2 destination (2026-09-12)
+
+Commit: SELF: TLC Conformance — DP1: open the Guild door into Library Arcanum.
+The Guild uses a stable Lamp/Library Arcanum identity. Lantern use opens a clear
+walk-through mouth with a rising, noncolliding face and soul-particle light.
+The bounded worker reserves unloaded Overworld storage, scans the entire unused
+volume, places/validates the designed library grove and seeds four containers
+before admission. No items, XP or reputation are paid at opening. Shared-world
+reward depletion never permits regrant or reconstruction of a visited room.
+Per-player approach tickets support checked travel and return, retries,
+cooldown/rearming, reload/death and orphan recovery. Ordinary procedural doors
+and Nostro's story gap retain their existing separate behavior.
+
+The source generator provides a 3×4×9 throat; an independently frozen GP1
+fingerprint permits a strictly bounded existing-mouth clear and preserves its
+floor. Foreign blocks refuse migration; identical replacement block types cannot
+be distinguished from the generated original. Whole Guild geometry and existing
+progress are preserved. The entity owner removes door gravity/pushing/leashing
+and disables open collision. Only the door entity and targeted source/destination
+assets/data were regenerated. The new room is fixed, absent from scatter/loot/
+Cullis registration. C2 now covers 35 assets/renders (28 scatter, 3 fixed, 4 legacy).
+
+See [LIBRARY_ARCANUM.md](LIBRARY_ARCANUM.md) and `screenshots/validation/DP1/`.
+All 34 base gates passed in an isolated reviewed-index snapshot. The full
+screenshot pipeline completed (51 mobs, 55 items, 130 recipes, 32 structures,
+13 galleries). Static source-front/rear and grove views were inspected. The direct TLC camera
+comparison, collision/lighting/loading/content-log tests, crash persistence and
+multiplayer engine acceptance remain unrun. All GP/DP acceptance stays separate
+from C3's original 45-leaf scoreboard. GP4 next revisits resident identity,
+offender-specific defence, cave/Chamber routes and portal integration failures.

@@ -1,0 +1,4 @@
+frozen_GP1 : 108 throat cells verified; floor types ['minecraft:cobblestone', 'minecraft:grass_block', 'minecraft:mossy_cobblestone']
+new_DP1 : 108 throat cells verified; floor types ['minecraft:cobblestone']
+Fingerprint baseline: 1ec9286f0859b3be38921594053877a861d779f4
+No saved-world blocks changed by this check; old-material clear belongs to runtime migration.

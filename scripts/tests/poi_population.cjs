@@ -19,6 +19,7 @@ for (const surface of pick.surf) {
   const dim = {};
   const context = {
     REGION: 160, Math,
+    guildDoorWorldExcluded: () => false, guildDoorPilot: { excludesWorldPosition: () => false },
     world: { getDynamicProperty: () => saved, setDynamicProperty: () => { saved = true; },
       structureManager: { place: (id, dimension, at) => { assert.equal(id, pick.id); assert.equal(dimension, dim); origin = at; placements++; } } },
     hash2: () => 0, pickStruct: () => pick, sampleGroundY: () => 65,

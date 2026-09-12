@@ -247,6 +247,17 @@
       "title": "Knothole Glade"
     },
     {
+      "name": "library_arcanum",
+      "generator": "library_arcanum",
+      "kind": "fixed",
+      "size": [
+        49,
+        28,
+        49
+      ],
+      "title": "The Library Arcanum"
+    },
+    {
       "name": "lookout_point",
       "generator": "lookout_point",
       "kind": "scatter",

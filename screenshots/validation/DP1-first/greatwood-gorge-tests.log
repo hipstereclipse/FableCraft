@@ -1,0 +1,36 @@
+test_actual_scatter_bandits_loot_and_saved_region (__main__.GreatwoodGorge.test_actual_scatter_bandits_loot_and_saved_region) ... FAIL
+test_broken_bridge_closed_shack_and_blocked_stairs_negative_fixtures (__main__.GreatwoodGorge.test_broken_bridge_closed_shack_and_blocked_stairs_negative_fixtures) ... ok
+test_continuous_bridge_deck_and_guardrails (__main__.GreatwoodGorge.test_continuous_bridge_deck_and_guardrails) ... ok
+test_dimensions_palette_and_runtime_contract (__main__.GreatwoodGorge.test_dimensions_palette_and_runtime_contract) ... ok
+test_routes_to_checkpoint_chest_face_and_lower_ravine (__main__.GreatwoodGorge.test_routes_to_checkpoint_chest_face_and_lower_ravine) ... ok
+test_stairs_face_and_exact_chest (__main__.GreatwoodGorge.test_stairs_face_and_exact_chest) ... ok
+
+======================================================================
+FAIL: test_actual_scatter_bandits_loot_and_saved_region (__main__.GreatwoodGorge.test_actual_scatter_bandits_loot_and_saved_region)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_greatwood_gorge.py", line 97, in test_actual_scatter_bandits_loot_and_saved_region
+    self.assertEqual(result.returncode,0,result.stdout+result.stderr);print(result.stdout.strip())
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : evalmachine.<anonymous>:2
+  if (guildDoorWorldExcluded(p)) return;
+  ^
+
+ReferenceError: guildDoorWorldExcluded is not defined
+    at Object.maybePlace (evalmachine.<anonymous>:2:3)
+    at Object.<anonymous> (/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/poi_population.cjs:34:11)
+    at Module._compile (node:internal/modules/cjs/loader:1934:14)
+    at Object..js (node:internal/modules/cjs/loader:2074:10)
+    at Module.load (node:internal/modules/cjs/loader:1656:32)
+    at Module._load (node:internal/modules/cjs/loader:1448:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+
+Node.js v26.7.0
+
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.507s
+
+FAILED (failures=1)

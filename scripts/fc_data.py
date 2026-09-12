@@ -653,6 +653,25 @@ QUESTS = [
 # DEMON DOORS
 # ---------------------------------------------------------------------------
 
+# Canonical pilot definitions are keyed separately: never change legacy indices.
+# Lamp -> Library Arcanum is TLC; a used held vanilla lantern is our adaptation.
+# Runtime owns the physical collectibles; opening grants no items or XP.
+# Frozen old throat fingerprint; migration never edits outside these 108 cells.
+GUILD_DOOR_APERTURE = {'version': 1, 'baseline': '1ec9286f0859b3be38921594053877a861d779f4', 'min': [-1, 0, 0], 'size': [3, 4, 9], 'palette': ['minecraft:air', 'minecraft:cobblestone', 'minecraft:mossy_stone_bricks', 'minecraft:cracked_stone_bricks', 'minecraft:soul_torch'], 'indices': [0, 1, 2, 3, 1, 1, 2, 3, 0, 0, 2, 1, 1, 3, 2, 1, 1, 0, 4, 3, 1, 1, 2, 3, 1, 1, 0, 0, 0, 1, 3, 1, 1, 1, 3, 0, 0, 1, 2, 3, 1, 1, 2, 3, 0, 0, 2, 1, 1, 3, 2, 1, 1, 0, 0, 1, 1, 1, 2, 1, 1, 1, 0, 0, 0, 2, 3, 1, 1, 2, 3, 0, 0, 1, 2, 3, 1, 1, 2, 3, 0, 0, 2, 1, 1, 3, 2, 1, 1, 0, 4, 1, 3, 2, 1, 1, 3, 2, 0, 0, 0, 2, 3, 1, 1, 2, 3, 0]}
+
+CANONICAL_DEMON_DOORS = {
+    "guild_library_arcanum": {
+        "id": "guild_library_arcanum", "name": "The Library Arcanum",
+        "greeting": "Your path is dark. Only a light will reveal it. And you are not bright enough.",
+        "requirement": {"type": "light", "item": "minecraft:lantern",
+                        "hint": "Hold a lantern and use it at the face to light the way."},
+        "success": "The light reveals the way. My library awaits you.",
+        "fail": "Bring a light, Hero, and let it shine before me.",
+        "destination": {"structure": "fc:library_arcanum", "version": 1},
+        "reward": {"items": [{"id": "fc:elixir_of_life", "count": 1}], "xp": 0},
+    },
+}
+
 DEMON_DOORS = [
     {"id": "gourmand", "name": "The Gourmand Door",
      "greeting": "Mmmm... I smell crumbs on you, little thing. FEED ME and we shall talk.",

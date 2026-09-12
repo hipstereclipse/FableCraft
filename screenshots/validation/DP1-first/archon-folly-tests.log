@@ -1,0 +1,36 @@
+test_actual_dragon_collision_volume_and_dry_landing (__main__.ArchonFolly.test_actual_dragon_collision_volume_and_dry_landing) ... ok
+test_actual_scatter_dragon_and_saved_region (__main__.ArchonFolly.test_actual_scatter_dragon_and_saved_region) ... FAIL
+test_dimensions_palette_flags_and_no_structure_loot (__main__.ArchonFolly.test_dimensions_palette_flags_and_no_structure_loot) ... ok
+test_lava_has_solid_floor_and_retaining_neighbors (__main__.ArchonFolly.test_lava_has_solid_floor_and_retaining_neighbors) ... ok
+test_open_bank_blocked_exit_and_high_collision_negative_fixtures (__main__.ArchonFolly.test_open_bank_blocked_exit_and_high_collision_negative_fixtures) ... ok
+test_open_dry_entrance_and_return_route (__main__.ArchonFolly.test_open_dry_entrance_and_return_route) ... ok
+
+======================================================================
+FAIL: test_actual_scatter_dragon_and_saved_region (__main__.ArchonFolly.test_actual_scatter_dragon_and_saved_region)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_archon_folly.py", line 84, in test_actual_scatter_dragon_and_saved_region
+    self.assertEqual(result.returncode,0,result.stdout+result.stderr);print(result.stdout.strip())
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : evalmachine.<anonymous>:2
+  if (guildDoorWorldExcluded(p)) return;
+  ^
+
+ReferenceError: guildDoorWorldExcluded is not defined
+    at Object.maybePlace (evalmachine.<anonymous>:2:3)
+    at Object.<anonymous> (/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/poi_population.cjs:34:11)
+    at Module._compile (node:internal/modules/cjs/loader:1934:14)
+    at Object..js (node:internal/modules/cjs/loader:2074:10)
+    at Module.load (node:internal/modules/cjs/loader:1656:32)
+    at Module._load (node:internal/modules/cjs/loader:1448:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+
+Node.js v26.7.0
+
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.444s
+
+FAILED (failures=1)

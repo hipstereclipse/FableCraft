@@ -11,6 +11,8 @@ import {
   ActionFormData, MessageFormData, ModalFormData,
 } from "@minecraft/server-ui";
 import { DATA } from "./fc_gamedata.js";
+import { createDemonDoorPilot } from "./fc_demon_doors.js";
+import { createGuildDoorAperture } from "./guild_door_aperture.js";
 import { itemName, t as msg, template, placeName, titleName } from "./fc_strings.js";
 import {
   performFableEmote, refreshFableEmoteUnlocks,
@@ -331,7 +333,9 @@ system.afterEvents.scriptEventReceive.subscribe((ev) => {
     return;
   }
   if (p?.typeId !== "minecraft:player") return;
-  if (ev.id === "fc:wanted") {
+  if (ev.id === "fc:door_return") {
+    guildDoorPilot.requestReturn(p);
+  } else if (ev.id === "fc:wanted") {
     const lines = bountySummaryLines(p);
     try { p.sendMessage(lines.length ? lines.join("\n") : "§7You have no active warrants."); } catch { }
   } else if (ev.id === "fc:clearwanted") {
@@ -475,6 +479,7 @@ function buildGuildWhenReady(p, dim, base, attempt) {
   // the Guild's own Demon Door — the crag on the far south bank past the islands
   const doorLoc = { x: base.x + GUILD.demon.x, y: y + 1, z: base.z + GUILD.demon.z };
   world.setDynamicProperty("fc_guild_door", JSON.stringify(doorLoc));
+  ensureGuildDoorPilot(dim, doorLoc, true);
   // Everything below is decoration: NPCs, the Cullis registration, loot, terrain
   // and the buried Chamber. The Guild is already PLACED above, so none of this is
   // allowed to abort the build — wrap it so a single failure can't matter.
@@ -3234,6 +3239,7 @@ function questKill(p, fam, typeId) {
 // candidates nearby, conjure it close by (dramatically).
 system.runInterval(() => {
   for (const p of world.getPlayers()) {
+    if (guildDoorWorldExcluded(p)) continue;
     const aq = activeQuest(p);
     if (!aq) continue;
     const q = DATA.quests.find((x) => x.id === aq.id);
@@ -3270,7 +3276,12 @@ world.beforeEvents.playerInteractWithEntity.subscribe((ev) => {
   const t = ev.target?.typeId ?? "";
   if (!t.startsWith("fc:")) return;
   const p = ev.player, target = ev.target;
-  if (t === "fc:demon_door") { ev.cancel = true; system.run(() => demonDoorTalk(p, target)); return; }
+  if (t === "fc:demon_door") {
+    ev.cancel = true;
+    const usedItem = ev.itemStack?.typeId;
+    system.run(() => demonDoorTalk(p, target, usedItem));
+    return;
+  }
   const NPC_TYPES = ["fc:guildmaster", "fc:maze", "fc:theresa", "fc:lady_grey", "fc:oracle",
     "fc:briar_rose", "fc:trader", "fc:barkeep", "fc:villager_albion", "fc:villager_woman",
     "fc:villager_farmer", "fc:villager_tailor", "fc:villager_blacksmith", "fc:villager_fisher",
@@ -3322,6 +3333,90 @@ world.beforeEvents.playerInteractWithBlock.subscribe((ev) => {
   system.run(() => questBoard(p));
 });
 
+const guildDoorAperture = createGuildDoorAperture({ world, fingerprint: DATA.guildDoorAperture,
+  report: (message) => console.warn(`[Fablecraft] ${message}`) });
+const guildDoorPilot = createDemonDoorPilot({ world, system, ItemStack,
+  definition: DATA.demonDoorRealms.guild_library_arcanum,
+  placeRoom: (dim, origin) => world.structureManager.place("fc:library_arcanum", dim, origin, { includeEntities: false }),
+  sourceReady: (source) => guildDoorAperture.ready(source, TICKS()),
+  report: (message) => console.warn(`[Fablecraft] ${message}`) });
+
+function isGuildDoorSource(dimId, loc) {
+  try {
+    const source = guildDoorPilot.getState()?.source ?? JSON.parse(world.getDynamicProperty("fc_guild_door") ?? "null");
+    return !!source && dimId === (source.dimension ?? "minecraft:overworld")
+      && Math.hypot(source.x - loc.x, source.z - loc.z) < 3 && Math.abs(source.y - loc.y) < 7;
+  } catch { return false; }
+}
+
+function ensureGuildDoorPilot(dim, source = null, isNew = false) {
+  try {
+    source ??= JSON.parse(world.getDynamicProperty("fc_guild_door") ?? "null");
+    if (!source || dim.id !== (source.dimension ?? "minecraft:overworld")) return;
+    if (isNew) guildDoorPilot.registerGuild({ ...source, dimension: dim.id }, null, { isNew: true });
+    // Read a surviving face BEFORE any replacement to preserve legacy payment.
+    const faces = dim.getEntities({ type: "fc:demon_door", location: source, maxDistance: 8 })
+      .filter((face) => isGuildDoorSource(dim.id, face.location));
+    const face = faces.find((entry) => entry.getDynamicProperty("fc_door_open") === true) ?? faces[0];
+    const state = guildDoorPilot.registerGuild({ ...source, dimension: dim.id }, face, { isNew });
+    if (!state) return; // Invalid persisted progress must never become a new door.
+    if (face) {
+      guildDoorPilot.reconcileFace(face);
+      for (const duplicate of faces) if (duplicate !== face) { try { duplicate.remove(); } catch { guildDoorPilot.reconcileFace(duplicate); } }
+      return;
+    }
+    const loc = { x: source.x, y: source.y + (state.unlocked ? 5 : 0), z: source.z };
+    const replacement = trySpawn(dim, "fc:demon_door", loc);
+    if (!replacement) return;
+    try { replacement.teleport(loc, { facingLocation: { x: source.x, y: loc.y + 1, z: source.z - 14 } }); } catch { }
+    guildDoorPilot.reconcileFace(replacement);
+  } catch { /* Keep the saved anchor and try again when its chunks load. */ }
+}
+
+function guildDoorWorldExcluded(p) {
+  return guildDoorPilot.excludesWorldPosition(p.dimension.id, p.location);
+}
+
+system.runInterval(() => {
+  if (TICKS() % 40 === 0) {
+    let source;
+    try { source = JSON.parse(world.getDynamicProperty("fc_guild_door") ?? "null"); } catch { }
+    if (source && world.getPlayers().some((p) => p.dimension.id === (source.dimension ?? "minecraft:overworld")
+      && Math.hypot(p.location.x - source.x, p.location.z - source.z) < 80)) {
+      ensureGuildDoorPilot(world.getDimension(source.dimension ?? "minecraft:overworld"), source);
+    }
+  }
+  guildDoorPilot.tick();
+}, 5);
+
+// These are stable 2.1 events. The experimental playerPlaceBlock before-event
+// is deliberately unnecessary: building is blocked at the block interaction.
+world.beforeEvents.playerBreakBlock.subscribe((ev) => {
+  if (guildDoorPilot.protectsBlock(ev.dimension.id, ev.block.location)) ev.cancel = true;
+});
+world.beforeEvents.playerInteractWithBlock.subscribe((ev) => {
+  if (!guildDoorPilot.protectsBlock(ev.player.dimension.id, ev.block.location)) return;
+  const o = guildDoorPilot.getState()?.room?.origin, b = ev.block.location;
+  if (o && b.x === o.x + 24 && b.z === o.z + 3 && [o.y + 2, o.y + 7].includes(b.y)) {
+    ev.cancel = true;
+    const p = ev.player;
+    system.run(() => guildDoorPilot.requestReturn(p));
+    return;
+  }
+  // Ordinary container use preserves native inventory/claim semantics.
+  if (["minecraft:chest", "minecraft:barrel"].includes(ev.block.typeId) && !ev.player.isSneaking) return;
+  ev.cancel = true;
+});
+world.beforeEvents.itemUse.subscribe((ev) => {
+  if (!guildDoorPilot.occupiedRealm(ev.source)) return;
+  const id = ev.itemStack?.typeId ?? "";
+  if (["minecraft:ender_pearl", "minecraft:chorus_fruit", "minecraft:flint_and_steel", "minecraft:fire_charge"].includes(id)
+      || id.endsWith("_bucket") || id.endsWith("_spawn_egg")) ev.cancel = true;
+});
+world.beforeEvents.explosion.subscribe((ev) => {
+  ev.setImpactedBlocks(ev.getImpactedBlocks().filter((block) => !guildDoorPilot.protectsBlock(ev.dimension.id, block.location)));
+});
+
 function doorPersona(door) {
   let idx = door.getDynamicProperty("fc_door_idx");
   if (idx === undefined) {
@@ -3336,6 +3431,7 @@ function doorPersona(door) {
 // door exists, but it re-spawns one that failed to spawn (chunk timing) or was
 // somehow lost — so a carved arch never reads as a blank wall.
 function ensureDemonDoor(dim, loc, facingZ) {
+  if (isGuildDoorSource(dim.id, loc)) { ensureGuildDoorPilot(dim); return; }
   let present;
   try {
     present = dim.getEntities({ location: loc, maxDistance: 4, type: "fc:demon_door" }).length > 0;
@@ -3370,7 +3466,12 @@ function ensureAllDemonDoors(dim) {
   }
 }
 
-function demonDoorTalk(p, door) {
+function demonDoorTalk(p, door, heldItemId) {
+  if (door.getDynamicProperty("fc_door_identity") === "guild" || isGuildDoorSource(door.dimension.id, door.location)) {
+    ensureGuildDoorPilot(door.dimension);
+    if (!guildDoorPilot.interact(p, door, heldItemId)) p.sendMessage("§5Demon Door: §7My passage cannot be read. Your saved progress is preserved.");
+    return;
+  }
   const d = doorPersona(door);
   p.playSound("fc.door_speak", { volume: 0.9 });
   if (door.getDynamicProperty("fc_door_open")) {
@@ -5496,6 +5597,7 @@ function cullisLabel(id) {
 system.runInterval(() => {
   for (const p of world.getPlayers()) {
     if (p.dimension.id !== "minecraft:overworld") continue;
+    if (guildDoorWorldExcluded(p)) continue;
     const rx = Math.floor(p.location.x / REGION), rz = Math.floor(p.location.z / REGION);
     for (let dx = -1; dx <= 1; dx++) {
       for (let dz = -1; dz <= 1; dz++) {
@@ -5506,6 +5608,7 @@ system.runInterval(() => {
 }, 80);
 
 function maybePlace(p, rx, rz) {
+  if (guildDoorWorldExcluded(p)) return;
   const key = `fc_rgn_${rx}_${rz}`;
   if (world.getDynamicProperty(key)) return;
 
@@ -5513,6 +5616,7 @@ function maybePlace(p, rx, rz) {
   const jx = Math.floor(hash2(rx * 7 + 1, rz) * (REGION - 56)) + 28;
   const jz = Math.floor(hash2(rx, rz * 7 + 1) * (REGION - 56)) + 28;
   const x = rx * REGION + jx, z = rz * REGION + jz;
+  if (guildDoorPilot.excludesWorldPosition(p.dimension.id, { x, y: p.location.y, z })) return;
 
   // not every cell gets a build — retire empties immediately (deterministic, no
   // chunks needed) so the sweep never revisits them

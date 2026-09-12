@@ -1,0 +1,38 @@
+test_actual_runtime_spawns_use_clear_voxel_positions (__main__.Graveyard.test_actual_runtime_spawns_use_clear_voxel_positions) ... FAIL
+test_connected_level_routes_from_south_gate (__main__.Graveyard.test_connected_level_routes_from_south_gate) ... ok
+test_keeper_hut_has_floor_roof_and_accessible_workbench (__main__.Graveyard.test_keeper_hut_has_floor_roof_and_accessible_workbench) ... ok
+test_no_clipped_writes_and_known_palette (__main__.Graveyard.test_no_clipped_writes_and_known_palette) ... ok
+test_stable_scatter_contract_and_loot (__main__.Graveyard.test_stable_scatter_contract_and_loot) ... ok
+test_stone_sarcophagi_and_chest_clearance (__main__.Graveyard.test_stone_sarcophagi_and_chest_clearance) ... ok
+test_three_wide_north_facing_stairs_and_sealed_face (__main__.Graveyard.test_three_wide_north_facing_stairs_and_sealed_face) ... ok
+
+======================================================================
+FAIL: test_actual_runtime_spawns_use_clear_voxel_positions (__main__.Graveyard.test_actual_runtime_spawns_use_clear_voxel_positions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_graveyard.py", line 109, in test_actual_runtime_spawns_use_clear_voxel_positions
+    self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : evalmachine.<anonymous>:2
+  if (guildDoorWorldExcluded(p)) return;
+  ^
+
+ReferenceError: guildDoorWorldExcluded is not defined
+    at Object.maybePlace (evalmachine.<anonymous>:2:3)
+    at Object.<anonymous> (/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/poi_population.cjs:34:11)
+    at Module._compile (node:internal/modules/cjs/loader:1934:14)
+    at Object..js (node:internal/modules/cjs/loader:2074:10)
+    at Module.load (node:internal/modules/cjs/loader:1656:32)
+    at Module._load (node:internal/modules/cjs/loader:1448:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.require (node:internal/modules/cjs/loader:1679:12)
+    at require (node:internal/modules/helpers:196:16)
+    at Object.<anonymous> (/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/graveyard_placement.cjs:2:1)
+
+Node.js v26.7.0
+
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.382s
+
+FAILED (failures=1)

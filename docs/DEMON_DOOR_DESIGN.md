@@ -1,6 +1,8 @@
 # Demon Door audit and Guild pilot contract
 
-GP1 design audit, 2026-09-12. This document records the implementation contract;
+GP1 design audit, 2026-09-12. **Implemented pilot:** see [LIBRARY_ARCANUM.md](LIBRARY_ARCANUM.md)
+for current DP1 behavior, migration, evidence and remaining limitations. The ranked
+defects below describe the audited pre-pilot baseline. This document records the contract;
 it is not an engine pass or a claim that DP1/DP2 are complete. The active queue is
 `GUILD_DEMON_PRIORITIES.md`. Original 2005 TLC is the reference target.
 
@@ -135,7 +137,7 @@ namespace remains associated with the same pack.
 
 ## Isolated storage and structure contract
 
-Proposed allocation: Overworld cells start at `(600000,272,600000)`, spaced 128
+Pilot allocation: Overworld cells start at `(600000,272,600000)`, spaced 128
 blocks, with 64 columns and a bounded maximum of 4096 allocated cells. Bounds
 and coordinates are Minecraft design choices, not Fable measurements. Persist
 the chosen cell before building; occupied candidates can be skipped without
@@ -168,13 +170,12 @@ The physical walk/dwell portal must remain primary. Original particles/sounds
 can signal the opening; use no extracted Fable assets. A return interaction may
 be an emergency backup, visibly associated with the return arch.
 
-Guild source keeps its saved `fc_guild_door` coordinate. New generated geometry
-must clear a 3-wide, 4-high throat at local x65..67, y1..4, z96..98 and move the
-two lamps outside it. Existing saved geometry is not silently rebuilt. A later
-strictly bounded migration must recognize the old generated throat materials,
-reject player-added blocks, preserve progress, and record a geometry version.
-Without migration the pilot may still trigger while dwelling at the front
-threshold, but it must not claim the back approach/clearance requirement passes.
+Guild source keeps its saved `fc_guild_door` coordinate. The implemented generator
+clears x65..67, y1..4, z96..104 and moves lamps outside the throat. The initial
+z96..98 design sketch above the baseline was insufficient: later inspection found
+the full nine-block crag depth. The bounded fingerprint migration and its
+same-material detection limit are detailed in [LIBRARY_ARCANUM.md](LIBRARY_ARCANUM.md).
+The campus and existing stair geometry are never reloaded by this pilot.
 
 ## Durable state and transitions
 
