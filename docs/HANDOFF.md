@@ -10,24 +10,30 @@ six reference snapshots are in docs/. User override (2026-09-12): finish the spe
 and continue as far as practical without permission questions. Retain separate
 milestone commits, validation, immediate pushes, evidence and fresh handoffs.
 
-Current milestone: W1.4 — arena preparation and hero halls; status in-progress.
-Last resolved prior commit: add099a2a33765faf3aab9eda59df09427454856 (pushed).
-Containing commit: TLC Conformance — W1.4: connect arena preparation and hero halls.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — W1.4: connect arena preparation and hero halls'.
+Current milestone: W2.1 — Bowerstone North and Manor; status in-progress.
+Last resolved prior commit: ed57d1e1cbc58eb8daad8686ec863f71bb6e070c (pushed).
+Containing commit: TLC Conformance — W2.1: connect Bowerstone North and Manor.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — W2.1: connect Bowerstone North and Manor'.
 Replace previous SELF evidence with the actual hash next step; never invent a self-hash.
 
-W1.4 keeps fc:arena_ring and extends 27x12x27 to 27x12x41, updating the runtime and
-C2 manifest together. The south gate is now open (the old condition contradicted
-its comment); the north beast gate stays barred. A west stair aisle reaches both
-seating tiers. Southern preparation and hero halls share a clear corridor to the pit.
-The preparation room has two physical dummy props and an existing fc:trader using
-shopMenu; the hero hall has four original stone figures. Three pit enemies plus the
-trader use clear mobSpawns anchors. Seven regression groups pass; the old owner
-fails all seven. C2's actual-source placement suite now includes the new rectangle.
-docs/ARENA_HALLS.md records routes, coordinates and manual checks. Staged rounds,
-spectators, scored training, enemy confinement and engine verification remain gaps.
-The existing arena loot table has no emitted chests to fill, as before; no new chest
-reward is claimed. Existing saved structures/regions are not retrofitted.
+W2.1 retains fc:bowerstone_market, extends 37x16x37 to 37x21x59 and shifts the
+existing market/river/houses +22 along z. Runtime and C2 manifest match. A north
+stone manor has two furnished floors, a clear two-wide staircase and a gated
+forecourt. The internal class wall connects to the bridge arch; its passage stays
+open because staged Arena completion/admission is not implemented. The clock tower
+moves west to clear the street. Bridge approach stairs, all eight chests (seven
+retained, one new manor chest), five resident spawn points and center Cullis arrival
+are route-tested. The four original resident types remain; existing Lady Grey is
+added once per newly scattered town. Six regression groups pass; the old owner
+fails all six. See docs/BOWERSTONE_NORTH.md for coordinates/routes/manual checks.
+Arena invitation, resident exclusion, Solus-specific shop, jail and full Quay remain
+gaps. Multiple-town Lady Grey interactions and engine behavior need manual review.
+Existing saved structures and regions are not retrofitted.
+
+W1.4 at ed57d1e keeps fc:arena_ring, extends to 27x12x41, opens the south pit gate,
+adds preparation/hero halls and a west stair aisle. Three enemies plus one trader
+use clear spawn points. Seven tests pass; staged rounds, spectators, scored training,
+enemy confinement and engine checks remain gaps. See docs/ARENA_HALLS.md.
 
 W1.3 at add099a adds Twinblade's two camp rings, command tent, three stalls, fighting
 circle, crew tents and accessible watchtowers, retaining fc:bandit_camp at 33x13x33,
@@ -39,10 +45,10 @@ unrelated generic Demon Door riddle. See docs/TWINBLADE_CAMP.md and
 LYCHFIELD_CRYPT.md. No fc:place handler exists: raw /structure load places blocks
 only; scatter initializes population and loot. Keep procedural scatter, no fixed map.
 
-All 19 local scripts/validate.py gates pass. poi_population.cjs is the shared
+All 20 local scripts/validate.py gates pass. poi_population.cjs is the shared
 actual-source spawn harness; W1.2's graveyard_placement.cjs remains a wrapper.
 C2 asset/render hashes are current. Full all-category passes run under isolated
-tmp/conformance/W1.2-full-screenshots, W1.3-full-screenshots and W1.4-full-screenshots;
+tmp/conformance/W1.2-full-screenshots, W1.3-full-screenshots, W1.4-full-screenshots and W2.1-full-screenshots;
 logs, audits, primary cards and south/cutaway views are in each milestone's evidence.
 Original-TLC comparison remains pending; MobyGames candidates for Twinblade/graveyard
 could not be fetched. No canon-A or in-world pass is claimed for these renders.
@@ -50,8 +56,8 @@ could not be fetched. No canon-A or in-world pass is claimed for these renders.
 C3's scoreboard requires --write after EVERY checklist change:
 python scripts/conformance_score.py --write, then --check. It tracks 45 plan leaves,
 explicit automated/manual counts and offline appearance grades separately.
-W1.3 remote CI passed at add099a (run 34699693214); metadata is in
-screenshots/validation/W1.3/remote-run.json. W1.2/W1.1/C2/C1/C3/L4 also passed at
+W1.4 remote CI passed at ed57d1e (run 34700135537); metadata is in
+screenshots/validation/W1.4/remote-run.json. W1.2/W1.1/C2/C1/C3/L4 also passed at
 recorded commits. Inspect the newest pushed run for its actual head before the next
 milestone. C2's in-world checklist stays pending in docs/STRUCTURE_CONTRACT.md.
 No Guild tiling was applied; Maze's corrected spawn remains (46,12,70).
@@ -62,7 +68,7 @@ public title (Wayfarer Tales provisional), and missing saved-world remap. No exe
 missing hunger frame and nav bleed. Keep these visible rather than scoring them passed.
 
 Next three actions:
-1. git pull --ff-only; read the top pending row and start W2.1 Bowerstone North and Manor.
+1. git pull --ff-only; read the top pending row and start W2.2 Hook Coast lighthouse and Abbey.
 2. Execute its numbered playbook steps and applicable base/domain validators; preserve
    real output under screenshots/validation/<ID>/, mark manual observations unrun.
 3. Update checklist/handoff in one explicitly staged milestone commit, push to origin,

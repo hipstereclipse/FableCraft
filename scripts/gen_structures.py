@@ -3994,7 +3994,7 @@ def bowerstone_market():
     """Bowerstone South: crenellated wall and twin-tower gatehouse, jettied
     Tudor townhouses (dark-oak frame over white plaster), river and bridge,
     market stalls, street lamps, a clock tower — and the class-divide gate
-    to the richer quartz-trimmed North bank."""
+    to the richer quartz-trimmed North bank and furnished stone manor."""
     r = rng("struct", "bowerstone_market")
     W, H, L = 37, 16, 37
     v = Vox(W, H, L)
@@ -4106,7 +4106,7 @@ def bowerstone_market():
         v.set(x, 5, 15, STONE)
         v.set(x, 4, 15, IRON_BARS)
     # clock tower on the north market square
-    ckx, ckz = c, 4
+    ckx, ckz = c - 4, 4
     for y in range(1, 10):
         v.set(ckx, y, ckz, STONE if y % 3 else CHISELED)
         v.set(ckx - 1, y, ckz, STONE if y < 8 else "minecraft:air")
@@ -4136,6 +4136,93 @@ def bowerstone_market():
     v.set(3, 1, 15, "minecraft:barrel")
     v.set(4, 1, 15, "minecraft:barrel")
     v.set(3, 2, 15, "minecraft:hay_block")
+    # W2.1: retain the original district, translated south to make room for
+    # the manor. Copy block states as well as IDs; never rotate doors/stairs.
+    district = v
+    v = Vox(W, 21, 59)
+    for x in range(W):
+        for z in range(22):
+            v.set(x, 0, z, STONE if 9 <= x <= 27 else "minecraft:moss_block")
+        for y in range(district.sy):
+            for z in range(district.sz):
+                name, states = district.palette[district.grid[district.idx(x, y, z)]]
+                v.set(x, y, z + 22, name, states)
+    # Enclose the wealthy district; the open internal arch is architectural,
+    # not an Arena-completion lock (there is no staged Arena authority yet).
+    for x in range(W):
+        for z in (0, 37):
+            if z == 37 and 15 <= x <= 21:
+                continue
+            v.fill(x, 1, z, x, 4, z, STONE)
+            if x % 2 == 0:
+                v.set(x, 5, z, CHISELED)
+    for x in (0, W - 1):
+        v.fill(x, 1, 0, x, 4, 37, STONE)
+        for z in range(0, 38, 2):
+            v.set(x, 5, z, CHISELED)
+    # Low gate wings join the bridge parapets and narrow the passage to 3.
+    for x in (15, 16, 20, 21):
+        v.fill(x, 1, 37, x, 3, 37, CHISELED)
+    # Gradual bridge approaches, both facing toward the raised deck.
+    for x in range(17, 20):
+        v.set(x, 1, 36, "minecraft:stone_brick_stairs",
+              {"weirdo_direction": 2, "upside_down_bit": False})
+        v.set(x, 1, 44, "minecraft:stone_brick_stairs",
+              {"weirdo_direction": 3, "upside_down_bit": False})
+    # Straight streets connect the existing rich houses and manor forecourt.
+    v.fill(17, 0, 16, 19, 0, 35, STONE)
+    v.fill(2, 0, 27, 34, 0, 27, STONE)
+    # Grand stone manor: full-height ground hall and an accessible upper salon.
+    v.box(9, 0, 3, 27, 9, 15, STONE)
+    v.fill(10, 5, 4, 26, 5, 14, DARKOAK)
+    for x in (9, 12, 24, 27):
+        v.fill(x, 1, 15, x, 8, 15, QUARTZ)
+    for x in (11, 14, 22, 25):
+        for y in (2, 3, 6, 7):
+            v.set(x, y, 15, GLASS)
+    for x in (9, 27):
+        for z in (6, 10, 13):
+            for y in (2, 3, 6, 7):
+                v.set(x, y, z, GLASS)
+    v.fill(17, 1, 15, 19, 3, 15, "minecraft:air")
+    v.fill(16, 4, 15, 20, 4, 15, CHISELED)
+    v.fill(17, 6, 15, 19, 7, 15, GLASS)
+    gable_roof_z(v, 8, 28, 2, 16, 9, DEEP_TILES, STONE)
+    v.set(18, 12, 16, GOLD)
+    # Carve two-wide stairwell before laying steps; upper landing is at z=7.
+    v.fill(23, 5, 8, 24, 5, 12, "minecraft:air")
+    for i in range(5):
+        for x in (23, 24):
+            v.fill(x, 1, 12 - i, x, i + 1, 12 - i, STONE)
+            v.set(x, i + 1, 12 - i, "minecraft:stone_brick_stairs",
+                  {"weirdo_direction": 3, "upside_down_bit": False})
+    # Ground reception, library and storage; an upper sleeping alcove is a
+    # wool furnishing, not an engine bed or a new property/marriage mechanic.
+    v.fill(11, 1, 5, 11, 3, 9, "minecraft:bookshelf")
+    v.fill(14, 1, 6, 15, 1, 8, DARKOAK)
+    v.set(14, 2, 7, CANDLE)
+    v.set(12, 1, 12, "minecraft:chest", {"minecraft:cardinal_direction": "south"})
+    v.fill(11, 6, 5, 13, 6, 7, "minecraft:red_wool")
+    v.fill(11, 7, 4, 13, 7, 4, DARKOAK)
+    v.set(15, 6, 5, "minecraft:barrel")
+    for x in (15, 21):
+        v.set(x, 3, 14, LANTERN, {"hanging": True})
+        v.set(x, 8, 10, LANTERN, {"hanging": True})
+    # Wrought-iron forecourt with a clear gate and paired garden beds.
+    for x in range(9, 28):
+        if 17 <= x <= 19:
+            continue
+        v.set(x, 1, 23, STONE)
+        v.set(x, 2, 23, IRON_BARS)
+    for x in (9, 27):
+        v.fill(x, 1, 17, x, 1, 22, STONE)
+        v.fill(x, 2, 17, x, 2, 22, IRON_BARS)
+    for x in (16, 20):
+        v.fill(x, 1, 23, x, 3, 23, QUARTZ)
+        v.set(x, 4, 23, LANTERN, {"hanging": False})
+    for x in (12, 24):
+        v.fill(x - 1, 0, 18, x + 1, 0, 20, "minecraft:moss_block")
+        v.set(x, 1, 19, "minecraft:oak_leaves", {"persistent_bit": True, "update_bit": False})
     v.save("bowerstone_market")
 
 

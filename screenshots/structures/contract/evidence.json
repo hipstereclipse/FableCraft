@@ -40,20 +40,20 @@
       "notes": []
     },
     "bowerstone_market": {
-      "asset_sha256": "8604043f911dd5e947c164aa06f04098eaefba326b088970b6b8b93e40e2abfd",
+      "asset_sha256": "7eb8edbe16937982773f888ccff1955ba7d9ae16ebf7b9a859120483b55f66de",
       "size": [
         37,
-        16,
-        37
+        21,
+        59
       ],
-      "image_sha256": "6d62f4f8e7485125506225a32b669b666cef79e0877dd06922ca5ddb89f2ff87",
+      "image_sha256": "109454e8fa6b7c12194d582c943ac007af8baa494ea773867436a47c877fc22e",
       "grade": "S",
       "score": 100,
       "metrics": {
-        "coverage": 13.8,
-        "colors": 40,
+        "coverage": 13.1,
+        "colors": 44,
         "contrast": 0.89,
-        "brightness": 0.39,
+        "brightness": 0.36,
         "placeholder": false
       },
       "notes": []

@@ -4,7 +4,7 @@ const vm = require('node:vm');
 const assert = require('node:assert/strict');
 const espree = require('espree');
 const readTables = require('../structure_tables.cjs');
-const sourcePath = 'packs/Fablecraft_BP/scripts/main.js';
+const sourcePath = process.env.FC_STRUCTURE_TEST_SOURCE || 'packs/Fablecraft_BP/scripts/main.js';
 const source = fs.readFileSync(sourcePath, 'utf8');
 const tree = espree.parse(source, { ecmaVersion: 'latest', sourceType: 'module', range: true });
 const node = tree.body.find(n => n.type === 'FunctionDeclaration' && n.id.name === 'maybePlace');
@@ -13,7 +13,8 @@ const id = process.argv[3] || 'graveyard';
 const pick = readTables(sourcePath).STRUCTS.find(s => s.id === `fc:${id}`);
 const voxels = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
 for (const surface of pick.surf) {
-  let origin, saved = false, placements = 0, doors = 0, travel = 0;
+  let origin, saved = false, placements = 0, doors = 0;
+  const travel = [];
   const spawns = [], loot = [];
   const dim = {};
   const context = {
@@ -26,13 +27,23 @@ for (const surface of pick.surf) {
     fillLootChests: (...args) => loot.push(args),
     trySpawn: (dimension, type, at) => { assert.equal(dimension, dim); spawns.push({ type, at }); },
     ensureDemonDoor: () => { doors++; }, recordDemonDoor: () => { doors++; },
-    registerCullis: () => { travel++; }, cullisLabel: () => 'unexpected',
+    registerCullis: (name, at) => { travel.push({ name, at }); }, cullisLabel: () => 'unexpected',
   };
   vm.runInNewContext(fn + '\nthis.run = maybePlace;', context);
   const player = { location: { x: -30, y: 65, z: 28 }, dimension: dim };
   context.run(player, 0, 0);
   assert.equal(placements, 1); assert.equal(spawns.length, pick.mobs.length); assert.equal(loot.length, 1);
-  assert.equal(doors, 0); assert.equal(travel, 0);
+  assert.equal(doors, 0); assert.equal(travel.length, pick.cullis ? 1 : 0);
+  // Assert outside maybePlace's best-effort catch: callback assertions could
+  // otherwise be swallowed by the runtime and incorrectly report a pass.
+  for (const { at } of travel) {
+    const local = [at.x-origin.x, at.y-origin.y, at.z-origin.z];
+    assert.deepEqual(local, [pick.w >> 1, 1, pick.d >> 1]);
+    const [x,y,z] = local;
+    assert.equal(voxels[`${x},${y},${z}`], 'minecraft:air');
+    assert.equal(voxels[`${x},${y+1},${z}`], 'minecraft:air');
+    assert.ok(voxels[`${x},${y-1},${z}`] && !['minecraft:air','minecraft:water'].includes(voxels[`${x},${y-1},${z}`]));
+  }
   assert.deepEqual(loot[0].slice(4), [pick.w, pick.h, pick.d, pick.id]);
   assert.equal(pick.mobSpawns.length, pick.mobs.length);
   spawns.forEach(({ type, at }, i) => {
@@ -46,5 +57,6 @@ for (const surface of pick.surf) {
   });
   context.run(player, 0, 0);
   assert.equal(placements, 1); assert.equal(spawns.length, pick.mobs.length); assert.equal(loot.length, 1);
+  assert.equal(travel.length, pick.cullis ? 1 : 0);
 }
 console.log(`PASS: actual ${id} placement on ${pick.surf.join('/')}, clear translated spawns, loot bounds and saved-region idempotence`);

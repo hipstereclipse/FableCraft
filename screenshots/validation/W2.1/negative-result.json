@@ -1,0 +1,5 @@
+{
+  "command": "FC_BOWERSTONE_TEST_SOURCE=tmp/conformance/W2.1-before-gen_structures.py python scripts/tests/test_bowerstone_north.py",
+  "exit_code": 1,
+  "source_commit": "ed57d1e1cbc58eb8daad8686ec863f71bb6e070c"
+}

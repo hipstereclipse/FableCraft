@@ -1,0 +1,107 @@
+test_actual_scatter_population_travel_and_saved_region (__main__.BowerstoneNorth.test_actual_scatter_population_travel_and_saved_region) ... FAIL
+test_class_wall_forecourt_and_connected_wealthy_street (__main__.BowerstoneNorth.test_class_wall_forecourt_and_connected_wealthy_street) ... FAIL
+test_manifest_runtime_palette_bounds_and_residents (__main__.BowerstoneNorth.test_manifest_runtime_palette_bounds_and_residents) ... FAIL
+test_manor_two_floors_windows_furnishings_and_open_door (__main__.BowerstoneNorth.test_manor_two_floors_windows_furnishings_and_open_door) ... FAIL
+test_south_to_manor_spawns_cullis_and_chest_access (__main__.BowerstoneNorth.test_south_to_manor_spawns_cullis_and_chest_access) ... FAIL
+test_stair_clearance_directions_and_landing (__main__.BowerstoneNorth.test_stair_clearance_directions_and_landing) ... FAIL
+
+======================================================================
+FAIL: test_actual_scatter_population_travel_and_saved_region (__main__.BowerstoneNorth.test_actual_scatter_population_travel_and_saved_region)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_bowerstone_north.py", line 134, in test_actual_scatter_population_travel_and_saved_region
+    self.assertEqual(result.returncode, 0, result.stdout+result.stderr)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : node:internal/assert/utils:146
+  throw error;
+  ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ 'minecraft:chest'
+- 'minecraft:air'
+             ^
+
+    at Object.<anonymous> (/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/poi_population.cjs:43:12)
+    at Module._compile (node:internal/modules/cjs/loader:1934:14)
+    at Object..js (node:internal/modules/cjs/loader:2074:10)
+    at Module.load (node:internal/modules/cjs/loader:1656:32)
+    at Module._load (node:internal/modules/cjs/loader:1448:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 'minecraft:chest',
+  expected: 'minecraft:air',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v26.7.0
+
+
+======================================================================
+FAIL: test_class_wall_forecourt_and_connected_wealthy_street (__main__.BowerstoneNorth.test_class_wall_forecourt_and_connected_wealthy_street)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_bowerstone_north.py", line 74, in test_class_wall_forecourt_and_connected_wealthy_street
+    self.assertEqual(self.block(x,1,37), 'minecraft:stone_bricks')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: None != 'minecraft:stone_bricks'
+
+======================================================================
+FAIL: test_manifest_runtime_palette_bounds_and_residents (__main__.BowerstoneNorth.test_manifest_runtime_palette_bounds_and_residents)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_bowerstone_north.py", line 49, in test_manifest_runtime_palette_bounds_and_residents
+    self.assertEqual((self.vox.sx,self.vox.sy,self.vox.sz), (37,21,59))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: (37, 16, 37) != (37, 21, 59)
+
+First differing element 1:
+16
+21
+
+- (37, 16, 37)
+?       -  ^^
+
++ (37, 21, 59)
+?      +   ^^
+
+
+======================================================================
+FAIL: test_manor_two_floors_windows_furnishings_and_open_door (__main__.BowerstoneNorth.test_manor_two_floors_windows_furnishings_and_open_door)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_bowerstone_north.py", line 61, in test_manor_two_floors_windows_furnishings_and_open_door
+    self.assertTrue(self.clear(x,1,15))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_south_to_manor_spawns_cullis_and_chest_access (__main__.BowerstoneNorth.test_south_to_manor_spawns_cullis_and_chest_access)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_bowerstone_north.py", line 121, in test_south_to_manor_spawns_cullis_and_chest_access
+    self.assertIn(point, reached, f'Blocked south-entry route: {point}')
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: (18, 2, 40) not found in {(18, 1, 58)} : Blocked south-entry route: (18, 2, 40)
+
+======================================================================
+FAIL: test_stair_clearance_directions_and_landing (__main__.BowerstoneNorth.test_stair_clearance_directions_and_landing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_bowerstone_north.py", line 93, in test_stair_clearance_directions_and_landing
+    self.assertEqual(self.block(x,y,z), 'minecraft:stone_brick_stairs')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'minecraft:air' != 'minecraft:stone_brick_stairs'
+- minecraft:air
++ minecraft:stone_brick_stairs
+
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.436s
+
+FAILED (failures=6)

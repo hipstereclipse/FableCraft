@@ -34,6 +34,7 @@ def main():
         'cullis-tests': [sys.executable, 'scripts/tests/test_cullis_gate.py'],
         'graveyard-tests': [sys.executable, 'scripts/tests/test_graveyard.py'],
         'bandit-camp-tests': [sys.executable, 'scripts/tests/test_bandit_camp.py'],
+        'bowerstone-north-tests': [sys.executable, 'scripts/tests/test_bowerstone_north.py'],
         'arena-halls-tests': [sys.executable, 'scripts/tests/test_arena_halls.py'],
         'scoreboard-tests': [sys.executable, 'scripts/tests/test_conformance_score.py'],
         'scoreboard': [sys.executable, 'scripts/conformance_score.py', '--check'],

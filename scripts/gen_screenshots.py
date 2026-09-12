@@ -1032,7 +1032,7 @@ def main():
         "guild_hall": ("Heroes' Guild", "Domed Map Room · Cullis Gate · Maze's spiral tower", "holy"),
         "chamber_of_fate": ("Chamber of Fate", "Domed fresco hall · central dais", "royal"),
         "oakvale_village": ("Oakvale", "Thatched green · wheat field · quay", "forest"),
-        "bowerstone_market": ("Bowerstone Market", "Urban bridge district · walled square", "stone"),
+        "bowerstone_market": ("Bowerstone Market", "Class gate · wealthy streets · furnished manor", "stone"),
         "knothole_glade": ("Knothole Glade", "Hidden timber village in Witchwood", "forest"),
         "hook_coast": ("Hook Coast", "Snowy port, lighthouse and abbey ruin", "frost"),
         "silver_chest_ruin": ("Silver Key Ruin", "Hidden silver chest dais", "forest"),
