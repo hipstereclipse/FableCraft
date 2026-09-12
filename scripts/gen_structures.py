@@ -5394,6 +5394,68 @@ def archon_folly():
     v.save("archon_folly")
 
 
+
+def greatwood_gorge():
+    """Raised forest banks, guarded timber bridge and a navigable dry ravine."""
+    v = Vox(39,16,43)
+    r = rng("struct","greatwood_gorge")
+    v.fill(0,0,0,38,0,42,COBBLE)
+    # Keep y0 at scatter's foundation plane; approach stairs climb the banks.
+    for x0,x1 in ((0,14),(24,38)):
+        v.fill(x0,1,6,x1,4,42,STONE)
+        v.fill(x0,5,6,x1,5,42,"minecraft:grass_block")
+    v.fill(15,1,39,23,5,42,STONE)
+    for z in range(1,6):
+        v.fill(6,0,z,10,z-1,z,COBBLE)
+        v.fill(6,z,z,10,z,z,"minecraft:stone_brick_stairs",
+               {"weirdo_direction":2,"upside_down_bit":False})
+    v.fill(6,5,6,10,5,21,GRAVEL)
+    v.fill(8,5,17,32,5,21,GRAVEL)
+    # Five-wide timber span, high rails and log abutments.
+    v.fill(12,5,17,26,5,21,SPRUCE)
+    for z in (16,22):
+        v.fill(12,6,z,26,6,z,SPRUCE_FENCE)
+    for x in (13,25):
+        for z in (16,22): v.fill(x,1,z,x,8,z,SPRUCE_LOG)
+    for x in (14,24):
+        for z in range(6,39):
+            if not 16<=z<=22: v.set(x,6,z,SPRUCE_FENCE)
+    # Open checkpoint arch on the east bank; toll scripting is not implemented.
+    for z in (16,22): v.fill(28,6,z,28,9,z,DARKLOG)
+    v.fill(28,10,16,28,10,22,DARKLOG)
+    v.box(27,5,25,35,10,34,SPRUCE)
+    v.fill(28,6,26,34,9,33,"minecraft:air")
+    v.fill(30,6,25,32,8,25,"minecraft:air")
+    gable_roof_z(v,26,36,24,35,10,DARKOAK,SPRUCE)
+    v.set(31,6,32,"minecraft:chest",{"minecraft:cardinal_direction":"north"})
+    v.set(28,6,28,LANTERN,{"hanging":False})
+    # Wall-cut return stairs to a dry under-bridge path, three blocks wide.
+    for z,y in ((26,5),(27,4),(28,3),(29,2),(30,1)):
+        v.fill(24,y+1,z,26,9,z,"minecraft:air")
+        v.fill(24,y,z,26,y,z,"minecraft:stone_brick_stairs",
+               {"weirdo_direction":3,"upside_down_bit":False})
+    v.fill(22,1,31,26,6,32,"minecraft:air")
+    v.fill(22,0,6,23,0,38,GRAVEL)
+    # Static face in a stone outcrop: deliberately no unrelated door riddle.
+    v.fill(28,6,8,36,13,10,STONE)
+    v.fill(29,14,8,35,14,10,MOSSY)
+    for x in (30,34):
+        v.set(x,11,7,DEEP_TILES)
+        v.fill(x-1,12,7,x+1,12,7,CHISELED)
+    v.fill(32,9,7,32,11,7,CHISELED)
+    v.fill(30,8,7,34,8,7,DEEP_TILES)
+    v.fill(30,7,7,34,7,7,MOSSY)
+    # Compact broadleaf trees stay away from routes and within the voxel bounds.
+    for x,z in ((3,11),(4,36),(35,39)):
+        v.fill(x,6,z,x,10,z,"minecraft:oak_log")
+        for xx in range(x-2,x+3):
+            for zz in range(z-2,z+3):
+                for y in (10,11,12):
+                    if abs(xx-x)+abs(zz-z)<4 or r.random()<.4:
+                        v.set(xx,y,zz,"minecraft:oak_leaves",{"persistent_bit":True})
+    v.save("greatwood_gorge")
+
+
 def main():
     print("building structures:")
     demon_door_arch()
@@ -5418,6 +5480,7 @@ def main():
     bargate_prison()
     archon_shrine()
     archon_folly()
+    greatwood_gorge()
     temple_avo()
     chapel_skorm()
     arena_ring()

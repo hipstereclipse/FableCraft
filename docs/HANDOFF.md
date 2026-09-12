@@ -10,13 +10,25 @@ six reference snapshots are in docs/. User override (2026-09-12): finish the spe
 WIP and continue as far as practical without permission questions. Keep separate
 milestone commits, validation, immediate pushes, evidence and fresh handoffs.
 
-Current milestone: W3.3 — Archon Folly; status in-progress.
-Last resolved prior commit: b5db77c333113d7036d8da1d08542bf559634fb5 (pushed).
-Containing commit: TLC Conformance — W3.3: add Archon Folly volcanic arena.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — W3.3: add Archon Folly volcanic arena'.
+Current milestone: W3.4 — Greatwood Gorge toll bridge; status in-progress.
+Last resolved prior commit: c73bbf67398f341e3feb8a50b200d3f0ede3db93 (pushed).
+Containing commit: TLC Conformance — W3.4: add Greatwood Gorge bridge and checkpoint.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — W3.4: add Greatwood Gorge bridge and checkpoint'.
 Replace previous SELF with the actual hash next step; never invent a self-hash.
 
-W3.3 adds fc:archon_folly, 49x18x55, weight 2, rock, dark theme. Circular
+W3.4 adds fc:greatwood_gorge, 39x16x43, weight 6, grass/rock, forest theme.
+Raised banks, five-wide timber bridge/rails, bandit checkpoint/shack, static
+stone face and two stair flights connect the upper route to a dry lower ravine.
+One ordinary chest and three bandits have tested anchors. Six groups cover
+bridge/rails, both stairs, chest/face/lower routes, actual scatter/idempotence
+and independent broken-deck/closed-shack/blocked-stair fixtures. A TLC toll
+shot supplies wooded material context only; full bridge/face comparison pending.
+Straight banks, sparse trees and slab face are visible gaps. No toll transaction,
+leader surrender/fleeing, Arboretum challenge/reward, quest completion or Cullis.
+No unrelated Demon Door riddle substituted. See docs/GREATWOOD_GORGE.md.
+All engine checks, including jump-free stairs/fence collision, remain unrun.
+
+W3.3 at c73bbf6 adds fc:archon_folly, 49x18x55, weight 2, rock, dark theme. Circular
 blackstone platform, contained lava annulus, raised edge, north causeway and
 four basalt spires. One existing dragon at (24.5,3,30.5); actual 1.54x4.18
 collider and 12x12 dry landing tested. Six groups cover basin floor/banks,
@@ -64,23 +76,23 @@ Nostro's onward route is missing: never substitute an unrelated Demon Door riddl
 No fc:place handler exists. Raw /structure load places blocks only; scatter owns
 population, loot and travel. Keep procedural scatter, no fixed map or old-region retrofit.
 
-All 26 local scripts/validate.py gates pass, plus explicit spell and syntax checks.
-C2 covers 33 assets/renders (27 scatter/two fixed/four legacy), 15 contract groups
+All 27 local scripts/validate.py gates pass, plus explicit spell and syntax checks.
+C2 covers 34 assets/renders (28 scatter/two fixed/four legacy), 15 contract groups
 and nine placement cases. Current asset/render hashes match. Full all-category
-pipelines ran through W3.3 in tmp/conformance/<ID>-full-screenshots; W3.3 renders
-30 structure cards. Logs, audits, primary views and explicitly labeled cutaways
+pipelines ran through W3.4 in tmp/conformance/<ID>-full-screenshots; W3.4 renders
+31 structure cards. Logs, audits, primary views and explicitly labeled cutaways
 are in screenshots/validation/<ID>. These are offline evidence, never engine passes.
 C2 checks mobSpawns count/finite shape/feet/head bounds; cross-POI fixtures catch
 Snowspire contamination. Geometry clearance stays in individual POI tests.
 
 C3 requires python scripts/conformance_score.py --write after EVERY checklist change,
 then --check. It tracks 45 leaves, automated/manual counts and appearance separately.
-W3.2 remote CI passed at b5db77c (run 34708702257); metadata is in
-screenshots/validation/W3.2/remote-run.json. Inspect newest workflow's actual head next.
+W3.3 remote CI passed at c73bbf6 (run 34709053658); metadata is in
+screenshots/validation/W3.3/remote-run.json. Inspect newest workflow's actual head next.
 All current world rows remain in-progress for manual/reference work, not done.
 
 Next three actions:
-1. git pull --ff-only; start top todo W3.4 Greatwood Gorge toll bridge.
+1. git pull --ff-only; start top todo W3.5 Darkwood Bordello.
 2. Execute its numbered playbook and base/world validators. Save actual outputs
    under screenshots/validation/<ID>; every unobserved engine check stays unrun.
 3. Update checklist/handoff, explicitly stage one milestone commit, push origin

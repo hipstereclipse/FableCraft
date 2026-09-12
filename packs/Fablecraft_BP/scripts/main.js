@@ -5495,6 +5495,8 @@ const STRUCTS = [
   { id: "fc:grey_house", w: 31, h: 20, d: 35, weight: 5, surf: ["grass", "rock"], theme: "dark", loot: "grey_house", door: false, cullis: false,
     mobs: ["fc:undead", "fc:undead_soldier", "fc:undead"],
     mobSpawns: [[15.5, 6, 10.5], [12.5, 1, 20.5], [19.5, 1, 24.5]] }, // gen_structures.grey_house porch and cellar aisles
+  { id: "fc:greatwood_gorge", w: 39, h: 16, d: 43, weight: 6, surf: ["grass", "rock"], theme: "forest", loot: "greatwood_gorge", door: false, cullis: false,
+    mobs: ["fc:bandit", "fc:bandit", "fc:bandit_archer"], mobSpawns: [[12.5, 6, 19.5], [29.5, 6, 23.5], [33.5, 6, 30.5]] }, // gen_structures.greatwood_gorge bridge and checkpoint
   { id: "fc:archon_folly", w: 49, h: 18, d: 55, weight: 2, surf: ["rock"], theme: "dark", loot: "archon_folly", door: false, cullis: false,
     mobs: ["fc:jack_dragon"], mobSpawns: [[24.5, 3, 30.5]] }, // gen_structures.archon_folly clear arena center
   { id: "fc:archon_shrine", w: 49, h: 24, d: 57, weight: 4, surf: ["snow", "rock"], theme: "snow", loot: "archon_shrine", door: false, cullis: true,
@@ -5636,6 +5638,7 @@ function maybePlace(p, rx, rz) {
 
 // themed loot rolled into every chest found inside a placed structure
 const CHEST_LOOT = {
+  "fc:greatwood_gorge": [["fc:gold_coin", 3, 8, 1], ["fc:health_potion", 1, 2, 0.6], ["fc:red_meat", 1, 2, 0.5]],
   "fc:archon_folly": [],
   "fc:archon_shrine": [["fc:will_potion", 1, 2, 1], ["fc:gold_coin", 3, 8, 0.7]],
   "fc:bargate_prison": [["fc:gold_coin", 2, 6, 1], ["fc:health_potion", 1, 2, 0.6], ["fc:red_meat", 1, 2, 0.5]],

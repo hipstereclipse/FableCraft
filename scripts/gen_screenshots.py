@@ -1001,6 +1001,7 @@ def main():
     # ---- structures ----
     import gen_structures as GS
     builders = {
+        "greatwood_gorge": GS.greatwood_gorge,
         "archon_folly": GS.archon_folly,
         "archon_shrine": GS.archon_shrine,
         "bargate_prison": GS.bargate_prison,
@@ -1035,6 +1036,7 @@ def main():
         fn()
     GS.Vox.save = orig_save
     STRUCT_LABELS = {
+        "greatwood_gorge": ("Greatwood Gorge", "Timber toll bridge · bandit checkpoint · stone-face landmark", "forest"),
         "archon_folly": ("Archon Folly", "Volcanic arena · lava perimeter · open return causeway", "dark"),
         "archon_shrine": ("Archon Shrine", "Domed soul shrine · Cullis disc · monumental Bronze Gate", "frost"),
         "bargate_prison": ("Bargate Prison", "Ramparts · barred cells · warden tower · underground basin", "stone"),

@@ -145,6 +145,17 @@
       "title": "Lychfield Graveyard"
     },
     {
+      "name": "greatwood_gorge",
+      "generator": "greatwood_gorge",
+      "kind": "scatter",
+      "size": [
+        39,
+        16,
+        43
+      ],
+      "title": "Greatwood Gorge"
+    },
+    {
       "name": "grey_house",
       "generator": "grey_house",
       "kind": "scatter",

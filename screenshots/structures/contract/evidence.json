@@ -248,6 +248,25 @@
       },
       "notes": []
     },
+    "greatwood_gorge": {
+      "asset_sha256": "60bf0e783d5d5e3f39608eb07fdc4219e1cc57cc48470adb55e78a69d59ba3e5",
+      "size": [
+        39,
+        16,
+        43
+      ],
+      "image_sha256": "0c4e697715f077dd2052a6c96ac640a336dee2ad30200d4cb596fa71404786c9",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 15.1,
+        "colors": 28,
+        "contrast": 0.85,
+        "brightness": 0.43,
+        "placeholder": false
+      },
+      "notes": []
+    },
     "grey_house": {
       "asset_sha256": "3f01c46dc6b6ed8c43874ef52bf46139d26991384999740025c39f31b577dcca",
       "size": [
