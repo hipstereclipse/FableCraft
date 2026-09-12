@@ -5080,6 +5080,88 @@ def windmill_hill():
     v.save("windmill_hill")
 
 
+def grey_house():
+    """W2.4: isolated manor above a walkable stone cellar; see GREY_HOUSE.md."""
+    v = Vox(31, 20, 35)
+    r = rng("struct", "grey_house")
+    v.fill(0, 0, 0, 30, 0, 34, "minecraft:grass_block")
+    # A terraced mound keeps the cellar inside the existing surface scatter box.
+    for y in range(1, 6):
+        inset = min(y, 3)
+        v.fill(2 + inset, y, 6 + inset, 28 - inset, y, 34 - inset,
+               "minecraft:grass_block")
+        if y > 1:
+            v.fill(2 + inset, 1, 6 + inset, 28 - inset, y - 1, 34 - inset,
+                   "minecraft:dirt")
+    v.fill(14, 0, 0, 16, 0, 3, GRAVEL)
+    for z in range(4, 9):
+        y = z - 3
+        v.fill(14, 0, z, 16, y, z, COBBLE)
+        v.fill(14, y, z, 16, y, z, "minecraft:stone_brick_stairs",
+               {"weirdo_direction": 2, "upside_down_bit": False})
+        v.fill(14, y + 1, z, 16, y + 2, z, "minecraft:air")
+    # Low broken boundary and bare trees establish the isolated, decayed yard.
+    for x in range(2, 29):
+        if x not in range(14, 17):
+            v.set(x, 1, 2, MCOBBLE)
+            if x % 4 != 0: v.set(x, 2, 2, IRON_BARS)
+    for x in (13, 17):
+        v.fill(x, 1, 2, x, 3, 2, STONE)
+        v.set(x, 4, 2, LANTERN)
+    for x, z in ((2, 13), (28, 17), (3, 29), (28, 30)):
+        v.fill(x, 1, z, x, 7, z, DARKLOG)
+        v.fill(x - 1, 5, z, x + 1, 5, z, DARKLOG)
+        v.set(x + 1, 6, z, DARKLOG)
+    # Cellar foundation, retaining masonry and four-block-high clear interior.
+    v.box(8, 0, 13, 22, 5, 28, STONE)
+    v.fill(9, 1, 14, 21, 4, 27, "minecraft:air")
+    for x in range(9, 22):
+        for z in range(14, 28): v.set(x, 0, z, rnd_stone(r))
+    # Timber-braced, plaster manor; exaggerated slate gable and chimney.
+    v.fill(8, 5, 12, 22, 5, 28, DARKOAK)
+    v.box(8, 6, 12, 22, 10, 28, "minecraft:white_terracotta")
+    v.fill(9, 6, 13, 21, 9, 27, "minecraft:air")
+    for x in (8, 15, 22):
+        for z in (12, 28): v.fill(x, 6, z, x, 10, z, DARKLOG)
+    for z in (16, 22, 25):
+        for x in (8, 22):
+            v.fill(x, 8, z, x, 9, z + 1, GLASS)
+    for x in (10, 19): v.fill(x, 8, 12, x + 1, 9, 12, GLASS)
+    v.fill(14, 6, 12, 16, 8, 12, "minecraft:air")
+    v.fill(13, 5, 9, 17, 5, 11, COBBLE)
+    for x in (13, 17):
+        v.fill(x, 6, 10, x, 8, 10, DARKLOG)
+        v.set(x, 9, 10, LANTERN)
+    gable_roof_z(v, 7, 23, 11, 29, 11, DEEP_TILES, DARKOAK)
+    v.fill(20, 6, 25, 20, 17, 25, CRACK)
+    v.set(19, 6, 25, "minecraft:campfire", {"extinguished": True})
+    # Furnishing stays away from the entrance and west stair landing.
+    v.fill(17, 6, 20, 18, 6, 22, DARKOAK)
+    v.set(17, 7, 21, CANDLE, {"lit": True, "candles": 2})
+    v.fill(21, 6, 19, 21, 7, 21, "minecraft:bookshelf")
+    v.fill(10, 6, 25, 11, 6, 26, "minecraft:white_wool")
+    v.set(20, 6, 15, "minecraft:chest", {"minecraft:cardinal_direction": "west"})
+    # Open internal stair: high end north. Clear headroom through the house floor.
+    for z in range(14, 18):
+        y = 18 - z
+        v.fill(10, 1, z, 11, y, z, STONE)
+        v.fill(10, y, z, 11, y, z, "minecraft:stone_brick_stairs",
+               {"weirdo_direction": 3, "upside_down_bit": False})
+        v.fill(10, y + 1, z, 11, 8, z, "minecraft:air")
+    # Guard the sides and bottom of the floor opening, leaving its north access.
+    v.fill(9, 6, 14, 9, 6, 18, SPRUCE_FENCE)
+    v.fill(12, 6, 14, 12, 6, 18, SPRUCE_FENCE)
+    v.fill(10, 6, 18, 11, 6, 18, SPRUCE_FENCE)
+    for x in (14, 18):
+        v.fill(x, 1, 21, x, 1, 23, DEEPSLATE_W)
+        v.set(x, 1, 21, CHISELED)
+    for x, z in ((9, 19), (21, 23)):
+        v.set(x, 3, z, SOUL_LANTERN, {"hanging": True})
+        v.set(x, 4, z, STONE)
+    v.set(20, 1, 26, "minecraft:chest", {"minecraft:cardinal_direction": "north"})
+    v.save("grey_house")
+
+
 def main():
     print("building structures:")
     demon_door_arch()
@@ -5100,6 +5182,7 @@ def main():
     power_necropolis()
     bandit_camp()
     graveyard()
+    grey_house()
     temple_avo()
     chapel_skorm()
     arena_ring()

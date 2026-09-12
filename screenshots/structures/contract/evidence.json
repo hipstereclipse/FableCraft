@@ -191,6 +191,25 @@
       },
       "notes": []
     },
+    "grey_house": {
+      "asset_sha256": "3f01c46dc6b6ed8c43874ef52bf46139d26991384999740025c39f31b577dcca",
+      "size": [
+        31,
+        20,
+        35
+      ],
+      "image_sha256": "1cebf37972720e403fa915457712c5bd7a26320bbbef2e08ba38746d70e37423",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 15.0,
+        "colors": 31,
+        "contrast": 0.86,
+        "brightness": 0.4,
+        "placeholder": false
+      },
+      "notes": []
+    },
     "guild_armoury": {
       "asset_sha256": "0c3e2dd6c86090a21e1ae0ac63b522b65525d892cfed06f38dcf89beb7be4376",
       "size": [

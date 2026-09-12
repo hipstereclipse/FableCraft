@@ -1,0 +1,11 @@
+test_actual_runtime_configuration_and_failure_paths (__main__.CullisGate.test_actual_runtime_configuration_and_failure_paths) ... ok
+test_arrival_core_and_three_blocks_of_headroom (__main__.CullisGate.test_arrival_core_and_three_blocks_of_headroom) ... ok
+test_four_level_three_wide_walking_routes (__main__.CullisGate.test_four_level_three_wide_walking_routes) ... ok
+test_palette_is_known_and_no_floating_crystal (__main__.CullisGate.test_palette_is_known_and_no_floating_crystal) ... ok
+test_stable_id_footprint_and_travel_registration (__main__.CullisGate.test_stable_id_footprint_and_travel_registration) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.302s
+
+OK
+Cullis detector: actual generated fixture PASS; missing core/ring/unloaded negatives PASS

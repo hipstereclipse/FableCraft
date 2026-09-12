@@ -1,7 +1,7 @@
 # Structure contract and placement bounds
 
-The C2 contract now links all 29 generator outputs to pack assets, placement roles,
-actual dimensions and fresh render evidence. It checks 23 scatter entries, two fixed
+The C2 contract now links all 30 generator outputs to pack assets, placement roles,
+actual dimensions and fresh render evidence. It checks 24 scatter entries, two fixed
 structures (Guild and Chamber of Fate), and four retained Guild annexes explicitly
 classified as legacy. No tiles or aliases are currently emitted. Adding either requires
 extending the declared model; the old one-off tiling patch is not an approved migration.
@@ -26,14 +26,15 @@ containing source-asset/image SHA-256 and dimensions, and its ID row in the adja
 `AUDIT.md`. That report is the current structure-contract evidence; the older broad
 `screenshots/AUDIT.md` is not proof of current generator output. The dedicated renderer
 uses the existing offline renderer without regenerating mobs/items or using network
-textures. All 29 images have been regenerated and the contact sheet visually inspected.
+textures. The initial C2 contact sheet was inspected; subsequent milestones inspect their
+changed renders separately. Current provenance covers all 30 images.
 The metrics measure image appearance, not canon fidelity or in-world success.
 
 The audit checks reverse edges for outputs, assets, scatter/fixed registrations, render
 files/evidence and audit rows; loot keys must resolve to declared structures. Duplicate
 IDs, unknown roles, undocumented legacy outputs and missing grades fail. Build validation
-invokes the contract for both faithful staging and original previews; CI runs 13 Python
-regression groups and four actual-source JavaScript placement tests.
+invokes the contract for both faithful staging and original previews; CI runs 15 Python
+regression groups and eight actual-source JavaScript placement tests.
 
 ## Defects caught and corrected
 
@@ -86,3 +87,9 @@ A negative fixture copies Hook Coast's coordinates into the smaller Snowspire PO
 it now fails instead of silently allowing a spawn outside its footprint. These
 bounds checks do not prove block clearance; each changed POI's actual-source voxel
 population tests cover that separately. The random-spawn fallback is unchanged.
+
+W2.4 adds Grey House as a 31x20x35 scatter entry with a cellar inside a raised
+mound. The ground plane remains local y=0; foundation blending fills only below
+it. Seven POI regression groups include route-blocking and chest-lid fixtures,
+plus actual-source population/loot/save checks on grass and rock. Engine checks
+for the raised mound and interior remain unrun in docs/GREY_HOUSE.md.

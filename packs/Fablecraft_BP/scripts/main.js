@@ -5492,6 +5492,9 @@ const STRUCTS = [
     mobs: ["fc:hobbe", "fc:hobbe", "fc:hobbe", "fc:hobbe_scout"] },
   { id: "fc:windmill_hill", w: 21, h: 20, d: 21, weight: 8, surf: ["grass"], theme: "farm",
     mobs: ["fc:villager_farmer"] },
+  { id: "fc:grey_house", w: 31, h: 20, d: 35, weight: 5, surf: ["grass", "rock"], theme: "dark", loot: "grey_house", door: false, cullis: false,
+    mobs: ["fc:undead", "fc:undead_soldier", "fc:undead"],
+    mobSpawns: [[15.5, 6, 10.5], [12.5, 1, 20.5], [19.5, 1, 24.5]] }, // gen_structures.grey_house porch and cellar aisles
 ];
 const STRUCTS_TOTAL_W = STRUCTS.reduce((a, s) => a + s.weight, 0);
 
@@ -5626,6 +5629,7 @@ function maybePlace(p, rx, rz) {
 
 // themed loot rolled into every chest found inside a placed structure
 const CHEST_LOOT = {
+  "fc:grey_house": [["fc:ectoplasm", 1, 3, 1], ["fc:will_potion", 1, 2, 0.6], ["fc:gold_coin", 2, 6, 0.7]],
   "fc:bandit_camp": [["fc:gold_coin", 4, 12, 1], ["fc:steel_longsword", 1, 1, 0.4],
   ["fc:health_potion", 1, 2, 0.6], ["fc:golden_carrot_brew", 1, 3, 0.5],
   ["fc:sharpening_augment", 1, 1, 0.15], ["fc:silver_key", 1, 1, 0.2],

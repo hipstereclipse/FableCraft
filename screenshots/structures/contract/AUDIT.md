@@ -14,6 +14,7 @@ Offline generator renders; grades measure image appearance, not canon or playabi
 | fisher_creek | S | 100 | 23/12/23 | [Fisher Creek](fisher_creek.png) |
 | focus_site | S | 100 | 13/10/13 | [Cullis Gate](focus_site.png) |
 | graveyard | S | 100 | 25/13/25 | [Lychfield Graveyard](graveyard.png) |
+| grey_house | S | 100 | 31/20/35 | [Grey House](grey_house.png) |
 | guild_armoury | A | 85 | 18/18/22 | [Guild Armoury](guild_armoury.png) |
 | guild_hall | S | 100 | 122/30/108 | [Heroes' Guild](guild_hall.png) |
 | guild_scriptorium | S | 100 | 18/18/22 | [Guild Scriptorium](guild_scriptorium.png) |

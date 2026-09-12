@@ -112,6 +112,17 @@
       "title": "Lychfield Graveyard"
     },
     {
+      "name": "grey_house",
+      "generator": "grey_house",
+      "kind": "scatter",
+      "size": [
+        31,
+        20,
+        35
+      ],
+      "title": "Grey House"
+    },
+    {
       "name": "guild_armoury",
       "generator": "guild_armoury",
       "kind": "legacy",

@@ -1,4 +1,4 @@
-"""Regenerate only the 29 structure contract renders and their provenance/audit."""
+"""Regenerate the declared structure contract renders and their provenance/audit."""
 import json
 from pathlib import Path
 

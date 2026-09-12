@@ -998,6 +998,7 @@ def main():
     # ---- structures ----
     import gen_structures as GS
     builders = {
+        "grey_house": GS.grey_house,
         "demon_door_arch": GS.demon_door_arch, "guild_hall": GS.guild_hall,
         "chamber_of_fate": GS.chamber_of_fate,
         "oakvale_village": GS.oakvale_village,
@@ -1028,6 +1029,7 @@ def main():
         fn()
     GS.Vox.save = orig_save
     STRUCT_LABELS = {
+        "grey_house": ("Grey House", "Isolated manor · stone cellar · undead haunt", "dark"),
         "demon_door_arch": ("Demon Door", "Carved arch · dialogue-locked vault", "dark"),
         "guild_hall": ("Heroes' Guild", "Domed Map Room · Cullis Gate · Maze's spiral tower", "holy"),
         "chamber_of_fate": ("Chamber of Fate", "Domed fresco hall · central dais", "royal"),

@@ -10,13 +10,28 @@ six reference snapshots are in docs/. User override (2026-09-12): finish the spe
 and continue as far as practical without permission questions. Retain separate
 milestone commits, validation, immediate pushes, evidence and fresh handoffs.
 
-Current milestone: W2.3 — Oakvale Memorial Garden; status in-progress.
-Last resolved prior commit: a0b59f28821869c4dfb8324c7de874fd531e0991 (pushed).
-Containing commit: TLC Conformance — W2.3: connect Oakvale Memorial Garden.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — W2.3: connect Oakvale Memorial Garden'.
+Current milestone: W2.4 — Grey House and cellar; status in-progress.
+Last resolved prior commit: 0edad619094fbcd9a5d6cb4e2d351e8591400ad8 (pushed).
+Containing commit: TLC Conformance — W2.4: add Grey House and navigable cellar.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — W2.4: add Grey House and navigable cellar'.
 Replace previous SELF evidence with the actual hash next step; never invent a self-hash.
 
-W2.3 retains fc:oakvale_village, widening 35x14x35 to 53x14x35 for an eastern
+W2.4 adds fc:grey_house (31x20x35), weight 5, grass/rock, dark theme. A raised
+mound contains the stone cellar above local y=0; no placement offset was added.
+Three-wide exterior steps and two-wide internal stairs connect the manor, two
+coffins, both ordinary chests and three explicit undead anchors. No Cullis or
+Demon Door; no quest gate, stable, lantern sequence, ghost or unique reward.
+Seven regression groups pass, including blocked-stair/lid fixtures and actual
+scatter population/loot/save behavior. See docs/GREY_HOUSE.md. Future unvisited
+region rolls change with the added weight; existing region flags remain intact.
+C2 covers 30 assets/renders: 24 scatter, two fixed, four legacy; 15 contract groups
+and eight placement cases pass. Full-category pipeline renders 27 structures.
+Inspected exterior and cellar cutaway; y>=5 removed only in diagnostic cutaway.
+A TLC guide image shows the stable's timber/stone/weed context, not complete house
+or cellar topology. URL/hash recorded; reference stored only in ignored tmp.
+Regular gable, sparse decay and terraced mound remain visual gaps; no canon grade.
+
+W2.3 at 0edad619 retains fc:oakvale_village, widening 35x14x35 to 53x14x35 for an eastern
 raised garden. Runtime and C2 manifest match. The original squeezed memorial is
 replaced by a larger axe-bearing statue, six graves and a walled garden reached
 by an east lane and two steps. Oak/well/field/coast and five emitted chest coordinates
@@ -57,16 +72,16 @@ Nostro's command/onward route is missing; never register an unrelated Demon Door
 No fc:place handler exists: raw /structure load places blocks only; scatter initializes
 population/loot/travel. Keep procedural scatter, no fixed map or old-region retrofit.
 
-All 22 local scripts/validate.py gates pass. C2 asset/render hashes are current.
+All 23 local scripts/validate.py gates pass. C2 asset/render hashes are current.
 Full all-category pipelines ran in tmp/conformance/<ID>-full-screenshots for
-W1.2/W1.3/W1.4/W2.1/W2.2/W2.3. Logs, audits and primary/detail views are in each
+W1.2/W1.3/W1.4/W2.1/W2.2/W2.3/W2.4. Logs, audits and primary/detail views are in each
 milestone's screenshots/validation/<ID> evidence. These are offline renders, not
 engine or canon passes. C2's in-world checklist remains pending in STRUCTURE_CONTRACT.md.
 
 C3 requires python scripts/conformance_score.py --write after EVERY checklist change,
 then --check. It tracks 45 leaves, automated/manual counts and offline appearance
-metrics separately. W2.2 remote CI passed at a0b59f2 (run 34701741654); metadata is
-screenshots/validation/W2.2/remote-run.json. W2.1/W1.4 and earlier runs also passed
+metrics separately. W2.3 remote CI passed at 0edad619 (run 34702238316); metadata is
+screenshots/validation/W2.3/remote-run.json. W2.1/W1.4 and earlier runs also passed
 at their recorded commits. Inspect the newest pushed workflow's actual head next.
 
 L4 releases remain blocked: last recorded original preview had 2,512 known-name
@@ -75,7 +90,7 @@ remap is missing. No exemptions. 0.3/L3/spell in-world checks remain pending. HU
 has narrow green radar, missing hunger frame and nav bleed; keep them visible.
 
 Next three actions:
-1. git pull --ff-only; read the top pending row and start W2.4 Grey House and cellar.
+1. git pull --ff-only; read the top pending row and start W3.1 Bargate Prison.
 2. Execute its numbered playbook and base/domain validators; retain actual output
    under screenshots/validation/<ID>/ and mark every manual observation unrun.
 3. Update checklist/handoff in one explicitly staged milestone commit, push to origin,
