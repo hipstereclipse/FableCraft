@@ -10,27 +10,26 @@ six reference snapshots are in docs/. User override (2026-09-12): finish the spe
 and continue as far as practical without permission questions. Retain separate
 milestone commits, validation, immediate pushes, evidence and fresh handoffs.
 
-Current milestone: spell prerequisite follow-up; restored three entity-scan empty-list fallbacks
-removed too broadly during lint cleanup. Three failure-path tests fail before/pass after;
-evidence screenshots/validation/scan-fallback/. 0.3 remains pending manual verification.
-Last resolved prior commit: fe7fa33 (pushed before this correction).
-Containing commit: Will & Destiny — preserve failed entity-scan fallbacks.
-Resolve current hash: git log -1 --format=%H --grep='Will & Destiny — preserve failed entity-scan fallbacks'.
+Current milestone: 0.4 — synchronize gameplay documentation; status done.
+Last resolved prior commit: bc3e7bd (pushed before this milestone).
+Containing commit: TLC Conformance — 0.4: synchronize gameplay documentation.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — 0.4: synchronize gameplay documentation'.
 Replace previous SELF evidence with the actual hash next step; never invent a self-hash.
 
-Validator state: base build, expressions (31/21), HUD (112/112), lint (0 errors/19
-warnings), 17 spell mocks, behavior regression, ten animation regression cases and
-animation gate/clip/bone audit (54 client entities) GREEN. Evidence: screenshots/validation/0.3/.
-Official sources show variable.attack_time is engine-owned. Do not add a fake timer
-or query.attack_time. The stronger audit really failed on three ranged/caster melee
-overlays before the fix and passes after gen_resources omitted those three overlays.
-See docs/ANIMATION_AUDIT.md for sources, exact scope and static-analysis limits.
-0.3 remains IN-PROGRESS solely for in-world idle/strike/recovery/ranged checks; no
-engine runtime is available. Spell manual checklist and HUD preview concerns also
-remain pending. Continue independent 0.4/L1 documentation while retaining these gates.
+Validator state: build, emotes, HUD, lint, 17 spell mocks, three scan-fallback tests,
+behavior regression, ten animation tests and the 54-client-entity audit GREEN.
+Evidence: screenshots/validation/0.4/. README now counts 18 live powers, 195 item
+files (194 data+focus), 131 recipes, 29 structure files (23 scatter), and explains
+wd casting/progression. Bounty docs corrected tick-based time, 160/240-second
+first offences, veteran threshold 75 and no death-clear guarantee. Original bounty
+edits were preserved and reconciled; all gameplay manual boxes remain UNRUN.
+0.3 is still in-progress for in-world checks; spell/preview verification also pending.
+The older blueprint's globally undriven-attack claim was corrected with official
+sources; see docs/ANIMATION_AUDIT.md. Independent L1 legal-notice verification can
+proceed; never claim Phase 0 runtime acceptance or a public release yet.
 
 Next three actions:
-1. git pull --ff-only; read the top pending row and start 0.4 documentation drift (independent of manual animation checks).
+1. git pull --ff-only; read the top pending row and start L1 notice verification; retain 0.3 manual gate.
 2. Execute its numbered playbook steps and applicable base/domain validators; preserve
    real output under screenshots/validation/<ID>/, mark manual observations unrun.
 3. Update checklist/handoff in one explicitly staged milestone commit, push to origin,

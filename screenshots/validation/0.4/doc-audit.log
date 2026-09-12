@@ -1,0 +1,8 @@
+PASS: 18 live casts and README Will counts synchronized
+items 195
+entities 55
+recipes 131
+structures 29
+MOBS 51 data items 194 sound definitions 262
+Reviewed bounty: first punch 120+40=160s; kill 120+120=240s; guard tier 75/200; stars 20/60/110/175; tick clock, not wall clock.
+Manual gameplay checks UNRUN. Documentation changes do not establish runtime validation.

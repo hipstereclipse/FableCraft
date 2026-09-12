@@ -9,7 +9,7 @@ replace with a real hash in the next milestone. A mock or render is never an in-
 | Item | Status (todo/in-progress/done) | Evidence (commit + screenshot/validator path) | Grade | Date |
 | --- | --- | --- | --- | --- |
 | Spell completion (code + automated validation; manual follow-up separate) | done | ccafd4c; screenshots/validation/spells/; SPELL_COMPANIONS.md | PASS (17 mocks); manual pending | 2026-09-12 |
-| Entity-scan fallback correction | done | SELF: Will & Destiny — preserve failed entity-scan fallbacks; screenshots/validation/scan-fallback/ | PASS (3 error-path tests) | 2026-09-12 |
+| Entity-scan fallback correction | done | bc3e7bd; screenshots/validation/scan-fallback/ | PASS (3 error-path tests) | 2026-09-12 |
 | Spell in-world checklist | todo | ccafd4c; SPELL_COMPANIONS.md | PENDING (manual) | 2026-09-12 |
 | Bootstrap document set | done | d9d5f7c; docs/CONFORMANCE_PLAN.md; LEGAL.md; screenshots/validation/bootstrap/ | PASS (docs); gameplay unchanged | 2026-09-12 |
 
@@ -20,7 +20,7 @@ replace with a real hash in the next milestone. A mock or render is never an in-
 | 0.1 Repair behavior generator | done | 6835313; screenshots/validation/0.1/ | PASS (automated) | 2026-09-12 |
 | 0.2 Adopt orphan tools and output policy | done | 6ca1e14; screenshots/validation/0.2/ | PASS (automated) | 2026-09-12 |
 | 0.3 Drive melee strike gates and test the audit | in-progress | fe7fa33; screenshots/validation/0.3/ | PASS (automated); PENDING (manual) | 2026-09-12 |
-| 0.4 Synchronize gameplay documentation | todo | — | — | — |
+| 0.4 Synchronize gameplay documentation | done | SELF: TLC Conformance — 0.4: synchronize gameplay documentation; screenshots/validation/0.4/ | PASS (automated) | 2026-09-12 |
 
 ## L — Naming and legal
 

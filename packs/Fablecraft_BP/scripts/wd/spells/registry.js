@@ -1,8 +1,7 @@
 // Will & Destiny spell registry. The single 18-power table consumed by the
 // shared cast pipeline (shared/cast.js). Metadata mirrors fc_data.py SPELLS;
-// per-level gameplay numbers live in each spell body. Phase-3 powers are listed
-// with cast:null so the menu/HUD can show them while the pipeline replies
-// "not yet woven" until their bodies land.
+// per-level gameplay numbers live in each spell body. All 18 Phase-3 spell
+// bodies are wired; this is the active casting registry, not a preview table.
 import { fireballCast } from "./fireball.js";
 import { enflameCast } from "./enflame.js";
 import { lightningCast } from "./lightning.js";

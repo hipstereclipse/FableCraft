@@ -1,6 +1,6 @@
 # ⚔ Fablecraft: Reforged
 
-**Transform Minecraft Bedrock into Albion.** A complete recreation of *Fable: The Lost Chapters* as a single `.mcaddon` — Hero XP paths with coloured experience orbs, a living morality system, faction reputation, Will powers, Cullis Gate fast travel, a full mining-and-smithing economy, Demon Doors that talk back, legendary weapons, armour sets, quest chains, expressive townsfolk who walk, emote and react to you, Twinblade's war-camps, and Jack of Blades waiting at the end of it all.
+**Transform Minecraft Bedrock into Albion.** An in-progress recreation of *Fable: The Lost Chapters* as a single `.mcaddon` — Hero XP paths with coloured experience orbs, a living morality system, faction reputation, Will powers, Cullis Gate fast travel, a full mining-and-smithing economy, Demon Doors that talk back, legendary weapons, armour sets, quest chains, expressive townsfolk who walk, emote and react to you, Twinblade's war-camps, and Jack of Blades waiting at the end of it all.
 
 > Every texture, model, structure and sound in this repository is **procedurally generated from code** — Python paints the pixels, builds the geometry, synthesizes the audio and renders the 3D showcase scenes below. The captures tagged *in-game* are the real thing, running live in Minecraft Bedrock.
 
@@ -8,9 +8,11 @@
 
 | | | | | | | | | | |
 |---|---|---|---|---|---|---|---|---|---|
-| **51** creatures & NPCs | **193** items | **130** recipes | **17** Will powers | **15** quests | **31** emotes | **8** Demon Doors | **9** structures | **5** factions | **262** sounds |
+| **51** creatures & NPCs | **195** item files | **131** recipes | **18** Will powers | **15** quests | **31** emotes | **8** Demon Doors | **29** structure files | **5** factions | **262** sounds |
 
-> **Current release: v2.4.0** — built for Minecraft Bedrock **1.21.100+**.
+Counts verified 2026-09-12: 51 roster definitions plus player/overlay assets produce 55 BP entity files; 194 data items plus Will Focus produce 195 item files. The 29 structure files include 23 scatter entries and fixed/legacy structures. Sound definitions remain 262 (535 WAV variations).
+
+> **Current development version: v2.4.0** — built for Minecraft Bedrock **1.21.100+**.
 
 ---
 
@@ -23,7 +25,7 @@
 - **Living NPCs — full body animation.** Every villager, guard, Guild member and named character now walks with alternating limbs and a weight-shifted bob, breathes on idle, looks around, gestures while talking and follows through on attacks — no more sliding statues. Identical townsfolk are phase-offset so a crowd never moves in lockstep.
 - **31 Fable expressions & emotes.** The full *Fable: The Lost Chapters* expression set — Flirt, Blood Lust Roar, Belch, Laugh, Clap, Apologise, Dance and more — drives both your hero and the NPCs around you. Trigger them with `/fable:emote <name>`, watch NPCs react to your antics, and bind your native Persona emotes to Fable expressions. See [FABLE_EMOTE_VALIDATION.md](FABLE_EMOTE_VALIDATION.md).
 - **Settlement bounty & jail.** Crimes against townsfolk and guards now raise a per-settlement bounty that scales the guard response from a pair of standard watchmen up to four elite enforcers, with warrants, arrest choices (pay / jail / resist) and a jail that strips your gear. Full spec in [BOUNTY_SYSTEM.md](BOUNTY_SYSTEM.md).
-- **Will & Destiny (Phase 1 preview).** A new modular Will engine — a rebuilt four-level Fireball with mana, an evil aura and per-player alignment tiers — ships alongside the existing systems as an opt-in preview. Notes, schema and test plan in [WILL_AND_DESTINY_PHASE1.md](WILL_AND_DESTINY_PHASE1.md).
+- **Will & Destiny (Phase 3).** All 18 modular spell bodies are live, including the persistent Ghost Sword companion and horizontal Assassin Rush. The storybook menu is the shared hub. See [phase notes](WILL_AND_DESTINY_PHASE2_3.md) and [spell validation/manual checks](SPELL_COMPANIONS.md); in-world verification remains pending.
 
 ![Fable Expressions](screenshots/gallery/expressions.png)
 
@@ -31,7 +33,7 @@
 
 ## 📥 Installing
 
-1. Grab **`dist/Fablecraft_Reforged.mcaddon`**.
+1. For local development, build with `python scripts/build_addon.py` and open **`dist/Fablecraft_Reforged.mcaddon`**. Tracked archives may predate current source; public distribution remains gated by [LEGAL.md](LEGAL.md).
 2. Double-click it (or open it with Minecraft). Both packs import automatically.
 3. Create a new world → **Add** the Behavior Pack *Fablecraft: Reforged [Behavior]* (the Resource Pack joins automatically as a dependency).
 4. Under world settings, ensure **Holiday Creator Features / Beta APIs** toggles required by your Minecraft version are enabled for scripting.
@@ -176,7 +178,7 @@ The Guild is a single connected campus on a curved river. You wake in the domed 
 
 ### Will Powers in the Field
 
-**17 Will powers** — Fireball, Enflame, Lightning, Slow Time, Assassin Rush, Summon, Berserk, Divine Fury, Infernal Wrath and more — each with 4 upgrade levels.
+**18 Will powers** — Fireball, Enflame, Lightning, Slow Time, Assassin Rush, Summon, Berserk, Divine Fury, Infernal Wrath and more — each with 4 upgrade levels.
 
 ![Will Power - Fireball](screenshots/docs/07_fireball_vs_hobbes.png)
 ![Will Power - Slow Time](screenshots/docs/08_slow_time_bandit_camp.png)
@@ -251,7 +253,7 @@ Fablecraft is content-complete on its **core systems** and actively growing its 
 
 **Shipped & playable**
 
-✅ Morality with live visual states (halo / horns) · ✅ XP, training & the Combat Multiplier · ✅ 17 Will powers · ✅ 130-recipe forge & augment system · ✅ 13 armour sets · ✅ legendary arsenal · ✅ 5-faction reputation · ✅ settlement bounty & jail · ✅ Cullis Gate fast travel · ✅ 8 Demon Doors · ✅ 51 entities with full-body animation · ✅ 31 Fable expressions · ✅ romance & marriage · ✅ the two-phase Jack of Blades finale · ✅ 262 synthesized sounds.
+✅ Morality with live visual states (halo / horns) · ✅ XP, training & the Combat Multiplier · ✅ 18 Will powers · ✅ 131-recipe forge & augment system · ✅ 13 armour sets · ✅ legendary arsenal · ✅ 5-faction reputation · ✅ settlement bounty & jail · ✅ Cullis Gate fast travel · ✅ 8 Demon Doors · ✅ 51 entities with full-body animation · ✅ 31 Fable expressions · ✅ romance & marriage · ✅ the two-phase Jack of Blades finale · ✅ 262 synthesized sounds.
 
 **In progress**
 
@@ -300,7 +302,7 @@ python -m venv .venv
 | [scripts/verify_emotes.py](scripts/verify_emotes.py) | Static audit of the expression registry (run inside `build_addon.py`) |
 | [scripts/build_addon.py](scripts/build_addon.py) | Validation + `.mcaddon` packaging |
 
-Gameplay logic lives in [packs/Fablecraft_BP/scripts/main.js](packs/Fablecraft_BP/scripts/main.js) — XP, morality, multiplier, 17 spells, quests, Demon Door dialogue, faction reputation, the **settlement bounty/jail system**, **Fable expressions & NPC reactions**, Cullis Gate travel, structure loot chests, terrain blending, NPC conversations, shops, world decoration and the two-phase Jack of Blades fight. The opt-in **Will & Destiny** preview lives in its own [packs/Fablecraft_BP/scripts/wd/](packs/Fablecraft_BP/scripts/wd/) module tree.
+Gameplay integration lives in [packs/Fablecraft_BP/scripts/main.js](packs/Fablecraft_BP/scripts/main.js): quests, NPC interactions, shops, faction reputation, settlement/Guild bounties, travel and world placement. All **18 Will powers** cast through [the live wd spell registry](packs/Fablecraft_BP/scripts/wd/spells/registry.js). The legacy XP/spending integration remains a funnel into the modular progression state; morality is wd-authoritative. The old monolithic spell entry point is inert, not a second active casting system.
 
 The generated sound library spans **262 distinct sounds** (535 synthesized `.wav` files in all) — creature voices, NPC speech, item handling, ambience, combat cues and spell/UI sounds; audition the full procedural set in [sound_preview/index.html](sound_preview/index.html).
 

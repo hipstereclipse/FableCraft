@@ -1,94 +1,144 @@
-# Settlement Bounty System
+# Wanted / Bounty System
 
-Killing civilians, villagers, traders, barkeeps, other friendly townsfolk, or guards creates a bounty tied to that exact generated settlement. A crime outside a recorded settlement uses a 64×64 jurisdiction cell for the nearest relevant town.
+Raising a hand against the innocent — or the law — makes you **Wanted**. Every
+punch and every kill adds to a bounty tied to the jurisdiction responsible for it,
+lights up wanted **stars**, and starts (or tops up) a live **countdown**. Behave
+and the countdown runs out and the warrant fades; keep offending and it climbs.
 
-## Bounty growth
+The system covers two kinds of jurisdiction:
 
-- Civilian murder: `20 + (15 × prior local kills)` gold.
-- Guard murder: `35 + (15 × prior local kills)` gold.
-- Bounties are independent per settlement.
-- Bowerstone, Oakvale, and Snowspire use their own guard type and wanted-player tag.
+- **Generated settlements** (Bowerstone, Oakvale, Snowspire and their outlying
+  villages/camps), enforced by that town's guard.
+- **The Heroes' Guild**, its own jurisdiction, enforced by the Guild's standing
+  defenders (the Guildmaster, Maze, the apprentices and the gate guards). There
+  is no separate "Guild Heat" meter — the Guild uses the same wanted system.
 
-## Guard response scaling
+A crime outside any recorded settlement falls back to a 64×64 jurisdiction cell
+for the nearest relevant town.
 
-Existing nearby guards count toward the cap. Only the missing responders are spawned, 18–28 blocks away and preferably behind or near the edge of the player's view.
+## Bounty growth (per offence — Harsh / Fable-tough tuning)
 
-| Local bounty | Maximum guards | Tier | Health | Damage | Speed | Knockback resistance |
+| Crime | Townsfolk | Guard / Guild member |
+|---|---:|---:|
+| **Punch** (any blow) | +10 gold | +20 gold |
+| **Kill** | +40 gold | +80 gold |
+
+- Every distinct blow counts (rapid multi-hits on the *same* victim within a
+  six-tick quiet interval coalesce; a fresh hit requires at least six ticks since
+  the previous hit on that victim).
+- Striking a guard or guild defender — or *any* kill — is an immediate lethal
+  hunt. Merely cuffing a civilian only brings the watch over to demand a fine.
+- Bounties are tracked independently per jurisdiction.
+
+## The countdown
+
+A new record starts with a **120-second base**, then adds the triggering crime's
+time: the first punch produces **160 seconds**, the first kill **240 seconds**.
+Further crimes add time on top of whatever is left:
+
+| Crime | Time added |
+|---|---:|
+| Punch | +40 seconds |
+| Kill | +120 seconds |
+
+- The countdown is capped at **15 minutes**.
+- It runs **everywhere while the game clock advances**, using `system.currentTick * 50`,
+  not wall-clock time. Pausing the game pauses this clock; no exact offline/restart
+  countdown guarantee is implemented. Missing or implausibly distant stored deadlines
+  (including old epoch timestamps) reset to 120 seconds on the next player sweep.
+- Stop committing crimes and it ticks down; reach zero and the warrant fades,
+  the stars clear, and enforcers stand down. Warrants are processed for online players.
+- Resisting arrest restarts the deadline at exactly 120 seconds; it does not extend
+  an already longer timer. Death alone is not an implemented warrant-clear condition.
+
+## Wanted heat (the stars)
+
+The top-centre HUD shows one-to-five Fable wanted stars plus the live countdown
+for your most serious active warrant, shown wherever you are while wanted:
+
+| Bounty | Stars |
+|---:|:---:|
+| 1–19 gold | ★ |
+| 20–59 gold | ★★ |
+| 60–109 gold | ★★★ |
+| 110–174 gold | ★★★★ |
+| 175+ gold | ★★★★★ |
+
+## Guard response scaling (settlements)
+
+Existing nearby guards count toward the cap; only the missing responders spawn,
+18–28 blocks away, preferably out of the player's immediate view.
+
+| Local bounty | Maximum guards | Tier | Health | Damage | Speed | Knockback resist |
 |---:|---:|---|---:|---:|---:|---:|
 | 0–74 gold | 2 | Standard | Base | Base | Base | 0% |
 | 75–199 gold | 3 | Veteran | 135% | 130% | 108% | 10% |
 | 200+ gold | 4 | Elite | 165% | 160% | 118% | 22% |
 
-The hard maximum is four active enforcing guards for one player's settlement bounty. Guards use town-specific wanted tags, so they do not target innocent multiplayer participants.
+Guards use town-specific wanted tags, so a wanted Hero never makes guards attack
+innocent multiplayer participants. On Guild ground the Guild's own defenders rally
+instead of spawning town watch.
 
-## Local wanted heat HUD
+## Confronting the watch (settlements)
 
-The top-center HUD shows one to five Fable-styled wanted stars for the active settlement bounty:
+When you have *only* assaulted civilians (an "approach" warrant), the watch comes
+to confront you, and when a guard reaches you it offers a choice:
 
-| Local bounty | Heat |
-|---:|---:|
-| 1–24 gold | 1 star |
-| 25–74 gold | 2 stars |
-| 75–124 gold | 3 stars |
-| 125–199 gold | 4 stars |
-| 200+ gold | 5 stars |
+- **Pay the bounty** in full (instant clear).
+- **Go to jail** — clears the bounty, confiscates carried inventory and worn
+  armor (Guild Seal, Will Focus, spell items and the Summoner's Grimoire are
+  preserved), and releases you just outside the town limits.
+- **Resist arrest** (or cancel) — the guards turn hostile and the clock restarts.
 
-Heat is resolved from the exact settlement record the player is currently inside. The stars only appear while a matching town guard is within the 36-block enforcement radius. Leaving guard range, leaving that jurisdiction, clearing the bounty, or entering a different settlement hides or replaces the displayed heat without changing other settlements' bounty records.
+A murder, or any violence against a guard or guild member, skips straight to a
+hostile hunt — there is no fine to pay; evade until the countdown fades (death does not explicitly clear the warrant).
 
-## Leaving and returning
+## Clearing a warrant
 
-The expiry timer begins after the player leaves the settlement:
+A warrant clears when:
 
-```text
-90 seconds + 90 seconds per NPC/guard killed
-```
+- Its countdown reaches zero.
+- You pay the fine in full (settlement assault warrants).
+- You accept jail (settlements).
 
-The timer is capped at 15 minutes and uses wall-clock time, so it continues across server restarts.
+Reputation loss and morality changes are separate consequences and are not
+restored when a warrant clears.
 
-Returning before expiry causes guards to approach rather than immediately attack. When a guard gets within nine blocks—or after six seconds if pathfinding is obstructed—the player receives three choices:
+## Implementation scope and diagnostic commands
 
-- Pay the bounty in full.
-- Go to jail.
-- Resist arrest.
+These values are current FableCraft tuning [B], not asserted exact TLC values.
+Crime handlers classify the victim and jurisdiction; their "WITNESSED" message is
+not proof of a separate witness line-of-sight simulation. Reputation and morality
+have their own consequences. A fatal player blow may generate both an assault
+and a kill event; do not assume its total is only the kill increment.
 
-Canceling the form counts as resisting arrest.
+`/scriptevent fc:wanted` lists active warrants; `/scriptevent fc:clearwanted`
+clears them for testing. `/scriptevent fc:reanchor` refreshes Guild anchors after
+layout changes. These handlers are in main.js, not a wd/debug.js module.
 
-## Jail
+## Manual test checklist — all UNRUN in this session
 
-Going to jail:
+- [ ] Punch a Guild apprentice: verify a Guild warrant opens (+20g, ★★), the Guild's
+   defenders turn on you, and a countdown appears top-centre.
+- [ ] Keep punching different Guild members: verify the bounty climbs, the stars
+   rise toward ★★★★★, and the countdown grows with each blow.
+- [ ] Stop and wait: verify the countdown ticks down and the warrant fades at zero,
+   the stars vanish, and the defenders calm.
+- [ ] Punch a townsperson in a generated settlement: verify a +10g "approach"
+   warrant and the watch coming to demand a fine.
+- [ ] Kill a townsperson: verify it escalates to a hostile +40g hunt.
+- [ ] Pay a settlement fine and verify the warrant and the response clear.
+- [ ] Choose jail and verify only Guild/Will items remain and release occurs outside
+   town.
+- [ ] Create warrants in two settlements and verify they count down and resolve
+   independently, with the HUD showing the most serious one.
 
-- Clears that settlement's bounty.
-- Removes all carried inventory and equipped armor.
-- Preserves Guild Seals, the Will Focus, spell items, the Summoner's Grimoire, and persistent Will/stat progression.
-- Teleports the player fourteen blocks beyond the nearest settlement boundary.
-- Releases the player without equipped clothing.
+- [ ] Verify a first punch starts near 160 seconds, an isolated kill near 240,
+      and repeated offences cap at 900 seconds (allow for elapsed ticks).
+- [ ] Compare 74/75/199/200-gold guard tiers; star thresholds remain 20/60/110/175.
+- [ ] Test pause, disconnect/rejoin and server restart; record observed timer migration
+      without asserting wall-clock persistence. Verify death does not silently clear it.
+- [ ] Test multiple players, unloaded scan regions, and both diagnostic commands.
 
-Confiscated items are permanently removed; there is no evidence-chest recovery system.
-
-## Clearing a bounty
-
-A settlement bounty clears when:
-
-- Its away timer expires.
-- The player pays the complete gold amount.
-- The player accepts jail.
-
-Reputation loss and morality changes remain separate consequences and are not restored when the bounty clears.
-
-## Manual test checklist
-
-1. Kill one civilian in a generated settlement: verify a 20-gold bounty and at most two standard guards.
-2. Kill additional civilians until the bounty passes 75 gold: verify the cap becomes three and guards become veterans.
-3. Raise the bounty above 200 gold: verify the cap becomes four and guards become elite.
-4. Confirm guards spawn 18–28 blocks away rather than directly beside the player.
-5. Test with another player nearby and verify guards target only the wanted player.
-6. Leave the settlement and verify spawned responders are removed and the timer starts.
-7. Return before expiry and verify guards approach before showing the warrant menu.
-8. Pay with enough gold and verify the bounty and hostile response clear.
-9. Attempt payment without enough gold and verify the guards attack.
-10. Choose jail while wearing armor and carrying mixed items. Verify only Guild/Will items remain and release occurs outside town.
-11. Stay away until the timer expires and verify the warrant clears.
-12. Create bounties in two settlements and verify they expire and resolve independently.
-13. Move beyond 36 blocks from every matching guard and verify the wanted stars hide without clearing the bounty.
-14. Return to matching guard range and verify the stars restore at the heat level for that settlement.
-15. Enter a second wanted settlement and verify its independent heat level replaces the first.
+Reviewed against `accrueCrime`, `bountyResponseTier`, `nowMs`, `protectedFromJail`
+and the 20-tick warrant sweep in `packs/Fablecraft_BP/scripts/main.js`, 2026-09-12.
