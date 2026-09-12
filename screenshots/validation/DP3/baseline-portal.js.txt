@@ -54,8 +54,7 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
   const air = (b) => !!b && (b.isAir === true || b.typeId === "minecraft:air");
   const floorIds = new Set(["stone", "stone_bricks", "chiseled_stone_bricks", "mossy_stone_bricks", "cracked_stone_bricks", "cobblestone", "mossy_cobblestone", "grass_block", "dirt", "coarse_dirt", "dirt_with_roots", "grass_path", "dirt_path", "gravel", "andesite", "polished_andesite", "deepslate", "polished_deepslate", "bedrock", "oak_planks", "dark_oak_planks", "spruce_planks"].map((id) => `minecraft:${id}`));
   function read() {
-    let r;
-    try { r = parse(world.getDynamicProperty(DOOR_STATE_KEY)); } catch { return null; }
+    const r = parse(world.getDynamicProperty(DOOR_STATE_KEY));
     if (!r || r.schema !== 1 || r.id !== "guild" || r.archetype !== "guild_library_arcanum"
       || !validSource(r.source) || typeof r.unlocked !== "boolean"
       || !r.rewards || typeof r.rewards.seeded !== "boolean" || typeof r.rewards.suppressed !== "boolean"
@@ -79,14 +78,6 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
     return t && t.cell === r?.room?.cell && t.source.dimension === r.source.dimension
       && distance(t.source, r.source) < 16 ? t : null;
   }
-  function occupiedTicket(p) {
-    const t = rawTicket(p);
-    // This committed ticket remains a return authority when a missing world
-    // ledger is later recreated for another/no room. Actual occupancy of its
-    // exact bounded Overworld cell is required; a stale outside ticket cannot
-    // teleport its owner or select someone else's destination.
-    return t && p.dimension.id === dimension().id && inRealm(p.location, realmOrigin(t.cell)) ? t : null;
-  }
   function saveTicket(p, t) { p.setDynamicProperty(DOOR_RETURN_KEY, t ? JSON.stringify(t) : undefined); }
   function notice(p, text) {
     const key = `${p.id}|${text}`;
@@ -99,10 +90,7 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
     for (const dx of [-0.3, 0.3]) for (const dz of [-0.3, 0.3]) {
       const x = Math.floor(p.x + dx), z = Math.floor(p.z + dz), y = Math.floor(p.y);
       if (!floorIds.has(blockAt(dim, { x, y: y - 1, z })?.typeId)) return false;
-      // A recorded approach can have fractional feet while jumping. Check
-      // every cell intersected by the standing player, including a third cell
-      // above those feet, so a blocked exact point can select a safe fallback.
-      for (let headY = y; headY < Math.ceil(p.y + 1.8); headY++) if (!air(blockAt(dim, { x, y: headY, z }))) return false;
+      for (let dy = 0; dy <= 1; dy++) if (!air(blockAt(dim, { x, y: y + dy, z }))) return false;
     }
     return true;
   }
@@ -134,13 +122,7 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
     if (!validSource(source)) return null;
     let legacyOpen = false, idx = null;
     if (face) {
-      try {
-        legacyOpen = face.getDynamicProperty("fc_door_open") === true;
-        idx = face.getDynamicProperty("fc_door_idx") ?? null;
-      } catch {
-        report("Guild door legacy history is temporarily unreadable; registration deferred.");
-        return null;
-      }
+      try { legacyOpen = face.getDynamicProperty("fc_door_open") === true; idx = face.getDynamicProperty("fc_door_idx") ?? null; } catch { }
     }
     const status = isNew ? "new" : face ? (legacyOpen ? "surviving_open" : "surviving_closed") : "history_unknown";
     const r = { schema: 1, id: "guild", archetype: "guild_library_arcanum",
@@ -351,22 +333,14 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
     return false;
   }
   function requestReturn(p) {
-    let r = read();
+    const r = read();
     let t = ticket(p);
-    const remembered = occupiedTicket(p);
-    if (remembered && (!r?.room || r.room.cell !== remembered.cell || !t)) {
-      // A newer valid ledger must not revoke a committed way home. Recovery
-      // uses only this ticket's exact source; it never reconstructs a room,
-      // resets unlocks/claims, or borrows alternatives from the newer ledger.
-      r = null;
-      t = remembered;
-    }
     if (!r) {
       // A previously committed player ticket remains a return authority if the
       // primary world record becomes unreadable. Require the exact bounded cell
       // and its actual Overworld position; never guess a source or rebuild data.
-      t = remembered;
-      if (!t) return false;
+      t = rawTicket(p);
+      if (!t || p.dimension.id !== dimension().id || !inRealm(p.location, realmOrigin(t.cell))) return false;
     } else if (!r.room || p.dimension.id !== dimension().id || !inRealm(p.location, r.room.origin)) return false;
     if (r && (!t || t.cell !== r.room.cell)) {
       t = { schema: 1, doorId: r.id, cell: r.room.cell, source: { ...add(r.source, { x: 0.5, y: 0, z: -3.5 }), dimension: r.source.dimension }, phase: "inside" };
@@ -396,7 +370,7 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
   }
   function occupiedRealm(p) {
     const r = read();
-    return !!occupiedTicket(p) || (!!r?.room && p.dimension.id === dimension().id && inRealm(p.location, r.room.origin));
+    return !!r?.room && p.dimension.id === dimension().id && inRealm(p.location, r.room.origin);
   }
   function protectsBlock(dimId, position) {
     const r = read();
@@ -410,9 +384,13 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
   function tick() {
     tickBuild();
     const r = read();
-    // Ticketed visitors still own an exit while the primary ledger is absent
-    // or unreadable. No source admission, room work or reward work is permitted.
-    if (!r && roomLease && !job) removeLease(ROOM_LEASE);
+    if (!r) {
+      const active = new Set(world.getPlayers().map((p) => p.id));
+      for (const [id, started] of returnWait) if (now() - started > 200 || !active.has(id)) returnWait.delete(id);
+      if (sourceLease && returnWait.size === 0) removeLease(SOURCE_LEASE);
+      if (roomLease && !job) removeLease(ROOM_LEASE);
+      return;
+    }
     if (opening) {
       const progress = Math.min(1, (now() - opening.start) / 40);
       try { opening.face.teleport(add(opening.source, { x: 0, y: progress * 5, z: 0 })); } catch { }
@@ -422,24 +400,18 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
     for (const p of world.getPlayers()) {
       active.add(p.id);
       try {
-        const remembered = occupiedTicket(p), t = remembered ?? ticket(p);
-        if (!r && !remembered) continue;
-        const roomOrigin = remembered ? realmOrigin(remembered.cell) : r.room?.origin;
-        const inside = !!roomOrigin && p.dimension.id === dimension().id && inRealm(p.location, roomOrigin);
+        const inside = occupiedRealm(p), t = ticket(p);
         if (!seen.has(p.id)) { seen.add(p.id); disarmed.add(p.id); }
         if (t && !inside && t.phase !== "outside") { t.phase = "outside"; saveTicket(p, t); }
         if (inside) {
           leaseLastUsed = now();
-          if (!t) {
+          if (!t || t.cell !== r.room.cell || t.phase === "outside") {
             saveTicket(p, { schema: 1, doorId: r.id, cell: r.room.cell,
               source: { ...add(r.source, { x: 0.5, y: 0, z: -3.5 }), dimension: r.source.dimension }, phase: "inside" });
-          } else if (t.phase === "outside") {
-            t.phase = "inside";
-            saveTicket(p, t);
           }
         }
-        const nearSource = !!r && p.dimension.id === r.source.dimension && distance(p.location, r.source) < 8;
-        const anchor = inside ? add(roomOrigin, ARCANUM.exit) : r.source;
+        const nearSource = p.dimension.id === r.source.dimension && distance(p.location, r.source) < 8;
+        const anchor = inside ? add(r.room.origin, ARCANUM.exit) : r.source;
         const touching = (inside || nearSource) && inDoorOpening(p.location, anchor);
         if (!touching) {
           dwell.delete(p.id); disarmed.delete(p.id); returnWait.delete(p.id);
@@ -455,7 +427,7 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
         dwell.delete(p.id); cooldown.set(p.id, now() + 60); disarmed.add(p.id);
       } catch (e) { report(`Demon Door player reconciliation: ${String(e)}`); }
     }
-    if (r?.room?.phase === "ready") {
+    if (r.room?.phase === "ready") {
       let changed = false;
       ARCANUM.rewards.forEach((reward, index) => {
         if (r.rewards.claimed[index]) return;
@@ -469,7 +441,7 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
         save(latest);
       }
     }
-    if (r?.unlocked && now() % 20 === 0) {
+    if (r.unlocked && now() % 20 === 0) {
       for (const at of [r.source, ...(r.room?.phase === "ready" ? [add(r.room.origin, ARCANUM.exit)] : [])]) {
         for (const dx of [-0.9, 0, 0.9]) for (const y of [0.4, 1.5, 2.6]) {
           try { dimension(at.dimension).spawnParticle("minecraft:soul_particle", add(at, { x: dx, y, z: 0 })); } catch { }

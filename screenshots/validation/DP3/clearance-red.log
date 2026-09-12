@@ -1,0 +1,53 @@
+✔ production singleton passes canonical data, aperture gate and literal destination placement (21.17547ms)
+✔ production maintenance preserves a paid survivor before removing duplicate mouth faces (15.793806ms)
+✔ new-world registration precedes missing chunks; replacement cannot lose new/legacy status (28.250685ms)
+✔ a transient surviving-face history read defers registration without reauthorizing paid rewards (22.094012ms)
+✔ periodic source re-registration cannot strand a committed visitor at the original return arch (20.056719ms)
+✔ a ticket for an occupied old cell survives replacement-ledger return failures and uses its exact source (17.242413ms)
+✖ a lowered ceiling above a fractional source approach selects a clear same-door fallback (16.484065ms)
+✔ actual deferred face interaction captures light-use item before event expiry (33.078729ms)
+✔ corrupt Guild progress never falls through to invented legacy challenge/payout (12.658672ms)
+✔ ordinary scattered door retains the existing requirement and payout path (12.917472ms)
+✔ five-tick production schedule repairs after reload without duplicate spawns (20.683928ms)
+✔ production block protection permits native non-sneaking containers and both return landmarks (12.71046ms)
+✔ production explosion and dangerous-item protection preserves unrelated world behavior (11.987018ms)
+✔ production scatter and region retirement exclude realm storage including ground below it (10.258511ms)
+✔ actual recovery command requires a player source and returns the active room visitor (11.234061ms)
+✔ actual recovery command uses an existing ticket when the main room record is corrupt (12.485003ms)
+(node:3) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 15
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 294.906904
+
+✖ failing tests:
+
+test at scripts/tests/demon_door_integration.test.mjs:249:1
+✖ a lowered ceiling above a fractional source approach selects a clear same-door fallback (16.484065ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+  +   x: 600024.5,
+  +   y: 275,
+  +   z: 600007.5
+  -   x: 100.5,
+  -   y: 65,
+  -   z: 196.5
+    }
+  
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/demon_door_integration.test.mjs:265:10)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [Object],
+    expected: [Object],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

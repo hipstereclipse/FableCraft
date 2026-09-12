@@ -1,0 +1,38 @@
+✖ a lone visitor can walk through the remembered exit while the primary ledger is missing, corrupt or unreadable (14.705024ms)
+(node:3) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 25.681376
+
+✖ failing tests:
+
+test at scripts/tests/demon_door_integration.test.mjs:222:1
+✖ a lone visitor can walk through the remembered exit while the primary ledger is missing, corrupt or unreadable (14.705024ms)
+  AssertionError [ERR_ASSERTION]: missing
+  + actual - expected
+  
+    {
+  +   x: 600024.5,
+  +   y: 275,
+  +   z: 600003.5
+  -   x: 100.5,
+  -   y: 65,
+  -   z: 196.5
+    }
+  
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/demon_door_integration.test.mjs:238:12)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [Object],
+    expected: [Object],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

@@ -129,19 +129,23 @@ leave-volume rearming prevent immediate bounce. Arrival is four blocks beyond
 the return plane. Death, disconnect and external travel reconcile actual
 position without forcing the player back into the room.
 
-If the primary world record becomes unreadable, the diagnostic return command
-can still use a valid committed player ticket, provided the player is physically
-inside that ticket's exact bounded cell. It uses only the recorded safe source,
-keeps failed tickets, and never resets the world record. If both records are
-lost or corrupt, the original source cannot be recovered reliably; no guessed
-teleport is attempted.
+DP3 preserves normal exit dwell and the diagnostic return command through a
+missing, corrupt or temporarily unreadable primary record, and after source
+maintenance recreates a record with no room or a different cell. A valid committed
+player ticket and physical occupancy of its exact bounded Overworld cell are
+required. Recovery uses only that original source, keeps failed tickets and never
+resets world progress. If both records are lost or corrupt, the original source
+cannot be recovered reliably; no guessed teleport is attempted. See
+[LIBRARY_ARCANUM_RECOVERY.md](LIBRARY_ARCANUM_RECOVERY.md) for tested interleavings
+and full standing-height clearance at fractional return positions.
 
 A surviving paid/open legacy face migrates unlocked and suppresses all new room
 rewards. A missing face with no ledger is labeled `history_unknown` and likewise
 suppresses rewards. A surviving closed face can receive the canonical challenge;
 historical destruction/replacement may have erased an earlier payout, so its
 prior payment history remains unrecoverable. This limitation is recorded, not
-inferred from current inventory.
+inferred from current inventory. A transient read failure in surviving-face history
+defers registration; it never establishes that rewards were unpaid.
 
 The reserved footprint plus a 160-block margin is excluded from normal scatter
 and scripted quest-boss spawning at every height. The room is outside the loot,

@@ -18,10 +18,11 @@ with exploration, reward collection and a reliable portal back to the source.
 This overrides the old instruction to start W3.5 or keep adding unrelated POIs.
 Read docs/GUILD_DEMON_PRIORITIES.md first; it is the active execution queue.
 
-Current checkpoint: GP6 — persistent resident IDs replace Guild proximity repair
-Last resolved prior commit: f7fb3f97c7932e461bd49336d7dee905ae1e4b47 (pushed; GP5 exact-head CI 34716905752 passed).
-Containing commit: TLC Conformance — GP6: preserve Guild resident identities.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP6: preserve Guild resident identities'.
+Current checkpoint: DP3 — return tickets survive lost/recreated door ledgers; paid history and fractional clearance repaired
+Last resolved prior commit: 0343a963d49cb480804009e9aa6f30583541430c (pushed; GP6 exact-head CI 34717187758 passed).
+GP5 f7fb3f97c7932e461bd49336d7dee905ae1e4b47 is pushed; exact-head CI 34716905752 passed.
+Containing commit: TLC Conformance — DP3: preserve Demon Door return tickets and paid history.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — DP3: preserve Demon Door return tickets and paid history'.
 Never invent a self-hash. Read the supplemental priority ledger for implementation
 scope, known defects and unrun engine checks.
 
@@ -124,6 +125,21 @@ and full rendering: 51 mobs/55 items/130 recipes/32 structures/13 galleries. Six
 remain hash-identical; static Guild diagnostics reuse byte-identical GP5 inputs.
 All loading/Follow/collision/crash tests remain unrun.
 
+DP3 keeps a valid player's original-cell return authority across a missing,
+corrupt, throwing or recreated world door ledger. Normal exit dwell works even
+for a lone visitor; invalid/outside/wrong-cell tickets authorize no recovery.
+Only the original recorded source is used when primary history disagrees, with
+failed tickets retained and no room/unlock/reward reconstruction. Unknown old
+face payment history defers registration. Full standing-height clearance above
+fractional feet avoids repeatedly selecting a ceiling-blocked approach.
+Read docs/LIBRARY_ARCANUM_RECOVERY.md for actual callback repros and limitations.
+The library asset/version/challenge and ordinary scattered doors are unchanged.
+DP3 passes all 39 base gates (portal adapters 19/generated runtime 13/aperture 4),
+including all Guild lifecycle/NPC suites, lint/spells and 62 ESM syntax checks.
+No geometry/render-owner change: reuse GP6 full rendering and GP5 Guild diagnostics
+with matched dependency hashes in evidence. Independent recovery review completed.
+No live engine checks have run.
+
 The GP/DP priorities are supplemental, tracked separately from C3's original 45
 leaves; do not inflate the old scoreboard or mark these new deliverables done.
 Defer W3.5 and other unrelated expansion while this cycle has actionable work.
@@ -211,16 +227,19 @@ screenshots/validation/W3.3/remote-run.json. Inspect newest workflow's actual he
 All current world rows remain in-progress for manual/reference work, not done.
 
 Next three actions:
-1. Inspect exact-head CI. Finish the reproduced Guild portal integration fixes:
-   a visitor must retain its ticket home after a missing world ledger is recreated;
-   unreadable old paid-face history must not permit fresh rewards; fractional
-   return positions must check full standing headroom and select a safe fallback.
-2. Keep Guild/door refinement alternating with original-game reference comparison.
-   Geometry/NPC manual acceptance and conservative legacy cave migration remain
-   open. Do not substitute ordinary riddles for story doors or expand unrelated POIs.
+1. Inspect exact-head CI and current GP5/GP6/DP3 evidence. Run supported Bedrock
+   acceptance when available: full surrounding altar stairs/cave loading, two-Hero
+   resident departure/reload/death, portal collection/return/crash persistence.
+2. Continue reference-led Guild/door refinement. A reproduced persisted-anchor
+   disagreement (fc_guild_door versus durable pilot source) can spawn repeated
+   unkeyed faces and needs one conservative owner; never reset payment/room history.
+   Chamber wall ribs/materials/lighting, canonical NPC staffing and walking to
+   training remain open. Preserve the user's full-circumference altar correction.
 3. Continue separate milestones with base/domain gates, full renders as applicable,
-   evidence, fresh handoff, commit and immediate push. Missing engine access leaves
-   checks unrun, never passed. At context limits print this continuation verbatim.
+   evidence, fresh handoff, commit and immediate push. Defer unrelated POIs and
+   arbitrary story-door riddles. Old interrupted cave geometry needs a separate
+   conservative migration; no blanket recarve. At context limits print this
+   continuation verbatim. Missing engine access leaves checks unrun, never passed.
 
 Landmines: hundreds of apparent edits are CRLF noise. Never git add -A, commit -a,
 renormalize, create .gitattributes or discard unrelated work. Read diffs with

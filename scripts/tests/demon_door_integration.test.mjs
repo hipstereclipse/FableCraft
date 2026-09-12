@@ -173,6 +173,182 @@ test('new-world registration precedes missing chunks; replacement cannot lose ne
   assert.equal(g.runtime.guildDoorPilot.getState().rewards.suppressed, true);
 });
 
+test('a transient surviving-face history read defers registration without reauthorizing paid rewards', async () => {
+  for (const failedKey of ['fc_door_open', 'fc_door_idx']) {
+    const f = await fixture(), paid = f.face({ open: true, index: 7 });
+    const original = paid.getDynamicProperty;
+    let openReads = 0;
+    paid.getDynamicProperty = (key) => {
+      if (key === 'fc_door_open') openReads++;
+      if (key === failedKey && (key !== 'fc_door_open' || openReads === 2)) throw new Error('injected legacy history read');
+      return original(key);
+    };
+    f.runtime.ensureGuildDoorPilot(f.dimension);
+    assert.equal(f.properties.has(f.pilotApi.DOOR_STATE_KEY), false, failedKey);
+    assert.equal(paid.props.get('fc_door_open'), true);
+    assert.equal(f.operations.filter((entry) => ['spawn', 'remove'].includes(entry.kind)).length, 0);
+    paid.getDynamicProperty = original;
+    f.runtime.ensureGuildDoorPilot(f.dimension);
+    const state = f.runtime.guildDoorPilot.getState();
+    assert.equal(state.unlocked, true);
+    assert.equal(state.legacy.status, 'surviving_open');
+    assert.equal(state.rewards.suppressed, true);
+    assert.equal(state.room, null);
+    assert.equal(f.placements.length, 0);
+  }
+});
+
+test('periodic source re-registration cannot strand a committed visitor at the original return arch', async () => {
+  const f = await fixture(), origin = f.readyRoom(), visitor = f.player();
+  f.player(); // A second visitor at the Guild triggers the actual maintenance adapter.
+  f.runtime.ensureGuildDoorPilot(f.dimension);
+  const source = { x: 100.5, y: 65, z: 196.5, dimension: f.dimension.id };
+  visitor.location = add(origin, f.pilotApi.ARCANUM.arrival);
+  visitor.props.set(f.pilotApi.DOOR_RETURN_KEY, JSON.stringify({ schema: 1, doorId: 'guild', cell: 0, source, phase: 'inside' }));
+  f.properties.delete(f.pilotApi.DOOR_STATE_KEY);
+  f.system.currentTick = 40;
+  f.portalTick(); // Recreates a valid ledger with room:null before return reconciliation.
+  const recreated = f.properties.get(f.pilotApi.DOOR_STATE_KEY);
+  assert.equal(f.runtime.guildDoorPilot.getState().room, null);
+  assert.equal(f.runtime.guildDoorPilot.occupiedRealm(visitor), true);
+  visitor.location = add(origin, f.pilotApi.ARCANUM.exit);
+  for (let tick = 45; tick <= 75; tick += 5) { f.system.currentTick = tick; f.portalTick(); }
+  assert.deepEqual(visitor.location, { x: source.x, y: source.y, z: source.z });
+  assert.equal(visitor.props.has(f.pilotApi.DOOR_RETURN_KEY), false);
+  assert.equal(f.properties.get(f.pilotApi.DOOR_STATE_KEY), recreated, 'Recovery never resets unlocks, claims or room state');
+  assert.equal(f.placements.length, 0, 'Recovery never builds or reseeds a room');
+});
+
+test('a lone visitor can walk through the remembered exit while the primary ledger is missing, corrupt or unreadable', async () => {
+  for (const failure of ['missing', 'corrupt', 'unreadable']) {
+    const f = await fixture(), origin = f.readyRoom(), visitor = f.player();
+    const source = { x: 100.5, y: 65, z: 196.5, dimension: f.dimension.id };
+    visitor.location = add(origin, f.pilotApi.ARCANUM.arrival);
+    visitor.props.set(f.pilotApi.DOOR_RETURN_KEY, JSON.stringify({ schema: 1, doorId: 'guild', cell: 0, source, phase: 'inside' }));
+    if (failure === 'missing') f.properties.delete(f.pilotApi.DOOR_STATE_KEY);
+    else if (failure === 'corrupt') f.properties.set(f.pilotApi.DOOR_STATE_KEY, '{broken');
+    else {
+      const native = f.world.getDynamicProperty;
+      f.world.getDynamicProperty = key => { if (key === f.pilotApi.DOOR_STATE_KEY) throw new Error('injected world read failure'); return native(key); };
+    }
+    const original = f.properties.get(f.pilotApi.DOOR_STATE_KEY);
+    f.system.currentTick = 40; f.portalTick(); // Nobody at the Guild can re-register this ledger.
+    visitor.location = add(origin, f.pilotApi.ARCANUM.exit);
+    for (let tick = 45; tick <= 75; tick += 5) { f.system.currentTick = tick; f.portalTick(); }
+    assert.deepEqual(visitor.location, { x: source.x, y: source.y, z: source.z }, failure);
+    assert.equal(visitor.props.has(f.pilotApi.DOOR_RETURN_KEY), false);
+    assert.equal(f.properties.get(f.pilotApi.DOOR_STATE_KEY), original);
+    assert.equal(f.placements.length, 0);
+  }
+});
+
+test('unavailable-ledger periodic dwell cannot invent return authority for an unticketed or invalid-ticket occupant', async () => {
+  for (const failure of ['missing', 'corrupt', 'unreadable']) for (const ticketMode of ['absent', 'invalid']) {
+    const f = await fixture(), origin = f.readyRoom(), visitor = f.player();
+    visitor.location = add(origin, f.pilotApi.ARCANUM.arrival);
+    if (ticketMode === 'invalid') visitor.props.set(f.pilotApi.DOOR_RETURN_KEY, JSON.stringify({ schema: 1, doorId: 'guild',
+      cell: 4096, source: { x: 100.5, y: 65, z: 196.5, dimension: f.dimension.id }, phase: 'inside' }));
+    if (failure === 'missing') f.properties.delete(f.pilotApi.DOOR_STATE_KEY);
+    else if (failure === 'corrupt') f.properties.set(f.pilotApi.DOOR_STATE_KEY, '{broken');
+    else {
+      const native = f.world.getDynamicProperty;
+      f.world.getDynamicProperty = key => { if (key === f.pilotApi.DOOR_STATE_KEY) throw new Error('injected world read failure'); return native(key); };
+    }
+    const originalWorld = f.properties.get(f.pilotApi.DOOR_STATE_KEY);
+    const originalTicket = visitor.props.get(f.pilotApi.DOOR_RETURN_KEY);
+    f.system.currentTick = 40; f.portalTick();
+    visitor.location = add(origin, f.pilotApi.ARCANUM.exit);
+    for (let tick = 45; tick <= 100; tick += 5) { f.system.currentTick = tick; f.portalTick(); }
+    assert.equal(visitor.moves.length, 0, `${failure}/${ticketMode}`);
+    assert.equal(visitor.props.get(f.pilotApi.DOOR_RETURN_KEY), originalTicket);
+    assert.equal(f.properties.get(f.pilotApi.DOOR_STATE_KEY), originalWorld);
+    assert.equal(f.placements.length, 0);
+  }
+});
+
+test('a ticket for an occupied old cell survives replacement-ledger return failures and uses its exact source', async () => {
+  const f = await fixture(), origin = f.readyRoom(), visitor = f.player();
+  const source = { x: 100.5, y: 65, z: 196.5, dimension: f.dimension.id };
+  const ticket = { schema: 1, doorId: 'guild', cell: 0, source, phase: 'inside' };
+  visitor.location = add(origin, f.pilotApi.ARCANUM.arrival);
+  visitor.props.set(f.pilotApi.DOOR_RETURN_KEY, JSON.stringify(ticket));
+  const replacement = plain(f.runtime.guildDoorPilot.getState());
+  replacement.room = { ...replacement.room, cell: 1, origin: plain(f.pilotApi.realmOrigin(1)) };
+  replacement.rewards.claimed = [true, false, true, false];
+  f.properties.set(f.pilotApi.DOOR_STATE_KEY, JSON.stringify(replacement));
+  const savedWorld = f.properties.get(f.pilotApi.DOOR_STATE_KEY);
+  const teleport = visitor.tryTeleport;
+  visitor.tryTeleport = () => false;
+  f.scriptEvent({ id: 'fc:door_return', sourceEntity: visitor });
+  assert.ok(visitor.props.has(f.pilotApi.DOOR_RETURN_KEY));
+  assert.equal(f.runtime.guildDoorPilot.occupiedRealm(visitor), true);
+  visitor.tryTeleport = () => { throw new Error('injected return failure'); };
+  f.scriptEvent({ id: 'fc:door_return', sourceEntity: visitor });
+  assert.deepEqual(JSON.parse(visitor.props.get(f.pilotApi.DOOR_RETURN_KEY)).source, source);
+  visitor.tryTeleport = (at, options) => { teleport.call(visitor, at, options); throw new Error('injected after-move failure'); };
+  f.scriptEvent({ id: 'fc:door_return', sourceEntity: visitor });
+  assert.deepEqual(visitor.location, { x: source.x, y: source.y, z: source.z });
+  assert.equal(visitor.props.has(f.pilotApi.DOOR_RETURN_KEY), false);
+  assert.equal(f.properties.get(f.pilotApi.DOOR_STATE_KEY), savedWorld);
+  assert.equal(f.placements.length, 0);
+});
+
+test('a lowered ceiling above a fractional source approach selects a clear same-door fallback', async () => {
+  const f = await fixture(), origin = f.readyRoom(), visitor = f.player();
+  visitor.location = add(origin, f.pilotApi.ARCANUM.arrival);
+  const source = { x: 100.5, y: 65.75, z: 196.5, dimension: f.dimension.id };
+  visitor.props.set(f.pilotApi.DOOR_RETURN_KEY, JSON.stringify({ schema: 1, doorId: 'guild', cell: 0, source, phase: 'inside' }));
+  // The approach was captured during a jump. Another visitor lowers the ceiling
+  // while this player explores the room. Integer feet y65 still fit beneath it.
+  f.blockAt({ x: 100, y: 67, z: 196 }, 'minecraft:stone');
+  const native = visitor.tryTeleport, attempts = [];
+  visitor.tryTeleport = (at, options) => {
+    attempts.push(plain(at));
+    if (at.x === 100.5 && at.z === 196.5 && at.y + 1.8 > 67) return false;
+    return native.call(visitor, at, options);
+  };
+  const savedWorld = f.properties.get(f.pilotApi.DOOR_STATE_KEY);
+  f.scriptEvent({ id: 'fc:door_return', sourceEntity: visitor });
+  assert.deepEqual(visitor.location, { x: 100.5, y: 65, z: 196.5 });
+  assert.deepEqual(attempts, [{ x: 100.5, y: 65, z: 196.5 }]);
+  assert.equal(visitor.props.has(f.pilotApi.DOOR_RETURN_KEY), false);
+  assert.equal(f.properties.get(f.pilotApi.DOOR_STATE_KEY), savedWorld);
+});
+
+test('replacement-ledger recovery rejects invalid or misplaced tickets and never borrows its source', async () => {
+  const f = await fixture(), origin = f.readyRoom(), visitor = f.player();
+  const source = { x: 100.5, y: 65, z: 196.5, dimension: f.dimension.id };
+  const ticket = { schema: 1, doorId: 'guild', cell: 0, source, phase: 'inside' };
+  const replacement = plain(f.runtime.guildDoorPilot.getState());
+  replacement.room = { ...replacement.room, cell: 1, origin: plain(f.pilotApi.realmOrigin(1)) };
+  replacement.source.x += 100;
+  replacement.rewards.claimed = [true, true, true, true];
+  f.properties.set(f.pilotApi.DOOR_STATE_KEY, JSON.stringify(replacement));
+  const savedWorld = f.properties.get(f.pilotApi.DOOR_STATE_KEY);
+  for (const invalid of [{ ...ticket, cell: 1 }, { ...ticket, cell: 4096 }, { ...ticket, phase: 'invalid' },
+    { ...ticket, source: { ...source, dimension: 'missing:dimension' } }]) {
+    visitor.location = add(origin, f.pilotApi.ARCANUM.arrival);
+    visitor.props.set(f.pilotApi.DOOR_RETURN_KEY, JSON.stringify(invalid));
+    f.scriptEvent({ id: 'fc:door_return', sourceEntity: visitor });
+    assert.equal(visitor.moves.length, 0);
+  }
+  visitor.props.set(f.pilotApi.DOOR_RETURN_KEY, JSON.stringify(ticket));
+  visitor.location = { x: 150, y: 65, z: 210 }; // A valid old ticket away from its recorded cell is inert.
+  f.scriptEvent({ id: 'fc:door_return', sourceEntity: visitor });
+  assert.equal(visitor.moves.length, 0);
+  visitor.location = add(origin, f.pilotApi.ARCANUM.arrival);
+  visitor.dimension = f.nether;
+  f.scriptEvent({ id: 'fc:door_return', sourceEntity: visitor });
+  assert.equal(visitor.moves.length, 0);
+  visitor.dimension = f.dimension;
+  f.blockAt({ x: 100, y: 65, z: 196 }, 'minecraft:stone');
+  f.scriptEvent({ id: 'fc:door_return', sourceEntity: visitor });
+  assert.equal(visitor.moves.length, 0, 'A blocked old source cannot borrow the replacement ledger destination');
+  assert.ok(visitor.props.has(f.pilotApi.DOOR_RETURN_KEY));
+  assert.equal(f.properties.get(f.pilotApi.DOOR_STATE_KEY), savedWorld);
+  assert.equal(f.placements.length, 0);
+});
+
 test('actual deferred face interaction captures light-use item before event expiry', async () => {
   const f = await fixture(), p = f.player(), door = f.face();
   f.runtime.ensureGuildDoorPilot(f.dimension, f.source, true);

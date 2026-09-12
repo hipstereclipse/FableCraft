@@ -37,6 +37,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | GP4 | in-progress | Offender-specific Guild defence and projectile attribution fixed offline; integrated cave lifecycle/route defects reproduced; engine acceptance remains open |
 | GP5 | in-progress | Resumable new cave/Chamber construction, Library threshold, concentric altar steps, water containment and recognized Cullis height correction; legacy geometry preserved; engine acceptance open |
 | GP6 | in-progress | Durable resident identities, conservative legacy adoption and checked new births replace proximity respawn; engine acceptance open |
+| DP3 | in-progress | Original-cell ticket return survives lost/recreated ledgers; unknown paid history defers registration; full standing return clearance; engine acceptance open |
 
 Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
 defects and manual status here. These passes are not completed legacy leaves.
@@ -355,7 +356,7 @@ Initial failed logs are retained. No live engine acceptance was performed.
 
 ## GP6 — persistent Guild resident identities (2026-09-12)
 
-Commit: SELF: TLC Conformance — GP6: preserve Guild resident identities.
+Commit: 0343a963d49cb480804009e9aa6f30583541430c (pushed).
 Twelve durable slots replace nearby type-count population repair. A spouse or
 other resident leaving with one Hero is not duplicated while another remains
 at the Guild; unavailable IDs, removal and unloading retain ownership. Confirmed
@@ -395,3 +396,33 @@ hashes recorded in additional-results.json. The full screenshot pipeline complet
 51 mobs, 55 items, 130 recipes, 32 structures and 13 galleries. All six representative
 NPC card hashes match GP4; Guildmaster, Maze and Will apprentice were inspected.
 No generated appearance outputs changed and no engine acceptance is claimed.
+
+## DP3 — Guild portal return and history recovery (2026-09-12)
+
+Commit: SELF: TLC Conformance — DP3: preserve Demon Door return tickets and paid history.
+A committed visitor can use the original exit even after normal source maintenance
+recreates a missing primary record with no room or a different cell. The same
+walk-through return works while the primary record is missing, corrupt or throws
+on read, including a lone visitor with nobody near the Guild. Recovery requires
+valid ticket fields and actual occupancy of its exact Overworld cell; it uses
+only the original source and preserves failed tickets. No room/reward/unlock
+reconstruction is authorized by recovery.
+
+A transient surviving-face history read now defers registration instead of
+classifying an already-paid face as unpaid. Return clearance covers every cell
+intersecting the standing height above fractional feet, allowing an obstructed
+jumping approach to choose the existing same-door fallback. Module ownership,
+actual callback failures/negatives and limits are documented in
+[LIBRARY_ARCANUM_RECOVERY.md](LIBRARY_ARCANUM_RECOVERY.md).
+The room asset/version, canonical challenge and shared native rewards are unchanged.
+Manual Bedrock loading, collision, metadata and crash checks remain unrun.
+
+DP3 passes all 39 base gates from `tmp/conformance/DP3-reviewed-snapshot`, including
+19 actual portal adapter groups, 13 generated-room runtime groups, 4 aperture
+migration groups and all Guild cave/resident/training/defence suites. ESLint and
+spells are included in the base gates; all 62 BP scripts also pass ESM syntax.
+Independent review of the no-ledger exit path found no remaining blocker after
+adding unticketed/invalid-ticket periodic negatives. No visual asset or rendering
+owner changed: the GP6 full rendering pipeline and GP5 Guild diagnostics are
+reused with byte-identical dependency hashes in additional-results.json.
+Both GP5 and GP6 exact-head remote CI passed. All live Bedrock acceptance is unrun.

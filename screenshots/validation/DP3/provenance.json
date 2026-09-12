@@ -1,0 +1,128 @@
+{
+  "checkpoint": "DP3 portal recovery",
+  "recordedUtc": "2026-09-12T20:28:41.643196+00:00",
+  "baseCommitAtEvidence": "f7fb3f97c7932e461bd49336d7dee905ae1e4b47",
+  "baselineRuntime": {
+    "path": "screenshots/validation/DP3/baseline-portal.js.txt",
+    "sha256": "c47d879edafb475c510d2d704fa573bbbe1e160f0c38e6cf5516747fb6a1d94d",
+    "bytes": 25618
+  },
+  "reviewedWorkingSources": [
+    {
+      "path": "packs/Fablecraft_BP/scripts/fc_demon_doors.js",
+      "sha256": "8528527c173907dd9d5b80298ae69317776b11515f7719631e511291c032fc1b",
+      "bytes": 27052
+    },
+    {
+      "path": "scripts/tests/demon_door_integration.test.mjs",
+      "sha256": "7d42551d8e1f081d1730e6ebac60856f2ec22911a19b1994b80d2ce472141bc9",
+      "bytes": 30786
+    },
+    {
+      "path": "docs/LIBRARY_ARCANUM_RECOVERY.md",
+      "sha256": "882b101bc143f21114c174d07e5995d35775db50c713f0981e54cd5e16c69607",
+      "bytes": 7829
+    }
+  ],
+  "results": [
+    {
+      "command": "node --experimental-vm-modules scripts/tests/demon_door_integration.test.mjs",
+      "phase": "initial red reproductions",
+      "exitCode": 1,
+      "passed": 12,
+      "failed": 3,
+      "log": {
+        "path": "screenshots/validation/DP3/adapter-red.log",
+        "sha256": "702ec0022a1e99844f4eba3a370a5be8917bbc421687bf068ded94688a9b642c",
+        "bytes": 4021
+      }
+    },
+    {
+      "command": "node --experimental-vm-modules scripts/tests/demon_door_integration.test.mjs",
+      "phase": "fractional clearance red reproduction",
+      "exitCode": 1,
+      "passed": 15,
+      "failed": 1,
+      "log": {
+        "path": "screenshots/validation/DP3/clearance-red.log",
+        "sha256": "d60bec9857a51d9eb37ac283e1a90e4a245654c3c345282583c9b2b0819d8606",
+        "bytes": 2825
+      }
+    },
+    {
+      "phase": "lone-visitor periodic recovery red reproduction",
+      "exitCode": 1,
+      "passed": 0,
+      "failed": 1,
+      "log": {
+        "path": "screenshots/validation/DP3/lone-visitor-red.log",
+        "sha256": "349e2cf0cc7d03db510b5fb293dad03edb6ea4a83020fb6c3d7fc1748e13241d",
+        "bytes": 1263
+      },
+      "command": "node --experimental-vm-modules --test-name-pattern='lone visitor' scripts/tests/demon_door_integration.test.mjs"
+    },
+    {
+      "command": "node --experimental-vm-modules scripts/tests/demon_door_integration.test.mjs",
+      "phase": "final focused adapters",
+      "exitCode": 0,
+      "passed": 19,
+      "failed": 0,
+      "log": {
+        "path": "screenshots/validation/DP3/adapter-final.log",
+        "sha256": "3df604d4db2e7f1d1a98f107d61ad57a0d604e00d128baa8d2c7bdaeea4fae6e",
+        "bytes": 2334
+      }
+    },
+    {
+      "command": "python scripts/tests/test_demon_doors.py",
+      "phase": "actual generated-room runtime regression",
+      "exitCode": 0,
+      "passed": 13,
+      "failed": 0,
+      "log": {
+        "path": "screenshots/validation/DP3/runtime-final.log",
+        "sha256": "52a8f01d2664705464e2399f4e25a6807b09ba7b910b0d5cc15218febbb07590",
+        "bytes": 1290
+      }
+    },
+    {
+      "command": "node --experimental-vm-modules scripts/tests/guild_door_aperture.test.mjs",
+      "phase": "source aperture regression",
+      "exitCode": 0,
+      "passed": 4,
+      "failed": 0,
+      "log": {
+        "path": "screenshots/validation/DP3/aperture-final.log",
+        "sha256": "7f0afd8d4731d84af312c9faa8044fc9841812cb3fa5884c625fac4f20df3888",
+        "bytes": 659
+      }
+    },
+    {
+      "command": "node_modules/.bin/eslint packs/Fablecraft_BP/scripts/fc_demon_doors.js",
+      "phase": "focused lint",
+      "exitCode": 0,
+      "log": {
+        "path": "screenshots/validation/DP3/portal-lint.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    }
+  ],
+  "limitations": [
+    "Offline injected runtime effects and production callbacks; no Bedrock engine acceptance.",
+    "Red logs were captured before their respective fixes. The saved baseline runtime comes from the recorded commit; final working source hashes describe the focused-test handoff, not a future containing commit.",
+    "Refresh reviewedWorkingSources and final result log hashes if subsequent review changes implementation, tests or specification."
+  ],
+  "independentReview": {
+    "scope": "Missing/corrupt/unreadable primary-record exit-dwell extension and read() failure guards",
+    "result": "No additional production blocker identified; added periodic missing/invalid-ticket negative fixtures across all three unavailable-primary cases.",
+    "focusedAdapterGroups": 19
+  },
+  "finalBaseValidation": {
+    "path": "screenshots/validation/DP3/results.json",
+    "checks": 39,
+    "failed": 0,
+    "snapshot": "tmp/conformance/DP3-reviewed-snapshot",
+    "engine": "unrun"
+  }
+}

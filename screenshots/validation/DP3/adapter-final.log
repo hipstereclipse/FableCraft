@@ -1,0 +1,29 @@
+✔ production singleton passes canonical data, aperture gate and literal destination placement (19.822313ms)
+✔ production maintenance preserves a paid survivor before removing duplicate mouth faces (14.951523ms)
+✔ new-world registration precedes missing chunks; replacement cannot lose new/legacy status (28.106478ms)
+✔ a transient surviving-face history read defers registration without reauthorizing paid rewards (19.756598ms)
+✔ periodic source re-registration cannot strand a committed visitor at the original return arch (15.778973ms)
+✔ a lone visitor can walk through the remembered exit while the primary ledger is missing, corrupt or unreadable (40.681232ms)
+✔ unavailable-ledger periodic dwell cannot invent return authority for an unticketed or invalid-ticket occupant (91.340955ms)
+✔ a ticket for an occupied old cell survives replacement-ledger return failures and uses its exact source (11.513782ms)
+✔ a lowered ceiling above a fractional source approach selects a clear same-door fallback (12.129239ms)
+✔ replacement-ledger recovery rejects invalid or misplaced tickets and never borrows its source (11.713481ms)
+✔ actual deferred face interaction captures light-use item before event expiry (23.613605ms)
+✔ corrupt Guild progress never falls through to invented legacy challenge/payout (11.14907ms)
+✔ ordinary scattered door retains the existing requirement and payout path (12.547623ms)
+✔ five-tick production schedule repairs after reload without duplicate spawns (14.61273ms)
+✔ production block protection permits native non-sneaking containers and both return landmarks (13.188329ms)
+✔ production explosion and dangerous-item protection preserves unrelated world behavior (12.750888ms)
+✔ production scatter and region retirement exclude realm storage including ground below it (12.753203ms)
+✔ actual recovery command requires a player source and returns the active room visitor (12.936802ms)
+✔ actual recovery command uses an existing ticket when the main room record is corrupt (23.717002ms)
+(node:3) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 418.566144
