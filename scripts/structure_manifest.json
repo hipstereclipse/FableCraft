@@ -1,0 +1,328 @@
+{
+  "version": 1,
+  "structures": [
+    {
+      "name": "arena_ring",
+      "generator": "arena_ring",
+      "kind": "scatter",
+      "size": [
+        27,
+        12,
+        27
+      ],
+      "title": "The Arena"
+    },
+    {
+      "name": "bandit_camp",
+      "generator": "bandit_camp",
+      "kind": "scatter",
+      "size": [
+        33,
+        13,
+        33
+      ],
+      "title": "Bandit Camp"
+    },
+    {
+      "name": "bowerstone_market",
+      "generator": "bowerstone_market",
+      "kind": "scatter",
+      "size": [
+        37,
+        16,
+        37
+      ],
+      "title": "Bowerstone Market"
+    },
+    {
+      "name": "chamber_of_fate",
+      "generator": "chamber_of_fate",
+      "kind": "fixed",
+      "size": [
+        31,
+        20,
+        31
+      ],
+      "title": "Chamber of Fate"
+    },
+    {
+      "name": "chapel_skorm",
+      "generator": "chapel_skorm",
+      "kind": "scatter",
+      "size": [
+        15,
+        17,
+        19
+      ],
+      "title": "Chapel of Skorm"
+    },
+    {
+      "name": "darkwood_camp",
+      "generator": "darkwood_camp",
+      "kind": "scatter",
+      "size": [
+        25,
+        12,
+        25
+      ],
+      "title": "Darkwood Camp"
+    },
+    {
+      "name": "demon_door_arch",
+      "generator": "demon_door_arch",
+      "kind": "scatter",
+      "size": [
+        23,
+        18,
+        13
+      ],
+      "title": "Demon Door"
+    },
+    {
+      "name": "fisher_creek",
+      "generator": "fisher_creek",
+      "kind": "scatter",
+      "size": [
+        23,
+        12,
+        23
+      ],
+      "title": "Fisher Creek"
+    },
+    {
+      "name": "focus_site",
+      "generator": "focus_site",
+      "kind": "scatter",
+      "size": [
+        13,
+        10,
+        13
+      ],
+      "title": "Focus Site"
+    },
+    {
+      "name": "graveyard",
+      "generator": "graveyard",
+      "kind": "scatter",
+      "size": [
+        25,
+        13,
+        25
+      ],
+      "title": "Lychfield Graveyard"
+    },
+    {
+      "name": "guild_armoury",
+      "generator": "guild_armoury",
+      "kind": "legacy",
+      "size": [
+        18,
+        18,
+        22
+      ],
+      "title": "Guild Armoury",
+      "reason": "Retained generated Guild annex; not placed by the current scatter/fixed runtime."
+    },
+    {
+      "name": "guild_hall",
+      "generator": "guild_hall",
+      "kind": "fixed",
+      "size": [
+        122,
+        30,
+        108
+      ],
+      "title": "Heroes' Guild"
+    },
+    {
+      "name": "guild_scriptorium",
+      "generator": "guild_scriptorium",
+      "kind": "legacy",
+      "size": [
+        18,
+        18,
+        22
+      ],
+      "title": "Guild Scriptorium",
+      "reason": "Retained generated Guild annex; not placed by the current scatter/fixed runtime."
+    },
+    {
+      "name": "guild_sentinel_gate",
+      "generator": "guild_sentinel_gate",
+      "kind": "legacy",
+      "size": [
+        27,
+        20,
+        14
+      ],
+      "title": "Guild Sentinel Gate",
+      "reason": "Retained generated Guild annex; not placed by the current scatter/fixed runtime."
+    },
+    {
+      "name": "hobbe_cave",
+      "generator": "hobbe_cave",
+      "kind": "scatter",
+      "size": [
+        23,
+        14,
+        23
+      ],
+      "title": "Hobbe Cave"
+    },
+    {
+      "name": "hook_coast",
+      "generator": "hook_coast",
+      "kind": "scatter",
+      "size": [
+        37,
+        20,
+        37
+      ],
+      "title": "Hook Coast"
+    },
+    {
+      "name": "knothole_glade",
+      "generator": "knothole_glade",
+      "kind": "scatter",
+      "size": [
+        35,
+        15,
+        35
+      ],
+      "title": "Knothole Glade"
+    },
+    {
+      "name": "lookout_point",
+      "generator": "lookout_point",
+      "kind": "scatter",
+      "size": [
+        21,
+        12,
+        21
+      ],
+      "title": "Lookout Point"
+    },
+    {
+      "name": "oakvale_village",
+      "generator": "oakvale_village",
+      "kind": "scatter",
+      "size": [
+        35,
+        14,
+        35
+      ],
+      "title": "Oakvale"
+    },
+    {
+      "name": "orchard_farm",
+      "generator": "orchard_farm",
+      "kind": "scatter",
+      "size": [
+        29,
+        12,
+        29
+      ],
+      "title": "Orchard Farm"
+    },
+    {
+      "name": "power_guild_courtyard",
+      "generator": "power_guild_courtyard",
+      "kind": "legacy",
+      "size": [
+        27,
+        13,
+        27
+      ],
+      "title": "Guild Courtyard",
+      "reason": "Retained generated Guild annex; not placed by the current scatter/fixed runtime."
+    },
+    {
+      "name": "power_necropolis",
+      "generator": "power_necropolis",
+      "kind": "scatter",
+      "size": [
+        29,
+        14,
+        29
+      ],
+      "title": "Necropolis Ruin"
+    },
+    {
+      "name": "power_oakvale_quay",
+      "generator": "power_oakvale_quay",
+      "kind": "scatter",
+      "size": [
+        29,
+        15,
+        29
+      ],
+      "title": "Oakvale Quay"
+    },
+    {
+      "name": "power_snowspire_oracle",
+      "generator": "power_snowspire_oracle",
+      "kind": "scatter",
+      "size": [
+        29,
+        18,
+        31
+      ],
+      "title": "Snowspire Oracle"
+    },
+    {
+      "name": "rose_cottage",
+      "generator": "rose_cottage",
+      "kind": "scatter",
+      "size": [
+        21,
+        12,
+        21
+      ],
+      "title": "Rose Cottage"
+    },
+    {
+      "name": "silver_chest_ruin",
+      "generator": "silver_chest_ruin",
+      "kind": "scatter",
+      "size": [
+        13,
+        8,
+        13
+      ],
+      "title": "Silver Key Ruin"
+    },
+    {
+      "name": "temple_avo",
+      "generator": "temple_avo",
+      "kind": "scatter",
+      "size": [
+        17,
+        13,
+        21
+      ],
+      "title": "Temple of Avo"
+    },
+    {
+      "name": "windmill_hill",
+      "generator": "windmill_hill",
+      "kind": "scatter",
+      "size": [
+        21,
+        20,
+        21
+      ],
+      "title": "Windmill Hill"
+    },
+    {
+      "name": "witchwood_stones",
+      "generator": "witchwood_stones",
+      "kind": "scatter",
+      "size": [
+        25,
+        14,
+        25
+      ],
+      "title": "Witchwood Stones"
+    }
+  ]
+}

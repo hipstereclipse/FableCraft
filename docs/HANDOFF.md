@@ -10,32 +10,38 @@ six reference snapshots are in docs/. User override (2026-09-12): finish the spe
 and continue as far as practical without permission questions. Retain separate
 milestone commits, validation, immediate pushes, evidence and fresh handoffs.
 
-Current milestone: L4 — add recursive release-name scanning; status in-progress.
-Last resolved prior commit: 086337c (pushed before this milestone).
-Containing commit: TLC Conformance — L4: add recursive release-name scanning.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — L4: add recursive release-name scanning'.
+Current milestone: C2 — validate structure provenance and placement bounds; status in-progress.
+Last resolved prior commit: 11dd038 (pushed before this milestone).
+Containing commit: TLC Conformance — C2: validate structure provenance and placement bounds.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — C2: validate structure provenance and placement bounds'.
 Replace previous SELF evidence with the actual hash next step; never invent a self-hash.
 
-L4 scanner groundwork is implemented; release remains blocked. scripts/scan_branding.py
-checks pack trees/nested archives, filenames, text, PNG/WAV metadata and structure NBT.
-All 15 regression groups pass, as do all eleven shared validator commands. Evidence:
-screenshots/validation/L4/. Real original preview: 2,512 findings/0 read errors; faithful
-nested archive: 4,174 findings/0 errors. docs/RELEASE_SCANNING.md records scope and limits.
-Never use exemptions to bypass identifier/path/comment/legacy-lookup debt. Final public
-name is unselected (Wayfarer Tales is provisional); saved-world remap needs design.
+C2 automated contracts pass: 29 generator outputs/pack assets/current renders, 23
+scatter entries, two fixed structures and four documented legacy annexes. Dedicated
+render proof is screenshots/structures/contract/ (SHA-256 source/image linkage and
+AUDIT.md); old broad AUDIT.md is not current structure proof. Build validation now
+checks these edges and numeric Guild anchors independently, plus selected real block/
+standing columns. Thirteen Python regression groups and four actual-source placement
+tests pass. Evidence: screenshots/validation/C2/. docs/STRUCTURE_CONTRACT.md explains
+scope and manual checks; C2 stays in-progress until those in-world checks are done.
 
-C1 is now complete: GitHub run 34676941284 passed at 086337c; downloaded actual logs
-and run metadata are under screenshots/validation/C1/remote*. scripts/validate.py is
-the shared local/CI runner and now includes scanner regressions. Inspect the L4 push's
-new run as well; a previous successful commit does not prove current CI success.
+Fixed four rectangular POI bounds: terrain/loot/spawn use actual w/h/d; saved places
+retain the square max(w,d) envelope. Existing saves are not rewritten. Regenerated only
+guild_hall to remove 27 stale roof blocks already excluded by its owner. Moved Maze's
+spawn from the solid tower center (46,12,72) to clear study floor (46,12,70), via the
+new GUILD_LAYOUT maze_spawn key and matching runtime GUILD point. No tiling was applied.
 
-0.3 and L3.1–L3.3 still have manual engine/UI checks. L3.2/L3.3 also need vocabulary
-review. HUD render still has narrow green radar, missing hunger frame and nav bleed;
-passing payload checks does not resolve those visuals. Continue independent C2 work
-while naming/gameplay observations remain pending.
+C1 remote CI passed at086337c; L4 CI passed at11dd038 (run34677605747, metadata under
+screenshots/validation/L4/remote-run.json). Check C2's new pushed run before claiming
+current CI success. scripts/validate.py is the shared thirteen-command runner.
+
+L4 remains blocked: original preview2,512 known-name findings; final name unselected
+(Wayfarer Tales provisional), saved-world remap unimplemented. No release exemptions.
+0.3/L3/manual spell checks remain pending. HUD still has narrow green radar, missing
+hunger frame and nav bleed; passing payload checks does not fix those visuals.
 
 Next three actions:
-1. git pull --ff-only; read the top pending row and start C2 structure-manifest contracts.
+1. git pull --ff-only; read the top pending row and start C3 reproducible conformance scoreboard.
 2. Execute its numbered playbook steps and applicable base/domain validators; preserve
    real output under screenshots/validation/<ID>/, mark manual observations unrun.
 3. Update checklist/handoff in one explicitly staged milestone commit, push to origin,

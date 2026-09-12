@@ -1,0 +1,556 @@
+{
+  "scope": "Offline generator renders; grades measure image appearance, not canon or playability.",
+  "structures": {
+    "arena_ring": {
+      "asset_sha256": "2a965eca947b33056ad7c3c0de08387dfe6ae09708a92cf29127e5b930bfc6c9",
+      "size": [
+        27,
+        12,
+        27
+      ],
+      "image_sha256": "b13e9e766417aa14e336373f422c6b291599e177bb58b5f722bba6121ebb1273",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 26.5,
+        "colors": 32,
+        "contrast": 0.83,
+        "brightness": 0.44,
+        "placeholder": false
+      },
+      "notes": []
+    },
+    "bandit_camp": {
+      "asset_sha256": "91de757c5fae6cab44b580d8f7ea069516205d44986c9469fa3f8ebfffebf071",
+      "size": [
+        33,
+        13,
+        33
+      ],
+      "image_sha256": "0a18375b2889a10f38b6bd209049b8ce97b87d2627a3a62c888f0171c68287e1",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 21.8,
+        "colors": 35,
+        "contrast": 0.87,
+        "brightness": 0.28,
+        "placeholder": false
+      },
+      "notes": []
+    },
+    "bowerstone_market": {
+      "asset_sha256": "8604043f911dd5e947c164aa06f04098eaefba326b088970b6b8b93e40e2abfd",
+      "size": [
+        37,
+        16,
+        37
+      ],
+      "image_sha256": "6d62f4f8e7485125506225a32b669b666cef79e0877dd06922ca5ddb89f2ff87",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 13.8,
+        "colors": 40,
+        "contrast": 0.89,
+        "brightness": 0.39,
+        "placeholder": false
+      },
+      "notes": []
+    },
+    "chamber_of_fate": {
+      "asset_sha256": "733c8d9c33b78f11fb67fe2292620ac4c0f69e59dbc5418905d6d761e8ee5f25",
+      "size": [
+        31,
+        20,
+        31
+      ],
+      "image_sha256": "d221c37f9c894248a461a8633d0419692614906e0ee5a11b677410b0d909a354",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 33.3,
+        "colors": 23,
+        "contrast": 0.82,
+        "brightness": 0.46,
+        "placeholder": false
+      },
+      "notes": []
+    },
+    "chapel_skorm": {
+      "asset_sha256": "ac0ff70b4aecf385bf2e3754ac3926e7d1dbab74155340d53bb468cf4edf6032",
+      "size": [
+        15,
+        17,
+        19
+      ],
+      "image_sha256": "2abf86a55c542fe4133e5e3336734997383087243ca79e82578e70b08eaefb04",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 22.7,
+        "colors": 16,
+        "contrast": 0.88,
+        "brightness": 0.18,
+        "placeholder": false
+      },
+      "notes": []
+    },
+    "darkwood_camp": {
+      "asset_sha256": "1cd62c860a4c8d4dfb4f084f5f9f65680c61b36a25b962e72e2cc7c2cdf0b6ff",
+      "size": [
+        25,
+        12,
+        25
+      ],
+      "image_sha256": "565b436222a43378edfbfd7cab15872ac1ec29a77b30ab4a973fbdc24e8ac11b",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 11.6,
+        "colors": 28,
+        "contrast": 0.89,
+        "brightness": 0.38,
+        "placeholder": false
+      },
+      "notes": []
+    },
+    "demon_door_arch": {
+      "asset_sha256": "230cbc69316642cc946b77c56c65b103ead973f8ef1a16b4d99ee4a0c231cbbc",
+      "size": [
+        23,
+        18,
+        13
+      ],
+      "image_sha256": "6b4e6c6cba2e02dbd838deebce3524272b693e7735810b537d62274e69d09ee7",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 26.5,
+        "colors": 37,
+        "contrast": 0.9,
+        "brightness": 0.37,
+        "placeholder": false
+      },
+      "notes": []
+    },
+    "fisher_creek": {
+      "asset_sha256": "e864613b204bcf48f93839c079fa670eb720e38675e8087238b767e76633fc8d",
+      "size": [
+        23,
+        12,
+        23
+      ],
+      "image_sha256": "68de4ee8da14b6d6ec3e76908dc60cd39d8f89ab889f8c926be72a053696adb0",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 11.2,
+        "colors": 33,
+        "contrast": 0.84,
+        "brightness": 0.45,
+        "placeholder": false
+      },
+      "notes": []
+    },
+    "focus_site": {
+      "asset_sha256": "b2778853354068f3d34adfd58609c36e4788af6a4e3fc32d1357bebe7d1067bd",
+      "size": [
+        13,
+        10,
+        13
+      ],
+      "image_sha256": "7447b18f501e253b830e2d7f029ce8a55f255fd300f63c774dba915b3d33018e",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 24.0,
+        "colors": 23,
+        "contrast": 0.94,
+        "brightness": 0.48,
+        "placeholder": false
+      },
+      "notes": []
+    },
+    "graveyard": {
+      "asset_sha256": "acc44015f7bc2218e4b2c5d414542f9e44b8eaaf85497e2b0d545affa69dce2f",
+      "size": [
+        25,
+        13,
+        25
+      ],
+      "image_sha256": "8decc8b21171110daec3784b53f1239134a0654b991b128d42d38619b52cab67",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 13.4,
+        "colors": 34,
+        "contrast": 0.89,
+        "brightness": 0.37,
+        "placeholder": false
+      },
+      "notes": []
+    },
+    "guild_armoury": {
+      "asset_sha256": "0c3e2dd6c86090a21e1ae0ac63b522b65525d892cfed06f38dcf89beb7be4376",
+      "size": [
+        18,
+        18,
+        22
+      ],
+      "image_sha256": "334f247e03d378c50996509c8fa3e62e94f5ba01e467eef3026db8b50c3bb1ba",
+      "grade": "A",
+      "score": 85,
+      "metrics": {
+        "coverage": 25.3,
+        "colors": 10,
+        "contrast": 0.8,
+        "brightness": 0.28,
+        "placeholder": false
+      },
+      "notes": []
+    },
+    "guild_hall": {
+      "asset_sha256": "f1eec246e5df98f7e2908aa7e63dab36ab488f482c6cd46330ccd8bf147b0458",
+      "size": [
+        122,
+        30,
+        108
+      ],
+      "image_sha256": "9dfbff93c164a6a9868d5918d8b29b41395dcb050525a4e69ac6cd31db0f3e45",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 11.1,
+        "colors": 66,
+        "contrast": 0.89,
+        "brightness": 0.55,
+        "placeholder": false
+      },
+      "notes": []
+    },
+    "guild_scriptorium": {
+      "asset_sha256": "5691c45ba6ef372472b5246d5586e2eb81ebe702273e4a869ca103ad8a8066e9",
+      "size": [
+        18,
+        18,
+        22
+      ],
+      "image_sha256": "ad734506d74a83afe8e662cf2b073f734409657849b98d222347451e2fc2dd8d",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 25.3,
+        "colors": 18,
+        "contrast": 0.85,
+        "brightness": 0.28,
+        "placeholder": false
+      },
+      "notes": []
+    },
+    "guild_sentinel_gate": {
+      "asset_sha256": "733d9142b185196770659483ccb827cf4041d1e84a492891a8a99bc16cf6fe94",
+      "size": [
+        27,
+        20,
+        14
+      ],
+      "image_sha256": "d0686d69de31b8b8f8fd9ef4df32fb979e0cd3b4a7f4870bcbe11de2c51cb4cc",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 22.6,
+        "colors": 24,
+        "contrast": 0.94,
+        "brightness": 0.39,
+        "placeholder": false
+      },
+      "notes": []
+    },
+    "hobbe_cave": {
+      "asset_sha256": "60f0125ba76977533d6c38a99ea655985673ce38d530d8dd3e5a25e53114a7a6",
+      "size": [
+        23,
+        14,
+        23
+      ],
+      "image_sha256": "5ce845b9e9aaa967551521dc27f999571fc703a4c5366e5ef841b3d722c16454",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 13.3,
+        "colors": 34,
+        "contrast": 0.8,
+        "brightness": 0.43,
+        "placeholder": false
+      },
+      "notes": []
+    },
+    "hook_coast": {
+      "asset_sha256": "340fca8f2a794c5c9ade0b112e7d1978953ba9dc7c70ec8d8c8c6c845bd0b21e",
+      "size": [
+        37,
+        20,
+        37
+      ],
+      "image_sha256": "59c0aac065d74b0b9f0ee3448b46997e788fb6c45d9edba9b303eda954ec5db4",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 12.6,
+        "colors": 39,
+        "contrast": 0.9,
+        "brightness": 0.66,
+        "placeholder": false
+      },
+      "notes": []
+    },
+    "knothole_glade": {
+      "asset_sha256": "0eba1cd00d86beeb9f4124ba89ca6809029ae83543a9a9f15bb288de4c4febf6",
+      "size": [
+        35,
+        15,
+        35
+      ],
+      "image_sha256": "85e2179fd157a024cd8ed30f49be6af4a882d5e9b72c3cd0121bb19bce17f3fe",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 12.4,
+        "colors": 46,
+        "contrast": 0.87,
+        "brightness": 0.36,
+        "placeholder": false
+      },
+      "notes": []
+    },
+    "lookout_point": {
+      "asset_sha256": "04ee0fd51cdac437aca5ff8b5d1337eed3ba3842c1200007476ee33f1d1c59f2",
+      "size": [
+        21,
+        12,
+        21
+      ],
+      "image_sha256": "2ff605a9eba7019817b1ebc6abbe137d34bae81ad8fe693247c07313a54c6f0e",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 11.7,
+        "colors": 31,
+        "contrast": 0.79,
+        "brightness": 0.5,
+        "placeholder": false
+      },
+      "notes": []
+    },
+    "oakvale_village": {
+      "asset_sha256": "800d6394f082333f36ff05bcc7d589cad2150e5007bbc430512105826a241f5f",
+      "size": [
+        35,
+        14,
+        35
+      ],
+      "image_sha256": "efc075079aac945fc32de2a54a974646f1caa608ad10b22079e46474425a60b4",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 11.1,
+        "colors": 54,
+        "contrast": 0.83,
+        "brightness": 0.54,
+        "placeholder": false
+      },
+      "notes": []
+    },
+    "orchard_farm": {
+      "asset_sha256": "27b0c5125712e2dd0659b78322c0de48c75bde74c451a9e4eb49dd48bac26ff2",
+      "size": [
+        29,
+        12,
+        29
+      ],
+      "image_sha256": "7a3af2fd6a0aad70e89629a42a2f17121b9bca7943b88c6c3a7f6577e3d0629c",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 12.0,
+        "colors": 43,
+        "contrast": 0.83,
+        "brightness": 0.46,
+        "placeholder": false
+      },
+      "notes": []
+    },
+    "power_guild_courtyard": {
+      "asset_sha256": "92871a243b0d9b60a0746d3489748e0650dfe2cf9be28b40399dcb844d420126",
+      "size": [
+        27,
+        13,
+        27
+      ],
+      "image_sha256": "0dc04d370548e2c6dafe4d6634b08af42fbfaf7b0500d7447b4e3d2e4f7d95d0",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 12.0,
+        "colors": 42,
+        "contrast": 0.94,
+        "brightness": 0.5,
+        "placeholder": false
+      },
+      "notes": []
+    },
+    "power_necropolis": {
+      "asset_sha256": "aebe368777253fb9bce925d8170b0e1140a6c83288eb02597a3a47f306c2c667",
+      "size": [
+        29,
+        14,
+        29
+      ],
+      "image_sha256": "b0cc3c8bfee6a37f64823c9cb5c50e07bb8e2616413ef4c09046ed9e467af89f",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 12.3,
+        "colors": 31,
+        "contrast": 0.94,
+        "brightness": 0.39,
+        "placeholder": false
+      },
+      "notes": []
+    },
+    "power_oakvale_quay": {
+      "asset_sha256": "073fa26a219a9623a3c54d7521a07921470bf49fa14888032a19f2fa36c58615",
+      "size": [
+        29,
+        15,
+        29
+      ],
+      "image_sha256": "12965b50c65937f8ec6fbbea491b7d24264056ad1fced9818351dadf96b4ae3d",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 11.9,
+        "colors": 37,
+        "contrast": 0.82,
+        "brightness": 0.48,
+        "placeholder": false
+      },
+      "notes": []
+    },
+    "power_snowspire_oracle": {
+      "asset_sha256": "efbfd6e12be0d461c4da83f989e79220be6b50ffb0f74491ebbc11e4e7d6dfa8",
+      "size": [
+        29,
+        18,
+        31
+      ],
+      "image_sha256": "14e83b397fe331d46dc2949afd5f750f8a8819f32be8e5def48c579a75d9d905",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 13.8,
+        "colors": 29,
+        "contrast": 0.94,
+        "brightness": 0.53,
+        "placeholder": false
+      },
+      "notes": []
+    },
+    "rose_cottage": {
+      "asset_sha256": "4022a8aea3cd93efd7cd742ad80b3deb65a70f5c117d22d05273071a00ccbc20",
+      "size": [
+        21,
+        12,
+        21
+      ],
+      "image_sha256": "00863c637ceedef6afc2d0678a2aa3934d9082a131a1c1582c78fac59791f69f",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 11.6,
+        "colors": 33,
+        "contrast": 0.85,
+        "brightness": 0.46,
+        "placeholder": false
+      },
+      "notes": []
+    },
+    "silver_chest_ruin": {
+      "asset_sha256": "0f18b74c5a4749298196e39e901d9823ccdbad8d4178a5bba33cda6d5dafacd7",
+      "size": [
+        13,
+        8,
+        13
+      ],
+      "image_sha256": "88411e78153ff47411de5c10d25c905a9068d17d2154f12cdd1df8d2c9d333f9",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 13.6,
+        "colors": 33,
+        "contrast": 0.78,
+        "brightness": 0.4,
+        "placeholder": false
+      },
+      "notes": []
+    },
+    "temple_avo": {
+      "asset_sha256": "a3fc0b6cbd4afe660ed3fb89a95f093e57517ef7affb11e6cb83b355d436c58d",
+      "size": [
+        17,
+        13,
+        21
+      ],
+      "image_sha256": "67bcc1e5d6eadfbeb81f9e116e80d36ee84b665aec6d4b57e3a6ea0d9c09e26c",
+      "grade": "S",
+      "score": 92,
+      "metrics": {
+        "coverage": 22.5,
+        "colors": 14,
+        "contrast": 0.72,
+        "brightness": 0.78,
+        "placeholder": false
+      },
+      "notes": []
+    },
+    "windmill_hill": {
+      "asset_sha256": "9d84ec681d7546343f80bf16487547a49bd62178afbc0dacc1524ac4676cf24b",
+      "size": [
+        21,
+        20,
+        21
+      ],
+      "image_sha256": "8033e5632f54edaa5778ddc4a888912fed4fc39d043b4fe4360f3d44995d69d9",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 14.8,
+        "colors": 30,
+        "contrast": 0.88,
+        "brightness": 0.47,
+        "placeholder": false
+      },
+      "notes": []
+    },
+    "witchwood_stones": {
+      "asset_sha256": "35603d6df26cef5c041f6ae6e0bb7d2ddb4c832456d53d6cf890ddbb2a3f8f57",
+      "size": [
+        25,
+        14,
+        25
+      ],
+      "image_sha256": "e3fb291e9223623ea11a1ecc110eb8622b4ad03a0807231efffc038d08f1637c",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 11.8,
+        "colors": 37,
+        "contrast": 0.89,
+        "brightness": 0.37,
+        "placeholder": false
+      },
+      "notes": []
+    }
+  }
+}

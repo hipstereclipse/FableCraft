@@ -29,6 +29,8 @@ def main():
         'animation-tests': [sys.executable, 'scripts/tests/test_animation_audit.py'],
         'branding-tests': [sys.executable, 'scripts/tests/test_branding.py'],
         'branding-scan-tests': [sys.executable, 'scripts/tests/test_branding_scan.py'],
+        'structure-tests': [sys.executable, 'scripts/tests/test_structure_manifest.py'],
+        'structure-placement-tests': ['node', 'scripts/tests/structure_placement.test.cjs'],
         'runtime-tests': ['npm', 'test'],
         'original-preview': [sys.executable, 'scripts/build_addon.py', '--branding', 'original', '--preview'],
     }

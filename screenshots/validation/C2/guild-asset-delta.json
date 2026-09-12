@@ -1,0 +1,248 @@
+{
+  "changed_blocks": 27,
+  "changes": [
+    {
+      "xyz": [
+        11,
+        9,
+        31
+      ],
+      "before": "minecraft:deepslate_tiles",
+      "after": "minecraft:air"
+    },
+    {
+      "xyz": [
+        11,
+        9,
+        32
+      ],
+      "before": "minecraft:deepslate_tiles",
+      "after": "minecraft:air"
+    },
+    {
+      "xyz": [
+        11,
+        9,
+        37
+      ],
+      "before": "minecraft:deepslate_tiles",
+      "after": "minecraft:air"
+    },
+    {
+      "xyz": [
+        11,
+        9,
+        38
+      ],
+      "before": "minecraft:deepslate_tiles",
+      "after": "minecraft:air"
+    },
+    {
+      "xyz": [
+        11,
+        9,
+        39
+      ],
+      "before": "minecraft:deepslate_tiles",
+      "after": "minecraft:air"
+    },
+    {
+      "xyz": [
+        11,
+        9,
+        45
+      ],
+      "before": "minecraft:deepslate_tiles",
+      "after": "minecraft:air"
+    },
+    {
+      "xyz": [
+        11,
+        9,
+        46
+      ],
+      "before": "minecraft:deepslate_tiles",
+      "after": "minecraft:air"
+    },
+    {
+      "xyz": [
+        11,
+        9,
+        47
+      ],
+      "before": "minecraft:deepslate_tiles",
+      "after": "minecraft:air"
+    },
+    {
+      "xyz": [
+        12,
+        9,
+        31
+      ],
+      "before": "minecraft:deepslate_tiles",
+      "after": "minecraft:air"
+    },
+    {
+      "xyz": [
+        12,
+        9,
+        39
+      ],
+      "before": "minecraft:deepslate_tiles",
+      "after": "minecraft:air"
+    },
+    {
+      "xyz": [
+        12,
+        9,
+        45
+      ],
+      "before": "minecraft:deepslate_tiles",
+      "after": "minecraft:air"
+    },
+    {
+      "xyz": [
+        13,
+        9,
+        31
+      ],
+      "before": "minecraft:deepslate_tiles",
+      "after": "minecraft:air"
+    },
+    {
+      "xyz": [
+        15,
+        8,
+        35
+      ],
+      "before": "minecraft:air",
+      "after": "minecraft:lantern"
+    },
+    {
+      "xyz": [
+        15,
+        8,
+        49
+      ],
+      "before": "minecraft:air",
+      "after": "minecraft:lantern"
+    },
+    {
+      "xyz": [
+        17,
+        9,
+        31
+      ],
+      "before": "minecraft:deepslate_tiles",
+      "after": "minecraft:air"
+    },
+    {
+      "xyz": [
+        17,
+        9,
+        39
+      ],
+      "before": "minecraft:deepslate_tiles",
+      "after": "minecraft:air"
+    },
+    {
+      "xyz": [
+        17,
+        9,
+        45
+      ],
+      "before": "minecraft:deepslate_tiles",
+      "after": "minecraft:air"
+    },
+    {
+      "xyz": [
+        20,
+        9,
+        34
+      ],
+      "before": "minecraft:deepslate_tiles",
+      "after": "minecraft:air"
+    },
+    {
+      "xyz": [
+        20,
+        9,
+        35
+      ],
+      "before": "minecraft:deepslate_tiles",
+      "after": "minecraft:air"
+    },
+    {
+      "xyz": [
+        20,
+        9,
+        49
+      ],
+      "before": "minecraft:deepslate_tiles",
+      "after": "minecraft:air"
+    },
+    {
+      "xyz": [
+        20,
+        9,
+        50
+      ],
+      "before": "minecraft:deepslate_tiles",
+      "after": "minecraft:air"
+    },
+    {
+      "xyz": [
+        20,
+        9,
+        51
+      ],
+      "before": "minecraft:deepslate_tiles",
+      "after": "minecraft:air"
+    },
+    {
+      "xyz": [
+        20,
+        9,
+        52
+      ],
+      "before": "minecraft:deepslate_tiles",
+      "after": "minecraft:air"
+    },
+    {
+      "xyz": [
+        20,
+        9,
+        53
+      ],
+      "before": "minecraft:deepslate_tiles",
+      "after": "minecraft:air"
+    },
+    {
+      "xyz": [
+        21,
+        9,
+        34
+      ],
+      "before": "minecraft:deepslate_tiles",
+      "after": "minecraft:air"
+    },
+    {
+      "xyz": [
+        21,
+        9,
+        50
+      ],
+      "before": "minecraft:deepslate_tiles",
+      "after": "minecraft:air"
+    },
+    {
+      "xyz": [
+        21,
+        9,
+        51
+      ],
+      "before": "minecraft:deepslate_tiles",
+      "after": "minecraft:air"
+    }
+  ]
+}

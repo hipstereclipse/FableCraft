@@ -181,6 +181,12 @@ def validate(root=ROOT):
     if errors:
         print("\n".join("  ERROR " + e for e in errors))
         sys.exit(f"{len(errors)} validation error(s)")
+    from structure_contract import check as check_structures
+    structure_errors = check_structures(root)
+    if structure_errors:
+        print("\n".join("  ERROR " + error for error in structure_errors))
+        sys.exit(f"{len(structure_errors)} structure contract error(s)")
+    print("structure contract OK (including numeric Guild anchors; in-world checks remain manual)")
     print("all cross-references OK")
 
 

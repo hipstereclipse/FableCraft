@@ -12,7 +12,7 @@ The same entry point works locally. `--output <directory>` selects the evidence
 directory; the default is `tmp/validation/`. Every command records its output and
 exit status, and any failed gate makes the overall command fail. The runner invokes
 the local faithful build, lint, expression/animation/HUD audits, behavior/animation/
-branding regressions, all runtime tests and the isolated original naming preview.
+branding/structure regressions, placement tests, all runtime tests and the isolated original naming preview.
 
 The workflow uploads only `tmp/validation/` logs, retained for 14 days. It does not
 upload local development archives or preview pack trees. It does not regenerate all

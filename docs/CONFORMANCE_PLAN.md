@@ -821,6 +821,8 @@ Files: `scripts/build_addon.py`, `scripts/gen_structures.py`, `packs/Fablecraft_
 
 Acceptance: Each contract edge and reverse edge validated, negative tests fail independently, anchors separately audited.
 
+2026-09-12: implemented in structure_contract.py, structure_tables.cjs, structure_manifest.json and render_structure_contract.py. All 29 assets/renders, 23 scatter/two fixed/four legacy roles are checked; 13 Python groups and four actual-source placement tests pass. Rectangular bounds, stale Guild output and blocked Maze spawn were corrected. See docs/STRUCTURE_CONTRACT.md; C2 remains in-progress for the explicit in-world checklist.
+
 ### C3 — Reproducible conformance scoreboard
 
 References: [B] scoring policy; [G] visual_reference.md.

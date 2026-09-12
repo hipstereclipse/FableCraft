@@ -313,6 +313,7 @@ GUILD_LAYOUT = {
     "quest_tables": ((22, 42), (28, 39), (28, 45)),
     "maze_tower": (46, 72, 6),
     "maze_study_y": 12,
+    "maze_spawn": (46, 70),  # study floor, two blocks north of the solid central column
     "upper_gallery_y": 9,
     "demon_door": (56 + GUILD_EAST, 96),
     "river_bridges": (36, 54),

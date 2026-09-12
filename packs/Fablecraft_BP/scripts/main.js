@@ -352,7 +352,7 @@ const GUILD = Object.freeze({
   cullis: { x: 15, z: 49 },
   quest: { x: 22, z: 42 },
   questTables: [{ x: 22, z: 42 }, { x: 28, z: 39 }, { x: 28, z: 45 }],
-  maze: { x: 46, z: 72, studyY: 12 },
+  maze: { x: 46, z: 70, studyY: 12 },
   demon: { x: 66, z: 96, approachZ: 88 },
   archery: { x: 86, z: 39 },
   dueling: { x: 101, z: 61 },
@@ -5444,47 +5444,47 @@ const ORB_XP = {
 const REGION = 160;
 // Each entry: weight = relative pick frequency; surf = ground categories the
 // structure may settle on; theme = surrounding set-dressing flavour.
-// The Heroes' Guild complex (hall, courtyard, Chamber of Fate) is placed
-// exactly once by placeGuildNear and never appears in this pool.
+// The Guild hall and Chamber of Fate are placed once by placeGuildNear.
+// Retained legacy Guild annexes are not registered in this scatter pool.
 const STRUCTS = [
-  { id: "fc:demon_door_arch", w: 23, weight: 10, surf: ["grass", "dark", "rock", "snow"], theme: "dark", door: true },
-  { id: "fc:silver_chest_ruin", w: 13, weight: 11, surf: ["grass", "dark", "rock", "sand", "snow"], theme: "forest", loot: "ruin" },
-  { id: "fc:bandit_camp", w: 33, weight: 9, surf: ["grass", "dark", "rock"], theme: "dark", mobs: ["fc:bandit", "fc:bandit", "fc:bandit_archer", "fc:twinblade"] },
-  { id: "fc:graveyard", w: 25, weight: 7, surf: ["grass", "dark"], theme: "dark", mobs: ["fc:undead", "fc:undead_soldier", "fc:undead_knight"] },
-  { id: "fc:focus_site", w: 13, weight: 7, surf: ["grass", "dark", "rock", "sand", "snow"], theme: "dark", cullis: true },
-  { id: "fc:oakvale_village", w: 35, weight: 8, surf: ["grass", "sand"], theme: "village", cullis: true,
+  { id: "fc:demon_door_arch", w: 23, h: 18, d: 13, weight: 10, surf: ["grass", "dark", "rock", "snow"], theme: "dark", door: true },
+  { id: "fc:silver_chest_ruin", w: 13, h: 8, d: 13, weight: 11, surf: ["grass", "dark", "rock", "sand", "snow"], theme: "forest", loot: "ruin" },
+  { id: "fc:bandit_camp", w: 33, h: 13, d: 33, weight: 9, surf: ["grass", "dark", "rock"], theme: "dark", mobs: ["fc:bandit", "fc:bandit", "fc:bandit_archer", "fc:twinblade"] },
+  { id: "fc:graveyard", w: 25, h: 13, d: 25, weight: 7, surf: ["grass", "dark"], theme: "dark", mobs: ["fc:undead", "fc:undead_soldier", "fc:undead_knight"] },
+  { id: "fc:focus_site", w: 13, h: 10, d: 13, weight: 7, surf: ["grass", "dark", "rock", "sand", "snow"], theme: "dark", cullis: true },
+  { id: "fc:oakvale_village", w: 35, h: 14, d: 35, weight: 8, surf: ["grass", "sand"], theme: "village", cullis: true,
     mobs: ["fc:villager_farmer", "fc:villager_fisher", "fc:guard_oakvale"] },
-  { id: "fc:bowerstone_market", w: 37, weight: 7, surf: ["grass"], theme: "village", cullis: true,
+  { id: "fc:bowerstone_market", w: 37, h: 16, d: 37, weight: 7, surf: ["grass"], theme: "village", cullis: true,
     mobs: ["fc:guard_bowerstone", "fc:trader", "fc:barkeep", "fc:villager_albion"] },
-  { id: "fc:knothole_glade", w: 35, weight: 7, surf: ["dark", "grass"], theme: "forest", cullis: true,
+  { id: "fc:knothole_glade", w: 35, h: 15, d: 35, weight: 7, surf: ["dark", "grass"], theme: "forest", cullis: true,
     mobs: ["fc:villager_woman", "fc:guard_oakvale", "fc:mercenary"] },
-  { id: "fc:hook_coast", w: 37, weight: 7, surf: ["snow", "sand", "rock"], theme: "snow", cullis: true,
+  { id: "fc:hook_coast", w: 37, h: 20, d: 37, weight: 7, surf: ["snow", "sand", "rock"], theme: "snow", cullis: true,
     mobs: ["fc:oracle", "fc:guard_snowspire", "fc:villager_woman"] },
-  { id: "fc:power_oakvale_quay", w: 29, weight: 5, surf: ["grass", "sand"], theme: "village", cullis: true,
+  { id: "fc:power_oakvale_quay", w: 29, h: 15, d: 29, weight: 5, surf: ["grass", "sand"], theme: "village", cullis: true,
     mobs: ["fc:villager_farmer", "fc:villager_fisher", "fc:guard_oakvale"] },
-  { id: "fc:power_snowspire_oracle", w: 31, weight: 6, surf: ["snow", "rock"], theme: "snow", cullis: true,
+  { id: "fc:power_snowspire_oracle", w: 29, h: 18, d: 31, weight: 6, surf: ["snow", "rock"], theme: "snow", cullis: true,
     mobs: ["fc:oracle", "fc:guard_snowspire", "fc:villager_woman"] },
-  { id: "fc:power_necropolis", w: 29, weight: 5, surf: ["dark", "rock", "grass"], theme: "dark", cullis: true,
+  { id: "fc:power_necropolis", w: 29, h: 14, d: 29, weight: 5, surf: ["dark", "rock", "grass"], theme: "dark", cullis: true,
     mobs: ["fc:wraith", "fc:undead_knight", "fc:frost_balverine"] },
-  { id: "fc:temple_avo", w: 17, weight: 6, surf: ["grass"], theme: "holy" },
-  { id: "fc:chapel_skorm", w: 15, weight: 6, surf: ["dark", "grass", "rock"], theme: "dark" },
-  { id: "fc:arena_ring", w: 27, weight: 5, surf: ["sand", "rock", "grass"], theme: "dark", mobs: ["fc:hobbe", "fc:hobbe", "fc:beetle"] },
+  { id: "fc:temple_avo", w: 17, h: 13, d: 21, weight: 6, surf: ["grass"], theme: "holy" },
+  { id: "fc:chapel_skorm", w: 15, h: 17, d: 19, weight: 6, surf: ["dark", "grass", "rock"], theme: "dark" },
+  { id: "fc:arena_ring", w: 27, h: 12, d: 27, weight: 5, surf: ["sand", "rock", "grass"], theme: "dark", mobs: ["fc:hobbe", "fc:hobbe", "fc:beetle"] },
   // wilderness encounters — small, common, keep the road alive
-  { id: "fc:lookout_point", w: 21, weight: 9, surf: ["grass", "rock", "snow"], theme: "village",
+  { id: "fc:lookout_point", w: 21, h: 12, d: 21, weight: 9, surf: ["grass", "rock", "snow"], theme: "village",
     mobs: ["fc:villager_albion", "fc:villager_albion", "fc:guard_bowerstone"] },
-  { id: "fc:orchard_farm", w: 29, weight: 9, surf: ["grass"], theme: "farm",
+  { id: "fc:orchard_farm", w: 29, h: 12, d: 29, weight: 9, surf: ["grass"], theme: "farm",
     mobs: ["fc:villager_farmer", "fc:villager_farmer", "fc:villager_woman"] },
-  { id: "fc:fisher_creek", w: 23, weight: 8, surf: ["grass", "sand"], theme: "village",
+  { id: "fc:fisher_creek", w: 23, h: 12, d: 23, weight: 8, surf: ["grass", "sand"], theme: "village",
     mobs: ["fc:villager_fisher", "fc:villager_fisher"] },
-  { id: "fc:rose_cottage", w: 21, weight: 8, surf: ["grass"], theme: "farm",
+  { id: "fc:rose_cottage", w: 21, h: 12, d: 21, weight: 8, surf: ["grass"], theme: "farm",
     mobs: ["fc:briar_rose", "fc:villager_woman"] },
-  { id: "fc:witchwood_stones", w: 25, weight: 8, surf: ["dark", "grass", "rock"], theme: "dark",
+  { id: "fc:witchwood_stones", w: 25, h: 14, d: 25, weight: 8, surf: ["dark", "grass", "rock"], theme: "dark",
     mobs: ["fc:nymph", "fc:balverine"] },
-  { id: "fc:darkwood_camp", w: 25, weight: 8, surf: ["dark", "grass"], theme: "forest",
+  { id: "fc:darkwood_camp", w: 25, h: 12, d: 25, weight: 8, surf: ["dark", "grass"], theme: "forest",
     mobs: ["fc:trader", "fc:trader", "fc:mercenary"] },
-  { id: "fc:hobbe_cave", w: 23, weight: 8, surf: ["dark", "rock", "grass"], theme: "dark",
+  { id: "fc:hobbe_cave", w: 23, h: 14, d: 23, weight: 8, surf: ["dark", "rock", "grass"], theme: "dark",
     mobs: ["fc:hobbe", "fc:hobbe", "fc:hobbe", "fc:hobbe_scout"] },
-  { id: "fc:windmill_hill", w: 21, weight: 8, surf: ["grass"], theme: "farm",
+  { id: "fc:windmill_hill", w: 21, h: 20, d: 21, weight: 8, surf: ["grass"], theme: "farm",
     mobs: ["fc:villager_farmer"] },
 ];
 const STRUCTS_TOTAL_W = STRUCTS.reduce((a, s) => a + s.weight, 0);
@@ -5568,39 +5568,42 @@ function maybePlace(p, rx, rz) {
   if (hash2(rx + 31, rz + 17) >= 0.5) { world.setDynamicProperty(key, 1); return; }
   const pick = pickStruct(hash2(rx * 13 + 5, rz * 13 + 9));
   if (!pick) { world.setDynamicProperty(key, 1); return; }
-  const w = pick.w;
+  const { w, h, d } = pick;
+  // Keep the established square save/settlement envelope conservative while the
+  // actual terrain, loot and spawn bounds use the generated rectangular footprint.
+  const envelope = Math.max(w, d);
 
   // act only when the cell is in the live placement window — close enough that
   // its chunks are loaded, far enough not to pop in the Hero's face
-  const cxw = x + (w >> 1), czw = z + (w >> 1);
+  const cxw = x + (w >> 1), czw = z + (d >> 1);
   const dist = Math.hypot(cxw - p.location.x, czw - p.location.z);
   if (dist > 120 || dist < 28) return;            // outside window — retry next sweep
 
   const dim = p.dimension;
-  const cy = sampleGroundY(dim, x, z, w, w);       // null over water / chunks not ready
+  const cy = sampleGroundY(dim, x, z, w, d);       // null over water / chunks not ready
   if (cy === null) return;                          // retry once the ground is there
   if (!surfMatch(pick.surf, surfaceCategory(dim, cxw, czw))) { world.setDynamicProperty(key, 1); return; }
-  if (tooCloseToExisting(x, z, w, 24)) { world.setDynamicProperty(key, 1); return; }
+  if (tooCloseToExisting(x, z, envelope, 24)) { world.setDynamicProperty(key, 1); return; }
 
   const pY = cy - 1;                                // baked ground (local y0) flush with the land
   try {
     world.structureManager.place(pick.id, dim, { x, y: pY, z });
   } catch { return; }                               // chunk-edge race — retry next sweep
   world.setDynamicProperty(key, 1);
-  recordPlace(x, z, w, pick.id, pick.theme);
+  recordPlace(x, z, envelope, pick.id, pick.theme);
 
   // settle into the land, then grade the edges out to meet the biome
   try {
-    blendTerrain(dim, x, pY, z, w, w);
-    skirtTerrain(dim, x, pY, z, w, w, Math.max(6, Math.min(16, Math.round(w / 3))));
-    fillLootChests(dim, x, pY, z, w, 24, w, pick.id);
+    blendTerrain(dim, x, pY, z, w, d);
+    skirtTerrain(dim, x, pY, z, w, d, Math.max(6, Math.min(16, Math.round(w / 3))));
+    fillLootChests(dim, x, pY, z, w, h, d, pick.id);
   } catch { }
 
   // population + props — best-effort, never aborts a placement that succeeded
   try {
     const floorY = pY + 1;
     for (const mtype of pick.mobs ?? []) {
-      trySpawn(dim, mtype, { x: x + 4 + Math.random() * (w - 8), y: floorY, z: z + 4 + Math.random() * (w - 8) });
+      trySpawn(dim, mtype, { x: x + 4 + Math.random() * (w - 8), y: floorY, z: z + 4 + Math.random() * (d - 8) });
     }
     if (pick.door) {
       // the arch opening is centred on the face wall (local x=w/2, z=5)
