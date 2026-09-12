@@ -30,6 +30,7 @@ def main():
         'branding-tests': [sys.executable, 'scripts/tests/test_branding.py'],
         'branding-scan-tests': [sys.executable, 'scripts/tests/test_branding_scan.py'],
         'guild-training-tests': ['node', '--experimental-vm-modules', 'scripts/tests/guild_training.test.mjs'],
+        'guild-defence-tests': ['node', '--experimental-vm-modules', 'scripts/tests/guild_defence.test.mjs'],
         'guild-route-tests': [sys.executable, 'scripts/tests/test_guild_routes.py'],
         'guild-door-geometry-tests': [sys.executable, 'scripts/tests/test_guild_door_geometry.py'],
         'guild-door-aperture-tests': ['node', '--experimental-vm-modules', 'scripts/tests/guild_door_aperture.test.mjs'],

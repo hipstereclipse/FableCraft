@@ -34,7 +34,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | GP3 | in-progress | First training lifecycle pass fixes repeated teleport/cleanup/interruption defects; navigation, resident identity and targeted defence remain open |
 | DP1 | in-progress | Guild lamp/Library Arcanum portal, durable rewards/returns and legacy mouth migration implemented offline; engine acceptance remains unrun |
 | DP2 | in-progress | First library grove and four in-room collectibles implemented; other designed worlds and direct TLC comparison remain open |
-| GP4 | todo | Integrated Guild/door review, regression checks and next ranked improvement pass |
+| GP4 | in-progress | Offender-specific Guild defence and projectile attribution fixed offline; integrated cave lifecycle/route defects reproduced; engine acceptance remains open |
 
 Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
 defects and manual status here. These passes are not completed legacy leaves.
@@ -269,7 +269,7 @@ offender-specific defence, cave/Chamber routes and portal integration failures.
 
 ## DP2 — first original-image review and grove ground refinement (2026-09-12)
 
-Commit: SELF: TLC Conformance — DP2: soften Arcanum paths from the 2005 reference.
+Commit: 91f46b92d324e2e53dae5493bc298648e8e10e31.
 A contemporary 2005 guide image explicitly labeled Library Arcanum is now
 verified and compared at its native 207×153 resolution. See
 [LIBRARY_ARCANUM_REFERENCE_REVIEW.md](LIBRARY_ARCANUM_REFERENCE_REVIEW.md).
@@ -286,3 +286,34 @@ and offline results. All 34 base gates and explicit lint/spells/syntax/Guild
 diagnostics pass in the reviewed-index snapshot. The full screenshot pipeline
 completed with 51 mobs, 55 items, 130 recipes, 32 structures and 13 galleries.
 GP4 offender-specific defence is the next code pass.
+
+## GP4 — Guild defence and integrated cave review (2026-09-12)
+
+Commit: SELF: TLC Conformance — GP4: target Guild defence at actual offenders.
+Guild combat now requires an identified player offender. Active local warrants
+and short attributed provocations feed one aggregate controller, so clearing one
+player's warrant does not calm defence against another. Portal departure/return
+updates eligibility, stale/failed cleanup retries, and social Follow/Watch plus
+spouse fields survive. Projectile deaths use the actual owner, never a nearest-
+player guess. The six defender entity outputs explicitly restore base combat
+components after stop. See [GUILD_DEFENCE.md](GUILD_DEFENCE.md).
+
+Fourteen focused production controller/callback groups, eight behavior owner
+groups and the existing training/runtime suites pass. All 35 base gates plus
+explicit lint, spells, ESM syntax and Guild diagnostics pass from an isolated
+reviewed-index snapshot. The full screenshot pipeline completed (51 mobs,
+55 items, 130 recipes, 32 structures and 13 galleries); six defender cards are
+unchanged static visuals, with representative cards inspected.
+The independent implementation review found no introduced blocker. These are
+offline results; target selection, dropping, movement and multiplayer engine
+acceptance remain unrun. N5/N7 resident identity/repair remains a separate defect.
+
+The [integrated cave audit](GUILD_CAVE_REVIEW.md) executes frozen actual callbacks
+against generated Guild/Chamber voxels. It proves completion is recorded before
+any cave write, interrupted/unloaded carving never retries, and annex placement
+has no maintenance caller. It also finds a missing library threshold floor,
+incorrect Chamber Cullis registration height and three jump-required hill rises.
+The old mirrored cave verifier reports PASS despite the real threshold defect.
+These findings are reproduced gaps, not implemented cave fixes. Next priority:
+a conservative cave lifecycle/verification owner and its actual-callback tests,
+followed by coupled threshold/Cullis fixes and persistent resident identity.

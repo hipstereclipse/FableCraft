@@ -13,9 +13,9 @@ const dimension = { getEntities() { throw new Error('unloaded chunk'); } };
 const player = { id: 'hero', location: { x: 0, y: 0, z: 0 }, dimension };
 test('Guild defender lookup returns an empty list on an unreadable dimension', () => {
   const ctx = vm.createContext({ guildBounds: () => ({ minX: 0, maxX: 122, minZ: 0, maxZ: 108, base: { y: 64 } }),
-    isGuildDefenderType: () => true, player });
-  vm.runInContext(section('function guildDefendersNear(', 'function rallyGuildDefenders('), ctx);
-  assert.equal(vm.runInContext('guildDefendersNear(player).length', ctx), 0);
+    isGuildDefender: () => true, OW: () => dimension, world: { getPlayers: () => [player] } });
+  vm.runInContext(section('function guildDefenders(', 'function hasGuildWarrant('), ctx);
+  assert.equal(vm.runInContext('guildDefenders().length', ctx), 0);
 });
 test('Protector alert tolerates a failed entity scan', () => {
   const ctx = vm.createContext({ victim: player });

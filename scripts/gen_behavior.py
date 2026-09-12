@@ -3,6 +3,7 @@ items, entity behaviors, loot tables, spawn rules, and the shared data
 blob consumed by scripts/main.js.
 """
 import json
+from copy import deepcopy
 
 from fc_lib import BP, NAMESPACE, write_json as _write_json, write_text
 from fc_strings import localize, text as branded_text
@@ -555,6 +556,66 @@ def emit_entity(mob):
                 "add": {"component_groups": [group]},
             }
         events["fc:react_neutral"] = {"remove": {"component_groups": social_groups}}
+
+        # Guild combat is an overlay with explicit offender eligibility. Social
+        # follow/watch groups survive defence; removing combat never restores
+        # overridden base components automatically in Bedrock.
+        guild_defender = eid in ("guildmaster", "maze", "guard_bowerstone") or eid.startswith("guild_apprentice_")
+        if guild_defender:
+            offender = {"all_of": [
+                {"test": "is_family", "subject": "other", "value": "player"},
+                {"test": "has_tag", "subject": "other", "value": "fc_guild_offender"},
+            ]}
+            attack_key = "minecraft:behavior.nearest_attackable_target"
+            melee_key = "minecraft:behavior.melee_box_attack"
+            cgroups["fc:guild_defence"] = deepcopy(cgroups["fc:reaction_attack"])
+            cgroups["fc:guild_defence"][attack_key]["priority"] = 0
+            cgroups["fc:guild_defence"][melee_key]["priority"] = 0
+            cgroups["fc:guild_defence"][attack_key]["entity_types"][0]["filters"] = offender
+            cgroups["fc:guild_defence"][attack_key]["entity_types"][0]["reevaluate_description"] = True
+            hurt_key = "minecraft:behavior.hurt_by_target"
+            if hurt_key in comp:
+                cgroups["fc:guild_defence"][hurt_key] = {
+                    "priority": 1, "entity_types": [{"filters": deepcopy(offender), "reevaluate_description": True}],
+                }
+            # Old saved social-attack groups and direct expression events must
+            # also fail closed for Guild residents. Ordinary Bowerstone guards
+            # retain their existing social reaction outside the Guild role.
+            social_target = deepcopy(offender)
+            if eid == "guard_bowerstone":
+                social_target = {"all_of": [
+                    {"test": "is_family", "subject": "other", "value": "player"},
+                    {"any_of": [
+                        {"test": "has_tag", "subject": "self", "operator": "not", "value": "fc_guild_guard"},
+                        {"test": "has_tag", "subject": "other", "value": "fc_guild_offender"},
+                    ]},
+                ]}
+            cgroups["fc:reaction_attack"][attack_key]["entity_types"][0]["filters"] = social_target
+            cgroups["fc:reaction_attack"][attack_key]["entity_types"][0]["reevaluate_description"] = True
+            restore = {key: deepcopy(comp[key]) for key in (attack_key, melee_key, hurt_key) if key in comp}
+            remove = ["fc:guild_defence", "fc:reaction_attack"]
+            if eid == "guard_bowerstone":
+                # These legacy town overlays can remain on old Guild guards.
+                # Their melee/target keys are restored explicitly below.
+                remove += ["fc:hostile", "fc:bounty_hostile"]
+            idle = []
+            if restore:
+                cgroups["fc:guild_defence_idle"] = restore
+                idle = ["fc:guild_defence_idle"]
+            events["fc:guild_defence_start"] = {
+                "remove": {"component_groups": [*remove, *idle]},
+                "add": {"component_groups": ["fc:guild_defence"]},
+            }
+            events["fc:guild_defence_stop"] = {"remove": {"component_groups": remove}}
+            if idle:
+                events["fc:guild_defence_stop"]["add"] = {"component_groups": idle}
+            # A social event may remove an overlapping attack key. Reapply only
+            # the owned combat overlay while its durable runtime marker is set.
+            for event_name in ("fc:react_flee", "fc:react_follow", "fc:react_watch", "fc:react_attack", "fc:react_neutral"):
+                events[event_name] = {"sequence": [events[event_name], {
+                    "filters": {"test": "has_tag", "subject": "self", "value": "fc_guild_defending"},
+                    "add": {"component_groups": ["fc:guild_defence"]},
+                }]}
 
     if mob.get("despawn"):
         comp["minecraft:timer"] = {"looping": False, "time": mob["despawn"] / 20.0,

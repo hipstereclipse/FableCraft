@@ -1,0 +1,135 @@
+{
+  "kind": "GP4_saved_snapshot_defence_evidence_review",
+  "reviewed_at_utc": "2026-09-12T19:07:28.818319+00:00",
+  "reviewed_snapshot": "tmp/conformance/GP4-reviewed-snapshot",
+  "baseline_entity_snapshot": "tmp/conformance/DP2-reviewed-snapshot",
+  "review_method": "Read existing saved logs and result manifests; independently compare source and every BP entity JSON hash. No test logs reconstructed and no engine run performed by this evidence review.",
+  "validation_manifest": {
+    "path": "screenshots/validation/GP4/results.json",
+    "sha256": "0fefa2f295f7a322edcdf877a91c3364283784ca0ae774076a55b17fd21541a4",
+    "gate_count": 35,
+    "successful_exit_codes": 35
+  },
+  "focused_logs": [
+    {
+      "gate": "guild-defence-tests",
+      "tests": 14,
+      "passed": 14,
+      "failed": 0,
+      "command": [
+        "node",
+        "--experimental-vm-modules",
+        "scripts/tests/guild_defence.test.mjs"
+      ],
+      "log": "screenshots/validation/GP4/guild-defence-tests.log",
+      "sha256": "65d880c8d6723f57c4b37d710f7fc096038a47d611e05d644f986f9c127ede6b"
+    },
+    {
+      "gate": "behavior-tests",
+      "tests": 8,
+      "passed": 8,
+      "failed": 0,
+      "command": [
+        "/usr/bin/python",
+        "scripts/tests/test_gen_behavior.py"
+      ],
+      "log": "screenshots/validation/GP4/behavior-tests.log",
+      "sha256": "42a4a8ffddf8278077d078b8edf5a53f47284837ebae341d6cdbb2891bb695e3"
+    },
+    {
+      "gate": "guild-training-tests",
+      "tests": 18,
+      "passed": 18,
+      "failed": 0,
+      "command": [
+        "node",
+        "--experimental-vm-modules",
+        "scripts/tests/guild_training.test.mjs"
+      ],
+      "log": "screenshots/validation/GP4/guild-training-tests.log",
+      "sha256": "05755b098b4786ee96a823e1ce1decec29ac4de35a2682c455a7fbd24a52fa64"
+    }
+  ],
+  "explicit_lint": {
+    "log": "screenshots/validation/GP4/explicit-lint.log",
+    "sha256": "a57dcdfbe815bfaebccf579cb63ba576e18a39b165aaf57d223393f3ceb3a3aa",
+    "errors": 0,
+    "warnings": 19
+  },
+  "generated_entity_delta": {
+    "path": "screenshots/validation/GP4/defender-output-delta.json",
+    "sha256": "440dcb7a3d98a407981ccbb2309f151d7849e39f00ac04a2e9036fcefe8feadb",
+    "all_baseline_bp_entity_files_compared": 55,
+    "all_reviewed_bp_entity_files_compared": 55,
+    "changed_count": 6,
+    "changed_files": [
+      "packs/Fablecraft_BP/entities/guard_bowerstone.json",
+      "packs/Fablecraft_BP/entities/guild_apprentice_might.json",
+      "packs/Fablecraft_BP/entities/guild_apprentice_skill.json",
+      "packs/Fablecraft_BP/entities/guild_apprentice_will.json",
+      "packs/Fablecraft_BP/entities/guildmaster.json",
+      "packs/Fablecraft_BP/entities/maze.json"
+    ],
+    "before_after_hashes_verified": true,
+    "current_workspace_matches_after_hashes": true
+  },
+  "reviewed_sources": [
+    {
+      "path": "packs/Fablecraft_BP/scripts/guild_defence.js",
+      "sha256": "c13f75b94a007df0d26eb474b6093bb0a2e8c1a447c11d110bf941a453bf16b1",
+      "workspace_matches_reviewed_snapshot": true
+    },
+    {
+      "path": "packs/Fablecraft_BP/scripts/main.js",
+      "sha256": "5648f15d05a70c555c62efcd801c0601f2adf7fd96518f8bd9e6014daab6031b",
+      "workspace_matches_reviewed_snapshot": true
+    },
+    {
+      "path": "packs/Fablecraft_BP/scripts/fable_emotes.js",
+      "sha256": "4fad3f0db107b8d050c5a5e8965dc66bcf0926192c0494c36fd55be96700e366",
+      "workspace_matches_reviewed_snapshot": true
+    },
+    {
+      "path": "scripts/gen_behavior.py",
+      "sha256": "d6f391ee52295a1d273fcca321302888f79a386f15e3c19662edac8af3c68e3c",
+      "workspace_matches_reviewed_snapshot": true
+    },
+    {
+      "path": "scripts/tests/guild_defence.test.mjs",
+      "sha256": "3b9a31b139cee918b16890f5fd6a142778af5e5923c85a3afcc2294f0f6967f7",
+      "workspace_matches_reviewed_snapshot": true
+    },
+    {
+      "path": "scripts/tests/test_gen_behavior.py",
+      "sha256": "67b8683df7d611a51899da0e84d2668c25abe86101ca132be32bcb4db62e42fd",
+      "workspace_matches_reviewed_snapshot": true
+    },
+    {
+      "path": "scripts/tests/entity_scan_fallbacks.test.mjs",
+      "sha256": "0f9f7292f5065e4991c09eb0883717d8a64dca2d3f81e746c575d4154dd089f4",
+      "workspace_matches_reviewed_snapshot": true
+    },
+    {
+      "path": "scripts/tests/guild_training.test.mjs",
+      "sha256": "051482e196aa4ca027579edf643713f49adedffccaccf6bb3db08d90c049f467",
+      "workspace_matches_reviewed_snapshot": true
+    }
+  ],
+  "earlier_agent_runs": {
+    "baseline_generator_test_count": 6,
+    "baseline_run_log_saved": false,
+    "note": "The agent baseline was observed only in tool output. Saved final snapshot logs above are the retained evidence; no baseline log was reconstructed."
+  },
+  "third_party_review": {
+    "concrete_blocker_reported": false,
+    "repeated_add_semantics": "Geometry reviewer verified that adding an already-active component group reinitializes its components.",
+    "source": "https://learn.microsoft.com/en-us/minecraft/creator/reference/content/entityreference/examples/eventactions/add_component_group?view=minecraft-bedrock-stable"
+  },
+  "limits": [
+    "Tests execute production control flow and emitted component/filter contracts at mocked Bedrock boundaries.",
+    "No Bedrock engine AI selection, target-memory clearing, actual damage, chunk loading, collision, or crash durability is established.",
+    "Short offender-to-defender provocation is intentionally session-local and clears on reload; durable warrant records remain with the existing bounty owner.",
+    "Roster identity/duplicate repair and non-Guild social targeting remain outside this pass.",
+    "Full-render completion and visual fidelity were not assessed in this defence evidence review."
+  ]
+}

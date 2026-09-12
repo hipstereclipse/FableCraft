@@ -1,0 +1,126 @@
+{
+  "scope": "Actual extracted production callbacks over generated Guild/Chamber voxels in solid stone; no engine execution.",
+  "scheduled": {
+    "done": true,
+    "writes": 0,
+    "jobs": 1
+  },
+  "probes": {
+    "entryFloor": {
+      "at": [
+        27,
+        40,
+        16
+      ],
+      "block": [
+        "minecraft:air",
+        {}
+      ]
+    },
+    "entryBelow": {
+      "at": [
+        27,
+        39,
+        16
+      ],
+      "block": [
+        "minecraft:stone_bricks",
+        {}
+      ]
+    },
+    "firstSlab": {
+      "at": [
+        27,
+        40,
+        15
+      ],
+      "block": [
+        "minecraft:stone_brick_slab",
+        {}
+      ]
+    },
+    "causewayFloor": {
+      "at": [
+        26,
+        19,
+        16
+      ],
+      "block": [
+        "minecraft:stone_bricks",
+        {}
+      ]
+    },
+    "causewayFeet": {
+      "at": [
+        26,
+        20,
+        16
+      ],
+      "block": [
+        "minecraft:air",
+        {}
+      ]
+    },
+    "cullisDeck": {
+      "at": [
+        26,
+        22,
+        42
+      ],
+      "block": [
+        "minecraft:sea_lantern",
+        {}
+      ]
+    },
+    "cullisFeet": {
+      "at": [
+        26,
+        23,
+        42
+      ],
+      "block": [
+        "minecraft:air",
+        {}
+      ]
+    },
+    "registeredCullisFeet": {
+      "at": [
+        26,
+        25,
+        42
+      ],
+      "block": [
+        "minecraft:air",
+        {}
+      ]
+    }
+  },
+  "cullis": [
+    {
+      "name": "Chamber of Fate",
+      "at": {
+        "x": 26.5,
+        "y": 25,
+        "z": 42.5
+      }
+    }
+  ],
+  "interrupted": {
+    "done": true,
+    "writes": 50,
+    "retryJobs": 0
+  },
+  "unavailable": {
+    "done": true,
+    "unwrittenBlock": [
+      "minecraft:stone",
+      {}
+    ],
+    "retryJobs": 0,
+    "extraWrites": 0
+  },
+  "cullisConfigured": {
+    "registered": false,
+    "atActualDaisFeet": true
+  }
+}

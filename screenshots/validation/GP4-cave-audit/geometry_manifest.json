@@ -1,0 +1,21 @@
+{
+  "generator_sha256": "27ec3fd56c8d54049eff74ee4ede85d20f6f4ad6361c746be1d6962c87a779eb",
+  "geometry": {
+    "guild_hall": {
+      "size": [
+        122,
+        30,
+        108
+      ],
+      "sha256": "2771a955a8974dd214ba5d23cf6715580ed8754be98fcc78bfb037909742b248"
+    },
+    "chamber_of_fate": {
+      "size": [
+        31,
+        20,
+        31
+      ],
+      "sha256": "c0596dbcb1ffeaa9f4660da234883fc1032e51ab6369f7d28fe883d5fcc5c1aa"
+    }
+  }
+}

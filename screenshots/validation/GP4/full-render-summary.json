@@ -1,0 +1,13 @@
+{
+  "command": "gen_screenshots.main() from GP4-reviewed-snapshot with fc_lib.SHOTS redirected before import",
+  "output": "tmp/conformance/GP4-full-screenshots",
+  "exit_code": 0,
+  "png_counts": {
+    "gallery": 13,
+    "items": 55,
+    "mobs": 51,
+    "recipes": 130,
+    "structures": 32
+  },
+  "scope": "Full all-category pipeline; C2 separately covers all 35 structures."
+}

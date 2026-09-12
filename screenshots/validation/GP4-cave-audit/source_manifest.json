@@ -1,0 +1,28 @@
+{
+  "scope": "Actual production callback excerpts used by the audit. Source files may also contain unrelated concurrent work; callback hashes identify the audited behavior.",
+  "files": {
+    "packs/Fablecraft_BP/scripts/main.js": "c97a8188ebf6c78f6a50b03dc7600f14e0dcf731b60337afd823d10e773201f5",
+    "scripts/gen_structures.py": "27ec3fd56c8d54049eff74ee4ede85d20f6f4ad6361c746be1d6962c87a779eb",
+    "scripts/_verify_caves.py": "8d3daeaa89705eac0e7344bb507b087d0be8cd45652f261651b1808e0da100c7"
+  },
+  "callbacks": {
+    "carveGuildCaves": {
+      "sha256": "1f7a4d4ac272a7332887cf7bac22703009e20c09fc9707ccde9f2e474293d295",
+      "start_line": 580
+    },
+    "placeGuildAnnexes": {
+      "sha256": "4fda2862846f492263f80ea6211db5a82dd711e6d37bf4e7f67fb9ce528c6b44",
+      "start_line": 541
+    },
+    "hollowChamber": {
+      "sha256": "f6d80a2da216619d7d2b330985681963d04846c55b7f8a3ebe3942a62615afcc",
+      "start_line": 738
+    },
+    "isCullisConfigured": {
+      "sha256": "3f40cc64af1b3370ab0bf20c48c1bc1391372bb3d22888de6f1f8362607384d0",
+      "start_line": 4188
+    }
+  },
+  "source_callbacks_sha256": "a20330e768f5d29214d8fd75a9810c2f08d70e8c0261c197d2960f3be180a0c1",
+  "baseline_commit": "60513c808c2c3f1dc5de14ce497770aa7c9d6cf2"
+}

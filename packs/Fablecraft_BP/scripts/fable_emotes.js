@@ -8,6 +8,7 @@ import {
 } from "@minecraft/server";
 import { FABLE_EMOTES, FABLE_EMOTE_BY_ID } from "./fable_emote_registry.js";
 import { notifyGuildTrainingReaction } from "./guild_training.js";
+import { provokeGuildDefence } from "./guild_defence.js";
 
 const CAMERA_TICKS = 40;
 const SOCIAL_RANGE = 12;
@@ -245,7 +246,8 @@ function forceThirdPerson(player, ticks = CAMERA_TICKS) {
   }, ticks);
 }
 
-function triggerNpcEvent(npc, eventName) {
+function triggerNpcEvent(npc, eventName, player = null) {
+  if (eventName === "fc:react_attack" && provokeGuildDefence(npc, player)) return;
   try {
     npc.triggerEvent(eventName);
     notifyGuildTrainingReaction(npc, eventName);
@@ -304,7 +306,7 @@ function chooseNpcReaction(player, npc, emote, success, axes) {
     return "laugh_at_player";
   }
   if (isGuard(npc) && (emote.category === "rude" || emote.category === "criminal")) {
-    triggerNpcEvent(npc, "fc:react_attack");
+    triggerNpcEvent(npc, "fc:react_attack", player);
     playNpcReaction(npc, "angry");
     finePlayer(player, npc);
     return "guard_attack";
@@ -383,7 +385,7 @@ function executeSteal(player) {
   }
   player.sendMessage("§cThe mark catches your hand.");
   for (const guard of nearbyNpcs(player, 16).filter(isGuard)) {
-    triggerNpcEvent(guard, "fc:react_attack");
+    triggerNpcEvent(guard, "fc:react_attack", player);
     playNpcReaction(guard, "angry");
     finePlayer(player, guard, 100);
   }
@@ -412,7 +414,7 @@ function executeLockpick(player) {
       // Sound is cosmetic.
     }
     for (const guard of nearbyNpcs(player, 12).filter(isGuard)) {
-      triggerNpcEvent(guard, "fc:react_attack");
+      triggerNpcEvent(guard, "fc:react_attack", player);
       finePlayer(player, guard, 75);
     }
     audit("LOCKPICK_FAIL", `${player.name} at ${key}`);

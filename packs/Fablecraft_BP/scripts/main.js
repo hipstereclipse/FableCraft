@@ -23,6 +23,9 @@ import {
   createGuildTrainingController, guildTrainingSession, bindGuildTrainingReactions,
   notifyGuildTrainingReaction,
 } from "./guild_training.js";
+import {
+  createGuildDefenceController, bindGuildDefence, isGuildDefender, provokeGuildDefence,
+} from "./guild_defence.js";
 import "./wd/main.js";
 import { openHeroMenu as wdOpenHeroMenu } from "./wd/herobook.js";
 import { LEGACY_MENU } from "./wd/menu_bridge.js";
@@ -966,7 +969,7 @@ let sparTurn = 0;
 const guildTraining = createGuildTrainingController({
   now: TICKS,
   session: () => guildTrainingSession(TICKS(), world.getTimeOfDay()),
-  canTrain: (entity) => !entity.hasTag("fc_aggravated") && !entity.hasTag("fc_guild_following")
+  canTrain: (entity) => !entity.hasTag("fc_aggravated") && !entity.hasTag("fc_guild_defending") && !entity.hasTag("fc_guild_following")
     && !isMarried(entity) && isInsideGuild(entity.location, entity.dimension.id),
 });
 bindGuildTrainingReactions(guildTraining);
@@ -1401,8 +1404,9 @@ world.afterEvents.entityDie.subscribe((ev) => {
   const src = ev.damageSource;
   let killer = src?.damagingEntity;
   if (killer?.typeId !== "minecraft:player" && src?.damagingProjectile) {
-    // projectile owner not exposed pre-2.0; approximate via nearest player
-    killer = nearestPlayer(dead.dimension, dead.location, 48);
+    // The pinned 2.1 API exposes projectile ownership, as in entityHurt above.
+    // A nearby visitor is never evidence of responsibility for a killing shot.
+    try { killer = src.damagingProjectile.getComponent("minecraft:projectile")?.owner; } catch { }
   }
   if (dead.typeId === "minecraft:player") { P.set(dead, "fc_mult", 0); return; }
   if (killer?.typeId !== "minecraft:player") return;
@@ -1444,17 +1448,6 @@ world.afterEvents.entityDie.subscribe((ev) => {
     system.runTimeout(() => offerAeonsChoice(p), 40);
   }
 });
-
-function nearestPlayer(dim, loc, range) {
-  let best = null, bd = range * range;
-  for (const pl of world.getPlayers()) {
-    if (pl.dimension.id !== dim.id) continue;
-    const dx = pl.location.x - loc.x, dz = pl.location.z - loc.z;
-    const d = dx * dx + dz * dz;
-    if (d < bd) { bd = d; best = pl; }
-  }
-  return best;
-}
 
 // The iconic choice: keep the Sword of Aeons, or cast it into the vortex.
 function offerAeonsChoice(p) {
@@ -4420,7 +4413,7 @@ function boastGatherCrowd(p, base) {
   } catch { return; }
   folk = folk.filter((e) => e.typeId && e.typeId.startsWith("fc:")
     && e.typeId !== "fc:oracle" && e.typeId !== "fc:demon_door" && e.typeId !== "fc:maze"
-    && !e.hasTag("fc_aggravated") && !e.hasTag("fc_guild_following")
+    && !e.hasTag("fc_aggravated") && !e.hasTag("fc_guild_defending") && !e.hasTag("fc_guild_following")
     && !guildTraining.reserved(e));
   folk = folk.slice(0, renown < 30 ? 2 : 24);            // almost nobody for an unknown
   const fx0 = base.x + 8, fz0 = base.z + 31;             // lawn just before the stage
@@ -4974,7 +4967,7 @@ function activateLocalGuards(p, record, mode) {
   try {
     naturalGuards = p.dimension.getEntities({
       location: p.location, maxDistance: 32, type: BOUNTY_GUARD_TYPE[record.town],
-    }).filter((guard) => !assignedIds.has(guard.id))
+    }).filter((guard) => !assignedIds.has(guard.id) && !isGuildDefender(guard))
       .sort((a, b) => Math.hypot(a.location.x - p.location.x, a.location.z - p.location.z)
         - Math.hypot(b.location.x - p.location.x, b.location.z - p.location.z));
   } catch { }
@@ -5115,12 +5108,12 @@ function clearSettlementBounty(p, placeKey, reason) {
   const records = getBounties(p);
   const record = records[placeKey];
   if (!record) return;
-  if (record.town === GUILD_TOWN_KEY) calmGuildDefenders(p);
-  else removeBountyGuards(p, record);
+  if (record.town !== GUILD_TOWN_KEY) removeBountyGuards(p, record);
   delete records[placeKey];
   setBounties(p, records);
   bountyDemand.delete(p.id);
   syncWantedTags(p, records);
+  if (record.town === GUILD_TOWN_KEY) calmGuildDefenders(p);
   refreshWantedHud(p, dominantBounty(records));
   if (reason) p.sendMessage(msg("legacy.clear_settlement_bounty_01", { v0: placeName(record.name), v1: reason }));
 }
@@ -5196,7 +5189,7 @@ system.runInterval(() => {
         changed = true;
       }
       if (now >= record.expiresAtMs) {
-        if (record.town === GUILD_TOWN_KEY) calmGuildDefenders(p);
+        if (record.town === GUILD_TOWN_KEY) guildDefence.forgive(p);
         else removeBountyGuards(p, record);
         delete records[key];
         bountyDemand.delete(p.id);
@@ -5216,7 +5209,6 @@ system.runInterval(() => {
     // Enforce each warrant whose jurisdiction the Hero currently stands in.
     for (const record of Object.values(records)) {
       if (record.town === GUILD_TOWN_KEY) {
-        if (isInsideGuild(p.location, p.dimension.id)) rallyGuildDefenders(p);
         continue;
       }
       if (!locationInsideSettlement(p.location, p.dimension.id, record, 10)) continue;
@@ -5244,6 +5236,7 @@ system.runInterval(() => {
       }
     }
   }
+  guildDefence.reconcile();
 }, 20);
 
 function factionKillHooks(p, dead, fam) {
@@ -5297,6 +5290,7 @@ system.runInterval(() => {
     } catch { }
     const wanted = wantedByDimension.get(p.dimension.id) ?? [];
     for (const guard of guards) {
+      if (isGuildDefender(guard)) continue;
       const town = GUARD_TOWN[guard.typeId];
       if (!town) continue;
       const hasNearbyWarrant = wanted.some(({ player, record }) => record.town === town
@@ -5338,19 +5332,21 @@ function isGuildDefenderType(e) {
       || entityHasFamily(e, "fc_guild") || entityHasFamily(e, "fc_guard");
   } catch { return false; }
 }
-function aggravate(npc, event, ticks) {
+function aggravate(npc, event, ticks, offender = null) {
+  if (event === "fc:react_attack" && provokeGuildDefence(npc, offender, ticks)) return;
   interruptGuildTraining(npc);
   try { npc.triggerEvent(event); } catch { }
   try { npc.addTag("fc_aggravated"); } catch { }
   try { npc.setDynamicProperty("fc_aggro_until", TICKS() + ticks); } catch { }
 }
 function calmNpc(npc) {
+  if (isGuildDefender(npc)) { guildDefence.reconcile(); return; }
   try { npc.triggerEvent("fc:react_neutral"); notifyGuildTrainingReaction(npc, "fc:react_neutral"); } catch { }
   try { npc.removeTag("fc_aggravated"); } catch { }
   try { npc.setDynamicProperty("fc_aggro_until", undefined); } catch { }
 }
 // When a civilian is struck, any guard or guild defender nearby comes to enforce.
-function alertProtectors(victim) {
+function alertProtectors(victim, offender) {
   let guards = [];
   try {
     guards = victim.dimension.getEntities({
@@ -5358,7 +5354,7 @@ function alertProtectors(victim) {
     });
   } catch { }
   for (const g of guards) {
-    if (isGuildDefenderType(g)) aggravate(g, "fc:react_attack", GUARD_AGGRO_TICKS);
+    if (isGuildDefenderType(g)) aggravate(g, "fc:react_attack", GUARD_AGGRO_TICKS, offender);
   }
 }
 function isInsideGuild(loc, dimensionId) {
@@ -5387,7 +5383,7 @@ function handlePlayerAssault(p, tgt) {
   if (assaultable) {
     const fightsBack = isGuildDefenderType(tgt) || entityHasFamily(tgt, "fc_ally");
     aggravate(tgt, fightsBack ? "fc:react_attack" : "fc:react_flee",
-      fightsBack ? GUARD_AGGRO_TICKS : CIVILIAN_FLEE_TICKS);
+      fightsBack ? GUARD_AGGRO_TICKS : CIVILIAN_FLEE_TICKS, p);
   }
 
   const cdKey = `${p.id}|${tgt.id}`;
@@ -5399,9 +5395,9 @@ function handlePlayerAssault(p, tgt) {
   // Every blow adds to your bounty (severity-scaled), tops up the wanted
   // countdown and rouses the local enforcers — towns and the Guild alike.
   if (crimeKind) {
-    if (!accrueCrime(p, tgt, "punch")) alertProtectors(tgt);
+    if (!accrueCrime(p, tgt, "punch")) alertProtectors(tgt, p);
   } else {
-    alertProtectors(tgt);         // ally / wilderness fallback (no warrant applies)
+    alertProtectors(tgt, p);      // ally / wilderness fallback (no warrant applies)
   }
 }
 
@@ -5411,25 +5407,43 @@ function handlePlayerAssault(p, tgt) {
 // roused by the unified bounty system: a Guild warrant rallies them, and they
 // stand down when the warrant is paid off or its countdown fades.
 // ---------------------------------------------------------------------------
-function guildDefendersNear(p, tags) {
+function guildDefenders() {
   const b = guildBounds();
   if (!b) return [];
-  const opts = {
+  const found = new Map();
+  const collect = (dim, opts) => {
+    try { for (const e of dim.getEntities(opts)) if (isGuildDefender(e)) found.set(e.id, e); } catch { }
+  };
+  collect(OW(), {
     location: { x: (b.minX + b.maxX) / 2, y: b.base.y, z: (b.minZ + b.maxZ) / 2 },
     maxDistance: Math.max(b.maxX - b.minX, b.maxZ - b.minZ),
     families: ["fc_friendly"],
-  };
-  if (tags) opts.tags = tags;
-  let ents = [];
-  try { ents = p.dimension.getEntities(opts); } catch { }
-  return ents.filter(isGuildDefenderType);
+  });
+  // A spouse or other resident may be outside the campus. Reconcile its old
+  // combat group when loaded, without creating or relocating any resident.
+  for (const p of world.getPlayers()) collect(p.dimension, {
+    location: p.location, maxDistance: 80, families: ["fc_friendly"],
+  });
+  return [...found.values()];
 }
-function rallyGuildDefenders(p) {
-  for (const e of guildDefendersNear(p)) aggravate(e, "fc:react_attack", 200);
+function hasGuildWarrant(p) {
+  return Object.values(getBounties(p)).some(record => record && record.town === GUILD_TOWN_KEY
+    && record.amount > 0 && (!(record.expiresAtMs > 0) || record.expiresAtMs > nowMs()));
+}
+const guildDefence = createGuildDefenceController({
+  now: TICKS, players: () => world.getPlayers(), defenders: guildDefenders,
+  inGuild: isInsideGuild, hasWarrant: hasGuildWarrant, interruptTraining: interruptGuildTraining,
+});
+bindGuildDefence(guildDefence);
+function rallyGuildDefenders() {
+  guildDefence.reconcile();
 }
 function calmGuildDefenders(p) {
-  for (const e of guildDefendersNear(p, ["fc_aggravated"])) calmNpc(e);
+  guildDefence.forgive(p);
+  guildDefence.reconcile();
 }
+// One aggregate pass handles all offenders, including portal departure/return.
+system.runInterval(() => guildDefence.reconcile(), 10);
 
 // Aggravated NPCs return to their daily routine once enough time passes without
 // fresh provocation. Guild defenders are kept hot by the active Guild warrant in

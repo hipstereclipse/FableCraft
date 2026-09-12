@@ -18,10 +18,10 @@ with exploration, reward collection and a reliable portal back to the source.
 This overrides the old instruction to start W3.5 or keep adding unrelated POIs.
 Read docs/GUILD_DEMON_PRIORITIES.md first; it is the active execution queue.
 
-Current checkpoint: DP2 — limited original-image comparison and floor-only Library Arcanum refinement
-Last resolved prior commit: 60513c808c2c3f1dc5de14ce497770aa7c9d6cf2 (pushed).
-Containing commit: TLC Conformance — DP2: soften Arcanum paths from the 2005 reference.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — DP2: soften Arcanum paths from the 2005 reference'.
+Current checkpoint: GP4 — Guild defence and crime attribution repaired; cave lifecycle and route defects reproduced
+Last resolved prior commit: 91f46b92d324e2e53dae5493bc298648e8e10e31 (pushed).
+Containing commit: TLC Conformance — GP4: target Guild defence at actual offenders.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP4: target Guild defence at actual offenders'.
 Never invent a self-hash. Read the supplemental priority ledger for implementation
 scope, known defects and unrun engine checks.
 
@@ -63,14 +63,30 @@ GP2 fd95ef1: continuous two-wide half-block lobby/Maze stairs and gallery/dining
 connection; 6 final-voxel regression groups. GP3 a61ab80: session/cleanup/interrupt
 controller, 18 runtime groups and explicit roaming component restoration; one
 checked station acquisition remains an adaptation, walking to marks unresolved.
-Only 3 apprentice BP outputs changed. N5/N7 resident repair and N6 innocent-player
-targeting are the highest next NPC risks. Existing GUILD anchors including Maze
+Only 3 apprentice BP outputs changed. GP4 adds an offender-specific defence controller and actual projectile-owner
+attribution; N5/N7 resident identity/repair remains open. Its transient
+provocations clear on reload, while durable warrants and spouse fields persist. Existing GUILD anchors including Maze
 (46,12,70) remain unchanged; reanchor is not geometry migration.
 
 Current C2 covers 35 assets/renders (28 scatter/3 fixed/4 legacy), and the full
-all-category screenshot pipeline has 32 structure cards. GP2 passed28 gates,
-GP3 passed 29 gates; DP1 passed all 34 gates. All captures/tests are offline,
+all-category screenshot pipeline has 32 structure cards. GP2 passed 28 gates,
+GP3 passed 29 gates; DP1/DP2 passed all 34 gates; GP4 passed all 35 gates
+and explicit lint/spells/ESM syntax/Guild diagnostics. Full GP4 rendering
+completed (51 mobs, 55 items, 130 recipes, 32 structures, 13 galleries). All captures/tests are offline,
 including mocked actual runtime callbacks; no live engine access has occurred.
+DP2 91f46b9 inspects a native 207x153 gameplay screenshot in the 2005 Prima guide
+and changes 426 local-y2 surface materials to irregular earth/grass; all other
+voxels and every portal/reward/version contract remain unchanged. External
+reference images remain ignored. Matching player-height/layout/lighting review
+remains open; the limited original-image comparison has run.
+
+GP4's actual-callback cave audit (docs/GUILD_CAVE_REVIEW.md) proves that the
+existing caves_done flag is set before the first write and prevents retries
+on interrupted/unloaded carving. No maintenance caller retries annex placement.
+The library threshold floor is missing, the Chamber's registered Cullis feet
+are two blocks too high, and its hill has three full-block rises. These cave
+defects are not fixed by the defence pass. Never trust the older mirrored
+_verify_caves PASS as actual route proof or blanket-recarve occupied old worlds.
 
 The GP/DP priorities are supplemental, tracked separately from C3's original 45
 leaves; do not inflate the old scoreboard or mark these new deliverables done.
@@ -142,8 +158,10 @@ and syntax checks. This docs-only priority checkpoint saves its validation under
 screenshots/validation/PRIORITY/: all 27 gates plus explicit lint/spells pass.
 New renders are not applicable. No new in-engine checks or Guild/portal
 implementation passes are claimed.
-C2 covers 34 assets/renders (28 scatter/two fixed/four legacy), 15 contract groups
-and nine placement cases. Current asset/render hashes match. Full all-category
+At the W3.4 baseline, C2 covered 34 assets/renders
+(28 scatter/two fixed/four legacy), 15 contract groups
+and nine placement cases. DP1 later raised C2 to 35 assets/renders; current
+asset/render hashes match. Full all-category
 pipelines ran through W3.4 in tmp/conformance/<ID>-full-screenshots; W3.4 renders
 31 structure cards. Logs, audits, primary views and explicitly labeled cutaways
 are in screenshots/validation/<ID>. These are offline evidence, never engine passes.
@@ -157,12 +175,12 @@ screenshots/validation/W3.3/remote-run.json. Inspect newest workflow's actual he
 All current world rows remain in-progress for manual/reference work, not done.
 
 Next three actions:
-1. Complete the GP4 Guild defence pass with offender-specific attribution and
-   aggregate warrant handling, including portal departure/return and cleanup.
-2. Follow the integrated cave lifecycle/route audit; preserve saved-world work
-   and never interpret a queued carve as verified completion.
-3. Run base/domain gates, inspect renders/reference comparisons, update evidence
-   and handoff, commit the coherent pass and push; engine checks remain unrun.
+1. Inspect exact-head CI, then read docs/GUILD_CAVE_REVIEW.md and fix the cave
+   completion/retry lifecycle through its owner; preserve occupied legacy worlds.
+2. Couple the library threshold floor and Chamber Cullis height to actual route
+   tests, then address persistent resident identity rather than proximity repair.
+3. Keep Guild/door refinement alternating with reference review, base/domain gates,
+   full renders as applicable, evidence, fresh handoff, separate commit and push.
    At context limits print this continuation prompt verbatim.
 
 Landmines: hundreds of apparent edits are CRLF noise. Never git add -A, commit -a,

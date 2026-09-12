@@ -90,16 +90,59 @@
           "entity_types": [
             {
               "filters": {
-                "test": "is_family",
-                "subject": "other",
-                "value": "player"
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "player"
+                  },
+                  {
+                    "test": "has_tag",
+                    "subject": "other",
+                    "value": "fc_guild_offender"
+                  }
+                ]
               },
-              "max_dist": 80
+              "max_dist": 80,
+              "reevaluate_description": true
             }
           ]
         },
         "minecraft:behavior.melee_box_attack": {
           "priority": 2,
+          "speed_multiplier": 1.35,
+          "track_target": true
+        }
+      },
+      "fc:guild_defence": {
+        "minecraft:behavior.nearest_attackable_target": {
+          "priority": 0,
+          "must_see": false,
+          "reselect_targets": true,
+          "within_radius": 80.0,
+          "entity_types": [
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "player"
+                  },
+                  {
+                    "test": "has_tag",
+                    "subject": "other",
+                    "value": "fc_guild_offender"
+                  }
+                ]
+              },
+              "max_dist": 80,
+              "reevaluate_description": true
+            }
+          ]
+        },
+        "minecraft:behavior.melee_box_attack": {
+          "priority": 0,
           "speed_multiplier": 1.35,
           "track_target": true
         }
@@ -175,71 +218,172 @@
     },
     "events": {
       "fc:react_flee": {
-        "remove": {
-          "component_groups": [
-            "fc:reaction_flee",
-            "fc:reaction_follow",
-            "fc:reaction_watch",
-            "fc:reaction_attack"
-          ]
-        },
-        "add": {
-          "component_groups": [
-            "fc:reaction_flee"
-          ]
-        }
+        "sequence": [
+          {
+            "remove": {
+              "component_groups": [
+                "fc:reaction_flee",
+                "fc:reaction_follow",
+                "fc:reaction_watch",
+                "fc:reaction_attack"
+              ]
+            },
+            "add": {
+              "component_groups": [
+                "fc:reaction_flee"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "has_tag",
+              "subject": "self",
+              "value": "fc_guild_defending"
+            },
+            "add": {
+              "component_groups": [
+                "fc:guild_defence"
+              ]
+            }
+          }
+        ]
       },
       "fc:react_follow": {
-        "remove": {
-          "component_groups": [
-            "fc:reaction_flee",
-            "fc:reaction_follow",
-            "fc:reaction_watch",
-            "fc:reaction_attack"
-          ]
-        },
-        "add": {
-          "component_groups": [
-            "fc:reaction_follow"
-          ]
-        }
+        "sequence": [
+          {
+            "remove": {
+              "component_groups": [
+                "fc:reaction_flee",
+                "fc:reaction_follow",
+                "fc:reaction_watch",
+                "fc:reaction_attack"
+              ]
+            },
+            "add": {
+              "component_groups": [
+                "fc:reaction_follow"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "has_tag",
+              "subject": "self",
+              "value": "fc_guild_defending"
+            },
+            "add": {
+              "component_groups": [
+                "fc:guild_defence"
+              ]
+            }
+          }
+        ]
       },
       "fc:react_watch": {
-        "remove": {
-          "component_groups": [
-            "fc:reaction_flee",
-            "fc:reaction_follow",
-            "fc:reaction_watch",
-            "fc:reaction_attack"
-          ]
-        },
-        "add": {
-          "component_groups": [
-            "fc:reaction_watch"
-          ]
-        }
+        "sequence": [
+          {
+            "remove": {
+              "component_groups": [
+                "fc:reaction_flee",
+                "fc:reaction_follow",
+                "fc:reaction_watch",
+                "fc:reaction_attack"
+              ]
+            },
+            "add": {
+              "component_groups": [
+                "fc:reaction_watch"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "has_tag",
+              "subject": "self",
+              "value": "fc_guild_defending"
+            },
+            "add": {
+              "component_groups": [
+                "fc:guild_defence"
+              ]
+            }
+          }
+        ]
       },
       "fc:react_attack": {
+        "sequence": [
+          {
+            "remove": {
+              "component_groups": [
+                "fc:reaction_flee",
+                "fc:reaction_follow",
+                "fc:reaction_watch",
+                "fc:reaction_attack"
+              ]
+            },
+            "add": {
+              "component_groups": [
+                "fc:reaction_attack"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "has_tag",
+              "subject": "self",
+              "value": "fc_guild_defending"
+            },
+            "add": {
+              "component_groups": [
+                "fc:guild_defence"
+              ]
+            }
+          }
+        ]
+      },
+      "fc:react_neutral": {
+        "sequence": [
+          {
+            "remove": {
+              "component_groups": [
+                "fc:reaction_flee",
+                "fc:reaction_follow",
+                "fc:reaction_watch",
+                "fc:reaction_attack"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "has_tag",
+              "subject": "self",
+              "value": "fc_guild_defending"
+            },
+            "add": {
+              "component_groups": [
+                "fc:guild_defence"
+              ]
+            }
+          }
+        ]
+      },
+      "fc:guild_defence_start": {
         "remove": {
           "component_groups": [
-            "fc:reaction_flee",
-            "fc:reaction_follow",
-            "fc:reaction_watch",
+            "fc:guild_defence",
             "fc:reaction_attack"
           ]
         },
         "add": {
           "component_groups": [
-            "fc:reaction_attack"
+            "fc:guild_defence"
           ]
         }
       },
-      "fc:react_neutral": {
+      "fc:guild_defence_stop": {
         "remove": {
           "component_groups": [
-            "fc:reaction_flee",
-            "fc:reaction_follow",
-            "fc:reaction_watch",
+            "fc:guild_defence",
             "fc:reaction_attack"
           ]
         }

@@ -102,6 +102,65 @@ class BehaviorRegression(unittest.TestCase):
             self.assertFalse(live['minecraft:physics']['has_gravity'])
             self.assertFalse(live['minecraft:physics']['has_collision'])
 
+    def test_guild_defence_filters_only_offenders_and_preserves_other_npcs(self):
+        affected = {'guildmaster', 'maze', 'guild_apprentice_might', 'guild_apprentice_skill',
+                    'guild_apprentice_will', 'guard_bowerstone'}
+        for mob in MOBS:
+            gb.emit_entity(mob)
+            data = json.loads((self.bp / 'entities' / (mob['id'] + '.json')).read_text())['minecraft:entity']
+            groups = data.get('component_groups', {})
+            if mob['id'] not in affected:
+                self.assertNotIn('fc:guild_defence', groups)
+                continue
+            attack = groups['fc:guild_defence']['minecraft:behavior.nearest_attackable_target']
+            target = attack['entity_types'][0]
+            self.assertIn({'test': 'has_tag', 'subject': 'other', 'value': 'fc_guild_offender'}, target['filters']['all_of'])
+            self.assertTrue(target['reevaluate_description'])
+            self.assertEqual(groups['fc:guild_defence']['minecraft:behavior.melee_box_attack']['priority'], 0)
+            if mob['id'] == 'guard_bowerstone':
+                self.assertIn('fc_guild_guard', json.dumps(groups['fc:reaction_attack']))
+                self.assertIn('fc_guild_offender', json.dumps(groups['fc:guild_defence']['minecraft:behavior.hurt_by_target']))
+
+    def test_guild_defence_transitions_restore_base_and_keep_follow_and_watch(self):
+        affected = {'guildmaster', 'maze', 'guild_apprentice_might', 'guild_apprentice_skill',
+                    'guild_apprentice_will', 'guard_bowerstone'}
+        for mob in (m for m in MOBS if m['id'] in affected):
+            with self.subTest(mob=mob['id']):
+                gb.emit_entity(mob)
+                data = json.loads((self.bp / 'entities' / (mob['id'] + '.json')).read_text())['minecraft:entity']
+                groups, live, active, tags = data['component_groups'], dict(data['components']), set(), set()
+                def apply(action):
+                    if 'sequence' in action:
+                        for part in action['sequence']:
+                            apply(part)
+                        return
+                    if 'filters' in action and action['filters']['value'] not in tags:
+                        return
+                    for group in action.get('remove', {}).get('component_groups', []):
+                        if group in active:
+                            for key in groups[group]:
+                                live.pop(key, None)
+                            active.remove(group)
+                    for group in action.get('add', {}).get('component_groups', []):
+                        active.add(group)
+                        live.update(groups[group])
+                apply(data['events']['fc:react_follow'])
+                tags.add('fc_guild_defending')
+                apply(data['events']['fc:guild_defence_start'])
+                self.assertIn('minecraft:behavior.follow_mob', live)
+                # Social replacement during defence must not erase its filter.
+                apply(data['events']['fc:react_watch'])
+                self.assertEqual(live['minecraft:behavior.nearest_attackable_target'], groups['fc:guild_defence']['minecraft:behavior.nearest_attackable_target'])
+                tags.remove('fc_guild_defending')
+                apply(data['events']['fc:guild_defence_stop'])
+                apply(data['events']['fc:guild_defence_stop'])
+                self.assertIn('fc:reaction_watch', active)
+                for key in ('minecraft:behavior.nearest_attackable_target', 'minecraft:behavior.melee_box_attack', 'minecraft:behavior.hurt_by_target'):
+                    if key in data['components']:
+                        self.assertEqual(live[key], data['components'][key])
+                    else:
+                        self.assertNotIn(key, live)
+
     def test_all_item_formats(self):
         items = fc_data.all_items()
         self.assertGreaterEqual(len(items), 194)

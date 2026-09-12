@@ -2,7 +2,8 @@
 
 Baseline audited on 2026-09-12. This is an offline source/control-flow audit;
 Bedrock movement, collision, animation blending, saved-world loading and damage
-checks remain **unrun**. No NPC behavior is fixed by this document. The priority
+checks remain **unrun**. This document preserves GP1 baseline findings. Later fixes are tracked in
+[GUILD_TRAINING.md](GUILD_TRAINING.md) and [GUILD_DEFENCE.md](GUILD_DEFENCE.md). The priority
 queue is [GUILD_DEMON_PRIORITIES.md](GUILD_DEMON_PRIORITIES.md).
 
 The baseline probe executes the actual training/roster section of `main.js` in a

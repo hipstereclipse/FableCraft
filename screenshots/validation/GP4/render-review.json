@@ -1,0 +1,49 @@
+{
+  "full_pipeline": {
+    "command": "gen_screenshots.main() from GP4-reviewed-snapshot with fc_lib.SHOTS redirected before import",
+    "output": "tmp/conformance/GP4-full-screenshots",
+    "exit_code": 0,
+    "png_counts": {
+      "gallery": 13,
+      "items": 55,
+      "mobs": 51,
+      "recipes": 130,
+      "structures": 32
+    },
+    "scope": "Full all-category pipeline; C2 separately covers all 35 structures."
+  },
+  "cards": [
+    {
+      "file": "screenshots/validation/GP4/guildmaster-static-card.png",
+      "sha256": "d47446be216fdc6c693b46a8675f9d29bd0a6306a567b4dfc64a9262957a4066",
+      "same_as_DP2_static_model_card": true
+    },
+    {
+      "file": "screenshots/validation/GP4/maze-static-card.png",
+      "sha256": "c305752ba491fa20a9214b519583b479e74b68af55015e1e99ba8dbf86fb8bef",
+      "same_as_DP2_static_model_card": true
+    },
+    {
+      "file": "screenshots/validation/GP4/guard_bowerstone-static-card.png",
+      "sha256": "2f53245af6542ed000455cb3c6a458e77d58ebd222e695fad4a53d235cafe7fc",
+      "same_as_DP2_static_model_card": true
+    },
+    {
+      "file": "screenshots/validation/GP4/guild_apprentice_might-static-card.png",
+      "sha256": "cc419c2e334627f6b4880e47f7a2fad7060846d307f8e8103b29d1e44ab2a394",
+      "same_as_DP2_static_model_card": true
+    },
+    {
+      "file": "screenshots/validation/GP4/guild_apprentice_skill-static-card.png",
+      "sha256": "941a203391cfb60febed732bfb914175da90e9ab612d240d7348246f2262a07e",
+      "same_as_DP2_static_model_card": true
+    },
+    {
+      "file": "screenshots/validation/GP4/guild_apprentice_will-static-card.png",
+      "sha256": "f9f5241caeb16e842b7724cb120f4c18e8ddba35e054e135a1916c2582cd9e2f",
+      "same_as_DP2_static_model_card": true
+    }
+  ],
+  "inspection": "Guildmaster and guard cards viewed; all six cards hash-identical to prior full-pipeline output. No RP model/animation change. Static cards do not prove targeting, restoration, pathfinding or TLC AI fidelity.",
+  "engine": "unrun"
+}

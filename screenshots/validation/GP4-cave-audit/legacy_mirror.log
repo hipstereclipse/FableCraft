@@ -1,0 +1,10 @@
+=== Guild-cave WALKABILITY report (half-block spiral) ===
+route footholds:            57
+spiral half-steps:          42  (5.25 revolutions)
+entry surface:              41
+chamber/causeway surface:   20
+total drop on the spiral:   21 blocks over 42 steps = 0.50 block/step
+worst step (up OR down):    0.5 block  (OK <=0.5 — smooth & jump-free both ways)
+
+no jump points, no low headroom — fully walkable
+=== RESULT: PASS — jump-free both ways ===

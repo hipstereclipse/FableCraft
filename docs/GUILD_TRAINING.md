@@ -11,7 +11,8 @@ movement at the current location and never teleports residents back to hall post
 The established discipline types, initial resident anchors and 60-second drill /
 120-second rest cadence remain. Guildmaster, Maze, Whisper/tutorial lessons, Will
 island activity, roster identity and offender-specific defence remain later work.
-The first Demon Door pilot follows this bounded pass before further NPC expansion.
+The first Demon Door pilot followed this bounded pass;
+[GP4 defence](GUILD_DEFENCE.md) now adds offender-specific combat eligibility.
 
 ## Lifecycle and interruptions
 
@@ -118,8 +119,8 @@ All in-engine acceptance remains **unrun**:
 - Save/reload with old tags, during training and after Follow; verify recovery
   without changing spouse ownership or unrelated saved-world progress.
 - Check partner loss, night transition, crowd gathering and two simultaneous
-  visitors. The existing roster duplication and broad wanted-player targeting
-  defects from N5–N7 remain open and can still affect multiplayer gameplay.
+  visitors. Roster duplication from N5/N7 remains open. GP4 adds offender-specific
+  targeting for N6; actual multiplayer engine behavior still requires testing.
 
 N1's repeated and return teleports are fixed offline, while actual navigation to
 marks remains open. N2–N4's lifecycle and delayed-projectile defects and N8's

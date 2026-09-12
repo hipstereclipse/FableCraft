@@ -1,0 +1,192 @@
+{
+  "scope": "Actual-callback final voxels; full/slab two-block headroom and cardinal centerline transitions; max-rise 1 permits jumps and is not a jump-free claim.",
+  "landmarks": {
+    "library": {
+      "feet": [
+        27,
+        41.0,
+        17
+      ],
+      "standable": true
+    },
+    "threshold": {
+      "feet": [
+        27,
+        40.0,
+        16
+      ],
+      "standable": true
+    },
+    "top_slab": {
+      "feet": [
+        27,
+        40.5,
+        15
+      ],
+      "standable": true
+    },
+    "landing": {
+      "feet": [
+        26,
+        20.0,
+        15
+      ],
+      "standable": true
+    },
+    "arch": {
+      "feet": [
+        26,
+        20.0,
+        29
+      ],
+      "standable": true
+    },
+    "hill_toe": {
+      "feet": [
+        26,
+        20.0,
+        34
+      ],
+      "standable": true
+    },
+    "cullis": {
+      "feet": [
+        26,
+        23.0,
+        42
+      ],
+      "standable": true
+    }
+  },
+  "routes": {
+    "library->top_slab max_rise=0.5": {
+      "forward": null,
+      "reverse": null
+    },
+    "library->top_slab max_rise=1": {
+      "forward": 3,
+      "reverse": 3,
+      "path": [
+        [
+          27,
+          41.0,
+          17
+        ],
+        [
+          27,
+          40.0,
+          16
+        ],
+        [
+          27,
+          40.5,
+          15
+        ]
+      ]
+    },
+    "top_slab->landing max_rise=0.5": {
+      "forward": 42,
+      "reverse": 42
+    },
+    "top_slab->landing max_rise=1": {
+      "forward": 42,
+      "reverse": 42
+    },
+    "landing->arch max_rise=0.5": {
+      "forward": 15,
+      "reverse": 15
+    },
+    "landing->arch max_rise=1": {
+      "forward": 15,
+      "reverse": 15
+    },
+    "arch->cullis max_rise=0.5": {
+      "forward": null,
+      "reverse": null
+    },
+    "arch->cullis max_rise=1": {
+      "forward": 14,
+      "reverse": 14,
+      "path": [
+        [
+          26,
+          20.0,
+          29
+        ],
+        [
+          26,
+          20.0,
+          30
+        ],
+        [
+          26,
+          20.0,
+          31
+        ],
+        [
+          26,
+          20.0,
+          32
+        ],
+        [
+          26,
+          20.0,
+          33
+        ],
+        [
+          26,
+          20.0,
+          34
+        ],
+        [
+          26,
+          20.0,
+          35
+        ],
+        [
+          26,
+          21.0,
+          36
+        ],
+        [
+          26,
+          21.0,
+          37
+        ],
+        [
+          26,
+          22.0,
+          38
+        ],
+        [
+          26,
+          23.0,
+          39
+        ],
+        [
+          26,
+          23.0,
+          40
+        ],
+        [
+          26,
+          23.0,
+          41
+        ],
+        [
+          26,
+          23.0,
+          42
+        ]
+      ]
+    },
+    "library->cullis max_rise=0.5": {
+      "forward": null,
+      "reverse": null
+    },
+    "library->cullis max_rise=1": {
+      "forward": 71,
+      "reverse": 71
+    }
+  }
+}
