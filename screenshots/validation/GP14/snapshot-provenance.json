@@ -1,0 +1,24 @@
+{
+  "source": "reviewed Git index; excludes unstaged parallel implementation and inherited dirtiness",
+  "baseline_head": "fd6c85238e9eb0a50493ab5385b01ebbcf76182f",
+  "entries": 4757,
+  "reviewed_source_sha256": {
+    "docs/CONFORMANCE_CHECKLIST.md": "35accf3dc50de81a1584340e06573691bc8bae8465d197383cc9354aba88f943",
+    "docs/GUILD_CHAMBER_NEUTRAL_DETAILS.md": "080d9b975f8db3f9042271804284710e52fed039ea3c1bebb6966ee5d54ecd9c",
+    "docs/GUILD_DEMON_PRIORITIES.md": "a0b2c23331f8046fad6ba1abcb52ca205a9fa22d5d006ae3556ca81b3153e9ef",
+    "docs/HANDOFF.md": "dbd454816ddf7470dc127de595456eae03cb7e1987abd9701460b800f1d37730",
+    "packs/Fablecraft_BP/scripts/fc_gamedata.js": "b649dacfc8960dcbff44534b8b553ccaecfb327aa28ce1096814393d259941eb",
+    "packs/Fablecraft_BP/structures/fc/chamber_of_fate.mcstructure": "c7bd8a6e69d57ae08ec8a59ff26444f5330a1c1611cd944399785eb68cb7e3c8",
+    "screenshots/structures/contract/chamber_of_fate.png": "22e8d9f80c4b325bf52ae829928285f32f80b1cae4499ab21a0d01447e1dc814",
+    "screenshots/structures/contract/evidence.json": "ee1c8e170563e5de6529f6172c217502d011b54d315be7df8047e4f91ebb2632",
+    "scripts/data/guild_chamber_gp8.json": "8705e97ad551bd24d434d27da23c0c76cfe7a1cd0148c52c1bb313847970778b",
+    "scripts/gen_behavior.py": "05c75e6c53b275a6eb82e424cecb9fefd8327aa184d1a6ae05f5091be945ba7f",
+    "scripts/gen_screenshots.py": "abd52a8e3950ae220965a9007eb92143e8ab22a00be4b425e16669e986e165fb",
+    "scripts/gen_structures.py": "d635352aa1ef6620f26549043820359eddbf3a23cdba3a6668fbf58a8e961a78",
+    "scripts/tests/guild_caves.test.mjs": "3c05dc32b83ba1f61aef9d52c9ca8b3b0a9446e2b385f754e61c23733fc7619d",
+    "scripts/tests/test_chamber_routes.py": "9b4b2f3ecb95d47f4eb670b5d1f9f99aad55cd70b547e1dba5735d1c2921ac1c",
+    "screenshots/validation/GP14/render-chamber-details.py": "51504e600738f396a2b891879988c156bfad96fcc0b19d63d2673c17af3a32e7"
+  },
+  "node_dependencies": "same installed locked dependencies via node_modules symlink",
+  "engine_acceptance": "unrun"
+}

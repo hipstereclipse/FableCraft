@@ -1,0 +1,43 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "python",
+        "scripts/tests/test_gen_behavior.py"
+      ],
+      "exit_code": 0,
+      "tests": 8,
+      "log": "behavior-before-regeneration.log"
+    },
+    {
+      "python": "import sys; sys.path.insert(0,'scripts'); import gen_structures as gs; import gen_behavior as gb; gs.chamber_of_fate(); gb.emit_script_data()",
+      "exit_code": 0,
+      "log": "targeted-regeneration.log"
+    }
+  ],
+  "changed_pack_assets": [
+    {
+      "path": "packs/Fablecraft_BP/scripts/fc_gamedata.js",
+      "before_sha256": "bbf33decbfeebe66fb1beb1d6d501a2530ca247dd7d9d5390bf8400c0cad4983",
+      "after_sha256": "b649dacfc8960dcbff44534b8b553ccaecfb327aa28ce1096814393d259941eb"
+    },
+    {
+      "path": "packs/Fablecraft_BP/structures/fc/chamber_of_fate.mcstructure",
+      "before_sha256": "81d7568f0a3298932dce0164a5ddc26842b0d06859878178e9be5c46b274b217",
+      "after_sha256": "c7bd8a6e69d57ae08ec8a59ff26444f5330a1c1611cd944399785eb68cb7e3c8"
+    }
+  ],
+  "data_semantic_changed_keys": [
+    "guildChamber"
+  ],
+  "data_before_source": "Root working copy byte-identical to captured snapshot before hash",
+  "historical_manifest_count": 2,
+  "owner_sha256": {
+    "scripts/gen_structures.py": "d635352aa1ef6620f26549043820359eddbf3a23cdba3a6668fbf58a8e961a78",
+    "scripts/gen_behavior.py": "05c75e6c53b275a6eb82e424cecb9fefd8327aa184d1a6ae05f5091be945ba7f",
+    "scripts/fc_lib.py": "c53491f9d640c9e10cb5b3d8f65ea8c85b3f526af03f7631d5d447ab6fe70797",
+    "scripts/fc_data.py": "81ec9a420bdbb01782ba9c00c21efc65bd78ac6f2e52fc5349af14528b6c10c7",
+    "scripts/data/guild_chamber_gp5.json": "a8f59e438d2a9e64876acb7ff5e2cd32494c03a06608c195b646d58a706a9916",
+    "scripts/data/guild_chamber_gp8.json": "8705e97ad551bd24d434d27da23c0c76cfe7a1cd0148c52c1bb313847970778b"
+  }
+}

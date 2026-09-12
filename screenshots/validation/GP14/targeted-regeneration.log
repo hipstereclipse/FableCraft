@@ -1,0 +1,3 @@
+COMMAND: gs.chamber_of_fate() then gb.emit_script_data()
+  fc:chamber_of_fate  (31x20x31, palette 22)
+EXIT: 0

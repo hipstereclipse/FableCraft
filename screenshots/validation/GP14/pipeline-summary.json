@@ -1,0 +1,22 @@
+{
+  "checkpoint": "GP14",
+  "snapshot": "tmp/conformance/GP14-reviewed-snapshot",
+  "generated_asset_count": 2,
+  "c2_count": 35,
+  "other_c2_asset_and_image_drift_count": 0,
+  "behavior_tests": 8,
+  "cave_tests": 25,
+  "chamber_tests": 18,
+  "focused_png_count": 6,
+  "full_png_count": 281,
+  "native_engine_acceptance": "unrun",
+  "evidence_files": {
+    "targeted-regeneration.json": "47d19691913dc1fdba93f5661810e2f455a3c925fe1ee0a0514c9b927a2c7f26",
+    "c2-drift.json": "251b697d02ea963c4071fb93a8735eaeea965c42708ad280c28f9aed54ecd874",
+    "diagnostics-results.json": "5f2e54f1118d5e5e4c8ffae3d3ab5c67b7360e97469b442fbb1bf81e8756f66b",
+    "focused-render-verification.json": "f02cb6375d020f6aec5b9877641c5d33a7515cfc65f955692917737e2587feb6",
+    "post-regeneration-tests.json": "8813e64369fd66d1a763241726ed1b975865947d73eed13c7a74de72e32341b4",
+    "full-render-summary.json": "2348ccc467342a88064eb6c7d4559d1ed57f4ed30c456825ef9b50a637ed70d5"
+  },
+  "notes": "Fresh isolated staged source, GP15 excluded. No process interruption. All rendering/diagnostic wrapper commands returned exit0."
+}

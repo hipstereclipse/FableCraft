@@ -1,0 +1,13 @@
+test_actual_runtime_population_rectangular_bounds_and_save (__main__.ArenaHalls.test_actual_runtime_population_rectangular_bounds_and_save) ... ok
+test_dimensions_manifest_palette_and_population (__main__.ArenaHalls.test_dimensions_manifest_palette_and_population) ... ok
+test_hall_figures_and_original_inward_statues (__main__.ArenaHalls.test_hall_figures_and_original_inward_statues) ... ok
+test_level_routes_to_every_room_and_spawn (__main__.ArenaHalls.test_level_routes_to_every_room_and_spawn) ... ok
+test_south_corridor_open_north_beast_gate_barred (__main__.ArenaHalls.test_south_corridor_open_north_beast_gate_barred) ... ok
+test_stair_ascent_and_tier_landings (__main__.ArenaHalls.test_stair_ascent_and_tier_landings) ... ok
+test_waiting_room_dummies_and_shop (__main__.ArenaHalls.test_waiting_room_dummies_and_shop) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.479s
+
+OK
+PASS: actual arena_ring placement on sand/rock/grass, clear translated spawns, loot bounds and saved-region idempotence

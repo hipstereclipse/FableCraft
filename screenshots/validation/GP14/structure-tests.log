@@ -1,0 +1,21 @@
+test_blocked_npc_column_and_missing_interaction_blocks (__main__.StructureContract.test_blocked_npc_column_and_missing_interaction_blocks) ... ok
+test_changed_asset_bytes (__main__.StructureContract.test_changed_asset_bytes) ... ok
+test_cross_poi_spawn_coordinates_fail_bounds (__main__.StructureContract.test_cross_poi_spawn_coordinates_fail_bounds) ... ok
+test_current_real_contract_passes (__main__.StructureContract.test_current_real_contract_passes) ... ok
+test_fixed_and_legacy_are_explicit (__main__.StructureContract.test_fixed_and_legacy_are_explicit) ... ok
+test_missing_and_changed_image (__main__.StructureContract.test_missing_and_changed_image) ... ok
+test_missing_asset (__main__.StructureContract.test_missing_asset) ... ok
+test_missing_generator (__main__.StructureContract.test_missing_generator) ... ok
+test_missing_grade_and_audit_row (__main__.StructureContract.test_missing_grade_and_audit_row) ... ok
+test_missing_runtime_and_orphan_loot (__main__.StructureContract.test_missing_runtime_and_orphan_loot) ... ok
+test_numeric_anchors_are_separate_from_asset_edges (__main__.StructureContract.test_numeric_anchors_are_separate_from_asset_edges) ... ok
+test_orphans_and_duplicate_manifest (__main__.StructureContract.test_orphans_and_duplicate_manifest) ... ok
+test_per_cell_chamber_registration_requires_owner_and_manifest (__main__.StructureContract.test_per_cell_chamber_registration_requires_owner_and_manifest) ... ok
+test_spawn_count_shape_and_feet_headroom (__main__.StructureContract.test_spawn_count_shape_and_feet_headroom) ... ok
+test_stale_render_source (__main__.StructureContract.test_stale_render_source) ... ok
+test_width_depth_and_height_independently (__main__.StructureContract.test_width_depth_and_height_independently) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 2.735s
+
+OK

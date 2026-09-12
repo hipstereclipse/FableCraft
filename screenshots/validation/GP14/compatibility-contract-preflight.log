@@ -1,0 +1,7 @@
+test_gp5_and_gp8_compatibility_manifests_are_frozen_and_exported_unchanged (test_chamber_routes.ChamberRoutes.test_gp5_and_gp8_compatibility_manifests_are_frozen_and_exported_unchanged) ... ok
+test_exported_runtime_plan_matches_final_chamber_and_actual_guild_entry (test_chamber_routes.ChamberRoutes.test_exported_runtime_plan_matches_final_chamber_and_actual_guild_entry) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.219s
+
+OK

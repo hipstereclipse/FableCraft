@@ -1,0 +1,14 @@
+test_actual_scatter_loot_travel_and_saved_region (__main__.ArchonShrine.test_actual_scatter_loot_travel_and_saved_region) ... ok
+test_closed_shrine_and_obstructed_arrival_negative_fixtures (__main__.ArchonShrine.test_closed_shrine_and_obstructed_arrival_negative_fixtures) ... ok
+test_dimensions_palette_and_scatter_contract (__main__.ArchonShrine.test_dimensions_palette_and_scatter_contract) ... ok
+test_dome_and_three_distinct_floor_sockets (__main__.ArchonShrine.test_dome_and_three_distinct_floor_sockets) ... ok
+test_real_cullis_detector_and_negative_fixtures (__main__.ArchonShrine.test_real_cullis_detector_and_negative_fixtures) ... ok
+test_routes_to_sockets_chests_disc_and_gate (__main__.ArchonShrine.test_routes_to_sockets_chests_disc_and_gate) ... ok
+test_sealed_monumental_gate_and_exact_chests (__main__.ArchonShrine.test_sealed_monumental_gate_and_exact_chests) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 1.323s
+
+OK
+PASS: actual archon_shrine placement on snow/rock, clear translated spawns, loot bounds and saved-region idempotence
+Cullis detector: actual generated fixture PASS; missing core/ring/unloaded negatives PASS

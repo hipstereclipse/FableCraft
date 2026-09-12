@@ -1,0 +1,10 @@
+{
+  "command": "node --experimental-vm-modules scripts/tests/guild_caves.test.mjs > screenshots/validation/GP14/cave-after-regeneration.log 2>&1\npython scripts/tests/test_chamber_routes.py > screenshots/validation/GP14/chamber-after-regeneration.log 2>&1",
+  "shell_exit_code": 0,
+  "cave_reported_tests": 25,
+  "cave_reported_pass": 25,
+  "cave_reported_fail": 0,
+  "chamber_reported_tests": 18,
+  "chamber_reported_result": "OK",
+  "note": "Both complete suite reports inspected; parent final validator captures each command exit independently."
+}

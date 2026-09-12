@@ -3761,15 +3761,19 @@ def build_chamber_of_fate():
     INNER = 11.5         # inner face of the wall (open floor reaches to here)
     WALL_TOP = 11        # dome springs from here
 
-    # ---- floor: dark outer flagstones around the preserved GP5 altar ----
+    # ---- floor: muted grey/ochre tiles around the preserved GP5 altar ----
     for x in range(S):
         for z in range(S):
             d = math.hypot(x - c, z - c)
             if d <= WALL_R + 0.6:
                 v.set(x, 0, z, DEEP_TILES if (x + z) % 3 else STONE)
             if d <= INNER:
+                # A neutral classic-TLC view resolves grey/ochre paving that
+                # the earlier combat screenshots hid. Two-block tile groups
+                # and these materials are adaptations; no shared RNG is used.
                 v.set(x, 1, z, (CHISELED if (x + z) % 2 else DEEP_TILES)
-                      if d <= 8.6 else DEEP_TILES)
+                      if d <= 8.6 else ("minecraft:polished_andesite" if
+                      (x // 2 + z // 2) % 2 else "minecraft:packed_mud"))
 
     # ---- encircling wall (airtight, no gaps) ----
     for x in range(S):
@@ -3812,6 +3816,49 @@ def build_chamber_of_fate():
             lx, lz = c + round(nx * 11), c + round(nz * 11)
             v.set(lx, 7, lz, STONE)                 # sconce anchored into its bay
             v.set(lx, 6, lz, LANTERN, {"hanging": True})
+
+        # The neutral original-TLC Chamber view also shows smaller pointed
+        # frames, low rectangular panels and round relief medallions. Keep the
+        # GP8 outer silhouette; fit a recessed frame and two small carved marks
+        # inside it. Their coarse count/shape are adaptations, not story art.
+        inset_ranges = {3: (0, 2.5), 4: (1.5, 2.5), 5: (1.5, 2.5),
+                        6: (1.5, 2.5), 7: (.5, 1.5), 8: (0, .5)}
+        for x in range(S):
+            for z in range(S):
+                dx, dz = x - c, z - c
+                radial = dx * nx + dz * nz
+                tangent = abs(-dx * nz + dz * nx)
+                if not 11.5 <= radial <= 12.5 or tangent > 2.5:
+                    continue
+                for y, (low, high) in inset_ranges.items():
+                    if low - .001 <= tangent <= high + .001:
+                        v.set(x, y, z, "minecraft:polished_andesite")
+                    elif y <= 6:
+                        v.set(x, y, z, DEEPSLATE_W)
+                        if y == 6 and .5 <= tangent <= 1.5:
+                            v.set(x, y, z, CHISELED)
+                        elif y in (4, 5) and tangent < .5:
+                            v.set(x, y, z, "minecraft:polished_andesite")
+
+    # Narrow colored strips alternate with the broad bays. These are abstract
+    # color bands, not copies of the original figurative stained-glass designs.
+    # Full glass blocks replace existing wall cells only, with an opaque outer
+    # backing; the room's boundary and the north approach remain sealed/clear.
+    window_colors = ("green", "yellow", "brown", "cyan", "yellow", "green")
+    for ang in range(0, 360, 45):
+        a = math.radians(ang + 22.5)
+        wx, wz = c + round(math.cos(a) * 12), c + round(math.sin(a) * 12)
+        dx, dz = wx - c, wz - c
+        bx, bz = wx, wz
+        if abs(dx) > abs(dz):
+            bx += 1 if dx > 0 else -1
+        else:
+            bz += 1 if dz > 0 else -1
+        v.set(wx, 2, wz, STONE)
+        v.set(wx, 9, wz, STONE)
+        for y, color in enumerate(window_colors, 3):
+            v.set(wx, y, wz, f"minecraft:{color}_stained_glass")
+            v.set(bx, y, bz, DEEPSLATE_W)
 
     # ---- central CULLIS GATE — a RAISED warded dais crowning a broad HILL: the
     #      whole chamber centre swells into a stone mound that climbs from the floor

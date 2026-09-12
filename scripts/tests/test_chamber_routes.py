@@ -21,7 +21,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import gen_structures as GS
 from test_guild_routes import FLOORS, cell, clear, interval
 
-CHAMBER_FLOORS = FLOORS | {'minecraft:chiseled_sandstone'}
+CHAMBER_FLOORS = FLOORS | {'minecraft:chiseled_sandstone', 'minecraft:packed_mud',
+                         'minecraft:polished_andesite'}
 
 
 def supported(vox, x, feet, z):
@@ -223,13 +224,20 @@ class ChamberRoutes(unittest.TestCase):
                     for y in range(3) for z in range(12, 17)]
         self.assertEqual(decode(entry), expected)
 
-    def test_gp5_compatibility_manifest_is_frozen_and_exported_unchanged(self):
-        frozen = Path(__file__).resolve().parents[2] / 'scripts/data/guild_chamber_gp5.json'
-        self.assertEqual(hashlib.sha256(frozen.read_bytes()).hexdigest(),
-                         'a8f59e438d2a9e64876acb7ff5e2cd32494c03a06608c195b646d58a706a9916')
+    def test_gp5_and_gp8_compatibility_manifests_are_frozen_and_exported_unchanged(self):
+        historical = []
+        for name, digest in (
+            ('guild_chamber_gp5.json', 'a8f59e438d2a9e64876acb7ff5e2cd32494c03a06608c195b646d58a706a9916'),
+            ('guild_chamber_gp8.json', '8705e97ad551bd24d434d27da23c0c76cfe7a1cd0148c52c1bb313847970778b'),
+        ):
+            frozen = Path(__file__).resolve().parents[2] / 'scripts/data' / name
+            self.assertEqual(hashlib.sha256(frozen.read_bytes()).hexdigest(), digest)
+            plan = json.loads(frozen.read_text())
+            self.assertNotIn('compatibility', plan, 'Historical plans must not recursively embed history')
+            historical.append(plan)
         source = (GS.BP / 'scripts/fc_gamedata.js').read_text()
         data, _ = json.JSONDecoder().raw_decode(source.split('export const DATA = ', 1)[1])
-        self.assertEqual(data['guildChamber']['compatibility'], [json.loads(frozen.read_text())])
+        self.assertEqual(data['guildChamber']['compatibility'], historical)
 
     def test_bottom_slab_surfaces_and_swept_headroom(self):
         for x in (14, 15, 16):
@@ -361,6 +369,138 @@ class ChamberRoutes(unittest.TestCase):
         breach.fill(26, 5, 15, 30, 5, 15, 'minecraft:air')
         with self.assertRaisesRegex(AssertionError, 'Chamber shell leak'):
             enclosure(breach)
+
+
+class ChamberVisualDetails(unittest.TestCase):
+    """GP14 final-cell checks against the preceding frozen GP8 room."""
+
+    @classmethod
+    def setUpClass(cls):
+        plan = json.loads((Path(__file__).resolve().parents[1] /
+                           'data/guild_chamber_gp8.json').read_text())
+        cls.before = GS.Vox(*plan['size'])
+        cls.before.palette = [(entry['name'], entry['states']) for entry in plan['palette']]
+        cls.before.grid = [index for index, count in plan['runs'] for _ in range(count)]
+        cls.vox = GS.build_chamber_of_fate()
+
+    def check_scope(self, vox):
+        changed = 0
+        for x in range(31):
+            for y in range(20):
+                for z in range(31):
+                    old, new = cell(self.before, x, y, z), cell(vox, x, y, z)
+                    self.assertEqual(old[0] == 'minecraft:air', new[0] == 'minecraft:air',
+                                     f'Changed open/solid layout {(x, y, z)}')
+                    if old == new:
+                        continue
+                    changed += 1
+                    radius = math.hypot(x - 15, z - 15)
+                    floor = y == 1 and 8.6 < radius <= 11.5
+                    wall = 2 <= y <= 9 and 10.5 < radius <= 13.5
+                    self.assertTrue(floor or wall, f'Change outside GP14 scope {(x, y, z)}')
+        self.assertEqual(changed, 381)
+        self.assertEqual(protected_gp5_digest(vox), protected_gp5_digest(self.before))
+
+    def test_only_wall_surfaces_and_outer_paving_change(self):
+        self.check_scope(self.vox)
+        damaged = copy.deepcopy(self.vox)
+        damaged.set(15, 0, 15, 'minecraft:gold_block')
+        with self.assertRaisesRegex(AssertionError, 'outside GP14 scope'):
+            self.check_scope(damaged)
+
+    def check_nested_panels(self, vox):
+        # Survey the inset crown, connected lower frame and paired small marks
+        # on the cardinal bays. The north's protected aperture erases its base.
+        samples = [(3, -2), (3, 0), (3, 2), (4, -2), (4, 2),
+                   (5, -2), (5, 2), (6, -2), (6, 2),
+                   (7, -1), (7, 1), (8, 0)]
+        for turn in range(4):
+            for y, tangent in samples:
+                x, z = 12, tangent
+                for _ in range(turn):
+                    x, z = -z, x
+                x, z = x + 15, z + 15
+                if turn == 3 and y <= 6:
+                    continue
+                self.assertEqual(cell(vox, x, y, z)[0], 'minecraft:polished_andesite',
+                                 f'Broken inset frame {(x, y, z)}')
+            if turn == 3:
+                continue
+            for tangent in (-1, 1):
+                x, z = 12, tangent
+                for _ in range(turn):
+                    x, z = -z, x
+                self.assertEqual(cell(vox, x + 15, 6, z + 15)[0],
+                                 'minecraft:chiseled_stone_bricks', 'Missing medallion')
+
+    def test_nested_frames_and_small_medallions(self):
+        self.check_nested_panels(self.vox)
+        broken = copy.deepcopy(self.vox)
+        broken.set(27, 8, 15, 'minecraft:polished_deepslate')
+        with self.assertRaisesRegex(AssertionError, 'Broken inset frame'):
+            self.check_nested_panels(broken)
+        broken = copy.deepcopy(self.vox)
+        broken.set(27, 6, 14, 'minecraft:polished_deepslate')
+        with self.assertRaisesRegex(AssertionError, 'Missing medallion'):
+            self.check_nested_panels(broken)
+
+    def check_windows(self, vox):
+        # Independent surveyed strip/backing pairs, including all diagonals.
+        strips = [((26, 20), (27, 20)), ((20, 26), (20, 27)),
+                  ((10, 26), (10, 27)), ((4, 20), (3, 20)),
+                  ((4, 10), (3, 10)), ((10, 4), (10, 3)),
+                  ((20, 4), (20, 3)), ((26, 10), (27, 10))]
+        for (x, z), (bx, bz) in strips:
+            colors = set()
+            for y in range(3, 9):
+                name, states = cell(vox, x, y, z)
+                self.assertTrue(name.endswith('_stained_glass'), f'Broken window {(x, y, z)}')
+                self.assertEqual(states, {})
+                colors.add(name)
+                self.assertEqual(cell(vox, bx, y, bz)[0], 'minecraft:polished_deepslate',
+                                 f'Missing opaque window backing {(bx, y, bz)}')
+            self.assertEqual(len(colors), 4)
+            for y in (2, 9):
+                self.assertEqual(cell(vox, x, y, z)[0], 'minecraft:stone_bricks')
+
+    def test_colored_strips_have_unbroken_opaque_backing(self):
+        self.check_windows(self.vox)
+        broken = copy.deepcopy(self.vox)
+        broken.set(27, 5, 20, 'minecraft:air')
+        with self.assertRaisesRegex(AssertionError, 'Missing opaque window backing'):
+            self.check_windows(broken)
+        broken = copy.deepcopy(self.vox)
+        broken.set(26, 5, 20, 'minecraft:air')
+        with self.assertRaisesRegex(AssertionError, 'Broken window'):
+            self.check_windows(broken)
+
+    def check_outer_paving(self, vox):
+        colors = set()
+        accessible = reached(vox, (15, 2., 0))
+        count = 0
+        for x in range(31):
+            for z in range(31):
+                if not 8.6 < math.hypot(x - 15, z - 15) <= 11.5:
+                    continue
+                if 13 <= x <= 17 and z <= 11:
+                    continue
+                name = cell(vox, x, 1, z)[0]
+                self.assertIn(name, {'minecraft:polished_andesite', 'minecraft:packed_mud'},
+                              f'Wrong outer paving {(x, z)}')
+                colors.add(name)
+                count += 1
+                if clear(vox, x, 2., z):
+                    self.assertTrue(supported(vox, x, 2., z))
+                    self.assertIn((x, 2., z), accessible)
+        self.assertEqual(count, 173)
+        self.assertEqual(len(colors), 2)
+
+    def test_grey_ochre_paving_keeps_supported_connected_walk(self):
+        self.check_outer_paving(self.vox)
+        broken = copy.deepcopy(self.vox)
+        broken.set(24, 1, 15, 'minecraft:air')
+        with self.assertRaisesRegex(AssertionError, 'Wrong outer paving'):
+            self.check_outer_paving(broken)
 
 
 if __name__ == '__main__':

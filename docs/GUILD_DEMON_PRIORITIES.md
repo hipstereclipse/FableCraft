@@ -46,6 +46,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | GP11 | in-progress | Broad Library/Store arches remain open after removing redundant indoor tunnel shells; floors and adjoining routes preserved; engine acceptance open |
 | GP12 | in-progress | Continuous framed Library bookcases, accessible reading desk and supported lamps; spine/cave/commons routes preserved; engine acceptance open |
 | GP13 | in-progress | Restore one erased NE dormitory top stair; complete bounded ascent/descent with all other campus cells preserved; engine acceptance open |
+| GP14 | in-progress | Neutral-reference Chamber inset panels, colored window strips and grey/ochre paving; GP5/GP8 enrolled construction plans preserved; engine acceptance open |
 
 Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
 defects and manual status here. These passes are not completed legacy leaves.
@@ -670,7 +671,7 @@ passed. Dorm/Maze neutral interior views remain an explicit search gap.
 
 ## GP13 — northeast dormitory final stair transition (2026-09-12)
 
-Commit: SELF: TLC Conformance — GP13: restore the northeast dormitory stair landing.
+Commit: fd6c85238e9eb0a50493ab5385b01ebbcf76182f.
 The upper deck's stairwell cut removed the original final stair course. The
 highest surviving tread ended one full block below the bedroom landing. Restore
 only its outer west-facing oak stair at local (86,5,11), after rug furnishing, on
@@ -700,3 +701,32 @@ photos, then the reference-supported archery training backdrop/fixtures audit.
 
 GP12 exact-head CI 34721620599 passed. GP15 now implements the inspected archery
 scenic backboard in a separately checked clear volume; no continuous rails yet.
+
+## GP14 — Chamber detail from clearer original screenshots (2026-09-12)
+
+Commit: SELF: TLC Conformance — GP14: refine Chamber panels and preserve both historical plans.
+The newly inspected neutral TLC Chamber view resolves nested pointed frames,
+small carved medallions, narrow colored windows and grey/ochre paving. These
+replace GP8's undifferentiated dark floor and simple inner panels. Only 381 cell
+values change: 173 floor and 208 wall-detail cells. Every air/solid classification,
+all 4,419 protected altar/entry/foundation/containment cells, all 116 outer-walk
+cells, anchors, roof and lamps remain exact. The bands and carved blocks are
+coarse adaptations; figurative glass, story frescoes and native light remain open.
+
+The exporter now retains both exact frozen GP5 and GP8 construction manifests.
+Actual controller tests resume each historical plan from snapshot, applying and
+verification interruptions, preserving original cell states and journal identities.
+Edited/unknown history, changed completed cells/permutations and missing/corrupt/
+wrong-hash journal pages defer. No runtime controller change, occupied-room
+migration or duplicate reward/art write is introduced.
+
+See [GUILD_CHAMBER_NEUTRAL_DETAILS.md](GUILD_CHAMBER_NEUTRAL_DETAILS.md) and
+`screenshots/validation/GP14/`. Eighteen Chamber groups and 25 cave lifecycle groups
+include independent geometry/history failures. Forty-five base gates, all 62 ESM
+syntax checks, targeted Chamber/DATA regeneration, fresh C2/full renders and Guild
+diagnostics pass in the isolated reviewed snapshot. The shared renderer gains
+only missing approximate colors; glass remains opaque in offline previews and
+fine carved textures are absent. Exact generated and rendered drift is recorded.
+GP13 exact-head CI 34721823290 passed. All native appearance, movement, persistence
+and gameplay checks remain unrun. Next: the photographed archery scenic backboard,
+then adjoining grounds/NPC behavior and unresolved original-view comparisons.

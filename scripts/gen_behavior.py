@@ -753,10 +753,10 @@ def guild_chamber_contract():
             "palette": [{"name": name, "states": states} for name, states in entry.palette],
             "runs": [[index, sum(1 for _ in cells)] for index, cells in groupby(entry.grid)],
         },
-        # Frozen GP5 inputs let an already-enrolled construction finish its
+        # Frozen historical inputs let an already-enrolled construction finish its
         # original exact plan after later visual changes. Never retrofit rooms.
-        "compatibility": [json.loads((Path(__file__).resolve().parent
-                                      / "data/guild_chamber_gp5.json").read_text())],
+        "compatibility": [json.loads((Path(__file__).resolve().parent / "data" / name).read_text())
+                          for name in ("guild_chamber_gp5.json", "guild_chamber_gp8.json")],
     }
 
 

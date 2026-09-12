@@ -1,0 +1,34 @@
+{
+  "snapshot_scope": "isolated staged GP14 source, GP15 excluded",
+  "command": [
+    "python",
+    "screenshots/validation/GP14/render-chamber-details.py"
+  ],
+  "exit_code": 0,
+  "log": "focused-final-render.log",
+  "dependencies": {
+    "scripts/gen_structures.py": "d635352aa1ef6620f26549043820359eddbf3a23cdba3a6668fbf58a8e961a78",
+    "scripts/gen_screenshots.py": "abd52a8e3950ae220965a9007eb92143e8ab22a00be4b425e16669e986e165fb",
+    "scripts/fc_lib.py": "c53491f9d640c9e10cb5b3d8f65ea8c85b3f526af03f7631d5d447ab6fe70797",
+    "scripts/fc_data.py": "81ec9a420bdbb01782ba9c00c21efc65bd78ac6f2e52fc5349af14528b6c10c7",
+    "scripts/tests/test_chamber_routes.py": "9b4b2f3ecb95d47f4eb670b5d1f9f99aad55cd70b547e1dba5735d1c2921ac1c",
+    "scripts/tests/test_guild_routes.py": "e3323f7b944a03457a9dde9ac10c24256d828a52369497db76edd035691bd889",
+    "scripts/data/guild_chamber_gp8.json": "8705e97ad551bd24d434d27da23c0c76cfe7a1cd0148c52c1bb313847970778b",
+    "screenshots/validation/GP14/render-chamber-details.py": "51504e600738f396a2b891879988c156bfad96fcc0b19d63d2673c17af3a32e7"
+  },
+  "png_sha256": {
+    "chamber-east-bay-before.png": "fb3e0e5b378e2e8ce8042925d7feace73e59eb203536ab18d17c6d3a1f47ea11",
+    "chamber-open-cutaway-before.png": "845e9b3e0b9799f9a02d5a34b58a41431d0580a5d33fe5e7c05a94e60acaf4cc",
+    "chamber-paving-before.png": "b96d4d2b7f0d8b0191920542491e2e8c9c3ff176365704dadc0169a416322d80",
+    "chamber-east-bay-after.png": "0c5102482684d7024621a70654a8aae35eda54962897c23a04fabd496d08d229",
+    "chamber-open-cutaway-after.png": "8fcc4d535a92ad5658a1900ecf21577e2af7d839c381bf1473b1c22d7a8c62cd",
+    "chamber-paving-after.png": "98b4354a9457f201cefc275256cd3ac3936740a40045056807ff63d1258b6a93"
+  },
+  "inspected_all_six_images": true,
+  "observations": {
+    "east_bay": "Nested grey pointed frames and small central medallion replace the plain recessed face; narrow muted green/yellow/cyan/brown decorative strips flank the retained outer rib and lantern.",
+    "paving": "Grey and ochre outer floor is more distinct; the full-circumference central altar tiers, ward/core and entry paving stay visually identical.",
+    "open_cutaway": "Muted narrow color accents and nested stone profiles remain secondary to the central stepped altar. The surrounding clear walk and existing outer shell silhouette remain stable."
+  },
+  "limits": "Offline geometry with slabs modeled as half blocks; lanterns and other blocks use diagnostic cubes and approximate colors. No native textures, lighting, NPC pathfinding or exact TLC reconstruction claim. Cropped/removed geometry is enumerated in chamber-render-scope.json."
+}

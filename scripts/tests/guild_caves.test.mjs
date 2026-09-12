@@ -15,6 +15,8 @@ async function load(path) {
 }
 const api = await load('packs/Fablecraft_BP/scripts/guild_caves.js');
 const { DATA } = await load('packs/Fablecraft_BP/scripts/fc_gamedata.js');
+const HISTORICAL_CHAMBERS = ['gp5', 'gp8'].map(version => [version.toUpperCase(),
+  JSON.parse(fs.readFileSync(`scripts/data/guild_chamber_${version}.json`, 'utf8'))]);
 const main = fs.readFileSync('packs/Fablecraft_BP/scripts/main.js', 'utf8');
 const ast = parse(main, { ecmaVersion: 'latest', sourceType: 'module', range: true });
 const declaration = (name) => {
@@ -80,7 +82,7 @@ export function fixture({ physics = false, chamber = DATA.guildChamber } = {}) {
     cells.set(coordinate(at), block);
     return block;
   }
-  for (const cell of decode(DATA.guildChamber.entry, base)) put(cell, cell.name, cell.states);
+  for (const cell of decode(chamber.entry, base)) put(cell, cell.name, cell.states);
   const dim = { id: 'minecraft:overworld', getBlock(at) {
     if (fault?.op === 'read' && (!fault.key || fault.key === coordinate(at))) {
       const mode = fault.mode; fault = null;
@@ -317,34 +319,104 @@ test('an enrolled old Chamber plan finishes its exact original geometry across a
   }
 });
 
-test('unknown plan hashes and damaged completed legacy cells never authorize a new revision', () => {
-  const legacy = JSON.parse(fs.readFileSync('scripts/data/guild_chamber_gp5.json', 'utf8'));
-  const revision = { ...DATA.guildChamber, compatibility: [legacy] };
-  for (const mode of ['unknown-hash', 'changed-cell']) {
-    const f = fixture({ chamber: legacy }); start(f); f.until(() => f.writes.length > 30);
-    if (mode === 'unknown-hash') f.props.set(KEY, JSON.stringify({ ...f.record(), hash: 'unknown-plan' }));
-    else {
-      const [x, y, z] = f.writes[0].key.split(',').map(Number);
-      f.put({ x, y, z }, 'minecraft:chest');
-    }
-    const before = f.writes.length, original = f.props.get(KEY);
-    f.reload(revision); f.runtime().maintenance(); f.drain();
-    assert.equal(f.writes.length, before, mode); assert.notEqual(f.record().phase, 'ready');
-    if (mode === 'unknown-hash') assert.equal(f.props.get(KEY), original);
-  }
-});
+function journalPages(f) {
+  return new Map([...f.props].filter(([key]) => key.startsWith(`${KEY}_`))
+    .map(([key, value]) => [key, JSON.parse(value)]));
+}
 
-test('the shipped Chamber revision resumes a GP5 build without substituting new wall cells', () => {
-  const legacy = JSON.parse(fs.readFileSync('scripts/data/guild_chamber_gp5.json', 'utf8'));
-  assert.notDeepEqual(DATA.guildChamber.runs, legacy.runs, 'The test must cross the actual shipped geometry revision');
-  const f = fixture({ chamber: legacy }); start(f); f.until(() => f.writes.length > 30);
-  const enrolled = f.record().hash;
-  f.reload(DATA.guildChamber); f.runtime().maintenance(); f.drain(); ready(f);
-  assert.equal(f.record().hash, enrolled);
-  const expected = new Map([...decode(legacy, f.base), ...api.guildCavePlan(f.base)].map(c => [coordinate(c), c]));
-  for (const [key, cell] of expected) assert.equal(f.cells.get(key)?.typeId, cell.name, key);
-  assert.deepEqual(f.decorations(), [1, 0]);
-});
+function pauseHistoricalBuild(f, phase) {
+  start(f);
+  if (phase === 'snapshot') {
+    f.step(2);
+    assert.equal(f.record().phase, 'snapshot');
+    assert.equal(f.writes.length, 0);
+    assert.ok(journalPages(f).size > 0, 'Original pages are already durable');
+  } else if (phase === 'applying') {
+    f.until(() => f.writes.length > 30);
+    assert.equal(f.record().phase, 'applying');
+    assert.ok([...journalPages(f).values()].some(page => page.done.includes('0')));
+  } else {
+    f.until(() => {
+      const pages = journalPages(f);
+      return pages.size === Math.ceil(f.record().count / 64)
+        && [...pages.values()].every(page => /^1+$/.test(page.done));
+    });
+    assert.equal(f.record().phase, 'applying', 'Verification has no separate durable phase');
+    assert.equal(f.props.get('fc_guild_caves_done'), undefined);
+    assert.ok(f.jobs.size, 'Verification job is interrupted before ready');
+  }
+}
+
+for (const [version, legacy] of HISTORICAL_CHAMBERS) {
+  test(`the shipped Chamber revision resumes real ${version} snapshot, applying and verification journals`, () => {
+    const origin = { x: 0, y: 0, z: 0 };
+    assert.notDeepEqual(decode(DATA.guildChamber, origin), decode(legacy, origin),
+      'The test must cross the actual generated geometry revision');
+    assert.ok(DATA.guildChamber.compatibility.some(plan => JSON.stringify(plan) === JSON.stringify(legacy)),
+      `The emitted data must include the exact frozen ${version} plan`);
+    for (const key of ['size', 'origin', 'cullis']) assert.deepEqual(DATA.guildChamber[key], legacy[key]);
+    for (const phase of ['snapshot', 'applying', 'verification']) {
+      const f = fixture({ chamber: legacy }); pauseHistoricalBuild(f, phase);
+      const enrolled = f.record(), originalPages = journalPages(f), priorWrites = f.writes.slice();
+      f.reload(DATA.guildChamber); f.runtime().maintenance(); f.drain(); ready(f);
+      for (const key of ['hash', 'count', 'anchor']) assert.deepEqual(f.record()[key], enrolled[key], `${phase}: ${key}`);
+      // Every already-saved fingerprint remains from the old enrollment; the
+      // compatibility path may advance done bits, never recapture originals.
+      for (const [key, before] of originalPages) {
+        const after = JSON.parse(f.props.get(key));
+        for (const field of ['hash', 'palette', 'original']) assert.deepEqual(after[field], before[field], `${phase}: ${key}.${field}`);
+      }
+      const expected = new Map([...decode(legacy, f.base), ...api.guildCavePlan(f.base)].map(c => [coordinate(c), c]));
+      for (const [key, cell] of expected) {
+        assert.equal(f.cells.get(key)?.typeId, cell.name, `${phase}: ${key}`);
+        assert.deepEqual(f.cells.get(key).permutation.getAllStates(),
+          permutation(cell.name, cell.states).getAllStates(), `${phase}: ${key} states`);
+      }
+      assert.deepEqual(f.writes.slice(0, priorWrites.length), priorWrites);
+      assert.equal(new Set(f.writes.map(write => write.key)).size, f.writes.length, 'No resumed cell is written twice');
+      assert.equal(f.bulk(), 0, 'Historical enrollment never replaces a whole room');
+      assert.deepEqual(f.decorations(), [1, 0]);
+      const writes = f.writes.length;
+      f.reload(DATA.guildChamber); f.runtime().maintenance(); f.drain();
+      assert.equal(f.writes.length, writes); assert.deepEqual(f.decorations(), [1, 0]);
+    }
+  });
+
+  test(`${version} unknown hashes, edited cells and damaged original journals defer across the shipped revision`, () => {
+    for (const mode of ['unknown-hash', 'edited-history', 'changed-cell', 'changed-permutation', 'missing-page', 'corrupt-page', 'page-hash']) {
+      const f = fixture({ chamber: legacy }); pauseHistoricalBuild(f, 'applying');
+      let revision = DATA.guildChamber;
+      let edited;
+      if (mode === 'edited-history') {
+        revision = { ...revision, compatibility: HISTORICAL_CHAMBERS.map(([name, plan]) => name !== version ? plan
+          : { ...plan, palette: plan.palette.map(block => block.name === 'minecraft:stone_bricks'
+            ? { name: 'minecraft:polished_andesite', states: {} } : block) }) };
+      } else if (mode === 'changed-permutation') {
+        f.until(() => f.writes.some(write => write.name.endsWith('_slab')));
+        edited = f.writes.find(write => write.name.endsWith('_slab'));
+        const [x, y, z] = edited.key.split(',').map(Number);
+        f.put({ x, y, z }, edited.name, { 'minecraft:vertical_half': 'top' });
+      } else if (mode === 'changed-cell') {
+        edited = f.writes[0];
+        const [x, y, z] = edited.key.split(',').map(Number);
+        f.put({ x, y, z }, 'minecraft:chest');
+      } else if (mode === 'unknown-hash') f.props.set(KEY, JSON.stringify({ ...f.record(), hash: 'unknown-plan' }));
+      else if (mode === 'missing-page') f.props.delete(`${KEY}_0`);
+      else if (mode === 'corrupt-page') f.props.set(`${KEY}_0`, '{}');
+      else f.props.set(`${KEY}_0`, JSON.stringify({ ...JSON.parse(f.props.get(`${KEY}_0`)), hash: 'wrong-original-plan' }));
+      const writes = f.writes.length, header = f.props.get(KEY), page = f.props.get(`${KEY}_0`);
+      f.reload(revision); f.runtime().maintenance(); f.drain();
+      assert.equal(f.writes.length, writes, mode); assert.notEqual(f.record().phase, 'ready');
+      assert.equal(f.props.get('fc_guild_caves_done'), undefined);
+      assert.deepEqual(f.decorations(), [0, 0]); assert.equal(f.bulk(), 0);
+      if (mode === 'unknown-hash' || mode === 'edited-history') assert.equal(f.props.get(KEY), header);
+      else assert.equal(f.record().issue, mode.startsWith('changed-') ? 'changed-cell' : 'journal');
+      assert.equal(f.props.get(`${KEY}_0`), page, 'Saved originals cannot be replaced by the new manifest');
+      if (mode === 'changed-cell') assert.equal(f.cells.get(edited.key).typeId, 'minecraft:chest');
+      if (mode === 'changed-permutation') assert.equal(f.cells.get(edited.key).permutation.getAllStates()['minecraft:vertical_half'], 'top');
+    }
+  });
+}
 
 test('unloaded and throwing getBlock during snapshot or Chamber placement are retryable', () => {
   for (const mode of ['missing', 'throw']) for (const phase of ['snapshot', 'applying']) {

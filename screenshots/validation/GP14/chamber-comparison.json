@@ -1,0 +1,64 @@
+{
+  "before": {
+    "outer_walk_cells": 116,
+    "outer_walk_blocked": [],
+    "outer_walk_reachable_at_y2": 116,
+    "material_counts": {
+      "minecraft:glowstone": 0,
+      "minecraft:quartz_block": 0,
+      "minecraft:quartz_pillar": 0,
+      "minecraft:gold_block": 0,
+      "minecraft:campfire": 0,
+      "minecraft:lantern": 7,
+      "minecraft:water": 177,
+      "minecraft:glass": 221,
+      "minecraft:smooth_stone": 0,
+      "minecraft:packed_mud": 0,
+      "minecraft:polished_andesite": 0,
+      "minecraft:green_stained_glass": 0,
+      "minecraft:yellow_stained_glass": 0,
+      "minecraft:brown_stained_glass": 0,
+      "minecraft:cyan_stained_glass": 0
+    },
+    "final_cells_sha256": "b33f7e3cc7c81dbcd348e3735b9aabfe0e6a94f926023b6dc6c0fe53e632f61b"
+  },
+  "after": {
+    "outer_walk_cells": 116,
+    "outer_walk_blocked": [],
+    "outer_walk_reachable_at_y2": 116,
+    "material_counts": {
+      "minecraft:glowstone": 0,
+      "minecraft:quartz_block": 0,
+      "minecraft:quartz_pillar": 0,
+      "minecraft:gold_block": 0,
+      "minecraft:campfire": 0,
+      "minecraft:lantern": 7,
+      "minecraft:water": 177,
+      "minecraft:glass": 221,
+      "minecraft:smooth_stone": 0,
+      "minecraft:packed_mud": 86,
+      "minecraft:polished_andesite": 186,
+      "minecraft:green_stained_glass": 16,
+      "minecraft:yellow_stained_glass": 16,
+      "minecraft:brown_stained_glass": 8,
+      "minecraft:cyan_stained_glass": 8
+    },
+    "final_cells_sha256": "61e16dc717b028d01019491be6e80cccf9a693cc2a960080adfa3f69ec1b5d5d"
+  },
+  "changed_cells": 381,
+  "occupied_cell_changes": 0,
+  "protected_gp5_before_sha256": "431343b708bfb6b5c9a803bc8c787dc254d36f50e8abd5a197bd8e3b29b65a53",
+  "protected_gp5_after_sha256": "431343b708bfb6b5c9a803bc8c787dc254d36f50e8abd5a197bd8e3b29b65a53",
+  "total_compared_cells": 19220,
+  "changed_cells_by_y": {
+    "1": 173,
+    "2": 8,
+    "3": 39,
+    "4": 39,
+    "5": 39,
+    "6": 39,
+    "7": 24,
+    "8": 12,
+    "9": 8
+  }
+}

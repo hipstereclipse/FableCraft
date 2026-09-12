@@ -13,10 +13,10 @@ into the original The Lost Chapters game.” Also explicitly find additional onl
 reference photos. Continue autonomously with separate reviewed milestone commits,
 validation/evidence, immediate pushes and fresh handoffs; no routine questions.
 
-Current checkpoint: GP13 — northeast dormitory final stair transition
-Last resolved prior commit: bf5768b70f02e5126eaaaed516028a15eb0b296e (GP12 pushed; exact-head CI 34721620599 passed).
-Containing commit: TLC Conformance — GP13: restore the northeast dormitory stair landing.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP13: restore the northeast dormitory stair landing'.
+Current checkpoint: GP14 — neutral-reference Chamber details and GP5/GP8 plan compatibility
+Last resolved prior commit: fd6c85238e9eb0a50493ab5385b01ebbcf76182f (GP13 pushed; exact-head CI 34721823290 passed).
+Containing commit: TLC Conformance — GP14: refine Chamber panels and preserve both historical plans.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP14: refine Chamber panels and preserve both historical plans'.
 Never invent a self-hash. Every supplemental pass remains in-progress where native
 acceptance is unrun; this does not change the 45-leaf legacy C3 denominator.
 
@@ -72,13 +72,24 @@ ways, with missing-tread/headroom/wrong-facing failures. All other geometry/RNG
 stays exact. Native width/turning/carpet collision remains unrun; see
 GUILD_DORM_STAIRS.md. No occupied-world rebuild.
 
-Next concrete integration: GP14 Chamber wall/paving refinement from the new
-neutral photos, plus frozen GP8 compatibility. Source/tests may be unstaged already.
-Preserve both GP5 and GP8 enrolled original plans and every journal check while
-new Chambers gain nested panels, narrow backed colored strips and muted paving.
-Then revisit the archery scenic backboard/rails/target fixtures against the new
-2011 original screenshots. GP15 backboard source/evidence may also be underway, separately from Chamber work.
-Do not infer whole-facility fidelity from passing cutaways or render grades.
+GP14 adds nested wall panels, fourteen carved marks, eight backed colored strips
+and muted grey/ochre outer paving from clearer neutral TLC references. Only 381
+cell materials change; every air/solid position and all 4419 protected GP5 cells
+remain exact. Frozen GP5 and GP8 manifests are both exported. Actual journal tests
+resume each from three interrupted phases and refuse unknown/edited/corrupt
+history. Twenty-five cave and eighteen Chamber groups pass; runtime is unchanged.
+No occupied-room decoration, re-carving or duplicate rewards. See
+GUILD_CHAMBER_NEUTRAL_DETAILS.md. Figurative art, center palette and native light
+are still open. Shared renderer colors are approximations with opaque glass.
+
+Next concrete integration: GP15 archery scenic backboard in the surveyed clear
+x80..88,y1..6,z30 volume. Source/tests/evidence may be unstaged already. The board
+is an original coarse block mural inspired by two inspected original range views;
+all targets, stations, active ray, floor, routes and RNG must remain checked.
+Continuous rails are deferred until their circulation footprint is measured.
+Then revisit adjoining grounds and NPC behavior, retaining source-vs-adaptation
+boundaries and all native acceptance gaps. Do not infer whole-facility fidelity
+from passing cutaways or render grades.
 
 NPC Follow/Wait remains a known source defect: generated Follow accepts any
 player, Wait leaves base strolling, and the functional Wait emote broadcasts
@@ -107,9 +118,10 @@ worlds, canon mapping and story exceptions remain open; never give Nostro a ridd
 
 ## Validation, ownership and repository landmines
 
-GP13 baseline: 45 base gates, 62 ESM syntax checks, fresh 35-asset C2 and full renders
+GP14 baseline: 45 base gates, 62 ESM syntax checks, fresh 35-asset C2 and full renders
 (51 mobs/55 items/130 recipes/32 structures/13 galleries), Guild match/roof/numeric
-checks and six dormitory groups pass offline. See screenshots/validation/GP13/.
+checks, 25 cave groups and 18 Chamber groups pass offline. See
+screenshots/validation/GP14/.
 No actual Bedrock engine has run: lighting, fluids, stairs/collision, native NPC
 movement/interruption, two-Hero behavior, portal travel, persistence and collection
 remain unrun, never passed. Existing 0.3/L3/spell manual checks stay pending.

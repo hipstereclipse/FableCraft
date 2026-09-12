@@ -1,0 +1,74 @@
+{
+  "purpose": "GP14 source audit: original-TLC neutral Chamber wall and paving detail.",
+  "inspected": "Both stored screenshots inspected at native pixel dimensions; no external pixels committed.",
+  "page_verification_note": "Stored original app204030 listing HTML contains matching data-appid, screenshot IDs, titles and direct image URLs. Individual detail URL fetches currently return a generic Steam Workshop JS shell, so version attribution relies on the accessible app listing plus the actual classic pixels.",
+  "references": [
+    {
+      "name": "chamber-steam-07.jpg",
+      "direct_url": "https://images.steamusercontent.com/ugc/71249112654601220/FD63C55EBB8809A2FD0074D7449F6C9E6BABEEE6/",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=297703872",
+      "local_path": "tmp/conformance/reference-guild-additional/chamber-steam-07.jpg",
+      "sha256": "9b7b92482fa5a5efefd345ef521845e26f97599169bf2eab28e182412b70cf9f",
+      "pixel_dimensions": [
+        1280,
+        768
+      ],
+      "scene": "Chamber of Fate, neutral gameplay",
+      "status": "accepted",
+      "version": "Fable: The Lost Chapters (classic PC)",
+      "version_confidence": "High: image card belongs to Steam app 204030 and inspected classic models, HUD and textures; exact patch/mod status unknown.",
+      "visible_findings": [
+        "Wide wall view shows cool grey masonry and attached pointed stone frames, with smaller pointed inset panels.",
+        "Round relief medallions sit over rectangular wall panels, blank in this early-story view.",
+        "Narrow colored figurative window strips alternate with wider framed wall bays; a round colored window is above the small pointed opening.",
+        "Floor has muted stone tiles, radial borders and broad shallow concentric steps/rings around the center."
+      ],
+      "limits": [
+        "Image does not show the entire circumference or roof.",
+        "Exact original world dimensions cannot be derived.",
+        "User-uploaded screenshot; no mod declaration available."
+      ],
+      "inspected": true,
+      "listing_url": "https://steamcommunity.com/app/204030/screenshots/?searchText=chamber"
+    },
+    {
+      "name": "chamber-steam-09.jpg",
+      "direct_url": "https://images.steamusercontent.com/ugc/572275288755594088/C075BC8A90FBBE21CC719B55B9E55B3B65F7BB59/",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=300473426",
+      "local_path": "tmp/conformance/reference-guild-additional/chamber-steam-09.jpg",
+      "sha256": "bb636a13608a93c411015d99f9869effc7cae0abf6236592e8f1cbbe0328425b",
+      "pixel_dimensions": [
+        1366,
+        768
+      ],
+      "scene": "Chamber of Fate, neutral wall detail",
+      "status": "accepted",
+      "version": "Fable: The Lost Chapters (classic PC)",
+      "version_confidence": "High: image card belongs to Steam app 204030 and inspected classic models, HUD and textures; exact patch/mod status unknown.",
+      "visible_findings": [
+        "Cool grey projecting rib/base plinth runs along a muted tiled floor.",
+        "A large rectangular wall panel contains a story scene; adjacent panel is plain masonry.",
+        "Narrow colored figurative window is bordered with stone."
+      ],
+      "limits": [
+        "Very oblique camera and close texture sampling.",
+        "Screenshot caption mentions seeing void beyond a window; that visual artifact is not a target feature.",
+        "Only a small portion of the room visible."
+      ],
+      "inspected": true,
+      "listing_url": "https://steamcommunity.com/app/204030/screenshots/?searchText=chamber"
+    }
+  ],
+  "adaptations": [
+    "Eight coarse nested wall frames and fourteen vanilla carved-stone marks",
+    "Eight one-block-wide strips of abstract green/yellow/brown/cyan glass with opaque backing",
+    "Polished-andesite/packed-mud grey-ochre paving in two-block grid groups"
+  ],
+  "not_established": [
+    "Exact bay count and fine paired Gothic tracery",
+    "Original figurative stained-glass subjects or changing story fresco implementation",
+    "Matching native light level or transparency",
+    "Exact original room dimensions",
+    "Original altar material pattern; protected GP5 center unchanged"
+  ]
+}

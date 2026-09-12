@@ -1,0 +1,23 @@
+test_adjacent_floor_routes_and_warded_dais_remain_connected (__main__.ChamberRoutes.test_adjacent_floor_routes_and_warded_dais_remain_connected) ... ok
+test_all_cardinal_and_diagonal_altar_approaches_climb_and_return (__main__.ChamberRoutes.test_all_cardinal_and_diagonal_altar_approaches_climb_and_return) ... ok
+test_bottom_slab_surfaces_and_swept_headroom (__main__.ChamberRoutes.test_bottom_slab_surfaces_and_swept_headroom) ... ok
+test_concentric_treads_cover_full_circumference_and_join_cardinal_walking_graph (__main__.ChamberRoutes.test_concentric_treads_cover_full_circumference_and_join_cardinal_walking_graph) ... ok
+test_exported_runtime_plan_matches_final_chamber_and_actual_guild_entry (__main__.ChamberRoutes.test_exported_runtime_plan_matches_final_chamber_and_actual_guild_entry) ... ok
+test_final_emitted_asset_and_generated_interaction_contract (__main__.ChamberRoutes.test_final_emitted_asset_and_generated_interaction_contract) ... ok
+test_gp5_and_gp8_compatibility_manifests_are_frozen_and_exported_unchanged (__main__.ChamberRoutes.test_gp5_and_gp8_compatibility_manifests_are_frozen_and_exported_unchanged) ... ok
+test_gp8_preserves_gp5_altar_entry_foundation_and_containment (__main__.ChamberRoutes.test_gp8_preserves_gp5_altar_entry_foundation_and_containment) ... ok
+test_independent_local_missing_tread_and_head_obstruction_reject_damaged_approach (__main__.ChamberRoutes.test_independent_local_missing_tread_and_head_obstruction_reject_damaged_approach) ... ok
+test_outer_walk_is_clear_all_around_and_local_obstruction_fails (__main__.ChamberRoutes.test_outer_walk_is_clear_all_around_and_local_obstruction_fails) ... ok
+test_pointed_wall_bays_have_connected_ribs_and_widen_below_apex (__main__.ChamberRoutes.test_pointed_wall_bays_have_connected_ribs_and_widen_below_apex) ... ok
+test_shell_is_closed_except_entry_and_independent_wall_breach_fails (__main__.ChamberRoutes.test_shell_is_closed_except_entry_and_independent_wall_breach_fails) ... ok
+test_skylight_water_is_contained_and_independent_missing_rim_fails (__main__.ChamberRoutes.test_skylight_water_is_contained_and_independent_missing_rim_fails) ... ok
+test_three_wide_north_arch_to_cullis_and_return_have_half_steps (__main__.ChamberRoutes.test_three_wide_north_arch_to_cullis_and_return_have_half_steps) ... ok
+test_colored_strips_have_unbroken_opaque_backing (__main__.ChamberVisualDetails.test_colored_strips_have_unbroken_opaque_backing) ... ok
+test_grey_ochre_paving_keeps_supported_connected_walk (__main__.ChamberVisualDetails.test_grey_ochre_paving_keeps_supported_connected_walk) ... ok
+test_nested_frames_and_small_medallions (__main__.ChamberVisualDetails.test_nested_frames_and_small_medallions) ... ok
+test_only_wall_surfaces_and_outer_paving_change (__main__.ChamberVisualDetails.test_only_wall_surfaces_and_outer_paving_change) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.665s
+
+OK

@@ -1,0 +1,21 @@
+Owner-only GP14 geometry preflight; generated asset/DATA equality and exported frozen-plan gates run after root regeneration.
+test_adjacent_floor_routes_and_warded_dais_remain_connected (test_chamber_routes.ChamberRoutes.test_adjacent_floor_routes_and_warded_dais_remain_connected) ... ok
+test_all_cardinal_and_diagonal_altar_approaches_climb_and_return (test_chamber_routes.ChamberRoutes.test_all_cardinal_and_diagonal_altar_approaches_climb_and_return) ... ok
+test_bottom_slab_surfaces_and_swept_headroom (test_chamber_routes.ChamberRoutes.test_bottom_slab_surfaces_and_swept_headroom) ... ok
+test_concentric_treads_cover_full_circumference_and_join_cardinal_walking_graph (test_chamber_routes.ChamberRoutes.test_concentric_treads_cover_full_circumference_and_join_cardinal_walking_graph) ... ok
+test_gp8_preserves_gp5_altar_entry_foundation_and_containment (test_chamber_routes.ChamberRoutes.test_gp8_preserves_gp5_altar_entry_foundation_and_containment) ... ok
+test_independent_local_missing_tread_and_head_obstruction_reject_damaged_approach (test_chamber_routes.ChamberRoutes.test_independent_local_missing_tread_and_head_obstruction_reject_damaged_approach) ... ok
+test_outer_walk_is_clear_all_around_and_local_obstruction_fails (test_chamber_routes.ChamberRoutes.test_outer_walk_is_clear_all_around_and_local_obstruction_fails) ... ok
+test_pointed_wall_bays_have_connected_ribs_and_widen_below_apex (test_chamber_routes.ChamberRoutes.test_pointed_wall_bays_have_connected_ribs_and_widen_below_apex) ... ok
+test_shell_is_closed_except_entry_and_independent_wall_breach_fails (test_chamber_routes.ChamberRoutes.test_shell_is_closed_except_entry_and_independent_wall_breach_fails) ... ok
+test_skylight_water_is_contained_and_independent_missing_rim_fails (test_chamber_routes.ChamberRoutes.test_skylight_water_is_contained_and_independent_missing_rim_fails) ... ok
+test_three_wide_north_arch_to_cullis_and_return_have_half_steps (test_chamber_routes.ChamberRoutes.test_three_wide_north_arch_to_cullis_and_return_have_half_steps) ... ok
+test_colored_strips_have_unbroken_opaque_backing (test_chamber_routes.ChamberVisualDetails.test_colored_strips_have_unbroken_opaque_backing) ... ok
+test_grey_ochre_paving_keeps_supported_connected_walk (test_chamber_routes.ChamberVisualDetails.test_grey_ochre_paving_keeps_supported_connected_walk) ... ok
+test_nested_frames_and_small_medallions (test_chamber_routes.ChamberVisualDetails.test_nested_frames_and_small_medallions) ... ok
+test_only_wall_surfaces_and_outer_paving_change (test_chamber_routes.ChamberVisualDetails.test_only_wall_surfaces_and_outer_paving_change) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.357s
+
+OK

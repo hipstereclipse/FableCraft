@@ -1,0 +1,110 @@
+{
+  "source_commit": "e421d237d9d6c3640d239af1a447fe33675d126b",
+  "gp8_extraction": "Exact committed DATA.guildChamber with only compatibility removed; compact JSON plus LF. Parsed plan and entry checked equal to committed source.",
+  "owned_paths": [
+    "scripts/data/guild_chamber_gp5.json",
+    "scripts/data/guild_chamber_gp8.json",
+    "scripts/gen_behavior.py",
+    "scripts/tests/guild_caves.test.mjs",
+    "scripts/tests/test_chamber_routes.py"
+  ],
+  "sha256": {
+    "scripts/data/guild_chamber_gp5.json": "a8f59e438d2a9e64876acb7ff5e2cd32494c03a06608c195b646d58a706a9916",
+    "scripts/data/guild_chamber_gp8.json": "8705e97ad551bd24d434d27da23c0c76cfe7a1cd0148c52c1bb313847970778b",
+    "scripts/gen_behavior.py": "05c75e6c53b275a6eb82e424cecb9fefd8327aa184d1a6ae05f5091be945ba7f",
+    "scripts/tests/guild_caves.test.mjs": "3c05dc32b83ba1f61aef9d52c9ca8b3b0a9446e2b385f754e61c23733fc7619d",
+    "scripts/tests/test_chamber_routes.py": "9b4b2f3ecb95d47f4eb670b5d1f9f99aad55cd70b547e1dba5735d1c2921ac1c"
+  },
+  "runtime_changes": false,
+  "generated_pack_outputs_changed": false,
+  "positive_replay_scope": {
+    "histories": [
+      "GP5",
+      "GP8"
+    ],
+    "interruptions": [
+      "snapshot with durable original pages",
+      "partial applying",
+      "all applying bits durable, before final verification completes"
+    ],
+    "checks": [
+      "real current generated plan differs from each historical geometry",
+      "emitted compatibility embeds both exact historical inputs",
+      "all original cells and permutation states resume",
+      "same record hash/count/anchor",
+      "saved page hashes/palettes/original fingerprints retained",
+      "no duplicate cell write",
+      "no whole-room replacement",
+      "loot once and no vanilla-art callback",
+      "ready reload causes no writes or loot/art repeat"
+    ]
+  },
+  "negative_scope": {
+    "histories": [
+      "GP5",
+      "GP8"
+    ],
+    "cases": [
+      "unknown enrolled hash",
+      "edited compatibility manifest retains old recorded hash and receives no authority",
+      "edited compatibility history",
+      "changed completed block",
+      "changed completed slab permutation",
+      "missing saved page",
+      "corrupt saved page",
+      "saved page bound to wrong hash"
+    ],
+    "checks": [
+      "no new cell or bulk writes",
+      "no ready flag",
+      "no loot/art callback",
+      "edited cells preserved",
+      "original pages never replaced by current plan"
+    ]
+  },
+  "verification": [
+    {
+      "command": "node --experimental-vm-modules --test --test-name-pattern='an enrolled old Chamber' scripts/tests/guild_caves.test.mjs",
+      "exit_code": 0,
+      "scope": "Existing independent synthetic GP5 revision test only; preparatory, not the new actual GP14 replay suite."
+    },
+    {
+      "command": "python -m py_compile scripts/gen_behavior.py scripts/tests/test_chamber_routes.py",
+      "exit_code": 0,
+      "scope": "Python syntax only"
+    },
+    {
+      "command": "node --experimental-vm-modules scripts/tests/guild_caves.test.mjs",
+      "cwd": "tmp/conformance/GP14-compatibility-fixture",
+      "exit_code": 0,
+      "tests": 25,
+      "passed": 25,
+      "scope": "Full lifecycle suite using actual runtime/main/test sources and current guild_chamber_contract() output; includes 6 real history/phase replay combinations and 14 damaged-history cases.",
+      "log": "tmp/conformance/GP14-compatibility-caves.log"
+    },
+    {
+      "command": "Python unittest selected ChamberRoutes.test_gp5_and_gp8_compatibility_manifests_are_frozen_and_exported_unchanged and test_exported_runtime_plan_matches_final_chamber_and_actual_guild_entry with GS.BP patched to ignored fixture",
+      "exit_code": 0,
+      "tests": 2,
+      "passed": 2,
+      "scope": "Frozen hashes/exact export plus full decoded GP14 Chamber and actual Guild-entry equality.",
+      "log": "tmp/conformance/GP14-compatibility-chamber.log"
+    }
+  ],
+  "pending": "Root final isolated snapshot regeneration and full validator will bind final GP14 artifacts; compatibility implementation and targeted test work complete.",
+  "fixture_provenance": {
+    "generation": "Loaded the current shipped DATA object, replaced only guildChamber with real scripts/gen_behavior.py:guild_chamber_contract(), and wrote ignored fixture fc_gamedata.js. No production generated assets changed.",
+    "generator_inputs": {
+      "scripts/gen_behavior.py": "05c75e6c53b275a6eb82e424cecb9fefd8327aa184d1a6ae05f5091be945ba7f",
+      "scripts/gen_structures.py": "d635352aa1ef6620f26549043820359eddbf3a23cdba3a6668fbf58a8e961a78",
+      "scripts/data/guild_chamber_gp5.json": "a8f59e438d2a9e64876acb7ff5e2cd32494c03a06608c195b646d58a706a9916",
+      "scripts/data/guild_chamber_gp8.json": "8705e97ad551bd24d434d27da23c0c76cfe7a1cd0148c52c1bb313847970778b"
+    },
+    "copied_sources": {
+      "scripts/tests/guild_caves.test.mjs": "3c05dc32b83ba1f61aef9d52c9ca8b3b0a9446e2b385f754e61c23733fc7619d",
+      "packs/Fablecraft_BP/scripts/guild_caves.js": "c8b2030decde80d91997cf825c1c50a83791a15660884cd172a03d9373e6ac0a",
+      "packs/Fablecraft_BP/scripts/main.js": "c712c39be4aee51bc65e15248e1bd1e27f3cf7a667f7ccae3be53db430521b20"
+    },
+    "data_sha256": "6506558b981d237536d18f0ec19c20d294cb736f39151c4671b720a700d03997"
+  }
+}

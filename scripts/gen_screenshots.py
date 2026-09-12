@@ -465,6 +465,10 @@ BLOCK_COLORS = {
     "minecraft:anvil": (70, 70, 74), "minecraft:furnace": (96, 94, 92),
     "minecraft:bell": (240, 200, 90), "minecraft:chiseled_bookshelf": (150, 118, 70),
     "minecraft:candle": (240, 234, 220),
+    # GP14 approximate opaque colors; focused views also preserve slab heights.
+    "minecraft:polished_andesite": (132, 134, 132), "minecraft:packed_mud": (142, 125, 91),
+    "minecraft:yellow_stained_glass": (171, 146, 56), "minecraft:brown_stained_glass": (104, 76, 51),
+    "minecraft:cyan_stained_glass": (65, 124, 133),
 }
 
 GLOW_BLOCKS = {"minecraft:lantern", "minecraft:soul_lantern", "minecraft:sea_lantern",

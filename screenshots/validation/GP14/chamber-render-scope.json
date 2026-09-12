@@ -1,0 +1,9 @@
+{
+  "baseline_owner": "scripts/data/guild_chamber_gp8.json (exact preceding GP8 Chamber geometry)",
+  "baseline_sha256": "8705e97ad551bd24d434d27da23c0c76cfe7a1cd0148c52c1bb313847970778b",
+  "source_after": "scripts/gen_structures.py:build_chamber_of_fate",
+  "scope": "Offline flat-color voxel geometry, native half-slab heights; other blocks including lamps are cubes. Glass has opaque diagnostic color; its actual transparency and lighting require native inspection. No engine lighting or perspective.",
+  "open_cutaway": "Remove y>=12 and the north half of the outer wall at radius>10.5 above the floor. Camera looks south into the retained walls.",
+  "east_bay": "Isolate x23..29/y1..11/z9..21, face the east wall from inside at low pitch. Adjacent room is cropped.",
+  "paving": "Crop x3..27/z3..27/y1..4. Outer wall base remains at the edge; compare grey/ochre outer floor with the unchanged full-circumference altar."
+}
