@@ -1,0 +1,38 @@
+{
+  "base_commit": "569b3f2119390af2e19160ef52e2aa2072ff2cda",
+  "scope": "Isolated GP15 C2 vs inherited committed GP14 asset/image hashes; changed PNG pixels compared against preserved GP14 reviewed snapshot with matching baseline hash.",
+  "command": [
+    "python",
+    "tmp/render_visual_checkpoint.py",
+    "GP15",
+    "c2"
+  ],
+  "exit_code": 0,
+  "c2_asset_count": 35,
+  "asset_changes": [
+    {
+      "name": "guild_hall",
+      "before_sha256": "c5fc91c4243bff45dad45abdc730a1bfeb1d0bcce9898a51d0e0cdc6df818938",
+      "after_sha256": "4e1ea06bf19378fc391085b3db7d51d9e33e0205aa2086b5739612963bf52fde"
+    }
+  ],
+  "image_changes": [
+    {
+      "name": "guild_hall",
+      "before_sha256": "e8f9315c037451c84ec74e55100f2e01c9ded3caa887f2d59dfdc65dd9deccd3",
+      "after_sha256": "56622b4e62b0c4dd5f0765b2849eb79f3d8cfaf2fd0de8e1d792cf83717f301d",
+      "changed_pixels": 12,
+      "total_pixels": 392000,
+      "difference_bbox": [
+        267,
+        272,
+        278,
+        277
+      ],
+      "pixel_comparison": "RGBA"
+    }
+  ],
+  "other_asset_drift_count": 0,
+  "other_image_drift_count": 0,
+  "engine_acceptance": "unrun"
+}

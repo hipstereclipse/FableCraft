@@ -1,7 +1,7 @@
 # Additional original TLC Guild image references
 
-At the user's request, 16 additional distinct gameplay images were found online,
-downloaded to ignored scratch and visually inspected during GP11/GP12. These
+At the user's request, 19 additional distinct gameplay images were found online,
+downloaded to ignored scratch and visually inspected during GP11–GP15. These
 supplement the original 2005 Prima guide and earlier three map-hall references.
 They are reference observations, not calibrated floor plans or imported pack art.
 
@@ -23,6 +23,9 @@ They are reference observations, not calibrated floor plans or imported pack art
 | affinity-guild-entrance | [page](https://affinityarchives.wordpress.com/2014/09/10/fable-tutorial-overkill/) · [image](https://affinityarchives.wordpress.com/wp-content/uploads/2014/09/guild_entrance.png) | Broad exterior looking toward the Guild entrance from the boasting platform vicinity. |
 | affinity-graduation-detail | [page](https://affinityarchives.wordpress.com/2014/09/10/fable-tutorial-overkill/) · [image](https://affinityarchives.wordpress.com/wp-content/uploads/2014/09/fable_heroesguild_heroes.jpg) | Graduation close-up with the Guildmaster in front, Thunder on the left and Maze on the right. |
 | gamepressure-archery-backboard | [page](https://www.gamepressure.com/fablethelostchapters/guild-training/z4d) · [image](https://www.gamepressure.com/fablethelostchapters/gfx/word/1212620875.jpg) | Black hooded apprentice and Whisper flank the foreground dirt firing area. |
+| Maze study, ordinary gameplay interior | [page](https://steamcommunity.com/sharedfiles/filedetails/?id=273468136) · [image](https://images.steamusercontent.com/ugc/579025774227799030/B4A5434A004B97D610D7ED97AFDDEA3F62FF3D54/) | Tall bookcase, timber upper gallery, round lattice window, red bordered rug, ornate chair and partial pedestal table. |
+| Maze study, request cutscene | [page](https://steamcommunity.com/sharedfiles/filedetails/?id=247737302) · [image](https://images.steamusercontent.com/ugc/432651567436598631/839A2D2E3D342EE4B2E3238CE1B4C14E637B6BC0/) | Second angle on round window, red wall panels, timber rail and pointed doorway. |
+| Guild dormitory, partial wake-up background | [page](https://steamcommunity.com/sharedfiles/filedetails/?id=1509181409) · [image](https://images.steamusercontent.com/ugc/961971522308377432/BBB72AAB116DF42256C02F7CBB6E585EF79A9378/) | Continuous shelves with carved upper trim, red wall panels and heavy timber framing behind Whisper. |
 
 ## Attribution and limits
 
@@ -43,9 +46,20 @@ nested pointed panels, medallions, narrow colored windows and shallow floor band
 figurative stained glass and story murals are still absent from the pack.
 
 The archery mountains are a painted scenic backdrop. They are not measurements
-of distant terrain. Dormitory and Maze interior searches did not yield additional
-verified accessible original pixels; their precise furnishings/proportions remain
-open. Native lighting, matched camera views and physical walking are unrun.
+of distant terrain. The bounded GP15 follow-up added two original-TLC Maze-study
+views and one partial dormitory wake-up view, with matching app 204030 cards and
+classic pixels inspected. Their patch/mod status is unknown. Bright equipment
+affects the foreground of the Maze gameplay view, and characters obscure much
+of both study images; these establish visible furniture and wall details, not
+exact dimensions or a calibrated neutral light level.
+
+The dormitory close-up shows shelves and wall framing but no complete bed or
+room-wide layout. A neutral wide dormitory view is still missing, as are neutral
+Library views establishing ordinary lamps and exact reading furniture. The full
+Maze-study floor plan, furniture count and gallery/stair dimensions remain open.
+Native lighting, matched camera views and physical walking are unrun. A second
+lower-resolution capture of the same Whisper wake-up angle is not counted as
+another useful reference.
 
 Excluded results included Anniversary-only pages, Fable II/III and reboot images,
 Demon Door Arcanum scenes mislabeled as Guild Library, Bargate and Arena interiors.
@@ -56,6 +70,7 @@ Exact hashes, dimensions, confidence, exclusions and individual observations:
 - [Four 2011 training/hall images](../screenshots/validation/GP11/additional-online-references.json).
 - [Nine Library/Chamber/hall images](../screenshots/validation/GP12/library-chamber-online-provenance.json).
 - [Three exterior/graduation/archery images](../screenshots/validation/GP12/additional-online-exterior-references.json).
+- [Three supplementary Maze/dormitory views](../screenshots/validation/GP15/interior-reference-followup.json).
 
 External pixels remain under ignored `tmp/conformance/reference-guild-additional`;
 only these textual source records are committed. Later changes must preserve

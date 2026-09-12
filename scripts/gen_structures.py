@@ -686,6 +686,30 @@ def build_guild_map_table(v, cx, cz, r):
             v.set(cx + dx, 1, cz + dz, material, states)
 
 
+def build_guild_archery_backboard(v):
+    """Original authored valley mosaic, adapted from the TLC scenic range board.
+
+    The photographed painted mountains are a prop, not distant terrain. Keep
+    this one-block-deep frame behind all targets and clear of both south doors.
+    This final fixture uses no randomness and leaves the existing floor intact.
+    """
+    cx, cz, _ = GUILD_LAYOUT["archery"]
+    colors = {
+        "F": SPRUCE,
+        "S": "minecraft:light_blue_terracotta",
+        "M": "minecraft:purple_terracotta",
+        "W": "minecraft:white_terracotta",
+        "G": "minecraft:green_terracotta",
+        "T": "minecraft:black_wool",
+    }
+    # Top to bottom: timber border, muted sky, pale peaks, wooded valley.
+    picture = ("FFFFFFFFF", "FSSSSSSWF", "FSWSSSMMF",
+               "FTMMSMMMF", "FTGGSGGGF", "FFFFFFFFF")
+    for row, symbols in enumerate(picture):
+        for column, symbol in enumerate(symbols):
+            v.set(cx - 6 + column, 6 - row, cz - 9, colors[symbol])
+
+
 def build_guild_library_interior(v):
     """Tall framed shelves and a reading desk inside the existing Library.
 
@@ -2525,6 +2549,7 @@ def build_guild_hall():
 
     build_guild_circulation(v)           # final owner of stair, landing and doorway volumes
     fix_floating_decor(v)                # re-seat every lantern; no floaters
+    build_guild_archery_backboard(v)     # after every RNG-dependent landscape pass
     return v
 
 

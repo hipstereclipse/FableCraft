@@ -1,0 +1,8 @@
+{
+  "command": [
+    "python",
+    "screenshots/validation/GP15/regenerate-guild.py"
+  ],
+  "exit_code": 0,
+  "working_directory": "tmp/conformance/GP15-reviewed-snapshot"
+}

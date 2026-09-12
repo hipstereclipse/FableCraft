@@ -1,5 +1,7 @@
 {
-  "scope": "Offline generator renders; grades measure image appearance, not canon or playability.",
+  "base_commit": "569b3f2119390af2e19160ef52e2aa2072ff2cda",
+  "scope": "Inherited committed GP14 contract evidence and images, captured before isolated GP15 regeneration.",
+  "evidence_sha256": "ee1c8e170563e5de6529f6172c217502d011b54d315be7df8047e4f91ebb2632",
   "structures": {
     "archon_folly": {
       "asset_sha256": "fa86d4053c26c77303155f32e572e9009a9bce7085ca0353db93505b9748c590",
@@ -306,18 +308,18 @@
       "notes": []
     },
     "guild_hall": {
-      "asset_sha256": "4e1ea06bf19378fc391085b3db7d51d9e33e0205aa2086b5739612963bf52fde",
+      "asset_sha256": "c5fc91c4243bff45dad45abdc730a1bfeb1d0bcce9898a51d0e0cdc6df818938",
       "size": [
         122,
         30,
         108
       ],
-      "image_sha256": "56622b4e62b0c4dd5f0765b2849eb79f3d8cfaf2fd0de8e1d792cf83717f301d",
+      "image_sha256": "e8f9315c037451c84ec74e55100f2e01c9ded3caa887f2d59dfdc65dd9deccd3",
       "grade": "S",
       "score": 100,
       "metrics": {
         "coverage": 11.1,
-        "colors": 65,
+        "colors": 66,
         "contrast": 0.89,
         "brightness": 0.55,
         "placeholder": false
@@ -666,5 +668,42 @@
       },
       "notes": []
     }
+  },
+  "actual_png_sha256": {
+    "grey_house.png": "1cebf37972720e403fa915457712c5bd7a26320bbbef2e08ba38746d70e37423",
+    "guild_armoury.png": "334f247e03d378c50996509c8fa3e62e94f5ba01e467eef3026db8b50c3bb1ba",
+    "guild_hall.png": "e8f9315c037451c84ec74e55100f2e01c9ded3caa887f2d59dfdc65dd9deccd3",
+    "guild_scriptorium.png": "ad734506d74a83afe8e662cf2b073f734409657849b98d222347451e2fc2dd8d",
+    "guild_sentinel_gate.png": "d0686d69de31b8b8f8fd9ef4df32fb979e0cd3b4a7f4870bcbe11de2c51cb4cc",
+    "hobbe_cave.png": "5ce845b9e9aaa967551521dc27f999571fc703a4c5366e5ef841b3d722c16454",
+    "hook_coast.png": "ecd69b8eedec198fad17d097ccfef3216691a1013244e2a1b4e0d83da3b98987",
+    "knothole_glade.png": "85e2179fd157a024cd8ed30f49be6af4a882d5e9b72c3cd0121bb19bce17f3fe",
+    "library_arcanum.png": "d641ac219ab3cb45affd6e00e9e89854cee35a6dd7c46c25ff7fede74eba2161",
+    "lookout_point.png": "2ff605a9eba7019817b1ebc6abbe137d34bae81ad8fe693247c07313a54c6f0e",
+    "oakvale_village.png": "661e458bebe68b7d1aa63974f0ed824e1f8442ed0d866dd86d200718da398f39",
+    "orchard_farm.png": "7a3af2fd6a0aad70e89629a42a2f17121b9bca7943b88c6c3a7f6577e3d0629c",
+    "power_guild_courtyard.png": "0dc04d370548e2c6dafe4d6634b08af42fbfaf7b0500d7447b4e3d2e4f7d95d0",
+    "power_necropolis.png": "b0cc3c8bfee6a37f64823c9cb5c50e07bb8e2616413ef4c09046ed9e467af89f",
+    "power_oakvale_quay.png": "12965b50c65937f8ec6fbbea491b7d24264056ad1fced9818351dadf96b4ae3d",
+    "power_snowspire_oracle.png": "14e83b397fe331d46dc2949afd5f750f8a8819f32be8e5def48c579a75d9d905",
+    "rose_cottage.png": "00863c637ceedef6afc2d0678a2aa3934d9082a131a1c1582c78fac59791f69f",
+    "silver_chest_ruin.png": "88411e78153ff47411de5c10d25c905a9068d17d2154f12cdd1df8d2c9d333f9",
+    "temple_avo.png": "67bcc1e5d6eadfbeb81f9e116e80d36ee84b665aec6d4b57e3a6ea0d9c09e26c",
+    "windmill_hill.png": "8033e5632f54edaa5778ddc4a888912fed4fc39d043b4fe4360f3d44995d69d9",
+    "witchwood_stones.png": "e3fb291e9223623ea11a1ecc110eb8622b4ad03a0807231efffc038d08f1637c",
+    "archon_folly.png": "b786c83db31b81bd6db4555540889da6c0fc124c98bcf97eebb9f1721ca82b48",
+    "archon_shrine.png": "5af64a7d0d3dd72e0ea39e33d42fd31a57475743b18908094a2646309b5bc031",
+    "arena_ring.png": "c1fceb4cea2b8a772c0cb0c7f35f6cfa70edb266c1651033a19c9c890ff2ac3b",
+    "bandit_camp.png": "58b544a5fa72643f466d40539ca3ed7fca30a8512decdc97d7c0efc42cc8f957",
+    "bargate_prison.png": "07c594d378dec7a74db6a20a200edef62eb7b7e625776d2427b841eb47f26ca7",
+    "bowerstone_market.png": "109454e8fa6b7c12194d582c943ac007af8baa494ea773867436a47c877fc22e",
+    "chamber_of_fate.png": "22e8d9f80c4b325bf52ae829928285f32f80b1cae4499ab21a0d01447e1dc814",
+    "chapel_skorm.png": "2abf86a55c542fe4133e5e3336734997383087243ca79e82578e70b08eaefb04",
+    "darkwood_camp.png": "565b436222a43378edfbfd7cab15872ac1ec29a77b30ab4a973fbdc24e8ac11b",
+    "demon_door_arch.png": "6b4e6c6cba2e02dbd838deebce3524272b693e7735810b537d62274e69d09ee7",
+    "fisher_creek.png": "68de4ee8da14b6d6ec3e76908dc60cd39d8f89ab889f8c926be72a053696adb0",
+    "focus_site.png": "a4dc576af4a9a013420448a1d7410bce4a510e47b90c84f18caaedba22c36d05",
+    "graveyard.png": "784d36bcd9dba8ace7b7c856a0cc3e9057ea6ab66c98a59b1981cc89c52dd91b",
+    "greatwood_gorge.png": "0c4e697715f077dd2052a6c96ac640a336dee2ad30200d4cb596fa71404786c9"
   }
 }

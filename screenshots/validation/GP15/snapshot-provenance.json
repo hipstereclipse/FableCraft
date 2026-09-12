@@ -1,0 +1,24 @@
+{
+  "source": "reviewed Git index; excludes unstaged parallel implementation and inherited dirtiness",
+  "baseline_head": "569b3f2119390af2e19160ef52e2aa2072ff2cda",
+  "entries": 4844,
+  "reviewed_source_sha256": {
+    "docs/CONFORMANCE_CHECKLIST.md": "b441b8b440328ff15da9e3743d4c9c84ca1e639d76f427f9fad1d6dbc13b6f06",
+    "docs/GUILD_ARCHERY_BACKBOARD.md": "cb445e1a75264a6538440e18e6ba404ff843ac29d7e4641c93bda767bdda60ce",
+    "docs/GUILD_DEMON_PRIORITIES.md": "560ffd2855e54987719c1a9d0f8553b99d59b15a1f0a5ee068f9f111237e3f8c",
+    "docs/GUILD_ONLINE_REFERENCES.md": "21d128497f1f5ae64e02fefe51926999536d61bf1a32ad8d73a680519b25f8f3",
+    "docs/HANDOFF.md": "de007aaded76bf9c0c7e4277cecce93986f06f5a586dad737fd6c4ffc381ebb4",
+    "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure": "4e1ea06bf19378fc391085b3db7d51d9e33e0205aa2086b5739612963bf52fde",
+    "screenshots/structures/contract/evidence.json": "fee42108b0e4acb0435dd1fc2c1a310dd6c11a6371c1c0a320325bb569ac1678",
+    "screenshots/structures/contract/guild_hall.png": "56622b4e62b0c4dd5f0765b2849eb79f3d8cfaf2fd0de8e1d792cf83717f301d",
+    "scripts/gen_screenshots.py": "a4dc7ca197128b7e78a9d65fc1053020c1b699f06b4bcc85a6ee7de7666f66f9",
+    "scripts/gen_structures.py": "e6362334bc8d97715ac92c379a4db718032fcdaaa5d64241acfcf810c4793ae6",
+    "scripts/tests/guild_archery_voxels.mjs": "c442b5fb1c8c110220593c86e5e33daf4d7aef657bc3b0a3a064e6d7b2ef842b",
+    "scripts/tests/test_guild_archery_backboard.py": "09af4238470aa50c6ac991f214afd9c85ec2462063fd16509c09d029fa687330",
+    "scripts/validate.py": "c4088de6339aab292cfef92c94ba8dccb399b7d4e183cb938ed648ff0d02eef8",
+    "screenshots/validation/GP15/regenerate-guild.py": "4da7026d0e38c0ee565c19035181dcf8541994878858f1676472784125952f7b",
+    "screenshots/validation/GP15/render-archery-backboard.py": "59004ecf78187f74eaeacbe88abe5e5119ee98fe857280d538227821c1c34c03"
+  },
+  "node_dependencies": "same installed locked dependencies via node_modules symlink",
+  "engine_acceptance": "unrun"
+}

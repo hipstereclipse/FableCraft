@@ -13,10 +13,10 @@ into the original The Lost Chapters game.” Also explicitly find additional onl
 reference photos. Continue autonomously with separate reviewed milestone commits,
 validation/evidence, immediate pushes and fresh handoffs; no routine questions.
 
-Current checkpoint: GP14 — neutral-reference Chamber details and GP5/GP8 plan compatibility
-Last resolved prior commit: fd6c85238e9eb0a50493ab5385b01ebbcf76182f (GP13 pushed; exact-head CI 34721823290 passed).
-Containing commit: TLC Conformance — GP14: refine Chamber panels and preserve both historical plans.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP14: refine Chamber panels and preserve both historical plans'.
+Current checkpoint: GP15 — reference-led archery scenic backboard and retained training routes
+Last resolved prior commit: 569b3f2119390af2e19160ef52e2aa2072ff2cda (GP14 pushed; exact-head CI 34722255501 passed).
+Containing commit: TLC Conformance — GP15: restore the Guild archery scenic backboard.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP15: restore the Guild archery scenic backboard'.
 Never invent a self-hash. Every supplemental pass remains in-progress where native
 acceptance is unrun; this does not change the 45-leaf legacy C3 denominator.
 
@@ -29,10 +29,12 @@ stay in ignored tmp/conformance/reference-guild and reference-guild-additional;
 never put their pixels into packs or committed evidence. The original 2005 Prima
 PDF remains ignored tmp/conformance/reference-arcanum/prima-tlc-guide.pdf.
 GP11 additional-online-references.json records four inspected pre-Anniversary
-training/hall shots. See docs/GUILD_ONLINE_REFERENCES.md for 16 additional inspected views.
+training/hall shots. See docs/GUILD_ONLINE_REFERENCES.md for 19 additional inspected views.
 Newly found original Chamber, Library cutscene, courtyard
-and archery views have further provenance under GP12/scratch. Search for better
-neutral Library, dormitory and Maze interior angles where still missing.
+and archery views have further provenance under GP12. GP15 adds two Maze-study
+views and a partial dormitory wake-up view with URLs/hashes. Use these for a
+bounded study furnishing/window audit; neutral wide Library/dormitory views and
+complete Maze floor/gallery dimensions remain missing.
 
 Repeat inspect → compare → fix → regenerate → test → re-inspect across entrance,
 map hall/quest/skill/Cullis interactions, Library/living spaces, Maze's tower,
@@ -82,14 +84,29 @@ No occupied-room decoration, re-carving or duplicate rewards. See
 GUILD_CHAMBER_NEUTRAL_DETAILS.md. Figurative art, center palette and native light
 are still open. Shared renderer colors are approximations with opaque glass.
 
-Next concrete integration: GP15 archery scenic backboard in the surveyed clear
-x80..88,y1..6,z30 volume. Source/tests/evidence may be unstaged already. The board
-is an original coarse block mural inspired by two inspected original range views;
-all targets, stations, active ray, floor, routes and RNG must remain checked.
-Continuous rails are deferred until their circulation footprint is measured.
-Then revisit adjoining grounds and NPC behavior, retaining source-vs-adaptation
-boundaries and all native acceptance gaps. Do not infer whole-facility fidelity
-from passing cutaways or render grades.
+GP15 restores the painted archery landmark as an original coarse framed valley
+mosaic, based on two inspected original screenshots. Only 54 former-air cells
+at x80..88,y1..6,z30 change; all other campus cells, shared RNG, floors, targets,
+dummies and anchors stay exact. Six focused groups check both door/gate return
+routes, rear/side passages and the actual Skill particle ray, including broken
+support/frame/headroom/path/lane negatives. Existing Will/maintenance/training
+contracts remain green. See GUILD_ARCHERY_BACKBOARD.md and GP15 evidence.
+Continuous braced rails remain deferred until their footprint is surveyed.
+The production Skill callback has no runtime block-lane preflight; its line is
+preserved geometrically, not upgraded by this fixture pass. Native acceptance
+and original target detail remain open. No occupied-world geometry migration.
+
+Next: revisit adjoining grounds and requester-specific NPC activity ownership;
+use the newly verified Maze-study views for a furnishing/window comparison, and
+seek neutral wide dormitory/Library references before claiming interior fidelity.
+Preserve source-vs-adaptation boundaries, routes, saved history and all native
+acceptance gaps. Do not infer whole-facility fidelity from render grades.
+
+The final GP15/facility-followup-audit.md ranks live Skill target/lane preflight,
+purposeful station arrival and three reactive Will dummies. The actual Skill
+callback probe still emits six harmless particles through a chest-blocked lane
+or a missing target. Fix that bounded behavior before expanding range furniture;
+then tackle movement with interruption/identity ownership preserved.
 
 NPC Follow/Wait remains a known source defect: generated Follow accepts any
 player, Wait leaves base strolling, and the functional Wait emote broadcasts
@@ -118,10 +135,12 @@ worlds, canon mapping and story exceptions remain open; never give Nostro a ridd
 
 ## Validation, ownership and repository landmines
 
-GP14 baseline: 45 base gates, 62 ESM syntax checks, fresh 35-asset C2 and full renders
+GP15 baseline: 46 base gates, 62 ESM syntax checks, fresh 35-asset C2 and full renders
 (51 mobs/55 items/130 recipes/32 structures/13 galleries), Guild match/roof/numeric
-checks, 25 cave groups and 18 Chamber groups pass offline. See
-screenshots/validation/GP14/.
+checks, 25 cave groups, 18 Chamber groups and 6 archery groups pass offline.
+See screenshots/validation/GP15/. Only the Guild asset and its distant C2 image
+change; all other 34 assets/images remain exact. Four focused before/after
+views are the useful backboard detail evidence. No engine acceptance is implied.
 No actual Bedrock engine has run: lighting, fluids, stairs/collision, native NPC
 movement/interruption, two-Hero behavior, portal travel, persistence and collection
 remain unrun, never passed. Existing 0.3/L3/spell manual checks stay pending.

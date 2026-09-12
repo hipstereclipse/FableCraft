@@ -1,0 +1,9 @@
+{
+  "process_errors": [],
+  "interrupted_processes": [],
+  "analysis_warnings": [
+    "The first C2 pixel comparison emitted Pillow getdata deprecation warning; a direct RGBA byte comparison confirmed the same 12 changed pixels without rerendering."
+  ],
+  "root_mutations": "none; all generated artifacts remain in this isolated snapshot",
+  "engine_acceptance": "unrun"
+}

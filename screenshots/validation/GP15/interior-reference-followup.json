@@ -1,0 +1,137 @@
+{
+  "purpose": "Bounded supplementary original TLC Guild-interior photo search during GP15, 2026-09-12.",
+  "search_scope": "Three targeted web queries (Maze room, dormitory, Guild Library) plus three public original-TLC Steam listing queries (Maze, bed, Whisper); no further searches.",
+  "accepted_new_unique_images": 3,
+  "prior_distinct_reference_count": 16,
+  "updated_distinct_reference_count": 19,
+  "page_verification_note": "Individual Steam detail pages currently return a generic JavaScript shell. Saved publicly accessible app204030 listing cards explicitly contain each matching screenshot ID, app ID and direct image URL. Exact source version confidence combines those cards with inspected classic pixels; posting dates are not capture dates.",
+  "references": [
+    {
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=273468136",
+      "direct_url": "https://images.steamusercontent.com/ugc/579025774227799030/B4A5434A004B97D610D7ED97AFDDEA3F62FF3D54/",
+      "caption": "selfie with Maze",
+      "file": "interior-followup-273468136.jpg",
+      "local_path": "tmp/conformance/reference-guild-additional/interior-followup-273468136.jpg",
+      "sha256": "eea4f9658b8544f8bc20073b7b47ab79179aeeb89d769d85c38be9db97b64086",
+      "dimensions": [
+        1680,
+        1050
+      ],
+      "listing_url": "https://steamcommunity.com/app/204030/screenshots/?searchText=Maze",
+      "listing_html_sha256": "adedba1b96e6b1c7f26d5d8d49e2d04d6fd73445380156b2108ecfbd08239f96",
+      "version": "Fable: The Lost Chapters, classic PC",
+      "version_confidence": "High: exact matching screenshot ID and image URL in original TLC app204030 listing; classic models, UI/cutscene presentation and textures inspected. Patch/mod status is unknown.",
+      "actual_pixels_inspected": true,
+      "scene": "Maze study, ordinary gameplay interior",
+      "visible_findings": [
+        "Tall continuous framed bookcase on the left.",
+        "Timber balcony/gallery railing and supported underside above the bookcase.",
+        "Large round opening with a stone surround and diagonal lattice against the sky.",
+        "Stone diamond-pattern floor with a red rug and spiral-pattern border.",
+        "Decorative lower wall band, ornate high-backed wooden chair and partially visible square-topped pedestal table."
+      ],
+      "limits": [
+        "Hero and Maze obscure the center and some furniture.",
+        "Bright equipment/character illumination affects the warm foreground light; this is not a calibrated neutral-light sample.",
+        "Table is cropped and its exact dimensions cannot be recovered.",
+        "Full floor plan, circulation between levels, total gallery height and hidden furniture remain unknown."
+      ]
+    },
+    {
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=247737302",
+      "direct_url": "https://images.steamusercontent.com/ugc/432651567436598631/839A2D2E3D342EE4B2E3238CE1B4C14E637B6BC0/",
+      "caption": "The Hero with Maze",
+      "file": "interior-followup-247737302.jpg",
+      "local_path": "tmp/conformance/reference-guild-additional/interior-followup-247737302.jpg",
+      "sha256": "ec941730afa691fa98eac678dc83f47502e7541f4dfa9a056a0773d42251bae8",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "listing_url": "https://steamcommunity.com/app/204030/screenshots/?searchText=Maze",
+      "listing_html_sha256": "adedba1b96e6b1c7f26d5d8d49e2d04d6fd73445380156b2108ecfbd08239f96",
+      "version": "Fable: The Lost Chapters, classic PC",
+      "version_confidence": "High: exact matching screenshot ID and image URL in original TLC app204030 listing; classic models, UI/cutscene presentation and textures inspected. Patch/mod status is unknown.",
+      "actual_pixels_inspected": true,
+      "scene": "Maze study, Maze request cutscene",
+      "visible_findings": [
+        "Round stone-framed window with diagonal lattice, seen from a second angle.",
+        "Red wall panels bounded by heavy timber framing.",
+        "Timber guardrail at a level change and pointed doorway behind Maze.",
+        "Diamond-pattern stone floor and edge of a red rug."
+      ],
+      "limits": [
+        "Letterboxed cutscene with two characters obscuring most of the floor.",
+        "The rail/level-change opening is partially hidden and cannot establish exact stair geometry.",
+        "Lighting and field of view are not calibrated."
+      ]
+    },
+    {
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=1509181409",
+      "direct_url": "https://images.steamusercontent.com/ugc/961971522308377432/BBB72AAB116DF42256C02F7CBB6E585EF79A9378/",
+      "caption": "Meeting Whisper",
+      "file": "interior-followup-1509181409.jpg",
+      "local_path": "tmp/conformance/reference-guild-additional/interior-followup-1509181409.jpg",
+      "sha256": "c6473379ed516b6c3884b6321f102527c994b401c0f8bc6813deff4a9d3ab252",
+      "dimensions": [
+        1680,
+        1050
+      ],
+      "listing_url": "https://steamcommunity.com/app/204030/screenshots/?searchText=Whisper",
+      "listing_html_sha256": "80be6854f7daa92cdf273a924c754e06425af4d4c7eb34acd10c4991910058ec",
+      "version": "Fable: The Lost Chapters, classic PC",
+      "version_confidence": "High: exact matching screenshot ID and image URL in original TLC app204030 listing; classic models, UI/cutscene presentation and textures inspected. Patch/mod status is unknown.",
+      "actual_pixels_inspected": true,
+      "scene": "Guild dormitory wake-up cutscene, partial background",
+      "visible_findings": [
+        "Whisper stands in front of a tall bookcase with continuous shelves and carved upper trim.",
+        "Red wall panels and substantial vertical timber framing beside the shelves."
+      ],
+      "limits": [
+        "Whisper fills most of the image.",
+        "No full bed, room floor, room-wide furnishing layout or dependable bed count visible.",
+        "This closes only a shelf/wall-detail gap; a neutral wide dormitory view remains missing."
+      ]
+    }
+  ],
+  "remaining_gaps": [
+    "Neutral wide Guild dormitory views establishing beds, furniture counts, full floor/roof plan and native lamp arrangement.",
+    "Neutral Guild Library views establishing ordinary lighting, exact reading furniture and complete room plan.",
+    "Full Maze study floor plan, exact table/chair count and stair/gallery dimensions."
+  ],
+  "excluded_candidates": [
+    {
+      "file": "interior-followup-572458319.jpg",
+      "reason": "Same close Whisper wake-up view as accepted1509181409 at lower resolution; no additional architectural information, not counted."
+    },
+    {
+      "file": "interior-followup-104909316.jpg",
+      "reason": "Rock cave bedchamber, not Guild dormitory."
+    },
+    {
+      "file": "interior-followup-77028135.jpg",
+      "reason": "Damaged/odd bed close-up without sufficient room identity; not used as Guild evidence."
+    },
+    {
+      "file": "interior-followup-78682303.jpg",
+      "reason": "Snowy village house interior, not Guild."
+    },
+    {
+      "file": "interior-followup-59444842.jpg",
+      "reason": "Demon Door face, not an interior."
+    },
+    {
+      "file": "interior-followup-2805769575.jpg,1509181017.jpg",
+      "reason": "Maze in burning Oakvale, not his Guild study."
+    },
+    {
+      "file": "interior-followup-247403109.jpg,87889476.jpg",
+      "reason": "Hook Coast reward/combat scene, not Guild study."
+    },
+    {
+      "file": "interior-followup-380979375.jpg,192711355.jpg,209875471.jpg",
+      "reason": "Whisper doll, Arena or outdoor scene, not a Guild interior."
+    }
+  ],
+  "use_limit": "Reference observations only. No geometry changes and no imported/extracted game art. External image pixels and listing HTML remain ignored scratch; this file records sources and bounded observations."
+}

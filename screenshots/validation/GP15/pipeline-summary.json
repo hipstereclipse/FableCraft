@@ -1,0 +1,36 @@
+{
+  "checkpoint": "GP15",
+  "snapshot": "tmp/conformance/GP15-reviewed-snapshot",
+  "base_commit": "569b3f2119390af2e19160ef52e2aa2072ff2cda",
+  "preregeneration_behavior_tests": 8,
+  "targeted_generated_asset_count": 1,
+  "c2_asset_count": 35,
+  "changed_c2_assets": 1,
+  "changed_c2_images": 1,
+  "other_c2_asset_or_image_drift": 0,
+  "c2_changed_rgba_pixels": 12,
+  "diagnostic_commands_passed": 3,
+  "focused_png_count": 4,
+  "full_png_count": 281,
+  "full_changed_png_count": 2,
+  "process_errors": [],
+  "interrupted_processes": [],
+  "engine_acceptance": "unrun",
+  "evidence_sha256": {
+    "pre-regeneration-behavior.command.json": "44fcb1acb9f6707a7f232fc540b41c2afe244d96f1b01ea84dd69105ce63b61b",
+    "targeted-generated-drift.json": "569b3cda3842cc3295fcea7ad77c2261bdf6389e651466de72f7a62058c7e318",
+    "c2-drift.json": "3fcb917e03eca8ed5f61a7de19b33f42ed715f4c9cc422be1cc5e8b2c4f71663",
+    "diagnostics-results.json": "5f2e54f1118d5e5e4c8ffae3d3ab5c67b7360e97469b442fbb1bf81e8756f66b",
+    "focused-render-verification.json": "cd122b12c9fceb8244540d797081c9f8d3a248564faa877b80e5cae606b93571",
+    "full-render-summary.json": "73817a517a5c0d40aec6f9be05d76a9fbb5bbb3eec0982b25c5204b45c96aa78",
+    "full-render-drift.json": "512384dda8b95d518c6429418b3c1ead22298ff96d6aef317a0f50be95b4e1b7",
+    "pipeline-notes.json": "d13b65f3f5f38e9fbafc66c3090f53c71a8ac8413fe788b79797f38dbd004523"
+  },
+  "root_copy_plan": [
+    "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure",
+    "screenshots/structures/contract/evidence.json",
+    "screenshots/structures/contract/guild_hall.png",
+    "screenshots/validation/GP15/"
+  ],
+  "notes": "No root source edits, Git operations or output copying by this agent. Root independently reported its 46-gate validator exit0; finalizer remains root-owned."
+}

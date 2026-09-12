@@ -1,0 +1,34 @@
+{
+  "scope": "Original TLC visual evidence for a scenic archery prop; external pixels remain in ignored scratch and are not pack art.",
+  "references": [
+    {
+      "file": "altered-archery.jpg",
+      "page_url": "https://www.alteredgamer.com/fable-the-lost-chapters/103803-walkthrough-the-guild-and-the-guildmaster/",
+      "image_url": "https://img.bhs4.com/e1/f/e1f43fd179bdef0b9a1cb2974371d4e5fe57c274_large.jpg",
+      "sha256": "ff6b788d50686edc09d74cc838779b41a0f882cd09685ff7cdf965437c511707",
+      "dimensions": [
+        600,
+        498
+      ],
+      "actual_pixels_inspected": true,
+      "visible_features": "Large rectangular painted purple mountain/valley board behind archery targets, against masonry; low greenish timber rails with diagonal braces.",
+      "limits": "Classic PC UI and visible TheInkandPen 2011 watermark. Frame scale, hidden supports and exact dimensions cannot be measured from this view."
+    },
+    {
+      "file": "gamepressure-will.jpg",
+      "page_url": "https://www.gamepressure.com/fablethelostchapters/guild-training/z4d",
+      "image_url": "https://www.gamepressure.com/fablethelostchapters/gfx/word/1212620875.jpg",
+      "sha256": "0e1d7459dd7bb646be99926c5071ccdeb884c23ca2b3bbd25afba000a63f6833",
+      "dimensions": [
+        280,
+        159
+      ],
+      "actual_pixels_inspected": true,
+      "visible_features": "Large rectangular painted purple mountain/valley board behind archery targets, against masonry; low greenish timber rails with diagonal braces.",
+      "limits": "Historical filename is wrong: this is ARCHERY. Small 280x159 view corroborates the board/rails; page updated 2016-05-11 does not date the original capture."
+    }
+  ],
+  "authored_adaptation": "9x6 supported wood frame with original 7x4 terracotta/wood/wool landscape; exact geometry/palette/pattern are chosen block adaptations. No terrain reconstruction or copied image texture.",
+  "deferred": "Continuous braced rails, straw dummy appearance, moving/scored targets and player lessons.",
+  "engine_acceptance": "unrun"
+}

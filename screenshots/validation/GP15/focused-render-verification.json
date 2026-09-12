@@ -1,0 +1,41 @@
+{
+  "snapshot_scope": "Isolated reviewed GP15 source after committed GP14; all four images freshly regenerated and visually inspected after targeted Guild regeneration.",
+  "command": [
+    "python",
+    "screenshots/validation/GP15/render-archery-backboard.py"
+  ],
+  "exit_code": 0,
+  "log": "focused-final-render.log",
+  "dependencies": {
+    "scripts/gen_structures.py": "e6362334bc8d97715ac92c379a4db718032fcdaaa5d64241acfcf810c4793ae6",
+    "scripts/gen_screenshots.py": "a4dc7ca197128b7e78a9d65fc1053020c1b699f06b4bcc85a6ee7de7666f66f9",
+    "scripts/fc_lib.py": "c53491f9d640c9e10cb5b3d8f65ea8c85b3f526af03f7631d5d447ab6fe70797",
+    "scripts/fc_data.py": "81ec9a420bdbb01782ba9c00c21efc65bd78ac6f2e52fc5349af14528b6c10c7",
+    "scripts/fc_mobs.py": "cf19fb87027bf031db63451a0a3af24e249bbf8eb4e016188bab49772d824f51",
+    "scripts/structure_contract.py": "65d86c6c1cdf8a1799ed6a7178db55bbad7318064593c70d4b0174edab2e5f45",
+    "scripts/tests/test_guild_archery_backboard.py": "09af4238470aa50c6ac991f214afd9c85ec2462063fd16509c09d029fa687330",
+    "scripts/tests/guild_archery_voxels.mjs": "c442b5fb1c8c110220593c86e5e33daf4d7aef657bc3b0a3a064e6d7b2ef842b",
+    "scripts/tests/test_guild_routes.py": "e3323f7b944a03457a9dde9ac10c24256d828a52369497db76edd035691bd889",
+    "scripts/tests/test_guild_map_table.py": "dd6b20e6df87e0dbc09e5a896ff97dabbe3f0eda07aaef5d50e9b0553edb6eff",
+    "packs/Fablecraft_BP/scripts/main.js": "c712c39be4aee51bc65e15248e1bd1e27f3cf7a667f7ccae3be53db430521b20",
+    "packs/Fablecraft_BP/scripts/guild_training.js": "baf0ff28090d771fb94b4884090e8cf45ba387aa9a6c3cbe7148082e9a70db41",
+    "screenshots/validation/GP15/render-archery-backboard.py": "59004ecf78187f74eaeacbe88abe5e5119ee98fe857280d538227821c1c34c03",
+    "screenshots/validation/GP15/archery-backboard-render-scope.json": "d8ce0f943fe286f0108902bc4a504c0a6a320e9e860f7db126b884d2e6f5579e",
+    "screenshots/validation/GP15/archery-reference-provenance.json": "d0bc27be3c0fac419de112d8b90814fb7f4a3576bf51f6896076cae9af10c2ce",
+    "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure": "4e1ea06bf19378fc391085b3db7d51d9e33e0205aa2086b5739612963bf52fde"
+  },
+  "png_sha256": {
+    "archery-board-after.png": "470f23f4921be1630b7bd5f340ca9f527dfc18e94310faaad361dd449b0418c9",
+    "archery-board-before.png": "91d7d5266362b6455dbc6b7ece08e879310379d37a981547f520b62aafa8a0e7",
+    "archery-range-after.png": "e9627bec7c1957f8253ca3b4565b70baa3d43ce16c79acfc02866b7862949a48",
+    "archery-range-before.png": "b0f3012ef21b9393580c2f3e564af2998622620ea8907e66af6bb5ac1d4c12f0"
+  },
+  "inspected_all_four_images": true,
+  "reference_hashes_verified": true,
+  "observations": {
+    "board_detail": "Continuous supported wood frame encloses a coarse asymmetric mountain/valley mosaic with staggered pale caps. The baseline contains only existing ground and the edge of one hay base.",
+    "range_context": "The frame stands behind the retained target props; both kitchen/dorm south door apertures remain visible and their surveyed approaches unchanged."
+  },
+  "limits": "Flat approximate block colors, reduced slab/carpet/post geometry; remaining target/furniture detail simplified. No native target textures, lighting, physics, collision or pathfinding execution. Exact crop limits are in the scope JSON.",
+  "engine_acceptance": "unrun"
+}

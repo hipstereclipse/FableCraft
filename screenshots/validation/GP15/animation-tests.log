@@ -1,0 +1,15 @@
+test_alias_dependencies_must_resolve (__main__.GateAudit.test_alias_dependencies_must_resolve) ... ok
+test_cli_returns_nonzero_for_broken_isolated_tree (__main__.GateAudit.test_cli_returns_nonzero_for_broken_isolated_tree) ... ok
+test_conditional_animation_gate_and_cycle (__main__.GateAudit.test_conditional_animation_gate_and_cycle) ... ok
+test_constant_override_cannot_replace_engine_swing (__main__.GateAudit.test_constant_override_cannot_replace_engine_swing) ... ok
+test_engine_binding_requires_melee_goal (__main__.GateAudit.test_engine_binding_requires_melee_goal) ... ok
+test_invalid_attack_query_is_rejected (__main__.GateAudit.test_invalid_attack_query_is_rejected) ... ok
+test_missing_bone_clip_and_controller (__main__.GateAudit.test_missing_bone_clip_and_controller) ... ok
+test_missing_gate_fails_before_assignment_then_passes (__main__.GateAudit.test_missing_gate_fails_before_assignment_then_passes) ... ok
+test_other_entity_and_unreachable_state_do_not_supply_driver (__main__.GateAudit.test_other_entity_and_unreachable_state_do_not_supply_driver) ... ok
+test_reaction_component_group_can_supply_melee (__main__.GateAudit.test_reaction_component_group_can_supply_melee) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.064s
+
+OK

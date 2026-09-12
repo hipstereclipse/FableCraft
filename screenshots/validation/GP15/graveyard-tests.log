@@ -1,0 +1,13 @@
+test_actual_runtime_spawns_use_clear_voxel_positions (__main__.Graveyard.test_actual_runtime_spawns_use_clear_voxel_positions) ... ok
+test_connected_level_routes_from_south_gate (__main__.Graveyard.test_connected_level_routes_from_south_gate) ... ok
+test_keeper_hut_has_floor_roof_and_accessible_workbench (__main__.Graveyard.test_keeper_hut_has_floor_roof_and_accessible_workbench) ... ok
+test_no_clipped_writes_and_known_palette (__main__.Graveyard.test_no_clipped_writes_and_known_palette) ... ok
+test_stable_scatter_contract_and_loot (__main__.Graveyard.test_stable_scatter_contract_and_loot) ... ok
+test_stone_sarcophagi_and_chest_clearance (__main__.Graveyard.test_stone_sarcophagi_and_chest_clearance) ... ok
+test_three_wide_north_facing_stairs_and_sealed_face (__main__.Graveyard.test_three_wide_north_facing_stairs_and_sealed_face) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.474s
+
+OK
+PASS: actual graveyard placement on grass/dark, clear translated spawns, loot bounds and saved-region idempotence

@@ -1,0 +1,39 @@
+{
+  "scope": "Actual production shot callback with actual training controller, mocked Bedrock world boundaries",
+  "cases": [
+    {
+      "condition": "clear",
+      "particles": 6,
+      "sounds": 1,
+      "block_reads": [
+        "83,0,39",
+        "83,1,39",
+        "83,2,39"
+      ],
+      "damaging_entity_spawns": 0
+    },
+    {
+      "condition": "blocked_lane",
+      "particles": 6,
+      "sounds": 1,
+      "block_reads": [
+        "83,0,39",
+        "83,1,39",
+        "83,2,39"
+      ],
+      "damaging_entity_spawns": 0
+    },
+    {
+      "condition": "missing_target",
+      "particles": 6,
+      "sounds": 1,
+      "block_reads": [
+        "83,0,39",
+        "83,1,39",
+        "83,2,39"
+      ],
+      "damaging_entity_spawns": 0
+    }
+  ],
+  "engine_acceptance": "unrun"
+}

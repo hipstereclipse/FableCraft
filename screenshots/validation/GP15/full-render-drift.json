@@ -1,0 +1,20 @@
+{
+  "scope": "Fresh isolated full renders: GP15 versus preserved reviewed GP14 full-render directory. These offline temporary galleries are not native engine captures.",
+  "baseline_base_commit": "569b3f2119390af2e19160ef52e2aa2072ff2cda",
+  "before_png_count": 281,
+  "after_png_count": 281,
+  "changed_png_count": 2,
+  "changes": [
+    {
+      "path": "gallery/places.png",
+      "before_sha256": "dad362f4a8573e0cb1cfb31e33ac96612fa2b6a6f3ca6dbde8d32e1a70e3f8e9",
+      "after_sha256": "7f0d96593acaa6de75cbd7bbfff9ff5800a51a32990465c2a8e39815d2b931bc"
+    },
+    {
+      "path": "structures/guild_hall.png",
+      "before_sha256": "ec362589e26ea59bcad508891424870f3858a9935e680e16d56c207b113d3ca9",
+      "after_sha256": "384a0005c9f9cc96132935ff4d6ca8d932685ecf835f34def17cbe3f556c84e4"
+    }
+  ],
+  "engine_acceptance": "unrun"
+}

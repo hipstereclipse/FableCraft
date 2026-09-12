@@ -1,0 +1,379 @@
+{
+  "baseline_scope": "Current complete Guild builder with only final scenic-backboard helper disabled.",
+  "board_detail": {
+    "bounds": [
+      79,
+      89,
+      0,
+      7,
+      29,
+      31
+    ],
+    "yaw": 0.08,
+    "pitch": 0.12
+  },
+  "range_context": {
+    "bounds": [
+      75,
+      98,
+      0,
+      8,
+      27,
+      47
+    ],
+    "yaw": 0.18,
+    "pitch": 0.5
+  },
+  "render_limits": "Geometry outside each crop omitted. Flat approximate colors, half-height slabs, thin carpets and isolated torch/fence posts. Other furniture simplified; no native target textures, lighting, physics, collision or pathfinding execution.",
+  "changed_final_voxels": 54,
+  "changed_coordinates": [
+    [
+      80,
+      1,
+      30
+    ],
+    [
+      80,
+      2,
+      30
+    ],
+    [
+      80,
+      3,
+      30
+    ],
+    [
+      80,
+      4,
+      30
+    ],
+    [
+      80,
+      5,
+      30
+    ],
+    [
+      80,
+      6,
+      30
+    ],
+    [
+      81,
+      1,
+      30
+    ],
+    [
+      81,
+      2,
+      30
+    ],
+    [
+      81,
+      3,
+      30
+    ],
+    [
+      81,
+      4,
+      30
+    ],
+    [
+      81,
+      5,
+      30
+    ],
+    [
+      81,
+      6,
+      30
+    ],
+    [
+      82,
+      1,
+      30
+    ],
+    [
+      82,
+      2,
+      30
+    ],
+    [
+      82,
+      3,
+      30
+    ],
+    [
+      82,
+      4,
+      30
+    ],
+    [
+      82,
+      5,
+      30
+    ],
+    [
+      82,
+      6,
+      30
+    ],
+    [
+      83,
+      1,
+      30
+    ],
+    [
+      83,
+      2,
+      30
+    ],
+    [
+      83,
+      3,
+      30
+    ],
+    [
+      83,
+      4,
+      30
+    ],
+    [
+      83,
+      5,
+      30
+    ],
+    [
+      83,
+      6,
+      30
+    ],
+    [
+      84,
+      1,
+      30
+    ],
+    [
+      84,
+      2,
+      30
+    ],
+    [
+      84,
+      3,
+      30
+    ],
+    [
+      84,
+      4,
+      30
+    ],
+    [
+      84,
+      5,
+      30
+    ],
+    [
+      84,
+      6,
+      30
+    ],
+    [
+      85,
+      1,
+      30
+    ],
+    [
+      85,
+      2,
+      30
+    ],
+    [
+      85,
+      3,
+      30
+    ],
+    [
+      85,
+      4,
+      30
+    ],
+    [
+      85,
+      5,
+      30
+    ],
+    [
+      85,
+      6,
+      30
+    ],
+    [
+      86,
+      1,
+      30
+    ],
+    [
+      86,
+      2,
+      30
+    ],
+    [
+      86,
+      3,
+      30
+    ],
+    [
+      86,
+      4,
+      30
+    ],
+    [
+      86,
+      5,
+      30
+    ],
+    [
+      86,
+      6,
+      30
+    ],
+    [
+      87,
+      1,
+      30
+    ],
+    [
+      87,
+      2,
+      30
+    ],
+    [
+      87,
+      3,
+      30
+    ],
+    [
+      87,
+      4,
+      30
+    ],
+    [
+      87,
+      5,
+      30
+    ],
+    [
+      87,
+      6,
+      30
+    ],
+    [
+      88,
+      1,
+      30
+    ],
+    [
+      88,
+      2,
+      30
+    ],
+    [
+      88,
+      3,
+      30
+    ],
+    [
+      88,
+      4,
+      30
+    ],
+    [
+      88,
+      5,
+      30
+    ],
+    [
+      88,
+      6,
+      30
+    ]
+  ],
+  "changed_before_materials": [
+    "minecraft:air"
+  ],
+  "normalized_outside_board_sha256_before": "576bd1c9f45352231b371273c3c1c6e7ad6320e54e90453c2eaa56d1a1a4d8e4",
+  "normalized_outside_board_sha256_after": "576bd1c9f45352231b371273c3c1c6e7ad6320e54e90453c2eaa56d1a1a4d8e4",
+  "normalization": "Local coordinate, block identifier and sorted state properties; palette indices ignored.",
+  "gate_routes": {
+    "before": {
+      "(78, 1.0, 28)": true,
+      "(90, 1.0, 28)": true,
+      "(83, 1.0, 39)": true,
+      "(99, 1.0, 61)": true,
+      "(102, 1.0, 61)": true,
+      "(93, 1.0, 37)": true,
+      "(60, 1.0, 88)": true,
+      "(79, 1.0, 30)": true,
+      "(79, 1.0, 29)": true,
+      "(80, 1.0, 29)": true,
+      "(81, 1.0, 29)": true,
+      "(82, 1.0, 29)": true,
+      "(83, 1.0, 29)": true,
+      "(84, 1.0, 29)": true,
+      "(85, 1.0, 29)": true,
+      "(86, 1.0, 29)": true,
+      "(87, 1.0, 29)": true,
+      "(88, 1.0, 29)": true,
+      "(89, 1.0, 29)": true,
+      "(89, 1.0, 30)": true,
+      "(89, 1.0, 31)": true,
+      "(88, 1.0, 31)": true,
+      "(87, 1.0, 31)": true,
+      "(86, 1.0, 31)": true,
+      "(85, 1.0, 31)": true,
+      "(84, 1.0, 31)": true,
+      "(83, 1.0, 31)": true,
+      "(82, 1.0, 31)": true,
+      "(81, 1.0, 31)": true,
+      "(80, 1.0, 31)": true
+    },
+    "after": {
+      "(78, 1.0, 28)": true,
+      "(90, 1.0, 28)": true,
+      "(83, 1.0, 39)": true,
+      "(99, 1.0, 61)": true,
+      "(102, 1.0, 61)": true,
+      "(93, 1.0, 37)": true,
+      "(60, 1.0, 88)": true,
+      "(79, 1.0, 30)": true,
+      "(79, 1.0, 29)": true,
+      "(80, 1.0, 29)": true,
+      "(81, 1.0, 29)": true,
+      "(82, 1.0, 29)": true,
+      "(83, 1.0, 29)": true,
+      "(84, 1.0, 29)": true,
+      "(85, 1.0, 29)": true,
+      "(86, 1.0, 29)": true,
+      "(87, 1.0, 29)": true,
+      "(88, 1.0, 29)": true,
+      "(89, 1.0, 29)": true,
+      "(89, 1.0, 30)": true,
+      "(89, 1.0, 31)": true,
+      "(88, 1.0, 31)": true,
+      "(87, 1.0, 31)": true,
+      "(86, 1.0, 31)": true,
+      "(85, 1.0, 31)": true,
+      "(84, 1.0, 31)": true,
+      "(83, 1.0, 31)": true,
+      "(82, 1.0, 31)": true,
+      "(81, 1.0, 31)": true,
+      "(80, 1.0, 31)": true
+    }
+  },
+  "reference_files": {
+    "altered-archery.jpg": "ff6b788d50686edc09d74cc838779b41a0f882cd09685ff7cdf965437c511707",
+    "gamepressure-will.jpg": "0e1d7459dd7bb646be99926c5071ccdeb884c23ca2b3bbd25afba000a63f6833"
+  },
+  "authorship": "Original coarse block mountain/valley mosaic; no original screenshot pixels or extracted game assets used as pack art.",
+  "engine_acceptance": "unrun"
+}

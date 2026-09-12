@@ -47,6 +47,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | GP12 | in-progress | Continuous framed Library bookcases, accessible reading desk and supported lamps; spine/cave/commons routes preserved; engine acceptance open |
 | GP13 | in-progress | Restore one erased NE dormitory top stair; complete bounded ascent/descent with all other campus cells preserved; engine acceptance open |
 | GP14 | in-progress | Neutral-reference Chamber inset panels, colored window strips and grey/ochre paving; GP5/GP8 enrolled construction plans preserved; engine acceptance open |
+| GP15 | in-progress | Framed scenic archery backboard from two inspected original views; final-voxel firing lanes and adjoining door/gate routes preserved; engine acceptance open |
 
 Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
 defects and manual status here. These passes are not completed legacy leaves.
@@ -704,7 +705,7 @@ scenic backboard in a separately checked clear volume; no continuous rails yet.
 
 ## GP14 — Chamber detail from clearer original screenshots (2026-09-12)
 
-Commit: SELF: TLC Conformance — GP14: refine Chamber panels and preserve both historical plans.
+Commit: 569b3f2119390af2e19160ef52e2aa2072ff2cda (pushed; exact-head CI 34722255501 passed).
 The newly inspected neutral TLC Chamber view resolves nested pointed frames,
 small carved medallions, narrow colored windows and grey/ochre paving. These
 replace GP8's undifferentiated dark floor and simple inner panels. Only 381 cell
@@ -730,3 +731,52 @@ fine carved textures are absent. Exact generated and rendered drift is recorded.
 GP13 exact-head CI 34721823290 passed. All native appearance, movement, persistence
 and gameplay checks remain unrun. Next: the photographed archery scenic backboard,
 then adjoining grounds/NPC behavior and unresolved original-view comparisons.
+
+
+## GP15 — the archery range's painted landmark (2026-09-12)
+
+Commit: SELF: TLC Conformance — GP15: restore the Guild archery scenic backboard.
+Two inspected original TLC training photos show a framed painting of purple
+mountains, a wooded valley and sky behind the targets. An original coarse block
+mosaic now restores that recognizable range prop. It is a Minecraft adaptation,
+not copied screenshot art or a measured reconstruction. Continuous braced rails
+remain deferred until their circulation footprint is measured.
+
+Only 54 formerly empty cells at x80..88,y1..6,z30 change. The frame rests on the
+unchanged floor, behind the active target and between the two south doors.
+All other final campus voxels, shared RNG, dummies, target blocks, runtime
+anchors and Maze (46,12,70) remain exact. Tests survey both sides/rear passage,
+complete gate routes to both rooms and training marks, and the actual Skill
+callback's six-particle line. Existing Will, maintenance and training contracts
+remain checked. No saved-world reconstruction or runtime migration is introduced.
+
+See [GUILD_ARCHERY_BACKBOARD.md](GUILD_ARCHERY_BACKBOARD.md) and
+`screenshots/validation/GP15/`. Six focused groups include missing support/frame,
+headroom, path and firing-line negatives. Four before/after renders show the
+landmark and adjacent range; flat colors and simplified furniture remain offline
+approximations. The 46-gate reviewed-snapshot suite, 62 ESM syntax checks, targeted
+Guild asset regeneration, fresh 35-asset C2, full renders and Guild diagnostics
+all pass offline. Only the Guild asset and its C2 image change; the other 34
+assets/images remain exact. Full rendering produced 281 PNGs with 277 audit
+rows and no renderer flags. Independent source/reference/visual review
+found no blocker. GP14 exact-head CI 34722255501 passed.
+
+The production Skill callback still lacks a runtime block-lane preflight; this
+fixture preserves its ray rather than adding that behavior. Player lessons,
+moving/scored targets, reactive straw dummies, purposeful walking and native
+lighting/collision/AI remain open. Continue adjoining grounds, Follow/Wait
+ownership, roof/interior reference comparisons and the retained Demon Door
+priority. A passing cutaway does not establish whole-facility TLC fidelity.
+
+The final bounded reference follow-up found two additional original-TLC Maze
+study angles and a partial dormitory wake-up background. The ledger now contains
+19 distinct inspected images. Round lattice window, red wall panels, tall shelves,
+timber gallery and rug details are visible; exact study dimensions and neutral
+wide dormitory/Library interiors remain unresolved. See GUILD_ONLINE_REFERENCES.md
+and GP15/interior-reference-followup.json. No additional geometry was inferred
+from these last images in this checkpoint.
+
+The final [facility follow-up audit](../screenshots/validation/GP15/facility-followup-audit.md)
+reproduces the Skill callback's missing live target/lane preflight and ranks
+purposeful station arrival and three reactive Will dummies next. These remain
+existing defects/adaptations; no new GP15 route blocker emerged.
