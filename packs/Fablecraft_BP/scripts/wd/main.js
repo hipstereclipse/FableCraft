@@ -19,6 +19,7 @@ import "./allegiance.js";
 import "./combat_hooks.js";
 import "./logbook.js";
 import "./parity.js";
+import "./ghostblade.js"; // Ghost Sword's floating-blade companion loop (self-wires)
 import { getSpell, SPELL_ORDER } from "./spells/registry.js";
 import { castSpellById } from "./spells/shared/cast.js";
 

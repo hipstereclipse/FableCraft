@@ -1,0 +1,27 @@
+{
+  "name": "fablecraft",
+  "version": "1.0.0",
+  "description": "FableCraft development validators",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --experimental-vm-modules scripts/tests/spells.test.mjs",
+    "lint": "eslint packs/Fablecraft_BP/scripts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hipstereclipse/FableCraft.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/hipstereclipse/FableCraft/issues"
+  },
+  "homepage": "https://github.com/hipstereclipse/FableCraft#readme",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.5.0"
+  },
+  "private": true
+}

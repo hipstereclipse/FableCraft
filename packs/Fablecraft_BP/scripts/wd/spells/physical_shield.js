@@ -33,7 +33,7 @@ function clearShield(player, refund = false, message = "§9The shield fades.") {
   setShieldActive(player, false);
   if (refund) {
     mutateState(player, (d) => {
-      d.mana.current = Math.min(d.mana.max, d.mana.current + entry?.refund ?? 0);
+      d.mana.current = Math.min(d.mana.max, d.mana.current + (entry?.refund ?? 0));
     });
   }
   try {

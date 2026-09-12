@@ -32,7 +32,7 @@ export function healLifeCast(ctx) {
 
   const radius = ALLY_RADIUS[level];
   if (radius > 0) {
-    let allies = [];
+    let allies;
     try {
       allies = player.dimension.getEntities({ location: player.location, maxDistance: radius }).filter((e) => isAlly(e, player));
     } catch {

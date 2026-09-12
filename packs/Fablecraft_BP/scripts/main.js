@@ -1381,7 +1381,7 @@ system.runInterval(() => {
   const base = b.base;
   const centre = { x: base.x + 61, y: base.y + 1, z: base.z + 54 };
   for (const entry of GUILD_ROSTER) {
-    let present = 0;
+    let present;
     try {
       const query = { type: entry.type, location: centre, maxDistance: 140 };
       if (entry.tag) query.tags = [entry.tag];
@@ -3140,26 +3140,6 @@ function heroRadarText(p) {
 }
 
 // Live HUD output is owned by fable_hud.js.
-if (false) system.runInterval(() => {
-  for (const p of world.getPlayers()) {
-    if (TICKS() >= (titleHoldUntil.get(p.id) ?? 0)) {
-      try {
-        p.onScreenDisplay.setTitle(heroStatusText(p), {
-          fadeInDuration: 0,
-          stayDuration: 16,
-          fadeOutDuration: 0,
-          subtitle: heroRadarText(p),
-        });
-      } catch { }
-    }
-    const notice = heroNotice.get(p.id);
-    const message = notice && TICKS() < notice.until ? notice.text : "";
-    if (notice && !message) heroNotice.delete(p.id);
-    try {
-      p.onScreenDisplay.setActionBar(`§6${countItem(p, "fc:gold_coin")}\n${message}`);
-    } catch { }
-  }
-}, 10);
 
 system.runInterval(() => {
   for (const p of world.getPlayers()) {
@@ -4880,7 +4860,7 @@ function syncWantedTags(p, records = getBounties(p)) {
   }
 }
 function assignedBountyGuards(p, record) {
-  let guards = [];
+  let guards;
   try {
     guards = p.dimension.getEntities({
       location: { x: record.x + record.w / 2, y: p.location.y, z: record.z + record.w / 2 },
@@ -5275,7 +5255,7 @@ system.runInterval(() => {
     }
   }
   for (const p of world.getPlayers()) {
-    let guards = [];
+    let guards;
     try {
       guards = p.dimension.getEntities({
         location: p.location,
@@ -5338,7 +5318,7 @@ function calmNpc(npc) {
 }
 // When a civilian is struck, any guard or guild defender nearby comes to enforce.
 function alertProtectors(victim) {
-  let guards = [];
+  let guards;
   try {
     guards = victim.dimension.getEntities({
       location: victim.location, maxDistance: 22, families: ["fc_friendly"],
@@ -5407,7 +5387,7 @@ function guildDefendersNear(p, tags) {
     families: ["fc_friendly"],
   };
   if (tags) opts.tags = tags;
-  let ents = [];
+  let ents;
   try { ents = p.dimension.getEntities(opts); } catch { }
   return ents.filter(isGuildDefenderType);
 }
@@ -5424,7 +5404,7 @@ function calmGuildDefenders(p) {
 system.runInterval(() => {
   const handled = new Set();
   for (const p of world.getPlayers()) {
-    let ents = [];
+    let ents;
     try { ents = p.dimension.getEntities({ location: p.location, maxDistance: 64, tags: ["fc_aggravated"] }); } catch { continue; }
     for (const e of ents) {
       if (handled.has(e.id)) continue;
@@ -5713,7 +5693,7 @@ function fillLootChests(dim, x0, y0, z0, w, h, d, themeId) {
       }
     }
   };
-  try { system.runJob(work()); } catch { for (const _ of work()) { } }
+  try { system.runJob(work()); } catch { for (const _ of work()) { /* Drain synchronously if jobs are unavailable. */ } }
 }
 
 // Sample a 5x5 grid across the footprint and use its median actual-terrain

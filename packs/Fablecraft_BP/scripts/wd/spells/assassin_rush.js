@@ -1,59 +1,79 @@
-// Assassin Rush — Physical. Blink through space along the Hero's line of sight:
-// the caster dissolves into a streak of shadow/violet particles and reforms at
-// the spot they are looking at — or, with a foe under the crosshair, instantly
-// behind it — then drops a brief shadow cloak.
-import { headLocation, viewDirection, lookedAtEnemy } from "./shared/targeting.js";
+// Assassin Rush — Physical. A fast forward blink: the caster dissolves into a
+// streak of shadow/violet particles and reforms further along the way they are
+// facing, hugging the ground. It is a horizontal ground dash (never a launch),
+// it stops at walls and ledges, and it leaves the camera exactly where it was.
+import { headLocation, viewDirection } from "./shared/targeting.js";
 import { applyEffect } from "./shared/selfbuff.js";
 import { tint, burst, dimensionSound } from "./shared/vfx.js";
 
 const RANGE = [0, 8, 11, 14, 16];
 const SPEED_SECONDS = [0, 1, 2, 2, 3];
-const EYE_HEIGHT = 1.62; // eye -> feet offset, so a settled blink stands cleanly
 
-function isSolid(dim, x, y, z) {
+// Read failures and liquids block the route. Only known air is body clearance;
+// this deliberately treats plants/partial blocks conservatively on the stable API.
+function blockAt(dim, x, y, z) {
   try {
     const block = dim.getBlock({ x: Math.floor(x), y: Math.floor(y), z: Math.floor(z) });
-    return !!block && !block.isAir && !block.isLiquid;
-  } catch {
-    return false; // unloaded / out of range — treat as open so the dash continues
-  }
+    return block ? { air: block.isAir, liquid: block.isLiquid } : null;
+  } catch { return null; }
 }
 
-// Drop a candidate point onto the nearest solid footing so the Hero never
-// reforms inside a wall or hovering. Searches a couple of blocks up (in case the
-// point landed buried) then down for a 2-high air gap above solid ground.
-function settle(dim, point) {
-  const { x, z } = point;
-  const startY = Math.floor(point.y);
-  for (let y = startY + 2; y >= startY - 4; y--) {
-    const feetClear = !isSolid(dim, x, y, z);
-    const headClear = !isSolid(dim, x, y + 1, z);
-    const ground = isSolid(dim, x, y - 1, z);
-    if (feetClear && headClear && ground) return { x, y, z };
+function bodyClear(dim, x, y, z) {
+  for (const dx of [-0.3, 0.3]) {
+    for (const dz of [-0.3, 0.3]) {
+      for (let by = Math.floor(y); by <= Math.floor(y + 1.79); by++) {
+        if (blockAt(dim, x + dx, by, z + dz)?.air !== true) return false;
+      }
+    }
   }
-  return { x, y: point.y, z }; // no footing nearby — keep the raw height (open leap)
+  return true;
 }
 
-// March along the look ray from the eyes, stopping just short of the first solid
-// block, so the Hero blinks as far down their sightline as the path stays open.
+function standableY(dim, x, baseY, z, fx, fz) {
+  const start = Math.floor(baseY);
+  for (let y = start + 1; y >= start - 3; y--) {
+    // The leading edge reaches a step before the centre does. Accept support
+    // under any footprint corner while still clearing the entire body above it.
+    const supports = [-0.3, 0.3].flatMap(dx => [-0.3, 0.3].map(dz => blockAt(dim, x + dx, y - 1, z + dz)));
+    const front = blockAt(dim, x + fx * 0.3, y - 1, z + fz * 0.3);
+    if (front && !front.air && !front.liquid && supports.every(Boolean)
+        && !supports.some(b => b.liquid) && bodyClear(dim, x, y, z)) return y;
+  }
+  return null;
+}
+
+// Walk forward along the HORIZONTAL facing in quarter-block steps, following the
+// ground and halting at the first wall or unbridgeable ledge. Returns the
+// furthest safe footing — or the caster's own position if blocked immediately.
 function blinkPoint(player, maxDistance) {
-  const head = headLocation(player);
-  const dir = viewDirection(player);
   const dim = player.dimension;
-  let reach = 0;
-  const steps = Math.max(1, Math.ceil(maxDistance * 2));
-  for (let i = 1; i <= steps; i++) {
-    const t = (i / steps) * maxDistance;
-    if (isSolid(dim, head.x + dir.x * t, head.y + dir.y * t, head.z + dir.z * t)) break;
-    reach = t;
+  const origin = player.location; // feet
+  const view = viewDirection(player);
+  let fx = view.x, fz = view.z;
+  const horizontal = Math.hypot(fx, fz);
+  if (horizontal < 1e-3) {
+    // Looking straight up or down: fall back to the body's yaw for a direction.
+    const yaw = player.getRotation().y * Math.PI / 180;
+    fx = -Math.sin(yaw); fz = Math.cos(yaw);
+  } else {
+    fx /= horizontal; fz /= horizontal;
   }
-  reach = Math.max(0, reach - 0.6); // back off the face we stopped against
-  const landing = {
-    x: head.x + dir.x * reach,
-    y: head.y + dir.y * reach - EYE_HEIGHT,
-    z: head.z + dir.z * reach,
-  };
-  return settle(dim, landing);
+
+  let best = { x: origin.x, y: origin.y, z: origin.z };
+  let curY = origin.y;
+  for (let d = 0.25; d <= maxDistance; d += 0.25) {
+    const x = origin.x + fx * d;
+    const z = origin.z + fz * d;
+    const y = standableY(dim, x, curY, z, fx, fz);
+    if (y === null) break; // wall / ledge — stop at the last good footing
+    // Swept clearance: stepping up cannot clip through a low ceiling, and
+    // stepping down cannot bypass an obstruction at the previous feet height.
+    if (y > curY && !bodyClear(dim, best.x, y, best.z)) break;
+    if (y < curY && !bodyClear(dim, x, curY, z)) break;
+    curY = y;
+    best = { x: x, y: y, z: z };
+  }
+  return best;
 }
 
 function trail(player, from, to, color, level) {
@@ -68,27 +88,16 @@ function trail(player, from, to, color, level) {
 export function assassinRushCast(ctx) {
   const { player, level, spell } = ctx;
   const from = { ...player.location };
-  const target = lookedAtEnemy(player, RANGE[level]);
+  const destination = blinkPoint(player, RANGE[level]);
 
-  let destination;
-  let facing;
-  if (target) {
-    const tv = viewDirection(target);
-    const horizontal = Math.hypot(tv.x, tv.z) || 1;
-    const behind = { x: -tv.x / horizontal, z: -tv.z / horizontal };
-    destination = { x: target.location.x + behind.x * 1.1, y: target.location.y, z: target.location.z + behind.z * 1.1 };
-    facing = { x: target.location.x, y: target.location.y + 1, z: target.location.z };
-  } else {
-    // No foe under the crosshair: blink to wherever the Hero is looking.
-    destination = blinkPoint(player, RANGE[level]);
-  }
+  if (Math.hypot(destination.x - from.x, destination.z - from.z) < 0.25) return false;
 
   burst(player.dimension, "wd:rush_streak", headLocation(player), spell.color, 8 + level * 2, 0.8, 0.5, level / 4, 0.85);
   dimensionSound(player.dimension, "mob.endermen.portal", from, { volume: 0.5, pitch: 1.3 });
 
   try {
-    if (facing) player.teleport(destination, { facingLocation: facing });
-    else player.teleport(destination);
+    // No facingLocation: keep the player's own view so the camera never snaps.
+    if (!player.tryTeleport(destination, { keepVelocity: false, checkForBlocks: true })) return false;
   } catch {
     return false;
   }

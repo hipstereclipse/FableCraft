@@ -97,7 +97,7 @@ function ensureOverlay(player, plan) {
   }
   let entity = overlays.get(player.id);
   const invalid = !entity?.isValid;
-  let wrongDimension = false;
+  let wrongDimension;
   try {
     wrongDimension = !invalid && entity.dimension.id !== player.dimension.id;
   } catch {

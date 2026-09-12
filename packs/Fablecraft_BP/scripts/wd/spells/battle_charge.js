@@ -29,7 +29,7 @@ export function battleChargeCast(ctx) {
     if (!player.isValid || step++ >= steps) return;
     const here = player.location;
     const next = { x: here.x + dir.x, y: here.y, z: here.z + dir.z };
-    let blocked = false;
+    let blocked;
     try {
       const block = player.dimension.getBlock({ x: Math.floor(next.x), y: Math.floor(next.y), z: Math.floor(next.z) });
       blocked = block && !block.isAir && !block.isLiquid;
