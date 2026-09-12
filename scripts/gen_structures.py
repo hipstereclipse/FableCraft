@@ -3233,10 +3233,10 @@ def bandit_camp():
 
 
 def graveyard():
-    """Lychfield, grown to a proper burial ground: iron-fenced 25-block yard,
-    a grand gabled mausoleum with sunken crypt and loot, a ruined chapel
-    corner, rows of varied headstones, exhumed graves, dead trees, ossuary
-    and drifting soul-light."""
+    """Lychfield: Nostro's stone tomb, keeper hut and a sealed gate-stair face.
+    Stable scatter footprint; routes and runtime spawn anchors are documented
+    in docs/LYCHFIELD_CRYPT.md. The face has no generic riddle/quest trigger.
+    """
     r = rng("struct", "grave")
     S = 25
     v = Vox(S, 13, S)
@@ -3283,9 +3283,8 @@ def graveyard():
     for px_ in (mx0 + 1, mx0 + mw - 2):
         for y in range(1, 6):
             v.set(px_, y, mz0 + md - 1, CHISELED)
-    # entrance arch + iron gate
+    # Open three-wide entrance: no iron bar in the walking route.
     v.fill(mid - 1, 1, mz0 + md - 1, mid + 1, 3, mz0 + md - 1, "minecraft:air")
-    v.set(mid, 1, mz0 + md - 1, IRON_BARS)
     v.set(mid - 1, 4, mz0 + md - 1, CHISELED)
     v.set(mid + 1, 4, mz0 + md - 1, CHISELED)
     v.set(mid, 4, mz0 + md - 1, "minecraft:chiseled_deepslate")  # skull keystone
@@ -3304,11 +3303,11 @@ def graveyard():
                 v.set(x, y, mz0 + md - 1, STONE)
         i += 1
     v.set(mid, 6 + i, mz0 + md // 2, "minecraft:stone_brick_wall")
-    # interior: twin coffins, candles, soul lantern, crypt loot chest
-    v.set(mid - 2, 1, mz0 + 2, DARKOAK)
-    v.set(mid - 2, 1, mz0 + 3, DARKOAK)
-    v.set(mid + 2, 1, mz0 + 2, DARKOAK)
-    v.set(mid + 2, 1, mz0 + 3, DARKOAK)
+    # Nostro's central sarcophagus and two stone side tombs; open side aisles.
+    for tx, tz in ((mid, 4), (mid - 2, 3), (mid + 2, 3)):
+        v.fill(tx, 1, tz, tx, 1, tz + 1, CHISELED)
+        v.fill(tx, 2, tz, tx, 2, tz + 1, SBRICK_SLAB,
+               {"minecraft:vertical_half": "bottom"})
     v.set(mid, 1, mz0 + 1, "minecraft:chest", {"minecraft:cardinal_direction": "south"})
     v.set(mid - 3, 1, mz0 + 1, CANDLE, {"lit": True, "candles": 2})
     v.set(mid + 3, 1, mz0 + 1, CANDLE, {"lit": True})
@@ -3379,6 +3378,51 @@ def graveyard():
         v.set(tx, h + 1, tz, "minecraft:dark_oak_fence")
         v.set(tx + 1, h, tz, "minecraft:dark_oak_fence")
         v.set(tx - 1, h - 1, tz, "minecraft:dark_oak_fence")
+    # Keeper's timber hut replaces the SE graves/tree. Floor sits at yard level.
+    v.fill(16, 1, 16, 23, 8, 23, "minecraft:air")
+    v.fill(16, 0, 16, 23, 0, 23, SPRUCE)
+    v.box(16, 1, 16, 23, 4, 23, DARKOAK)
+    v.fill(17, 1, 17, 22, 4, 22, "minecraft:air")
+    for hx in (16, 23):
+        for hz in (16, 23):
+            v.fill(hx, 1, hz, hx, 4, hz, DARKLOG)
+    v.fill(16, 1, 19, 16, 3, 20, "minecraft:air")
+    v.fill(19, 2, 16, 20, 3, 16, GLASS)
+    for step in range(4):
+        for hx in (16 + step, 23 - step):
+            v.fill(hx, 5 + step, 16, hx, 5 + step, 23, SPRUCE)
+        v.fill(16 + step, 5 + step, 16, 23 - step, 5 + step, 16, SPRUCE)
+        v.fill(16 + step, 5 + step, 23, 23 - step, 5 + step, 23, SPRUCE)
+    v.set(21, 1, 17, "minecraft:crafting_table")
+    v.set(21, 2, 17, LANTERN)
+    v.set(22, 1, 21, "minecraft:barrel", {"facing_direction": 1})
+    # Gate-stair stone face in the NE corner; sealed beyond the top landing.
+    # Pure architecture: Nostro's command/opening logic is a separate scope gap.
+    v.fill(18, 1, 1, 23, 10, 8, "minecraft:air")
+    v.fill(18, 0, 1, 23, 0, 8, MOSSY)
+    v.fill(18, 1, 1, 22, 10, 2, MOSSY)
+    v.fill(18, 4, 3, 22, 9, 3, STONE)
+    v.fill(19, 10, 3, 21, 10, 3, CRACK)  # bald crown
+    for eye in (19, 21):
+        v.set(eye, 8, 3, DEEP_TILES)
+        v.set(eye, 9, 3, CHISELED)
+    v.set(20, 7, 4, CHISELED)  # projecting nose
+    v.fill(19, 6, 3, 21, 6, 3, DEEP_TILES)  # closed mouth
+    for bx in range(18, 23):
+        v.fill(bx, 4 if bx % 2 else 5, 4, bx, 5, 4, CRACK)  # ragged beard
+    v.fill(19, 1, 4, 21, 3, 4, STONE)
+    for sz, height in ((7, 1), (6, 2), (5, 3)):
+        if height > 1:
+            v.fill(19, 1, sz, 21, height - 1, sz, STONE)
+        v.fill(19, height, sz, 21, height, sz, SBRICK_STAIR,
+               {"weirdo_direction": 3, "upside_down_bit": False})
+    # Landing headroom under the beard. Face remains closed at z=3.
+    v.fill(19, 4, 4, 21, 6, 4, "minecraft:air")
+    # Deliberate, obstacle-free links: gate -> crypt, hut and face stairs.
+    for x0, z0, x1, z1 in ((11, 8, 13, 24), (12, 19, 16, 20),
+                           (12, 9, 21, 10), (19, 8, 21, 8)):
+        v.fill(x0, 0, z0, x1, 0, z1, GRAVEL)
+        v.fill(x0, 1, z0, x1, 3, z1, "minecraft:air")
     v.save("graveyard")
 
 

@@ -1,0 +1,58 @@
+test_actual_runtime_spawns_use_clear_voxel_positions (__main__.Graveyard.test_actual_runtime_spawns_use_clear_voxel_positions) ... ok
+test_connected_level_routes_from_south_gate (__main__.Graveyard.test_connected_level_routes_from_south_gate) ... FAIL
+test_keeper_hut_has_floor_roof_and_accessible_workbench (__main__.Graveyard.test_keeper_hut_has_floor_roof_and_accessible_workbench) ... FAIL
+test_no_clipped_writes_and_known_palette (__main__.Graveyard.test_no_clipped_writes_and_known_palette) ... ok
+test_stable_scatter_contract_and_loot (__main__.Graveyard.test_stable_scatter_contract_and_loot) ... ok
+test_stone_sarcophagi_and_chest_clearance (__main__.Graveyard.test_stone_sarcophagi_and_chest_clearance) ... FAIL
+test_three_wide_north_facing_stairs_and_sealed_face (__main__.Graveyard.test_three_wide_north_facing_stairs_and_sealed_face) ... FAIL
+
+======================================================================
+FAIL: test_connected_level_routes_from_south_gate (__main__.Graveyard.test_connected_level_routes_from_south_gate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_graveyard.py", line 87, in test_connected_level_routes_from_south_gate
+    self.assertIn(destination, reached, f'Blocked route to {destination}')
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: (21, 18) not found in {(15, 21), (7, 17), (18, 17), (8, 9), (19, 9), (11, 5), (8, 18), (11, 14), (11, 23), (4, 2), (22, 10), (3, 6), (22, 19), (14, 15), (18, 3), (15, 16), (7, 12), (18, 12), (7, 21), (18, 21), (8, 4), (19, 4), (11, 9), (10, 22), (22, 5), (3, 1), (22, 14), (14, 10), (3, 10), (22, 23), (14, 19), (3, 19), (15, 11), (18, 7), (7, 16), (18, 16), (11, 4), (10, 8), (2, 13), (2, 22), (22, 9), (14, 5), (3, 5), (22, 18), (14, 14), (3, 14), (14, 23), (3, 23), (15, 6), (18, 2), (7, 11), (18, 11), (6, 15), (21, 13), (21, 22), (10, 12), (10, 21), (2, 17), (22, 4), (22, 13), (14, 9), (3, 9), (14, 18), (3, 18), (17, 20), (6, 10), (21, 8), (6, 19), (2, 3), (2, 21), (22, 8), (3, 4), (17, 15), (9, 11), (5, 22), (9, 20), (6, 5), (21, 3), (6, 14), (21, 12), (6, 23), (21, 21), (10, 2), (10, 11), (2, 16), (13, 13), (13, 22), (16, 18), (17, 10), (5, 8), (9, 6), (17, 19), (5, 17), (9, 15), (6, 9), (21, 7), (6, 18), (21, 16), (20, 20), (10, 6), (2, 2), (13, 8), (13, 17), (1, 15), (16, 13), (16, 22), (5, 3), (17, 14), (9, 10), (17, 23), (5, 21), (9, 19), (6, 4), (21, 2), (20, 15), (12, 20), (23, 20), (13, 3), (13, 12), (1, 10), (16, 8), (13, 21), (1, 19), (17, 9), (5, 7), (9, 5), (5, 16), (9, 14), (20, 1), (20, 10), (12, 6), (23, 6), (20, 19), (12, 15), (23, 15), (12, 24), (13, 7), (1, 5), (16, 3), (13, 16), (1, 14), (16, 12), (1, 23), (16, 21), (5, 2), (5, 11), (9, 9), (8, 22), (19, 22), (11, 18), (20, 5), (23, 1), (20, 14), (12, 10), (23, 10), (20, 23), (4, 6), (12, 19), (23, 19), (4, 15), (13, 2), (13, 11), (1, 9), (1, 18), (15, 20), (8, 8), (19, 8), (8, 17), (11, 22), (20, 9), (12, 5), (23, 5), (4, 1), (12, 14), (23, 14), (12, 23), (23, 23), (1, 4), (16, 2), (1, 13), (15, 15), (18, 20), (8, 3), (19, 3), (19, 12), (8, 12), (11, 8), (8, 21), (19, 21), (11, 17), (20, 4), (20, 13), (12, 9), (23, 9), (4, 5), (23, 18), (22, 22), (15, 10), (18, 6), (15, 19), (7, 15), (18, 15), (19, 7), (11, 3), (8, 16), (11, 12), (11, 21), (12, 4), (23, 4), (4, 9), (22, 17), (14, 13), (3, 13), (14, 22), (3, 22), (15, 5), (18, 1), (15, 14), (18, 10), (15, 23), (18, 19), (8, 2), (19, 2), (8, 11), (19, 11), (11, 7), (10, 20), (22, 3), (22, 12), (14, 8), (3, 8), (22, 21), (14, 17), (3, 17), (15, 9), (18, 5), (15, 18), (7, 14), (18, 14), (7, 23), (18, 23), (11, 2), (10, 15), (2, 20), (22, 7), (3, 3), (22, 16), (14, 12), (14, 21), (15, 4), (15, 13), (7, 9), (18, 9), (18, 18), (6, 22), (21, 20), (7, 8), (2, 15), (22, 2), (3, 7), (22, 20), (14, 16), (3, 16), (17, 18), (18, 4), (9, 23), (6, 8), (6, 17), (21, 15), (10, 5), (2, 1), (10, 23), (2, 19), (14, 2), (3, 2), (14, 11), (3, 11), (17, 13), (17, 22), (5, 20), (9, 18), (6, 3), (21, 1), (6, 12), (21, 10), (6, 21), (21, 19), (10, 9), (2, 5), (10, 18), (2, 23), (22, 1), (13, 20), (14, 6), (17, 8), (9, 4), (17, 17), (5, 15), (9, 13), (9, 22), (6, 7), (21, 5), (6, 16), (21, 14), (21, 23), (13, 6), (2, 18), (13, 15), (16, 11), (1, 22), (13, 24), (16, 20), (5, 1), (17, 12), (5, 10), (9, 8), (17, 21), (9, 17), (6, 2), (6, 11), (21, 9), (6, 20), (20, 22), (12, 18), (2, 4), (4, 23), (13, 10), (1, 8), (16, 6), (13, 19), (1, 17), (16, 15), (5, 5), (9, 3), (9, 12), (5, 23), (9, 21), (21, 4), (20, 8), (23, 13), (12, 13), (12, 22), (23, 22), (4, 18), (13, 5), (1, 3), (13, 14), (1, 12), (16, 10), (13, 23), (1, 21), (17, 11), (5, 9), (5, 18), (9, 16), (6, 1), (8, 20), (20, 3), (20, 12), (12, 8), (23, 8), (20, 21), (4, 4), (12, 17), (23, 17), (4, 22), (13, 9), (1, 7), (16, 5), (13, 18), (1, 16), (16, 14), (16, 23), (5, 4), (8, 6), (8, 15), (11, 11), (11, 20), (20, 7), (12, 3), (23, 3), (12, 12), (23, 12), (4, 8), (12, 21), (23, 21), (4, 17), (13, 4), (1, 2), (1, 11), (16, 9), (1, 20), (15, 22), (7, 18), (19, 1), (8, 10), (11, 6), (11, 15), (11, 24), (20, 2), (20, 11), (23, 7), (4, 3), (12, 16), (23, 16), (4, 21), (1, 6), (16, 4), (15, 8), (15, 17), (18, 13), (7, 22), (18, 22), (8, 5), (19, 5), (8, 14), (19, 14), (8, 23), (19, 23), (11, 19), (23, 2), (12, 11), (23, 11), (4, 7), (4, 16), (22, 15), (1, 1), (14, 20), (3, 20), (15, 3), (15, 12), (18, 8)} : Blocked route to (21, 18)
+
+======================================================================
+FAIL: test_keeper_hut_has_floor_roof_and_accessible_workbench (__main__.Graveyard.test_keeper_hut_has_floor_roof_and_accessible_workbench)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_graveyard.py", line 71, in test_keeper_hut_has_floor_roof_and_accessible_workbench
+    self.assertEqual(self.block(21, 1, 17), 'minecraft:crafting_table')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'minecraft:coarse_dirt' != 'minecraft:crafting_table'
+- minecraft:coarse_dirt
++ minecraft:crafting_table
+
+
+======================================================================
+FAIL: test_stone_sarcophagi_and_chest_clearance (__main__.Graveyard.test_stone_sarcophagi_and_chest_clearance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_graveyard.py", line 64, in test_stone_sarcophagi_and_chest_clearance
+    self.assertEqual(self.block(x, 1, zz), 'minecraft:chiseled_stone_bricks')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'minecraft:air' != 'minecraft:chiseled_stone_bricks'
+- minecraft:air
++ minecraft:chiseled_stone_bricks
+
+
+======================================================================
+FAIL: test_three_wide_north_facing_stairs_and_sealed_face (__main__.Graveyard.test_three_wide_north_facing_stairs_and_sealed_face)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_graveyard.py", line 96, in test_three_wide_north_facing_stairs_and_sealed_face
+    self.assertEqual(name, 'minecraft:stone_brick_stairs')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'minecraft:air' != 'minecraft:stone_brick_stairs'
+- minecraft:air
++ minecraft:stone_brick_stairs
+
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.332s
+
+FAILED (failures=4)
+PASS: actual graveyard placement on grass/dark, clear translated spawns, loot bounds and saved-region idempotence

@@ -32,6 +32,7 @@ def main():
         'structure-tests': [sys.executable, 'scripts/tests/test_structure_manifest.py'],
         'structure-placement-tests': ['node', 'scripts/tests/structure_placement.test.cjs'],
         'cullis-tests': [sys.executable, 'scripts/tests/test_cullis_gate.py'],
+        'graveyard-tests': [sys.executable, 'scripts/tests/test_graveyard.py'],
         'scoreboard-tests': [sys.executable, 'scripts/tests/test_conformance_score.py'],
         'scoreboard': [sys.executable, 'scripts/conformance_score.py', '--check'],
         'runtime-tests': ['npm', 'test'],

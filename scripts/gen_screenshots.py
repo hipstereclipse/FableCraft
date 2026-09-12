@@ -367,6 +367,7 @@ def frame_card(render, title, subtitle, mood="stone", size=(900, 1000)):
 # ---------------------------------------------------------------------------
 
 BLOCK_COLORS = {
+    "minecraft:crafting_table": (132, 98, 60),
     "minecraft:stone_bricks": (124, 120, 116), "minecraft:mossy_stone_bricks": (110, 122, 100),
     "minecraft:cracked_stone_bricks": (112, 106, 100), "minecraft:cobblestone": (108, 106, 104),
     "minecraft:mossy_cobblestone": (96, 110, 88), "minecraft:dark_oak_planks": (78, 56, 34),
@@ -1041,7 +1042,7 @@ def main():
         "power_snowspire_oracle": ("Snowspire Oracle", "Frozen lane to the Oracle monolith", "frost"),
         "power_necropolis": ("Necropolis Ruin", "Glyph stones and broken bridge", "dark"),
         "bandit_camp": ("Bandit Camp", "Twinblade's raiders · tents · loot", "stone"),
-        "graveyard": ("Lychfield Graveyard", "Hollow Men rise at dusk", "swamp"),
+        "graveyard": ("Lychfield Graveyard", "Nostro's crypt · keeper hut · gate-stair face", "swamp"),
         "temple_avo": ("Temple of Avo", "Donation fountain · sword in the stone", "holy"),
         "chapel_skorm": ("Chapel of Skorm", "Dark sacrifices welcome", "fire"),
         "arena_ring": ("The Arena", "Round-based gladiator combat", "fire"),

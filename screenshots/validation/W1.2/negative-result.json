@@ -1,0 +1,5 @@
+{
+  "command": "FC_GRAVEYARD_TEST_SOURCE=tmp/conformance/gen_structures_before_W1.2.py python scripts/tests/test_graveyard.py",
+  "exit_code": 1,
+  "expected": "nonzero: old owner lacks hut, stone sarcophagi, stairs/face and connected landmark routes"
+}

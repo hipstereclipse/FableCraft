@@ -5450,7 +5450,8 @@ const STRUCTS = [
   { id: "fc:demon_door_arch", w: 23, h: 18, d: 13, weight: 10, surf: ["grass", "dark", "rock", "snow"], theme: "dark", door: true },
   { id: "fc:silver_chest_ruin", w: 13, h: 8, d: 13, weight: 11, surf: ["grass", "dark", "rock", "sand", "snow"], theme: "forest", loot: "ruin" },
   { id: "fc:bandit_camp", w: 33, h: 13, d: 33, weight: 9, surf: ["grass", "dark", "rock"], theme: "dark", mobs: ["fc:bandit", "fc:bandit", "fc:bandit_archer", "fc:twinblade"] },
-  { id: "fc:graveyard", w: 25, h: 13, d: 25, weight: 7, surf: ["grass", "dark"], theme: "dark", mobs: ["fc:undead", "fc:undead_soldier", "fc:undead_knight"] },
+  { id: "fc:graveyard", w: 25, h: 13, d: 25, weight: 7, surf: ["grass", "dark"], theme: "dark", mobs: ["fc:undead", "fc:undead_soldier", "fc:undead_knight"],
+    mobSpawns: [[12.5, 1, 12.5], [12.5, 1, 16.5], [15.5, 1, 10.5]] }, // gen_structures.graveyard walking lanes
   { id: "fc:focus_site", w: 13, h: 10, d: 13, weight: 7, surf: ["grass", "dark", "rock", "sand", "snow"], theme: "dark", cullis: true },
   { id: "fc:oakvale_village", w: 35, h: 14, d: 35, weight: 8, surf: ["grass", "sand"], theme: "village", cullis: true,
     mobs: ["fc:villager_farmer", "fc:villager_fisher", "fc:guard_oakvale"] },
@@ -5602,8 +5603,11 @@ function maybePlace(p, rx, rz) {
   // population + props — best-effort, never aborts a placement that succeeded
   try {
     const floorY = pY + 1;
-    for (const mtype of pick.mobs ?? []) {
-      trySpawn(dim, mtype, { x: x + 4 + Math.random() * (w - 8), y: floorY, z: z + 4 + Math.random() * (d - 8) });
+    for (const [index, mtype] of (pick.mobs ?? []).entries()) {
+      const local = pick.mobSpawns?.[index];
+      trySpawn(dim, mtype, local
+        ? { x: x + local[0], y: pY + local[1], z: z + local[2] }
+        : { x: x + 4 + Math.random() * (w - 8), y: floorY, z: z + 4 + Math.random() * (d - 8) });
     }
     if (pick.door) {
       // the arch opening is centred on the face wall (local x=w/2, z=5)

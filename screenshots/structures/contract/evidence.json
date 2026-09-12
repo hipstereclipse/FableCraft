@@ -173,20 +173,20 @@
       "notes": []
     },
     "graveyard": {
-      "asset_sha256": "acc44015f7bc2218e4b2c5d414542f9e44b8eaaf85497e2b0d545affa69dce2f",
+      "asset_sha256": "e69852c56d3327fec728bda007bde44b10d04dddd333988a7bc164bcc52ec69a",
       "size": [
         25,
         13,
         25
       ],
-      "image_sha256": "8decc8b21171110daec3784b53f1239134a0654b991b128d42d38619b52cab67",
+      "image_sha256": "784d36bcd9dba8ace7b7c856a0cc3e9057ea6ab66c98a59b1981cc89c52dd91b",
       "grade": "S",
       "score": 100,
       "metrics": {
-        "coverage": 13.4,
-        "colors": 34,
+        "coverage": 15.3,
+        "colors": 36,
         "contrast": 0.89,
-        "brightness": 0.37,
+        "brightness": 0.35,
         "placeholder": false
       },
       "notes": []
