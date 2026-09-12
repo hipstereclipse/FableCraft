@@ -46,7 +46,11 @@ Use targeted generators and the established behavior regression gate before broa
 
 ## Remaining work
 
-L3 must migrate handwritten runtime messages and remaining generator display text.
+L3.1 now emits `fc_strings.js` from the same owner, with strict `name`, `t` and
+canonical `itemName` accessors. The Hero Menu text and key inventory/map/status
+messages are migrated. L3.2 still owns quest/town/shop/crime text and saved travel
+labels; L3.3 owns remaining Will/emote/HUD display text. See
+[RUNTIME_NAMING.md](RUNTIME_NAMING.md) for the manual checklist.
 L4 must scan all archived paths and contents, including escaped/case-varied names,
 internal references and nested archives, with no release exemptions. Stable references
 need a reviewed compatibility mapping before any packaging rename. See

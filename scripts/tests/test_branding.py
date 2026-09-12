@@ -83,7 +83,8 @@ class StagedGeneration(unittest.TestCase):
             relative = f"packs/Fablecraft_BP/items/{item['id']}.json"
             self.assertEqual(read_json(ROOT, relative), read_json(self.faithful, relative))
         for relative in ('packs/Fablecraft_BP/scripts/fc_gamedata.js',
-                         'packs/Fablecraft_RP/texts/en_US.lang'):
+                         'packs/Fablecraft_RP/texts/en_US.lang',
+                         'packs/Fablecraft_BP/scripts/fc_strings.js'):
             self.assertEqual((ROOT / relative).read_text(), (self.faithful / relative).read_text())
 
     def test_lore_helper_translates_without_changing_color_and_stats(self):

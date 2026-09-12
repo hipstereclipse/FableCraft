@@ -1,4 +1,4 @@
-# Naming migration debt (L2)
+# Naming migration debt (after L3.1 code migration)
 
 Generated from the original-mode staging preview. Known case-sensitive display names
 only; comments count. IDs, filenames, escaped literals, case variants, nested archives
@@ -10,8 +10,8 @@ and unlisted names still require L4 scanning. This inventory cannot authorize a 
 | `packs/Fablecraft_BP/scripts/fable_emote_registry.js` | 4 | Avisto, Calran, Moryk, Yeron |
 | `packs/Fablecraft_BP/scripts/fable_emotes.js` | 10 | Avisto, Calran, Fable, FableCraft, Fablecraft, Moryk, Yeron |
 | `packs/Fablecraft_BP/scripts/fable_hud.js` | 1 | Fable |
-| `packs/Fablecraft_BP/scripts/main.js` | 145 | Albion, Avo, Avo's Tear, Balverine, Bowerstone, Briar Rose, Chamber of Fate, Cullis, Cullis Gate, Cullis Gates, Darkwood, Demon Door, Demon Doors, Dragon of Blades, Fable, Fable: The Lost Chapters, Fablecraft, Fablecraft: Reforged, Fisher Creek, Guild Seal, Guildmaster, Heroes' Guild, Hobbes, Hook Coast, Jack of Blades, Knothole Glade, Lady Grey, Lookout Point, Maze, Necropolis, Oakvale, Orchard Farm, Rose Cottage, Skorm, Snowspire, Sword of Aeons, Theresa, Twinblade, Windmill Hill |
-| `packs/Fablecraft_BP/scripts/wd/herobook.js` | 4 | Albion, Avo, Fable, Skorm |
+| `packs/Fablecraft_BP/scripts/main.js` | 135 | Albion, Avo, Avo's Tear, Balverine, Bowerstone, Briar Rose, Chamber of Fate, Cullis, Cullis Gate, Cullis Gates, Darkwood, Demon Door, Demon Doors, Dragon of Blades, Fable, Fable: The Lost Chapters, Fablecraft, Fablecraft: Reforged, Fisher Creek, Guild Seal, Guildmaster, Heroes' Guild, Hobbes, Hook Coast, Jack of Blades, Knothole Glade, Lady Grey, Lookout Point, Maze, Necropolis, Oakvale, Orchard Farm, Rose Cottage, Snowspire, Sword of Aeons, Theresa, Twinblade, Windmill Hill |
+| `packs/Fablecraft_BP/scripts/wd/herobook.js` | 1 | Fable |
 | `packs/Fablecraft_BP/scripts/wd/logbook.js` | 2 | Albion, Avo |
 | `packs/Fablecraft_BP/scripts/wd/menu_bridge.js` | 1 | Albion, Cullis |
 | `packs/Fablecraft_BP/scripts/wd/spells/berserk.js` | 1 | Skorm |

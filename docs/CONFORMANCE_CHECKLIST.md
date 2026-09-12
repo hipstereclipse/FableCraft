@@ -27,8 +27,8 @@ replace with a real hash in the next milestone. A mock or render is never an in-
 | Item | Status (todo/in-progress/done) | Evidence (commit + screenshot/validator path) | Grade | Date |
 | --- | --- | --- | --- | --- |
 | L1 Verify fan-work notice and release posture | done | 727d945; screenshots/validation/L1/ | PASS (automated) | 2026-09-12 |
-| L2 Generator string table and local/original mode | done | SELF: TLC Conformance — L2: isolate naming modes and local build outputs; screenshots/validation/L2/ | PASS (automated) | 2026-09-12 |
-| L3.1 Runtime strings and menu hub | todo | — | — | — |
+| L2 Generator string table and local/original mode | done | 3642d33; screenshots/validation/L2/ | PASS (automated) | 2026-09-12 |
+| L3.1 Runtime strings and menu hub | in-progress | SELF: TLC Conformance — L3.1: generate runtime names and migrate the menu hub; screenshots/validation/L3.1/ | PASS (automated); PENDING (manual) | 2026-09-12 |
 | L3.2 Runtime quests, towns, shops and crime | todo | — | — | — |
 | L3.3 Will modules, logbook and generated HUD text | todo | — | — | — |
 | L4 Enforce original-only release packaging | todo | — | — | — |

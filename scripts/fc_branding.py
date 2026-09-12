@@ -11,7 +11,7 @@ from unittest.mock import patch
 
 import fc_data
 from fc_lib import write_json
-from fc_strings import branding, faithful_matches, text
+from fc_strings import branding, emit_runtime, faithful_matches, text
 import gen_behavior
 import gen_resources
 
@@ -30,6 +30,7 @@ def emit_display_files(root, selected):
             emitter(item)
         gen_behavior.emit_script_data()
         gen_resources.emit_lang(items)
+        emit_runtime(bp)
         # These manifests are source templates. This helper owns staged display fields;
         # UUIDs, versions, dependency edges and script entry points remain unchanged.
         for pack in (bp, rp):

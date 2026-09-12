@@ -12,24 +12,25 @@ import { spawnParticle } from "./particles.js";
 import { getSpell, SPELL_ORDER, CATEGORY_LABEL } from "./spells/registry.js";
 import { LEGACY_MENU } from "./menu_bridge.js";
 import { chronicle } from "./logbook.js";
+import { t } from "../fc_strings.js";
 
 const SIGIL = "textures/ui/wd"; // generated storybook sigils (cosmetic if absent)
 
 const ALIGN_TITLES = [
-  { min: 850, title: "§eAvatar of Avo" },
-  { min: 500, title: "§eParagon" },
-  { min: 150, title: "§aGood" },
-  { min: -149, title: "§7Neutral" },
-  { min: -499, title: "§cRogue" },
-  { min: -849, title: "§cVillain" },
-  { min: -1000, title: "§5Avatar of Skorm" },
+  { min: 850, title: t("alignment.avo") },
+  { min: 500, title: t("alignment.paragon") },
+  { min: 150, title: t("alignment.good") },
+  { min: -149, title: t("alignment.neutral") },
+  { min: -499, title: t("alignment.rogue") },
+  { min: -849, title: t("alignment.villain") },
+  { min: -1000, title: t("alignment.skorm") },
 ];
 
 function alignmentTitle(value) {
   for (const tier of ALIGN_TITLES) {
     if (value >= tier.min) return tier.title;
   }
-  return "§7Neutral";
+  return t("alignment.neutral");
 }
 
 function flourish(player) {
@@ -62,8 +63,8 @@ function slotSummary(state) {
   return state.spells.slots
     .map((id, i) => {
       const active = i === state.spells.active ? "§9▶ " : "§8  ";
-      const name = id ? `§f${getSpell(id)?.name ?? id}` : "§8(empty)";
-      return `${active}§7Slot ${i + 1}: ${name}`;
+      const name = id ? `§f${getSpell(id)?.name ?? id}` : t("magic.empty");
+      return t("magic.slot_summary", { active, slot: i + 1, name });
     })
     .join("\n");
 }
@@ -79,26 +80,27 @@ export function openHeroMenu(player, silent = false) {
   mutateState(player, (d) => { d.ui.lastPage = "hero"; });
 
   const form = new ActionFormData()
-    .title("§0✦ The Hero's Tale ✦")
+    .title(t("menu.hero_title"))
     .body(
-      `§8A chronicle bound in parchment and gold.\n\n` +
-        `${alignmentTitle(state.alignment)} §8· §7morality §f${state.alignment}\n` +
-        `§7Will §9${Math.round(state.mana.current)}§7/§9${state.mana.max}`,
+      t("menu.hero_body", {
+        alignment: alignmentTitle(state.alignment), morality: state.alignment,
+        mana: Math.round(state.mana.current), maxMana: state.mana.max,
+      }),
     )
     // Buttons 1/2/10 use the storybook pages in this file; the rest open the deep
     // legacy ledgers through the menu bridge. The case map below MUST stay in
     // lockstep with this button order.
-    .button("The Hero", `${SIGIL}/sigil_hero`)
-    .button("Magic", `${SIGIL}/sigil_magic`)
-    .button("Appearance", `${SIGIL}/sigil_appearance`)
-    .button("Weapons", `${SIGIL}/sigil_weapons`)
-    .button("Inventory", `${SIGIL}/sigil_inventory`)
-    .button("Clothing", `${SIGIL}/sigil_inventory`)
-    .button("Expressions", `${SIGIL}/sigil_factions`)
-    .button("Quests", `${SIGIL}/sigil_quests`)
-    .button("Factions", `${SIGIL}/sigil_factions`)
-    .button("Map of Albion", `${SIGIL}/sigil_map`)
-    .button("Logbook", `${SIGIL}/sigil_logbook`);
+    .button(t("menu.hero"), `${SIGIL}/sigil_hero`)
+    .button(t("menu.magic"), `${SIGIL}/sigil_magic`)
+    .button(t("menu.appearance"), `${SIGIL}/sigil_appearance`)
+    .button(t("menu.weapons"), `${SIGIL}/sigil_weapons`)
+    .button(t("menu.inventory"), `${SIGIL}/sigil_inventory`)
+    .button(t("menu.clothing"), `${SIGIL}/sigil_inventory`)
+    .button(t("menu.expressions"), `${SIGIL}/sigil_factions`)
+    .button(t("menu.quests"), `${SIGIL}/sigil_quests`)
+    .button(t("menu.factions"), `${SIGIL}/sigil_factions`)
+    .button(t("menu.map"), `${SIGIL}/sigil_map`)
+    .button(t("menu.logbook"), `${SIGIL}/sigil_logbook`);
 
   form.show(player).then((res) => {
     if (res.canceled) return;
@@ -125,7 +127,7 @@ function openLegacy(player, page) {
   const opener = LEGACY_MENU[page];
   if (typeof opener === "function") return opener(player);
   if (typeof LEGACY_MENU.heroMenu === "function") return LEGACY_MENU.heroMenu(player);
-  player.sendMessage("§7That page of the ledger is not yet bound.");
+  player.sendMessage(t("menu.unbound"));
 }
 
 // ---------------------------------------------------------------------------
@@ -137,24 +139,23 @@ function magicPage(player) {
   mutateState(player, (d) => { d.ui.lastPage = "magic"; });
 
   const form = new ActionFormData()
-    .title("§0✦ Magic ✦")
+    .title(t("magic.title"))
     .body(
-      `§8Assign your three hot-swap powers. Crouch + use the Will Focus to cycle them.\n\n` +
-        `${slotSummary(state)}`,
+      t("magic.body", { slots: slotSummary(state) }),
     );
 
   if (owned.length === 0) {
-    form.body("§8You have learned no Will powers yet. Find and use a spell tome to weave one into your soul.");
+    form.body(t("magic.none"));
   }
   for (const id of owned) {
     const spell = getSpell(id);
     const level = state.spells.owned[id];
     const slotIndex = state.spells.slots.indexOf(id);
-    const marker = slotIndex >= 0 ? `§9[Slot ${slotIndex + 1}] ` : "§8";
+    const marker = slotIndex >= 0 ? t("magic.slot_marker", { slot: slotIndex + 1 }) : "§8";
     const category = CATEGORY_LABEL[spell.category] ?? spell.category;
-    form.button(`${marker}§f${spell.name} §7Lv ${level}\n§8${category} · ${spell.baseMana} Will`);
+    form.button(t("magic.spell", { marker, name: spell.name, level, category, mana: spell.baseMana }));
   }
-  form.button("§8❖ Back");
+  form.button(t("menu.back"));
 
   form.show(player).then((res) => {
     if (res.canceled) return;
@@ -168,15 +169,15 @@ function bindSlotPage(player, id) {
   const spell = getSpell(id);
   const state = getState(player);
   const form = new ActionFormData()
-    .title(`§0Bind ${spell?.name ?? id}`)
-    .body("§8Choose a quick-slot to hold this power. Binding here also makes it the active power.");
+    .title(t("magic.bind_title", { name: spell?.name ?? id }))
+    .body(t("magic.bind_body"));
   for (let i = 0; i < state.spells.slots.length; i++) {
     const cur = state.spells.slots[i];
-    const curName = cur ? getSpell(cur)?.name ?? cur : "empty";
-    form.button(`§fSlot ${i + 1} §8(${curName})`);
+    const curName = cur ? getSpell(cur)?.name ?? cur : t("magic.empty_slot");
+    form.button(t("magic.slot", { slot: i + 1, name: curName }));
   }
-  form.button("§7Remove from quick-slots");
-  form.button("§8❖ Back");
+  form.button(t("magic.remove"));
+  form.button(t("menu.back"));
 
   form.show(player).then((res) => {
     if (res.canceled) return magicPage(player);
@@ -206,9 +207,9 @@ function logbookPage(player) {
   mutateState(player, (d) => { d.ui.lastPage = "logbook"; });
   const { lines } = chronicle(player);
   new ActionFormData()
-    .title("§0✦ The Logbook ✦")
+    .title(t("logbook.title"))
     .body(lines.join("\n"))
-    .button("§8❖ Back")
+    .button(t("menu.back"))
     .show(player)
     .then((r) => { if (!r.canceled) openHeroMenu(player, true); })
     .catch(() => {});
@@ -224,15 +225,15 @@ function appearancePage(player) {
   const currentDetail = Math.max(0, detailOptions.indexOf(state.options.appearanceDetail));
 
   new ModalFormData()
-    .title("§0Appearance")
+    .title(t("appearance.title"))
     .dropdown(
-      `Current rig — align ${tiers.alignment}, str ${tiers.strength}, skl ${tiers.skill}, will ${tiers.will}\n\nDetail`,
-      ["Full (shells + ornaments + morph)", "Overlays only (no morph)", "Horns / Halo only"],
-      currentDetail,
+      t("appearance.detail", tiers),
+      [t("appearance.full"), t("appearance.overlays"), t("appearance.ornaments")],
+      { defaultValueIndex: currentDetail },
     )
-    .toggle("Show appearance overlays", state.options.morphEnabled !== false)
-    .toggle("Hold-to-charge spells", state.options.chargeEnabled !== false)
-    .slider("Aura density", 0, 2, 1, Math.round(state.options.auraDensity ?? 1))
+    .toggle(t("appearance.show"), { defaultValue: state.options.morphEnabled !== false })
+    .toggle(t("appearance.charge"), { defaultValue: state.options.chargeEnabled !== false })
+    .slider(t("appearance.aura"), 0, 2, { valueStep: 1, defaultValue: Math.round(state.options.auraDensity ?? 1) })
     .show(player)
     .then((res) => {
       if (res.canceled) return openHeroMenu(player, true);
@@ -241,7 +242,8 @@ function appearancePage(player) {
         d.options.appearanceDetail = detailOptions[detailIdx] ?? "full";
         d.options.morphEnabled = morphEnabled === true;
         d.options.chargeEnabled = chargeEnabled === true;
-        d.options.auraDensity = Math.max(0, Math.min(2, Number(auraDensity) || 1));
+        const density = Number(auraDensity);
+        d.options.auraDensity = Number.isFinite(density) ? Math.max(0, Math.min(2, density)) : 1;
       });
       openHeroMenu(player, true);
     })

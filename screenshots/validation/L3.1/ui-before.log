@@ -1,0 +1,58 @@
+✔ faithful: strict names, single-pass interpolation, stable IDs (87.682156ms)
+(node:4) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ faithful: root labels, mana, alignment and every legacy route (98.330292ms)
+✔ faithful: quick-slot mutation and return to the same hub (77.427857ms)
+✖ faithful: appearance controls and missing bridge fallback (79.68502ms)
+✔ original: strict names, single-pass interpolation, stable IDs (81.82656ms)
+✔ original: root labels, mana, alignment and every legacy route (77.017287ms)
+✔ original: quick-slot mutation and return to the same hub (82.57014ms)
+✖ original: appearance controls and missing bridge fallback (86.108128ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 6
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 675.636147
+
+✖ failing tests:
+
+test at scripts/tests/runtime_strings.test.mjs:116:3
+✖ faithful: appearance controls and missing bridge fallback (79.68502ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + "§0✦ The Hero's Tale ✦"
+  - '§0Appearance'
+  
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/runtime_strings.test.mjs:120:12)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: "§0✦ The Hero's Tale ✦",
+    expected: '§0Appearance',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/runtime_strings.test.mjs:116:3
+✖ original: appearance controls and missing bridge fallback (86.108128ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + "§0✦ The Hero's Tale ✦"
+  - '§0Appearance'
+  
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/runtime_strings.test.mjs:120:12)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: "§0✦ The Hero's Tale ✦",
+    expected: '§0Appearance',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

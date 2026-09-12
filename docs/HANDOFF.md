@@ -10,32 +10,37 @@ six reference snapshots are in docs/. User override (2026-09-12): finish the spe
 and continue as far as practical without permission questions. Retain separate
 milestone commits, validation, immediate pushes, evidence and fresh handoffs.
 
-Current milestone: L2 — isolate naming modes and local build outputs; status done.
-Last resolved prior commit: 727d945 (pushed before this milestone).
-Containing commit: TLC Conformance — L2: isolate naming modes and local build outputs.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — L2: isolate naming modes and local build outputs'.
+Current milestone: L3.1 — generate runtime names and migrate the menu hub; status in-progress.
+Last resolved prior commit: 3642d33 (pushed before this milestone).
+Containing commit: TLC Conformance — L3.1: generate runtime names and migrate the menu hub.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — L3.1: generate runtime names and migrate the menu hub'.
 Replace previous SELF evidence with the actual hash next step; never invent a self-hash.
 
-L2 is complete for item/data/lang/manifest generation. The shared fc_strings table
-has strict faithful/original access; original alternatives (Wayfarer Tales etc.) are
-provisional proposals, not the final public name. fc_branding copies source packs to
-fresh tmp/builds/<mode>-<run> trees and invokes the display owners there. Both child
-auditors take --root and inspect those copies. Default faithful archives now live in
-that run's dist directory; legacy repository dist is untouched. Original mode requires
---preview and cannot package while L3/L4 remains incomplete. Source IDs/stats/UUIDs are
-unchanged. docs/BRANDING.md explains ownership and docs/BRANDING_DEBT.md lists ten files
-with remaining known display spellings; this is not the required L4 release scanner.
+L3.1 code and automated validation are complete; row remains in-progress for its
+explicit manual menu checklist in docs/RUNTIME_NAMING.md. fc_strings.py owns the new
+fc_strings.js. It emits selected-mode semantic names, whole messages and canonical
+item/entity display names. Hero Menu text and key main.js inventory/map/status labels
+use it; bridge keys and save IDs are stable. Eight both-mode boundary tests cover menu
+routes, quick-slot mutation, interpolation and Appearance. Fixed existing UI2.0 modal
+argument incompatibility and aura zero persistence; before-failure evidence is saved.
+Two legacy shop sliders still use obsolete positional options: fix those in L3.2.
 
-All L2 validators are green: build, emotes, HUD112/112, animation audit54clients,
-ESLint0errors/19warnings, spell17 + scan3 tests, behavior4 groups, animation10 tests,
-branding14 tests. Tests prove faithful generated text matches current source, original
-items retain stats/IDs, owner paths recover on failure, and staged audit defects fail.
-Evidence: screenshots/validation/L2/. Phase0.3 and spell in-world checks remain manual
-and unrun; no Minecraft runtime is available in this session. Independent work may
-continue without claiming those tests pass.
+All current gates green: build (56JS), emotes31/21, HUD112/112, animations54,
+ESLint0errors/19warnings, spells17, entity-scan3, behavior4groups, animation10,
+branding14 and runtime-strings8. Logs: screenshots/validation/L3.1/. Original preview
+passes staged asset validation but retains ten files of known literal debt. The
+inventory shrank within main.js and herobook.js, not to zero. Next: main.js runtime
+quest/town/shop/crime messages and saved-site display migration without changing save
+keys or coordinates. L3.3 owns logbook/emote/HUD text. L4 remains fully blocked on
+release scanning and the final public name (Wayfarer Tales is provisional).
+
+L2 staging policy remains: default faithful packages only under tmp/builds/<run>/dist;
+--branding original requires --preview and produces no archives. Do not edit generated
+fc_strings.js manually. Regenerate with python scripts/fc_strings.py. No Minecraft
+in-world tests have been run; Phase0.3 and spell/manual rows remain pending.
 
 Next three actions:
-1. git pull --ff-only; read the top pending row and start L3.1 (runtime string module and menu hub).
+1. git pull --ff-only; read the top pending row and start L3.2 (quests, towns, shops and crime).
 2. Execute its numbered playbook steps and applicable base/domain validators; preserve
    real output under screenshots/validation/<ID>/, mark manual observations unrun.
 3. Update checklist/handoff in one explicitly staged milestone commit, push to origin,

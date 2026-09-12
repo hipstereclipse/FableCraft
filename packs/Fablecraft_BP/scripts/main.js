@@ -11,6 +11,7 @@ import {
   ActionFormData, MessageFormData, ModalFormData,
 } from "@minecraft/server-ui";
 import { DATA } from "./fc_gamedata.js";
+import { itemName, t } from "./fc_strings.js";
 import {
   performFableEmote, refreshFableEmoteUnlocks,
 } from "./fable_emotes.js";
@@ -76,9 +77,7 @@ function fableTitle(t) { return `§8‹§6❦§8› §6§l${t}§r §8‹§6❦§
 
 function fableBody(lines) { return [FABLE_RULE, ...lines, FABLE_RULE].join("\n"); }
 function displayName(id) {
-  return id.replace(/^(fc|wd):/, "").split("_")
-    .map((word) => word ? word[0].toUpperCase() + word.slice(1) : "")
-    .join(" ");
+  return itemName(id);
 }
 
 function maybePlayNpcCue(p, e, cue) {
@@ -120,7 +119,7 @@ function moralityTitle(p) {
   if (m > -150) return "§7Neutral";
   if (m > -400) return "§cRogue";
   if (m > -750) return "§cVillain";
-  return "§5Avatar of Skorm";
+  return t("alignment.skorm");
 }
 
 function maxWill(p) { return 100 + P.get(p, "fc_up_magic_power", 0) * 50; }
@@ -2153,7 +2152,7 @@ function itemsMenu(p) {
   const groups = ["Provisions", "Augments", "Experience Orbs", "Quest & Other"];
   const f = new ActionFormData().title(fableTitle("Items")).body(fableBody([
     "§7Select a page of your inventory.",
-    `§8${entries.length} Fablecraft stacks carried`,
+    t("inventory.count", { count: entries.length }),
   ]));
   for (const group of groups) {
     const count = entries.filter(({ item }) => customItemKind(item.typeId) === group)
@@ -2244,7 +2243,7 @@ function weaponLockerMenu(p) {
   const weapons = carriedWeapons(p);
   const held = heldItem(p);
   const f = new ActionFormData().title(fableTitle("Weapons")).body(fableBody([
-    held && DATA.weapons[held.typeId] ? `§6Drawn: §f${displayName(held.typeId)}` : "§7No Fable weapon drawn.",
+    held && DATA.weapons[held.typeId] ? `§6Drawn: §f${displayName(held.typeId)}` : t("weapons.none"),
     "§8Choose a weapon to inspect or equip.",
   ]));
   for (const { item } of weapons) {
@@ -2557,23 +2556,23 @@ function logbookPage(p, title, lines) {
 function mapMenu(p) {
   const sites = JSON.parse(world.getDynamicProperty("fc_cullis") ?? "[]");
   if (!sites.length) {
-    new ActionFormData().title(fableTitle("Map of Albion"))
+    new ActionFormData().title(fableTitle(t("menu.map")))
       .body([
         FABLE_RULE,
         "§7No Focus Sites discovered yet.",
-        "§7Cullis Gates scattered across Albion will join the lattice as you find them.",
+        t("map.undiscovered"),
         FABLE_RULE,
       ].join("\n"))
       .button("§8❖ Back")
       .show(p).then((r) => { if (!r.canceled) heroMenu(p); }).catch(() => { });
     return;
   }
-  const f = new ActionFormData().title(fableTitle("Map of Albion"))
+  const f = new ActionFormData().title(fableTitle(t("menu.map")))
     .body(fableBody([
-      "§7The Cullis lattice bends Albion to your Will.",
+      t("map.lattice"),
       "§8Travel is destination-based; there is no breadcrumb trail.",
     ]))
-    .button("§9Recall to the Heroes' Guild", "textures/items/guild_seal");
+    .button(t("map.recall"), "textures/items/guild_seal");
   for (const s of sites) {
     const d = Math.round(Math.hypot(p.location.x - s.x, p.location.z - s.z));
     f.button(`§b◈ ${s.name}\n§8${d}m distant`, "textures/items/septimal_key");
@@ -2619,8 +2618,8 @@ function statsMenu(p) {
     `§d ◈ Renown: §f${P.get(p, "fc_renown", 0)} §8· title: §e${activeTitle(p) || "none"}`,
     `§d ◈ Attractiveness: §f${attractiveness}`,
     `§4 ◈ Scariness: §f${scariness}`,
-    `§d ◈ Marital status: §f${P.get(p, "fc_married", false) ? "Married to Lady Grey" : "Unmarried"}`,
-    `§7 ◈ Albion time: §f${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`,
+    `§d ◈ Marital status: §f${P.get(p, "fc_married", false) ? t("stats.married") : "Unmarried"}`,
+    t("stats.clock", { hour: String(hour).padStart(2, "0"), minute: String(minute).padStart(2, "0") }),
     FABLE_RULE,
     `§a ◈ General XP: §f${P.get(p, "fc_xp_general", 0)}`,
     `§c ◈ Strength XP: §f${P.get(p, "fc_xp_strength", 0)}`,

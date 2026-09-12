@@ -1,0 +1,18 @@
+✔ faithful: strict names, single-pass interpolation, stable IDs (86.886411ms)
+(node:65) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ faithful: root labels, mana, alignment and every legacy route (78.426693ms)
+✔ faithful: quick-slot mutation and return to the same hub (78.386055ms)
+✔ faithful: appearance controls and missing bridge fallback (80.317561ms)
+✔ original: strict names, single-pass interpolation, stable IDs (79.750571ms)
+✔ original: root labels, mana, alignment and every legacy route (81.810424ms)
+✔ original: quick-slot mutation and return to the same hub (81.018831ms)
+✔ original: appearance controls and missing bridge fallback (85.555781ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 657.294563
