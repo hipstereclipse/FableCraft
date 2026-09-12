@@ -1,0 +1,17 @@
+{
+  "before": {
+    "minecraft:bookshelf": 44,
+    "minecraft:dark_oak_planks": 0,
+    "minecraft:spruce_slab": 0,
+    "minecraft:lectern": 3,
+    "minecraft:lantern": 0
+  },
+  "after": {
+    "minecraft:bookshelf": 60,
+    "minecraft:dark_oak_planks": 92,
+    "minecraft:spruce_slab": 7,
+    "minecraft:lectern": 3,
+    "minecraft:lantern": 4
+  },
+  "changed_cells": 141
+}

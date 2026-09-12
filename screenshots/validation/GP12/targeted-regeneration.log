@@ -1,0 +1,8 @@
+  fc:guild_hall  (122x30x108, palette 117)
+[
+  {
+    "path": "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure",
+    "before_sha256": "c170740a4260c21184883caddeff5aa529bc9facd9acd3f45956f64a1edfeb35",
+    "after_sha256": "9740cf44854c312df4a9177dff1c976e4dc85fd6faca51c974eb1b6828538ddd"
+  }
+]

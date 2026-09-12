@@ -1,0 +1,20 @@
+{
+  "scope": "fresh focused render from isolated reviewed checkpoint; no GP13/14 source",
+  "sha256": {
+    "scripts/gen_structures.py": "261c2f656c834d9df7fea8af619be53c009ee33e894630892d90898b0836eaef",
+    "scripts/gen_screenshots.py": "9beb008070bf1b72dbd4081c8e9ddb3402fb6a5221b545a9b3b940dd5c6bdc14",
+    "scripts/tests/test_guild_library.py": "842ba55172f92472b792c96f3fc9937ab89cba1e6eb68ca63d2af3c5951e1e60",
+    "scripts/tests/test_guild_routes.py": "e3323f7b944a03457a9dde9ac10c24256d828a52369497db76edd035691bd889",
+    "screenshots/validation/GP12/render-library-details.py": "aa222a53036791b4366ef7f07c3ce9c40e9740962b9ef4282a0f816c79a262c9",
+    "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure": "9740cf44854c312df4a9177dff1c976e4dc85fd6faca51c974eb1b6828538ddd"
+  },
+  "png_sha256": {
+    "library-east-bookcases-after.png": "6fa70d6f8b427b2817ed7a222f913004ed6d5ee4c21caa38a15539e59788e776",
+    "library-east-bookcases-before.png": "f6dd089dfbf9fa866ee401b32dce0e9b3159deaf74a168b4912c059e80d85657",
+    "library-open-cutaway-after.png": "b99cd7bed06325bc0a337159912fafb540f8157ba9b6218dd2d59e1a3a551023",
+    "library-open-cutaway-before.png": "3081611896a5b9222e1abbcb3f05b1016918c8f09755fdd65212c069a90510d7",
+    "library-reading-desk-after.png": "deba3cdfaf57863eb59c627e7aa5f7b4f228f35e4594e0f685e17e3bba0a7fb8",
+    "library-reading-desk-before.png": "49a5b08cd5579fe9f9abce8c4288a383d3746204d88300600045f96090cefc27"
+  },
+  "engine_acceptance": "unrun"
+}

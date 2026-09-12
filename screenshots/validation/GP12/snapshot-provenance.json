@@ -1,0 +1,21 @@
+{
+  "source": "reviewed Git index; excludes unstaged parallel implementation and inherited dirtiness",
+  "baseline_head": "e421d237d9d6c3640d239af1a447fe33675d126b",
+  "entries": 4596,
+  "reviewed_source_sha256": {
+    "docs/CONFORMANCE_CHECKLIST.md": "420e3d93791452652c08a0e0fc7dcfcef1921c335f0ac4e925dcc7f81ba0112a",
+    "docs/GUILD_DEMON_PRIORITIES.md": "280f12216f87013d321a64310fb629828490913326e0db30ea5a264b6b36a44c",
+    "docs/GUILD_LIBRARY_INTERIOR.md": "e098b4689394bbc7d782903eecf1189d6574e83ae8b99c44f225f74d55d402e7",
+    "docs/GUILD_ONLINE_REFERENCES.md": "f4e28ba6d55f471f68ff367af63e446df84ed1c617688b2c4ee5bb5d05a90f89",
+    "docs/HANDOFF.md": "767d0e160d3ec623fe71dae12632afdcfeb4e4cd3b38907ca421c82775b3555a",
+    "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure": "9740cf44854c312df4a9177dff1c976e4dc85fd6faca51c974eb1b6828538ddd",
+    "screenshots/structures/contract/evidence.json": "0d6e88916515622d72da25c5d8c0c7f4ba156ccc0f5f439eab71c0edb79951ca",
+    "scripts/gen_structures.py": "261c2f656c834d9df7fea8af619be53c009ee33e894630892d90898b0836eaef",
+    "scripts/tests/test_guild_library.py": "842ba55172f92472b792c96f3fc9937ab89cba1e6eb68ca63d2af3c5951e1e60",
+    "scripts/validate.py": "a11c52f1aabf1f04f01c6cafa03e23b61876c66a823993dd165441b56043110c",
+    "screenshots/validation/GP12/regenerate-guild.py": "50339b7c2bdb222ca4c2722d8cc971e389a4d9086f44b388d0c37efa2f08d402",
+    "screenshots/validation/GP12/render-library-details.py": "aa222a53036791b4366ef7f07c3ce9c40e9740962b9ef4282a0f816c79a262c9"
+  },
+  "node_dependencies": "same installed locked dependencies via node_modules symlink",
+  "engine_acceptance": "unrun"
+}

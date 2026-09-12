@@ -44,6 +44,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | GP9 | in-progress | Dedicated Will-island lightning drill and discipline-specific staffing; checked effects stop on interruption; engine acceptance open |
 | GP10 | in-progress | Low wood-framed terrain map replaces random jewel mosaic and beacon; all adjacent interactions preserved; engine acceptance open |
 | GP11 | in-progress | Broad Library/Store arches remain open after removing redundant indoor tunnel shells; floors and adjoining routes preserved; engine acceptance open |
+| GP12 | in-progress | Continuous framed Library bookcases, accessible reading desk and supported lamps; spine/cave/commons routes preserved; engine acceptance open |
 
 Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
 defects and manual status here. These passes are not completed legacy leaves.
@@ -593,7 +594,7 @@ bookcases/reading furnishings, then continued whole-facility reference review.
 
 ## GP11 — broad Library and Store connections (2026-09-12)
 
-Commit: SELF: TLC Conformance — GP11: open the Guild Library and Store archways.
+Commit: e421d237d9d6c3640d239af1a447fe33675d126b.
 The final generator built narrow windowed tunnels underneath its own broad room
 arches and full-height bay roofs. Their inner walls and low caps obstructed eye
 height and left a single centre lane. The finish pass now retains only the flush
@@ -627,3 +628,41 @@ Will targets provide more precise next-pass comparison; terrain, dimensions and
 neutral light remain uncertain. Keep searching original Library, sleeping-room,
 Maze and courtyard views. Reject Anniversary, sequels and reboot imagery as TLC
 geometry evidence. Original reference pixels remain ignored, never pack assets.
+
+## GP12 — grounded Library bookshelves and reading furnishings (2026-09-12)
+
+Commit: SELF: TLC Conformance — GP12: furnish the Guild Library with supported bookcases and lamps.
+The original generator left disconnected upper shelf bands and lost its sole
+hanging lamp during final decoration because the lamp had no ceiling support.
+The Library now has continuous timber-framed bookcases, a narrow supported
+reading desk and four lamps mounted beneath connected solid brackets. All three
+existing lecterns retain their positions and facing. The central five-wide spine,
+west commons doorway, cave approach and resident access remain clear.
+
+Exactly 141 final fixture cells change. Every other campus block/state, room
+shell, floor, anchor and shared random sequence stays unchanged. Sixty bookshelves
+replace 44 separated shelf blocks; the desk has seven half-slabs and three legs.
+New Guilds only: no saved-room rewrite or resident/progress reset.
+
+The 2005 Prima Library image and additional original-TLC Library cutscene views
+support tall continuous framed shelves and open arched access. The newer views
+show a burning story state, so they do not establish neutral room lighting or
+exact desk layout. Desk/lamp dimensions and placement remain explicit adaptations.
+See [GUILD_LIBRARY_INTERIOR.md](GUILD_LIBRARY_INTERIOR.md) and
+`screenshots/validation/GP12/` for six inspected before/after views and provenance.
+
+Six focused groups reproduce detached shelf bands/missing light and test fixture
+support, desk/lectern access and all adjoining routes; blocked paths, missing
+floor, broken bands/brackets and unrelated-campus changes fail independently.
+Forty-four base gates, all 62 ESM syntax checks, fresh C2/full renders and Guild
+diagnostics pass in a reviewed snapshot matched to the staged source. Additional
+online reference URLs/hashes/observations are retained as text; source pixels
+remain ignored. Native texture/light/collision/interaction acceptance is unrun.
+Next: the one-cell northeast dormitory stair repair and further reference-led
+training/Chamber refinements from the new photos, keeping native unknowns open.
+
+GP12 online evidence adds 16 distinct inspected screenshots across Library,
+Chamber, hall, training and entrance views; see [GUILD_ONLINE_REFERENCES.md](GUILD_ONLINE_REFERENCES.md).
+Their stronger neutral Chamber detail now drives the next GP14 wall/paving pass;
+keep the older enrolled GP5/GP8 manifests available. GP11 exact-head CI 34721007299
+passed. Dorm/Maze neutral interior views remain an explicit search gap.

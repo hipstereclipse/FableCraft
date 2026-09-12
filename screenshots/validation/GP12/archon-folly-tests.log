@@ -1,0 +1,12 @@
+test_actual_dragon_collision_volume_and_dry_landing (__main__.ArchonFolly.test_actual_dragon_collision_volume_and_dry_landing) ... ok
+test_actual_scatter_dragon_and_saved_region (__main__.ArchonFolly.test_actual_scatter_dragon_and_saved_region) ... ok
+test_dimensions_palette_flags_and_no_structure_loot (__main__.ArchonFolly.test_dimensions_palette_flags_and_no_structure_loot) ... ok
+test_lava_has_solid_floor_and_retaining_neighbors (__main__.ArchonFolly.test_lava_has_solid_floor_and_retaining_neighbors) ... ok
+test_open_bank_blocked_exit_and_high_collision_negative_fixtures (__main__.ArchonFolly.test_open_bank_blocked_exit_and_high_collision_negative_fixtures) ... ok
+test_open_dry_entrance_and_return_route (__main__.ArchonFolly.test_open_dry_entrance_and_return_route) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.489s
+
+OK
+PASS: actual archon_folly placement on rock, clear translated spawns, loot bounds and saved-region idempotence

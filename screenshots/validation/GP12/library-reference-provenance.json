@@ -1,0 +1,28 @@
+{
+  "source": "Casey Loe / Kaizen Media Group, Fable: The Lost Chapters, Prima Official Game Guide, 2005, ISBN 0-7615-5180-8",
+  "source_url": "https://www.ogxbox.co.uk/media/com_eshop/attachments/Fable_The_Lost_Chapters_Strategy_Guide_Book.pdf",
+  "pdf_page": 34,
+  "printed_page": 33,
+  "inspected": "Complete page, including the ground-floor Library image and accompanying bookcase text. No external pixels committed.",
+  "reference_file": "tmp/conformance/reference-guild/page-034.png",
+  "sha256": "e2c8c163126e9e8a12bb234764a748269b0be72c6dec7a8a2acb08794e0ac666",
+  "observations": [
+    "Tall densely book-lined wall",
+    "Broad wooden furnishing in front of the wall"
+  ],
+  "inference": "The broad wooden furnishing is interpreted as a reading surface; its full geometry is occluded.",
+  "adaptations": [
+    "Two framed bookcase walls with wood crosspieces",
+    "Exact bay and bookshelf counts",
+    "Desk dimensions, location and half-slab material",
+    "Four warm lamps, bracket design and mounting height"
+  ],
+  "not_established": [
+    "Exact room dimensions",
+    "Complete shelf arrangement",
+    "Book identities or one block per original collectible",
+    "Native light level",
+    "Concealed entrance mechanism",
+    "Upstairs sleeping layout"
+  ]
+}

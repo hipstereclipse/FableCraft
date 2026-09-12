@@ -1,0 +1,133 @@
+{
+  "purpose": "Additional online original-TLC visual references, gathered at explicit user request; external pixels remain in ignored tmp only.",
+  "selected_reference_count": 3,
+  "selected_references": [
+    {
+      "id": "affinity-guild-entrance",
+      "file": "affinity-entrance.png",
+      "page_url": "https://affinityarchives.wordpress.com/2014/09/10/fable-tutorial-overkill/",
+      "image_url": "https://affinityarchives.wordpress.com/wp-content/uploads/2014/09/guild_entrance.png",
+      "source_title": "Fable: The Lost Chapters \u2013 Tutorial Overkill",
+      "source_date": "2014-09-10",
+      "version_evidence": [
+        "Article explicitly names Fable: The Lost Chapters.",
+        "Actual image inspected: original character and environment assets; no Anniversary title, remake/editor overlay or visible mod claim.",
+        "Later blog publication date is not a pre-Anniversary capture guarantee. Use as secondary visual corroboration, alongside pre-2014 TLC material."
+      ],
+      "visible_features": [
+        "Broad exterior looking toward the Guild entrance from the boasting platform vicinity.",
+        "Arched double doors in a projecting polygonal entrance front, with colored triangular insets above.",
+        "Tall polygonal window tower and stepped gable/roof masses with grey weathered slate appearance.",
+        "Pale grey-yellow masonry and warmer horizontal stone bands.",
+        "Red circular boasting dais with concentric steps and timber posts at left; low perimeter arches, mature trees and a striped trader canopy at lower right."
+      ],
+      "limits": [
+        "Cannot infer measured scale, hidden roof shapes or interior floor plan.",
+        "Blog includes proposed tutorial changes; those proposals are not descriptions of original game behavior."
+      ],
+      "sha256": "d31db30f8bdeba303044ff1cbb21a882ef76b09547d1453e7488dc90d5718e02",
+      "dimensions": [
+        1101,
+        716
+      ],
+      "actual_pixels_inspected": true
+    },
+    {
+      "id": "affinity-graduation-detail",
+      "file": "affinity-heroes.jpg",
+      "page_url": "https://affinityarchives.wordpress.com/2014/09/10/fable-tutorial-overkill/",
+      "image_url": "https://affinityarchives.wordpress.com/wp-content/uploads/2014/09/fable_heroesguild_heroes.jpg",
+      "source_title": "Fable: The Lost Chapters \u2013 Tutorial Overkill",
+      "source_date": "2014-09-10",
+      "version_evidence": [
+        "Article explicitly names Fable: The Lost Chapters.",
+        "Actual image inspected: original Guildmaster, Thunder and Maze models.",
+        "Publication date alone does not prove screenshot capture predates Anniversary."
+      ],
+      "visible_features": [
+        "Graduation close-up with the Guildmaster in front, Thunder on the left and Maze on the right.",
+        "Grey carved horizontal relief bands and pointed arch frames behind the characters.",
+        "Narrow vertical gold/green decorative inset or window stripe; cool violet light on the masonry."
+      ],
+      "limits": [
+        "Characters obscure most architecture.",
+        "The small crop does not establish room proportions, complete window patterns or full mural subjects."
+      ],
+      "sha256": "36dfac9f92c6d578a068d0823a40426938091622640b5ce93db094d6c088e905",
+      "dimensions": [
+        580,
+        333
+      ],
+      "actual_pixels_inspected": true
+    },
+    {
+      "id": "gamepressure-archery-backboard",
+      "file": "gamepressure-will.jpg",
+      "page_url": "https://www.gamepressure.com/fablethelostchapters/guild-training/z4d",
+      "image_url": "https://www.gamepressure.com/fablethelostchapters/gfx/word/1212620875.jpg",
+      "source_title": "Fable The Lost Chapters: Guild Training",
+      "source_date": "page last updated 2016-05-11; capture date unknown",
+      "version_evidence": [
+        "Source is the Fable: The Lost Chapters game guide, with 2005 game metadata.",
+        "Actual image inspected: original apprentice/Whisper models and original subtitle styling.",
+        "Matches the pre-Anniversary Altered Gamer archery-range scene."
+      ],
+      "visible_features": [
+        "Black hooded apprentice and Whisper flank the foreground dirt firing area.",
+        "Low greenish timber rail with diagonal braces divides the range.",
+        "Large rectangular scenic painted backboard with purple mountains, trees and a valley sits against the stone structure behind the targets."
+      ],
+      "limits": [
+        "Only 280 by 160 pixels.",
+        "The local filename gamepressure-will.jpg is historical download naming; the inspected image depicts ARCHERY, not Will.",
+        "Cannot infer target movement, target count or exact dimensions from this crop."
+      ],
+      "sha256": "0e1d7459dd7bb646be99926c5071ccdeb884c23ca2b3bbd25afba000a63f6833",
+      "dimensions": [
+        280,
+        159
+      ],
+      "actual_pixels_inspected": true
+    }
+  ],
+  "other_downloads_inspected": [
+    "affinity-dummy.jpg (same Will-training moment as Altered Gamer crop; no independent spatial coverage)",
+    "affinity-guildmaster.jpg (outdoor Guildmaster close-up, trees and masonry; low spatial value)",
+    "gamepressure-melee.jpg (Whisper close-up with low stone melee-ring boundary and wooded bank; low spatial value)"
+  ],
+  "overlap_with_root": [
+    "Altered Gamer Guildmaster, archery, Will images independently found and inspected; root owns altered-provenance.json and the melee reference."
+  ],
+  "unresolved_visual_gaps": [
+    "No accessible, verified original-2005-TLC dormitory/bedroom gameplay image was found in this pass.",
+    "No accessible, verified original-2005-TLC Maze study/tower-interior gameplay image was found in this pass."
+  ],
+  "textual_room_support_only": [
+    {
+      "url": "https://www.gamesdatabase.org/Media/SYSTEM/Microsoft_Xbox/Manual/formated/Fable-_The_Lost_Chapters_-_Microsoft_Game_Studios.pdf",
+      "note": "Primary original manual identifies sleeping quarters upstairs in the main Guild building, dining downstairs, and Maze quarters on the Guild map; does not supply a measured interior view."
+    },
+    {
+      "url": "https://gamefaqs.gamespot.com/pc/926702-fable-the-lost-chapters/faqs/51553",
+      "note": "PC TLC FAQ describes Main Dorm bookshelves and adjoining rooms/bedroom; useful navigation corroboration, not visual proof."
+    },
+    {
+      "url": "https://www.gamebanshee.com/fable/walkthrough/guildtraining.php",
+      "note": "Original/TLC guide distinguishes TLC-only Maze and Scythe tower conversation; accessed page contains only a map, not interior screenshot."
+    }
+  ],
+  "further_capture_lead_not_inspected": {
+    "url": "https://www.youtube.com/watch?v=IpF4n02QJhw",
+    "title": "Fable: The Lost Chapters Full Walkthrough Gameplay - No Commentary (PC Longplay)",
+    "note": "Search metadata lists Guild Training at 00:21:26; video page fetch failed, so no pixel or room claim is made."
+  },
+  "excluded": [
+    "Fable Anniversary bedroom screenshot from GameFabrique (wrong edition)",
+    "Steam app 288470 images (Anniversary)",
+    "Polycount Unreal Heroes Guild remake (fan re-creation)",
+    "Nexus mod screenshots and explicit mod-labeled Steam images",
+    "Fable 1996 and 2026 reboot results",
+    "Unseen MobyGames/Fandom images whose page/image fetch was unavailable"
+  ],
+  "review_caution": "Do not promote search-engine auto-generated image descriptions into observations; only selected inspected pixels above support these notes."
+}

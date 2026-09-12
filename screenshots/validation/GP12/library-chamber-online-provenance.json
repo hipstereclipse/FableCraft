@@ -1,0 +1,277 @@
+{
+  "purpose": "Additional user-requested original TLC Guild reference photos; pixel audit for GP12 Library and GP8 Chamber, 2026-09-12.",
+  "download_scope": "All external image bytes and retrieved HTML kept only in ignored tmp/conformance/reference-guild-additional. No game assets extracted or imported.",
+  "method": "Search web and Steam original-TLC app204030 image listings; download direct Steam image URLs without resize suffix; view each cited image at stored resolution.",
+  "page_verification_note": "Stored original app204030 listing HTML contains matching data-appid, screenshot IDs, titles and direct image URLs. Individual detail URL fetches currently return a generic Steam Workshop JS shell, so version attribution relies on the accessible app listing plus the actual classic pixels.",
+  "gp12_result": "No contradiction found. Two additional classic Library views independently support continuous floor-supported wooden cases with full-height posts and dense shelf rows. Both show burning late-story state; desk location/size and four normal warm lamps remain explicit route-safe adaptations, not screenshot claims.",
+  "gp8_result": "New neutral wide and close wall views support cool masonry, attached pointed framing, quiet framed relief bays and broad shallow steps. They provide stronger future targets for nested medallion panels, exact colored window strips and story frescoes; no full-scale accuracy claim.",
+  "references": [
+    {
+      "name": "library-steam-02.jpg",
+      "direct_url": "https://images.steamusercontent.com/ugc/630789657302789115/F17B1EF882835DBFFE04A7A22BE6382D5D172295/",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=171460395",
+      "local_path": "tmp/conformance/reference-guild-additional/library-steam-02.jpg",
+      "sha256": "b8903083139e59ca899993ff5cf59611da62692e9cc6a9fef40815cdb3154011",
+      "pixel_dimensions": [
+        1024,
+        768
+      ],
+      "scene": "Guild Library, burning late-story cutscene",
+      "status": "accepted_structure_only",
+      "version": "Fable: The Lost Chapters (classic PC)",
+      "version_confidence": "High: image card belongs to Steam app 204030 and inspected classic models, HUD and textures; exact patch/mod status unknown.",
+      "visible_findings": [
+        "Several continuous tall wooden bookcases around the corner behind the Guildmaster.",
+        "Dense rows of assorted books interrupted by narrow shelves, vertical posts and a carved bottom panel."
+      ],
+      "limits": [
+        "Hero and Guildmaster occlude most room.",
+        "Fire and cutscene light are exceptional; do not infer neutral lighting.",
+        "No reading-table dimensions or normal wall-lamp arrangement established."
+      ],
+      "inspected": true,
+      "listing_url": "https://steamcommunity.com/app/204030/screenshots/?searchText=library"
+    },
+    {
+      "name": "library-search-Guildmaster-01.jpg",
+      "direct_url": "https://images.steamusercontent.com/ugc/577845243072123701/3483EFCB3046057B062479E4F894956B53EB050D/",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=106297346",
+      "local_path": "tmp/conformance/reference-guild-additional/library-search-Guildmaster-01.jpg",
+      "sha256": "e748f9401df54fff7584f08f1a1f2c08d17044d0e4ba0171041dadef1cf2b0f2",
+      "pixel_dimensions": [
+        1024,
+        768
+      ],
+      "scene": "Guild Library, burning late-story cutscene",
+      "status": "accepted_structure_only",
+      "version": "Fable: The Lost Chapters (classic PC)",
+      "version_confidence": "High: image card belongs to Steam app 204030 and inspected classic models, HUD and textures; exact patch/mod status unknown.",
+      "visible_findings": [
+        "Floor-supported carved bottom panels connect the bookcases to the ground.",
+        "Full-height wooden case posts and continuous shelving rather than separated floating book bands.",
+        "An arched doorway remains between bookcase runs; stairs are visible through it."
+      ],
+      "limits": [
+        "Fire and cinematic angle limit material-color inference.",
+        "No full floor plan, normal lamp arrangement or desk placement established."
+      ],
+      "inspected": true,
+      "listing_url": "https://steamcommunity.com/app/204030/screenshots/?searchText=Guildmaster"
+    },
+    {
+      "name": "chamber-steam-07.jpg",
+      "direct_url": "https://images.steamusercontent.com/ugc/71249112654601220/FD63C55EBB8809A2FD0074D7449F6C9E6BABEEE6/",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=297703872",
+      "local_path": "tmp/conformance/reference-guild-additional/chamber-steam-07.jpg",
+      "sha256": "9b7b92482fa5a5efefd345ef521845e26f97599169bf2eab28e182412b70cf9f",
+      "pixel_dimensions": [
+        1280,
+        768
+      ],
+      "scene": "Chamber of Fate, neutral gameplay",
+      "status": "accepted",
+      "version": "Fable: The Lost Chapters (classic PC)",
+      "version_confidence": "High: image card belongs to Steam app 204030 and inspected classic models, HUD and textures; exact patch/mod status unknown.",
+      "visible_findings": [
+        "Wide wall view shows cool grey masonry and attached pointed stone frames, with smaller pointed inset panels.",
+        "Round relief medallions sit over rectangular wall panels, blank in this early-story view.",
+        "Narrow colored figurative window strips alternate with wider framed wall bays; a round colored window is above the small pointed opening.",
+        "Floor has muted stone tiles, radial borders and broad shallow concentric steps/rings around the center."
+      ],
+      "limits": [
+        "Image does not show the entire circumference or roof.",
+        "Exact original world dimensions cannot be derived.",
+        "User-uploaded screenshot; no mod declaration available."
+      ],
+      "inspected": true,
+      "listing_url": "https://steamcommunity.com/app/204030/screenshots/?searchText=chamber"
+    },
+    {
+      "name": "chamber-steam-09.jpg",
+      "direct_url": "https://images.steamusercontent.com/ugc/572275288755594088/C075BC8A90FBBE21CC719B55B9E55B3B65F7BB59/",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=300473426",
+      "local_path": "tmp/conformance/reference-guild-additional/chamber-steam-09.jpg",
+      "sha256": "bb636a13608a93c411015d99f9869effc7cae0abf6236592e8f1cbbe0328425b",
+      "pixel_dimensions": [
+        1366,
+        768
+      ],
+      "scene": "Chamber of Fate, neutral wall detail",
+      "status": "accepted",
+      "version": "Fable: The Lost Chapters (classic PC)",
+      "version_confidence": "High: image card belongs to Steam app 204030 and inspected classic models, HUD and textures; exact patch/mod status unknown.",
+      "visible_findings": [
+        "Cool grey projecting rib/base plinth runs along a muted tiled floor.",
+        "A large rectangular wall panel contains a story scene; adjacent panel is plain masonry.",
+        "Narrow colored figurative window is bordered with stone."
+      ],
+      "limits": [
+        "Very oblique camera and close texture sampling.",
+        "Screenshot caption mentions seeing void beyond a window; that visual artifact is not a target feature.",
+        "Only a small portion of the room visible."
+      ],
+      "inspected": true,
+      "listing_url": "https://steamcommunity.com/app/204030/screenshots/?searchText=chamber"
+    },
+    {
+      "name": "library-search-Guildmaster-04.jpg",
+      "direct_url": "https://images.steamusercontent.com/ugc/630735757226645408/05F510865B073B77C5D26AB887A78FE80CB35CBD/",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=34503536",
+      "local_path": "tmp/conformance/reference-guild-additional/library-search-Guildmaster-04.jpg",
+      "sha256": "ff2d1043d1d2802c8feb69b03a7ed34b5ffae0d909810f3a8db9ff6a33c6c6dd",
+      "pixel_dimensions": [
+        1920,
+        1080
+      ],
+      "scene": "Chamber of Fate, graduation close-up",
+      "status": "accepted",
+      "version": "Fable: The Lost Chapters (classic PC)",
+      "version_confidence": "High: image card belongs to Steam app 204030 and inspected classic models, HUD and textures; exact patch/mod status unknown.",
+      "visible_findings": [
+        "Classic Guildmaster, Thunder and Maze stand against dark grey stone panels with pointed inset borders.",
+        "Carved repeated figures/reliefs and narrow colored glazing appear behind the characters.",
+        "Cool blue-violet ceremonial light."
+      ],
+      "limits": [
+        "Characters occlude most of the architecture.",
+        "No floor plan or complete mural composition visible."
+      ],
+      "inspected": true,
+      "listing_url": "https://steamcommunity.com/app/204030/screenshots/?searchText=Guildmaster"
+    },
+    {
+      "name": "library-search-Guildmaster-05.jpg",
+      "direct_url": "https://images.steamusercontent.com/ugc/960853363637235509/7314CCBA8AB2F43B93A4054F555C6142041698BE/",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=1585173818",
+      "local_path": "tmp/conformance/reference-guild-additional/library-search-Guildmaster-05.jpg",
+      "sha256": "03de408afe7ceef09363a9ceef3ad201cc9e0399a0c959642365eb152a82878c",
+      "pixel_dimensions": [
+        1680,
+        1050
+      ],
+      "scene": "Guild main hall, map table and staircase",
+      "status": "accepted_adjacent",
+      "version": "Fable: The Lost Chapters (classic PC)",
+      "version_confidence": "High: image card belongs to Steam app 204030 and inspected classic models, HUD and textures; exact patch/mod status unknown.",
+      "visible_findings": [
+        "Large map table corner has curved/angular wooden rim and decorative scroll motifs.",
+        "Broad stone stair rises over a pointed-arch passage.",
+        "Warm stone arches frame adjoining routes; red runners, blue-grey rug and stone diamond tiles organize the floor.",
+        "Visible ceiling beneath the arch has timber boards."
+      ],
+      "limits": [
+        "Foreground shows only a portion of the map table.",
+        "No direct Library furnishing view."
+      ],
+      "inspected": true,
+      "listing_url": "https://steamcommunity.com/app/204030/screenshots/?searchText=Guildmaster"
+    },
+    {
+      "name": "library-search-Guildmaster-09.jpg",
+      "direct_url": "https://images.steamusercontent.com/ugc/3280047362129456666/BD67C089BE36FC77DF73D4EF2AD8FC1351D7895B/",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=225093316",
+      "local_path": "tmp/conformance/reference-guild-additional/library-search-Guildmaster-09.jpg",
+      "sha256": "a0f48a757762eb98227f9329fd3d7c79322d327b850d36cc6a61a772155ad22a",
+      "pixel_dimensions": [
+        1920,
+        1080
+      ],
+      "scene": "Guild main hall, under-stair passage",
+      "status": "accepted_adjacent",
+      "version": "Fable: The Lost Chapters (classic PC)",
+      "version_confidence": "High: image card belongs to Steam app 204030 and inspected classic models, HUD and textures; exact patch/mod status unknown.",
+      "visible_findings": [
+        "Pointed stone arches and stone side walls line the route beneath the staircase.",
+        "Dark timber lining above the passage and blue-grey rectangular rug."
+      ],
+      "limits": [
+        "Hero and Guildmaster obscure most of the view."
+      ],
+      "inspected": true,
+      "listing_url": "https://steamcommunity.com/app/204030/screenshots/?searchText=Guildmaster"
+    },
+    {
+      "name": "library-search-Guildmaster-10.jpg",
+      "direct_url": "https://images.steamusercontent.com/ugc/487808071499778504/89734F38FC49B0C1DE5687C83B576CF87DE18742/",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=194820223",
+      "local_path": "tmp/conformance/reference-guild-additional/library-search-Guildmaster-10.jpg",
+      "sha256": "95fb8000cb7d3b91372d48e85ce681c51d195108f90b2a74c825ff22f21347c9",
+      "pixel_dimensions": [
+        1024,
+        768
+      ],
+      "scene": "Guild main hall, staircase and Cullis gate",
+      "status": "accepted_adjacent",
+      "version": "Fable: The Lost Chapters (classic PC)",
+      "version_confidence": "High: image card belongs to Steam app 204030 and inspected classic models, HUD and textures; exact patch/mod status unknown.",
+      "visible_findings": [
+        "Stone stairs with timber rail rise above an arched passage.",
+        "Blue Cullis gate occupies the adjacent tall arched bay.",
+        "Red carpet, stone diamond tiles and broad warm arches.",
+        "Small wall-mounted candle is physically supported on a bracket at the inner arch."
+      ],
+      "limits": [
+        "Small image, characters obscure the stair base.",
+        "No full room plan."
+      ],
+      "inspected": true,
+      "listing_url": "https://steamcommunity.com/app/204030/screenshots/?searchText=Guildmaster"
+    },
+    {
+      "name": "chamber-graduation-steam.jpg",
+      "local_path": "tmp/conformance/reference-guild-additional/chamber-graduation-steam.jpg",
+      "page_url": "https://steamcommunity.com/app/204030/screenshots/?browsefilter=trendweek&filterLanguage=default&l=english&searchText=",
+      "direct_url": "https://images.steamusercontent.com/ugc/18368354860773205642/799AD4B4CB74951D9BB57EB5572EE28CAE53F2C6/",
+      "sha256": "8de71416b6b5a982e6f1dcd181cfb1ec05407cc0afa6409779c10beab4d3ae09",
+      "pixel_dimensions": [
+        1280,
+        720
+      ],
+      "scene": "Chamber of Fate, graduation wide shot",
+      "status": "accepted",
+      "version": "Fable: The Lost Chapters (classic PC)",
+      "version_confidence": "High: Steam app 204030 listing plus inspected original models and textures; exact patch/mod status unknown.",
+      "inspected": true,
+      "visible_findings": [
+        "Classic graduation scene with apprentices around the wall and Hero on the low central circular platform.",
+        "Cool dark stone walls have attached pointed ribs, nested pointed panels, circular medallions and narrow colored strips.",
+        "Broad shallow concentric stone floor bands visible around the altar."
+      ],
+      "limits": [
+        "Characters obscure some bays.",
+        "Exact dimensions and complete floor plan not established.",
+        "Listing page found by image search; no stable individual screenshot page extracted."
+      ]
+    }
+  ],
+  "excluded_candidates": [
+    {
+      "name": "library-steam-01.jpg",
+      "reason": "Original TLC Library Arcanum behind the Demon Door, outdoors among trees; different location from Guild main-building Library."
+    },
+    {
+      "name": "chamber-steam-01.jpg, 02, 04, 06, 08",
+      "reason": "Bargate prison/torture chamber, not Chamber of Fate."
+    },
+    {
+      "name": "chamber-steam-03.jpg",
+      "reason": "Other cave bedchamber, not Chamber of Fate."
+    },
+    {
+      "name": "chamber-steam-05.jpg",
+      "reason": "Arena, not Chamber of Fate."
+    },
+    {
+      "name": "library-search-books-01.jpg,02,03,05,06,07",
+      "reason": "Bowerstone school/shop or Northern Wastes; no Guild Library architecture."
+    },
+    {
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3136431213",
+      "reason": "Opened page explicitly identifies Fable Anniversary; excluded despite TLC-like search snippets."
+    },
+    {
+      "direct_url": "https://images.gamersyde.com/image_fable_2-8828-797_0008.jpg",
+      "reason": "Fable II Library with large golden lion window, not original TLC."
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "command": "python tmp/render_visual_checkpoint.py GP12 full",
+  "exit_code": 143,
+  "status": "interrupted before successful completion; cause not reported by execution tool",
+  "partial_png_counts": {
+    "gallery": 0,
+    "items": 55,
+    "mobs": 51,
+    "structures": 10
+  },
+  "last_png_write_utc": {
+    "gallery": null,
+    "items": "2026-09-12T21:50:06.871640+00:00",
+    "mobs": "2026-09-12T21:48:53.119434+00:00",
+    "structures": "2026-09-12T21:50:23.489914+00:00"
+  },
+  "recorded_utc": "2026-09-12T21:55:44.753435+00:00",
+  "action": "repeat complete full render from same frozen snapshot; no source changes"
+}

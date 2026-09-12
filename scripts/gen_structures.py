@@ -674,6 +674,38 @@ def build_guild_map_table(v, cx, cz, r):
             v.set(cx + dx, 1, cz + dz, material, states)
 
 
+def build_guild_library_interior(v):
+    """Tall framed shelves and a reading desk inside the existing Library.
+
+    Prima's original TLC p33 Library view supports the book-lined wall and wood
+    reading furniture. Bay counts, desk dimensions and lamp placements are
+    Minecraft adaptations. This helper consumes no shared layout randomness.
+    """
+    for x in (19, 35):
+        for z in range(18, 29):
+            for y in range(1, 8):
+                if x == 19 and 21 <= z <= 23 and y <= 3:
+                    continue                         # west commons doorway
+                frame = z in (18, 23, 28) or y in (1, 4, 7)
+                v.set(x, y, z, DARKOAK if frame else "minecraft:bookshelf")
+    # Keep the existing book-reading marks and their approach sides unchanged.
+    for i, z in enumerate((19, 23, 27)):
+        v.set(22, 1, z, "minecraft:lectern",
+              {"minecraft:cardinal_direction": "east" if i % 2 else "west"})
+    # Narrow desk with three solid legs and a continuous half-slab top. Both
+    # long sides are accessible; the cave/spawn spine at x25..29 stays open.
+    for z in range(20, 27):
+        if z in (20, 23, 26):
+            v.set(31, 1, z, DARKOAK)
+        v.set(31, 2, z, "minecraft:spruce_slab", {"minecraft:vertical_half": "bottom"})
+    # The old central y7 lamp had no support and was deleted by the final decor
+    # check. Each new lamp has its own full-block bracket attached to a case.
+    for x in (20, 34):
+        for z in (19, 27):
+            v.set(x, 6, z, DARKOAK)
+            v.set(x, 5, z, LANTERN, {"hanging": True})
+
+
 def build_guild_hall():
     """The Heroes' Guild of Albion — laid out to match the canonical ground plan.
 
@@ -1043,16 +1075,7 @@ def build_guild_hall():
     room(lx0, lz0, lx1, lz1, 9, floor=lambda: DARKOAK if r.random() < 0.5 else SPRUCE, roof="hip")
     door(ROT_X, ROT_Z - ROT_R, axis="z")            # rotunda N <-> library S
     door(ROT_X, lz1, axis="z")                       # aligned with the link corridor (x=ROT_X)
-    for z in range(lz0 + 2, lz1 - 1):
-        if z % 2:
-            for y in range(1, 8):
-                if y not in (4, 5):
-                    v.set(lx0 + 1, y, z, "minecraft:bookshelf")
-                    v.set(lx1 - 1, y, z, "minecraft:bookshelf")
-    for i, z in enumerate(range(lz0 + 3, lz1 - 1, 4)):
-        v.set(lx0 + 4, 1, z, "minecraft:lectern",
-              {"minecraft:cardinal_direction": "east" if i % 2 else "west"})
-    v.set((lx0 + lx1) // 2, 7, (lz0 + lz1) // 2, LANTERN, {"hanging": True})
+    build_guild_library_interior(v)
     # the Guild-Cave exit (B): a chiseled stone archway into an alcove whose
     # floor opens onto a 3x3 spiral stair (carved at runtime) winding down to the
     # Chamber of Fate. cvx/cvz anchor the spiral — keep in sync with main.js.
