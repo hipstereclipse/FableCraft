@@ -1,0 +1,72 @@
+npm notice run fablecraft@1.0.0 test
+npm notice run node --experimental-vm-modules scripts/tests/spells.test.mjs && node scripts/tests/entity_scan_fallbacks.test.mjs && node --experimental-vm-modules scripts/tests/runtime_strings.test.mjs
+(node:439) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ Rush follows horizontal yaw, preserves camera, and uses checked teleport (32.64819ms)
+✔ Rush stops before wall (10.178984ms)
+✔ Rush stops before ledge (23.916387ms)
+✔ Rush stops before liquid (9.804324ms)
+✔ Rush stops before unloaded (7.840816ms)
+✔ Rush stops before throw (6.630505ms)
+✔ Rush stops before side-wall (23.913381ms)
+✔ Rush handles a full-block step and refuses a low ceiling over it (46.342972ms)
+✔ Rush failure produces no success buff when engine rejects destination (11.144623ms)
+✔ Ghost strikes immediately, obeys cooldown, and expires (6.975969ms)
+✔ Ghost ignores allies, players and charmed enemies using real targeting module (11.158448ms)
+✔ Ghost recast replaces blade and renews lifetime (19.269097ms)
+✔ Ghost clears on playerLeave (9.241129ms)
+✔ Ghost clears on entityDie (11.982289ms)
+✔ Ghost clears on playerSpawn (9.255836ms)
+✔ Ghost reseats after teleport/dimension change and cannot hunt beyond owner radius (26.021112ms)
+✔ Ghost cannot travel or strike through a wall (7.270567ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 294.234062
+✔ Guild defender lookup returns an empty list on an unreadable dimension (4.760885ms)
+✔ Protector alert tolerates a failed entity scan (5.928306ms)
+✔ Guard sweep tolerates failed scans and continues to later players (2.561731ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 26.82843
+✔ faithful: strict names, single-pass interpolation, stable IDs (418.702578ms)
+(node:438) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ faithful: root labels, mana, alignment and every legacy route (543.611079ms)
+✔ faithful: quick-slot mutation and return to the same hub (414.811854ms)
+✔ faithful: appearance controls and missing bridge fallback (415.582415ms)
+✔ faithful: saved place display and travel preserve canonical names and coordinates (822.651312ms)
+✔ faithful: bounty display retains amounts, timers, jurisdiction and stored record (647.056427ms)
+✔ faithful: earned title labels change without rewriting ownership or selected title (556.514214ms)
+✔ faithful: NPC voice interpolation and local t bindings do not shadow message access (627.595572ms)
+✔ faithful: buy and sell quantity modals use UI 2.0 options and preserve selected amounts (610.623798ms)
+✔ faithful: real logbook preserves old counters and discovery keys (394.379387ms)
+✔ faithful: HUD name translation preserves all 23 payload lines and spacer positions (391.710754ms)
+✔ original: strict names, single-pass interpolation, stable IDs (400.330096ms)
+✔ original: root labels, mana, alignment and every legacy route (453.977664ms)
+✔ original: quick-slot mutation and return to the same hub (367.999147ms)
+✔ original: appearance controls and missing bridge fallback (419.246951ms)
+✔ original: saved place display and travel preserve canonical names and coordinates (562.130895ms)
+✔ original: bounty display retains amounts, timers, jurisdiction and stored record (603.198183ms)
+✔ original: earned title labels change without rewriting ownership or selected title (544.987055ms)
+✔ original: NPC voice interpolation and local t bindings do not shadow message access (574.2123ms)
+✔ original: buy and sell quantity modals use UI 2.0 options and preserve selected amounts (532.389485ms)
+✔ original: real logbook preserves old counters and discovery keys (422.717592ms)
+✔ original: HUD name translation preserves all 23 payload lines and spacer positions (432.944238ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11187.407239

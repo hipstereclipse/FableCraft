@@ -1,0 +1,21 @@
+{
+  "scope": "fresh focused render from isolated reviewed checkpoint; no GP12/13 source",
+  "sha256": {
+    "scripts/gen_structures.py": "51fc911bb420b66ab02218a20739b4fa9f2084a14f2d7c797ef87ed65e2c5c7e",
+    "scripts/gen_screenshots.py": "9beb008070bf1b72dbd4081c8e9ddb3402fb6a5221b545a9b3b940dd5c6bdc14",
+    "scripts/tests/test_guild_hall_links.py": "06517c395f637e3c34706bab77d8a8c81a3a79738bd522c292e26e35f0dbe4bf",
+    "scripts/tests/test_guild_routes.py": "e3323f7b944a03457a9dde9ac10c24256d828a52369497db76edd035691bd889",
+    "scripts/tests/test_guild_map_table.py": "dd6b20e6df87e0dbc09e5a896ff97dabbe3f0eda07aaef5d50e9b0553edb6eff",
+    "screenshots/validation/GP11/render-hall-links.py": "93f007d1e57e161f593383f20b0607c8d1cea9dde5d327872e47b246e8578a34",
+    "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure": "c170740a4260c21184883caddeff5aa529bc9facd9acd3f45956f64a1edfeb35"
+  },
+  "png_sha256": {
+    "store-join-after.png": "71d55d0b276dfa0216efcc11833809f0e243f1047ed19398f648ca1deb3dd0dc",
+    "store-join-before.png": "50bcb303c9ee06fc28cbb73c5c570d68c8aa3d3bcb06d63ebb5328149b732200",
+    "hall-library-cutaway-after.png": "e2c04b009df2b5d291b4ef24823782a2b00f26b734c8cc2937482b290cde770f",
+    "hall-library-cutaway-before.png": "6259a1ee046429d47eae0103c8c74bc4901302c950faf4d7f36768ae86e91634",
+    "library-join-after.png": "c79d23920bf6e07a271d86b6ee64b01b254fe885be6654aa851097cf34c4edfd",
+    "library-join-before.png": "1be8485379b0c35722c925c13f491c6690d81e74ca93c95d2fcb5bd811d8bf5c"
+  },
+  "engine_acceptance": "unrun"
+}

@@ -1,0 +1,85 @@
+{
+  "requested_by_user": "additional online reference photos during ongoing whole-Guild refinement",
+  "date": "2026-09-12",
+  "source_scope": "Four additional original-looking TLC screenshots visually inspected; not image-search captions",
+  "images": [
+    {
+      "file": "altered-guildmaster.jpg",
+      "page_url": "https://www.alteredgamer.com/fable-the-lost-chapters/103803-walkthrough-the-guild-and-the-guildmaster/",
+      "image_url": "https://img.bhs4.com/51/8/5182a8208b4b10f218037d4b8bd02d975efcdfba_large.jpg",
+      "sha256": "b3d4d0bc4e25b7f98aed716c9a80781bcca39402f177f4b3e5dd3b815907d869",
+      "size": [
+        600,
+        376
+      ],
+      "status": "downloaded and visually inspected",
+      "observations": [
+        "warm lit masonry and timber framing around Guildmaster",
+        "close dialogue crop does not establish full room layout"
+      ],
+      "version_evidence": "Source explicitly identifies TLC on PC; classic PC HUD in training views; visible TheInkandPen 2011 watermark predates Anniversary.",
+      "limits": "Third-party gameplay screenshot, not measured geometry; external pixels remain ignored and are not pack assets."
+    },
+    {
+      "file": "altered-melee.jpg",
+      "page_url": "https://www.alteredgamer.com/fable-the-lost-chapters/103803-walkthrough-the-guild-and-the-guildmaster/",
+      "image_url": "https://img.bhs4.com/2a/d/2ad7eef79c8d094ad0cbe7b7d65cd83d6fbe4b07_large.jpg",
+      "sha256": "b159786a2346744025a170db7a54f89ff659f4c297d4fdf8bf08d85e7919bf0c",
+      "size": [
+        600,
+        498
+      ],
+      "status": "downloaded and visually inspected",
+      "observations": [
+        "low curved stone training ring and green wooden gate",
+        "gravel exercise floor with grassy rocks/trees and Guild buildings behind",
+        "active combat bloom obscures participant pose and neutral light"
+      ],
+      "version_evidence": "Source explicitly identifies TLC on PC; classic PC HUD in training views; visible TheInkandPen 2011 watermark predates Anniversary.",
+      "limits": "Third-party gameplay screenshot, not measured geometry; external pixels remain ignored and are not pack assets."
+    },
+    {
+      "file": "altered-archery.jpg",
+      "page_url": "https://www.alteredgamer.com/fable-the-lost-chapters/103803-walkthrough-the-guild-and-the-guildmaster/",
+      "image_url": "https://img.bhs4.com/e1/f/e1f43fd179bdef0b9a1cb2974371d4e5fe57c274_large.jpg",
+      "sha256": "ff6b788d50686edc09d74cc838779b41a0f882cd09685ff7cdf965437c511707",
+      "size": [
+        600,
+        498
+      ],
+      "status": "downloaded and visually inspected",
+      "observations": [
+        "low wooden rails and upright archery targets",
+        "large painted scenic backboard frames the range",
+        "painted mountains are a backdrop, not evidence of real terrain"
+      ],
+      "version_evidence": "Source explicitly identifies TLC on PC; classic PC HUD in training views; visible TheInkandPen 2011 watermark predates Anniversary.",
+      "limits": "Third-party gameplay screenshot, not measured geometry; external pixels remain ignored and are not pack assets."
+    },
+    {
+      "file": "altered-will.jpg",
+      "page_url": "https://www.alteredgamer.com/fable-the-lost-chapters/103803-walkthrough-the-guild-and-the-guildmaster/",
+      "image_url": "https://img.bhs4.com/02/0/020c5563fd7b195a25acb6b3c877602cb12ff1ed_large.jpg",
+      "sha256": "0c6fd88a887d78a9dd5ee006a3e0f96bf104a2a762553ae9218ccebef5371563",
+      "size": [
+        600,
+        498
+      ],
+      "status": "downloaded and visually inspected",
+      "observations": [
+        "straw practice dummies beside rocky watercourse and tall Guild wall",
+        "branching lightning visibly reaches targets",
+        "dusk and spell light do not establish neutral material colors"
+      ],
+      "version_evidence": "Source explicitly identifies TLC on PC; classic PC HUD in training views; visible TheInkandPen 2011 watermark predates Anniversary.",
+      "limits": "Third-party gameplay screenshot, not measured geometry; external pixels remain ignored and are not pack assets."
+    }
+  ],
+  "rejected_search_results": [
+    "Fable II Fairfax library",
+    "Fable III castle",
+    "2026 reboot interiors",
+    "Fable Anniversary-only gallery pages"
+  ],
+  "engine_acceptance": "unrun"
+}

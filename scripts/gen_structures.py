@@ -575,6 +575,20 @@ def guild_circulation_routes():
             "tower": tower, "gallery_bridge": bridge}
 
 
+def finish_guild_link_floor(v, r, cx, z0, z1):
+    """Keep the flush connector floor inside the already joined main hall.
+
+    Library/Store bays own their walls, broad arches and roof. The former late
+    corridor pass inserted a low windowed tunnel inside those finished rooms.
+    Reserve its six masonry draws per row to leave all later campus RNG intact.
+    """
+    for z in range(min(z0, z1), max(z0, z1) + 1):
+        for x in (cx - 1, cx, cx + 1):
+            v.set(x, 0, z, STONE)
+        for _ in range(6):
+            guild_brick(r)
+
+
 def build_guild_circulation(v):
     """Construct the reserved stair/landing volumes after all adjoining shells.
 
@@ -2199,45 +2213,11 @@ def build_guild_hall():
             if zz > bridge_z + 1:                    # preserve the bridge apron at z83..85
                 v.set(sxp, 1, zz, "minecraft:air")
 
-    # ============= GROUNDS: covered links, gravel paths, trees & rocks =========
-    # short covered passages knit the main complex into one connected mass
-    def link_corridor(x0, z0, x1, z1):
-        # a 3-wide COVERED stone passage knitting two buildings together: solid
-        # floor, side walls pierced by arch windows, a full slate roof, and a
-        # hanging lantern — the ENDS stay open (each building's doorway) so the
-        # join reads as one clear archway with no gap and no blocking wall
-        if abs(z1 - z0) >= abs(x1 - x0):
-            lo, hi = sorted((z0, z1))
-            for z in range(lo, hi + 1):
-                for x in (x0 - 1, x0, x0 + 1):
-                    v.set(x, 0, z, STONE)
-                    v.fill(x, 1, z, x, 3, z, "minecraft:air")
-                    v.set(x, 4, z, SLATE if (x + z) % 2 else DEEP_TILES)
-                for yy in (1, 2, 3):
-                    v.set(x0 - 1, yy, z, warm())
-                    v.set(x0 + 1, yy, z, warm())
-                if (z - lo) % 3 == 1:
-                    v.set(x0 - 1, 2, z, GLASS)
-                    v.set(x0 + 1, 2, z, GLASS)
-            if hi - lo >= 3:
-                v.set(x0, 3, (lo + hi) // 2, LANTERN, {"hanging": True})
-        else:
-            lo, hi = sorted((x0, x1))
-            for x in range(lo, hi + 1):
-                for z in (z0 - 1, z0, z0 + 1):
-                    v.set(x, 0, z, STONE)
-                    v.fill(x, 1, z, x, 3, z, "minecraft:air")
-                    v.set(x, 4, z, SLATE if (x + z) % 2 else DEEP_TILES)
-                for yy in (1, 2, 3):
-                    v.set(x, yy, z0 - 1, warm())
-                    v.set(x, yy, z0 + 1, warm())
-                if (x - lo) % 3 == 1:
-                    v.set(x, 2, z0 - 1, GLASS)
-                    v.set(x, 2, z0 + 1, GLASS)
-            if hi - lo >= 3:
-                v.set((lo + hi) // 2, 3, z0, LANTERN, {"hanging": True})
-    link_corridor(ROT_X, ROT_Z - ROT_R, ROT_X, lz1)              # rotunda <-> library
-    link_corridor((stx0 + stx1) // 2, ROT_Z + ROT_R, (stx0 + stx1) // 2, stz0)  # rotunda <-> store
+    # ============= GROUNDS: internal floors, gravel paths, trees & rocks =======
+    # The full-height joined bays and their broad room arches already enclose
+    # these routes. Keep their old floors without rebuilding low tunnel shells.
+    finish_guild_link_floor(v, r, ROT_X, ROT_Z - ROT_R, lz1)
+    finish_guild_link_floor(v, r, (stx0 + stx1) // 2, ROT_Z + ROT_R, stz0)
 
     GRASS = {v._pid("minecraft:grass_block"), v._pid("minecraft:moss_block"),
              v._pid("minecraft:podzol")}

@@ -43,6 +43,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | GP8 | in-progress | Pointed Chamber wall bays, subdued masonry and clear outer walk; recognized older construction resumes its original plan; engine acceptance open |
 | GP9 | in-progress | Dedicated Will-island lightning drill and discipline-specific staffing; checked effects stop on interruption; engine acceptance open |
 | GP10 | in-progress | Low wood-framed terrain map replaces random jewel mosaic and beacon; all adjacent interactions preserved; engine acceptance open |
+| GP11 | in-progress | Broad Library/Store arches remain open after removing redundant indoor tunnel shells; floors and adjoining routes preserved; engine acceptance open |
 
 Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
 defects and manual status here. These passes are not completed legacy leaves.
@@ -565,7 +566,7 @@ connected-facility reference review and requester-specific NPC activity ownershi
 
 ## GP10 — low main-hall relief map (2026-09-12)
 
-Commit: SELF: TLC Conformance — GP10: restore the Guild map table as a low terrain relief.
+Commit: cf646628b65ef2ba26d0280102965bc11e3f0970.
 Three inspected original TLC views show a low polygonal wooden frame with earthy
 terrain and teal water, open beneath the hall's twin stairs. The new authored map
 replaces random jewel blocks and a central light column with connected land, a
@@ -589,3 +590,40 @@ All native lighting, eye-height comparison, NPC movement and quest interaction
 acceptance remains unrun. GP9 exact-head CI 34720288462 passed.
 Next: broad Library/Store joins, supported Library
 bookcases/reading furnishings, then continued whole-facility reference review.
+
+## GP11 — broad Library and Store connections (2026-09-12)
+
+Commit: SELF: TLC Conformance — GP11: open the Guild Library and Store archways.
+The final generator built narrow windowed tunnels underneath its own broad room
+arches and full-height bay roofs. Their inner walls and low caps obstructed eye
+height and left a single centre lane. The finish pass now retains only the flush
+floor; the existing joined rooms own their walls and roofs. Three continuous
+lanes, the eight-wide Library opening and six-wide Store opening remain clear.
+
+Exactly 64 final cells change inside the two obsolete shells. Every floor and
+outside cell/state remains identical, with all 48 historical random draws retained.
+Existing room/stair/quest/resident/cave anchors and surrounding routes are fixed.
+New Guild generation only; no occupied-world recarve or progress/state change.
+Original TLC views support connected arched interiors; exact arch measurements
+remain adaptations. Grey stone is retained because warm lighting alone cannot
+establish a different original wall material.
+
+See [GUILD_HALL_LINKS.md](GUILD_HALL_LINKS.md) and `screenshots/validation/GP11/`.
+Seven focused groups reproduce the prior obstructed width/arches and reject
+blocked lanes, missing support, low caps and RNG drift. Six inspected before/after
+views show the Library, Store and joined hall. Forty-three base gates, all 62 ESM
+syntax checks, fresh C2/full renders and Guild diagnostics pass from a separately
+reviewed snapshot; its source was verified against the staged checkpoint index.
+Native movement, two-Hero passing, lighting and NPC navigation remain unrun.
+GP10 exact-head CI 34720599204 passed.
+Next: supported Library bookcases/reading furnishings and the northeast dormitory
+stair's missing final transition, then continued whole-facility comparison.
+
+User reference steering (2026-09-12): find additional online photographs/screenshots
+throughout this cycle. GP11's `additional-online-references.json` records four
+newly inspected TLC PC training/hall screenshots with visible 2011 watermarks.
+Their masonry melee ring/wooden gate, archery rails/scenic backboard and straw
+Will targets provide more precise next-pass comparison; terrain, dimensions and
+neutral light remain uncertain. Keep searching original Library, sleeping-room,
+Maze and courtyard views. Reject Anniversary, sequels and reboot imagery as TLC
+geometry evidence. Original reference pixels remain ignored, never pack assets.

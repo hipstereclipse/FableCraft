@@ -1,0 +1,11 @@
+{
+  "command": "python screenshots/validation/GP11/regenerate-guild.py",
+  "changes": [
+    {
+      "path": "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure",
+      "before_sha256": "72bfbf9228b53b7ad1e2fdcbbcefde615accece04aa427fb49cb9e3568bad5e4",
+      "after_sha256": "c170740a4260c21184883caddeff5aa529bc9facd9acd3f45956f64a1edfeb35"
+    }
+  ],
+  "scope": "GP10 reviewed index plus separately reviewed GP11 patch; no GP12/13 source"
+}

@@ -1,0 +1,20 @@
+{
+  "source": "reviewed Git index; excludes unstaged parallel implementation and inherited dirtiness",
+  "baseline_head": "cf646628b65ef2ba26d0280102965bc11e3f0970",
+  "entries": 4518,
+  "reviewed_source_sha256": {
+    "docs/CONFORMANCE_CHECKLIST.md": "027df97c72afb655d3fa9f982d9d141ad78d943b27589052a12a8447a514b7f3",
+    "docs/GUILD_DEMON_PRIORITIES.md": "a07b038c45570202c63ffc13942347cedbe5fd001ef1195d14d7e2585f633489",
+    "docs/GUILD_HALL_LINKS.md": "5f2433c1b6ea54349666ce91f7f500931e3cf934190063886b9728f23ac71f52",
+    "docs/HANDOFF.md": "f894eb3526d2a3a551b309d13d04b64acb320d168757a57ac3344b2b89c8514e",
+    "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure": "c170740a4260c21184883caddeff5aa529bc9facd9acd3f45956f64a1edfeb35",
+    "screenshots/structures/contract/evidence.json": "a373a174fadee9ab67f45c864f107a2ae8d6a9a676911c6876c57b869d36ae2d",
+    "scripts/gen_structures.py": "51fc911bb420b66ab02218a20739b4fa9f2084a14f2d7c797ef87ed65e2c5c7e",
+    "scripts/tests/test_guild_hall_links.py": "06517c395f637e3c34706bab77d8a8c81a3a79738bd522c292e26e35f0dbe4bf",
+    "scripts/validate.py": "05e1cc011d06e801216188dc3fa36ba1d5dab8a61cb5254b8f21373a85df12de",
+    "screenshots/validation/GP11/regenerate-guild.py": "049ea9bc26c02fcc94463835ce42ad9eed085034b02097d41e40767311e98160",
+    "screenshots/validation/GP11/render-hall-links.py": "93f007d1e57e161f593383f20b0607c8d1cea9dde5d327872e47b246e8578a34"
+  },
+  "node_dependencies": "same installed locked dependencies via node_modules symlink",
+  "engine_acceptance": "unrun"
+}

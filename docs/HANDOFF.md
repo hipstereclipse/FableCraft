@@ -18,10 +18,10 @@ with exploration, reward collection and a reliable portal back to the source.
 This overrides the old instruction to start W3.5 or keep adding unrelated POIs.
 Read docs/GUILD_DEMON_PRIORITIES.md first; it is the active execution queue.
 
-Current checkpoint: GP10 — low wood-framed main-hall map relief
-Last resolved prior commit: 99f4e4f21b4dcbd33ae99a8116d3aed4f9d62b34 (GP9 pushed; exact-head CI 34720288462 passed).
-Containing commit: TLC Conformance — GP10: restore the Guild map table as a low terrain relief.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP10: restore the Guild map table as a low terrain relief'.
+Current checkpoint: GP11 — broad Library/Store connections
+Last resolved prior commit: cf646628b65ef2ba26d0280102965bc11e3f0970 (GP10 pushed; exact-head CI 34720599204 passed).
+Containing commit: TLC Conformance — GP11: open the Guild Library and Store archways.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP11: open the Guild Library and Store archways'.
 Never invent a self-hash. Read the supplemental priority ledger for implementation
 scope, known defects and unrun engine checks.
 
@@ -336,3 +336,18 @@ fixed. New Guilds only; no saved-world migration. Six focused groups, 42 base ga
 lighting/interaction/movement remain unrun. See GUILD_MAP_TABLE.md. Next integrate
 GP11 broad Library/Store joins and GP12 supported Library shelves/reading furniture
 as separate reviewed checkpoints; unfinished source may already be unstaged.
+
+GP11 removes obsolete narrow tunnels from inside the larger Library/Store bays.
+Three contiguous lanes and the broad arches are clear; exactly 64 cells change,
+all within those shells. Floor, anchors, outside geometry and RNG48 stay exact.
+Seven focused groups, 43 base gates, 62 ESM checks, fresh C2/full renders and Guild
+diagnostics pass offline. Native movement/lighting/NPC acceptance remains unrun.
+See GUILD_HALL_LINKS.md. GP12 Library interior and GP13 northeast dorm final stair
+transition are the next separately reviewed passes; source may be unstaged.
+
+Latest user steering: keep finding additional online reference photos. GP11 saves
+four newly inspected 2011 TLC PC shots as text URLs/hashes/observations in
+additional-online-references.json. External pixels are ignored under
+tmp/conformance/reference-guild-additional. New evidence shows low stone melee
+ring/wooden gate, archery rails/painted backdrop, straw Will targets; compare next.
+Continue original Library/dorm/Maze/courtyard searches; exclude Anniversary/sequels.

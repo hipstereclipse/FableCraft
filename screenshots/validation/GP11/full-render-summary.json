@@ -1,0 +1,25 @@
+{
+  "command": [
+    "/usr/bin/python",
+    "-c",
+    "import sys; sys.path.insert(0,'scripts'); from pathlib import Path; import gen_screenshots as g; g.SHOTS=Path('tmp/GP11-full-screenshots'); g.main()"
+  ],
+  "exit_code": 0,
+  "source": "isolated reviewed-index snapshot",
+  "output": "tmp/GP11-full-screenshots",
+  "png_counts": {
+    "gallery": 13,
+    "items": 55,
+    "mobs": 51,
+    "recipes": 130,
+    "structures": 32
+  },
+  "engine_acceptance": "unrun",
+  "render_owner_sha256": {
+    "scripts/gen_screenshots.py": "9beb008070bf1b72dbd4081c8e9ddb3402fb6a5221b545a9b3b940dd5c6bdc14",
+    "scripts/gen_structures.py": "51fc911bb420b66ab02218a20739b4fa9f2084a14f2d7c797ef87ed65e2c5c7e",
+    "scripts/fc_mobs.py": "cf19fb87027bf031db63451a0a3af24e249bbf8eb4e016188bab49772d824f51",
+    "scripts/fc_data.py": "81ec9a420bdbb01782ba9c00c21efc65bd78ac6f2e52fc5349af14528b6c10c7",
+    "scripts/fc_lib.py": "c53491f9d640c9e10cb5b3d8f65ea8c85b3f526af03f7631d5d447ab6fe70797"
+  }
+}
