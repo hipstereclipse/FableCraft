@@ -1,0 +1,5 @@
+{
+  "command": "FC_ARENA_TEST_SOURCE=tmp/conformance/gen_structures_before_W1.4.py python scripts/tests/test_arena_halls.py",
+  "exit_code": 1,
+  "expected": "nonzero: prior arena lacks annex, stand stairs and open south entry"
+}

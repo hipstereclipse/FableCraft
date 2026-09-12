@@ -3550,11 +3550,13 @@ def chapel_skorm():
 
 
 def arena_ring():
-    """The Arena: two-tier elliptical amphitheatre — sand pit scattered with
-    bones, barred beast gates, tiered stands, champion's box and banners."""
+    """Arena with accessible stands, preparation shop and adjoining hero hall.
+    The original 27-block pit stays north; the southern annex extends depth to 41.
+    Runtime/manifest dimensions and spawn anchors: docs/ARENA_HALLS.md.
+    """
     r = rng("struct", "arena")
     D = 27
-    v = Vox(D, 12, D)
+    v = Vox(D, 12, 41)
     c = D // 2
     for x in range(D):
         for z in range(D):
@@ -3592,7 +3594,7 @@ def arena_ring():
                 for y in range(1, 4):
                     v.set(x, y, z, "minecraft:air")
         # portcullis bars at the pit mouth (north beast gate only)
-        if gdir == -1:
+        if gdir == 1:
             for x in range(c - 1, c + 2):
                 for y in range(1, 4):
                     v.set(x, y, gz + gdir * 5, IRON_BARS)
@@ -3640,6 +3642,51 @@ def arena_ring():
         v.set(x, 0, z, "minecraft:red_sand")
     v.set(c - 4, 1, c + 3, "minecraft:bone_block")
     v.set(c + 5, 1, c - 2, "minecraft:cobblestone_wall")
+    # West stair aisle climbs from the sand to both seating tiers, away from statues.
+    for x in range(6, 0, -1):
+        height = 7 - x
+        v.fill(x, 0, 17, x, height - 1, 19, STONE)
+        v.fill(x, height, 17, x, height, 19, SBRICK_STAIR,
+               {"weirdo_direction": 1, "upside_down_bit": False})
+        v.fill(x, height + 1, 17, x, height + 3, 19, "minecraft:air")
+    v.fill(1, 0, 16, 2, 6, 16, STONE)
+    v.fill(1, 7, 16, 2, 9, 16, "minecraft:air")
+    v.fill(3, 5, 16, 4, 7, 16, "minecraft:air")  # lower-tier exit
+    # Southern forecourt and open corridor connect both halls directly to the pit.
+    v.fill(3, 0, 27, 25, 0, 40, STONE)
+    for x0, x1 in ((3, 11), (15, 25)):
+        v.box(x0, 1, 28, x1, 5, 38, STONE)
+        v.fill(x0 + 1, 1, 29, x1 - 1, 4, 37, "minecraft:air")
+        v.fill(x0, 6, 28, x1, 6, 38, DEEP_TILES)
+        # Windows and a stepped pediment distinguish the annex from open stands.
+        for wx in range(x0 + 2, x1, 3):
+            v.fill(wx, 2, 38, wx, 3, 38, GLASS)
+        v.fill(x0 + 1, 7, 28, x1 - 1, 7, 28, DEEP_TILES)
+        v.fill(x0 + 2, 8, 28, x1 - 2, 8, 28, DEEP_TILES)
+    for wall_x in (11, 15):
+        v.fill(wall_x, 1, 32, wall_x, 3, 34, "minecraft:air")
+        v.fill(wall_x, 4, 32, wall_x, 4, 34, CHISELED)
+    # Waiting-room practice props and a shop counter served by the existing trader.
+    for dz in (30, 35):
+        v.fill(5, 1, dz, 5, 2, dz, "minecraft:hay_block")
+        v.set(5, 3, dz, "minecraft:carved_pumpkin", {"minecraft:cardinal_direction": "east"})
+        v.set(4, 2, dz, SPRUCE_FENCE)
+        v.set(6, 2, dz, SPRUCE_FENCE)
+    v.fill(8, 1, 36, 9, 1, 36, SPRUCE)
+    v.set(8, 2, 36, "minecraft:brewing_stand")
+    v.set(9, 1, 37, "minecraft:barrel")
+    v.set(8, 4, 33, LANTERN, {"hanging": True})
+    # Hall of Heroes: four original sculpted stone figures around a clear central aisle.
+    for hx, hz in ((18, 30), (22, 30), (18, 36), (22, 36)):
+        v.set(hx, 1, hz, CHISELED)
+        v.fill(hx, 2, hz, hx, 3, hz, "minecraft:quartz_pillar")
+        v.set(hx, 4, hz, "minecraft:smooth_quartz")
+        v.set(hx + (1 if hx < 20 else -1), 3, hz, "minecraft:stone_brick_wall")
+    v.fill(19, 0, 29, 21, 0, 37, "minecraft:smooth_quartz")
+    v.set(20, 4, 33, LANTERN, {"hanging": True})
+    # Reassert a level south entry; the north beast gate stays barred.
+    v.fill(12, 0, 21, 14, 0, 40, STONE)
+    v.fill(12, 1, 21, 14, 3, 40, "minecraft:air")
     v.save("arena_ring")
 
 

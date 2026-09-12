@@ -1,0 +1,120 @@
+test_actual_runtime_population_rectangular_bounds_and_save (__main__.ArenaHalls.test_actual_runtime_population_rectangular_bounds_and_save) ... FAIL
+test_dimensions_manifest_palette_and_population (__main__.ArenaHalls.test_dimensions_manifest_palette_and_population) ... FAIL
+test_hall_figures_and_original_inward_statues (__main__.ArenaHalls.test_hall_figures_and_original_inward_statues) ... FAIL
+test_level_routes_to_every_room_and_spawn (__main__.ArenaHalls.test_level_routes_to_every_room_and_spawn) ... FAIL
+test_south_corridor_open_north_beast_gate_barred (__main__.ArenaHalls.test_south_corridor_open_north_beast_gate_barred) ... FAIL
+test_stair_ascent_and_tier_landings (__main__.ArenaHalls.test_stair_ascent_and_tier_landings) ... FAIL
+test_waiting_room_dummies_and_shop (__main__.ArenaHalls.test_waiting_room_dummies_and_shop) ... FAIL
+
+======================================================================
+FAIL: test_actual_runtime_population_rectangular_bounds_and_save (__main__.ArenaHalls.test_actual_runtime_population_rectangular_bounds_and_save)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_arena_halls.py", line 101, in test_actual_runtime_population_rectangular_bounds_and_save
+    self.assertEqual(result.returncode,0,result.stdout+result.stderr);print(result.stdout.strip())
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : node:internal/assert/utils:146
+  throw error;
+  ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ undefined
+- 'minecraft:air'
+
+    at /run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/poi_population.cjs:43:12
+    at Array.forEach (<anonymous>)
+    at Object.<anonymous> (/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/poi_population.cjs:38:10)
+    at Module._compile (node:internal/modules/cjs/loader:1934:14)
+    at Object..js (node:internal/modules/cjs/loader:2074:10)
+    at Module.load (node:internal/modules/cjs/loader:1656:32)
+    at Module._load (node:internal/modules/cjs/loader:1448:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: undefined,
+  expected: 'minecraft:air',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v26.7.0
+
+
+======================================================================
+FAIL: test_dimensions_manifest_palette_and_population (__main__.ArenaHalls.test_dimensions_manifest_palette_and_population)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_arena_halls.py", line 41, in test_dimensions_manifest_palette_and_population
+    self.assertEqual((self.vox.sx,self.vox.sy,self.vox.sz),(27,12,41))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: (27, 12, 27) != (27, 12, 41)
+
+First differing element 2:
+27
+41
+
+- (27, 12, 27)
+?          ^^
+
++ (27, 12, 41)
+?          ^^
+
+
+======================================================================
+FAIL: test_hall_figures_and_original_inward_statues (__main__.ArenaHalls.test_hall_figures_and_original_inward_statues)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_arena_halls.py", line 68, in test_hall_figures_and_original_inward_statues
+    self.assertEqual(self.block(x,1,z),'minecraft:chiseled_stone_bricks')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: None != 'minecraft:chiseled_stone_bricks'
+
+======================================================================
+FAIL: test_level_routes_to_every_room_and_spawn (__main__.ArenaHalls.test_level_routes_to_every_room_and_spawn)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_arena_halls.py", line 93, in test_level_routes_to_every_room_and_spawn
+    self.assertTrue(p in reached,f'Blocked entry-to-landmark route: {p}')
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : Blocked entry-to-landmark route: (13, 13)
+
+======================================================================
+FAIL: test_south_corridor_open_north_beast_gate_barred (__main__.ArenaHalls.test_south_corridor_open_north_beast_gate_barred)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_arena_halls.py", line 54, in test_south_corridor_open_north_beast_gate_barred
+    self.assertTrue(self.clear(x,1,z));self.assertEqual(self.block(x,0,z),'minecraft:stone_bricks')
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_stair_ascent_and_tier_landings (__main__.ArenaHalls.test_stair_ascent_and_tier_landings)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_arena_halls.py", line 79, in test_stair_ascent_and_tier_landings
+    self.assertEqual(self.block(x,height,z),'minecraft:stone_brick_stairs')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'minecraft:mossy_stone_bricks' != 'minecraft:stone_brick_stairs'
+- minecraft:mossy_stone_bricks
+?           ------
++ minecraft:stone_brick_stairs
+?                      ++++++
+
+
+======================================================================
+FAIL: test_waiting_room_dummies_and_shop (__main__.ArenaHalls.test_waiting_room_dummies_and_shop)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_arena_halls.py", line 59, in test_waiting_room_dummies_and_shop
+    self.assertEqual(self.block(5,1,z),'minecraft:hay_block')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: None != 'minecraft:hay_block'
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.335s
+
+FAILED (failures=7)

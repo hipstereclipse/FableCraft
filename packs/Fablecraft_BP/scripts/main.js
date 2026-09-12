@@ -5470,7 +5470,8 @@ const STRUCTS = [
     mobs: ["fc:wraith", "fc:undead_knight", "fc:frost_balverine"] },
   { id: "fc:temple_avo", w: 17, h: 13, d: 21, weight: 6, surf: ["grass"], theme: "holy" },
   { id: "fc:chapel_skorm", w: 15, h: 17, d: 19, weight: 6, surf: ["dark", "grass", "rock"], theme: "dark" },
-  { id: "fc:arena_ring", w: 27, h: 12, d: 27, weight: 5, surf: ["sand", "rock", "grass"], theme: "dark", mobs: ["fc:hobbe", "fc:hobbe", "fc:beetle"] },
+  { id: "fc:arena_ring", w: 27, h: 12, d: 41, weight: 5, surf: ["sand", "rock", "grass"], theme: "dark", mobs: ["fc:hobbe", "fc:hobbe", "fc:beetle", "fc:trader"],
+    mobSpawns: [[10.5, 1, 12.5], [16.5, 1, 12.5], [13.5, 1, 16.5], [9.5, 1, 34.5]] }, // gen_structures.arena_ring pit and preparation shop
   // wilderness encounters — small, common, keep the road alive
   { id: "fc:lookout_point", w: 21, h: 12, d: 21, weight: 9, surf: ["grass", "rock", "snow"], theme: "village",
     mobs: ["fc:villager_albion", "fc:villager_albion", "fc:guard_bowerstone"] },

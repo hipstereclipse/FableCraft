@@ -2,20 +2,20 @@
   "scope": "Offline generator renders; grades measure image appearance, not canon or playability.",
   "structures": {
     "arena_ring": {
-      "asset_sha256": "2a965eca947b33056ad7c3c0de08387dfe6ae09708a92cf29127e5b930bfc6c9",
+      "asset_sha256": "ce2684b1a46a8ff01cca93f5ce9a82b1b70d8d4a017aaa66a6ae464f25dc1bb3",
       "size": [
         27,
         12,
-        27
+        41
       ],
-      "image_sha256": "b13e9e766417aa14e336373f422c6b291599e177bb58b5f722bba6121ebb1273",
+      "image_sha256": "c1fceb4cea2b8a772c0cb0c7f35f6cfa70edb266c1651033a19c9c890ff2ac3b",
       "grade": "S",
       "score": 100,
       "metrics": {
-        "coverage": 26.5,
+        "coverage": 17.7,
         "colors": 32,
-        "contrast": 0.83,
-        "brightness": 0.44,
+        "contrast": 0.84,
+        "brightness": 0.41,
         "placeholder": false
       },
       "notes": []

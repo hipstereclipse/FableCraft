@@ -1045,7 +1045,7 @@ def main():
         "graveyard": ("Lychfield Graveyard", "Nostro's crypt · keeper hut · gate-stair face", "swamp"),
         "temple_avo": ("Temple of Avo", "Donation fountain · sword in the stone", "holy"),
         "chapel_skorm": ("Chapel of Skorm", "Dark sacrifices welcome", "fire"),
-        "arena_ring": ("The Arena", "Round-based gladiator combat", "fire"),
+        "arena_ring": ("The Arena", "Tiered stands · preparation shop · Hall of Heroes", "stone"),
         "lookout_point": ("Lookout Point", "Standing stones · the pointing hero", "forest"),
         "orchard_farm": ("Orchard Farm", "Apple rows · cider barn · beehive", "forest"),
         "fisher_creek": ("Fisher Creek", "Stilt hut · jetty · drying nets", "forest"),

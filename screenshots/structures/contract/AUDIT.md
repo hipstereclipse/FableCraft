@@ -4,7 +4,7 @@ Offline generator renders; grades measure image appearance, not canon or playabi
 
 | ID | Grade | Score | Footprint (x/y/z) | Image |
 | --- | --- | --- | --- | --- |
-| arena_ring | S | 100 | 27/12/27 | [The Arena](arena_ring.png) |
+| arena_ring | S | 100 | 27/12/41 | [The Arena](arena_ring.png) |
 | bandit_camp | S | 100 | 33/13/33 | [Bandit Camp](bandit_camp.png) |
 | bowerstone_market | S | 100 | 37/16/37 | [Bowerstone Market](bowerstone_market.png) |
 | chamber_of_fate | S | 100 | 31/20/31 | [Chamber of Fate](chamber_of_fate.png) |
