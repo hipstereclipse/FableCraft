@@ -5255,7 +5255,7 @@ system.runInterval(() => {
     }
   }
   for (const p of world.getPlayers()) {
-    let guards;
+    let guards = [];
     try {
       guards = p.dimension.getEntities({
         location: p.location,
@@ -5318,7 +5318,7 @@ function calmNpc(npc) {
 }
 // When a civilian is struck, any guard or guild defender nearby comes to enforce.
 function alertProtectors(victim) {
-  let guards;
+  let guards = [];
   try {
     guards = victim.dimension.getEntities({
       location: victim.location, maxDistance: 22, families: ["fc_friendly"],
@@ -5387,7 +5387,7 @@ function guildDefendersNear(p, tags) {
     families: ["fc_friendly"],
   };
   if (tags) opts.tags = tags;
-  let ents;
+  let ents = [];
   try { ents = p.dimension.getEntities(opts); } catch { }
   return ents.filter(isGuildDefenderType);
 }

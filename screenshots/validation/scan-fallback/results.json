@@ -1,0 +1,62 @@
+{
+  "expressions": {
+    "command": [
+      "/usr/bin/python",
+      "scripts/verify_emotes.py"
+    ],
+    "exit_code": 0
+  },
+  "hud": {
+    "command": [
+      "/usr/bin/python",
+      "scripts/audit_hud.py",
+      "--check"
+    ],
+    "exit_code": 0
+  },
+  "lint": {
+    "command": [
+      "npx",
+      "--no-install",
+      "eslint",
+      "packs/Fablecraft_BP/scripts"
+    ],
+    "exit_code": 0
+  },
+  "spells": {
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "scripts/tests/spells.test.mjs"
+    ],
+    "exit_code": 0
+  },
+  "build": {
+    "command": [
+      "/usr/bin/python",
+      "scripts/build_addon.py"
+    ],
+    "exit_code": 0
+  },
+  "behavior": {
+    "command": [
+      "/usr/bin/python",
+      "scripts/tests/test_gen_behavior.py"
+    ],
+    "exit_code": 0
+  },
+  "animations": {
+    "command": [
+      "/usr/bin/python",
+      "scripts/_audit_anims.py"
+    ],
+    "exit_code": 0
+  },
+  "animation-tests": {
+    "command": [
+      "/usr/bin/python",
+      "scripts/tests/test_animation_audit.py"
+    ],
+    "exit_code": 0
+  }
+}

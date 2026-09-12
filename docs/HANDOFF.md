@@ -10,10 +10,12 @@ six reference snapshots are in docs/. User override (2026-09-12): finish the spe
 and continue as far as practical without permission questions. Retain separate
 milestone commits, validation, immediate pushes, evidence and fresh handoffs.
 
-Current milestone: 0.3 — audit attack sources and remove unsupported overlays; status in-progress.
-Last resolved prior commit: 6ca1e14 (pushed before this milestone).
-Containing commit: TLC Conformance — 0.3: audit attack sources and remove unsupported overlays.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — 0.3: audit attack sources and remove unsupported overlays'.
+Current milestone: spell prerequisite follow-up; restored three entity-scan empty-list fallbacks
+removed too broadly during lint cleanup. Three failure-path tests fail before/pass after;
+evidence screenshots/validation/scan-fallback/. 0.3 remains pending manual verification.
+Last resolved prior commit: fe7fa33 (pushed before this correction).
+Containing commit: Will & Destiny — preserve failed entity-scan fallbacks.
+Resolve current hash: git log -1 --format=%H --grep='Will & Destiny — preserve failed entity-scan fallbacks'.
 Replace previous SELF evidence with the actual hash next step; never invent a self-hash.
 
 Validator state: base build, expressions (31/21), HUD (112/112), lint (0 errors/19

@@ -4,7 +4,7 @@
   "description": "FableCraft development validators",
   "main": "index.js",
   "scripts": {
-    "test": "node --experimental-vm-modules scripts/tests/spells.test.mjs",
+    "test": "node --experimental-vm-modules scripts/tests/spells.test.mjs && node scripts/tests/entity_scan_fallbacks.test.mjs",
     "lint": "eslint packs/Fablecraft_BP/scripts"
   },
   "repository": {
