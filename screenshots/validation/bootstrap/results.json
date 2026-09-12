@@ -1,0 +1,34 @@
+{
+  "expressions": {
+    "command": [
+      "/usr/bin/python",
+      "scripts/verify_emotes.py"
+    ],
+    "exit_code": 0
+  },
+  "hud": {
+    "command": [
+      "/usr/bin/python",
+      "scripts/audit_hud.py",
+      "--check"
+    ],
+    "exit_code": 0
+  },
+  "lint": {
+    "command": [
+      "npx",
+      "--no-install",
+      "eslint",
+      "packs/Fablecraft_BP/scripts"
+    ],
+    "exit_code": 0
+  },
+  "spells": {
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "scripts/tests/spells.test.mjs"
+    ],
+    "exit_code": 0
+  }
+}

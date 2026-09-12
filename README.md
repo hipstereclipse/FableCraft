@@ -315,16 +315,23 @@ Full generated documentation set and shot manifest: [screenshots/docs/INDEX.md](
 
 ---
 
-## ❤️ Support Development
-
-If you are enjoying Fablecraft and want to help keep development moving, please consider supporting the project through Buy Me a Coffee:
-
-[buymeacoffee.com/k8ffh48yvke](https://buymeacoffee.com/k8ffh48yvke)
-
----
-
 ## 📜 Credits & Legal
 
 A fan tribute to *Fable: The Lost Chapters* (Lionhead Studios / Microsoft). All Fable lore, names and concepts belong to Microsoft. Inspired by the original [Fablecraft mod](https://www.planetminecraft.com/mod/fablecraft-mod-216181/) for Minecraft 1.1. Not affiliated with Mojang or Microsoft.
 
 *"Your health is low. Do you have any potions? Or food?"* — you know who
+
+
+## Fan-work and release notice
+
+FableCraft is a free, non-commercial, unaffiliated fan work, with original/generated
+assets and nothing extracted from a Fable game. Fable/Albion trademarks belong to
+Microsoft; no endorsement by Microsoft, Lionhead or Mojang is implied. We will
+comply with rights-holder takedown requests. See [LEGAL.md](LEGAL.md) for the
+notice, provenance requirements and distribution policy (general information,
+not legal advice). Faithful names are for local development; public builds must
+use original names and pass the planned branding validator. Existing `dist/`
+archives are legacy development builds and are not approved for public release.
+
+Conformance work is tracked in [the plan](docs/CONFORMANCE_PLAN.md),
+[the checklist](docs/CONFORMANCE_CHECKLIST.md) and [the continuation handoff](docs/HANDOFF.md).
