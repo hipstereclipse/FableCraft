@@ -1,0 +1,12 @@
+{
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "scripts/tests/spells.test.mjs"
+  ],
+  "cwd": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/GP5-reviewed-snapshot",
+  "exit_code": 0,
+  "duration_seconds": 0.214,
+  "log": "screenshots/validation/GP5/spells.log",
+  "completed_utc": "2026-09-12T20:17:56.320882+00:00"
+}

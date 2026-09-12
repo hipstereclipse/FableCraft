@@ -1,0 +1,5 @@
+{
+  "source_before": "cd6815facd1312f7659fd64296d0f5167ce9b018",
+  "scope": "Offline owner geometry. Altar details crop radius8.6/y1..4 and preserve half-slab heights; open cutaways also render half-height slabs. Open cutaways remove local y>=9 and north z<=3 above floor; standard structure renderer draws all blocks as cubes. Neither lighting nor engine views.",
+  "scope_changes": "Concentric altar treads and skylight water rim only; core/room anchors preserved"
+}

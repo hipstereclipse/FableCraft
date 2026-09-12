@@ -1,0 +1,285 @@
+{
+  "scope": "Supplementary GP5 checks executed only in the reviewed-index snapshot. The later final snapshot changes the separate static structure-table checker; every supplementary dependency listed below is byte-identical. Offline checks are not engine or fidelity acceptance.",
+  "snapshot": "tmp/conformance/GP5-reviewed-snapshot",
+  "final_snapshot": "tmp/conformance/GP5-final-snapshot",
+  "commands": {
+    "explicit-lint": {
+      "command": [
+        "node",
+        "node_modules/eslint/bin/eslint.js",
+        "--config",
+        "eslint.config.mjs",
+        "packs/Fablecraft_BP/scripts"
+      ],
+      "cwd": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/GP5-reviewed-snapshot",
+      "exit_code": 0,
+      "duration_seconds": 2.253,
+      "log": "screenshots/validation/GP5/explicit-lint.log",
+      "completed_utc": "2026-09-12T20:17:58.283626+00:00"
+    },
+    "spells": {
+      "command": [
+        "node",
+        "--experimental-vm-modules",
+        "scripts/tests/spells.test.mjs"
+      ],
+      "cwd": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/GP5-reviewed-snapshot",
+      "exit_code": 0,
+      "duration_seconds": 0.214,
+      "log": "screenshots/validation/GP5/spells.log",
+      "completed_utc": "2026-09-12T20:17:56.320882+00:00"
+    },
+    "syntax": {
+      "command": [
+        "node",
+        "--check",
+        "--input-type=module"
+      ],
+      "input": "Each BP JavaScript file is parsed as an ESM source string on stdin; no engine imports are executed.",
+      "cwd": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/GP5-reviewed-snapshot",
+      "exit_code": 0,
+      "duration_seconds": 0.37,
+      "files": [
+        {
+          "path": "packs/Fablecraft_BP/scripts/fable_emote_registry.js",
+          "sha256": "dd9a6386017c5c7d8be23fa937829d21bb7edd0b5d37b763e80fd57bf946b8da",
+          "exit_code": 0
+        },
+        {
+          "path": "packs/Fablecraft_BP/scripts/fable_emotes.js",
+          "sha256": "4fad3f0db107b8d050c5a5e8965dc66bcf0926192c0494c36fd55be96700e366",
+          "exit_code": 0
+        },
+        {
+          "path": "packs/Fablecraft_BP/scripts/fable_hud.js",
+          "sha256": "f08e056a4398fc07905aa4f75960bab8febb77479e633ae1a5349c0ca6ba3502",
+          "exit_code": 0
+        },
+        {
+          "path": "packs/Fablecraft_BP/scripts/fc_demon_doors.js",
+          "sha256": "c47d879edafb475c510d2d704fa573bbbe1e160f0c38e6cf5516747fb6a1d94d",
+          "exit_code": 0
+        },
+        {
+          "path": "packs/Fablecraft_BP/scripts/fc_gamedata.js",
+          "sha256": "12ee82ce8e1540536fd61b23954715583f6233b221132385e33ae8674ff69125",
+          "exit_code": 0
+        },
+        {
+          "path": "packs/Fablecraft_BP/scripts/fc_strings.js",
+          "sha256": "e91bdc5ebfad3467f27f217f35c78a63d55f716fdd5b5312c99a6680ccaa5516",
+          "exit_code": 0
+        },
+        {
+          "path": "packs/Fablecraft_BP/scripts/guild_caves.js",
+          "sha256": "95d0fa9b5cc75f43edf8aedaf88a1b9517baf637e369954bc9dd1703d9d36d58",
+          "exit_code": 0
+        },
+        {
+          "path": "packs/Fablecraft_BP/scripts/guild_defence.js",
+          "sha256": "c13f75b94a007df0d26eb474b6093bb0a2e8c1a447c11d110bf941a453bf16b1",
+          "exit_code": 0
+        },
+        {
+          "path": "packs/Fablecraft_BP/scripts/guild_door_aperture.js",
+          "sha256": "5db5993efaebf1787125cd2552379f1a9220d5e485fa7edd9c4b52603681fbb5",
+          "exit_code": 0
+        },
+        {
+          "path": "packs/Fablecraft_BP/scripts/guild_training.js",
+          "sha256": "1a0b2b849081553d0f681d40018630af3bd3ab99cc0e4a63893252b0ca93d669",
+          "exit_code": 0
+        },
+        {
+          "path": "packs/Fablecraft_BP/scripts/main.js",
+          "sha256": "7526abb99d071ac12a7a2d61626cec5811723f923cadabcba45b5a79195bd4e8",
+          "exit_code": 0
+        }
+      ],
+      "log": "screenshots/validation/GP5/syntax.log",
+      "completed_utc": "2026-09-12T20:18:27.002385+00:00"
+    },
+    "guild-match": {
+      "command": [
+        "python",
+        "scripts/_audit_match.py"
+      ],
+      "cwd": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/GP5-reviewed-snapshot",
+      "exit_code": 0,
+      "duration_seconds": 1.175,
+      "log": "screenshots/validation/GP5/guild-match.log",
+      "completed_utc": "2026-09-12T20:17:57.182657+00:00"
+    },
+    "guild-roofs": {
+      "command": [
+        "python",
+        "scripts/_audit_roofs.py"
+      ],
+      "cwd": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/GP5-reviewed-snapshot",
+      "exit_code": 0,
+      "duration_seconds": 1.566,
+      "log": "screenshots/validation/GP5/guild-roofs.log",
+      "completed_utc": "2026-09-12T20:17:57.637607+00:00"
+    },
+    "guild-verify": {
+      "command": [
+        "python",
+        "scripts/_verify_guild.py"
+      ],
+      "cwd": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/GP5-reviewed-snapshot",
+      "exit_code": 0,
+      "duration_seconds": 11.715,
+      "log": "screenshots/validation/GP5/guild-verify.log",
+      "completed_utc": "2026-09-12T20:18:07.724246+00:00"
+    }
+  },
+  "skipped": {
+    "verify-caves-wrapper": "scripts/_verify_caves.py delegates to the same production lifecycle, Chamber geometry and Cullis suites run by the full base validation; omitted as redundant."
+  },
+  "diagnostics": {
+    "eslint_errors": 0,
+    "eslint_warnings": 19,
+    "spell_tests_passed": 17,
+    "esm_files_parsed": 11,
+    "structural_cell_agreement_percent": 85.3,
+    "floating_blocks": 0,
+    "roof_eave_overhang_cells": 388,
+    "roof_eave_overhang_clusters": 55,
+    "roof_diagnostic_matches_gp4": true,
+    "guild_geometry_audits": "All printed OK: three bridges, bridge endpoints/channel, tower tread/headroom/entries, ground holes, both training areas."
+  },
+  "images_manifest": "screenshots/validation/GP5/guild-diagnostic-images.json",
+  "visually_inspected": [
+    "guild-overview-iso.png",
+    "guild-crop-cutaway-y0-6.png"
+  ],
+  "source_equivalence": [
+    {
+      "path": "eslint.config.mjs",
+      "reviewed_snapshot_sha256": "3911da63d4356ff29e3330196754ca53f463518c750d76cd7831832b3205de3c",
+      "final_snapshot_sha256": "3911da63d4356ff29e3330196754ca53f463518c750d76cd7831832b3205de3c",
+      "identical": true
+    },
+    {
+      "path": "package-lock.json",
+      "reviewed_snapshot_sha256": "d467721df29d95a16411868c0ae8814c1e6377b9a5a05a56560a484693e2b952",
+      "final_snapshot_sha256": "d467721df29d95a16411868c0ae8814c1e6377b9a5a05a56560a484693e2b952",
+      "identical": true
+    },
+    {
+      "path": "scripts/tests/spells.test.mjs",
+      "reviewed_snapshot_sha256": "4d9ec7cc271c23c644516d3b4a17fef470a7a68c13c013bc72eed753b36db885",
+      "final_snapshot_sha256": "4d9ec7cc271c23c644516d3b4a17fef470a7a68c13c013bc72eed753b36db885",
+      "identical": true
+    },
+    {
+      "path": "scripts/gen_structures.py",
+      "reviewed_snapshot_sha256": "14e23ab4971798b22ba5299f73aa7aed54d968e8331d66f62f61de30427eb53c",
+      "final_snapshot_sha256": "14e23ab4971798b22ba5299f73aa7aed54d968e8331d66f62f61de30427eb53c",
+      "identical": true
+    },
+    {
+      "path": "scripts/gen_screenshots.py",
+      "reviewed_snapshot_sha256": "38a8994631baa7e5f0ee6cce3560ac173d92a44b927869dbc871af43e650c0bb",
+      "final_snapshot_sha256": "38a8994631baa7e5f0ee6cce3560ac173d92a44b927869dbc871af43e650c0bb",
+      "identical": true
+    },
+    {
+      "path": "scripts/fc_lib.py",
+      "reviewed_snapshot_sha256": "c53491f9d640c9e10cb5b3d8f65ea8c85b3f526af03f7631d5d447ab6fe70797",
+      "final_snapshot_sha256": "c53491f9d640c9e10cb5b3d8f65ea8c85b3f526af03f7631d5d447ab6fe70797",
+      "identical": true
+    },
+    {
+      "path": "scripts/_audit_match.py",
+      "reviewed_snapshot_sha256": "be8b7826712236592947a90d35223dd8a895498a7af6e2159a376588df71a0ff",
+      "final_snapshot_sha256": "be8b7826712236592947a90d35223dd8a895498a7af6e2159a376588df71a0ff",
+      "identical": true
+    },
+    {
+      "path": "scripts/_audit_roofs.py",
+      "reviewed_snapshot_sha256": "4920fc2ca92f2ec40d39ce77579d1d6ff74e5eccbafde5693bc3549e1ea1ebcf",
+      "final_snapshot_sha256": "4920fc2ca92f2ec40d39ce77579d1d6ff74e5eccbafde5693bc3549e1ea1ebcf",
+      "identical": true
+    },
+    {
+      "path": "scripts/_verify_guild.py",
+      "reviewed_snapshot_sha256": "88c01a8fa786ea48d4f4ea97efc4385483c8eec95a4de729564e9e6ad60a946a",
+      "final_snapshot_sha256": "88c01a8fa786ea48d4f4ea97efc4385483c8eec95a4de729564e9e6ad60a946a",
+      "identical": true
+    },
+    {
+      "path": "scripts/_target_map.py",
+      "reviewed_snapshot_sha256": "6b5fcbbcd039ccc57e2bbabde209c579721eafc9c0f303d143d7a58eefb69c07",
+      "final_snapshot_sha256": "6b5fcbbcd039ccc57e2bbabde209c579721eafc9c0f303d143d7a58eefb69c07",
+      "identical": true
+    },
+    {
+      "path": "packs/Fablecraft_BP/scripts/fable_emote_registry.js",
+      "reviewed_snapshot_sha256": "dd9a6386017c5c7d8be23fa937829d21bb7edd0b5d37b763e80fd57bf946b8da",
+      "final_snapshot_sha256": "dd9a6386017c5c7d8be23fa937829d21bb7edd0b5d37b763e80fd57bf946b8da",
+      "identical": true
+    },
+    {
+      "path": "packs/Fablecraft_BP/scripts/fable_emotes.js",
+      "reviewed_snapshot_sha256": "4fad3f0db107b8d050c5a5e8965dc66bcf0926192c0494c36fd55be96700e366",
+      "final_snapshot_sha256": "4fad3f0db107b8d050c5a5e8965dc66bcf0926192c0494c36fd55be96700e366",
+      "identical": true
+    },
+    {
+      "path": "packs/Fablecraft_BP/scripts/fable_hud.js",
+      "reviewed_snapshot_sha256": "f08e056a4398fc07905aa4f75960bab8febb77479e633ae1a5349c0ca6ba3502",
+      "final_snapshot_sha256": "f08e056a4398fc07905aa4f75960bab8febb77479e633ae1a5349c0ca6ba3502",
+      "identical": true
+    },
+    {
+      "path": "packs/Fablecraft_BP/scripts/fc_demon_doors.js",
+      "reviewed_snapshot_sha256": "c47d879edafb475c510d2d704fa573bbbe1e160f0c38e6cf5516747fb6a1d94d",
+      "final_snapshot_sha256": "c47d879edafb475c510d2d704fa573bbbe1e160f0c38e6cf5516747fb6a1d94d",
+      "identical": true
+    },
+    {
+      "path": "packs/Fablecraft_BP/scripts/fc_gamedata.js",
+      "reviewed_snapshot_sha256": "12ee82ce8e1540536fd61b23954715583f6233b221132385e33ae8674ff69125",
+      "final_snapshot_sha256": "12ee82ce8e1540536fd61b23954715583f6233b221132385e33ae8674ff69125",
+      "identical": true
+    },
+    {
+      "path": "packs/Fablecraft_BP/scripts/fc_strings.js",
+      "reviewed_snapshot_sha256": "e91bdc5ebfad3467f27f217f35c78a63d55f716fdd5b5312c99a6680ccaa5516",
+      "final_snapshot_sha256": "e91bdc5ebfad3467f27f217f35c78a63d55f716fdd5b5312c99a6680ccaa5516",
+      "identical": true
+    },
+    {
+      "path": "packs/Fablecraft_BP/scripts/guild_caves.js",
+      "reviewed_snapshot_sha256": "95d0fa9b5cc75f43edf8aedaf88a1b9517baf637e369954bc9dd1703d9d36d58",
+      "final_snapshot_sha256": "95d0fa9b5cc75f43edf8aedaf88a1b9517baf637e369954bc9dd1703d9d36d58",
+      "identical": true
+    },
+    {
+      "path": "packs/Fablecraft_BP/scripts/guild_defence.js",
+      "reviewed_snapshot_sha256": "c13f75b94a007df0d26eb474b6093bb0a2e8c1a447c11d110bf941a453bf16b1",
+      "final_snapshot_sha256": "c13f75b94a007df0d26eb474b6093bb0a2e8c1a447c11d110bf941a453bf16b1",
+      "identical": true
+    },
+    {
+      "path": "packs/Fablecraft_BP/scripts/guild_door_aperture.js",
+      "reviewed_snapshot_sha256": "5db5993efaebf1787125cd2552379f1a9220d5e485fa7edd9c4b52603681fbb5",
+      "final_snapshot_sha256": "5db5993efaebf1787125cd2552379f1a9220d5e485fa7edd9c4b52603681fbb5",
+      "identical": true
+    },
+    {
+      "path": "packs/Fablecraft_BP/scripts/guild_training.js",
+      "reviewed_snapshot_sha256": "1a0b2b849081553d0f681d40018630af3bd3ab99cc0e4a63893252b0ca93d669",
+      "final_snapshot_sha256": "1a0b2b849081553d0f681d40018630af3bd3ab99cc0e4a63893252b0ca93d669",
+      "identical": true
+    },
+    {
+      "path": "packs/Fablecraft_BP/scripts/main.js",
+      "reviewed_snapshot_sha256": "7526abb99d071ac12a7a2d61626cec5811723f923cadabcba45b5a79195bd4e8",
+      "final_snapshot_sha256": "7526abb99d071ac12a7a2d61626cec5811723f923cadabcba45b5a79195bd4e8",
+      "identical": true
+    }
+  ],
+  "engine_checks": "unrun"
+}

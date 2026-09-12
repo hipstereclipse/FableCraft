@@ -1,0 +1,11 @@
+{
+  "command": [
+    "python",
+    "scripts/_audit_roofs.py"
+  ],
+  "cwd": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/GP5-reviewed-snapshot",
+  "exit_code": 0,
+  "duration_seconds": 1.566,
+  "log": "screenshots/validation/GP5/guild-roofs.log",
+  "completed_utc": "2026-09-12T20:17:57.637607+00:00"
+}

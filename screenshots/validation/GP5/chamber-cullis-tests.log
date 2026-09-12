@@ -1,0 +1,14 @@
+✔ generated core is detected at exported feet; historical y+7 fails (14.671053ms)
+✔ known legacy coordinate changes only y and preserves every other field/site (14.531999ms)
+✔ verified placed Chamber can restore missing registration without replacing blocks (8.494379ms)
+✔ customized, ambiguous and malformed registries remain untouched (51.015116ms)
+✔ missing core, unloaded arrival and blocked headroom defer correction (21.600103ms)
+✔ failed registry write retries without changing blocks or losing custom metadata (20.371383ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 137.057378

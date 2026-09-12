@@ -1,0 +1,24 @@
+✔ two offenders are eligible; innocent visitor is excluded for all six defender types (18.595485ms)
+✔ actual payment callback removes A first and cannot calm B defence (12.991046ms)
+✔ actual expiry callback is independent of player iteration order and preserves live warrant (23.827036ms)
+✔ portal departure clears eligibility and stops defence; return and reload derive unchanged warrant (14.314707ms)
+✔ short provocation identifies only the attacker, expires, and is scoped to its loaded defender (6.604766ms)
+✔ actual damage and projectile death callbacks use the responsible player; unknown owner is unattributed (7.970725ms)
+✔ expression attack hook identifies provoking player and leaves non-Guild attack behavior intact (7.824569ms)
+✔ Follow/Watch and spouse properties survive defence; social replacement cannot erase offender filter (8.238804ms)
+✔ stop restores normal guard combat and removes legacy unowned attack without social-neutral (7.655347ms)
+✔ failed stop retries cleanup before restart; failed start leaves no uncontrolled combat (7.618568ms)
+✔ target-tag write failure fails closed across remaining offenders and recovers (7.027046ms)
+✔ loaded departed defender releases; invalid handle and persisted tags reconcile on return (12.298493ms)
+✔ town guard sweep does not clear Guild defence; ordinary Bowerstone social attack is unchanged (6.915385ms)
+✔ reload clears transient provocation and stale target markers without resetting relationships or warrants (12.806366ms)
+(node:73) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 162.334382

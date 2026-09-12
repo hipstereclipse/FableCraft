@@ -77,6 +77,7 @@ async function fixture() {
       guildBounds:()=>({base:{x:0,y:0,z:0}}),isMarried:e=>!!e.married,
       isInsideGuild:(loc,id)=>id==='minecraft:overworld',
       clearGuildRingScarecrows(){},repairGuildDemonApproach(){},repairGuildTerrain(){},repairGuildSkirtVegetation(){},
+      placeGuildAnnexes(){}, // GP5's adjacent owner has its own actual-callback suite.
       isRomanceable:()=>false,npcTalk:(p,e)=>dialogues.push(e.id),P:{get:()=>500},
     });
     vm.runInContext(declarations.join('\n'),context);

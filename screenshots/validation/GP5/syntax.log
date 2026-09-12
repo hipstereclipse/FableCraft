@@ -1,0 +1,17 @@
+Command per file (source on stdin): ["node", "--check", "--input-type=module"]
+Cwd: /run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/GP5-reviewed-snapshot
+
+packs/Fablecraft_BP/scripts/fable_emote_registry.js: exit 0
+packs/Fablecraft_BP/scripts/fable_emotes.js: exit 0
+packs/Fablecraft_BP/scripts/fable_hud.js: exit 0
+packs/Fablecraft_BP/scripts/fc_demon_doors.js: exit 0
+packs/Fablecraft_BP/scripts/fc_gamedata.js: exit 0
+packs/Fablecraft_BP/scripts/fc_strings.js: exit 0
+packs/Fablecraft_BP/scripts/guild_caves.js: exit 0
+packs/Fablecraft_BP/scripts/guild_defence.js: exit 0
+packs/Fablecraft_BP/scripts/guild_door_aperture.js: exit 0
+packs/Fablecraft_BP/scripts/guild_training.js: exit 0
+packs/Fablecraft_BP/scripts/main.js: exit 0
+
+Files: 11
+Exit code: 0

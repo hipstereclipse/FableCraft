@@ -35,6 +35,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | DP1 | in-progress | Guild lamp/Library Arcanum portal, durable rewards/returns and legacy mouth migration implemented offline; engine acceptance remains unrun |
 | DP2 | in-progress | First library grove and four in-room collectibles implemented; other designed worlds and direct TLC comparison remain open |
 | GP4 | in-progress | Offender-specific Guild defence and projectile attribution fixed offline; integrated cave lifecycle/route defects reproduced; engine acceptance remains open |
+| GP5 | in-progress | Resumable new cave/Chamber construction, Library threshold, concentric altar steps, water containment and recognized Cullis height correction; legacy geometry preserved; engine acceptance open |
 
 Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
 defects and manual status here. These passes are not completed legacy leaves.
@@ -289,7 +290,7 @@ GP4 offender-specific defence is the next code pass.
 
 ## GP4 — Guild defence and integrated cave review (2026-09-12)
 
-Commit: SELF: TLC Conformance — GP4: target Guild defence at actual offenders.
+Commit: cd6815facd1312f7659fd64296d0f5167ce9b018.
 Guild combat now requires an identified player offender. Active local warrants
 and short attributed provocations feed one aggregate controller, so clearing one
 player's warrant does not calm defence against another. Portal departure/return
@@ -317,3 +318,36 @@ The old mirrored cave verifier reports PASS despite the real threshold defect.
 These findings are reproduced gaps, not implemented cave fixes. Next priority:
 a conservative cave lifecycle/verification owner and its actual-callback tests,
 followed by coupled threshold/Cullis fixes and persistent resident identity.
+
+## GP5 — cave lifecycle and Chamber access (2026-09-12)
+
+Commit: SELF: TLC Conformance — GP5: make Guild caves resumable and connect Chamber access.
+The cave owner now distinguishes new enrolled construction from legacy occupied
+worlds. Durable original-cell snapshots and verified progress support conservative
+retries, with completion recorded only after final geometry verification. Ordinary
+maintenance owns retries; the broad delayed Chamber scrub is removed. Generated
+Chamber permutations and an exact surface entrance crop supply the runtime plan.
+
+The Library threshold keeps its floor. Per the user's explicit correction,
+184 changed tread cells form concentric steps around the entire altar with six
+half-block rises to the unchanged dais. Another 44 glass cells contain the formerly open skylight
+water perimeter. The generated local Cullis feet y5 correct the old y7 registration
+only for the recognized old point with valid core/ring and arrival clearance.
+Existing geometry, progress, inventory and custom registry coordinates survive.
+
+See [GUILD_CAVE_LIFECYCLE.md](GUILD_CAVE_LIFECYCLE.md) and
+`screenshots/validation/GP5/` for final route, lifecycle, migration and original-guide
+comparison evidence. The current Chamber still differs substantially in center
+material contrast, wall ribs/murals and lighting (partial visual C).
+Manual movement, fluids, native state updates, loading and crash persistence remain
+unrun. Legacy interrupted caves need a separate conservative migration; no blanket
+recarve is introduced. Next: persistent resident identity/repair, then return to
+Guild/door reference refinement and pilot integration defects.
+
+GP5 validation: all 38 base gates pass from a reviewed-index snapshot, including
+20 lifecycle, 10 Chamber route, 6 Cullis migration and 16 C2 contract groups.
+Explicit lint/spells/ESM/Guild diagnostics pass. The full rendering pipeline
+completed 51 mobs, 55 items, 130 recipes, 32 structures and 13 galleries.
+The first base run exposed the outdated bulk-placement-only C2 registration
+reader; its owner/manifest edge and independent negative fixtures are now fixed.
+Initial failed logs are retained. No live engine acceptance was performed.

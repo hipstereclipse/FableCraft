@@ -1,0 +1,14 @@
+{
+  "command": [
+    "node",
+    "node_modules/eslint/bin/eslint.js",
+    "--config",
+    "eslint.config.mjs",
+    "packs/Fablecraft_BP/scripts"
+  ],
+  "cwd": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/GP5-reviewed-snapshot",
+  "exit_code": 0,
+  "duration_seconds": 2.253,
+  "log": "screenshots/validation/GP5/explicit-lint.log",
+  "completed_utc": "2026-09-12T20:17:58.283626+00:00"
+}

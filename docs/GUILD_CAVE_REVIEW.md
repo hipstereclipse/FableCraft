@@ -1,6 +1,8 @@
 # Guild cave and Chamber route review
 
-GP4 audit, 2026-09-12. This pass changes documentation and offline evidence only.
+GP4 audit, 2026-09-12. This historical pass changed documentation and offline evidence only.
+GP5 implements new-world repairs in [GUILD_CAVE_LIFECYCLE.md](GUILD_CAVE_LIFECYCLE.md);
+the frozen outcomes below describe GP4, not the current construction owner.
 This audit leaves production implementation, assets and saved worlds unchanged.
 The [reproducible probe](../screenshots/validation/GP4-cave-audit/run_probe.py)
 executes frozen, hashed excerpts of the actual `placeGuildAnnexes`, `carveGuildCaves`,

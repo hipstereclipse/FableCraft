@@ -1,0 +1,11 @@
+{
+  "command": [
+    "python",
+    "scripts/_audit_match.py"
+  ],
+  "cwd": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/GP5-reviewed-snapshot",
+  "exit_code": 0,
+  "duration_seconds": 1.175,
+  "log": "screenshots/validation/GP5/guild-match.log",
+  "completed_utc": "2026-09-12T20:17:57.182657+00:00"
+}

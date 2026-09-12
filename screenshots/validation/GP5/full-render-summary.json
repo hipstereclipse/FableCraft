@@ -1,0 +1,13 @@
+{
+  "command": "gen_screenshots.main() with fc_lib.SHOTS redirected before import",
+  "output": "tmp/conformance/GP5-full-screenshots",
+  "exit_code": 0,
+  "png_counts": {
+    "gallery": 13,
+    "items": 55,
+    "mobs": 51,
+    "recipes": 130,
+    "structures": 32
+  },
+  "scope": "Full all-category offline pipeline from GP5 generators; no engine execution. C2 separately covers all 35 structures."
+}

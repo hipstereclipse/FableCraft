@@ -18,10 +18,10 @@ with exploration, reward collection and a reliable portal back to the source.
 This overrides the old instruction to start W3.5 or keep adding unrelated POIs.
 Read docs/GUILD_DEMON_PRIORITIES.md first; it is the active execution queue.
 
-Current checkpoint: GP4 — Guild defence and crime attribution repaired; cave lifecycle and route defects reproduced
-Last resolved prior commit: 91f46b92d324e2e53dae5493bc298648e8e10e31 (pushed).
-Containing commit: TLC Conformance — GP4: target Guild defence at actual offenders.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP4: target Guild defence at actual offenders'.
+Current checkpoint: GP5 — resumable new cave construction, Chamber access and containment repaired
+Last resolved prior commit: cd6815facd1312f7659fd64296d0f5167ce9b018 (pushed; exact-head CI 34713385082 passed).
+Containing commit: TLC Conformance — GP5: make Guild caves resumable and connect Chamber access.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP5: make Guild caves resumable and connect Chamber access'.
 Never invent a self-hash. Read the supplemental priority ledger for implementation
 scope, known defects and unrun engine checks.
 
@@ -80,13 +80,35 @@ voxels and every portal/reward/version contract remain unchanged. External
 reference images remain ignored. Matching player-height/layout/lighting review
 remains open; the limited original-image comparison has run.
 
-GP4's actual-callback cave audit (docs/GUILD_CAVE_REVIEW.md) proves that the
+GP4's historical actual-callback cave audit (docs/GUILD_CAVE_REVIEW.md) proved that the
 existing caves_done flag is set before the first write and prevents retries
 on interrupted/unloaded carving. No maintenance caller retries annex placement.
 The library threshold floor is missing, the Chamber's registered Cullis feet
-are two blocks too high, and its hill has three full-block rises. These cave
-defects are not fixed by the defence pass. Never trust the older mirrored
-_verify_caves PASS as actual route proof or blanket-recarve occupied old worlds.
+are two blocks too high, and its hill has three full-block rises. These were not fixed by the defence pass. GP5 now implements new-world
+repairs described below. Never blanket-recarve occupied old worlds.
+
+GP5 owns initial cave/Chamber work in guild_caves.js, with durable pre-placement
+enrollment, original-cell snapshots, compare-safe verified progress and maintenance
+retry. Legacy/no-journal worlds remain unmodified, including old interrupted caves.
+The Chamber is placed from the exact generated DATA manifest through individual
+permutations; completion follows verification. No broad delayed hollowing scrub.
+The Library entrance floor is preserved, 184 concentric tread cells provide six half-height
+rises around the entire unchanged dais (explicit user correction, 2026-09-12) and 44 glass cells contain the old water-cap perimeter.
+CHAMBER_LAYOUT supplies origin (11,-22,27), size (31,20,31), Cullis feet (15,5,15).
+Only a recognized old registry height can migrate, after actual core/arrival checks.
+Source/destination door contracts and all surface Guild anchors remain unchanged.
+
+Read docs/GUILD_CAVE_LIFECYCLE.md for conservative failure/legacy limits and manual
+acceptance. The original 2005 guide's PDF p97/printed p96 was inspected at native
+226x166 screenshots. The altar steps now wrap around fully; wall ribs/materials/lighting still differ;
+partial visual C, full neutral-light/reference matching open. External pixels stay
+ignored. _verify_caves.py now runs production suites instead of a mirrored carve.
+No engine movement, native block state, fluid, loading or crash tests have run.
+GP5 passes all 38 base gates from its isolated reviewed-index snapshot, plus
+explicit lint/spells/ESM/Guild diagnostics. Focused groups: cave20, Chamber10,
+Cullis6, C2 contract16. Full rendering: 51 mobs,55 items,130 recipes,32 structures,
+13 galleries. The initial C2 bulk-placement-only reader failure was fixed and its
+negative owner/manifest fixtures pass; initial logs are retained separately.
 
 The GP/DP priorities are supplemental, tracked separately from C3's original 45
 leaves; do not inflate the old scoreboard or mark these new deliverables done.
@@ -175,13 +197,16 @@ screenshots/validation/W3.3/remote-run.json. Inspect newest workflow's actual he
 All current world rows remain in-progress for manual/reference work, not done.
 
 Next three actions:
-1. Inspect exact-head CI, then read docs/GUILD_CAVE_REVIEW.md and fix the cave
-   completion/retry lifecycle through its owner; preserve occupied legacy worlds.
-2. Couple the library threshold floor and Chamber Cullis height to actual route
-   tests, then address persistent resident identity rather than proximity repair.
-3. Keep Guild/door refinement alternating with reference review, base/domain gates,
-   full renders as applicable, evidence, fresh handoff, separate commit and push.
-   At context limits print this continuation prompt verbatim.
+1. Inspect exact-head CI, then complete GP6 persistent resident identity/repair
+   using docs/GUILD_NPC_AUDIT.md and the new cave checkpoint as baseline. A
+   resident leaving the 140-block scan must not license a replacement; preserve
+   original IDs, spouse/Follow state and legacy ambiguity.
+2. Return to Guild/door refinement: review portal integration and original-game
+   views, then fix the highest concrete defect. Keep ordinary story doors and
+   unrelated POI expansion deferred; do not let Guild perfection defer portals.
+3. Continue separate milestones with base/domain gates, full renders as applicable,
+   evidence, fresh handoff, commit and immediate push. Missing engine access leaves
+   checks unrun, never passed. At context limits print this continuation verbatim.
 
 Landmines: hundreds of apparent edits are CRLF noise. Never git add -A, commit -a,
 renormalize, create .gitattributes or discard unrelated work. Read diffs with

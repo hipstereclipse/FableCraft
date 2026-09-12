@@ -1,0 +1,32 @@
+[
+  {
+    "source_snapshot_path": "scripts/_align/_audit.png",
+    "image": "screenshots/validation/GP5/guild-match.png",
+    "sha256": "af4fdabb273e3b057f739a7a89f4d122ad03a94bc3affd682197409b3d8c8735",
+    "scope": "Transcribed target / generated classes / mismatch diagnostic; not an original-game fidelity grade."
+  },
+  {
+    "source_snapshot_path": "screenshots/structures/_guild_topdown.png",
+    "image": "screenshots/validation/GP5/guild-overview-top.png",
+    "sha256": "07485b092886687e962c3354f66c54e97683e5eadae78b58d24ee87071ba1f74",
+    "scope": "Whole generated Guild top view; roof geometry remains visible."
+  },
+  {
+    "source_snapshot_path": "screenshots/structures/_guild_iso.png",
+    "image": "screenshots/validation/GP5/guild-overview-iso.png",
+    "sha256": "e5c89aed5fa1d2993a052a23a34f6505ebc560b254d666319d61b3ee9bf60686",
+    "scope": "Whole generated Guild static isometric view."
+  },
+  {
+    "source_snapshot_path": "screenshots/structures/_guild_crop_noroof.png",
+    "image": "screenshots/validation/GP5/guild-crop-cutaway-y0-6.png",
+    "sha256": "75d9c19d0cd7de0f1bf1e88b92b4cdc95c4eaf73dbf4dbdb3ea7d0ea883a0038",
+    "scope": "Explicit cutaway: Store / graves / cloister / Maze region; only local y0..6 retained."
+  },
+  {
+    "source_snapshot_path": "screenshots/structures/_guild_ground_top.png",
+    "image": "screenshots/validation/GP5/guild-ground-cutaway-y0-2.png",
+    "sha256": "988edd77f88b94290d32c1ca8dbf011a5a2165988f9dc106ea20d281a3974df6",
+    "scope": "Explicit cutaway: whole Guild ground plan, only local y0..2 retained."
+  }
+]

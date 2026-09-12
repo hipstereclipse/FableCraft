@@ -1,0 +1,32 @@
+Command: ["node", "--experimental-vm-modules", "scripts/tests/spells.test.mjs"]
+Cwd: /run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/GP5-reviewed-snapshot
+
+(node:11) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ Rush follows horizontal yaw, preserves camera, and uses checked teleport (21.690831ms)
+✔ Rush stops before wall (6.606838ms)
+✔ Rush stops before ledge (5.992613ms)
+✔ Rush stops before liquid (5.438012ms)
+✔ Rush stops before unloaded (6.328901ms)
+✔ Rush stops before throw (4.896475ms)
+✔ Rush stops before side-wall (5.242682ms)
+✔ Rush handles a full-block step and refuses a low ceiling over it (11.873785ms)
+✔ Rush failure produces no success buff when engine rejects destination (6.297191ms)
+✔ Ghost strikes immediately, obeys cooldown, and expires (5.960302ms)
+✔ Ghost ignores allies, players and charmed enemies using real targeting module (6.450321ms)
+✔ Ghost recast replaces blade and renews lifetime (4.752401ms)
+✔ Ghost clears on playerLeave (3.969937ms)
+✔ Ghost clears on entityDie (3.913782ms)
+✔ Ghost clears on playerSpawn (5.400982ms)
+✔ Ghost reseats after teleport/dimension change and cannot hunt beyond owner radius (9.7189ms)
+✔ Ghost cannot travel or strike through a wall (8.570391ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 136.94995
+
+Exit code: 0

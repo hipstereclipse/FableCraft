@@ -326,6 +326,16 @@ GUILD_LAYOUT = {
     "pond_bridge": ((55 + GUILD_EAST, 84), (65 + GUILD_EAST, 76)),
 }
 
+# Chamber coordinates are local to its own asset; origin is relative to the
+# existing Guild base. Exported with the generated voxel plan for runtime
+# placement and Cullis registration. This does not migrate saved geometry.
+CHAMBER_LAYOUT = {
+    "size": (31, 20, 31),
+    "origin": (11, -22, 27),
+    "cullis": (15, 5, 15),                 # standing feet; glowing deck is y4
+    "north_entry": (15, 2, 0),
+}
+
 
 def _mat(m):
     """Allow callers to pass either a block name or a zero-arg factory that
@@ -607,7 +617,7 @@ def build_guild_circulation(v):
         v.fill(25, 1, z0, 27, 2, z1, "minecraft:air")
 
 
-def guild_hall():
+def build_guild_hall():
     """The Heroes' Guild of Albion — laid out to match the canonical ground plan.
 
     You enter from the WEST (Lookout / Exit A) into the domed MAP ROOM: the
@@ -2462,7 +2472,11 @@ def guild_hall():
 
     build_guild_circulation(v)           # final owner of stair, landing and doorway volumes
     fix_floating_decor(v)                # re-seat every lantern; no floaters
-    v.save("guild_hall")
+    return v
+
+
+def guild_hall():
+    build_guild_hall().save("guild_hall")
 
 
 def silver_chest_ruin():
@@ -3677,20 +3691,20 @@ def arena_ring():
     v.save("arena_ring")
 
 
-def chamber_of_fate():
+def build_chamber_of_fate():
     """Heroes' Guild undercroft — the Old Kingdom Chamber of Fate: a great
     circular domed hall ringed with framed frescoes of a hero's deeds and a
     raised central dais holding the Cullis focus.
 
     It is deliberately HOLLOW: only the floor, the encircling wall, the columns
-    and the dome are solid — everything a Hero stands in is open air. (At
-    runtime `hollowChamber()` also scrubs any rock that bleeds in when the room
-    is placed deep underground, so it can never read as a solid block of fill.)
+    and the dome are solid — everything a Hero stands in is open air. Runtime
+    placement verifies these generated cells after the Guild terrain settles;
+    completed and legacy rooms are not repeatedly scrubbed or rebuilt.
     """
     r = rng("struct", "chamber_fate")
-    S, H = 31, 20
-    v = Vox(S, H, S)
-    c = S // 2
+    S, H, depth = CHAMBER_LAYOUT["size"]
+    v = Vox(S, H, depth)
+    c, cullis_feet, _ = CHAMBER_LAYOUT["cullis"]
     WALL_R = 13          # outer wall radius
     INNER = 11.5         # inner face of the wall (open floor reaches to here)
     WALL_TOP = 11        # dome springs from here
@@ -3758,14 +3772,13 @@ def chamber_of_fate():
 
     # ---- central CULLIS GATE — a RAISED warded dais crowning a broad HILL: the
     #      whole chamber centre swells into a stone mound that climbs from the floor
-    #      to a flat platform 5 blocks proud, ringed by chiseled/obsidian wards
-    #      around a glowing core. The mound rises 1 block at a time (walkable), so
-    #      the cave causeway arrives at floor level (north) and climbs the slope. ----
-    RAISE = 3
-    TOPY = 1 + RAISE                                  # platform deck y4 (a Hero stands at y5)
+    #      to a platform three blocks above the floor, ringed by chiseled/obsidian
+    #      wards around a glowing core. Concentric half-block treads wrap the
+    #      entire altar; the foundation below keeps its solid stone support. ----
+    TOPY = cullis_feet - 1                            # platform deck y4 (a Hero stands at y5)
     HILLR = 8
 
-    def _surf(d):                                     # mound surface height (flat top, 1-high steps)
+    def _surf(d):                                     # underlying solid mound; treads finish it below
         if d <= 3.0:
             return TOPY
         return max(1, TOPY - int((d - 3.0) * 0.75 + 0.5))
@@ -3793,8 +3806,8 @@ def chamber_of_fate():
 
     # ---- cave entrance approach from the NORTH (the runtime tunnel pierces the
     #      NORTH wall here). A flat entry vestibule meets the tunnel at floor level;
-    #      south of it the approach RAMPS UP the hill's north slope (just clear the
-    #      headroom over the mound, keeping its steps) onto the platform. ----
+    #      south of it the approach climbs the hill's north slope. Keep the outer
+    #      foundation, then finish the all-around concentric treads below. ----
     for z in range(0, c - 3):
         for x in range(c - 2, c + 3):
             d = math.hypot(x - c, z - c)
@@ -3803,6 +3816,25 @@ def chamber_of_fate():
                 v.fill(x, 2, z, x, 6, z, "minecraft:air")
             else:                                          # over the slope: clear headroom, keep the ramp
                 v.fill(x, _surf(d) + 1, z, x, _surf(d) + 6, z, "minecraft:air")
+
+    # The steps surround the entire altar, as in the original Chamber. Five
+    # annular treads at radii 3.4..8.4 join the existing floor (feet y2) to the
+    # unchanged dais (feet y5), giving six half-block transitions on every side.
+    # Circular bands are rasterized onto the square grid: cardinal travel can
+    # change half a block at a corner while the full circumference stays joined.
+    for x in range(c - 9, c + 10):
+        for z in range(c - 9, c + 10):
+            d = math.hypot(x - c, z - c)
+            if not 3.4 < d <= 8.4:
+                continue
+            feet = cullis_feet - .5 * math.ceil(d - 3.4)
+            deck = math.ceil(feet) - 1
+            for y in range(2, deck):
+                v.set(x, y, z, DEEP_TILES if (x + z) % 2 else CHISELED)
+            if feet % 1:
+                v.set(x, deck, z, SBRICK_SLAB, {"minecraft:vertical_half": "bottom"})
+            else:
+                v.set(x, deck, z, STONE)              # continuous stone bands, matching the slabs
 
     # ---- dome shell (thick rings overlap so it is airtight against bleed-in) --
     for y in range(WALL_TOP, H - 2):
@@ -3827,7 +3859,17 @@ def chamber_of_fate():
                 v.set(x, cap, z, "minecraft:glass")
                 v.set(x, cap + 1, z, "minecraft:water")
                 v.set(x, cap + 2, z, "minecraft:glowstone")
-    v.save("chamber_of_fate")
+                # The source layer needs a continuous lateral rim as well as
+                # its glass base. Without it water spills outside the dome.
+                for xx, zz in ((x - 1, z), (x + 1, z), (x, z - 1), (x, z + 1)):
+                    if math.hypot(xx - c, zz - c) > 7.6:
+                        v.set(xx, cap + 1, zz, "minecraft:glass")
+    return v
+
+
+def chamber_of_fate():
+    """Write only the Chamber asset from the same plan exported to runtime."""
+    build_chamber_of_fate().save("chamber_of_fate")
 
 
 def oakvale_village():

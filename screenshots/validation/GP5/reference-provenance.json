@@ -1,0 +1,22 @@
+{
+  "source": "Casey Loe / Kaizen Media Group, Prima Official Game Guide, 2005, ISBN 0-7615-5180-8",
+  "pdf_page": 97,
+  "printed_page": 96,
+  "source_url": "https://www.ogxbox.co.uk/media/com_eshop/attachments/Fable_The_Lost_Chapters_Strategy_Guide_Book.pdf",
+  "inspected": "Complete page and three native 226x166 gameplay images; Chapter 4 final battle sequence. No external pixels committed.",
+  "files": {
+    "tmp/conformance/reference-arcanum/prima-tlc-guide.pdf": "0872726adb299a10c94b31d482aecb540d740bf61fab1f22cb08cdcf81ae1a2b",
+    "tmp/conformance/reference-chamber/native-005.png": "02169f01dece9dac0eaa9b2a28562fd008e6447634c32734abd38894d2fa3eed",
+    "tmp/conformance/reference-chamber/native-007.png": "b75d5bae71d8eb4fe16c5c8bf4e71a8596612f382eb4b00d81aa5e431deeb873",
+    "tmp/conformance/reference-chamber/native-009.png": "731613b8f8f7e672b8fa3d09d0e0a5defeaace610288c73d5acbc8f695d26ca1",
+    "tmp/conformance/reference-chamber/steam-tlc-jack.jpg": "ed6d3ab2b73f36a02421e82c5be4fb5c99a5854d685825e3eddee740db0be57c"
+  },
+  "user_correction": "2026-09-12: stairs wrap around the entire altar; inspect image/screenshot references.",
+  "image_search": {
+    "google_images": "Attempted Google Images URL; web fetch could not open it and no browser was available. General image search and direct screenshot downloads used.",
+    "supplement_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=121425366",
+    "supplement_image_url": "https://steamuserimages-a.akamaihd.net/ugc/1117158766072432507/FD2A0187B5EA6881F5E0C6A08816BA768C027826/",
+    "supplement_scope": "Inspected 1280x727 Jack/wall view; supplied in a TLC guide but exact game-version provenance unverified, and altar not visible. Not authority for steps or new wall design.",
+    "rejected_results": "Anniversary Steam backgrounds/store screenshots; Fable II/III scenes; Reddit This room labeled Anniversary."
+  }
+}

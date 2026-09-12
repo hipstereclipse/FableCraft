@@ -114,5 +114,20 @@ class StructureContract(unittest.TestCase):
         entry = next(e for e in self.m['structures'] if e['kind'] == 'legacy')
         del entry['reason']; self.assert_error('Undocumented legacy output')
 
+    def test_per_cell_chamber_registration_requires_owner_and_manifest(self):
+        main = Path('packs/Fablecraft_BP/scripts/main.js')
+        source = (ROOT / main).read_text()
+        self.assertEqual(self.tables['fixed'].count('fc:chamber_of_fate'), 1)
+        target = self.root / main
+        target.parent.mkdir(parents=True, exist_ok=True)
+        for old, new in (('./guild_caves.js', './unrelated.js'),
+                         ('const guildCaves = createGuildCaveLifecycle(', 'const guildCaves = unrelatedFactory('),
+                         ('chamber: DATA.guildChamber', 'chamber: DATA.unrelated')):
+            with self.subTest(binding=old):
+                self.assertIn(old, source)
+                target.write_text(source.replace(old, new))
+                self.t = runtime_tables(self.root)
+                self.assert_error('Missing fixed registration: chamber_of_fate')
+
 
 if __name__ == '__main__': unittest.main(verbosity=2)

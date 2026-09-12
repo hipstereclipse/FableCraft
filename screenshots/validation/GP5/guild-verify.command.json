@@ -1,0 +1,11 @@
+{
+  "command": [
+    "python",
+    "scripts/_verify_guild.py"
+  ],
+  "cwd": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/GP5-reviewed-snapshot",
+  "exit_code": 0,
+  "duration_seconds": 11.715,
+  "log": "screenshots/validation/GP5/guild-verify.log",
+  "completed_utc": "2026-09-12T20:18:07.724246+00:00"
+}

@@ -729,6 +729,32 @@ def emit_spawn_rules(mob):
 # Shared gameplay data for main.js
 # ---------------------------------------------------------------------------
 
+def guild_chamber_contract():
+    """Share the actual Chamber voxels with resumable runtime placement."""
+    from itertools import groupby
+    from gen_structures import CHAMBER_LAYOUT, Vox, build_chamber_of_fate, build_guild_hall
+    vox = build_chamber_of_fate()
+    guild = build_guild_hall()
+    entry = Vox(5, 3, 5)
+    for x in range(5):
+        for y in range(3):
+            for z in range(5):
+                name, states = guild.palette[guild.grid[guild.idx(x + 25, y, z + 12)]]
+                entry.set(x, y, z, name, states)
+    return {
+        "size": list(CHAMBER_LAYOUT["size"]),
+        "origin": list(CHAMBER_LAYOUT["origin"]),
+        "cullis": list(CHAMBER_LAYOUT["cullis"]),
+        "palette": [{"name": name, "states": states} for name, states in vox.palette],
+        "runs": [[index, sum(1 for _ in cells)] for index, cells in groupby(vox.grid)],
+        "entry": {
+            "origin": [25, 0, 12], "size": [5, 3, 5],
+            "palette": [{"name": name, "states": states} for name, states in entry.palette],
+            "runs": [[index, sum(1 for _ in cells)] for index, cells in groupby(entry.grid)],
+        },
+    }
+
+
 def emit_script_data():
     items = fc_data.all_items()
     weapons = {f"{NAMESPACE}:{i['id']}": {
@@ -758,6 +784,7 @@ def emit_script_data():
         "demonDoors": fc_data.DEMON_DOORS,
         "demonDoorRealms": fc_data.CANONICAL_DEMON_DOORS,
         "guildDoorAperture": fc_data.GUILD_DOOR_APERTURE,
+        "guildChamber": guild_chamber_contract(),
         "killXp": fc_data.KILL_XP,
         "killMorality": fc_data.KILL_MORALITY,
         "augments": {f"{NAMESPACE}:{a['id']}": a["id"].replace("_augment", "")

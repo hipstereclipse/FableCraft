@@ -116,18 +116,18 @@
       "notes": []
     },
     "chamber_of_fate": {
-      "asset_sha256": "733c8d9c33b78f11fb67fe2292620ac4c0f69e59dbc5418905d6d761e8ee5f25",
+      "asset_sha256": "7669d6d6d6e285abdb9982a90cf1757f7f89f60a7108e7b70b6671f33c6ae084",
       "size": [
         31,
         20,
         31
       ],
-      "image_sha256": "d221c37f9c894248a461a8633d0419692614906e0ee5a11b677410b0d909a354",
+      "image_sha256": "96f3db4b68dc70b24568732dbed2f12fda6e2c42b438ec3f63a375c6eb9d28ee",
       "grade": "S",
       "score": 100,
       "metrics": {
-        "coverage": 33.3,
-        "colors": 23,
+        "coverage": 33.4,
+        "colors": 22,
         "contrast": 0.82,
         "brightness": 0.46,
         "placeholder": false

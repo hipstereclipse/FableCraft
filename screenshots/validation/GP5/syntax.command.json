@@ -1,0 +1,70 @@
+{
+  "command": [
+    "node",
+    "--check",
+    "--input-type=module"
+  ],
+  "input": "Each BP JavaScript file is parsed as an ESM source string on stdin; no engine imports are executed.",
+  "cwd": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/GP5-reviewed-snapshot",
+  "exit_code": 0,
+  "duration_seconds": 0.37,
+  "files": [
+    {
+      "path": "packs/Fablecraft_BP/scripts/fable_emote_registry.js",
+      "sha256": "dd9a6386017c5c7d8be23fa937829d21bb7edd0b5d37b763e80fd57bf946b8da",
+      "exit_code": 0
+    },
+    {
+      "path": "packs/Fablecraft_BP/scripts/fable_emotes.js",
+      "sha256": "4fad3f0db107b8d050c5a5e8965dc66bcf0926192c0494c36fd55be96700e366",
+      "exit_code": 0
+    },
+    {
+      "path": "packs/Fablecraft_BP/scripts/fable_hud.js",
+      "sha256": "f08e056a4398fc07905aa4f75960bab8febb77479e633ae1a5349c0ca6ba3502",
+      "exit_code": 0
+    },
+    {
+      "path": "packs/Fablecraft_BP/scripts/fc_demon_doors.js",
+      "sha256": "c47d879edafb475c510d2d704fa573bbbe1e160f0c38e6cf5516747fb6a1d94d",
+      "exit_code": 0
+    },
+    {
+      "path": "packs/Fablecraft_BP/scripts/fc_gamedata.js",
+      "sha256": "12ee82ce8e1540536fd61b23954715583f6233b221132385e33ae8674ff69125",
+      "exit_code": 0
+    },
+    {
+      "path": "packs/Fablecraft_BP/scripts/fc_strings.js",
+      "sha256": "e91bdc5ebfad3467f27f217f35c78a63d55f716fdd5b5312c99a6680ccaa5516",
+      "exit_code": 0
+    },
+    {
+      "path": "packs/Fablecraft_BP/scripts/guild_caves.js",
+      "sha256": "95d0fa9b5cc75f43edf8aedaf88a1b9517baf637e369954bc9dd1703d9d36d58",
+      "exit_code": 0
+    },
+    {
+      "path": "packs/Fablecraft_BP/scripts/guild_defence.js",
+      "sha256": "c13f75b94a007df0d26eb474b6093bb0a2e8c1a447c11d110bf941a453bf16b1",
+      "exit_code": 0
+    },
+    {
+      "path": "packs/Fablecraft_BP/scripts/guild_door_aperture.js",
+      "sha256": "5db5993efaebf1787125cd2552379f1a9220d5e485fa7edd9c4b52603681fbb5",
+      "exit_code": 0
+    },
+    {
+      "path": "packs/Fablecraft_BP/scripts/guild_training.js",
+      "sha256": "1a0b2b849081553d0f681d40018630af3bd3ab99cc0e4a63893252b0ca93d669",
+      "exit_code": 0
+    },
+    {
+      "path": "packs/Fablecraft_BP/scripts/main.js",
+      "sha256": "7526abb99d071ac12a7a2d61626cec5811723f923cadabcba45b5a79195bd4e8",
+      "exit_code": 0
+    }
+  ],
+  "log": "screenshots/validation/GP5/syntax.log",
+  "completed_utc": "2026-09-12T20:18:27.002385+00:00"
+}

@@ -5,7 +5,7 @@
 // boss phases (Jack of Blades), augments, and the Guild.
 // ============================================================================
 import {
-  world, system, EquipmentSlot, EntityDamageCause, ItemStack, MolangVariableMap,
+  world, system, EquipmentSlot, EntityDamageCause, ItemStack, MolangVariableMap, BlockPermutation,
 } from "@minecraft/server";
 import {
   ActionFormData, MessageFormData, ModalFormData,
@@ -13,6 +13,7 @@ import {
 import { DATA } from "./fc_gamedata.js";
 import { createDemonDoorPilot } from "./fc_demon_doors.js";
 import { createGuildDoorAperture } from "./guild_door_aperture.js";
+import { createGuildCaveLifecycle } from "./guild_caves.js";
 import { itemName, t as msg, template, placeName, titleName } from "./fc_strings.js";
 import {
   performFableEmote, refreshFableEmoteUnlocks,
@@ -423,6 +424,7 @@ function forceLoadGuild(dim, p, base) {
 }
 
 function placeGuildNear(p) {
+  if (p?.dimension?.id !== "minecraft:overworld") return;
   if (world.getDynamicProperty("fc_guild_placed")) return;
   // Self-healing guard: only one build runs at a time, but if a build attempt
   // ever stalls or throws without rescheduling itself, the timestamp goes stale
@@ -430,10 +432,15 @@ function placeGuildNear(p) {
   // spawning" by a single failed attempt.
   const now = system.currentTick;
   const last = world.getDynamicProperty("fc_guild_build_tick");
-  if (typeof last === "number" && now - last < 200) return;  // a build is in flight
+  if (typeof last === "number" && now >= last && now - last < 200) {
+    // A persisted tick can overlap a new session's uptime. Retry at the guard's
+    // expiry so a join never silently strands the already enrolled founding.
+    system.runTimeout(() => { try { placeGuildNear(p); } catch { } }, 200 - (now - last));
+    return;
+  }
   world.setDynamicProperty("fc_guild_build_tick", now);
   const dim = p.dimension;
-  const base = { x: Math.floor(p.location.x) + 16, y: 0, z: Math.floor(p.location.z) + 16 };
+  const base = guildCaves.pendingBase() ?? { x: Math.floor(p.location.x) + 16, y: 0, z: Math.floor(p.location.z) + 16 };
   try { buildGuildWhenReady(p, dim, base, 0); } catch { /* stale tick lets the sweep retry */ }
 }
 
@@ -441,10 +448,15 @@ function placeGuildNear(p) {
 // Guild from <=56-block tiles. Retries for ~5 minutes so generation succeeds
 // even when the player's render distance leaves most of the campus unloaded.
 function buildGuildWhenReady(p, dim, base, attempt) {
+  if (dim?.id !== "minecraft:overworld" || p?.dimension?.id !== "minecraft:overworld") return;
   if (world.getDynamicProperty("fc_guild_placed")) return;
   world.setDynamicProperty("fc_guild_build_tick", system.currentTick);  // keep the guard fresh while working
+  // An enrolled failed founding owns its original x/y/z even after reload
+  // or player movement; never reinterpret the marker at a freshly sampled site.
+  const pendingBase = guildCaves.pendingBase();
+  if (pendingBase) base = pendingBase;
   const terrainAreaReady = forceLoadGuild(dim, p, base);
-  const sampledY = sampleGroundY(dim, base.x, base.z, 122, 108, true);
+  const sampledY = pendingBase ? pendingBase.y + 1 : sampleGroundY(dim, base.x, base.z, 122, 108, true);
   if (sampledY === null) {  // chunks still loading — try again shortly
     if (attempt < 600) system.runTimeout(() => buildGuildWhenReady(p, dim, base, attempt + 1), 10);
     return;  // else stop refreshing — the stale tick lets the next sweep restart us
@@ -454,6 +466,7 @@ function buildGuildWhenReady(p, dim, base, attempt) {
   const y = Math.max(OVERWORLD_SEA_LEVEL, sampledY - 1);
   showHeroTitle(p, "§6Founding Guild...", { fadeInDuration: 0, stayDuration: 200, fadeOutDuration: 0, subtitle: "§ePlease wait..." });
   system.runTimeout(() => {
+  if (dim?.id !== "minecraft:overworld" || p?.dimension?.id !== "minecraft:overworld") return;
   try {
     // The Heroes' Guild is one connected campus placed as a single structure
     // on a single floor level. The heart is the domed Map Room rotunda at
@@ -463,6 +476,9 @@ function buildGuildWhenReady(p, dim, base, attempt) {
     // the gatehouse; the Dining Hall lies east; the two-storey Library runs
     // north to the Guild-Cave door; Maze's Tower spire stands NE (study floor
     // at local y+15). The Hero wakes on the crimson runner at (34,~30).
+    // Persist retry ownership before placing the new Guild. A failed marker
+    // write follows this same build retry path, never creating an unowned cave.
+    if (!guildCaves.enroll({ x: base.x, y, z: base.z })) throw new Error("Guild cave enrollment unavailable");
     world.structureManager.place("fc:guild_hall", dim, { x: base.x, y, z: base.z });
   } catch {  // chunk-edge race — retry; the ticking area keeps loading them
     if (attempt < 600) system.runTimeout(() => buildGuildWhenReady(p, dim, base, attempt + 1), 10);
@@ -535,153 +551,36 @@ function buildGuildWhenReady(p, dim, base, attempt) {
   }, 5);
 }
 
-// The Guild hall itself is a single connected structure placed by
-// placeGuildNear. The only remaining annex is the Chamber of Fate, buried far
-// beneath the hall; it keeps its own flag so chunk-edge failures retry later.
+// GP5 owns initial Chamber/cave placement as exact, verified per-cell work.
+// Waiting for terrain settlement removes the race with the old delayed natural-
+// block scrub. The generated Chamber contains no entity/block-entity payloads.
+const guildCaves = createGuildCaveLifecycle({
+  world, system, chamber: DATA.guildChamber,
+  resolve: (name, states) => BlockPermutation.resolve(name, states),
+  terrainReady: () => !!world.getDynamicProperty("fc_guild_terrain_v3") && !guildTerrainRepairRunning,
+  onReady: () => {
+    const base = JSON.parse(world.getDynamicProperty("fc_guild_base"));
+    const [ox, oy, oz] = DATA.guildChamber.origin;
+    const [sx, sy, sz] = DATA.guildChamber.size;
+    // The lifecycle durably claims this best-effort decoration before invoking
+    // it. A failure may omit decoration, but reload never reseeds taken loot.
+    fillLootChests(OW(), base.x + ox, base.y + oy, base.z + oz, sx, sy, sz, "fc:chamber_of_fate");
+    hangChamberArt(OW(), base.x + ox, base.y + oy, base.z + oz, sx);
+  },
+});
+
 function placeGuildAnnexes(dim) {
   const raw = world.getDynamicProperty("fc_guild_base");
   if (!raw) return;
   let base;
   try { base = JSON.parse(raw); } catch { return; }
-  if (!world.getDynamicProperty("fc_guild_chamber_placed")) {
-    // the Chamber of Fate sleeps far beneath the Map Room rotunda (local 26,42),
-    // so its 31x31 footprint is centred under the dome
-    const chx = base.x + 11, chy = base.y - 22, chz = base.z + 27;
-    try {
-      world.structureManager.place("fc:chamber_of_fate", dim, { x: chx, y: chy, z: chz });
-      world.setDynamicProperty("fc_guild_chamber_placed", true);
-      // the Cullis crowns a raised HILL now (platform deck local y6, stand y7)
-      registerCullis("Chamber of Fate", { x: chx + 15.5, y: chy + 7, z: chz + 15.5 });
-      fillLootChests(dim, chx, chy, chz, 31, 20, 31, "fc:chamber_of_fate");
-      hangChamberArt(dim, chx, chy, chz, 31);       // best-effort vanilla paintings
-      // The Guild's foundation fill (blendTerrain) is an async job that finishes
-      // AFTER this and can leak stone through the dome into the Chamber, so scrub
-      // it now and again on delays once the foundation has fully settled.
-      for (const delay of [10, 200, 600, 1400]) {
-        system.runTimeout(() => { try { hollowChamber(dim, chx, chy, chz, 31, 20); } catch { } }, delay);
-      }
-    } catch { }
-  }
-  carveGuildCaves(dim, base);                       // spiral + ravine to the Chamber
+  carveGuildCaves(dim, base);
+  // Includes the narrowly recognized old height migration, with no block writes.
+  ensureGuildChamberCullis(dim, base);
 }
 
-// Carve the Guild Caves: a 3x3 spiral stair (central glowing pillar) of
-// HALF-BLOCK steps carries the ENTIRE descent from the Library's caves alcove
-// down to the Chamber floor level, then a long, DEAD-LEVEL stone causeway
-// crosses a wide, deep, DARK gulf and pierces the Chamber of Fate's north wall
-// through a level arch. Every spiral tread drops the floor by exactly 0.5 block
-// (slab/full-course alternation), so the walk is jump-free DOWN *and* UP, end to
-// end (alcove -> spiral down -> flat span over darkness -> arch -> Chamber).
-// Runtime-carved because it spans the surface build down to the buried Chamber.
-// Idempotent, bounded, and fully wrapped so it can never break a build. The
-// shaft footprint is excluded from blendTerrain (foundation fill) so the
-// freshly-carved well is never back-filled with rock — and re-scrubbed on a few
-// delays to defeat any late async fill (see scrubCaveShaft).
 function carveGuildCaves(dim, base) {
-  if (world.getDynamicProperty("fc_guild_caves_done")) return;
-  if (!world.getDynamicProperty("fc_guild_chamber_placed")) return;
-  const setB = (x, y, z, id) => { try { const b = dim.getBlock({ x, y, z }); if (b) b.setType(id); } catch { } };
-  const air = (x, y, z) => setB(x, y, z, "minecraft:air");
-  const stone = () => (Math.random() < 0.22 ? "minecraft:mossy_stone_bricks" : "minecraft:stone_bricks");
-  // ---- anchors (keep in lockstep with gen_structures.py guild_hall + chamber) ----
-  const SX = base.x + 27, SZ = base.z + 14;   // 3x3 spiral centre (Library alcove)
-  const TX = base.x + 26;                      // causeway centreline == Chamber centre x
-  const CWALL = base.z + 29;                   // Chamber north wall (pierced here)
-  const CFY = base.y - 21;                     // Chamber floor block (a Hero walks at CFY+1)
-  const DECK = CFY;                            // FLAT deck == Chamber floor -> level walk-in
-  const BSTART = base.z + 16;                  // deck springs from a solid abutment here
-  const CSTART = base.z + 17, CEND = base.z + 28;  // the deck floats over the gulf here
-  const HALF = 10;                             // gulf half-width carved to darkness each side
-  const CEIL = DECK + 7;                       // sealed rock ceiling capping the gulf
-  const FLOORB = Math.max(base.y - 36, -60);   // abyss floor — a long dark drop below the span
-  // clockwise ring S,SW,W,NW,N,NE,E,SE starting at the Library-entry (south) side
-  const ringCW = [[0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1], [1, 0], [1, 1]];
-  const work = function* () {
-    // ===== 1. the SHAFT: a hollow 3x3 around a chiseled pillar, OPEN at the top
-    //         and OPEN on its south face so you walk straight in off the Library
-    //         alcove (that south wall was the bug the player had to dig through) =====
-    for (let y = base.y + 2; y >= DECK - 1; y--) {
-      for (let ox = -2; ox <= 2; ox++) for (let oz = -2; oz <= 2; oz++) {
-        const cheb = Math.max(Math.abs(ox), Math.abs(oz));
-        if (ox === 0 && oz === 0) setB(SX, y, SZ, "minecraft:chiseled_stone_bricks"); // pillar
-        else if (cheb === 2) {
-          if (oz === 2 && y >= base.y) air(SX + ox, y, SZ + oz);   // open the entry doorway
-          else setB(SX + ox, y, SZ + oz, stone());                 // shaft wall
-        } else air(SX + ox, y, SZ + oz);                           // hollow interior
-      }
-      yield;
-    }
-    // ===== 2. the DESCENT: a helix of HALF-BLOCK steps. Each tread drops the
-    //         walking surface by exactly 0.5 block (even cells = bottom slabs,
-    //         odd cells = full courses), so a Hero strolls DOWN and back UP it
-    //         without ever jumping (the engine auto-steps 0.5). It takes twice
-    //         the cells of a full-block stair, so the helix simply winds more
-    //         turns to carry the same drop down to deck level (the causeway stays
-    //         dead level). The treads float off the glowing central pillar — the
-    //         cell beneath each is the headroom of the tread one turn below, so we
-    //         leave it open (no posts) to keep the climb jump-free. =====
-    air(SX, base.y, SZ + 1);                            // open the entry mouth
-    const slab = () => (Math.random() < 0.22 ? "minecraft:mossy_stone_brick_slab" : "minecraft:stone_brick_slab");
-    for (let n = 0; ; n++) {
-      const [dx, dz] = ringCW[n % 8];
-      const tx = SX + dx, tz = SZ + dz;
-      // surface = base.y + 0.5 - 0.5*n ; even n -> bottom slab (top at +.5), odd n -> full course
-      const blockY = (n % 2 === 0) ? (base.y - n / 2) : (base.y - (n + 1) / 2);
-      if (blockY < DECK || (blockY === DECK && n % 2 === 0)) break;   // end on the full course at deck level
-      setB(tx, blockY, tz, (n % 2 === 0) ? slab() : stone());        // the tread
-      air(tx, blockY + 1, tz); air(tx, blockY + 2, tz); air(tx, blockY + 3, tz);  // headroom
-      if (n % 4 === 0) setB(SX, blockY + 1, SZ, "minecraft:glowstone");           // glowing newel
-      yield;
-    }
-    // a clean flat landing at the spiral foot (deck level) feeding south to the bridge
-    for (let ox = -1; ox <= 1; ox++) for (let oz = -1; oz <= 1; oz++) {
-      setB(SX + ox, DECK, SZ + oz, stone());            // landing floor
-      setB(SX + ox, DECK - 1, SZ + oz, stone());        // solid beneath
-    }
-    // ===== 3. the CAUSEWAY: a long, dead-level span over a wide, deep, dark gulf.
-    //         Deck is 5 wide (inner 3 walkable, outer 2 carry the rails); the gulf
-    //         is carved to darkness on BOTH sides for the entire crossing. =====
-    for (let z = BSTART; z < CWALL; z++) {
-      if (z >= CSTART && z <= CEND) {                   // open the gulf under + beside the span
-        for (let ox = -HALF; ox <= HALF; ox++) {
-          setB(TX + ox, CEIL, z, stone());              // sealed rock ceiling over the void
-          for (let yy = CEIL - 1; yy > FLOORB; yy--) air(TX + ox, yy, z);
-        }
-        for (let yy = FLOORB; yy <= CEIL; yy++) {       // sealed gulf side-walls (no bleed-in)
-          setB(TX - HALF - 1, yy, z, stone());
-          setB(TX + HALF + 1, yy, z, stone());
-        }
-      } else {                                          // solid abutment north of the gulf
-        for (let ox = -HALF - 1; ox <= HALF + 1; ox++) {
-          if (Math.abs(ox) <= 2) continue;              // leave the bridge portal open
-          for (let yy = FLOORB; yy <= CEIL; yy++) setB(TX + ox, yy, z, stone());
-        }
-        for (let ox = -2; ox <= 2; ox++) for (let yy = DECK - 3; yy < DECK; yy++) setB(TX + ox, yy, z, stone());
-      }
-      // the level deck + low rails — identical at every z, so the walk never slopes
-      for (let ox = -2; ox <= 2; ox++) setB(TX + ox, DECK, z, stone());
-      for (let ox = -1; ox <= 1; ox++) { air(TX + ox, DECK + 1, z); air(TX + ox, DECK + 2, z); air(TX + ox, DECK + 3, z); }
-      setB(TX - 2, DECK + 1, z, "minecraft:cobblestone_wall");   // rail the whole length
-      setB(TX + 2, DECK + 1, z, "minecraft:cobblestone_wall");
-      if ((z - BSTART) % 4 === 1) {                     // sparse low light; flanks stay dark
-        setB(TX - 2, DECK + 2, z, "minecraft:soul_lantern");
-        setB(TX + 2, DECK + 2, z, "minecraft:soul_lantern");
-      }
-      yield;
-    }
-    // ===== 4. pierce the Chamber's north wall with a level stone arch =====
-    for (let ox = -1; ox <= 1; ox++) {
-      setB(TX + ox, DECK, CWALL, stone());                       // threshold floor (no dip)
-      for (let oy = 1; oy <= 4; oy++) air(TX + ox, DECK + oy, CWALL);   // doorway opening
-    }
-    for (let oy = 1; oy <= 5; oy++) {                            // chiseled jambs
-      setB(TX - 2, DECK + oy, CWALL, "minecraft:chiseled_stone_bricks");
-      setB(TX + 2, DECK + oy, CWALL, "minecraft:chiseled_stone_bricks");
-    }
-    for (let ox = -2; ox <= 2; ox++) setB(TX + ox, DECK + 5, CWALL, "minecraft:chiseled_stone_bricks"); // lintel
-    setB(TX, DECK + 4, CWALL, "minecraft:lantern");              // arch lantern
-  };
-  try { system.runJob(work()); world.setDynamicProperty("fc_guild_caves_done", true); } catch { }
+  return guildCaves.maintain(dim, base);
 }
 
 // Populate the land just outside the Guild with biome-matched trees and ground
@@ -727,38 +626,6 @@ function populateSurroundings(dim, base, force = false) {
       yield;
     }
     world.setDynamicProperty("fc_guild_wild_done", true);
-  };
-  try { system.runJob(work()); } catch { }
-}
-
-// Guarantee the Chamber of Fate reads as an open, hollow hall even when it is
-// stamped into solid deepslate: clear any *natural* rock that intruded into the
-// room volume, while leaving the structure's own masonry, columns, frescoes and
-// dais untouched (we only delete raw stone/dirt/ore, never built blocks).
-const CHAMBER_FILL = new Set([
-  "minecraft:stone", "minecraft:deepslate", "minecraft:dirt", "minecraft:gravel",
-  "minecraft:andesite", "minecraft:diorite", "minecraft:granite", "minecraft:tuff",
-  "minecraft:cobblestone", "minecraft:water", "minecraft:lava", "minecraft:coarse_dirt",
-  "minecraft:calcite", "minecraft:dripstone_block", "minecraft:clay", "minecraft:sand",
-  "minecraft:sandstone", "minecraft:grass_block", "minecraft:moss_block",
-]);
-function hollowChamber(dim, x0, y0, z0, S, H) {
-  const c = S >> 1;
-  const work = function* () {
-    for (let lx = 1; lx < S - 1; lx++) {
-      for (let lz = 1; lz < S - 1; lz++) {
-        const d = Math.hypot(lx - c, lz - c);
-        if (d > 11.4) continue;                 // inside the wall ring only
-        for (let ly = 2; ly < H - 3; ly++) {    // stop below the glass/water/glowstone skylight
-          let b;
-          try { b = dim.getBlock({ x: x0 + lx, y: y0 + ly, z: z0 + lz }); } catch { continue; }
-          if (b && !b.isAir && CHAMBER_FILL.has(b.typeId)) {
-            try { b.setType("minecraft:air"); } catch { }
-          }
-        }
-      }
-      yield;
-    }
   };
   try { system.runJob(work()); } catch { }
 }
@@ -1233,6 +1100,7 @@ system.runInterval(() => {
   if (!bounds || !world.getDynamicProperty("fc_guild_placed")) return;
   const dim = OW();
   const base = bounds.base;
+  placeGuildAnnexes(dim);
   clearGuildRingScarecrows(dim, base);
   repairGuildDemonApproach(dim, base);
   repairGuildTerrain(dim, base);
@@ -4165,6 +4033,36 @@ function registerCullis(name, loc) {
     sites.push({ name, x, y, z });
   }
   world.setDynamicProperty("fc_cullis", JSON.stringify(sites));
+}
+
+// Coordinate-only correction for the one known legacy Chamber registration.
+// Never move a customized point or repair geometry in an occupied saved world.
+function ensureGuildChamberCullis(dim, base) {
+  try {
+    if (!world.getDynamicProperty("fc_guild_chamber_placed")) return false;
+    const { origin, cullis } = DATA.guildChamber;
+    if (![base.x, base.y, base.z, ...origin, ...cullis].every(Number.isFinite)) return false;
+    const loc = { x: base.x + origin[0] + cullis[0],
+      y: base.y + origin[1] + cullis[1], z: base.z + origin[2] + cullis[2] };
+    if (!isCullisConfigured(dim, loc)) return false;
+    for (const dy of [0, 1]) {
+      const block = dim.getBlock({ x: loc.x, y: loc.y + dy, z: loc.z });
+      if (!block?.isAir) return false;
+    }
+    const sites = JSON.parse(world.getDynamicProperty("fc_cullis") ?? "[]");
+    if (!Array.isArray(sites) || sites.some(s => !s || typeof s.name !== "string")) return false;
+    const matches = sites.filter(s => s?.name === "Chamber of Fate");
+    if (matches.length > 1) return false;
+    const existing = matches[0];
+    if (existing) {
+      if (existing.x !== loc.x || existing.z !== loc.z) return false;
+      if (existing.y === loc.y) return true;
+      if (existing.y !== base.y + origin[1] + 7) return false;
+      existing.y = loc.y;
+    } else sites.push({ name: "Chamber of Fate", ...loc });
+    world.setDynamicProperty("fc_cullis", JSON.stringify(sites));
+    return true;
+  } catch { return false; }
 }
 
 const cullisCd = new Map();
