@@ -1125,6 +1125,11 @@ def emit_client_entity(mob):
         ]
     anim_map = {k: v for k, v in anims}
     keys = [k for k, _ in anims]
+    # variable.attack_time is engine-owned swing progress (not a missing query).
+    # Ranged/caster BP behaviors deliberately omit melee goals, so their melee
+    # overlay has no swing source. Bow/cast animations are separate controllers.
+    # See docs/ANIMATION_AUDIT.md and the entity-local gate audit.
+    melee_overlay = mob.get("behavior") not in {"ranged", "caster"}
     # A mob is biped-driven if it owns both a walk and an idle clip — those feed
     # the idle<->walk controller. Deriving this from the clip set (not a hardcoded
     # plan list) means custom humanoids like Theresa get the blended controllers
@@ -1143,7 +1148,7 @@ def emit_client_entity(mob):
         else:
             anim_map["ctrl_move"] = "controller.animation.fc.biped_move"
         animate = ["ctrl_move"]
-        if "attack" in anim_map:                       # only overlay a strike when the plan owns one
+        if "attack" in anim_map and melee_overlay:                       # only overlay a strike when the plan owns one
             anim_map["ctrl_attack"] = "controller.animation.fc.attack"
             animate.append("ctrl_attack")
         if mob.get("behavior") == "npc":
@@ -1162,7 +1167,7 @@ def emit_client_entity(mob):
         # without owning an idle/walk pair. A raw looping attack clip would otherwise
         # sit on the always-on list and fight the move clip on shared bones.
         animate = [k for k in keys if k not in ONE_SHOT_ANIMS and k != "attack"]
-        if "attack" in anim_map:
+        if "attack" in anim_map and melee_overlay:
             anim_map["ctrl_attack"] = "controller.animation.fc.attack"
             animate.append("ctrl_attack")
         scripts = {

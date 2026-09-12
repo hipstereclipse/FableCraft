@@ -21,7 +21,6 @@
         "bow": "animation.fc.biped.bow",
         "greet": "animation.fc.biped.greet",
         "ctrl_move": "controller.animation.fc.biped_move",
-        "ctrl_attack": "controller.animation.fc.attack",
         "ctrl_ranged": "controller.animation.fc.ranged"
       },
       "scripts": {
@@ -30,7 +29,6 @@
         ],
         "animate": [
           "ctrl_move",
-          "ctrl_attack",
           "ctrl_ranged"
         ]
       },

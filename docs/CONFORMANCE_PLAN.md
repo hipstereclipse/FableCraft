@@ -60,8 +60,8 @@ protects it as generator-owned. Find or establish its generator before modifying
 - There is no automated in-world test loop. Spell mocks pass 17 cases; runtime checks pending.
 - The older gen_behavior working copy is still unsafe until 0.1. No genuinely new content was
   found in its 254-line diff against base. Never run it or --full before that milestone is green.
-- Gate variable attack_time has no explicit driver in generated custom-entity scripts;
-  reconcile the engine-variable claim in memory before selecting the supported fix in 0.3.
+- Gate variable attack_time has no explicit script assignment because it is engine-owned;
+  0.3 corrects the stale premise and audits compatible melee sources (see ANIMATION_AUDIT.md).
 - README count drift extends beyond Will powers. Existing binaries use faithful names and
   must stay local/legacy until L4. Bootstrap does not claim the naming layer exists.
 - npm/ESLint files were ignored and config was obsolete. ccafd4c adopts them; lint now has
@@ -232,20 +232,20 @@ Files: `scripts/audit_hud.py`, `scripts/preview_hud_faithful.py`, `scripts/_audi
 
 Acceptance: Tools reproducible or clearly marked optional with missing inputs; no untracked dependency in required build; tmp ignored; patch fate documented; no faithful distribution artifacts staged.
 
-### 0.3 — Drive melee strike gates and test the audit
+### 0.3 — Validate attack gates and remove unsupported melee overlays
 
-References: [B] Bedrock implementation; [G] visual_reference.md: chunky readable silhouettes.
+References: [B] current Bedrock wiring and [official sources in ANIMATION_AUDIT.md](ANIMATION_AUDIT.md); [G] visual_reference.md: readable silhouettes.
 
-Files: `scripts/gen_resources.py`, `scripts/_audit_anims.py`, `scripts/tests/test_animation_audit.py`, `packs/Fablecraft_RP/entity/`, `packs/Fablecraft_RP/animation_controllers/`.
+Files: `scripts/gen_resources.py`, `scripts/_audit_anims.py`, `scripts/tests/test_animation_audit.py`, three generated RP client entities.
 
-1. Inspect all animation controllers, client-entity scripts and behavior attack components. Prior memory calls variable.attack_time engine-provided; the plan calls it undriven. Resolve that conflict from official Bedrock samples and the actual custom-entity path. Never substitute the nonexistent query.attack_time.
-2. Extend the audit to collect gate variables in transition and conditional-animation expressions per reachable entity controller. Resolve assignments in initialize/pre_animation, controller state entry/exit and reachable animation scripts, plus any documented engine bindings. A variable driven for a different mob is not evidence. Constant zero initialization alone is not a live attack driver. Fail nonzero on every reported problem.
-3. Run and save the strengthened audit on current output before the fix; it must reject the missing attack driver. Add negative fixtures for a missing variable and an unrelated-entity assignment; positive fixtures must use the actual supported driver.
-4. Implement the supported driver in emit_client_entity in gen_resources.py (and supporting behavior/runtime source only if required). Keep the normalized swing phase meaningful across 0..1 and reset when no attack occurs; never animate continually because a mob merely has a target.
-5. Regenerate only affected resources: `python scripts/gen_resources.py`; review every substantive output diff. Run strengthened audit and fixtures. In a disposable world observe at least balverine, bandit, troll, guard and dragon; idle must remain idle and real melee swings must animate.
-6. Run the **base** recipe (base always applies), save evidence, update checklist and HANDOFF, commit this leaf and push.
+1. Reverified 2026-09-12: the engine supplies variable.attack_time. The original claim of a globally missing driver was stale; preserve engine progress and never substitute query.attack_time or a fabricated timer.
+2. The new entity-local audit must reject gates without a compatible assignment/engine binding. Run `python scripts/tests/test_animation_audit.py` for negative and positive fixtures, including unrelated-entity assignments, dead states and CLI exit status.
+3. Before changing the generator, `python scripts/_audit_anims.py` rejected bandit_archer, hobbe_scout and summoner: they had a melee overlay but only ranged/caster BP goals. Raw failure is saved in screenshots/validation/0.3/before.log.
+4. gen_resources.py omits only those unsupported melee overlays. Regenerate with `python scripts/gen_resources.py`, review the three entity diffs and run `python scripts/_audit_anims.py`: 54 client entities should pass. Preserve bow controllers and defer summoner signature casting to E3.
+5. Run base validators and behavior regression. Follow docs/ANIMATION_AUDIT.md's in-world idle/strike/recovery/NPC/ranged checklist and record engine-version evidence. Existing geometry/clip art did not change; static pose renders cannot prove event timing.
+6. Keep row in-progress while required manual tests remain unrun. Code/automated work can be committed/pushed, and independent documentation work can continue without claiming runtime conformance.
 
-Acceptance: Audit demonstrably red before and green after; every reachable gate variable has an entity-local live driver; base validators green. Manual swing/idle verification remains explicitly pending until observed.
+Acceptance: honest source-corrected mechanism, actual before-fix audit failure and after-fix pass, ten negative/positive regression cases, base suite green, and observed in-world idle/strike behavior. The last requirement is pending.
 
 ### 0.4 — Synchronize gameplay documentation
 
