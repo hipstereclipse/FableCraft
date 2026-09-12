@@ -7,6 +7,7 @@ import {
   world,
 } from "@minecraft/server";
 import { FABLE_EMOTES, FABLE_EMOTE_BY_ID } from "./fable_emote_registry.js";
+import { notifyGuildTrainingReaction } from "./guild_training.js";
 
 const CAMERA_TICKS = 40;
 const SOCIAL_RANGE = 12;
@@ -247,6 +248,7 @@ function forceThirdPerson(player, ticks = CAMERA_TICKS) {
 function triggerNpcEvent(npc, eventName) {
   try {
     npc.triggerEvent(eventName);
+    notifyGuildTrainingReaction(npc, eventName);
   } catch (error) {
     audit("NPC_EVENT_FAIL", `${npc.typeId} ${eventName}: ${error}`);
   }

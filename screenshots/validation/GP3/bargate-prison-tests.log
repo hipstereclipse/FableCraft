@@ -1,0 +1,13 @@
+test_actual_scatter_guards_loot_and_saved_region (__main__.BargatePrison.test_actual_scatter_guards_loot_and_saved_region) ... ok
+test_barracks_office_torture_and_underground_basin (__main__.BargatePrison.test_barracks_office_torture_and_underground_basin) ... ok
+test_blocked_chamber_and_closed_cell_negative_fixtures (__main__.BargatePrison.test_blocked_chamber_and_closed_cell_negative_fixtures) ... ok
+test_dimensions_palette_and_runtime_flags (__main__.BargatePrison.test_dimensions_palette_and_runtime_flags) ... ok
+test_routes_to_four_ramparts_cells_office_and_chamber (__main__.BargatePrison.test_routes_to_four_ramparts_cells_office_and_chamber) ... ok
+test_stairs_orientation_clearance_and_exact_chests (__main__.BargatePrison.test_stairs_orientation_clearance_and_exact_chests) ... ok
+test_two_open_cell_blocks_and_third_sealed_silhouette (__main__.BargatePrison.test_two_open_cell_blocks_and_third_sealed_silhouette) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.632s
+
+OK
+PASS: actual bargate_prison placement on grass/rock, clear translated spawns, loot bounds and saved-region idempotence

@@ -29,6 +29,7 @@ def main():
         'animation-tests': [sys.executable, 'scripts/tests/test_animation_audit.py'],
         'branding-tests': [sys.executable, 'scripts/tests/test_branding.py'],
         'branding-scan-tests': [sys.executable, 'scripts/tests/test_branding_scan.py'],
+        'guild-training-tests': ['node', '--experimental-vm-modules', 'scripts/tests/guild_training.test.mjs'],
         'guild-route-tests': [sys.executable, 'scripts/tests/test_guild_routes.py'],
         'structure-tests': [sys.executable, 'scripts/tests/test_structure_manifest.py'],
         'structure-placement-tests': ['node', 'scripts/tests/structure_placement.test.cjs'],

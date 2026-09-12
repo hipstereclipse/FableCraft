@@ -447,6 +447,15 @@ def emit_entity(mob):
     # dueling ring / archery range. Freeze movement while assigned so their
     # normal random-stroll goal cannot pull them out of the training areas.
     if eid.startswith("guild_apprentice_"):
+        # Removing a component group removes its components; Bedrock does not
+        # restore overridden base values. Explicitly restore the three values
+        # that training changes when a session ends or is interrupted.
+        cgroups["fc:guild_roaming"] = {
+            key: comp[key].copy() for key in (
+                "minecraft:movement", "minecraft:knockback_resistance",
+                "minecraft:pushable",
+            )
+        }
         cgroups["fc:guild_training"] = {
             "minecraft:movement": {"value": 0.0},
             "minecraft:knockback_resistance": {"value": 1.0},
@@ -456,10 +465,12 @@ def emit_entity(mob):
             },
         }
         events["fc:guild_training_start"] = {
+            "remove": {"component_groups": ["fc:guild_roaming"]},
             "add": {"component_groups": ["fc:guild_training"]}
         }
         events["fc:guild_training_stop"] = {
-            "remove": {"component_groups": ["fc:guild_training"]}
+            "remove": {"component_groups": ["fc:guild_training"]},
+            "add": {"component_groups": ["fc:guild_roaming"]}
         }
 
     # Fable's social simulation is represented as three signed axes. Script

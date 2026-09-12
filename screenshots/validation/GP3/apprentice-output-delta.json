@@ -1,0 +1,32 @@
+[
+  {
+    "path": "packs/Fablecraft_BP/entities/guild_apprentice_might.json",
+    "before_sha256": "fa09588bc381007c35e13173b016bdb9fe581972a16b2a6b219ce013d9d58118",
+    "after_sha256": "bcad007091afdd9219e11e6aa275d99b8f0ffc96752f5dfb3e48ba1eba94be4b",
+    "changed_json_paths": [
+      "/minecraft:entity/component_groups/fc:guild_roaming",
+      "/minecraft:entity/events/fc:guild_training_start/remove",
+      "/minecraft:entity/events/fc:guild_training_stop/add"
+    ]
+  },
+  {
+    "path": "packs/Fablecraft_BP/entities/guild_apprentice_skill.json",
+    "before_sha256": "a81a4612c43a13bca06cbbdd6c3a4297f97382662f32b9dc6e061f0b537e843a",
+    "after_sha256": "c1db81ba70302f557c76a2ddaf3214faa2296433da3ecbe8f8cb8d60bdc6a489",
+    "changed_json_paths": [
+      "/minecraft:entity/component_groups/fc:guild_roaming",
+      "/minecraft:entity/events/fc:guild_training_start/remove",
+      "/minecraft:entity/events/fc:guild_training_stop/add"
+    ]
+  },
+  {
+    "path": "packs/Fablecraft_BP/entities/guild_apprentice_will.json",
+    "before_sha256": "6d927f856e5f9b35a7a62e782447bfa07a9986b41a8de6f8257483044e4d038a",
+    "after_sha256": "95d356ae3657f6026fc10a3fe996817980a7ae502279e03d135922eb3d393ddb",
+    "changed_json_paths": [
+      "/minecraft:entity/component_groups/fc:guild_roaming",
+      "/minecraft:entity/events/fc:guild_training_start/remove",
+      "/minecraft:entity/events/fc:guild_training_stop/add"
+    ]
+  }
+]

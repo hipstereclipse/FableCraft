@@ -17,6 +17,10 @@ import {
 } from "./fable_emotes.js";
 import { FABLE_EMOTES } from "./fable_emote_registry.js";
 import { showHudNotice } from "./fable_hud.js";
+import {
+  createGuildTrainingController, guildTrainingSession, bindGuildTrainingReactions,
+  notifyGuildTrainingReaction,
+} from "./guild_training.js";
 import "./wd/main.js";
 import { openHeroMenu as wdOpenHeroMenu } from "./wd/herobook.js";
 import { LEGACY_MENU } from "./wd/menu_bridge.js";
@@ -942,34 +946,29 @@ system.runInterval(() => {
 // ---------------------------------------------------------------------------
 // Guild apprentice training — two apprentices spar inside the dueling ring
 // while one Skill apprentice shoots the north target in the archery range.
-// Assignments run only during daylight. Training component groups freeze normal
-// random-stroll movement; this scheduler maintains position/facing and drives
-// one-shot animation exchanges plus real, short-lived practice arrows.
+// Daylight background sessions are a Minecraft adaptation. Each trainee makes
+// one collision-checked station placement, then performs harmless drills until
+// release. Strolling resumes there; walking to/from marks remains future work.
 // ---------------------------------------------------------------------------
 const APPRENTICE_TYPES = [
   "fc:guild_apprentice_might",
   "fc:guild_apprentice_skill",
   "fc:guild_apprentice_will",
 ];
-const TRAINING_TAGS = ["fc_train_ring_a", "fc_train_ring_b", "fc_train_range"];
 let nextSparTick = 0;
 let nextArcheryTick = 0;
 let sparTurn = 0;
-// Apprentices drill in intermittent SESSIONS instead of manning the ring all day:
-// a short TRAIN window pins a sparring pair + an archer to the grounds, then a
-// longer REST window empties the training areas and sends them to roam the halls.
-// Tuned so the dueling ring / archery range are staffed only ~1/3 of daylight.
-const TRAIN_SESSION_TICKS = 1200;             // ~60s drilling
-const REST_SESSION_TICKS = 2400;              // ~120s roaming the halls
-const TRAIN_CYCLE_TICKS = TRAIN_SESSION_TICKS + REST_SESSION_TICKS;
-let lastTrainPhase = false;                   // were we drilling last pass?
-// Scattered hall posts (guild-local) the dispersing apprentices return to when a
-// session closes. These reuse existing NPC home tiles in the west complex, so
-// they are guaranteed clear, walkable floor.
-const GUILD_HALL_POSTS = [
-  { x: 12, z: 42 }, { x: 16, z: 35 }, { x: 23, z: 42 },
-  { x: 26, z: 24 }, { x: 42, z: 40 },
-];
+const guildTraining = createGuildTrainingController({
+  now: TICKS,
+  session: () => guildTrainingSession(TICKS(), world.getTimeOfDay()),
+  canTrain: (entity) => !entity.hasTag("fc_aggravated") && !entity.hasTag("fc_guild_following")
+    && !isMarried(entity) && isInsideGuild(entity.location, entity.dimension.id),
+});
+bindGuildTrainingReactions(guildTraining);
+
+function interruptGuildTraining(entity) {
+  if (APPRENTICE_TYPES.includes(entity?.typeId)) guildTraining.interrupt(entity);
+}
 
 function guildApprentices(dim, base) {
   const centre = { x: base.x + 61, y: base.y + 1, z: base.z + 54 };
@@ -988,40 +987,6 @@ function localGuildPoint(base, point, yOffset = 1) {
 
 function distanceXZ(entity, point) {
   return Math.hypot(entity.location.x - point.x, entity.location.z - point.z);
-}
-
-function setTrainingRole(entity, role) {
-  let tags = [];
-  try { tags = entity.getTags(); } catch { }
-  for (const tag of TRAINING_TAGS) {
-    if (tag !== role && tags.includes(tag)) {
-      try { entity.removeTag(tag); } catch { }
-    }
-  }
-  if (!tags.includes(role)) {
-    try { entity.addTag(role); } catch { }
-    try { entity.triggerEvent("fc:guild_training_start"); } catch { }
-  }
-}
-
-function clearTrainingRole(entity) {
-  let hadRole = false;
-  let tags = [];
-  try { tags = entity.getTags(); } catch { }
-  for (const tag of TRAINING_TAGS) {
-    if (!tags.includes(tag)) continue;
-    hadRole = true;
-    try { entity.removeTag(tag); } catch { }
-  }
-  if (!hadRole) return;
-  try { entity.triggerEvent("fc:guild_training_stop"); } catch { }
-  try { entity.playAnimation("animation.npc.idle", { blendOutTime: 0.2 }); } catch { }
-}
-
-function lockTrainingPosition(entity, point, facing) {
-  try {
-    entity.teleport(point, { facingLocation: facing });
-  } catch { }
 }
 
 function clearGuildRingScarecrows(dim, base) {
@@ -1210,10 +1175,11 @@ function repairGuildSkirtVegetation(dim, base) {
   }
 }
 
-function playSparExchange(attacker, defender) {
+function playSparExchange(attacker, defender, attackerToken, defenderToken) {
   try { attacker.playAnimation("animation.npc.spar", { blendOutTime: 0.15 }); } catch { }
   try { defender.playAnimation("animation.npc.block", { blendOutTime: 0.15 }); } catch { }
   system.runTimeout(() => {
+    if (!guildTraining.isActive(attacker, attackerToken) || !guildTraining.isActive(defender, defenderToken)) return;
     try {
       const hit = {
         x: (attacker.location.x + defender.location.x) / 2,
@@ -1229,7 +1195,8 @@ function playSparExchange(attacker, defender) {
   }, 8);
 }
 
-function firePracticeArrow(archer, target) {
+function showPracticeShot(archer, target, token) {
+  if (!guildTraining.isActive(archer, token)) return;
   try {
     const origin = {
       x: archer.location.x,
@@ -1239,21 +1206,17 @@ function firePracticeArrow(archer, target) {
     const dx = target.x - origin.x;
     const dy = target.y - origin.y;
     const dz = target.z - origin.z;
-    const length = Math.max(0.001, Math.hypot(dx, dy, dz));
-    const speed = 1.45;
-    const arrow = archer.dimension.spawnEntity("minecraft:arrow", origin);
-    arrow.addTag("fc_training_arrow");
-    const projectile = arrow.getComponent("minecraft:projectile");
-    if (projectile) {
-      projectile.owner = archer;
-      projectile.shoot({
-        x: dx / length * speed,
-        y: dy / length * speed + 0.035,
-        z: dz / length * speed,
+    // A brief trail and target impact preserve readable practice without a
+    // damaging projectile crossing a visitor's path. This cannot grant hit XP.
+    for (let step = 1; step <= 6; step++) {
+      const fraction = step / 6;
+      archer.dimension.spawnParticle("minecraft:critical_hit_emitter", {
+        x: origin.x + dx * fraction,
+        y: origin.y + dy * fraction,
+        z: origin.z + dz * fraction,
       });
     }
     archer.dimension.playSound("random.bow", origin, { volume: 0.45, pitch: 1.1 });
-    system.runTimeout(() => { try { arrow.remove(); } catch { } }, 60);
   } catch { }
 }
 
@@ -1267,42 +1230,10 @@ system.runInterval(() => {
   repairGuildTerrain(dim, base);
   repairGuildSkirtVegetation(dim, base);
   const apprentices = guildApprentices(dim, base);
-  if (!apprentices.length) return;
-
-  // Combat overrides the daytime training script. Without this, the scheduler
-  // immediately re-applies movement=0 and teleports aggravated apprentices back
-  // to their marks while they are trying to defend the Guild.
-  const available = [];
-  for (const apprentice of apprentices) {
-    let aggravated = false;
-    try { aggravated = apprentice.hasTag("fc_aggravated"); } catch { }
-    if (aggravated) clearTrainingRole(apprentice);
-    else available.push(apprentice);
-  }
-
-  const time = world.getTimeOfDay();
-  const daylight = time >= 0 && time < 12000;
-  // Intermittent drilling: a TRAIN window pins the sparring pair + archer to the
-  // grounds; a REST window (or night) releases everyone. On the closing edge of a
-  // session, the apprentices who were drilling are walked back to scattered hall
-  // posts so the campus — not the dueling ring — is where most of the Guild lives.
-  const training = daylight && (TICKS() % TRAIN_CYCLE_TICKS) < TRAIN_SESSION_TICKS;
-  const sessionEnded = lastTrainPhase && !training;
-  lastTrainPhase = training;
-  if (!training) {
-    let dispersed = 0;
-    const centre = { x: base.x + 61, y: base.y + 1, z: base.z + 54 };
-    for (const apprentice of available) {
-      let onMark = false;
-      try { onMark = TRAINING_TAGS.some((t) => apprentice.hasTag(t)); } catch { }
-      clearTrainingRole(apprentice);
-      if (sessionEnded && onMark) {
-        const post = GUILD_HALL_POSTS[dispersed++ % GUILD_HALL_POSTS.length];
-        lockTrainingPosition(apprentice, localGuildPoint(base, post), centre);
-      }
-    }
-    return;
-  }
+  // Include empty scans so missing/unloaded residents release their assignment.
+  guildTraining.beginPass(apprentices);
+  if (guildTrainingSession(TICKS(), world.getTimeOfDay()) === null) return;
+  const available = apprentices.filter((entity) => guildTraining.eligible(entity));
 
   const ringA = localGuildPoint(base, GUILD.training.ringA);
   const ringB = localGuildPoint(base, GUILD.training.ringB);
@@ -1321,38 +1252,35 @@ system.runInterval(() => {
     });
   const fighterA = fighterPool[0];
   const fighterB = fighterPool[1];
-  const selected = new Set([fighterA?.id, fighterB?.id, skill?.id].filter(Boolean));
-
-  for (const apprentice of apprentices) {
-    if (!selected.has(apprentice.id)) clearTrainingRole(apprentice);
-  }
+  const selected = new Set();
   if (fighterA && fighterB) {
-    setTrainingRole(fighterA, "fc_train_ring_a");
-    setTrainingRole(fighterB, "fc_train_ring_b");
-    lockTrainingPosition(fighterA, ringA, ringB);
-    lockTrainingPosition(fighterB, ringB, ringA);
-    if (TICKS() >= nextSparTick) {
+    const tokens = guildTraining.acquirePair(
+      { entity: fighterA, role: "fc_train_ring_a", point: ringA, facing: ringB },
+      { entity: fighterB, role: "fc_train_ring_b", point: ringB, facing: ringA });
+    if (tokens) {
+      selected.add(fighterA.id);
+      selected.add(fighterB.id);
+    }
+    if (tokens && TICKS() >= nextSparTick) {
       playSparExchange(sparTurn === 0 ? fighterA : fighterB,
-        sparTurn === 0 ? fighterB : fighterA);
+        sparTurn === 0 ? fighterB : fighterA,
+        tokens[sparTurn], tokens[1 - sparTurn]);
       sparTurn = 1 - sparTurn;
       nextSparTick = TICKS() + 36;
     }
   }
   if (skill) {
-    setTrainingRole(skill, "fc_train_range");
-    lockTrainingPosition(skill, range, target);
-    if (TICKS() >= nextArcheryTick) {
+    const token = guildTraining.acquire(skill, "fc_train_range", range, target);
+    if (token !== null) selected.add(skill.id);
+    if (token !== null && TICKS() >= nextArcheryTick) {
       try { skill.playAnimation("animation.npc.archery_shot", { blendOutTime: 0.15 }); } catch { }
       system.runTimeout(() => {
-        let tags = [];
-        try { tags = skill.getTags(); } catch { }
-        if (tags.includes("fc_train_range") && world.getTimeOfDay() < 12000) {
-          firePracticeArrow(skill, target);
-        }
+        showPracticeShot(skill, target, token);
       }, 16);
       nextArcheryTick = TICKS() + 58;
     }
   }
+  guildTraining.retain(selected);
 }, 10);
 
 // ---------------------------------------------------------------------------
@@ -3352,6 +3280,7 @@ world.beforeEvents.playerInteractWithEntity.subscribe((ev) => {
     ev.cancel = true;
     const usedItem = ev.itemStack?.typeId;
     system.run(() => {
+      interruptGuildTraining(target);
       // a one-shot wave the moment the Hero is greeted (humanoid NPCs only; the
       // call is a harmless no-op on plans without the clip, e.g. the Oracle)
       try { target.playAnimation("animation.fc.biped.greet", { blendOutTime: 0.4 }); } catch { }
@@ -3622,7 +3551,7 @@ function marryNpc(p, npc) {
   const list = P.getJ(p, "fc_spouses", []);
   if (!list.includes(npc.id)) { list.push(npc.id); P.setJ(p, "fc_spouses", list); }
   addMorality(p, 40);
-  try { npc.triggerEvent("fc:react_follow"); } catch { }
+  try { npc.triggerEvent("fc:react_follow"); notifyGuildTrainingReaction(npc, "fc:react_follow"); } catch { }
   try { npc.playAnimation("animation.npc.cheer", { blendOutTime: 0.3 }); } catch { }
   try { p.playSound("random.levelup"); } catch { }
   try {
@@ -3697,7 +3626,7 @@ function divorceConfirm(p, npc) {
       npc.setDynamicProperty("fc_spouse_player", "");
       try { npc.nameTag = ""; } catch { }
       P.setJ(p, "fc_spouses", P.getJ(p, "fc_spouses", []).filter((id) => id !== npc.id));
-      try { npc.triggerEvent("fc:react_neutral"); } catch { }
+      try { npc.triggerEvent("fc:react_neutral"); notifyGuildTrainingReaction(npc, "fc:react_neutral"); } catch { }
       addMorality(p, -30);
       p.sendMessage(`§7You and ${base} have parted ways.`);
     }).catch(() => { });
@@ -3730,11 +3659,11 @@ function spouseMenu(p, npc) {
         try { npc.playAnimation("animation.npc.cheer", { blendOutTime: 0.3 }); } catch { }
         p.sendMessage(`§d${base}: §o"${lines[Math.floor(Math.random() * lines.length)]}"`);
       } else if (r.selection === 1) {
-        try { npc.triggerEvent("fc:react_follow"); } catch { }
+        try { npc.triggerEvent("fc:react_follow"); notifyGuildTrainingReaction(npc, "fc:react_follow"); } catch { }
         try { npc.lookAt?.(p.getHeadLocation()); } catch { }
         p.sendMessage(`§d${base}: §o"Lead on, my love."`);
       } else if (r.selection === 2) {
-        try { npc.triggerEvent("fc:react_neutral"); } catch { }
+        try { npc.triggerEvent("fc:react_neutral"); notifyGuildTrainingReaction(npc, "fc:react_neutral"); } catch { }
         p.sendMessage(`§d${base}: §o"I'll wait right here for you."`);
       } else if (r.selection === 3) {
         const id = bestGiftInBag(p);
@@ -4389,12 +4318,15 @@ function boastGatherCrowd(p, base) {
     });
   } catch { return; }
   folk = folk.filter((e) => e.typeId && e.typeId.startsWith("fc:")
-    && e.typeId !== "fc:oracle" && e.typeId !== "fc:demon_door" && e.typeId !== "fc:maze");
+    && e.typeId !== "fc:oracle" && e.typeId !== "fc:demon_door" && e.typeId !== "fc:maze"
+    && !e.hasTag("fc_aggravated") && !e.hasTag("fc_guild_following")
+    && !guildTraining.reserved(e));
   folk = folk.slice(0, renown < 30 ? 2 : 24);            // almost nobody for an unknown
   const fx0 = base.x + 8, fz0 = base.z + 31;             // lawn just before the stage
   const face = { x: base.x + 4, y: base.y + 3, z: base.z + 27 };
   let i = 0;
   for (const e of folk) {
+    interruptGuildTraining(e);
     const row = Math.floor(i / 6), col = i % 6;
     try { e.teleport({ x: fx0 + col - 2.5 + row * 0.5, y: base.y + 1, z: fz0 + row * 1.4 }, { facingLocation: face }); } catch { }
     try { e.playAnimation("animation.fc.biped.greet", { blendOutTime: 0.4 }); } catch { }
@@ -5306,12 +5238,13 @@ function isGuildDefenderType(e) {
   } catch { return false; }
 }
 function aggravate(npc, event, ticks) {
+  interruptGuildTraining(npc);
   try { npc.triggerEvent(event); } catch { }
   try { npc.addTag("fc_aggravated"); } catch { }
   try { npc.setDynamicProperty("fc_aggro_until", TICKS() + ticks); } catch { }
 }
 function calmNpc(npc) {
-  try { npc.triggerEvent("fc:react_neutral"); } catch { }
+  try { npc.triggerEvent("fc:react_neutral"); notifyGuildTrainingReaction(npc, "fc:react_neutral"); } catch { }
   try { npc.removeTag("fc_aggravated"); } catch { }
   try { npc.setDynamicProperty("fc_aggro_until", undefined); } catch { }
 }

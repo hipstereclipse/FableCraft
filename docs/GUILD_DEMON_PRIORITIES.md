@@ -31,7 +31,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | --- | --- | --- |
 | GP1 | done | Offline reference/geometry/NPC/API audit, ranked defects and baseline views; engine observations unrun |
 | GP2 | in-progress | First layout pass connects lobby/gallery/dining and Maze stairs; further fidelity and engine walking remain open |
-| GP3 | todo | Repeated character-specific Guild NPC behavior and interaction improvements |
+| GP3 | in-progress | First training lifecycle pass fixes repeated teleport/cleanup/interruption defects; navigation, resident identity and targeted defence remain open |
 | DP1 | todo | Verified door/challenge/destination mapping and complete portal/return pilot |
 | DP2 | todo | Individually designed reward worlds and persistent reward/unlock behavior |
 | GP4 | todo | Integrated Guild/door review, regression checks and next ranked improvement pass |
@@ -187,7 +187,7 @@ open; no supplemental item changes the original C3 denominator of 45 leaves.
 
 ## GP2 — connected Guild circulation (2026-09-12)
 
-Commit: SELF: TLC Conformance — GP2: connect Guild galleries and Maze study stairs.
+Commit: fd95ef16141a2b806cad1146210aea84c71b9dbf.
 Replaced rounded, disconnected stair samples and conflicting rail/floor passes
 with two-wide continuous half-step flights, corner landings and a three-wide
 supported gallery/dining connection. The doorway no longer cuts through a bunk.
@@ -209,3 +209,29 @@ reanchor remains a coordinate refresh, so an old world's broken stairs remain a
 separate migration task. NPC pathfinding, jumping/collision and complete interior
 fidelity are unrun in-engine. GP2 stays in-progress for recursive layout/reference
 work. Next: GP3 training lifecycle, then the complete Guild portal/destination pilot.
+
+## GP3 — training lifecycle and interruptions (2026-09-12)
+
+Commit: SELF: TLC Conformance — GP3: restore Guild training movement and interruption lifecycle.
+Eighteen focused runtime groups cover the production controller and actual
+main/emote callbacks. Apprentices acquire stations with one collision-checked
+placement, hold a session without repeated teleports, and resume roaming in place.
+Failed cleanup retries, incomplete pairs release, and conversation/Follow/combat/
+night/rest/displacement invalidate queued drills. Harmless archery trails replace
+unguarded practice projectiles. One-time placement and the background schedule
+are explicitly Minecraft adaptations; walking to marks remains open.
+
+The behavior owner explicitly restores movement, pushability and knockback
+components on stop because removing the training group does not restore base
+components in Bedrock. Only three apprentice entities were regenerated. The
+shared handwritten emote hook preserves social reaction/Follow behavior while
+interrupting training. Existing spouse ownership, rewards and quests are retained.
+See [GUILD_TRAINING.md](GUILD_TRAINING.md) and `screenshots/validation/GP3/`.
+
+All 29 base gates and explicit lint, spells, ESM syntax and Guild diagnostics
+pass in the reviewed-index snapshot. The full screenshot pipeline completed
+(51 mobs, 55 items, 130 recipes, 31 structures, 13 galleries); three apprentice
+cards were inspected as static visuals only. Uncommitted portal work is excluded.
+Engine movement/animation/multiplayer checks remain unrun.
+N5/N7 resident identity/repair and N6 innocent-player targeting remain high
+priority after the door pilot; no complete NPC fidelity claim is made.

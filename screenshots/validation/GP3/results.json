@@ -1,0 +1,216 @@
+{
+  "python": "3.14.7",
+  "platform": "Linux-7.1.8-1-cachyos-x86_64-with-glibc2.44",
+  "checks": {
+    "build": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/build_addon.py"
+      ],
+      "exit_code": 0
+    },
+    "lint": {
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "exit_code": 0
+    },
+    "expressions": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/verify_emotes.py"
+      ],
+      "exit_code": 0
+    },
+    "animations": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/_audit_anims.py"
+      ],
+      "exit_code": 0
+    },
+    "hud": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/audit_hud.py",
+        "--check"
+      ],
+      "exit_code": 0
+    },
+    "behavior-tests": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/tests/test_gen_behavior.py"
+      ],
+      "exit_code": 0
+    },
+    "animation-tests": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/tests/test_animation_audit.py"
+      ],
+      "exit_code": 0
+    },
+    "branding-tests": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/tests/test_branding.py"
+      ],
+      "exit_code": 0
+    },
+    "branding-scan-tests": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/tests/test_branding_scan.py"
+      ],
+      "exit_code": 0
+    },
+    "guild-training-tests": {
+      "command": [
+        "node",
+        "--experimental-vm-modules",
+        "scripts/tests/guild_training.test.mjs"
+      ],
+      "exit_code": 0
+    },
+    "guild-route-tests": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/tests/test_guild_routes.py"
+      ],
+      "exit_code": 0
+    },
+    "structure-tests": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/tests/test_structure_manifest.py"
+      ],
+      "exit_code": 0
+    },
+    "structure-placement-tests": {
+      "command": [
+        "node",
+        "scripts/tests/structure_placement.test.cjs"
+      ],
+      "exit_code": 0
+    },
+    "cullis-tests": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/tests/test_cullis_gate.py"
+      ],
+      "exit_code": 0
+    },
+    "graveyard-tests": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/tests/test_graveyard.py"
+      ],
+      "exit_code": 0
+    },
+    "grey-house-tests": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/tests/test_grey_house.py"
+      ],
+      "exit_code": 0
+    },
+    "greatwood-gorge-tests": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/tests/test_greatwood_gorge.py"
+      ],
+      "exit_code": 0
+    },
+    "archon-folly-tests": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/tests/test_archon_folly.py"
+      ],
+      "exit_code": 0
+    },
+    "archon-shrine-tests": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/tests/test_archon_shrine.py"
+      ],
+      "exit_code": 0
+    },
+    "bargate-prison-tests": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/tests/test_bargate_prison.py"
+      ],
+      "exit_code": 0
+    },
+    "bandit-camp-tests": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/tests/test_bandit_camp.py"
+      ],
+      "exit_code": 0
+    },
+    "oakvale-memorial-tests": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/tests/test_oakvale_memorial.py"
+      ],
+      "exit_code": 0
+    },
+    "hook-coast-tests": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/tests/test_hook_coast.py"
+      ],
+      "exit_code": 0
+    },
+    "bowerstone-north-tests": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/tests/test_bowerstone_north.py"
+      ],
+      "exit_code": 0
+    },
+    "arena-halls-tests": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/tests/test_arena_halls.py"
+      ],
+      "exit_code": 0
+    },
+    "scoreboard-tests": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/tests/test_conformance_score.py"
+      ],
+      "exit_code": 0
+    },
+    "scoreboard": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/conformance_score.py",
+        "--check"
+      ],
+      "exit_code": 0
+    },
+    "runtime-tests": {
+      "command": [
+        "npm",
+        "test"
+      ],
+      "exit_code": 0
+    },
+    "original-preview": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/build_addon.py",
+        "--branding",
+        "original",
+        "--preview"
+      ],
+      "exit_code": 0
+    }
+  }
+}

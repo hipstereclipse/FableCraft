@@ -1,0 +1,263 @@
+// Production session module + actual main/emote callbacks at mocked Bedrock boundaries.
+// node --experimental-vm-modules scripts/tests/guild_training.test.mjs
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import vm from 'node:vm';
+import { readFile } from 'node:fs/promises';
+import { parse } from 'espree';
+
+const moduleSource = await readFile('packs/Fablecraft_BP/scripts/guild_training.js', 'utf8');
+const mainSource = await readFile('packs/Fablecraft_BP/scripts/main.js', 'utf8');
+const emoteSource = await readFile('packs/Fablecraft_BP/scripts/fable_emotes.js', 'utf8');
+const ast = parse(mainSource, { ecmaVersion: 'latest', sourceType: 'module', range: true });
+const pointA = {x:99.5,y:1,z:61.5}, pointB = {x:102.5,y:1,z:61.5};
+let serial = 0;
+
+async function fixture() {
+  const context = vm.createContext({ console });
+  const module = new vm.SourceTextModule(moduleSource, { context });
+  await module.link(() => { throw new Error('Session module must stay independent of engine imports'); });
+  await module.evaluate();
+  const api = module.namespace;
+  let tick = 10, time = 1000;
+  const entities = [], timers = [], particles = [], sounds = [], spawned = [], blocks = new Map();
+  const dimension = {
+    id: 'minecraft:overworld',
+    getBlock(p) { const key = `${p.x},${p.y},${p.z}`; return blocks.has(key) ? blocks.get(key) : {typeId:p.y===0?'minecraft:coarse_dirt':'minecraft:air',isAir:p.y>0}; },
+    getEntities(query) { return entities.filter(e=>e.isValid && (!query.type || e.typeId===query.type)
+      && (!query.tags || query.tags.every(t=>e.tags.has(t))))
+      .filter(e=>!query.location || Math.hypot(e.location.x-query.location.x,e.location.y-query.location.y,e.location.z-query.location.z)<=query.maxDistance); },
+    spawnParticle(id,p) { particles.push({id,p}); },
+    playSound(id,p) { sounds.push({id,p}); },
+    spawnEntity(id,p) { spawned.push({id,p}); throw new Error('Practice must never spawn a projectile'); },
+  };
+  function entity(type='fc:guild_apprentice_might') {
+    const e = {
+      id:`trainee-${++serial}`, typeId:type, isValid:true, dimension, location:{x:12,y:1,z:42},
+      tags:new Set(), events:[], placements:[], teleports:[], frozen:false, animations:[], errors:new Map(),
+      getTags() { return [...this.tags]; }, hasTag(t) { return this.tags.has(t); },
+      addTag(t) { this.throwIf('addTag'); this.tags.add(t); },
+      removeTag(t) { this.throwIf('removeTag'); this.tags.delete(t); },
+      throwIf(key) { const count=this.errors.get(key)||0; if (count) {this.errors.set(key,count-1);throw new Error(`Injected ${key}`);} },
+      triggerEvent(event) {
+        this.events.push(event);
+        this.throwIf(event);
+        if (event==='fc:guild_training_start') this.frozen=true;
+        if (event==='fc:guild_training_stop') this.frozen=false;
+        if (event.startsWith('fc:react_')) this.reaction=event;
+      },
+      tryTeleport(p,options) { this.placements.push({p,options});this.throwIf('tryTeleport');if(this.blocked) return false;this.location={...p};return true; },
+      teleport(p) { this.teleports.push(p);this.location={...p}; },
+      playAnimation(name) { this.animations.push(name); },
+    };
+    entities.push(e);return e;
+  }
+  function controller() {
+    return api.createGuildTrainingController({now:()=>tick,session:()=>api.guildTrainingSession(tick,time),
+      canTrain:e=>!e.hasTag('fc_aggravated')&&!e.hasTag('fc_guild_following')&&!e.married});
+  }
+  const ctl=controller();api.bindGuildTrainingReactions(ctl);
+  function advance(value,newTime=time) { tick=value;time=newTime;if(context.system)context.system.currentTick=tick; }
+  function runDue() { const due=timers.filter(t=>t.at<=tick);due.forEach(t=>timers.splice(timers.indexOf(t),1));due.forEach(t=>t.fn()); }
+  function acquire(e,role='fc_train_ring_a',p=pointA) { return ctl.acquire(e,role,p,pointB); }
+  function pair(a,b) { return ctl.acquirePair({entity:a,role:'fc_train_ring_a',point:pointA,facing:pointB},
+    {entity:b,role:'fc_train_ring_b',point:pointB,facing:pointA}); }
+  async function runtime() {
+    const bindingNames = ['APPRENTICE_TYPES','GUILD','nextSparTick','nextArcheryTick','sparTurn','guildTraining',
+      'interruptGuildTraining','guildApprentices','localGuildPoint','distanceXZ','playSparExchange','showPracticeShot','boastGatherCrowd'];
+    const declarations=bindingNames.map(name=> {
+      const node=ast.body.find(n=>n.type==='FunctionDeclaration'&&n.id.name===name || n.type==='VariableDeclaration'&&n.declarations.some(d=>d.id.name===name));
+      assert.ok(node,`Production declaration ${name}`);return mainSource.slice(...node.range);
+    });
+    const dialogues=[];
+    Object.assign(context,{
+      ...Object.fromEntries(Object.keys(api).map(k=>[k,api[k]])),
+      TICKS:()=>tick,OW:()=>dimension, world:{getTimeOfDay:()=>time,getDynamicProperty:()=>true},
+      system:{currentTick:tick,runTimeout:(fn,delay)=>timers.push({fn,at:tick+delay}),run:fn=>fn()},
+      guildBounds:()=>({base:{x:0,y:0,z:0}}),isMarried:e=>!!e.married,
+      isInsideGuild:(loc,id)=>id==='minecraft:overworld',
+      clearGuildRingScarecrows(){},repairGuildDemonApproach(){},repairGuildTerrain(){},repairGuildSkirtVegetation(){},
+      isRomanceable:()=>false,npcTalk:(p,e)=>dialogues.push(e.id),P:{get:()=>500},
+    });
+    vm.runInContext(declarations.join('\n'),context);
+    vm.runInContext('bindGuildTrainingReactions(guildTraining)',context);
+    const trainingNode=ast.body.find(n=>n.type==='ExpressionStatement'&&n.expression.type==='CallExpression'
+      &&mainSource.slice(...n.range).startsWith('system.runInterval(')&&mainSource.slice(...n.range).includes('guildTraining.beginPass'));
+    assert.ok(trainingNode,'Actual training interval');
+    const training=vm.runInContext(`(${mainSource.slice(...trainingNode.expression.arguments[0].range)})`,context);
+    const interactionNode=ast.body.find(n=>n.type==='ExpressionStatement'&&n.expression.type==='CallExpression'
+      &&mainSource.slice(...n.range).startsWith('world.beforeEvents.playerInteractWithEntity.subscribe('));
+    const interact=vm.runInContext(`(${mainSource.slice(...interactionNode.expression.arguments[0].range)})`,context);
+    const emoteAst=parse(emoteSource,{ecmaVersion:'latest',sourceType:'module',range:true});
+    const emoteNode=emoteAst.body.find(n=>n.type==='FunctionDeclaration'&&n.id.name==='triggerNpcEvent');
+    context.audit=()=>{};vm.runInContext(emoteSource.slice(...emoteNode.range),context);
+    return {training,interact,dialogues,...vm.runInContext('({controller:guildTraining,emote:triggerNpcEvent,shot:showPracticeShot,boast:boastGatherCrowd})',context)};
+  }
+  return {api,context,ctl,controller,entity,entities,dimension,blocks,particles,sounds,spawned,timers,advance,runDue,acquire,pair,runtime};
+}
+
+test('one checked station placement per active session; release does not teleport home',async()=>{
+  const f=await fixture(),e=f.entity();f.ctl.beginPass([e]);const token=f.acquire(e);
+  for(let tick=20;tick<=100;tick+=10){f.advance(tick);f.ctl.beginPass([e]);assert.equal(f.acquire(e),token);}
+  assert.equal(e.placements.length,1);assert.equal(e.placements[0].options.checkForBlocks,true);
+  assert.equal(e.frozen,true);f.advance(1200);f.ctl.beginPass([e]);
+  assert.equal(e.frozen,false);assert.equal(e.tags.size,0);assert.equal(e.teleports.length,0);assert.equal(e.placements.length,1);
+  f.advance(3600);f.ctl.beginPass([e]);assert.notEqual(f.acquire(e),null);assert.equal(e.placements.length,2);
+});
+
+test('failed stop keeps state pending and retries; successful cleanup does not repeat',async()=>{
+  const f=await fixture(),e=f.entity();f.ctl.beginPass([e]);const token=f.acquire(e);
+  e.errors.set('fc:guild_training_stop',1);f.ctl.interrupt(e);
+  assert.equal(e.frozen,true);assert.equal(e.hasTag('fc_train_ring_a'),true);assert.equal(f.ctl.eligible(e),false);
+  assert.equal(f.ctl.isActive(e,token),false);f.ctl.beginPass([e]);
+  assert.equal(e.frozen,false);assert.equal(e.tags.size,0);
+  const calls=e.events.length;f.ctl.beginPass([e]);assert.equal(e.events.length,calls);
+});
+
+test('failed start and tag writes clean up and cannot re-place during the same session',async()=>{
+  for(const failure of ['fc:guild_training_start','addTag']){
+    const f=await fixture(),e=f.entity();f.ctl.beginPass([e]);e.errors.set(failure,1);
+    assert.equal(f.acquire(e),null);assert.equal(e.frozen,false);assert.equal(e.tags.size,0);
+    f.ctl.beginPass([e]);assert.equal(f.acquire(e),null);assert.equal(e.placements.length,1);
+    f.advance(3600);f.ctl.beginPass([e]);assert.notEqual(f.acquire(e),null);
+  }
+  const f=await fixture(),e=f.entity();f.ctl.beginPass([e]);f.acquire(e);e.errors.set('removeTag',1);f.ctl.interrupt(e);
+  assert.equal(f.ctl.eligible(e),false);f.ctl.beginPass([e]);assert.equal(e.tags.size,0);assert.equal(e.frozen,false);
+});
+
+test('reload reconciles both old role tags and tagless frozen components',async()=>{
+  for(const tagged of [false,true]){
+    const f=await fixture(),e=f.entity();e.frozen=true;if(tagged)e.addTag('fc_train_range');
+    f.advance(1500);f.ctl.beginPass([e]);assert.equal(e.frozen,false);assert.equal(e.tags.size,0);
+  }
+});
+
+test('failed legacy cleanup prevents acquisition until a later successful release',async()=>{
+  const f=await fixture(),e=f.entity();e.frozen=true;e.errors.set('fc:guild_training_stop',1);
+  f.ctl.beginPass([e]);assert.equal(f.acquire(e),null);assert.equal(e.placements.length,0);
+  f.ctl.beginPass([e]);assert.equal(e.frozen,false);assert.notEqual(f.acquire(e),null);
+});
+
+test('inactive invalid handles are forgotten and a returned id reconciles again',async()=>{
+  const f=await fixture(),old=f.entity();f.advance(1500);f.ctl.beginPass([old]);
+  assert.equal(old.frozen,false);old.isValid=false;f.ctl.beginPass([]);
+  const loaded=f.entity();loaded.id=old.id;loaded.frozen=true;loaded.addTag('fc_train_ring_a');
+  f.ctl.beginPass([loaded]);
+  assert.equal(loaded.frozen,false);assert.equal(loaded.tags.size,0);
+  assert.equal(loaded.events.filter(event=>event==='fc:guild_training_stop').length,1);
+});
+
+test('blocked headroom, side footprint, unsupported or unloaded station never acquires',async()=>{
+  for(const obstruction of ['head','side','floor','unloaded']){
+    const f=await fixture(),e=f.entity(),p={x:99.9,y:1,z:61.5};
+    if(obstruction==='head')f.blocks.set('99,2,61',{isSolid:true,isAir:false});
+    if(obstruction==='side')f.blocks.set('100,1,61',{isSolid:true,isAir:false});
+    if(obstruction==='floor')f.blocks.set('99,0,61',{isSolid:false,isAir:true});
+    if(obstruction==='unloaded')f.blocks.set('99,1,61',undefined);
+    f.ctl.beginPass([e]);assert.equal(f.acquire(e,'fc_train_ring_a',p),null,obstruction);
+    assert.equal(e.placements.length,0);assert.equal(e.frozen,false);
+  }
+});
+
+test('authored floors work with stable 2.1 Block fields and unknown replacements are refused',async()=>{
+  for(const typeId of ['minecraft:coarse_dirt','minecraft:dirt_path','minecraft:oak_fence']){
+    const f=await fixture(),e=f.entity();f.blocks.set('99,0,61',{typeId,isAir:false});
+    assert.equal(f.api.guildStationClear(e,pointA),typeId!=='minecraft:oak_fence');
+  }
+});
+
+test('engine placement false/throw is not retried or replaced by unchecked teleport',async()=>{
+  for(const failure of ['false','throw']){
+    const f=await fixture(),e=f.entity();f.ctl.beginPass([e]);
+    if(failure==='false')e.blocked=true;else e.errors.set('tryTeleport',1);
+    assert.equal(f.acquire(e),null);f.ctl.beginPass([e]);assert.equal(f.acquire(e),null);
+    assert.equal(e.placements.length,1);assert.equal(e.teleports.length,0);assert.equal(e.frozen,false);
+  }
+});
+
+test('pair acquisition is all-or-release; retained lone partner is released',async()=>{
+  const f=await fixture(),a=f.entity(),b=f.entity();f.ctl.beginPass([a,b]);b.blocked=true;
+  assert.equal(f.pair(a,b),null);assert.equal(a.frozen,false);assert.equal(b.frozen,false);
+  const g=await fixture(),c=g.entity(),d=g.entity();g.ctl.beginPass([c,d]);const tokens=g.pair(c,d);
+  assert.ok(tokens);d.isValid=false;g.ctl.beginPass([c]);g.ctl.retain(new Set());
+  assert.equal(c.frozen,false);assert.equal(g.ctl.isActive(c,tokens[0]),false);
+});
+
+test('combat, Follow, married state, dimension change and displacement invalidate activity',async()=>{
+  for(const cause of ['combat','follow','married','dimension','displaced']){
+    const f=await fixture(),e=f.entity();f.ctl.beginPass([e]);const token=f.acquire(e);
+    if(cause==='combat')e.addTag('fc_aggravated');
+    if(cause==='follow')e.addTag('fc_guild_following');
+    if(cause==='married')e.married=true;
+    if(cause==='dimension')e.dimension={...f.dimension,id:'minecraft:nether'};
+    if(cause==='displaced')e.location={x:150,y:1,z:61.5};
+    assert.equal(f.ctl.isActive(e,token),false,cause);assert.equal(e.frozen,false,cause);assert.equal(e.placements.length,1);
+  }
+});
+
+test('night, empty scan and invalid/unloaded entity cancel tokens; reloaded entity is reconciled',async()=>{
+  for(const cause of ['night','empty','invalid']){
+    const f=await fixture(),e=f.entity();f.ctl.beginPass([e]);const token=f.acquire(e);
+    if(cause==='night')f.advance(20,13000);
+    if(cause==='invalid')e.isValid=false;
+    f.ctl.beginPass(cause==='night'?[e]:[]);assert.equal(f.ctl.isActive(e,token),false);
+    e.isValid=true;f.advance(1500);f.ctl.beginPass([e]);assert.equal(e.frozen,false);assert.equal(e.tags.size,0);
+  }
+});
+
+test('an old session token cannot interrupt a new assignment or neutralize defence',async()=>{
+  const f=await fixture(),e=f.entity();f.ctl.beginPass([e]);const old=f.acquire(e);
+  f.advance(1200);f.ctl.beginPass([e]);f.advance(3600);f.ctl.beginPass([e]);const current=f.acquire(e);
+  assert.equal(f.ctl.isActive(e,old),false);assert.equal(f.ctl.isActive(e,current),true);
+  e.triggerEvent('fc:react_attack');e.addTag('fc_aggravated');f.ctl.interrupt(e);
+  assert.equal(e.reaction,'fc:react_attack');assert.equal(e.hasTag('fc_aggravated'),true);assert.equal(e.frozen,false);
+});
+
+test('production scheduler repeats harmless activity without repeated placement and releases on rest',async()=>{
+  const f=await fixture(),a=f.entity(),b=f.entity(),archer=f.entity('fc:guild_apprentice_skill');const runtime=await f.runtime();
+  for(let tick=10;tick<=100;tick+=10){f.advance(tick);runtime.training();f.runDue();}
+  for(const e of [a,b,archer]){assert.equal(e.placements.length,1);assert.equal(e.frozen,true);}
+  assert.ok(f.particles.length>0);assert.ok(f.sounds.some(s=>s.id==='random.bow'));assert.equal(f.spawned.length,0);
+  f.advance(1200);runtime.training();for(const e of [a,b,archer]){assert.equal(e.frozen,false);assert.equal(e.teleports.length,0);}
+});
+
+test('production conversation interrupts immediately and prevents same-session resumption',async()=>{
+  const f=await fixture(),a=f.entity(),b=f.entity(),archer=f.entity('fc:guild_apprentice_skill');const runtime=await f.runtime();
+  runtime.training();const ev={target:archer,player:{},cancel:false};runtime.interact(ev);
+  assert.equal(ev.cancel,true);assert.equal(runtime.dialogues.length,1);assert.equal(archer.frozen,false);
+  f.advance(30);runtime.training();f.runDue();assert.equal(archer.placements.length,1);assert.equal(archer.frozen,false);
+  assert.equal(f.sounds.some(s=>s.id==='random.bow'),false);assert.equal(f.spawned.length,0);
+});
+
+test('production scheduler releases a lone fighter when the partner disappears',async()=>{
+  const f=await fixture(),a=f.entity(),b=f.entity();f.entity('fc:guild_apprentice_skill');const runtime=await f.runtime();
+  runtime.training();assert.equal(a.frozen,true);b.isValid=false;f.advance(20);runtime.training();
+  assert.equal(a.frozen,false);assert.equal(a.tags.size,0);assert.equal(a.placements.length,1);
+  f.runDue();assert.equal(f.sounds.some(s=>s.id==='fc.sword_clash'),false);
+});
+
+test('production delayed archery cancels on aggression, rest, death and social Watch/Follow',async()=>{
+  for(const cause of ['aggression','rest','death','watch','follow']){
+    const f=await fixture();f.entity();f.entity();const archer=f.entity('fc:guild_apprentice_skill');const runtime=await f.runtime();
+    runtime.training();
+    if(cause==='aggression')archer.addTag('fc_aggravated');
+    if(cause==='death')archer.isValid=false;
+    if(cause==='watch'||cause==='follow')runtime.emote(archer,`fc:react_${cause}`);
+    f.advance(cause==='rest'?1200:30);f.runDue();
+    assert.equal(f.sounds.some(s=>s.id==='random.bow'),false,cause);assert.equal(f.spawned.length,0);
+    if(cause==='follow'){
+      assert.equal(archer.hasTag('fc_guild_following'),true);f.advance(3600);runtime.training();assert.equal(archer.placements.length,1);
+      runtime.emote(archer,'fc:react_neutral');assert.equal(archer.hasTag('fc_guild_following'),false);
+      f.advance(7200);runtime.training();assert.equal(archer.placements.length,2);
+    }
+  }
+});
+
+test('production boast excludes active trainees, aggravated defenders and followers',async()=>{
+  const f=await fixture();const a=f.entity(),b=f.entity(),archer=f.entity('fc:guild_apprentice_skill');const runtime=await f.runtime();
+  runtime.training();const guard=f.entity('fc:guard_bowerstone');guard.addTag('fc_aggravated');
+  const follower=f.entity();follower.addTag('fc_guild_following');
+  runtime.boast({setDynamicProperty(){},sendMessage(){}},{x:0,y:0,z:0});
+  for(const e of [a,b,archer,guard,follower])assert.equal(e.teleports.length,0,e.typeId);
+  assert.equal(a.frozen,true);assert.equal(b.frozen,true);assert.equal(archer.frozen,true);
+});

@@ -1,0 +1,42 @@
+{
+  "kind": "static offline visual review; not an engine behavior pass",
+  "pipeline_summary": "screenshots/validation/GP3/full-render-summary.json",
+  "pipeline_exit_code": 0,
+  "verified_png_counts": {
+    "gallery": 13,
+    "items": 55,
+    "mobs": 51,
+    "recipes": 130,
+    "structures": 31
+  },
+  "audit_log": "screenshots/validation/GP3/full-render-AUDIT.md",
+  "audit_limit": "Renderer gives all three apprentices S/100; this is a completeness/asset heuristic, not TLC resemblance or AI evidence.",
+  "cards": [
+    {
+      "discipline": "might",
+      "source": "tmp/conformance/GP3-full-screenshots/mobs/guild_apprentice_might.png",
+      "evidence": "screenshots/validation/GP3/npc-might-static-card.png",
+      "sha256": "cc419c2e334627f6b4880e47f7a2fad7060846d307f8e8103b29d1e44ab2a394",
+      "visual_observation": "White hood and blue-gray robe with gold trim; a brown practice stick is visible beside the right hand/leg."
+    },
+    {
+      "discipline": "skill",
+      "source": "tmp/conformance/GP3-full-screenshots/mobs/guild_apprentice_skill.png",
+      "evidence": "screenshots/validation/GP3/npc-skill-static-card.png",
+      "sha256": "941a203391cfb60febed732bfb914175da90e9ab612d240d7348246f2262a07e",
+      "visual_observation": "Same hooded uniform; a tall segmented bow shape is visible along the right side. This neutral pose does not show a bow draw or release."
+    },
+    {
+      "discipline": "will",
+      "source": "tmp/conformance/GP3-full-screenshots/mobs/guild_apprentice_will.png",
+      "evidence": "screenshots/validation/GP3/npc-will-static-card.png",
+      "sha256": "f9f5241caeb16e842b7724cb120f4c18e8ddba35e054e135a1916c2582cd9e2f",
+      "visual_observation": "Same hooded uniform with a brown practice stick; no Will-casting activity or effect is shown, preserving the known role-fidelity gap."
+    }
+  ],
+  "limitations": [
+    "GP3 changed behavior only; these cards show existing models in a static neutral pose.",
+    "No animated sparring, blocked station, restored movement, friendly-fire behavior, conversation interruption or follow path is visible.",
+    "No original TLC character screenshot comparison was performed for these cards."
+  ]
+}

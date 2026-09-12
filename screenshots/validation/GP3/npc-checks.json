@@ -1,0 +1,68 @@
+{
+  "kind": "offline NPC checks; engine checks unrun",
+  "reviewed_snapshot": "tmp/conformance/GP3-reviewed-snapshot",
+  "source_hashes": {
+    "packs/Fablecraft_BP/scripts/guild_training.js": "1a0b2b849081553d0f681d40018630af3bd3ab99cc0e4a63893252b0ca93d669",
+    "scripts/tests/guild_training.test.mjs": "051482e196aa4ca027579edf643713f49adedffccaccf6bb3db08d90c049f467",
+    "docs/GUILD_TRAINING.md": "deb79dfbbfee9273b7d28ca9c67b0c2c1633f799482fdbd9257e6e7642ccad6f"
+  },
+  "validation_summary": "screenshots/validation/GP3/results.json",
+  "all_validation_gates": 29,
+  "all_validation_gates_pass": true,
+  "checks": {
+    "guild-training-tests": {
+      "command": [
+        "node",
+        "--experimental-vm-modules",
+        "scripts/tests/guild_training.test.mjs"
+      ],
+      "exit_code": 0,
+      "log": "screenshots/validation/GP3/guild-training-tests.log",
+      "log_sha256": "ce1b7873a5e0644cd4cc05f1e219134f863afbae4793aab366fb53a54427c939",
+      "test_groups": 18,
+      "passed": 18,
+      "failed": 0
+    },
+    "behavior-tests": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/tests/test_gen_behavior.py"
+      ],
+      "exit_code": 0,
+      "log": "screenshots/validation/GP3/behavior-tests.log",
+      "log_sha256": "c92f10d42ada1abf96a52257bafa6c023d0df0ad0a1dc29f2655f41c844d603a",
+      "test_groups": 5
+    },
+    "runtime-tests": {
+      "command": [
+        "npm",
+        "test"
+      ],
+      "exit_code": 0,
+      "log": "screenshots/validation/GP3/runtime-tests.log",
+      "log_sha256": "ff3e87e1ee6824000a700bab3b188e0e782a8b6c50b7084458268cf6ee99c76f"
+    },
+    "lint": {
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "exit_code": 0,
+      "log": "screenshots/validation/GP3/lint.log",
+      "log_sha256": "40c79ae2a122e5a827370f529cfa4f87f2f6770bd248b8198993ef6cc30b74ce"
+    }
+  },
+  "floor_api_review": {
+    "dependency": "@minecraft/server 2.1.0",
+    "uses": [
+      "Block.typeId",
+      "Block.isAir",
+      "Entity.tryTeleport with checkForBlocks:true"
+    ],
+    "avoids": "Block.isSolid: official documentation marks this pre-release",
+    "support_policy": "Only authored minecraft:coarse_dirt and minecraft:dirt_path floor blocks qualify; unknown replacements refuse acquisition.",
+    "source": "https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/server/block?view=minecraft-bedrock-stable"
+  },
+  "manual_status": "No Bedrock engine, collision, AI execution, animation blending or dynamic travel claims."
+}

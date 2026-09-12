@@ -46,6 +46,18 @@
       "spawn_category": "creature"
     },
     "component_groups": {
+      "fc:guild_roaming": {
+        "minecraft:movement": {
+          "value": 0.34
+        },
+        "minecraft:knockback_resistance": {
+          "value": 0.0
+        },
+        "minecraft:pushable": {
+          "is_pushable": true,
+          "is_pushable_by_piston": true
+        }
+      },
       "fc:guild_training": {
         "minecraft:movement": {
           "value": 0.0
@@ -197,6 +209,11 @@
     },
     "events": {
       "fc:guild_training_start": {
+        "remove": {
+          "component_groups": [
+            "fc:guild_roaming"
+          ]
+        },
         "add": {
           "component_groups": [
             "fc:guild_training"
@@ -207,6 +224,11 @@
         "remove": {
           "component_groups": [
             "fc:guild_training"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "fc:guild_roaming"
           ]
         }
       },

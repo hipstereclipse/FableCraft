@@ -59,6 +59,32 @@ class BehaviorRegression(unittest.TestCase):
         existing = json.loads((ROOT / 'packs/Fablecraft_BP/entities/theresa.json').read_text())
         self.assertEqual(generated, existing)
 
+    def test_guild_training_restores_overridden_components(self):
+        # Component removal does not fall back to base components in Bedrock.
+        # Exercise the emitted transition actions with remove-then-add semantics.
+        keys = ('minecraft:movement', 'minecraft:knockback_resistance', 'minecraft:pushable')
+        for mob in (m for m in MOBS if m['id'].startswith('guild_apprentice_')):
+            with self.subTest(mob=mob['id']):
+                gb.emit_entity(mob)
+                data = json.loads((self.bp / 'entities' / (mob['id'] + '.json')).read_text())['minecraft:entity']
+                live = dict(data['components'])
+                groups = data['component_groups']
+                for event in ('fc:guild_training_start', 'fc:guild_training_stop',
+                              'fc:guild_training_stop', 'fc:guild_training_start', 'fc:guild_training_stop'):
+                    action = data['events'][event]
+                    for group in action.get('remove', {}).get('component_groups', []):
+                        for key in groups[group]:
+                            live.pop(key, None)
+                    for group in action.get('add', {}).get('component_groups', []):
+                        live.update(groups[group])
+                    if event.endswith('_start'):
+                        self.assertEqual(live['minecraft:movement']['value'], 0)
+                    else:
+                        for key in keys:
+                            self.assertEqual(live[key], data['components'][key])
+                        self.assertGreater(live['minecraft:movement']['value'], 0)
+                        self.assertTrue(live['minecraft:pushable']['is_pushable'])
+
     def test_all_item_formats(self):
         items = fc_data.all_items()
         self.assertGreaterEqual(len(items), 194)
