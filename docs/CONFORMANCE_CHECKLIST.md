@@ -30,7 +30,7 @@ replace with a real hash in the next milestone. A mock or render is never an in-
 | L2 Generator string table and local/original mode | done | 3642d33; screenshots/validation/L2/ | PASS (automated) | 2026-09-12 |
 | L3.1 Runtime strings and menu hub | in-progress | d8361d4; screenshots/validation/L3.1/ | PASS (automated); PENDING (manual) | 2026-09-12 |
 | L3.2 Runtime quests, towns, shops and crime | in-progress | 833fbaf; screenshots/validation/L3.2/ | PASS (automated); PENDING (manual/catalog review) | 2026-09-12 |
-| L3.3 Will modules, logbook and generated HUD text | in-progress | SELF: TLC Conformance — L3.3: route logbook expressions and HUD labels through generators; screenshots/validation/L3.3/ | PASS (automated); PENDING (manual/catalog review) | 2026-09-12 |
+| L3.3 Will modules, logbook and generated HUD text | in-progress | cb9e0db; screenshots/validation/L3.3/ | PASS (automated); PENDING (manual/catalog review) | 2026-09-12 |
 | L4 Enforce original-only release packaging | todo | — | — | — |
 
 ## W — World
@@ -89,7 +89,7 @@ replace with a real hash in the next milestone. A mock or render is never an in-
 
 | Item | Status (todo/in-progress/done) | Evidence (commit + screenshot/validator path) | Grade | Date |
 | --- | --- | --- | --- | --- |
-| C1 Continuous validation | todo | — | — | — |
+| C1 Continuous validation | in-progress | SELF: TLC Conformance — C1: add pinned continuous validation and clean-checkout proof; screenshots/validation/C1/ | PASS (local + clean snapshot); PENDING (remote CI) | 2026-09-12 |
 | C2 Structure-manifest contract | todo | — | — | — |
 | C3 Reproducible conformance scoreboard | todo | — | — | — |
 

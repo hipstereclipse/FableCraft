@@ -1,0 +1,81 @@
+{
+  "python": "3.14.7",
+  "platform": "Linux-7.1.8-1-cachyos-x86_64-with-glibc2.44",
+  "checks": {
+    "build": {
+      "command": [
+        "/tmp/fablecraft-ci-kgeuxfw_/.venv/bin/python",
+        "scripts/build_addon.py"
+      ],
+      "exit_code": 0
+    },
+    "lint": {
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "exit_code": 0
+    },
+    "expressions": {
+      "command": [
+        "/tmp/fablecraft-ci-kgeuxfw_/.venv/bin/python",
+        "scripts/verify_emotes.py"
+      ],
+      "exit_code": 0
+    },
+    "animations": {
+      "command": [
+        "/tmp/fablecraft-ci-kgeuxfw_/.venv/bin/python",
+        "scripts/_audit_anims.py"
+      ],
+      "exit_code": 0
+    },
+    "hud": {
+      "command": [
+        "/tmp/fablecraft-ci-kgeuxfw_/.venv/bin/python",
+        "scripts/audit_hud.py",
+        "--check"
+      ],
+      "exit_code": 0
+    },
+    "behavior-tests": {
+      "command": [
+        "/tmp/fablecraft-ci-kgeuxfw_/.venv/bin/python",
+        "scripts/tests/test_gen_behavior.py"
+      ],
+      "exit_code": 0
+    },
+    "animation-tests": {
+      "command": [
+        "/tmp/fablecraft-ci-kgeuxfw_/.venv/bin/python",
+        "scripts/tests/test_animation_audit.py"
+      ],
+      "exit_code": 0
+    },
+    "branding-tests": {
+      "command": [
+        "/tmp/fablecraft-ci-kgeuxfw_/.venv/bin/python",
+        "scripts/tests/test_branding.py"
+      ],
+      "exit_code": 0
+    },
+    "runtime-tests": {
+      "command": [
+        "npm",
+        "test"
+      ],
+      "exit_code": 0
+    },
+    "original-preview": {
+      "command": [
+        "/tmp/fablecraft-ci-kgeuxfw_/.venv/bin/python",
+        "scripts/build_addon.py",
+        "--branding",
+        "original",
+        "--preview"
+      ],
+      "exit_code": 0
+    }
+  }
+}

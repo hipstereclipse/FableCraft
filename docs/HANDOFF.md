@@ -10,37 +10,36 @@ six reference snapshots are in docs/. User override (2026-09-12): finish the spe
 and continue as far as practical without permission questions. Retain separate
 milestone commits, validation, immediate pushes, evidence and fresh handoffs.
 
-Current milestone: L3.3 — route logbook expressions and HUD labels through generators; status in-progress.
-Last resolved prior commit: 833fbaf (pushed before this milestone).
-Containing commit: TLC Conformance — L3.3: route logbook expressions and HUD labels through generators.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — L3.3: route logbook expressions and HUD labels through generators'.
+Current milestone: C1 — add pinned continuous validation and clean-checkout proof; status in-progress.
+Last resolved prior commit: cb9e0db (pushed before this milestone).
+Containing commit: TLC Conformance — C1: add pinned continuous validation and clean-checkout proof.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — C1: add pinned continuous validation and clean-checkout proof'.
 Replace previous SELF evidence with the actual hash next step; never invent a self-hash.
 
-L3.3 code and automated tests are delivered; manual/catalog review remains pending.
-Logbook narration uses message templates; canonical mob names are displayed without
-rewriting existing cleaned kill/discovery keys. Thirteen expression-system messages
-and the four generated Oracle names now use the single naming owner. Emote IDs,
-unlocks, animation bindings and rating axes remain unchanged. HUD runtime had no
-actual generator despite the inherited ownership rule: scripts/gen_hud_runtime.py
-now emits scripts/templates/hud_runtime.js into fable_hud.js. Edit the template and
-regenerate. Both HUD feeds translate saved site names without touching payload shape.
+C1 workflow and scripts/validate.py are implemented and locally green. Workflow
+runs push/pull_request with contents:read, pins official v7 action commit hashes and
+Ubuntu24.04/Python3.14.7/Node26.7.0, installs locked dependencies, runs every base and
+regression gate plus original preview, and uploads ONLY tmp/validation logs. It never
+publishes packs or runs --full. scripts/validate.py is the durable shared CI/local
+entry point; use --output to save milestone logs. No untracked tools are required.
 
-All gates green in screenshots/validation/L3.3/: build56JS, emotes31/21, HUD112/112,
-animations54, ESLint0errors/19warnings, spells17, scan3, behavior4groups, animation10,
-branding16, runtime22 tests. HUD tests assert all23lines and spacer/radar boundaries.
-Inspected faithful preview: unchanged radar-column, missing hunger-frame and nav-bleed
-defects from0.2 remain. No visual A-grade or in-world pass. Preview/logs are committed.
+A fresh tracked snapshot of cb9e0db plus the two CI files passed all ten gate commands
+with a new venv and npm ci. Evidence: screenshots/validation/C1/ and C1/clean/. The
+snapshot used 684JSON rather than local685 because the inherited untracked pack-level
+package.json is absent; all assets/tests pass without it. Runtime tests total42
+(spells17, scan3, naming22); Python behavior4groups, animation10, branding16; HUD112/112,
+animations54, expression31/21, lint0errors/19warnings. Local proof is not remote proof.
 
-Known original-preview display debt is now six files, mostly explicit legacy keys and
-historical comments. This is NOT a complete release scan: lower-case IDs, filenames,
-escapes, aliases/case variants, unknown deed labels and unlisted vocabulary remain L4
-work. Original packaging stays blocked. Public title Wayfarer Tales is provisional;
-final naming requires user selection at release, not an autonomous claim. Independent
-C1 validation tooling can proceed without opening that release gate. Continue without
-permission pauses under the user's existing authorization.
+C1 status stays in-progress until the newly pushed workflow's actual GitHub run is
+green. Query gh run list/view for branch phase3-will-destiny and inspect logs on failure;
+record URL/head SHA/result honestly. Actions is enabled and GitHub API access works.
+No user permission is needed to finish authorized CI verification. Naming milestones
+L3.1–L3.3 and0.3 still have manual checks; L3.2/L3.3 also need final vocabulary review.
+Original releases remain blocked by L4 and final naming selection. Do not relax the
+zero-debt release rule merely to make CI green.
 
 Next three actions:
-1. git pull --ff-only; read the top pending row and start C1 (independent continuous-validation tooling; L4 release work stays blocked).
+1. git pull --ff-only; read the top pending row and start C1 remote-run verification, then L4 scanner groundwork or C2 contracts.
 2. Execute its numbered playbook steps and applicable base/domain validators; preserve
    real output under screenshots/validation/<ID>/, mark manual observations unrun.
 3. Update checklist/handoff in one explicitly staged milestone commit, push to origin,
