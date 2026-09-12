@@ -1,0 +1,42 @@
+{
+  "explicit-lint": {
+    "command": [
+      "npx",
+      "--no-install",
+      "eslint",
+      "packs/Fablecraft_BP/scripts"
+    ],
+    "exit_code": 0
+  },
+  "spells": {
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "scripts/tests/spells.test.mjs"
+    ],
+    "exit_code": 0
+  },
+  "syntax": {
+    "command": [
+      "node",
+      "--check",
+      "--input-type=module"
+    ],
+    "stdin": "reviewed-snapshot/packs/Fablecraft_BP/scripts/main.js",
+    "exit_code": 0
+  },
+  "guild-match": {
+    "command": [
+      "/usr/bin/python",
+      "scripts/_audit_match.py"
+    ],
+    "exit_code": 0
+  },
+  "guild-roofs": {
+    "command": [
+      "/usr/bin/python",
+      "scripts/_audit_roofs.py"
+    ],
+    "exit_code": 0
+  }
+}

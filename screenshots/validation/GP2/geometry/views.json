@@ -1,0 +1,11 @@
+{
+  "scope": "Offline generated visuals, never engine movement or TLC-fidelity proof. Circulation views hide architectural shells.",
+  "source_sha256": "57a41b95ed794f62f9dc24c295733d244dea78f18af1592e191d91fe4e3555d1",
+  "images": {
+    "new_exterior": "46e0a4318d87007bd7ac78b5ebe7b9423886f959b781a0d6a08660e8b81bab35",
+    "new_hall_cutaway": "5de7b1c90a33608f05ffea76342b225901aa42bf28605aa06af474f5bc91435c",
+    "new_tower_cutaway": "2c5ff1312d1d02bf44eefd5c2a3facacdaf924a774fcafab09566216605a72ab",
+    "lobby_circulation_cutaway": "459ad4c061bd98e58452647f74455e8602abbe773048edeb929b8d836572ce24",
+    "tower_circulation_cutaway": "416490ebde19cae9619c2fe274170341e16966d3e1dc2815a63d2d6ce455afe8"
+  }
+}

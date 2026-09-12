@@ -1,0 +1,76 @@
+test_gate_connects_gallery_dining_and_maze_in_both_directions (test_guild_routes.GuildRoutes.test_gate_connects_gallery_dining_and_maze_in_both_directions) ... 
+  test_gate_connects_gallery_dining_and_maze_in_both_directions (test_guild_routes.GuildRoutes.test_gate_connects_gallery_dining_and_maze_in_both_directions) (destination=(31, 10.0, 42)) ... FAIL
+  test_gate_connects_gallery_dining_and_maze_in_both_directions (test_guild_routes.GuildRoutes.test_gate_connects_gallery_dining_and_maze_in_both_directions) (destination=(39, 8.0, 42)) ... FAIL
+  test_gate_connects_gallery_dining_and_maze_in_both_directions (test_guild_routes.GuildRoutes.test_gate_connects_gallery_dining_and_maze_in_both_directions) (destination=(46, 12.0, 70)) ... FAIL
+test_two_lobby_flights_have_contiguous_half_steps_and_turns (test_guild_routes.GuildRoutes.test_two_lobby_flights_have_contiguous_half_steps_and_turns) ... FAIL
+test_gallery_bridge_threshold_is_supported_and_clear (test_guild_routes.GuildRoutes.test_gallery_bridge_threshold_is_supported_and_clear) ... FAIL
+test_tower_every_turn_and_floor_landing_is_walkable (test_guild_routes.GuildRoutes.test_tower_every_turn_and_floor_landing_is_walkable) ... FAIL
+
+======================================================================
+FAIL: test_gate_connects_gallery_dining_and_maze_in_both_directions (test_guild_routes.GuildRoutes.test_gate_connects_gallery_dining_and_maze_in_both_directions) (destination=(31, 10.0, 42))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_guild_routes.py", line 108, in test_gate_connects_gallery_dining_and_maze_in_both_directions
+    self.assertTrue(destination in self.from_gate,f'Unreachable {destination}')
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : Unreachable (31, 10.0, 42)
+
+======================================================================
+FAIL: test_gate_connects_gallery_dining_and_maze_in_both_directions (test_guild_routes.GuildRoutes.test_gate_connects_gallery_dining_and_maze_in_both_directions) (destination=(39, 8.0, 42))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_guild_routes.py", line 108, in test_gate_connects_gallery_dining_and_maze_in_both_directions
+    self.assertTrue(destination in self.from_gate,f'Unreachable {destination}')
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : Unreachable (39, 8.0, 42)
+
+======================================================================
+FAIL: test_gate_connects_gallery_dining_and_maze_in_both_directions (test_guild_routes.GuildRoutes.test_gate_connects_gallery_dining_and_maze_in_both_directions) (destination=(46, 12.0, 70))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_guild_routes.py", line 108, in test_gate_connects_gallery_dining_and_maze_in_both_directions
+    self.assertTrue(destination in self.from_gate,f'Unreachable {destination}')
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : Unreachable (46, 12.0, 70)
+
+======================================================================
+FAIL: test_two_lobby_flights_have_contiguous_half_steps_and_turns (test_guild_routes.GuildRoutes.test_two_lobby_flights_have_contiguous_half_steps_and_turns)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_guild_routes.py", line 118, in test_two_lobby_flights_have_contiguous_half_steps_and_turns
+    self.check_run(north);self.check_run([(x,y,84-z) for x,y,z in north])
+    ~~~~~~~~~~~~~~^^^^^^^
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_guild_routes.py", line 97, in check_run
+    self.assertTrue(supported(v,x,y,z),f'No surface {(x,y,z)}')
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : No surface (20, 1.5, 40)
+
+======================================================================
+FAIL: test_gallery_bridge_threshold_is_supported_and_clear (test_guild_routes.GuildRoutes.test_gallery_bridge_threshold_is_supported_and_clear)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_guild_routes.py", line 128, in test_gallery_bridge_threshold_is_supported_and_clear
+    self.check_run(run)
+    ~~~~~~~~~~~~~~^^^^^
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_guild_routes.py", line 98, in check_run
+    self.assertTrue(clear(v,x,y,z),f'Blocked standing volume {(x,y,z)}')
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : Blocked standing volume (33, 9.5, 41)
+
+======================================================================
+FAIL: test_tower_every_turn_and_floor_landing_is_walkable (test_guild_routes.GuildRoutes.test_tower_every_turn_and_floor_landing_is_walkable)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_guild_routes.py", line 146, in test_tower_every_turn_and_floor_landing_is_walkable
+    self.check_run(self.tower_run())
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_guild_routes.py", line 97, in check_run
+    self.assertTrue(supported(v,x,y,z),f'No surface {(x,y,z)}')
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : No surface (49, 1.5, 70)
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.441s
+
+FAILED (failures=6)
+Expected baseline rejection: True

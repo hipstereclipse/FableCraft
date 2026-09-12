@@ -524,6 +524,89 @@ def fix_floating_decor(v):
     return len(fixes)
 
 
+def guild_circulation_routes():
+    """Authored walking surfaces (x, feet-y, z), including two-wide flat turns.
+
+    Half-block rises replace the old disconnected trigonometric tread samples.
+    Keep elevations in feet-space: a lower slab at block y1 has a y1.5 surface.
+    These are construction reservations, not runtime repairs or new NPC anchors.
+    """
+    north = []
+    for i, z in enumerate(range(40, 36, -1)):
+        north.extend((x, 1.5 + i * .5, z) for x in (20, 21))
+    north.extend((x, 3., z) for x in (20, 21) for z in (35, 36))
+    for i, x in enumerate(range(22, 31)):
+        north.extend((x, 3.5 + i * .5, z) for z in (35, 36))
+    north.extend((x, 7.5, z) for x in (31, 32) for z in (35, 36, 37))
+    for i, z in enumerate(range(38, 43)):
+        north.extend((x, 8. + i * .5, z) for x in (31, 32))
+    south = [(x, y, 84 - z) for x, y, z in north]
+    tower = []
+    for i, z in enumerate(range(70, 75)):
+        tower.extend((x, 1.5 + i * .5, z) for x in (49, 50))
+    tower.extend((x, 3.5, z) for x, z in ((49, 75), (50, 75), (49, 76)))
+    for i, x in enumerate(range(48, 43, -1)):
+        tower.extend((x, 4. + i * .5, z) for z in (75, 76))
+    tower.extend((x, 6., z) for x, z in ((43, 75), (42, 75), (43, 76)))
+    for i, z in enumerate(range(74, 69, -1)):
+        tower.extend((x, 6.5 + i * .5, z) for x in (42, 43))
+    tower.extend((x, 8.5, z) for x, z in ((43, 69), (42, 69), (43, 68)))
+    for i, x in enumerate(range(44, 49)):
+        tower.extend((x, 9. + i * .5, z) for z in (68, 69))
+    tower.extend((x, 11., z) for x, z in ((49, 69), (50, 69), (49, 68)))
+    for i, z in enumerate((70, 71)):
+        tower.extend((x, 11.5 + i * .5, z) for x in (49, 50))
+    # Three-wide link: full gallery y10 -> half steps -> dining floor y8.
+    bridge = [(x, 9.5 if x == 32 and z != 42 else feet, z) for x, feet in ((32, 10.), (33, 9.5),
+              (34, 9.), (35, 8.5), (36, 8.), (37, 8.), (38, 8.), (39, 8.))
+              for z in (41, 42, 43)]
+    return {"lobby_north": north, "lobby_south": south,
+            "tower": tower, "gallery_bridge": bridge}
+
+
+def build_guild_circulation(v):
+    """Construct the reserved stair/landing volumes after all adjoining shells.
+
+    This final construction phase has named, bounded routes. No broad geometry
+    repair, terrain sweep or saved-world operation is performed here.
+    """
+    routes = guild_circulation_routes()
+    # Floor/ceiling openings first; no later clearance pass can erase a tread.
+    for name, route in routes.items():
+        for x, feet, z in route:
+            low = math.ceil(feet)
+            # A full two blocks above even half-slab surfaces, plus generous trim
+            # clearance for lanterns, door frames and the taller NPC camera.
+            v.fill(x, low, z, x, math.ceil(feet + 2), z, "minecraft:air")
+    for name, route in routes.items():
+        for x, feet, z in route:
+            y = math.ceil(feet) - 1
+            material = "minecraft:stone_brick_slab" if feet % 1 else STONE
+            if name == "gallery_bridge":
+                material = "minecraft:spruce_slab" if feet % 1 else SPRUCE
+            v.set(x, y, z, material)
+            # A one-block carriage joins half-tread courses physically without
+            # filling the ground arches or the tower's earlier revolution.
+            if y > 1:
+                v.set(x, y - 1, z, STONE)
+    # Positive bridges from the inner stair lane to each tower floor. The study
+    # route stays clear of the fixed central newel and Maze's (46,12,70) anchor.
+    for x, y, z in ((44, 6, 73), (44, 6, 72),
+                    (48, 11, 71), (47, 11, 71), (46, 11, 71), (46, 11, 70)):
+        v.set(x, y, z, DARKOAK if y == 11 else SPRUCE)
+        v.fill(x, y + 1, z, x, y + 3, z, "minecraft:air")
+    # A dining bunk previously straddled the bridge doorway. Its two halves are
+    # now omitted by this explicit landing; the other bunks are retained.
+    for x in (37, 38, 39):
+        for z in (41, 42, 43):
+            v.set(x, 7, z, SPRUCE)
+            v.fill(x, 8, z, x, 11, z, "minecraft:air")
+    # Three-wide ground arches remain beneath the north/south stair crossings.
+    # Their lowest tread carriage is at y3, above a two-block standing volume.
+    for z0, z1 in ((34, 36), (48, 50)):
+        v.fill(25, 1, z0, 27, 2, z1, "minecraft:air")
+
+
 def guild_hall():
     """The Heroes' Guild of Albion — laid out to match the canonical ground plan.
 
@@ -898,59 +981,8 @@ def guild_hall():
     v.set(SKX, 0, SKZ, "minecraft:sea_lantern")          # flush glowing core
     v.set(SKX, 8, SKZ, LANTERN, {"hanging": True})       # hung from the y9 cone apex (y6 floats -> fix_floating_decor would strip it)
 
-    # Grand lobby stairs: two wall-hugging wrapped flights start just after the
-    # Cullis and Skill nooks, then meet on the rear platform over the dining arch.
-    def inward_offset(x, z):
-        dx = 1 if x < ROT_X else (-1 if x > ROT_X else 0)
-        dz = 1 if z < ROT_Z else (-1 if z > ROT_Z else 0)
-        if abs(x - ROT_X) >= abs(z - ROT_Z):
-            return dx, 0
-        return 0, dz
-
-    stair_cells = set()
-
-    def place_wrapped_stair(path):
-        for i, (sx, sz) in enumerate(path):
-            sy = 1 + i // 2
-            ox, oz = inward_offset(sx, sz)
-            cells = ((sx, sz), (sx + ox, sz + oz))
-            mat = SBRICK_SLAB if i % 2 == 0 else STONE
-            for cx_, cz_ in cells:
-                v.set(cx_, sy, cz_, mat)
-                stair_cells.add((cx_, cz_))
-                for yy in range(sy + 1, min(UP_Y + 4, sy + 4)):
-                    v.set(cx_, yy, cz_, "minecraft:air")
-            if i % 4 == 0 or sy >= UP_Y - 1:
-                for yy in range(1, sy):
-                    v.set(sx, yy, sz, SAND_CHIS if yy in (1, sy - 1) else STONE)
-
-    north_stair = ((20, 38), (21, 37), (22, 36), (23, 36),
-                   (24, 35), (25, 35), (26, 35), (27, 35),
-                   (28, 36), (29, 36), (30, 37), (31, 38),
-                   (31, 39), (32, 40), (32, 41), (32, 42))
-    south_stair = ((20, 46), (21, 47), (22, 48), (23, 48),
-                   (24, 49), (25, 49), (26, 49), (27, 49),
-                   (28, 48), (29, 48), (30, 47), (31, 46),
-                   (31, 45), (32, 44), (32, 43), (32, 42))
-    place_wrapped_stair(north_stair)
-    place_wrapped_stair(south_stair)
-
-    rear_deck = set()
-    for x in range(30, 33):
-        for z in range(38, 47):
-            d = math.hypot(x - ROT_X, z - ROT_Z)
-            if 4.2 < d <= ROT_R - 0.5 and (x, z) not in stair_cells:
-                v.set(x, UP_Y, z, SPRUCE)
-                rear_deck.add((x, z))
-                for yy in range(UP_Y + 1, UP_Y + 4):
-                    v.set(x, yy, z, "minecraft:air")
-    for x, z in rear_deck:
-        if x == 30 or z in (38, 46):
-            if (x, z) not in stair_cells:
-                v.set(x, UP_Y + 1, z, DARKOAK_FENCE)
-    for z in range(ROT_Z - 2, ROT_Z + 3):
-        v.set(ROT_X + 6, UP_Y - 1, z, LANTERN if z == ROT_Z else DARKOAK_FENCE,
-              {"hanging": True} if z == ROT_Z else None)
+    # The final circulation builder installs the two lobby flights and their
+    # gallery after the adjoining rooms, so wall/roof passes cannot replace them.
 
     # ================= LIBRARY (north) + Guild-Cave exit (B) =================
     lx0, lx1, lz0, lz1 = 18, 36, 16, 30
@@ -1044,28 +1076,7 @@ def guild_hall():
             v.set(x, yy, ROT_Z + 3, warm())
         for z in range(ROT_Z - 3, ROT_Z + 4):
             v.set(x, 6, z, SLATE if z in (ROT_Z - 3, ROT_Z + 3) else DEEP_TILES)
-    # task 13: an upper covered stone-arch BRIDGE links the rotunda gallery (y=UP_Y)
-    # to the Dining Hall's upper floor (y=UPPER), so the second storeys join up
-    for x in range(ROT_X + 5, dx0 + 1):             # x31..36, stepping y9 -> y7
-        step = x - (ROT_X + 5)
-        if step <= 1:
-            yb, deck_mat = UP_Y, SPRUCE
-        elif step == 2:
-            yb, deck_mat = UP_Y, "minecraft:spruce_slab"
-        elif step == 3:
-            yb, deck_mat = UP_Y - 1, SPRUCE
-        elif step == 4:
-            yb, deck_mat = UP_Y - 1, "minecraft:spruce_slab"
-        else:
-            yb, deck_mat = UPPER, SPRUCE
-        for zz in (ROT_Z - 1, ROT_Z, ROT_Z + 1):
-            v.set(x, yb, zz, deck_mat)
-            v.fill(x, yb + 1, zz, x, yb + 3, zz, "minecraft:air")
-        v.set(x, yb + 1, ROT_Z - 1, DARKOAK_FENCE)  # railings
-        v.set(x, yb + 1, ROT_Z + 1, DARKOAK_FENCE)
-        v.set(x, yb + 4, ROT_Z, SLATE)              # little gabled cover
-    v.fill(dx0, UPPER, ROT_Z - 1, dx0, UPPER + 2, ROT_Z + 1, "minecraft:air")   # into dining upper
-    v.fill(ROT_X + 4, UP_Y, ROT_Z - 1, ROT_X + 4, UP_Y + 2, ROT_Z + 1, "minecraft:air")  # from gallery
+    # The final circulation builder also owns the upper gallery/dining bridge.
     # two long banquet tables joined END-TO-END down the CENTRE (along the hall's
     # length), benches down both long sides, candelabra spaced along the boards
     tcx = (dx0 + dx1) // 2
@@ -1565,34 +1576,13 @@ def guild_hall():
     # It stops below floor 3; the study above is set inward so a balcony can wrap it.
     ring_wall(v, TWR_X, TWR_Z, TWR_R, 1, LOWER_TOP, tower_stone, gaps=[(180, 16), (270, 16)])
 
-    def tower_spiral_points(y0, y1):
-        pts = []
-        slabs = set()
-        prev = None
-        for i in range((y1 - y0 + 1) * 2):
-            y = y0 + i // 2
-            ang = math.radians(25 + i * (360 / 16))
-            outer = (TWR_X + round(math.cos(ang) * SPR_R),
-                     TWR_Z + round(math.sin(ang) * SPR_R))
-            inner = (TWR_X + round(math.cos(ang) * (SPR_R - 1)),
-                     TWR_Z + round(math.sin(ang) * (SPR_R - 1)))
-            dx, dz = (outer[0] - prev[0], outer[1] - prev[1]) if prev else (-1, 0)
-            st = {"weirdo_direction": _stair_dir(dx or -1, dz), "upside_down_bit": False}
-            pts.append((outer[0], y, outer[1], st))
-            if i % 2 == 0:
-                slabs.add((outer[0], y, outer[1]))
-            else:
-                slabs.discard((outer[0], y, outer[1]))
-            if inner != outer:
-                pts.append((inner[0], y, inner[1], st))
-                if i % 2 == 0:
-                    slabs.add((inner[0], y, inner[1]))
-                else:
-                    slabs.discard((inner[0], y, inner[1]))
-            prev = outer
-        return pts, slabs
-
-    stair_pts, stair_slabs = tower_spiral_points(1, F3)
+    # Explicit contiguous flights, including corner landings and both deck joins.
+    # The same reserved cells guide furniture/decks, then are built after shells.
+    stair_pts = [(x, math.ceil(feet) - 1, z, {})
+                 for x, feet, z in guild_circulation_routes()["tower"]]
+    stair_slabs = {(x, math.ceil(feet) - 1, z)
+                   for x, feet, z in guild_circulation_routes()["tower"]
+                   if feet % 1}
     stair_xy = {(x, z) for x, _, z, _ in stair_pts}
     # floor decks at F2 and F3, each leaving a clean stairwell and landing edge
     for deck in (F2, F3):
@@ -1681,19 +1671,10 @@ def guild_hall():
     v.set(TWR_X, F3 + 1, TWR_Z - 3, "minecraft:red_bed", {"direction": 1, "head_piece_bit": True})
     v.set(TWR_X, F3 + 3, TWR_Z, "minecraft:sea_lantern")
     v.set(TWR_X, F3 + 4, TWR_Z, "minecraft:lantern", {"hanging": True})
-    # place the stair last and clear its headroom so it cannot be overwritten by floors or decor
-    for x, y, z, st in stair_pts:
-        v.set(x, y, z, SBRICK_SLAB if (x, y, z) in stair_slabs else STONE)
-        for yy in range(y + 1, min(TOP, y + 4)):
-            v.set(x, yy, z, "minecraft:air")
-    for yy in range(1, F3 + 3):                      # dark newel with arcane lamps
+    # Central newel stays outside every stair/landing reservation. Stair rails
+    # used to overwrite the inner lane here; the final builder owns both lanes.
+    for yy in range(1, F3 + 3):
         v.set(TWR_X, yy, TWR_Z, "minecraft:chiseled_deepslate" if yy % 3 else "minecraft:sea_lantern")
-    for x, y, z, _ in stair_pts:                     # inner rail; kept off entrance corridors
-        ox = 1 if x > TWR_X else (-1 if x < TWR_X else 0)
-        oz = 1 if z > TWR_Z else (-1 if z < TWR_Z else 0)
-        rx, rz = x - ox, z - oz
-        if (rx, rz) not in ((TWR_X, TWR_Z), (TWR_X - 1, TWR_Z), (TWR_X, TWR_Z - 1)):
-            v.set(rx, y, rz, DARKOAK_FENCE)
     # richer wizard interior: carpets, apparatus and shelves kept off the spiral path.
     tower_clear = {(x, z) for x, _, z, _ in stair_pts}
     tower_clear |= {(x, z) for x in range(TWR_X - TWR_R, TWR_X - 1) for z in range(TWR_Z - 1, TWR_Z + 2)}
@@ -2474,6 +2455,7 @@ def guild_hall():
             if v.grid[v.idx(x, 0, z)] == AIR:
                 v.set(x, 0, z, "minecraft:grass_block")
 
+    build_guild_circulation(v)           # final owner of stair, landing and doorway volumes
     fix_floating_decor(v)                # re-seat every lantern; no floaters
     v.save("guild_hall")
 

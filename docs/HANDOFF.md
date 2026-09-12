@@ -18,10 +18,10 @@ with exploration, reward collection and a reliable portal back to the source.
 This overrides the old instruction to start W3.5 or keep adding unrelated POIs.
 Read docs/GUILD_DEMON_PRIORITIES.md first; it is the active execution queue.
 
-Current checkpoint: GP1 — offline defect audit and verified portal storage design; implementation follows
-Last resolved prior commit: f135546cd170f9c96d1e384576e8fb9a11b6f068 (pushed).
-Containing commit: TLC Conformance — GP1: audit Guild routes NPCs and Demon Door storage.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP1: audit Guild routes NPCs and Demon Door storage'.
+Current checkpoint: GP2 — first Guild circulation pass; NPC lifecycle and portal pilot are next
+Last resolved prior commit: 1ec9286f0859b3be38921594053877a861d779f4 (pushed).
+Containing commit: TLC Conformance — GP2: connect Guild galleries and Maze study stairs.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP2: connect Guild galleries and Maze study stairs'.
 Never invent a self-hash. Read the supplemental priority ledger for implementation
 scope, known defects and unrun engine checks.
 
@@ -136,9 +136,9 @@ screenshots/validation/W3.3/remote-run.json. Inspect newest workflow's actual he
 All current world rows remain in-progress for manual/reference work, not done.
 
 Next three actions:
-1. Read the GP1 room/NPC/door audits and implement GP2 stair/gallery connectivity.
-2. Complete GP3 training lifecycle, then DP1/DP2 Library Arcanum portal pilot.
-3. Validate, inspect, update evidence/handoff, commit and push each coherent pass.
+1. Verify GP2 commit and continue GP3 training lifecycle cleanup through its owners.
+2. Complete DP1/DP2 Guild lamp challenge, Library Arcanum, walk-through entry and exact-source return.
+3. Run integrated priority regression, inspect adjacent routes, and commit/push each pass immediately.
    At context limits print this continuation prompt verbatim.
 
 Landmines: hundreds of apparent edits are CRLF noise. Never git add -A, commit -a,

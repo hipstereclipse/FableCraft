@@ -168,35 +168,21 @@ def audit_island_channel(route):
 
 
 def audit_tower_stairs():
-    cx, cz, radius = GS.GUILD_LAYOUT["maze_tower"]
-    study_y = GS.GUILD_LAYOUT["maze_study_y"]
-    spr_r = 4
-    route = []
-    for i in range((study_y - 1) * 2):
-        y = 1 + i // 2
-        if y >= study_y:
-            break
-        ang = math.radians(25 + i * (360 / 16))
-        route.append((cx + round(math.cos(ang) * spr_r), y,
-                      cz + round(math.sin(ang) * spr_r)))
+    # Final GP2 reservations replace the old disconnected trig sample points.
+    # This quick diagnostic checks surfaces/headroom; test_guild_routes.py owns
+    # independent surveyed routes, swept transitions and negative fixtures.
     missing = []
     blocked = []
-    steps = []
-    prev = None
-    for x, y, z in route:
-        surf = any_surface(x, z, y, y)
-        if surf is None:
-            missing.append((x, y, z))
-        for hy in range(y + 1, min(vox.sy, y + 4)):
-            if block_name(x, hy, z) not in ("minecraft:air", "minecraft:lantern"):
+    for x, feet, z in GS.guild_circulation_routes()["tower"]:
+        y = math.ceil(feet) - 1
+        surface = any_surface(x, z, y, y)
+        if surface != feet:
+            missing.append((x, feet, z, surface))
+        for hy in range(math.ceil(feet), math.ceil(feet + 2)):
+            if block_name(x, hy, z) != "minecraft:air":
                 blocked.append((x, hy, z, block_name(x, hy, z)))
-                break
-        if prev and surf is not None and prev[3] is not None:
-            steps.append(abs(surf - prev[3]))
-        prev = (x, y, z, surf)
-    worst = max(steps) if steps else 0
-    status = "OK" if not missing and not blocked and worst <= 1.0 else "CHECK"
-    print(f"tower stair audit: {status}, worst step {worst:.1f}, missing {len(missing)}, blocked {len(blocked)}")
+    status = "OK" if not missing and not blocked else "CHECK"
+    print(f"tower tread/headroom audit: {status}, missing {len(missing)}, blocked {len(blocked)}; connected routes: scripts/tests/test_guild_routes.py")
 
 
 def audit_tower_entrances():

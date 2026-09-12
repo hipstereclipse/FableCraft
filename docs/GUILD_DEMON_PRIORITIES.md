@@ -30,7 +30,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | Pass | Status | Outcome required |
 | --- | --- | --- |
 | GP1 | done | Offline reference/geometry/NPC/API audit, ranked defects and baseline views; engine observations unrun |
-| GP2 | todo | Repeated reference-led layout, architecture, interior and walking-route improvements |
+| GP2 | in-progress | First layout pass connects lobby/gallery/dining and Maze stairs; further fidelity and engine walking remain open |
 | GP3 | todo | Repeated character-specific Guild NPC behavior and interaction improvements |
 | DP1 | todo | Verified door/challenge/destination mapping and complete portal/return pilot |
 | DP2 | todo | Individually designed reward worlds and persistent reward/unlock behavior |
@@ -158,7 +158,7 @@ passing asset hashes or generating attractive thumbnails does not close this wor
 
 ## GP1 — baseline audit (2026-09-12)
 
-Commit: SELF: TLC Conformance — GP1: audit Guild routes NPCs and Demon Door storage.
+Commit: 1ec9286f0859b3be38921594053877a861d779f4.
 Baseline audited: f135546cd170f9c96d1e384576e8fb9a11b6f068; that exact head passed
 remote CI run 34709848060. This pass changes documentation and evidence only.
 
@@ -184,3 +184,28 @@ Ranked execution ledger:
 
 GP1 is complete as an offline defect audit. GP2/GP3/DP1/DP2/GP4 acceptance remains
 open; no supplemental item changes the original C3 denominator of 45 leaves.
+
+## GP2 — connected Guild circulation (2026-09-12)
+
+Commit: SELF: TLC Conformance — GP2: connect Guild galleries and Maze study stairs.
+Replaced rounded, disconnected stair samples and conflicting rail/floor passes
+with two-wide continuous half-step flights, corner landings and a three-wide
+supported gallery/dining connection. The doorway no longer cuts through a bunk.
+The final generator owns those reserved volumes, so later room shells cannot
+replace the route. All GUILD/GUILD_LAYOUT interaction anchors, Maze (46,12,70),
+footprint and saved-world placement guards remain coupled and unchanged.
+
+Six regression groups inspect final voxel half-slab collision intervals, forward
+and reverse routes, both lobby flights, tower turns/deck joins, adjacent ground
+arches and independent missing-step/headroom/bridge failures. Added the route
+suite to continuous validation. See [GUILD_CIRCULATION.md](GUILD_CIRCULATION.md)
+and `screenshots/validation/GP2/` for inspected detail renders and actual results.
+Source validation uses an isolated reviewed-index snapshot so parallel unfinished
+NPC/portal work is excluded. All 28 base gates and corrected ESM syntax checks pass.
+Full screenshot and C2 render pipelines completed; all views are offline.
+
+New placements receive this geometry. Existing occupied Guilds are never reloaded;
+reanchor remains a coordinate refresh, so an old world's broken stairs remain a
+separate migration task. NPC pathfinding, jumping/collision and complete interior
+fidelity are unrun in-engine. GP2 stays in-progress for recursive layout/reference
+work. Next: GP3 training lifecycle, then the complete Guild portal/destination pilot.

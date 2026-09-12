@@ -1,0 +1,9 @@
+test_alignment_cosmetics (__main__.BehaviorRegression.test_alignment_cosmetics) ... ok
+test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) ... ok
+test_social_contracts (__main__.BehaviorRegression.test_social_contracts) ... ok
+test_theresa_matches_existing_entity (__main__.BehaviorRegression.test_theresa_matches_existing_entity) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.079s
+
+OK

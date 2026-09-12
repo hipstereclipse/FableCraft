@@ -1,0 +1,6 @@
+{
+  "source": "reviewed Git index; excludes unstaged parallel implementation and inherited dirtiness",
+  "baseline_head": "1ec9286f0859b3be38921594053877a861d779f4",
+  "entries": 3566,
+  "node_dependencies": "same installed locked dependencies via node_modules symlink"
+}
