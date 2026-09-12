@@ -6,6 +6,7 @@ Offline generator renders; grades measure image appearance, not canon or playabi
 | --- | --- | --- | --- | --- |
 | arena_ring | S | 100 | 27/12/41 | [The Arena](arena_ring.png) |
 | bandit_camp | S | 100 | 33/13/33 | [Bandit Camp](bandit_camp.png) |
+| bargate_prison | S | 100 | 41/20/49 | [Bargate Prison](bargate_prison.png) |
 | bowerstone_market | S | 100 | 37/21/59 | [Bowerstone Market](bowerstone_market.png) |
 | chamber_of_fate | S | 100 | 31/20/31 | [Chamber of Fate](chamber_of_fate.png) |
 | chapel_skorm | S | 100 | 15/17/19 | [Chapel of Skorm](chapel_skorm.png) |

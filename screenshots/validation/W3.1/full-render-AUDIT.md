@@ -46,9 +46,9 @@ Grades: S (≥90) A (≥75) B (≥60) C (≥45) D (<45)
 | Trader | **S** | 100 | 14.1 | 26 | 0.95 | 0.29 | — |
 | Barkeep | **S** | 100 | 16.4 | 23 | 0.95 | 0.25 | — |
 | Guildmaster | **S** | 100 | 16.8 | 41 | 0.96 | 0.34 | — |
-| Guild Apprentice (Might) | **S** | 100 | 16.9 | 43 | 1.0 | 0.47 | — |
-| Guild Apprentice (Skill) | **S** | 100 | 16.9 | 43 | 1.0 | 0.48 | — |
-| Guild Apprentice (Will) | **S** | 100 | 16.9 | 43 | 1.0 | 0.48 | — |
+| Guild Apprentice (Might) | **S** | 100 | 16.9 | 46 | 1.0 | 0.47 | — |
+| Guild Apprentice (Skill) | **S** | 100 | 16.9 | 51 | 1.0 | 0.46 | — |
+| Guild Apprentice (Will) | **S** | 100 | 16.9 | 42 | 1.0 | 0.47 | — |
 | Maze | **S** | 100 | 16.3 | 35 | 0.99 | 0.35 | — |
 | Lady Grey | **S** | 100 | 16.7 | 41 | 0.95 | 0.31 | — |
 | The Oracle | **S** | 100 | 16.8 | 26 | 0.99 | 0.68 | — |
@@ -212,6 +212,7 @@ Grades: S (≥90) A (≥75) B (≥60) C (≥45) D (<45)
 | Will: Berserk | **S** | 100 | 100.0 | 16 | 0.82 | 0.36 | — |
 | Will: Divine Fury | **S** | 100 | 100.0 | 16 | 0.67 | 0.71 | — |
 | Will: Infernal Wrath | **S** | 100 | 100.0 | 16 | 0.85 | 0.31 | — |
+| Will: Ghost Sword | **S** | 100 | 100.0 | 16 | 0.69 | 0.65 | — |
 | Gold Coin | **S** | 100 | 47.3 | 6 | 0.87 | 0.6 | — |
 | Septimal Key | **S** | 100 | 20.3 | 6 | 0.63 | 0.44 | — |
 | Guild Seal | **S** | 100 | 44.9 | 6 | 0.66 | 0.65 | — |
@@ -272,24 +273,24 @@ Grades: S (≥90) A (≥75) B (≥60) C (≥45) D (<45)
 
 | Asset | Grade | Score | Coverage % | Colours | Contrast | Brightness | Notes |
 |---|---|---|---|---|---|---|---|
+| Bargate Prison | **S** | 100 | 16.4 | 19 | 0.82 | 0.35 | — |
+| Grey House | **S** | 100 | 15.3 | 31 | 0.86 | 0.39 | — |
 | Demon Door | **S** | 100 | 27.0 | 45 | 0.9 | 0.37 | — |
-| Heroes' Guild | **S** | 100 | 11.4 | 85 | 0.89 | 0.49 | — |
-| Chamber of Fate | **S** | 100 | 34.1 | 25 | 0.82 | 0.45 | — |
+| Heroes' Guild | **S** | 100 | 11.3 | 76 | 0.89 | 0.49 | — |
+| Chamber of Fate | **S** | 100 | 34.1 | 23 | 0.82 | 0.45 | — |
 | Oakvale | **S** | 100 | 10.8 | 63 | 0.84 | 0.51 | — |
 | Bowerstone Market | **S** | 100 | 13.3 | 44 | 0.89 | 0.35 | — |
 | Knothole Glade | **S** | 100 | 12.7 | 46 | 0.87 | 0.35 | — |
 | Hook Coast | **S** | 100 | 13.1 | 41 | 0.91 | 0.65 | — |
 | Silver Key Ruin | **S** | 100 | 13.9 | 33 | 0.78 | 0.4 | — |
-| Focus Site | **S** | 100 | 24.5 | 23 | 0.94 | 0.47 | — |
+| Cullis Gate | **S** | 100 | 18.4 | 16 | 0.74 | 0.43 | — |
 | Guild Courtyard | **S** | 100 | 12.2 | 42 | 0.94 | 0.48 | — |
 | Oakvale Quay | **S** | 100 | 12.2 | 37 | 0.82 | 0.47 | — |
 | Snowspire Oracle | **S** | 100 | 14.0 | 29 | 0.94 | 0.53 | — |
 | Necropolis Ruin | **S** | 100 | 12.5 | 31 | 0.94 | 0.37 | — |
-| Bandit Camp | **S** | 100 | 22.3 | 38 | 0.92 | 0.27 | — |
-| Lychfield Graveyard | **S** | 100 | 13.7 | 35 | 0.89 | 0.36 | — |
-| Grey House | **S** | 100 | 15.3 | 31 | 0.86 | 0.39 | — |
-| Bargate Prison | **S** | 100 | 16.4 | 19 | 0.82 | 0.35 | — |
-| The Arena | **S** | 100 | 27.1 | 32 | 0.83 | 0.44 | — |
+| Bandit Camp | **S** | 100 | 22.2 | 32 | 0.8 | 0.27 | — |
+| Lychfield Graveyard | **S** | 100 | 15.6 | 37 | 0.89 | 0.34 | — |
+| The Arena | **S** | 100 | 18.1 | 32 | 0.84 | 0.4 | — |
 | Lookout Point | **S** | 100 | 11.9 | 32 | 0.79 | 0.5 | — |
 | Orchard Farm | **S** | 100 | 12.3 | 43 | 0.83 | 0.45 | — |
 | Fisher Creek | **S** | 100 | 11.5 | 33 | 0.84 | 0.44 | — |
@@ -302,14 +303,6 @@ Grades: S (≥90) A (≥75) B (≥60) C (≥45) D (<45)
 | Chapel of Skorm | **S** | 92 | 23.2 | 16 | 0.88 | 0.17 | — |
 
 **Category average: 99.4**
-
-## Documentation Showcase QA
-
-- **screenshots checked:** 22
-- **dimensions:** 1920x1080
-- **contrast floor:** 15.4 RGB stddev
-- **palette floor:** 599 sampled colours
-- **missing asset tokens:** 0; scripts/gen_doc_screenshots.py exits non-zero if a scene references missing mob or item art
 
 ## Verdict
 

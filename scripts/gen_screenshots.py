@@ -998,6 +998,7 @@ def main():
     # ---- structures ----
     import gen_structures as GS
     builders = {
+        "bargate_prison": GS.bargate_prison,
         "grey_house": GS.grey_house,
         "demon_door_arch": GS.demon_door_arch, "guild_hall": GS.guild_hall,
         "chamber_of_fate": GS.chamber_of_fate,
@@ -1029,6 +1030,7 @@ def main():
         fn()
     GS.Vox.save = orig_save
     STRUCT_LABELS = {
+        "bargate_prison": ("Bargate Prison", "Ramparts · barred cells · warden tower · underground basin", "stone"),
         "grey_house": ("Grey House", "Isolated manor · stone cellar · undead haunt", "dark"),
         "demon_door_arch": ("Demon Door", "Carved arch · dialogue-locked vault", "dark"),
         "guild_hall": ("Heroes' Guild", "Domed Map Room · Cullis Gate · Maze's spiral tower", "holy"),

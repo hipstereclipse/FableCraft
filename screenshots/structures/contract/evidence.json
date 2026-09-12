@@ -39,6 +39,25 @@
       },
       "notes": []
     },
+    "bargate_prison": {
+      "asset_sha256": "14d32ef09675b0ef639e423d37df66712271ec536d789716ba465644ab4397af",
+      "size": [
+        41,
+        20,
+        49
+      ],
+      "image_sha256": "07c594d378dec7a74db6a20a200edef62eb7b7e625776d2427b841eb47f26ca7",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 16.0,
+        "colors": 19,
+        "contrast": 0.82,
+        "brightness": 0.36,
+        "placeholder": false
+      },
+      "notes": []
+    },
     "bowerstone_market": {
       "asset_sha256": "7eb8edbe16937982773f888ccff1955ba7d9ae16ebf7b9a859120483b55f66de",
       "size": [

@@ -1,0 +1,20 @@
+{
+  "page": "https://www.gamepressure.com/fablethelostchapters/prison-escape/z21a",
+  "page_date": "2016-05-11",
+  "provenance": "TLC guide explicitly identifies the 2005 game. Both screenshots inspected; exact capture dates/platform unknown.",
+  "references": [
+    {
+      "subject": "office",
+      "image_url": "https://www.gamepressure.com/fablethelostchapters/gfx/word/1213465093.jpg",
+      "local_ignored_path": "tmp/conformance/bargate-office-reference.jpg",
+      "sha256": "6df8c0230dd2f002e6667d24ffc037dce701684f2b7a6ed0c2832112b0605181"
+    },
+    {
+      "subject": "basin",
+      "image_url": "https://www.gamepressure.com/fablethelostchapters/gfx/word/1213465125.jpg",
+      "local_ignored_path": "tmp/conformance/bargate-basin-reference.jpg",
+      "sha256": "f81a3c935ac339bd94f359ad01e95ed8bff38511ca80e16c9c7bab7e4f755709"
+    }
+  ],
+  "comparison": "Office screenshot: dense books, stone pillar, writing desk and paper-covered wall. Basin screenshot: monumental circular ribbed dome, waterfall, raised pool rim and Kraken. Build has sparse office props and small flat-ceiling rectangular basin room; major scale/topology gaps, no Kraken."
+}

@@ -1,7 +1,7 @@
 # Structure contract and placement bounds
 
-The C2 contract now links all 30 generator outputs to pack assets, placement roles,
-actual dimensions and fresh render evidence. It checks 24 scatter entries, two fixed
+The C2 contract now links all 31 generator outputs to pack assets, placement roles,
+actual dimensions and fresh render evidence. It checks 25 scatter entries, two fixed
 structures (Guild and Chamber of Fate), and four retained Guild annexes explicitly
 classified as legacy. No tiles or aliases are currently emitted. Adding either requires
 extending the declared model; the old one-off tiling patch is not an approved migration.
@@ -27,14 +27,14 @@ containing source-asset/image SHA-256 and dimensions, and its ID row in the adja
 `screenshots/AUDIT.md` is not proof of current generator output. The dedicated renderer
 uses the existing offline renderer without regenerating mobs/items or using network
 textures. The initial C2 contact sheet was inspected; subsequent milestones inspect their
-changed renders separately. Current provenance covers all 30 images.
+changed renders separately. Current provenance covers all 31 images.
 The metrics measure image appearance, not canon fidelity or in-world success.
 
 The audit checks reverse edges for outputs, assets, scatter/fixed registrations, render
 files/evidence and audit rows; loot keys must resolve to declared structures. Duplicate
 IDs, unknown roles, undocumented legacy outputs and missing grades fail. Build validation
 invokes the contract for both faithful staging and original previews; CI runs 15 Python
-regression groups and eight actual-source JavaScript placement tests.
+regression groups and nine actual-source JavaScript placement tests.
 
 ## Defects caught and corrected
 
@@ -93,3 +93,8 @@ mound. The ground plane remains local y=0; foundation blending fills only below
 it. Seven POI regression groups include route-blocking and chest-lid fixtures,
 plus actual-source population/loot/save checks on grass and rock. Engine checks
 for the raised mound and interior remain unrun in docs/GREY_HOUSE.md.
+
+W3.1 adds Bargate Prison as a 41x20x49 scatter footprint and the ninth rectangular
+placement case. Its courtyard sits over an enclosed chamber while local y=0 remains
+the foundation plane. Seven POI groups cover vertical routes, cells, spawns and
+negative blockage fixtures. See docs/BARGATE_PRISON.md for pending engine checks.

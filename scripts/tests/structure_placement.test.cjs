@@ -11,7 +11,7 @@ const tree = espree.parse(source, { ecmaVersion: 'latest', sourceType: 'module',
 const node = tree.body.find(n => n.type === 'FunctionDeclaration' && n.id.name === 'maybePlace');
 const fn = source.slice(...node.range);
 const tables = readTables(sourcePath);
-for (const id of ['chapel_skorm', 'demon_door_arch', 'power_snowspire_oracle', 'temple_avo', 'arena_ring', 'bowerstone_market', 'oakvale_village', 'grey_house']) {
+for (const id of ['chapel_skorm', 'demon_door_arch', 'power_snowspire_oracle', 'temple_avo', 'arena_ring', 'bowerstone_market', 'oakvale_village', 'grey_house', 'bargate_prison']) {
   test(`${id}: actual placement uses generator dimensions and preserves save envelope`, () => {
     const pick = tables.STRUCTS.find(s => s.id === `fc:${id}`);
     const calls = {};

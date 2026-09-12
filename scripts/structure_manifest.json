@@ -24,6 +24,17 @@
       "title": "Bandit Camp"
     },
     {
+      "name": "bargate_prison",
+      "generator": "bargate_prison",
+      "kind": "scatter",
+      "size": [
+        41,
+        20,
+        49
+      ],
+      "title": "Bargate Prison"
+    },
+    {
       "name": "bowerstone_market",
       "generator": "bowerstone_market",
       "kind": "scatter",

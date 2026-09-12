@@ -5162,6 +5162,105 @@ def grey_house():
     v.save("grey_house")
 
 
+def bargate_prison():
+    """W3.1 fortress, open cell blocks and chamber; see BARGATE_PRISON.md."""
+    v = Vox(41, 20, 49)
+    r = rng("struct", "bargate_prison")
+    v.fill(0, 0, 0, 40, 0, 48, COBBLE)
+    v.fill(2, 1, 6, 38, 5, 46, STONE)
+    for x in range(5, 36):
+        for z in range(9, 44): v.set(x, 5, z, rnd_stone(r))
+    # Three-wide rampart decks and outer parapets; courtyard remains open.
+    for x0, z0, x1, z1 in ((2,6,4,46), (36,6,38,46), (2,6,38,8), (2,44,38,46)):
+        v.fill(x0, 6, z0, x1, 10, z1, STONE)
+    for x in range(2, 39):
+        for z in (6, 46):
+            v.set(x, 11, z, STONE)
+            if x % 2 == 0: v.set(x, 12, z, STONE)
+    for z in range(6, 47):
+        for x in (2, 38):
+            v.set(x, 11, z, STONE)
+            if z % 2 == 0: v.set(x, 12, z, STONE)
+    v.fill(19, 6, 6, 21, 8, 8, "minecraft:air")
+    for z in range(1, 6):
+        v.fill(19, 0, z, 21, z, z, COBBLE)
+        v.fill(19, z, z, 21, z, z, "minecraft:stone_brick_stairs",
+               {"weirdo_direction": 2, "upside_down_bit": False})
+    for start in (9, 34):
+        for z in range(start, start + 5):
+            y = 6 + z - start
+            v.fill(5, 6, z, 6, y, z, STONE)
+            v.fill(5, y, z, 6, y, z, "minecraft:stone_brick_stairs",
+                   {"weirdo_direction": 2, "upside_down_bit": False})
+        v.fill(5, 6, start + 5, 6, 10, start + 5, STONE)
+    # Paired cell blocks: outer cells, central-facing corridor and open bar doors.
+    for x0 in (7, 25):
+        x1 = x0 + 8
+        v.box(x0, 5, 17, x1, 9, 29, STONE)
+        v.fill(x0+1, 6, 18, x1-1, 8, 28, "minecraft:air")
+        gable_roof_z(v, x0, x1, 17, 29, 10, DEEP_TILES, STONE)
+        entry_x = x1 if x0 == 7 else x0
+        bars_x = x0+4
+        v.fill(entry_x, 6, 19, entry_x, 7, 20, "minecraft:air")
+        v.fill(bars_x, 6, 18, bars_x, 8, 28, IRON_BARS)
+        for z in (19, 25): v.fill(bars_x, 6, z, bars_x, 7, z+1, "minecraft:air")
+        lo, hi = (x0+1, bars_x-1) if x0 == 7 else (bars_x+1, x1-1)
+        v.fill(lo, 6, 23, hi, 8, 23, STONE)
+        for z in (21, 27):
+            v.fill(lo, 6, z, hi, 6, z, "minecraft:hay_block")
+        v.set(entry_x, 8, 24, LANTERN)
+    # Third block is an intentionally sealed silhouette with barred windows.
+    v.box(16, 5, 35, 24, 10, 43, STONE)
+    for x in (18, 21): v.fill(x, 7, 35, x+1, 8, 35, IRON_BARS)
+    gable_roof_z(v, 16, 24, 35, 43, 11, DEEP_TILES, STONE)
+    # East barracks with ordinary supply chest.
+    v.box(25, 5, 34, 33, 9, 43, STONE)
+    v.fill(26, 6, 35, 32, 8, 42, "minecraft:air")
+    v.fill(27, 6, 34, 28, 7, 34, "minecraft:air")
+    gable_roof_z(v, 25, 33, 34, 43, 10, DEEP_TILES, DARKOAK)
+    for z in (35, 39): v.fill(30, 6, z, 32, 6, z, "minecraft:white_wool")
+    v.set(31, 6, 41, "minecraft:chest", {"minecraft:cardinal_direction": "west"})
+    v.set(27, 8, 40, LANTERN, {"hanging": True})
+    # West tower: decorative torture room below the separately accessible office.
+    v.box(7, 5, 34, 15, 14, 43, STONE)
+    v.fill(8, 6, 35, 14, 13, 42, "minecraft:air")
+    v.fill(7, 10, 34, 15, 10, 43, DARKOAK)
+    v.fill(12, 6, 34, 13, 7, 34, "minecraft:air")
+    v.fill(7, 11, 39, 7, 12, 40, "minecraft:air")
+    gable_roof_z(v, 7, 15, 34, 43, 15, DEEP_TILES, STONE)
+    v.fill(9, 6, 36, 11, 6, 36, DARKOAK)
+    v.fill(9, 7, 36, 9, 8, 36, IRON_BARS)
+    v.fill(12, 6, 41, 13, 8, 41, IRON_BARS)
+    v.set(14, 8, 40, SOUL_LANTERN)
+    v.fill(11, 11, 36, 13, 11, 37, DARKOAK)
+    v.set(12, 12, 36, "minecraft:lectern", {"direction": 2})
+    v.fill(14, 11, 39, 14, 12, 41, "minecraft:bookshelf")
+    v.set(13, 11, 41, "minecraft:chest", {"minecraft:cardinal_direction": "north"})
+    v.set(9, 13, 38, LANTERN, {"hanging": True})
+    # Original abstract blue/white crest plaques, not copied game artwork.
+    for x in (16, 24):
+        v.fill(x, 7, 5, x, 9, 5, "minecraft:blue_wool")
+        v.set(x, 8, 5, "minecraft:white_wool")
+    # Sub-courtyard chamber and enclosed water basin. No Kraken is registered.
+    v.box(16, 0, 16, 32, 5, 32, MOSSY)
+    v.fill(17, 1, 17, 31, 4, 31, "minecraft:air")
+    v.fill(24, 0, 23, 28, 0, 27, "minecraft:water")
+    v.set(30, 1, 30, "minecraft:chest", {"minecraft:cardinal_direction": "north"})
+    for x, z in ((17,20), (31,28)):
+        v.set(x, 4, z, STONE)
+        v.set(x, 3, z, SOUL_LANTERN, {"hanging": True})
+    for z in range(12, 16):
+        y = 16 - z
+        v.fill(20, 1, z, 21, y, z, STONE)
+        v.fill(20, y, z, 21, y, z, "minecraft:stone_brick_stairs",
+               {"weirdo_direction": 3, "upside_down_bit": False})
+        v.fill(20, y+1, z, 21, 8, z, "minecraft:air")
+    v.fill(20, 1, 16, 21, 3, 16, "minecraft:air")
+    for x in (19, 22): v.fill(x, 6, 12, x, 6, 16, IRON_BARS)
+    v.fill(20, 6, 16, 21, 6, 16, IRON_BARS)
+    v.save("bargate_prison")
+
+
 def main():
     print("building structures:")
     demon_door_arch()
@@ -5183,6 +5282,7 @@ def main():
     bandit_camp()
     graveyard()
     grey_house()
+    bargate_prison()
     temple_avo()
     chapel_skorm()
     arena_ring()
