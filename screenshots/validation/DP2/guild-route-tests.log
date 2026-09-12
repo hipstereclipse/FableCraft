@@ -1,0 +1,11 @@
+test_gallery_bridge_threshold_is_supported_and_clear (__main__.GuildRoutes.test_gallery_bridge_threshold_is_supported_and_clear) ... ok
+test_gate_connects_gallery_dining_and_maze_in_both_directions (__main__.GuildRoutes.test_gate_connects_gallery_dining_and_maze_in_both_directions) ... ok
+test_ground_arches_and_existing_interaction_approaches_remain_open (__main__.GuildRoutes.test_ground_arches_and_existing_interaction_approaches_remain_open) ... ok
+test_independent_missing_tread_blocked_head_and_bridge_fixtures_fail (__main__.GuildRoutes.test_independent_missing_tread_blocked_head_and_bridge_fixtures_fail) ... ok
+test_tower_every_turn_and_floor_landing_is_walkable (__main__.GuildRoutes.test_tower_every_turn_and_floor_landing_is_walkable) ... ok
+test_two_lobby_flights_have_contiguous_half_steps_and_turns (__main__.GuildRoutes.test_two_lobby_flights_have_contiguous_half_steps_and_turns) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.689s
+
+OK

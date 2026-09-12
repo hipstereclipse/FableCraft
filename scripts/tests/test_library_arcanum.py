@@ -27,7 +27,8 @@ class ArcanumGeometry(unittest.TestCase):
 
     def reached(self,start=(24,7)):
         solid={'minecraft:stone_bricks','minecraft:mossy_stone_bricks','minecraft:grass_block',
-               'minecraft:chiseled_stone_bricks','minecraft:podzol','minecraft:dark_oak_planks','minecraft:calcite'}
+               'minecraft:chiseled_stone_bricks','minecraft:podzol','minecraft:coarse_dirt',
+               'minecraft:dark_oak_planks','minecraft:calcite'}
         walk={(x,z) for x in range(49) for z in range(49)
               if self.block(x,2,z) in solid and all(self.block(x,y,z)=='minecraft:air' for y in (3,4))}
         seen={start} if start in walk else set();q=deque(seen)

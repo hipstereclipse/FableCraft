@@ -3,8 +3,9 @@
 DP1 implementation, 2026-09-12. The Guild now has a persistent, keyed
 `guild_library_arcanum` challenge and a walk-through destination with four
 collectibles and return travel. This also supplies DP2's first designed room.
-Both priorities remain **in-progress**: live Bedrock acceptance and direct
-original-game visual comparison have not run. Other doors retain their existing
+Both priorities remain **in-progress**: live Bedrock acceptance has not run.
+A later [reference review](LIBRARY_ARCANUM_REFERENCE_REVIEW.md) compared one
+low-resolution original-game image; full layout/camera comparison remains open. Other doors retain their existing
 procedural challenges and immediate rewards; they have not been converted.
 
 The verified original pairing is **Lamp → Library Arcanum**. Its main chest
@@ -34,6 +35,22 @@ text, a reading system or a functioning tattoo unlock. Rewards belong to the
 shared world: there is one set for the Guild, rather than one set per visitor.
 The player's bed/home spawn is never changed by this excursion.
 
+## DP2 reference refinement
+
+After DP1, a bounded comparison with the 2005 guide image prompted a floor-only
+refinement. New rooms use larger, irregular earth and grass patches in place
+of the formal paved garden. The return arch retains its recognizable stone
+approach. Exactly 426 blocks at local y2 change material; every other voxel,
+the four containers, paths, portal coordinates, structure size and version-1
+contract remain compatible. Existing ready/visited rooms retain their original
+floor and rewards; no migration or room replacement is attempted.
+
+The new overview was inspected against DP1's preview and the original reference.
+It softens the paving pattern, but neither the underlying rectangular storage
+footprint nor the trees, shelves and lighting are claimed faithful. Matching
+player-height views and broader original footage remain required. Evidence:
+`screenshots/validation/DP2/`, including the complete floor-material delta.
+
 ## Geometry and ownership
 
 `scripts/door_realms.py` owns the original 49×28×49 grove, called by the explicit
@@ -46,8 +63,8 @@ invisible surfaces while retaining them in the actual structure.
 
 The layout is an original Minecraft interpretation of documented library-grove
 features. Its square outer storage footprint, cuboid trees, shelf furniture and
-limited atmosphere remain visible adaptations. No original-game camera match,
-exact proportions, butterflies, animation or lighting fidelity is established.
+limited atmosphere remain visible adaptations. No matching player-height camera view, exact proportions, butterflies,
+animation or lighting fidelity is established.
 Static renderer grades measure its image properties, not TLC resemblance.
 
 The Guild generator clears x65..67, y1..4, z96..104, with a continuous cobble
@@ -158,5 +175,6 @@ inspect the content log, walk the entire source tunnel and grove, inspect
 opening/particles/collision and both exit approaches, collect all four rewards,
 return to two different recorded approaches, then repeat after reload/death,
 two-player entry/collection, face replacement, failed loading authority and
-interrupted saves. Test the cited protection limitations explicitly. Direct
-TLC footage comparison and further room design are still required.
+interrupted saves. Test the cited protection limitations explicitly. The [2005 guide image review](LIBRARY_ARCANUM_REFERENCE_REVIEW.md) supplies
+a bounded visual comparison; matching player-height footage, unseen areas and
+further room design are still required.

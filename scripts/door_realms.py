@@ -63,12 +63,22 @@ def build_library_arcanum(vox_type):
                 v.set(x,2,z,'minecraft:water')
             elif d <= 1.6:
                 v.set(x,2,z,'minecraft:calcite')
-    # Exploration loop plus branching reading aisles. Floor-only work does not
-    # erase props later; chest approaches are reserved explicitly below.
+    # The 2005 guide's small gameplay view shows earthy, irregular ground rather
+    # than a formal paved garden. Keep the same dry route footprint, softening
+    # its visible edges with grass and broken earth patches. No item/portal
+    # anchors move, so the persistent v1 destination contract stays compatible.
     def path(x0,z0,x1,z1):
-        for x in range(x0,x1+1):
-            for z in range(z0,z1+1):
-                v.set(x,2,z,stone if (x+z)%5 else moss)
+        for x in range(x0-1,x1+2):
+            for z in range(z0-1,z1+2):
+                core = x0 <= x <= x1 and z0 <= z <= z1
+                noise = (math.sin(x*.31+z*.27)+math.cos(z*.23-x*.19))/2
+                if not core and noise < .5:
+                    continue
+                # Preserve the pond, rock boundary and previous furnishings.
+                existing = v.palette[v.grid[v.idx(x,2,z)]][0]
+                if existing not in ('minecraft:grass_block','minecraft:podzol','minecraft:coarse_dirt'):
+                    continue
+                v.set(x,2,z,'minecraft:coarse_dirt' if noise > -.3 else 'minecraft:grass_block')
     path(23,3,25,38)
     path(18,10,33,12); path(31,10,33,35); path(18,10,20,35)
     path(14,25,34,27); path(14,31,34,33); path(14,35,34,37)

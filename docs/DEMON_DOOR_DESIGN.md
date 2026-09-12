@@ -25,8 +25,9 @@ as a Minecraft balancing specification.
 The destination's library-in-a-grove, bookshelves, chairs, small pond and
 butterflies are described by the local architecture reference and corroborated
 by the location article. These support features and atmosphere, not exact room
-dimensions or inferred camera geometry. A direct original-game image/footage
-comparison of the destination remains required.
+dimensions or inferred camera geometry. The later [reference review](LIBRARY_ARCANUM_REFERENCE_REVIEW.md) inspects one
+2005 guide gameplay image. A matching player-height view, complete room layout
+and footage comparison remain required.
 [Library Arcanum](https://fable.fandom.com/wiki/The_Library_Arcanum),
 `docs/references/fable-tlc-expert/architecture.md`, Guild section.
 

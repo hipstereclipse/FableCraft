@@ -18,10 +18,10 @@ with exploration, reward collection and a reliable portal back to the source.
 This overrides the old instruction to start W3.5 or keep adding unrelated POIs.
 Read docs/GUILD_DEMON_PRIORITIES.md first; it is the active execution queue.
 
-Current checkpoint: DP1 — Guild walk-through portal and first library reward grove implemented; engine acceptance unrun
-Last resolved prior commit: a61ab803b7ff328313957911b66521cb60d6ff5b (pushed).
-Containing commit: TLC Conformance — DP1: open the Guild door into Library Arcanum.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — DP1: open the Guild door into Library Arcanum'.
+Current checkpoint: DP2 — limited original-image comparison and floor-only Library Arcanum refinement
+Last resolved prior commit: 60513c808c2c3f1dc5de14ce497770aa7c9d6cf2 (pushed).
+Containing commit: TLC Conformance — DP2: soften Arcanum paths from the 2005 reference.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — DP2: soften Arcanum paths from the 2005 reference'.
 Never invent a self-hash. Read the supplemental priority ledger for implementation
 scope, known defects and unrun engine checks.
 
@@ -157,11 +157,12 @@ screenshots/validation/W3.3/remote-run.json. Inspect newest workflow's actual he
 All current world rows remain in-progress for manual/reference work, not done.
 
 Next three actions:
-1. Inspect the current workflow exact head and finish the integrated GP4 review.
-2. Address the highest concrete Guild resident/defence or cave-route defect, then
-   repeat portal/reference review; defer W3.5 and unrelated POIs.
-3. Run base/domain gates, inspect evidence, keep engine checks unrun if unavailable,
-   update the priority ledger/checklist/handoff, commit one coherent pass and push.
+1. Complete the GP4 Guild defence pass with offender-specific attribution and
+   aggregate warrant handling, including portal departure/return and cleanup.
+2. Follow the integrated cave lifecycle/route audit; preserve saved-world work
+   and never interpret a queued carve as verified completion.
+3. Run base/domain gates, inspect renders/reference comparisons, update evidence
+   and handoff, commit the coherent pass and push; engine checks remain unrun.
    At context limits print this continuation prompt verbatim.
 
 Landmines: hundreds of apparent edits are CRLF noise. Never git add -A, commit -a,

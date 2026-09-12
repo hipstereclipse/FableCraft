@@ -238,7 +238,7 @@ priority after the door pilot; no complete NPC fidelity claim is made.
 
 ## DP1 — Guild portal and first DP2 destination (2026-09-12)
 
-Commit: SELF: TLC Conformance — DP1: open the Guild door into Library Arcanum.
+Commit: 60513c808c2c3f1dc5de14ce497770aa7c9d6cf2.
 The Guild uses a stable Lamp/Library Arcanum identity. Lantern use opens a clear
 walk-through mouth with a rising, noncolliding face and soul-particle light.
 The bounded worker reserves unloaded Overworld storage, scans the entire unused
@@ -266,3 +266,23 @@ comparison, collision/lighting/loading/content-log tests, crash persistence and
 multiplayer engine acceptance remain unrun. All GP/DP acceptance stays separate
 from C3's original 45-leaf scoreboard. GP4 next revisits resident identity,
 offender-specific defence, cave/Chamber routes and portal integration failures.
+
+## DP2 — first original-image review and grove ground refinement (2026-09-12)
+
+Commit: SELF: TLC Conformance — DP2: soften Arcanum paths from the 2005 reference.
+A contemporary 2005 guide image explicitly labeled Library Arcanum is now
+verified and compared at its native 207×153 resolution. See
+[LIBRARY_ARCANUM_REFERENCE_REVIEW.md](LIBRARY_ARCANUM_REFERENCE_REVIEW.md).
+All external pixels remain ignored reference scratch. The image supports earthy,
+irregular ground; it cannot establish complete room proportions or unseen sites.
+
+The original room builder now uses irregular earth/grass patches instead of the
+formal paved garden. Exactly 426 local-y2 surface materials change. Every other
+voxel, all portal/reward coordinates and the persistent v1 contract are unchanged.
+Old ready/visited rooms are preserved. This bounded refinement was inspected;
+matching player-height lighting, complete original footage and broader
+room fidelity remain open. `screenshots/validation/DP2/` records the exact delta
+and offline results. All 34 base gates and explicit lint/spells/syntax/Guild
+diagnostics pass in the reviewed-index snapshot. The full screenshot pipeline
+completed with 51 mobs, 55 items, 130 recipes, 32 structures and 13 galleries.
+GP4 offender-specific defence is the next code pass.

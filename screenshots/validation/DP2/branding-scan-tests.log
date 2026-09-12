@@ -1,0 +1,20 @@
+test_archive_and_entry_comments (__main__.BrandingScan.test_archive_and_entry_comments) ... ok
+test_case_separators_camelcase_and_compacted_phrase (__main__.BrandingScan.test_case_separators_camelcase_and_compacted_phrase) ... ok
+test_clean_static_scan_still_cannot_enable_original_release (__main__.BrandingScan.test_clean_static_scan_still_cannot_enable_original_release) ... ok
+test_cli_exit_codes_and_report (__main__.BrandingScan.test_cli_exit_codes_and_report) ... ok
+test_color_codes_comments_and_identifier_tokens (__main__.BrandingScan.test_color_codes_comments_and_identifier_tokens) ... ok
+test_each_pack_text_type_rejects_known_names (__main__.BrandingScan.test_each_pack_text_type_rejects_known_names) ... ok
+test_encrypted_entries_and_symlinks_fail_closed (__main__.BrandingScan.test_encrypted_entries_and_symlinks_fail_closed) ... ok
+test_escaped_and_encoded_text (__main__.BrandingScan.test_escaped_and_encoded_text) ... ok
+test_filenames_and_empty_directories (__main__.BrandingScan.test_filenames_and_empty_directories) ... ok
+test_limits_corruption_and_unknown_binary_fail_closed (__main__.BrandingScan.test_limits_corruption_and_unknown_binary_fail_closed) ... ok
+test_nested_mcaddon_mcpack_and_arbitrary_archive_extension (__main__.BrandingScan.test_nested_mcaddon_mcpack_and_arbitrary_archive_extension) ... ok
+test_original_text_passes_and_substrings_do_not_match (__main__.BrandingScan.test_original_text_passes_and_substrings_do_not_match) ... ok
+test_png_text_metadata_and_clean_pixels (__main__.BrandingScan.test_png_text_metadata_and_clean_pixels) ... ok
+test_structure_nbt_strings (__main__.BrandingScan.test_structure_nbt_strings) ... ok
+test_wav_metadata_but_not_sample_bytes (__main__.BrandingScan.test_wav_metadata_but_not_sample_bytes) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.324s
+
+OK

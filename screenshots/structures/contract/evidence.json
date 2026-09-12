@@ -420,20 +420,20 @@
       "notes": []
     },
     "library_arcanum": {
-      "asset_sha256": "a8287b313666ac810c27b913e51d1071472602d7ff5decc8d00d036e24608b52",
+      "asset_sha256": "5e296dd3f30916a064181beb32f5e59692f830611449b7c920031caede9ab7c7",
       "size": [
         49,
         28,
         49
       ],
-      "image_sha256": "b1b96c2aebfe03382742a6b6119584b9063e4e3a795a03a5df93ec65ecb3d2fb",
+      "image_sha256": "d641ac219ab3cb45affd6e00e9e89854cee35a6dd7c46c25ff7fede74eba2161",
       "grade": "S",
       "score": 100,
       "metrics": {
         "coverage": 17.4,
         "colors": 41,
         "contrast": 0.89,
-        "brightness": 0.39,
+        "brightness": 0.38,
         "placeholder": false
       },
       "notes": []
