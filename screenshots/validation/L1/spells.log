@@ -1,0 +1,27 @@
+(node:34) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ Rush follows horizontal yaw, preserves camera, and uses checked teleport (11.193378ms)
+✔ Rush stops before wall (2.964404ms)
+✔ Rush stops before ledge (2.621956ms)
+✔ Rush stops before liquid (2.384197ms)
+✔ Rush stops before unloaded (2.765618ms)
+✔ Rush stops before throw (2.307522ms)
+✔ Rush stops before side-wall (2.303094ms)
+✔ Rush handles a full-block step and refuses a low ceiling over it (5.657114ms)
+✔ Rush failure produces no success buff when engine rejects destination (2.472824ms)
+✔ Ghost strikes immediately, obeys cooldown, and expires (2.281984ms)
+✔ Ghost ignores allies, players and charmed enemies using real targeting module (2.875887ms)
+✔ Ghost recast replaces blade and renews lifetime (2.14267ms)
+✔ Ghost clears on playerLeave (1.686157ms)
+✔ Ghost clears on entityDie (1.726404ms)
+✔ Ghost clears on playerSpawn (1.731423ms)
+✔ Ghost reseats after teleport/dimension change and cannot hunt beyond owner radius (5.249643ms)
+✔ Ghost cannot travel or strike through a wall (2.984672ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 60.908626

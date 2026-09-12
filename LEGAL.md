@@ -13,9 +13,9 @@ extracted from any Fable game: no original game models, textures, audio, music,
 code or other game files may be included. Contributors must maintain that
 provenance requirement; a generated asset is not itself a guarantee of clearance.
 
-The project is released free and must never be monetized. No sales, paid access,
+The maintainers' release policy is free and never monetized. No sales, paid access,
 paid builds, advertisements or project-linked donation solicitations are part
-of the release. Existing source-code licensing is recorded in [LICENSE](LICENSE);
+of the release. Existing source-code licensing is Apache 2.0, recorded in [LICENSE](LICENSE);
 this notice does not claim to change rights granted by that license or grant
 rights in third-party intellectual property.
 
@@ -26,7 +26,7 @@ and scanner are planned, not implemented at document bootstrap. Existing tracked
 publish or replace them with another faithful build. Validation packages produced
 while the layer is unfinished are local development outputs only.
 
-We will respond promptly to a rights-holder request, remove or disable affected
+We will respond promptly to a rights-holder takedown request, remove or disable affected
 material and suspend distribution as appropriate. Requests can be directed to
 the maintainer through the [project repository](https://github.com/hipstereclipse/FableCraft).
 No request has been sent by this notice.

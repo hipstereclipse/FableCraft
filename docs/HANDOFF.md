@@ -10,26 +10,24 @@ six reference snapshots are in docs/. User override (2026-09-12): finish the spe
 and continue as far as practical without permission questions. Retain separate
 milestone commits, validation, immediate pushes, evidence and fresh handoffs.
 
-Current milestone: 0.4 — synchronize gameplay documentation; status done.
-Last resolved prior commit: bc3e7bd (pushed before this milestone).
-Containing commit: TLC Conformance — 0.4: synchronize gameplay documentation.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — 0.4: synchronize gameplay documentation'.
+Current milestone: L1 — verify notices and align license metadata; status done.
+Last resolved prior commit: 88c3f37 (pushed before this milestone).
+Containing commit: TLC Conformance — L1: verify notices and align license metadata.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — L1: verify notices and align license metadata'.
 Replace previous SELF evidence with the actual hash next step; never invent a self-hash.
 
-Validator state: build, emotes, HUD, lint, 17 spell mocks, three scan-fallback tests,
-behavior regression, ten animation tests and the 54-client-entity audit GREEN.
-Evidence: screenshots/validation/0.4/. README now counts 18 live powers, 195 item
-files (194 data+focus), 131 recipes, 29 structure files (23 scatter), and explains
-wd casting/progression. Bounty docs corrected tick-based time, 160/240-second
-first offences, veteran threshold 75 and no death-clear guarantee. Original bounty
-edits were preserved and reconciled; all gameplay manual boxes remain UNRUN.
-0.3 is still in-progress for in-world checks; spell/preview verification also pending.
-The older blueprint's globally undriven-attack claim was corrected with official
-sources; see docs/ANIMATION_AUDIT.md. Independent L1 legal-notice verification can
-proceed; never claim Phase 0 runtime acceptance or a public release yet.
+Validator state: all base validators and current regression suites GREEN; see
+screenshots/validation/L1/. Required fan-work/original-assets/takedown/non-commercial
+notice elements verified. npm metadata corrected from ISC to the repository's
+Apache-2.0 license; LICENSE itself unchanged. Maintainer non-commercial release
+policy is distinguished from pre-existing code-license permissions. No donation
+solicitations or public-release clearance claims remain in the README notice.
+0.1, 0.2, 0.4 and L1 complete; 0.3 automated work delivered, manual checks UNRUN.
+Spell in-world checklist and the HUD-preview concerns remain pending. The name
+layer is not implemented yet; all generated archives remain local development only.
 
 Next three actions:
-1. git pull --ff-only; read the top pending row and start L1 notice verification; retain 0.3 manual gate.
+1. git pull --ff-only; read the top pending row and start L2 generator naming layer (0.3 manual checks still pending).
 2. Execute its numbered playbook steps and applicable base/domain validators; preserve
    real output under screenshots/validation/<ID>/, mark manual observations unrun.
 3. Update checklist/handoff in one explicitly staged milestone commit, push to origin,

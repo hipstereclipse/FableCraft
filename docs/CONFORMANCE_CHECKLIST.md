@@ -20,13 +20,13 @@ replace with a real hash in the next milestone. A mock or render is never an in-
 | 0.1 Repair behavior generator | done | 6835313; screenshots/validation/0.1/ | PASS (automated) | 2026-09-12 |
 | 0.2 Adopt orphan tools and output policy | done | 6ca1e14; screenshots/validation/0.2/ | PASS (automated) | 2026-09-12 |
 | 0.3 Drive melee strike gates and test the audit | in-progress | fe7fa33; screenshots/validation/0.3/ | PASS (automated); PENDING (manual) | 2026-09-12 |
-| 0.4 Synchronize gameplay documentation | done | SELF: TLC Conformance — 0.4: synchronize gameplay documentation; screenshots/validation/0.4/ | PASS (automated) | 2026-09-12 |
+| 0.4 Synchronize gameplay documentation | done | 88c3f37; screenshots/validation/0.4/ | PASS (automated) | 2026-09-12 |
 
 ## L — Naming and legal
 
 | Item | Status (todo/in-progress/done) | Evidence (commit + screenshot/validator path) | Grade | Date |
 | --- | --- | --- | --- | --- |
-| L1 Verify fan-work notice and release posture | todo | — | — | — |
+| L1 Verify fan-work notice and release posture | done | SELF: TLC Conformance — L1: verify notices and align license metadata; screenshots/validation/L1/ | PASS (automated) | 2026-09-12 |
 | L2 Generator string table and local/original mode | todo | — | — | — |
 | L3.1 Runtime strings and menu hub | todo | — | — | — |
 | L3.2 Runtime quests, towns, shops and crime | todo | — | — | — |
