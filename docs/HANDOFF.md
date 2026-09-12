@@ -10,38 +10,37 @@ six reference snapshots are in docs/. User override (2026-09-12): finish the spe
 and continue as far as practical without permission questions. Retain separate
 milestone commits, validation, immediate pushes, evidence and fresh handoffs.
 
-Current milestone: C2 — validate structure provenance and placement bounds; status in-progress.
-Last resolved prior commit: 11dd038 (pushed before this milestone).
-Containing commit: TLC Conformance — C2: validate structure provenance and placement bounds.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — C2: validate structure provenance and placement bounds'.
+Current milestone: C3 — generate reproducible progress scores; status done.
+Last resolved prior commit: b3a1a45 (pushed before this milestone).
+Containing commit: TLC Conformance — C3: generate reproducible progress scores.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — C3: generate reproducible progress scores'.
 Replace previous SELF evidence with the actual hash next step; never invent a self-hash.
 
-C2 automated contracts pass: 29 generator outputs/pack assets/current renders, 23
-scatter entries, two fixed structures and four documented legacy annexes. Dedicated
-render proof is screenshots/structures/contract/ (SHA-256 source/image linkage and
-AUDIT.md); old broad AUDIT.md is not current structure proof. Build validation now
-checks these edges and numeric Guild anchors independently, plus selected real block/
-standing columns. Thirteen Python regression groups and four actual-source placement
-tests pass. Evidence: screenshots/validation/C2/. docs/STRUCTURE_CONTRACT.md explains
-scope and manual checks; C2 stays in-progress until those in-world checks are done.
+C3 implements the deterministic 45-leaf scoreboard in the marked checklist section.
+Run python scripts/conformance_score.py --write after any row update, then --check.
+CI now runs fifteen command gates, including ten scoreboard regression groups.
+Missing/duplicate IDs, invalid statuses, missing evidence paths, stale generated text
+and pending grades incorrectly marked done fail. Manual prose is preserved. Appearance
+histograms use the current C2 audit and are not canon grades. docs/SCORING.md records
+scope; screenshots/validation/C3/ records actual validation. C3 is done.
 
-Fixed four rectangular POI bounds: terrain/loot/spawn use actual w/h/d; saved places
-retain the square max(w,d) envelope. Existing saves are not rewritten. Regenerated only
-guild_hall to remove 27 stale roof blocks already excluded by its owner. Moved Maze's
-spawn from the solid tower center (46,12,72) to clear study floor (46,12,70), via the
-new GUILD_LAYOUT maze_spawn key and matching runtime GUILD point. No tiling was applied.
+C2 remote CI passed at b3a1a45 (run34678157199); metadata is in validation/C2/remote-run.json.
+C2 links29 assets/renders and runtime placement roles, fixes four rectangular placement
+bounds and the stale27-block Guild asset, and moves Maze from the solid tower column
+to clear study floor (46,12,70). Its manual placement/interaction checklist remains
+pending in docs/STRUCTURE_CONTRACT.md. Inspect the latest pushed workflow for its
+actual head before beginning the next milestone; previous success is not current proof.
 
-C1 remote CI passed at086337c; L4 CI passed at11dd038 (run34677605747, metadata under
-screenshots/validation/L4/remote-run.json). Check C2's new pushed run before claiming
-current CI success. scripts/validate.py is the shared thirteen-command runner.
-
-L4 remains blocked: original preview2,512 known-name findings; final name unselected
-(Wayfarer Tales provisional), saved-world remap unimplemented. No release exemptions.
-0.3/L3/manual spell checks remain pending. HUD still has narrow green radar, missing
-hunger frame and nav bleed; passing payload checks does not fix those visuals.
+C1/L4 remote CI also passed. L4 release remains blocked by2,512 original-preview naming
+findings, unselected final public title (Wayfarer Tales provisional), and missing save
+compatibility remap. Do not exempt identifiers/paths/comments/legacy lookup keys.
+0.3/L3 and spell in-world checks remain pending; HUD defects are still narrow green
+radar, missing hunger frame and nav bleed. W1.1 can proceed independently: the existing
+focus_site remains a purple monolith/crystal proxy, and its target is a weathered round
+stone disc with blue glow while retaining fc:focus_site and travel registration.
 
 Next three actions:
-1. git pull --ff-only; read the top pending row and start C3 reproducible conformance scoreboard.
+1. git pull --ff-only; read the top pending row and start W1.1 Cullis gate.
 2. Execute its numbered playbook steps and applicable base/domain validators; preserve
    real output under screenshots/validation/<ID>/, mark manual observations unrun.
 3. Update checklist/handoff in one explicitly staged milestone commit, push to origin,

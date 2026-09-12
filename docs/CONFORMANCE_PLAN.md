@@ -836,6 +836,8 @@ Files: `scripts/conformance_score.py (new)`, `docs/CONFORMANCE_CHECKLIST.md`.
 
 Acceptance: Per-domain totals reproducible; completed rows have traceable evidence; manual pending clearly separated; CI detects stale scores.
 
+2026-09-12: implemented in scripts/conformance_score.py with ten regression groups. The marked checklist section reports the 45 approved leaves, separate automated/manual counts and current C2 appearance-grade histogram. See docs/SCORING.md for evidence validation and shallow-checkout limits.
+
 ## Risk register and completion criteria
 
 | Risk | Mitigation / evidence |
