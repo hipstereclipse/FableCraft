@@ -1,0 +1,8 @@
+{
+  "conclusion": "success",
+  "databaseId": 34708702257,
+  "headSha": "b5db77c333113d7036d8da1d08542bf559634fb5",
+  "status": "completed",
+  "url": "https://github.com/hipstereclipse/FableCraft/actions/runs/34708702257",
+  "workflowName": "Conformance validation"
+}

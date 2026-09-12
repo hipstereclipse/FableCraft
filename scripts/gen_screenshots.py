@@ -394,6 +394,7 @@ BLOCK_COLORS = {
     "minecraft:podzol": (94, 66, 40), "minecraft:cobblestone_wall": (110, 108, 106),
     "minecraft:stone_button": (130, 126, 122), "minecraft:dark_oak_fence": (70, 50, 30),
     "minecraft:crying_obsidian": (60, 30, 90), "minecraft:beacon": (140, 240, 230),
+    "minecraft:lava": (245, 98, 18), "minecraft:basalt": (70, 67, 72),
     "minecraft:magma": (190, 90, 30), "minecraft:polished_blackstone": (44, 40, 46),
     "minecraft:gilded_blackstone": (90, 70, 40), "minecraft:polished_blackstone_bricks": (50, 46, 52),
     "minecraft:blackstone_wall": (40, 36, 42), "minecraft:sand": (218, 204, 160),
@@ -1000,6 +1001,7 @@ def main():
     # ---- structures ----
     import gen_structures as GS
     builders = {
+        "archon_folly": GS.archon_folly,
         "archon_shrine": GS.archon_shrine,
         "bargate_prison": GS.bargate_prison,
         "grey_house": GS.grey_house,
@@ -1033,6 +1035,7 @@ def main():
         fn()
     GS.Vox.save = orig_save
     STRUCT_LABELS = {
+        "archon_folly": ("Archon Folly", "Volcanic arena · lava perimeter · open return causeway", "dark"),
         "archon_shrine": ("Archon Shrine", "Domed soul shrine · Cullis disc · monumental Bronze Gate", "frost"),
         "bargate_prison": ("Bargate Prison", "Ramparts · barred cells · warden tower · underground basin", "stone"),
         "grey_house": ("Grey House", "Isolated manor · stone cellar · undead haunt", "dark"),

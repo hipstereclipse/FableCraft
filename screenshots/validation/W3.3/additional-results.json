@@ -1,0 +1,18 @@
+{
+  "spells": {
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "scripts/tests/spells.test.mjs"
+    ],
+    "exit_code": 0
+  },
+  "syntax": {
+    "command": [
+      "node",
+      "--check",
+      "packs/Fablecraft_BP/scripts/main.js"
+    ],
+    "exit_code": 0
+  }
+}

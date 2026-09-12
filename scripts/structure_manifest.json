@@ -2,6 +2,17 @@
   "version": 1,
   "structures": [
     {
+      "name": "archon_folly",
+      "generator": "archon_folly",
+      "kind": "scatter",
+      "size": [
+        49,
+        18,
+        55
+      ],
+      "title": "Archon Folly"
+    },
+    {
       "name": "archon_shrine",
       "generator": "archon_shrine",
       "kind": "scatter",

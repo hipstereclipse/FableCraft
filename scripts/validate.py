@@ -34,6 +34,7 @@ def main():
         'cullis-tests': [sys.executable, 'scripts/tests/test_cullis_gate.py'],
         'graveyard-tests': [sys.executable, 'scripts/tests/test_graveyard.py'],
         'grey-house-tests': [sys.executable, 'scripts/tests/test_grey_house.py'],
+        'archon-folly-tests': [sys.executable, 'scripts/tests/test_archon_folly.py'],
         'archon-shrine-tests': [sys.executable, 'scripts/tests/test_archon_shrine.py'],
         'bargate-prison-tests': [sys.executable, 'scripts/tests/test_bargate_prison.py'],
         'bandit-camp-tests': [sys.executable, 'scripts/tests/test_bandit_camp.py'],

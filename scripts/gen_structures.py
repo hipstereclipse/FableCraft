@@ -5348,6 +5348,52 @@ def archon_shrine():
     v.save("archon_shrine")
 
 
+
+def archon_folly():
+    """Volcanic dragon platform with a contained lava moat and open return path.
+
+    [B] Collision-safe initial spawn volume, not a scripted boss encounter.
+    """
+    v = Vox(49, 18, 55)
+    r = rng("struct", "archon_folly")
+    rock = "minecraft:polished_blackstone"
+    brick = "minecraft:polished_blackstone_bricks"
+    basalt = "minecraft:basalt"
+    v.fill(0,0,0,48,0,54,rock)
+    for x in range(1,48):
+        for z in range(3,52):
+            d = math.hypot(x-24,z-27)
+            if d <= 17.4:
+                v.fill(x,1,z,x,2,z,brick if r.random()<.2 else rock)
+                if 16.0 < d <= 17.4: v.set(x,3,z,brick)
+            elif d < 21.4:
+                v.set(x,1,z,"minecraft:lava",{"liquid_depth":0})
+            elif d <= 23.4:
+                v.fill(x,1,z,x,2,z,basalt,{"pillar_axis":"y"})
+    # Jagged basalt spires outside the combat floor; magma accents stay off-route.
+    for cx,cz,height in ((5,14,12),(43,16,15),(7,44,13),(41,46,11)):
+        for y in range(1,height+1):
+            rr = max(0,3-y//4)
+            for x in range(cx-rr,cx+rr+1):
+                for z in range(cz-rr,cz+rr+1):
+                    if math.hypot(x-cx,z-cz) <= rr+.4:
+                        v.set(x,y,z,basalt,{"pillar_axis":"y"})
+        v.set(cx-1,2,cz-2,"minecraft:magma")
+    # Raised, seven-wide approach bridges lava with solid side curbs.
+    v.fill(21,1,2,27,2,16,brick)
+    v.fill(21,3,0,27,6,17,"minecraft:air")
+    for x in (20,28):
+        v.fill(x,1,2,x,4,12,brick)
+    for z,y in ((1,1),(2,2)):
+        v.fill(21,y,z,27,y,z,"minecraft:stone_brick_stairs",
+               {"weirdo_direction":2,"upside_down_bit":False})
+    # Broken gateposts identify the return route without a combat lock.
+    for x in (18,30):
+        v.fill(x,1,4,x,7,4,basalt,{"pillar_axis":"y"})
+        v.set(x,8,4,"minecraft:magma")
+    v.save("archon_folly")
+
+
 def main():
     print("building structures:")
     demon_door_arch()
@@ -5371,6 +5417,7 @@ def main():
     grey_house()
     bargate_prison()
     archon_shrine()
+    archon_folly()
     temple_avo()
     chapel_skorm()
     arena_ring()

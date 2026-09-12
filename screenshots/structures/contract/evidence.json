@@ -1,6 +1,25 @@
 {
   "scope": "Offline generator renders; grades measure image appearance, not canon or playability.",
   "structures": {
+    "archon_folly": {
+      "asset_sha256": "fa86d4053c26c77303155f32e572e9009a9bce7085ca0353db93505b9748c590",
+      "size": [
+        49,
+        18,
+        55
+      ],
+      "image_sha256": "b786c83db31b81bd6db4555540889da6c0fc124c98bcf97eebb9f1721ca82b48",
+      "grade": "A",
+      "score": 85,
+      "metrics": {
+        "coverage": 11.2,
+        "colors": 13,
+        "contrast": 0.86,
+        "brightness": 0.34,
+        "placeholder": false
+      },
+      "notes": []
+    },
     "archon_shrine": {
       "asset_sha256": "55e2965047821ac61698abba4d17f12eddd1afd411a44cd517ec0107f78ada45",
       "size": [

@@ -4,6 +4,7 @@ Offline generator renders; grades measure image appearance, not canon or playabi
 
 | ID | Grade | Score | Footprint (x/y/z) | Image |
 | --- | --- | --- | --- | --- |
+| archon_folly | A | 85 | 49/18/55 | [Archon Folly](archon_folly.png) |
 | archon_shrine | S | 100 | 49/24/57 | [Archon Shrine and Bronze Gate](archon_shrine.png) |
 | arena_ring | S | 100 | 27/12/41 | [The Arena](arena_ring.png) |
 | bandit_camp | S | 100 | 33/13/33 | [Bandit Camp](bandit_camp.png) |

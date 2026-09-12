@@ -10,13 +10,25 @@ six reference snapshots are in docs/. User override (2026-09-12): finish the spe
 WIP and continue as far as practical without permission questions. Keep separate
 milestone commits, validation, immediate pushes, evidence and fresh handoffs.
 
-Current milestone: W3.2 — Bronze Gate and Archon Shrine; status in-progress.
-Last resolved prior commit: a2141634495e7a89dc9bd1f1453d649fe6601acc (pushed).
-Containing commit: TLC Conformance — W3.2: add Archon Shrine and Bronze Gate.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — W3.2: add Archon Shrine and Bronze Gate'.
+Current milestone: W3.3 — Archon Folly; status in-progress.
+Last resolved prior commit: b5db77c333113d7036d8da1d08542bf559634fb5 (pushed).
+Containing commit: TLC Conformance — W3.3: add Archon Folly volcanic arena.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — W3.3: add Archon Folly volcanic arena'.
 Replace previous SELF with the actual hash next step; never invent a self-hash.
 
-W3.2 adds fc:archon_shrine, 49x24x57, weight 4, snow/rock, snow theme. Round
+W3.3 adds fc:archon_folly, 49x18x55, weight 2, rock, dark theme. Circular
+blackstone platform, contained lava annulus, raised edge, north causeway and
+four basalt spires. One existing dragon at (24.5,3,30.5); actual 1.54x4.18
+collider and 12x12 dry landing tested. Six groups cover basin floor/banks,
+five-wide return route, stairs, scatter/idempotence and independent broken
+floor/bank/exit/high-collision fixtures. Initial red test extended into the south
+curb; corrected route ends at z42. No geometry removed. Partial visual grade C:
+TLC shots have warmer paving and much stronger jagged volcanic surroundings.
+No soul prerequisite, Shrine link, phased fight, confinement, mask choice or
+ending. No structure loot, Cullis or Demon Door. Lava fluid behavior, dragon
+combat and jump-free movement unrun. See docs/ARCHON_FOLLY.md.
+
+W3.2 at b5db77c adds fc:archon_shrine, 49x24x57, weight 4, snow/rock, snow theme. Round
 stepped shrine, curved dome, three floor sockets and two ordinary chests adjoin
 an active center Cullis disc (24,1,28) and sealed monumental Bronze Gate. A TLC
 guide shot prompted a circular bronze mechanism on the gate face; sculpted
@@ -52,23 +64,23 @@ Nostro's onward route is missing: never substitute an unrelated Demon Door riddl
 No fc:place handler exists. Raw /structure load places blocks only; scatter owns
 population, loot and travel. Keep procedural scatter, no fixed map or old-region retrofit.
 
-All 25 local scripts/validate.py gates pass, plus explicit spell and syntax checks.
-C2 covers 32 assets/renders (26 scatter/two fixed/four legacy), 15 contract groups
+All 26 local scripts/validate.py gates pass, plus explicit spell and syntax checks.
+C2 covers 33 assets/renders (27 scatter/two fixed/four legacy), 15 contract groups
 and nine placement cases. Current asset/render hashes match. Full all-category
-pipelines ran through W3.2 in tmp/conformance/<ID>-full-screenshots; W3.2 renders
-29 structure cards. Logs, audits, primary views and explicitly labeled cutaways
+pipelines ran through W3.3 in tmp/conformance/<ID>-full-screenshots; W3.3 renders
+30 structure cards. Logs, audits, primary views and explicitly labeled cutaways
 are in screenshots/validation/<ID>. These are offline evidence, never engine passes.
 C2 checks mobSpawns count/finite shape/feet/head bounds; cross-POI fixtures catch
 Snowspire contamination. Geometry clearance stays in individual POI tests.
 
 C3 requires python scripts/conformance_score.py --write after EVERY checklist change,
 then --check. It tracks 45 leaves, automated/manual counts and appearance separately.
-W3.1 remote CI passed at a214163 (run 34708094190); metadata is in
-screenshots/validation/W3.1/remote-run.json. Inspect newest workflow's actual head next.
+W3.2 remote CI passed at b5db77c (run 34708702257); metadata is in
+screenshots/validation/W3.2/remote-run.json. Inspect newest workflow's actual head next.
 All current world rows remain in-progress for manual/reference work, not done.
 
 Next three actions:
-1. git pull --ff-only; start top todo W3.3 Archon Folly.
+1. git pull --ff-only; start top todo W3.4 Greatwood Gorge toll bridge.
 2. Execute its numbered playbook and base/world validators. Save actual outputs
    under screenshots/validation/<ID>; every unobserved engine check stays unrun.
 3. Update checklist/handoff, explicitly stage one milestone commit, push origin

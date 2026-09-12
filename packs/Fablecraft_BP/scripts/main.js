@@ -5495,6 +5495,8 @@ const STRUCTS = [
   { id: "fc:grey_house", w: 31, h: 20, d: 35, weight: 5, surf: ["grass", "rock"], theme: "dark", loot: "grey_house", door: false, cullis: false,
     mobs: ["fc:undead", "fc:undead_soldier", "fc:undead"],
     mobSpawns: [[15.5, 6, 10.5], [12.5, 1, 20.5], [19.5, 1, 24.5]] }, // gen_structures.grey_house porch and cellar aisles
+  { id: "fc:archon_folly", w: 49, h: 18, d: 55, weight: 2, surf: ["rock"], theme: "dark", loot: "archon_folly", door: false, cullis: false,
+    mobs: ["fc:jack_dragon"], mobSpawns: [[24.5, 3, 30.5]] }, // gen_structures.archon_folly clear arena center
   { id: "fc:archon_shrine", w: 49, h: 24, d: 57, weight: 4, surf: ["snow", "rock"], theme: "snow", loot: "archon_shrine", door: false, cullis: true,
     mobs: [], mobSpawns: [] }, // gen_structures.archon_shrine center disc (24,1,28)
   { id: "fc:bargate_prison", w: 41, h: 20, d: 49, weight: 4, surf: ["grass", "rock"], theme: "dark", loot: "bargate_prison", door: false, cullis: false,
@@ -5634,6 +5636,7 @@ function maybePlace(p, rx, rz) {
 
 // themed loot rolled into every chest found inside a placed structure
 const CHEST_LOOT = {
+  "fc:archon_folly": [],
   "fc:archon_shrine": [["fc:will_potion", 1, 2, 1], ["fc:gold_coin", 3, 8, 0.7]],
   "fc:bargate_prison": [["fc:gold_coin", 2, 6, 1], ["fc:health_potion", 1, 2, 0.6], ["fc:red_meat", 1, 2, 0.5]],
   "fc:grey_house": [["fc:ectoplasm", 1, 3, 1], ["fc:will_potion", 1, 2, 0.6], ["fc:gold_coin", 2, 6, 0.7]],
