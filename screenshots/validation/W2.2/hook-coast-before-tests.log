@@ -1,0 +1,101 @@
+test_abbey_terrace_stairs_clear_aisle_and_retained_bell (__main__.HookCoast.test_abbey_terrace_stairs_clear_aisle_and_retained_bell) ... FAIL
+test_actual_population_and_travel_on_supported_surfaces (__main__.HookCoast.test_actual_population_and_travel_on_supported_surfaces) ... FAIL
+test_entry_routes_to_lamp_abbey_graves_residents_and_all_chests (__main__.HookCoast.test_entry_routes_to_lamp_abbey_graves_residents_and_all_chests) ... FAIL
+test_graveyard_rows_bell_and_cottage_door_headroom (__main__.HookCoast.test_graveyard_rows_bell_and_cottage_door_headroom) ... FAIL
+test_lighthouse_internal_stairs_landing_beacon_and_foundation (__main__.HookCoast.test_lighthouse_internal_stairs_landing_beacon_and_foundation) ... FAIL
+test_stable_dimensions_palette_population_and_new_anchors (__main__.HookCoast.test_stable_dimensions_palette_population_and_new_anchors) ... FAIL
+
+======================================================================
+FAIL: test_abbey_terrace_stairs_clear_aisle_and_retained_bell (__main__.HookCoast.test_abbey_terrace_stairs_clear_aisle_and_retained_bell)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_hook_coast.py", line 76, in test_abbey_terrace_stairs_clear_aisle_and_retained_bell
+    self.assertEqual(self.block(x,y,z),'minecraft:stone_brick_stairs')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'minecraft:air' != 'minecraft:stone_brick_stairs'
+- minecraft:air
++ minecraft:stone_brick_stairs
+
+
+======================================================================
+FAIL: test_actual_population_and_travel_on_supported_surfaces (__main__.HookCoast.test_actual_population_and_travel_on_supported_surfaces)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_hook_coast.py", line 121, in test_actual_population_and_travel_on_supported_surfaces
+    self.assertEqual(r.returncode,0,r.stdout+r.stderr);print(r.stdout.strip())
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : node:internal/assert/utils:146
+  throw error;
+  ^
+
+AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert.ok(voxels[`${x},${y-1},${z}`] && !['minecraft:air','minecraft:water'].includes(voxels[`${x},${y-1},${z}`]))
+
+    at /run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/poi_population.cjs:56:12
+    at Array.forEach (<anonymous>)
+    at Object.<anonymous> (/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/poi_population.cjs:49:10)
+    at Module._compile (node:internal/modules/cjs/loader:1934:14)
+    at Object..js (node:internal/modules/cjs/loader:2074:10)
+    at Module.load (node:internal/modules/cjs/loader:1656:32)
+    at Module._load (node:internal/modules/cjs/loader:1448:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v26.7.0
+
+
+======================================================================
+FAIL: test_entry_routes_to_lamp_abbey_graves_residents_and_all_chests (__main__.HookCoast.test_entry_routes_to_lamp_abbey_graves_residents_and_all_chests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_hook_coast.py", line 109, in test_entry_routes_to_lamp_abbey_graves_residents_and_all_chests
+    self.assertTrue(point in reached,f'Blocked north-entry route: {point}')
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : Blocked north-entry route: (7, 12, 27)
+
+======================================================================
+FAIL: test_graveyard_rows_bell_and_cottage_door_headroom (__main__.HookCoast.test_graveyard_rows_bell_and_cottage_door_headroom)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_hook_coast.py", line 88, in test_graveyard_rows_bell_and_cottage_door_headroom
+    self.assertEqual(self.block(x,1,z),'minecraft:chiseled_stone_bricks')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'minecraft:air' != 'minecraft:chiseled_stone_bricks'
+- minecraft:air
++ minecraft:chiseled_stone_bricks
+
+
+======================================================================
+FAIL: test_lighthouse_internal_stairs_landing_beacon_and_foundation (__main__.HookCoast.test_lighthouse_internal_stairs_landing_beacon_and_foundation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_hook_coast.py", line 64, in test_lighthouse_internal_stairs_landing_beacon_and_foundation
+    self.assertEqual(self.block(x,y,z),'minecraft:stone_brick_stairs')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'minecraft:air' != 'minecraft:stone_brick_stairs'
+- minecraft:air
++ minecraft:stone_brick_stairs
+
+
+======================================================================
+FAIL: test_stable_dimensions_palette_population_and_new_anchors (__main__.HookCoast.test_stable_dimensions_palette_population_and_new_anchors)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_hook_coast.py", line 59, in test_stable_dimensions_palette_population_and_new_anchors
+    self.assertNotIn(self.block(int(x),y-1,int(z)), (None, "minecraft:air", "minecraft:water"))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'minecraft:air' unexpectedly found in (None, 'minecraft:air', 'minecraft:water')
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.410s
+
+FAILED (failures=6)

@@ -287,19 +287,19 @@
       "notes": []
     },
     "hook_coast": {
-      "asset_sha256": "340fca8f2a794c5c9ade0b112e7d1978953ba9dc7c70ec8d8c8c6c845bd0b21e",
+      "asset_sha256": "dc2580ce7dcd6e3696f9bbf27db41af47fed6605c261551bc3d27b01ceca52d3",
       "size": [
         37,
         20,
         37
       ],
-      "image_sha256": "59c0aac065d74b0b9f0ee3448b46997e788fb6c45d9edba9b303eda954ec5db4",
+      "image_sha256": "ecd69b8eedec198fad17d097ccfef3216691a1013244e2a1b4e0d83da3b98987",
       "grade": "S",
       "score": 100,
       "metrics": {
-        "coverage": 12.6,
-        "colors": 39,
-        "contrast": 0.9,
+        "coverage": 12.9,
+        "colors": 41,
+        "contrast": 0.91,
         "brightness": 0.66,
         "placeholder": false
       },

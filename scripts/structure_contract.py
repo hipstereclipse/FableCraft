@@ -5,6 +5,7 @@ import contextlib
 import hashlib
 import io
 import json
+import math
 from pathlib import Path
 import subprocess
 import tempfile
@@ -115,6 +116,26 @@ def interaction_errors(vox, actual):
     return errors
 
 
+def spawn_errors(entry):
+    """Optional explicit feet positions must fit this POI and its mob list."""
+    if 'mobSpawns' not in entry:
+        return []
+    name = entry['id'].removeprefix('fc:')
+    anchors = entry['mobSpawns']
+    if not isinstance(anchors, list) or len(anchors) != len(entry.get('mobs', [])):
+        return [f'Spawn count mismatch: {name}']
+    errors = []
+    for i, point in enumerate(anchors):
+        if (not isinstance(point, list) or len(point) != 3
+                or any(type(n) not in (int, float) or not math.isfinite(n) for n in point)):
+            errors.append(f'Invalid spawn coordinate: {name}[{i}]')
+            continue
+        x, y, z = point
+        if not (0 <= x < entry['w'] and 1 <= y < entry['h'] - 1 and 0 <= z < entry['d']):
+            errors.append(f'Spawn out of bounds: {name}[{i}]')
+    return errors
+
+
 def check(root=ROOT, evidence_root=ROOT, manifest=None, generated=None, tables=None, voxels=None):
     manifest = json.loads(MANIFEST.read_text()) if manifest is None else manifest
     if generated is None or voxels is None:
@@ -135,6 +156,8 @@ def check(root=ROOT, evidence_root=ROOT, manifest=None, generated=None, tables=N
     assets = {p.stem: p for p in (root / 'packs/Fablecraft_BP/structures/fc').glob('*.mcstructure')}
     edges('structure asset', assets)
     scatter = {s['id'].removeprefix('fc:'): s for s in tables['STRUCTS']}
+    for entry in tables['STRUCTS']:
+        errors.extend(spawn_errors(entry))
     if len(scatter) != len(tables['STRUCTS']): errors.append('Duplicate runtime scatter ID')
     edges('scatter registration', scatter, {e['name'] for e in entries if e['kind'] == 'scatter'})
     edges('fixed registration', {s.removeprefix('fc:') for s in tables['fixed']}, {e['name'] for e in entries if e['kind'] == 'fixed'})

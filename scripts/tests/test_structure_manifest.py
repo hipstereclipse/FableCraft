@@ -86,6 +86,29 @@ class StructureContract(unittest.TestCase):
         actual['skill']['x'] += 1
         self.assertIn('Guild interaction block mismatch: skill', interaction_errors(self.voxels['guild_hall'], actual))
 
+    def test_cross_poi_spawn_coordinates_fail_bounds(self):
+        entry = next(e for e in self.t['STRUCTS'] if e['id'] == 'fc:power_snowspire_oracle')
+        entry['mobSpawns'] = [[30.5, 3, 20.5], [18.5, 1, 23.5], [23.5, 1, 10.5]]
+        self.assert_error('Spawn out of bounds: power_snowspire_oracle[0]')
+
+    def test_spawn_count_shape_and_feet_headroom(self):
+        entry = next(e for e in self.t['STRUCTS'] if e['id'] == 'fc:hook_coast')
+        original = copy.deepcopy(entry['mobSpawns'])
+        entry['mobSpawns'] = original[:-1]
+        self.assert_error('Spawn count mismatch: hook_coast')
+        for point, message in [([1, 2], 'Invalid spawn coordinate'),
+                               ([True, 1, 1], 'Invalid spawn coordinate'),
+                               (['1', 1, 1], 'Invalid spawn coordinate'),
+                               ([float('nan'), 1, 1], 'Invalid spawn coordinate'),
+                               ([-1, 1, 1], 'Spawn out of bounds'),
+                               ([1, 0, 1], 'Spawn out of bounds'),
+                               ([1, 19, 1], 'Spawn out of bounds'),
+                               ([1, 1, 37], 'Spawn out of bounds')]:
+            with self.subTest(point=point):
+                entry['mobSpawns'] = copy.deepcopy(original)
+                entry['mobSpawns'][0] = point
+                self.assert_error(message + ': hook_coast[0]')
+
     def test_fixed_and_legacy_are_explicit(self):
         self.t['fixed'].remove('fc:guild_hall'); self.assert_error('Missing fixed registration: guild_hall')
         entry = next(e for e in self.m['structures'] if e['kind'] == 'legacy')

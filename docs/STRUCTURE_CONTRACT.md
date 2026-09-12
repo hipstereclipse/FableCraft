@@ -79,3 +79,10 @@ GUILD.maze point. The old coordinate fails the physical regression fixture.
 The current standing check uses exact air for two vertical cells and non-liquid ground
 at selected integer anchors. It does not model Bedrock collision shapes, navigation,
 NPC width or all generated interactions. These remain explicit limits, not hidden passes.
+
+W2.2 also validates optional explicit `mobSpawns`: one three-number feet position
+per mob, finite coordinates, horizontal bounds and vertical room for floor/head.
+A negative fixture copies Hook Coast's coordinates into the smaller Snowspire POI;
+it now fails instead of silently allowing a spawn outside its footprint. These
+bounds checks do not prove block clearance; each changed POI's actual-source voxel
+population tests cover that separately. The random-spawn fallback is unchanged.

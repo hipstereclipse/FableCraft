@@ -4375,6 +4375,7 @@ def hook_coast():
                     yy = 5 + min(x - bx, bx + 5 - x)
                     v.set(x, yy + 1, z, "minecraft:snow_layer")
         v.set(bx + 3, 1, bz, "minecraft:air")
+        v.set(bx + 3, 2, bz, "minecraft:air")
         v.set(bx + 2, 3, bz, GLASS)
         v.set(bx + 1, 1, bz + 4, "minecraft:campfire")  # hearth glow
         v.set(bx + 4, 1, bz + 4, "minecraft:chest", {"minecraft:cardinal_direction": "north"})
@@ -4428,6 +4429,80 @@ def hook_coast():
         v.set(x, 3, 30, LANTERN)
     v.set(15, 2, 28, "minecraft:barrel")
     v.set(22, 2, 29, "minecraft:chest", {"minecraft:cardinal_direction": "west"})
+    # W2.2: clear connected streets, retaining snow away from walking routes.
+    def lane(x0, z0, x1, z1):
+        v.fill(x0, 0, z0, x1, 0, z1, CALC)
+        v.fill(x0, 1, z0, x1, 2, z1, "minecraft:air")
+    lane(18, 0, 18, 26)
+    lane(11, 6, 34, 7)
+    lane(11, 14, 26, 15)
+    lane(6, 22, 26, 23)
+    lane(6, 22, 6, 25)
+    for bx, bz in ((12, 8), (20, 8), (12, 16), (20, 16)):
+        lane(bx + 3, bz - 1, bx + 3, bz)
+    # Lighthouse foundation replaces water under the harbor-facing half.
+    for x in range(2, 11):
+        for z in range(24, 33):
+            if math.hypot(x - lx, z - lz) <= 4.4:
+                v.set(x, 0, z, PALE)
+            if math.hypot(x - lx, z - lz) < 3.4:
+                v.set(x, 1, z, "minecraft:air")
+    # Three flights fit inside the stone drum; preserve a level turning landing
+    # at (4,4,30). Heights denote stair blocks, feet are one block above.
+    steps = ([(4, i + 1, 26 + i, 2) for i in range(4)]
+             + [(x, x, 30, 0) for x in range(5, 9)]
+             + [(8, 9 + i, 29 - i, 3) for i in range(3)])
+    for x in range(3, 10):
+        for z in range(25, 32):
+            if math.hypot(x - lx, z - lz) <= 3.4:
+                v.set(x, 11, z, PALE)
+    for x, y, z, direction in steps:
+        # Clear headroom through the deck where the staircase enters it.
+        v.fill(x, y + 1, z, x, y + 2, z, "minecraft:air")
+        v.fill(x, 1, z, x, y, z, PALE)
+        v.set(x, y, z, "minecraft:stone_brick_stairs",
+              {"weirdo_direction": direction, "upside_down_bit": False})
+    v.fill(4, 1, 30, 4, 4, 30, PALE)
+    v.fill(4, 5, 30, 4, 6, 30, "minecraft:air")
+    # Raise the existing abbey onto a two-block terrace with an eastward stair.
+    abbey = []
+    for x in range(26, 36):
+        for z in range(15, 27):
+            for y in range(H):
+                name, states = v.palette[v.grid[v.idx(x, y, z)]]
+                if name != "minecraft:air":
+                    abbey.append((x, y + 2, z, name, states))
+    v.fill(26, 0, 15, 35, H - 1, 26, "minecraft:air")
+    v.fill(26, 0, 15, 35, 1, 26, PALE)
+    for x, y, z, name, states in abbey:
+        v.set(x, y, z, name, states)
+    v.fill(26, 2, 24, 30, 2, 25, CALC)
+    v.fill(26, 3, 24, 30, 4, 25, "minecraft:air")
+    v.fill(30, 3, 19, 30, 4, 25, "minecraft:air")
+    for x, y in ((24, 1), (25, 2)):
+        for z in (24, 25):
+            v.fill(x, 0, z, x, y, z, PALE)
+            v.set(x, y, z, "minecraft:stone_brick_stairs",
+                  {"weirdo_direction": 0, "upside_down_bit": False})
+    # Northern keeper/monk graveyard and its bell, separate from the abbey bell.
+    v.fill(27, 1, 7, 34, 2, 13, "minecraft:air")
+    for x in (28, 30, 32):
+        for z in (9, 12):
+            v.set(x, 0, z - 1, GRAVEL)
+            v.set(x, 1, z, CHISELED)
+            v.set(x, 2, z, PALE)
+    for x in (29, 31):
+        v.fill(x, 1, 5, x, 4, 5, PALE)
+    v.fill(29, 4, 5, 31, 4, 5, PALE)
+    v.set(30, 3, 5, "minecraft:bell")
+    # Quay approach at the lower tier; clear snow only along access/storage.
+    for x in range(17, 20):
+        v.set(x, 1, 26, "minecraft:spruce_stairs",
+              {"weirdo_direction": 2, "upside_down_bit": False})
+    for x in range(14, 24):
+        for z in range(27, 31):
+            if v.palette[v.grid[v.idx(x, 2, z)]][0] == "minecraft:snow_layer":
+                v.set(x, 2, z, "minecraft:air")
     v.save("hook_coast")
 
 

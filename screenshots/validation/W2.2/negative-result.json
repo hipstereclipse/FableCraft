@@ -1,0 +1,5 @@
+{
+  "command": "FC_HOOK_COAST_TEST_SOURCE=tmp/conformance/W2.2-before-gen_structures.py python scripts/tests/test_hook_coast.py",
+  "exit_code": 1,
+  "source_commit": "fae89fb78cb8b10a27ef624281f748262a993539"
+}

@@ -1034,7 +1034,7 @@ def main():
         "oakvale_village": ("Oakvale", "Thatched green · wheat field · quay", "forest"),
         "bowerstone_market": ("Bowerstone Market", "Class gate · wealthy streets · furnished manor", "stone"),
         "knothole_glade": ("Knothole Glade", "Hidden timber village in Witchwood", "forest"),
-        "hook_coast": ("Hook Coast", "Snowy port, lighthouse and abbey ruin", "frost"),
+        "hook_coast": ("Hook Coast", "Climbable lighthouse · abbey terrace · keeper graves", "frost"),
         "silver_chest_ruin": ("Silver Key Ruin", "Hidden silver chest dais", "forest"),
         "focus_site": ("Cullis Gate", "Weathered stone disc · blue inlay · travel lattice", "stone"),
         "power_guild_courtyard": ("Guild Courtyard", "Chalk stream · bridges · Will island", "holy"),

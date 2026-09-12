@@ -10,13 +10,30 @@ six reference snapshots are in docs/. User override (2026-09-12): finish the spe
 and continue as far as practical without permission questions. Retain separate
 milestone commits, validation, immediate pushes, evidence and fresh handoffs.
 
-Current milestone: W2.1 — Bowerstone North and Manor; status in-progress.
-Last resolved prior commit: ed57d1e1cbc58eb8daad8686ec863f71bb6e070c (pushed).
-Containing commit: TLC Conformance — W2.1: connect Bowerstone North and Manor.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — W2.1: connect Bowerstone North and Manor'.
+Current milestone: W2.2 — Hook Coast lighthouse and Abbey; status in-progress.
+Last resolved prior commit: fae89fb78cb8b10a27ef624281f748262a993539 (pushed).
+Containing commit: TLC Conformance — W2.2: connect Hook Coast lighthouse and Abbey.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — W2.2: connect Hook Coast lighthouse and Abbey'.
 Replace previous SELF evidence with the actual hash next step; never invent a self-hash.
 
-W2.1 retains fc:bowerstone_market, extends 37x16x37 to 37x21x59 and shifts the
+W2.2 retains fc:hook_coast at 37x20x37. Three internal lighthouse stair flights
+reach a new lamp deck; the foundation fills water beneath the tower. The Abbey
+sits on a two-block terrace with eastward stairs and a clear nave. Six keeper/monk
+markers and a north bell connect to cleared streets, cottage doors have two-block
+headroom, and quay steps reach the original five chests. The three existing resident
+types have clear explicit anchors; Cullis remains at (18,1,18). Six regression
+groups pass and the previous owner fails all six. See docs/HOOK_COAST.md for routes,
+coordinates, render provenance and unchecked manual tests. The inherited Oracle
+is not a claim of canon. Fire Heart, rotating beam, ship travel, Maze fight,
+Abbey barrier/dispelling and evacuation remain unimplemented.
+
+W2.2 also strengthens C2: optional mobSpawns must match the mob count, contain
+finite numeric triples and fit horizontal/feet/head bounds. Review caught and
+removed an unintended copy of Hook Coast anchors into Snowspire. A saved before
+fixture exposes the old missed error; two new C2 regression groups reject this
+and malformed/count/headroom cases. Snowspire's runtime entry remains unchanged.
+
+W2.1 at fae89fb retains fc:bowerstone_market, extends 37x16x37 to 37x21x59 and shifts the
 existing market/river/houses +22 along z. Runtime and C2 manifest match. A north
 stone manor has two furnished floors, a clear two-wide staircase and a gated
 forecourt. The internal class wall connects to the bridge arch; its passage stays
@@ -45,10 +62,10 @@ unrelated generic Demon Door riddle. See docs/TWINBLADE_CAMP.md and
 LYCHFIELD_CRYPT.md. No fc:place handler exists: raw /structure load places blocks
 only; scatter initializes population and loot. Keep procedural scatter, no fixed map.
 
-All 20 local scripts/validate.py gates pass. poi_population.cjs is the shared
+All 21 local scripts/validate.py gates pass. poi_population.cjs is the shared
 actual-source spawn harness; W1.2's graveyard_placement.cjs remains a wrapper.
 C2 asset/render hashes are current. Full all-category passes run under isolated
-tmp/conformance/W1.2-full-screenshots, W1.3-full-screenshots, W1.4-full-screenshots and W2.1-full-screenshots;
+tmp/conformance/<ID>-full-screenshots for W1.2/W1.3/W1.4/W2.1/W2.2;
 logs, audits, primary cards and south/cutaway views are in each milestone's evidence.
 Original-TLC comparison remains pending; MobyGames candidates for Twinblade/graveyard
 could not be fetched. No canon-A or in-world pass is claimed for these renders.
@@ -56,19 +73,19 @@ could not be fetched. No canon-A or in-world pass is claimed for these renders.
 C3's scoreboard requires --write after EVERY checklist change:
 python scripts/conformance_score.py --write, then --check. It tracks 45 plan leaves,
 explicit automated/manual counts and offline appearance grades separately.
-W1.4 remote CI passed at ed57d1e (run 34700135537); metadata is in
-screenshots/validation/W1.4/remote-run.json. W1.2/W1.1/C2/C1/C3/L4 also passed at
+W2.1 remote CI passed at fae89fb (run 34701284378); metadata is in
+screenshots/validation/W2.1/remote-run.json. W1.2/W1.1/C2/C1/C3/L4 also passed at
 recorded commits. Inspect the newest pushed run for its actual head before the next
 milestone. C2's in-world checklist stays pending in docs/STRUCTURE_CONTRACT.md.
 No Guild tiling was applied; Maze's corrected spawn remains (46,12,70).
 
-L4 releases remain blocked: original preview2,512 known-name findings, unselected final
+L4 releases remain blocked: last recorded original preview had 2,512 known-name findings, unselected final
 public title (Wayfarer Tales provisional), and missing saved-world remap. No exemptions.
 0.3/L3 and spell in-world checks remain pending. HUD still has narrow green radar,
 missing hunger frame and nav bleed. Keep these visible rather than scoring them passed.
 
 Next three actions:
-1. git pull --ff-only; read the top pending row and start W2.2 Hook Coast lighthouse and Abbey.
+1. git pull --ff-only; read the top pending row and start W2.3 Oakvale Memorial Garden.
 2. Execute its numbered playbook steps and applicable base/domain validators; preserve
    real output under screenshots/validation/<ID>/, mark manual observations unrun.
 3. Update checklist/handoff in one explicitly staged milestone commit, push to origin,
