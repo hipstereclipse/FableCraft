@@ -5,53 +5,61 @@ Repository: /run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft
 Branch: phase3-will-destiny
 Remote: https://github.com/hipstereclipse/FableCraft.git
 
-Read docs/CONFORMANCE_PLAN.md and docs/CONFORMANCE_CHECKLIST.md first. The approved
-source plan and all six reference snapshots are in docs/. Latest user instruction
-(2026-09-12): finish Ghost Sword/Assassin Rush, then do as much of the plan as possible
-without permission questions. Continue automatically between milestones; retain one
-commit per milestone, targeted validation, immediate push and honest handoffs.
+Read docs/CONFORMANCE_PLAN.md and docs/CONFORMANCE_CHECKLIST.md. The source plan and
+six reference snapshots are in docs/. User override (2026-09-12): finish the spell WIP
+and continue as far as practical without permission questions. Retain separate
+milestone commits, validation, immediate pushes, evidence and fresh handoffs.
 
-Current milestone: bootstrap complete; next active phase is 0, beginning 0.1.
-Last resolved implementation commit: ccafd4c (spell completion), pushed to origin.
-Containing document commit: TLC Conformance — bootstrap: document set.
-Resolve its exact hash with git log -1 --format=%H --grep='TLC Conformance — bootstrap: document set'.
-A document cannot contain its own commit hash; replace prior SELF references next step.
+Current milestone: 0.1 — repair behavior generator; status done.
+Last resolved prior commit: d9d5f7c (pushed before this milestone).
+Containing commit: TLC Conformance — 0.1: repair behavior generator.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — 0.1: repair behavior generator'.
+Replace previous SELF evidence with the actual hash next step; never invent a self-hash.
 
-Validator state: build GREEN (685 JSON/341 PNG/535 WAV/29 structures/55 JS), expressions
-GREEN (31, 21 social NPCs), HUD GREEN (112/112), lint GREEN with 19 existing unused-code
-warnings, spell mocks GREEN (17). Evidence: screenshots/validation/bootstrap/ (latest), screenshots/validation/spells/. Animation
-live-driver audit not implemented until 0.3. In-world spell checks UNRUN; see
-SPELL_COMPANIONS.md. No in-game conformance pass or visual grade is claimed.
+Validator state: base build, expression audit (31/21), HUD (112/112), lint (0 errors,
+19 unused-code warnings), 17 spell mocks and four behavior regression groups GREEN.
+The negative test against the stripped generator correctly failed (199 failures,
+18 errors). Repaired generator matches HEAD/base exactly; Theresa regenerates to
+identical parsed JSON, all social NPCs preserve reactions and all 194 data items
+retain scalar icon formats. No live pack entities/items were rewritten.
+Evidence: screenshots/validation/0.1/ including before.log and after.log.
+Animation live-driver check is not implemented until 0.3; in-world tests UNRUN.
 
 Next three actions:
-1. git pull --ff-only; mark 0.1 in-progress. Back up and inspect the stripped
-   scripts/gen_behavior.py diff against 6cfea15; restore/port only that generator.
-2. Add isolated entity/item regression tests; prove failure before and success after
-   repair, preserving NPC reactions, persistence, married properties and scalar icons.
-3. Run the base validators, update checklist/handoff, commit 0.1 and push; then continue
-   0.2 orphan tooling, 0.3 attack driver and 0.4 doc drift in separate milestones.
+1. git pull --ff-only; read the top pending row and start 0.2 orphan tooling and output policy.
+2. Execute its numbered playbook steps and applicable base/domain validators; preserve
+   real output under screenshots/validation/<ID>/, mark manual observations unrun.
+3. Update checklist/handoff in one explicitly staged milestone commit, push to origin,
+   and continue automatically. On context limits print this prompt verbatim.
 
-Landmines: roughly 699 apparent tracked edits are mostly CRLF noise. Never git add -A,
-commit -a, renormalize or add .gitattributes. Read all diffs with --ignore-cr-at-eol;
-stage explicit paths with reviewed patches so line-ending noise does not enter commits.
-The stripped behavior generator is still unsafe: do not run it or build_addon --full
-until 0.1 tests pass. Never hand-edit generator-owned entities, RP models/animations/
-controllers/attachables/particles, fable_emote_registry.js, fable_hud.js, fc_gamedata.js,
-or texts/languages.json. Keep GUILD anchors coupled with gen_structures; fc:reanchor is
-not a substitute for checking coordinates, and all-cross-references-OK does not check them.
-HUD payload order/spacers/clip offsets also move together. Keep the scatter engine.
+Landmines: hundreds of apparent edits are CRLF noise. Never git add -A, commit -a,
+renormalize, create .gitattributes or discard unrelated work. Read every diff with
+--ignore-cr-at-eol; stage named paths with reviewed patches to avoid newline churn.
+Behavior generator was restored from 6cfea15 in 0.1; isolated tests prove social/react,
+persistence/marriage, cosmetic and 194-item icon/damage contracts. The old copy is
+preserved locally at tmp/conformance/gen_behavior_stripped.py. Before regeneration run
+python scripts/tests/test_gen_behavior.py. Prefer targeted generators; lifting the
+0.1 gate does not prove an unrestricted --full run has no other output drift.
 
-Spell WIP is finished in its own commit; do not stash/revert/refold it into Phase 0.
-Remaining substantive dirt includes old gen_behavior, BOUNTY_SYSTEM.md, three locally
-rebuilt dist archives and four alignment PNGs, plus orphan tools/UI renders and tmp/.
-Preserve unrelated work. Old patch_guild_tiling.py must not be run blindly. Dist rebuilds
-are local milestone validation only until L4: faithful names are local-only, distributed
-builds must use original branding; no monetization. Bootstrap removes donation links.
+Never hand-edit generator-owned BP entities, RP models/animations/controllers/
+attachables/particles, fable_emote_registry.js, fable_hud.js, fc_gamedata.js or
+texts/languages.json. Find/establish an owner if memory disagrees. Keep GUILD anchors
+coupled to gen_structures; /scriptevent fc:reanchor refreshes but does not audit them.
+All-cross-references-OK validates assets only. Keep HUD payload/spacers/clip offsets
+coupled. Keep procedural scatter, no fixed Albion map. Never run the one-off Guild
+tiling patch blindly. wd alignment remains authoritative; legacy XP spending funnels
+through wd, so do not delete the legacy progression bridge blindly.
 
-Git writes require sandbox escalation here. Git identity was unset; use the existing
-repository author identity from git log for commit-scoped -c options, not global config.
-The first chained commit/push was auto-review rejected as an unverified destination;
-a separate push succeeded after proving origin matched the user's explicitly named
-GitHub URL. Reuse that verified destination, no force pushes. npm installation succeeded
-with network escalation. Record any new command failure honestly; never claim a push
-or runtime test succeeded without output.
+Ghost Sword/Assassin Rush are completed separately in ccafd4c; never stash/revert/refold
+them into conformance. SPELL_COMPANIONS.md has the still-pending in-world checklist.
+Remaining inherited edits include BOUNTY_SYSTEM.md until 0.4, local dist archives and
+four scripts/_align/overlay_*.png renders. Preserve unreviewed scratch files. Required
+builds package locally at milestone boundaries only: do not stage/publish faithful
+archives. All public builds need original branding and L4 zero-debt scanning first.
+Original/generated assets only, no extracted Fable content, free and never monetized.
+
+Git writes/network require escalation here. Git author identity was unset; use the
+existing repository identity from git log through commit-scoped -c options. Do not
+change global config. Separate pushes to the above verified/user-authorized origin
+succeeded; an earlier chained commit/push was rejected before destination verification.
+No force push. Record push failures honestly rather than claiming shared-state sync.

@@ -1,0 +1,2178 @@
+test_alignment_cosmetics (__main__.BehaviorRegression.test_alignment_cosmetics) ... FAIL
+test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) ... 
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='iron_longsword') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='iron_katana') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='iron_cleaver') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='iron_axe') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='iron_mace') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='iron_pickhammer') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='iron_greataxe') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='iron_greatsword') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='iron_greathammer') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='steel_longsword') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='steel_katana') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='steel_cleaver') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='steel_axe') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='steel_mace') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='steel_pickhammer') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='steel_greataxe') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='steel_greatsword') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='steel_greathammer') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='obsidian_longsword') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='obsidian_katana') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='obsidian_cleaver') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='obsidian_axe') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='obsidian_mace') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='obsidian_pickhammer') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='obsidian_greataxe') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='obsidian_greatsword') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='obsidian_greathammer') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='master_longsword') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='master_katana') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='master_cleaver') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='master_axe') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='master_mace') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='master_pickhammer') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='master_greataxe') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='master_greatsword') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='master_greathammer') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='yew_longbow') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='yew_crossbow') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='oak_longbow') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='oak_crossbow') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='ebony_longbow') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='ebony_crossbow') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='master_longbow') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='master_crossbow') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='sword_of_aeons') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='avos_tear') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='the_harbinger') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='solus_greatsword') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='arkens_crossbow') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='the_bereaver') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='avenger') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='orkons_club') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='dollmasters_mace') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='wellows_pickhammer') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='katana_hiryu') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='the_avenger_bow') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='scimitar') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='stick') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='apprentice_helm') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='apprentice_torso') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='apprentice_legs') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='apprentice_boots') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='villager_helm') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='villager_torso') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='villager_legs') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='villager_boots') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='leather_bright_helm') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='leather_bright_torso') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='leather_bright_legs') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='leather_bright_boots') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='leather_dark_helm') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='leather_dark_torso') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='leather_dark_legs') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='leather_dark_boots') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='chainmail_bright_helm') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='chainmail_bright_torso') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='chainmail_bright_legs') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='chainmail_bright_boots') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='chainmail_dark_helm') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='chainmail_dark_torso') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='chainmail_dark_legs') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='chainmail_dark_boots') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='platemail_helm') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='platemail_torso') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='platemail_legs') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='platemail_boots') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='guard_bowerstone_helm') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='guard_bowerstone_torso') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='guard_bowerstone_legs') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='guard_bowerstone_boots') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='guard_oakvale_helm') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='guard_oakvale_torso') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='guard_oakvale_legs') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='guard_oakvale_boots') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='guard_snowspire_helm') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='guard_snowspire_torso') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='guard_snowspire_legs') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='guard_snowspire_boots') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='assassin_helm') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='assassin_torso') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='assassin_legs') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='assassin_boots') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='fire_assassin_helm') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='fire_assassin_torso') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='fire_assassin_legs') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='fire_assassin_boots') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='archon_helm') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='archon_torso') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='archon_legs') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='archon_boots') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='holy_warrior_helm') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='demon_helm') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='pimp_hat') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='wizard_hat') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='bright_wizard_hat') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='dark_wizard_hat') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='sharpening_augment') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='piercing_augment') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='health_augment') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='mana_augment') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='experience_augment') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='lightning_augment') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='flame_augment') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='silver_augment') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='augment_remover') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='health_potion') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='great_health_potion') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='will_potion') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='great_will_potion') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='resurrection_phial') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='ages_of_might_potion') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='ages_of_skill_potion') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='ages_of_will_potion') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='elixir_of_life') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='crunchy_chick') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='tofu') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='red_meat') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='apple_pie') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='golden_carrot_brew') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_enflame') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_fireball') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_lightning') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_force_push') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_drain_life') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_heal_life') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_physical_shield') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_slow_time') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_assassin_rush') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_summon') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_turncoat') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_multi_arrow') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_multi_strike') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_battle_charge') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_berserk') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_divine_fury') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_infernal_wrath') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_ghost_sword') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='gold_coin') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='silver_key') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='septimal_key') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='guild_seal') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='quest_card') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='wedding_ring') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='balverine_fang') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='frost_balverine_hide') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='balverine_trophy') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='wasp_wing') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='queens_stinger') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='beetle_chitin') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='troll_heart') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='troll_bones') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='ectoplasm') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='banshees_tear') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='scorpion_stinger') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='giants_core') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='minion_flesh') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='summoners_grimoire') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='jack_of_blades_mask') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='steel_ingot') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='obsidian_ingot') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='master_ingot') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='will_shard') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='cured_leather') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='leather_straps') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='guild_cloth') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='chain_links') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='tempered_plate') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='runed_hilt') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='bow_stave') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='waxed_bowstring') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='orb_general') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='orb_strength') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='orb_skill') ... FAIL
+  test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='orb_will') ... FAIL
+test_social_contracts (__main__.BehaviorRegression.test_social_contracts) ... 
+  test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='villager_albion') ... ERROR
+  test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='villager_woman') ... ERROR
+  test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='villager_farmer') ... ERROR
+  test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='villager_tailor') ... ERROR
+  test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='villager_blacksmith') ... ERROR
+  test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='villager_fisher') ... ERROR
+  test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='guard_bowerstone') ... FAIL
+  test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='guard_oakvale') ... FAIL
+  test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='guard_snowspire') ... FAIL
+  test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='trader') ... ERROR
+  test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='barkeep') ... ERROR
+  test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='guildmaster') ... ERROR
+  test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='guild_apprentice_might') ... ERROR
+  test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='guild_apprentice_skill') ... ERROR
+  test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='guild_apprentice_will') ... ERROR
+  test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='maze') ... ERROR
+  test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='theresa') ... ERROR
+  test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='lady_grey') ... ERROR
+  test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='oracle') ... ERROR
+  test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='briar_rose') ... ERROR
+  test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='mercenary') ... ERROR
+test_theresa_matches_existing_entity (__main__.BehaviorRegression.test_theresa_matches_existing_entity) ... FAIL
+
+======================================================================
+ERROR: test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='villager_albion')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 43, in test_social_contracts
+    self.assertIn(event, data['events'])
+                         ~~~~^^^^^^^^^^
+KeyError: 'events'
+
+======================================================================
+ERROR: test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='villager_woman')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 43, in test_social_contracts
+    self.assertIn(event, data['events'])
+                         ~~~~^^^^^^^^^^
+KeyError: 'events'
+
+======================================================================
+ERROR: test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='villager_farmer')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 43, in test_social_contracts
+    self.assertIn(event, data['events'])
+                         ~~~~^^^^^^^^^^
+KeyError: 'events'
+
+======================================================================
+ERROR: test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='villager_tailor')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 43, in test_social_contracts
+    self.assertIn(event, data['events'])
+                         ~~~~^^^^^^^^^^
+KeyError: 'events'
+
+======================================================================
+ERROR: test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='villager_blacksmith')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 43, in test_social_contracts
+    self.assertIn(event, data['events'])
+                         ~~~~^^^^^^^^^^
+KeyError: 'events'
+
+======================================================================
+ERROR: test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='villager_fisher')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 43, in test_social_contracts
+    self.assertIn(event, data['events'])
+                         ~~~~^^^^^^^^^^
+KeyError: 'events'
+
+======================================================================
+ERROR: test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='trader')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 43, in test_social_contracts
+    self.assertIn(event, data['events'])
+                         ~~~~^^^^^^^^^^
+KeyError: 'events'
+
+======================================================================
+ERROR: test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='barkeep')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 43, in test_social_contracts
+    self.assertIn(event, data['events'])
+                         ~~~~^^^^^^^^^^
+KeyError: 'events'
+
+======================================================================
+ERROR: test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='guildmaster')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 43, in test_social_contracts
+    self.assertIn(event, data['events'])
+                         ~~~~^^^^^^^^^^
+KeyError: 'events'
+
+======================================================================
+ERROR: test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='guild_apprentice_might')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 43, in test_social_contracts
+    self.assertIn(event, data['events'])
+                         ~~~~^^^^^^^^^^
+KeyError: 'events'
+
+======================================================================
+ERROR: test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='guild_apprentice_skill')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 43, in test_social_contracts
+    self.assertIn(event, data['events'])
+                         ~~~~^^^^^^^^^^
+KeyError: 'events'
+
+======================================================================
+ERROR: test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='guild_apprentice_will')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 43, in test_social_contracts
+    self.assertIn(event, data['events'])
+                         ~~~~^^^^^^^^^^
+KeyError: 'events'
+
+======================================================================
+ERROR: test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='maze')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 43, in test_social_contracts
+    self.assertIn(event, data['events'])
+                         ~~~~^^^^^^^^^^
+KeyError: 'events'
+
+======================================================================
+ERROR: test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='theresa')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 43, in test_social_contracts
+    self.assertIn(event, data['events'])
+                         ~~~~^^^^^^^^^^
+KeyError: 'events'
+
+======================================================================
+ERROR: test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='lady_grey')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 43, in test_social_contracts
+    self.assertIn(event, data['events'])
+                         ~~~~^^^^^^^^^^
+KeyError: 'events'
+
+======================================================================
+ERROR: test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='oracle')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 43, in test_social_contracts
+    self.assertIn(event, data['events'])
+                         ~~~~^^^^^^^^^^
+KeyError: 'events'
+
+======================================================================
+ERROR: test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='briar_rose')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 43, in test_social_contracts
+    self.assertIn(event, data['events'])
+                         ~~~~^^^^^^^^^^
+KeyError: 'events'
+
+======================================================================
+ERROR: test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='mercenary')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 43, in test_social_contracts
+    self.assertIn(event, data['events'])
+                         ~~~~^^^^^^^^^^
+KeyError: 'events'
+
+======================================================================
+FAIL: test_alignment_cosmetics (__main__.BehaviorRegression.test_alignment_cosmetics)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 84, in test_alignment_cosmetics
+    self.assertTrue(hasattr(gb, 'emit_alignment_cosmetics'))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='iron_longsword')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'iron_longsword'} != 'iron_longsword'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='iron_katana')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'iron_katana'} != 'iron_katana'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='iron_cleaver')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'iron_cleaver'} != 'iron_cleaver'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='iron_axe')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'iron_axe'} != 'iron_axe'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='iron_mace')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'iron_mace'} != 'iron_mace'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='iron_pickhammer')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'iron_pickhammer'} != 'iron_pickhammer'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='iron_greataxe')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'iron_greataxe'} != 'iron_greataxe'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='iron_greatsword')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'iron_greatsword'} != 'iron_greatsword'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='iron_greathammer')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'iron_greathammer'} != 'iron_greathammer'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='steel_longsword')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'steel_longsword'} != 'steel_longsword'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='steel_katana')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'steel_katana'} != 'steel_katana'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='steel_cleaver')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'steel_cleaver'} != 'steel_cleaver'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='steel_axe')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'steel_axe'} != 'steel_axe'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='steel_mace')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'steel_mace'} != 'steel_mace'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='steel_pickhammer')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'steel_pickhammer'} != 'steel_pickhammer'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='steel_greataxe')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'steel_greataxe'} != 'steel_greataxe'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='steel_greatsword')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'steel_greatsword'} != 'steel_greatsword'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='steel_greathammer')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'steel_greathammer'} != 'steel_greathammer'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='obsidian_longsword')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'obsidian_longsword'} != 'obsidian_longsword'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='obsidian_katana')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'obsidian_katana'} != 'obsidian_katana'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='obsidian_cleaver')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'obsidian_cleaver'} != 'obsidian_cleaver'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='obsidian_axe')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'obsidian_axe'} != 'obsidian_axe'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='obsidian_mace')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'obsidian_mace'} != 'obsidian_mace'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='obsidian_pickhammer')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'obsidian_pickhammer'} != 'obsidian_pickhammer'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='obsidian_greataxe')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'obsidian_greataxe'} != 'obsidian_greataxe'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='obsidian_greatsword')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'obsidian_greatsword'} != 'obsidian_greatsword'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='obsidian_greathammer')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'obsidian_greathammer'} != 'obsidian_greathammer'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='master_longsword')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'master_longsword'} != 'master_longsword'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='master_katana')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'master_katana'} != 'master_katana'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='master_cleaver')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'master_cleaver'} != 'master_cleaver'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='master_axe')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'master_axe'} != 'master_axe'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='master_mace')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'master_mace'} != 'master_mace'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='master_pickhammer')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'master_pickhammer'} != 'master_pickhammer'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='master_greataxe')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'master_greataxe'} != 'master_greataxe'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='master_greatsword')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'master_greatsword'} != 'master_greatsword'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='master_greathammer')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'master_greathammer'} != 'master_greathammer'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='yew_longbow')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'yew_longbow'} != 'yew_longbow'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='yew_crossbow')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'yew_crossbow'} != 'yew_crossbow'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='oak_longbow')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'oak_longbow'} != 'oak_longbow'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='oak_crossbow')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'oak_crossbow'} != 'oak_crossbow'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='ebony_longbow')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'ebony_longbow'} != 'ebony_longbow'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='ebony_crossbow')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'ebony_crossbow'} != 'ebony_crossbow'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='master_longbow')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'master_longbow'} != 'master_longbow'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='master_crossbow')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'master_crossbow'} != 'master_crossbow'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='sword_of_aeons')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'sword_of_aeons'} != 'sword_of_aeons'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='avos_tear')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'avos_tear'} != 'avos_tear'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='the_harbinger')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'the_harbinger'} != 'the_harbinger'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='solus_greatsword')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'solus_greatsword'} != 'solus_greatsword'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='arkens_crossbow')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'arkens_crossbow'} != 'arkens_crossbow'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='the_bereaver')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'the_bereaver'} != 'the_bereaver'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='avenger')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'avenger'} != 'avenger'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='orkons_club')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'orkons_club'} != 'orkons_club'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='dollmasters_mace')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'dollmasters_mace'} != 'dollmasters_mace'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='wellows_pickhammer')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'wellows_pickhammer'} != 'wellows_pickhammer'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='katana_hiryu')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'katana_hiryu'} != 'katana_hiryu'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='the_avenger_bow')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'the_avenger_bow'} != 'the_avenger_bow'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='scimitar')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'scimitar'} != 'scimitar'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='stick')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'stick'} != 'stick'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='apprentice_helm')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'apprentice_helm'} != 'apprentice_helm'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='apprentice_torso')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'apprentice_torso'} != 'apprentice_torso'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='apprentice_legs')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'apprentice_legs'} != 'apprentice_legs'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='apprentice_boots')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'apprentice_boots'} != 'apprentice_boots'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='villager_helm')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'villager_helm'} != 'villager_helm'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='villager_torso')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'villager_torso'} != 'villager_torso'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='villager_legs')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'villager_legs'} != 'villager_legs'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='villager_boots')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'villager_boots'} != 'villager_boots'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='leather_bright_helm')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'leather_bright_helm'} != 'leather_bright_helm'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='leather_bright_torso')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'leather_bright_torso'} != 'leather_bright_torso'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='leather_bright_legs')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'leather_bright_legs'} != 'leather_bright_legs'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='leather_bright_boots')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'leather_bright_boots'} != 'leather_bright_boots'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='leather_dark_helm')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'leather_dark_helm'} != 'leather_dark_helm'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='leather_dark_torso')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'leather_dark_torso'} != 'leather_dark_torso'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='leather_dark_legs')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'leather_dark_legs'} != 'leather_dark_legs'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='leather_dark_boots')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'leather_dark_boots'} != 'leather_dark_boots'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='chainmail_bright_helm')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'chainmail_bright_helm'} != 'chainmail_bright_helm'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='chainmail_bright_torso')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'chainmail_bright_torso'} != 'chainmail_bright_torso'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='chainmail_bright_legs')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'chainmail_bright_legs'} != 'chainmail_bright_legs'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='chainmail_bright_boots')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'chainmail_bright_boots'} != 'chainmail_bright_boots'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='chainmail_dark_helm')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'chainmail_dark_helm'} != 'chainmail_dark_helm'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='chainmail_dark_torso')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'chainmail_dark_torso'} != 'chainmail_dark_torso'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='chainmail_dark_legs')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'chainmail_dark_legs'} != 'chainmail_dark_legs'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='chainmail_dark_boots')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'chainmail_dark_boots'} != 'chainmail_dark_boots'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='platemail_helm')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'platemail_helm'} != 'platemail_helm'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='platemail_torso')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'platemail_torso'} != 'platemail_torso'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='platemail_legs')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'platemail_legs'} != 'platemail_legs'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='platemail_boots')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'platemail_boots'} != 'platemail_boots'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='guard_bowerstone_helm')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'guard_bowerstone_helm'} != 'guard_bowerstone_helm'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='guard_bowerstone_torso')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'guard_bowerstone_torso'} != 'guard_bowerstone_torso'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='guard_bowerstone_legs')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'guard_bowerstone_legs'} != 'guard_bowerstone_legs'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='guard_bowerstone_boots')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'guard_bowerstone_boots'} != 'guard_bowerstone_boots'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='guard_oakvale_helm')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'guard_oakvale_helm'} != 'guard_oakvale_helm'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='guard_oakvale_torso')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'guard_oakvale_torso'} != 'guard_oakvale_torso'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='guard_oakvale_legs')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'guard_oakvale_legs'} != 'guard_oakvale_legs'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='guard_oakvale_boots')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'guard_oakvale_boots'} != 'guard_oakvale_boots'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='guard_snowspire_helm')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'guard_snowspire_helm'} != 'guard_snowspire_helm'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='guard_snowspire_torso')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'guard_snowspire_torso'} != 'guard_snowspire_torso'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='guard_snowspire_legs')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'guard_snowspire_legs'} != 'guard_snowspire_legs'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='guard_snowspire_boots')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'guard_snowspire_boots'} != 'guard_snowspire_boots'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='assassin_helm')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'assassin_helm'} != 'assassin_helm'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='assassin_torso')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'assassin_torso'} != 'assassin_torso'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='assassin_legs')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'assassin_legs'} != 'assassin_legs'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='assassin_boots')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'assassin_boots'} != 'assassin_boots'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='fire_assassin_helm')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'fire_assassin_helm'} != 'fire_assassin_helm'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='fire_assassin_torso')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'fire_assassin_torso'} != 'fire_assassin_torso'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='fire_assassin_legs')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'fire_assassin_legs'} != 'fire_assassin_legs'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='fire_assassin_boots')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'fire_assassin_boots'} != 'fire_assassin_boots'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='archon_helm')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'archon_helm'} != 'archon_helm'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='archon_torso')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'archon_torso'} != 'archon_torso'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='archon_legs')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'archon_legs'} != 'archon_legs'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='archon_boots')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'archon_boots'} != 'archon_boots'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='holy_warrior_helm')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'holy_warrior_helm'} != 'holy_warrior_helm'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='demon_helm')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'demon_helm'} != 'demon_helm'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='pimp_hat')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'pimp_hat'} != 'pimp_hat'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='wizard_hat')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'wizard_hat'} != 'wizard_hat'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='bright_wizard_hat')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'bright_wizard_hat'} != 'bright_wizard_hat'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='dark_wizard_hat')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'dark_wizard_hat'} != 'dark_wizard_hat'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='sharpening_augment')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'sharpening_augment'} != 'sharpening_augment'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='piercing_augment')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'piercing_augment'} != 'piercing_augment'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='health_augment')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'health_augment'} != 'health_augment'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='mana_augment')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'mana_augment'} != 'mana_augment'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='experience_augment')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'experience_augment'} != 'experience_augment'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='lightning_augment')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'lightning_augment'} != 'lightning_augment'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='flame_augment')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'flame_augment'} != 'flame_augment'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='silver_augment')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'silver_augment'} != 'silver_augment'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='augment_remover')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'augment_remover'} != 'augment_remover'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='health_potion')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'health_potion'} != 'health_potion'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='great_health_potion')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'great_health_potion'} != 'great_health_potion'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='will_potion')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'will_potion'} != 'will_potion'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='great_will_potion')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'great_will_potion'} != 'great_will_potion'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='resurrection_phial')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'resurrection_phial'} != 'resurrection_phial'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='ages_of_might_potion')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'ages_of_might_potion'} != 'ages_of_might_potion'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='ages_of_skill_potion')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'ages_of_skill_potion'} != 'ages_of_skill_potion'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='ages_of_will_potion')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'ages_of_will_potion'} != 'ages_of_will_potion'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='elixir_of_life')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'elixir_of_life'} != 'elixir_of_life'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='crunchy_chick')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'crunchy_chick'} != 'crunchy_chick'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='tofu')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'tofu'} != 'tofu'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='red_meat')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'red_meat'} != 'red_meat'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='apple_pie')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'apple_pie'} != 'apple_pie'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='golden_carrot_brew')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'golden_carrot_brew'} != 'golden_carrot_brew'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_enflame')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'spell_enflame'} != 'spell_enflame'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_fireball')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'spell_fireball'} != 'spell_fireball'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_lightning')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'spell_lightning'} != 'spell_lightning'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_force_push')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'spell_force_push'} != 'spell_force_push'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_drain_life')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'spell_drain_life'} != 'spell_drain_life'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_heal_life')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'spell_heal_life'} != 'spell_heal_life'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_physical_shield')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'spell_physical_shield'} != 'spell_physical_shield'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_slow_time')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'spell_slow_time'} != 'spell_slow_time'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_assassin_rush')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'spell_assassin_rush'} != 'spell_assassin_rush'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_summon')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'spell_summon'} != 'spell_summon'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_turncoat')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'spell_turncoat'} != 'spell_turncoat'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_multi_arrow')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'spell_multi_arrow'} != 'spell_multi_arrow'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_multi_strike')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'spell_multi_strike'} != 'spell_multi_strike'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_battle_charge')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'spell_battle_charge'} != 'spell_battle_charge'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_berserk')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'spell_berserk'} != 'spell_berserk'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_divine_fury')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'spell_divine_fury'} != 'spell_divine_fury'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_infernal_wrath')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'spell_infernal_wrath'} != 'spell_infernal_wrath'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='spell_ghost_sword')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'spell_ghost_sword'} != 'spell_ghost_sword'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='gold_coin')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'gold_coin'} != 'gold_coin'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='silver_key')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'silver_key'} != 'silver_key'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='septimal_key')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'septimal_key'} != 'septimal_key'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='guild_seal')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'guild_seal'} != 'guild_seal'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='quest_card')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'quest_card'} != 'quest_card'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='wedding_ring')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'wedding_ring'} != 'wedding_ring'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='balverine_fang')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'balverine_fang'} != 'balverine_fang'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='frost_balverine_hide')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'frost_balverine_hide'} != 'frost_balverine_hide'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='balverine_trophy')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'balverine_trophy'} != 'balverine_trophy'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='wasp_wing')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'wasp_wing'} != 'wasp_wing'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='queens_stinger')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'queens_stinger'} != 'queens_stinger'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='beetle_chitin')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'beetle_chitin'} != 'beetle_chitin'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='troll_heart')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'troll_heart'} != 'troll_heart'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='troll_bones')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'troll_bones'} != 'troll_bones'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='ectoplasm')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'ectoplasm'} != 'ectoplasm'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='banshees_tear')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'banshees_tear'} != 'banshees_tear'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='scorpion_stinger')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'scorpion_stinger'} != 'scorpion_stinger'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='giants_core')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'giants_core'} != 'giants_core'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='minion_flesh')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'minion_flesh'} != 'minion_flesh'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='summoners_grimoire')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'summoners_grimoire'} != 'summoners_grimoire'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='jack_of_blades_mask')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'jack_of_blades_mask'} != 'jack_of_blades_mask'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='steel_ingot')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'steel_ingot'} != 'steel_ingot'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='obsidian_ingot')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'obsidian_ingot'} != 'obsidian_ingot'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='master_ingot')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'master_ingot'} != 'master_ingot'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='will_shard')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'will_shard'} != 'will_shard'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='cured_leather')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'cured_leather'} != 'cured_leather'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='leather_straps')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'leather_straps'} != 'leather_straps'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='guild_cloth')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'guild_cloth'} != 'guild_cloth'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='chain_links')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'chain_links'} != 'chain_links'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='tempered_plate')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'tempered_plate'} != 'tempered_plate'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='runed_hilt')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'runed_hilt'} != 'runed_hilt'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='bow_stave')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'bow_stave'} != 'bow_stave'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='waxed_bowstring')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'waxed_bowstring'} != 'waxed_bowstring'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='orb_general')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'orb_general'} != 'orb_general'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='orb_strength')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'orb_strength'} != 'orb_strength'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='orb_skill')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'orb_skill'} != 'orb_skill'
+
+======================================================================
+FAIL: test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) (item='orb_will')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 72, in test_all_item_formats
+    self.assertEqual(comp['minecraft:icon'], item['id'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'texture': 'orb_will'} != 'orb_will'
+
+======================================================================
+FAIL: test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='guard_bowerstone')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 43, in test_social_contracts
+    self.assertIn(event, data['events'])
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'fc:react_flee' not found in {'fc:turn_hostile': {'add': {'component_groups': ['fc:hostile']}}, 'fc:calm': {'remove': {'component_groups': ['fc:hostile']}}}
+
+======================================================================
+FAIL: test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='guard_oakvale')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 43, in test_social_contracts
+    self.assertIn(event, data['events'])
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'fc:react_flee' not found in {'fc:turn_hostile': {'add': {'component_groups': ['fc:hostile']}}, 'fc:calm': {'remove': {'component_groups': ['fc:hostile']}}}
+
+======================================================================
+FAIL: test_social_contracts (__main__.BehaviorRegression.test_social_contracts) (mob='guard_snowspire')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 43, in test_social_contracts
+    self.assertIn(event, data['events'])
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'fc:react_flee' not found in {'fc:turn_hostile': {'add': {'component_groups': ['fc:hostile']}}, 'fc:calm': {'remove': {'component_groups': ['fc:hostile']}}}
+
+======================================================================
+FAIL: test_theresa_matches_existing_entity (__main__.BehaviorRegression.test_theresa_matches_existing_entity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_gen_behavior.py", line 60, in test_theresa_matches_existing_entity
+    self.assertEqual(generated, existing)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'for[130 chars]ue, 'spawn_category': 'creature'}, 'components[1195 chars]{}}}} != {'for[130 chars]ue, 'properties': {'fc:love_hate': {'type': 'i[3513 chars]}}}}}
+Diff is 12122 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.088s
+
+FAILED (failures=199, errors=18)

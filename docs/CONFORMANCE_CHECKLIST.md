@@ -10,13 +10,13 @@ replace with a real hash in the next milestone. A mock or render is never an in-
 | --- | --- | --- | --- | --- |
 | Spell completion (code + automated validation; manual follow-up separate) | done | ccafd4c; screenshots/validation/spells/; SPELL_COMPANIONS.md | PASS (17 mocks); manual pending | 2026-09-12 |
 | Spell in-world checklist | todo | ccafd4c; SPELL_COMPANIONS.md | PENDING (manual) | 2026-09-12 |
-| Bootstrap document set | done | SELF: TLC Conformance — bootstrap: document set; docs/CONFORMANCE_PLAN.md; LEGAL.md; screenshots/validation/bootstrap/ | PASS (docs); gameplay unchanged | 2026-09-12 |
+| Bootstrap document set | done | d9d5f7c; docs/CONFORMANCE_PLAN.md; LEGAL.md; screenshots/validation/bootstrap/ | PASS (docs); gameplay unchanged | 2026-09-12 |
 
 ## 0 — Stabilization
 
 | Item | Status (todo/in-progress/done) | Evidence (commit + screenshot/validator path) | Grade | Date |
 | --- | --- | --- | --- | --- |
-| 0.1 Repair behavior generator | todo | — | — | — |
+| 0.1 Repair behavior generator | done | SELF: TLC Conformance — 0.1: repair behavior generator; screenshots/validation/0.1/ | PASS (automated) | 2026-09-12 |
 | 0.2 Adopt orphan tools and output policy | todo | — | — | — |
 | 0.3 Drive melee strike gates and test the audit | todo | — | — | — |
 | 0.4 Synchronize gameplay documentation | todo | — | — | — |
