@@ -1,4 +1,4 @@
-"""GP5 final emitted Chamber voxels, half-step collision and damaged routes.
+"""GP5/GP8 final Chamber voxels, half-step collision and damaged routes.
 
 The tested Vox is the final save input; its emitted NBT must equal the shipped
 asset. Full/bottom/top slab surfaces and two-block swept headroom are modeled
@@ -63,18 +63,19 @@ def reached(vox, start):
     return seen
 
 
-def outside_gp5_changes_digest(vox):
-    """Frozen GP4 geometry outside concentric treads and the water-layer rim."""
-    water = {(x, z) for x in range(31) for z in range(31) if math.hypot(x - 15, z - 15) <= 7.6}
-    rim = {(xx, zz) for x, z in water for xx, zz in ((x - 1, z), (x + 1, z), (x, z - 1), (x, z + 1))
-           if (xx, zz) not in water}
+def protected_gp5_digest(vox):
+    """Frozen GP5 altar/standing clearance, entry, foundation and containment.
+
+    GP8 intentionally replaces the walls and ceiling. Preserve the actual altar
+    radius (8.4), not the old obstructing lamps just outside it at radius 8.54.
+    """
     values = []
     for x in range(vox.sx):
         for y in range(vox.sy):
             for z in range(vox.sz):
-                if 3.4 < math.hypot(x - 15, z - 15) <= 8.4 and 2 <= y <= 4:
-                    continue
-                if y == 18 and (x, z) in rim:
+                protected = (y == 0 or (math.hypot(x - 15, z - 15) <= 8.4 and y <= 6)
+                             or (13 <= x <= 17 and z <= 11 and y <= 6) or y in (17, 18))
+                if not protected:
                     continue
                 name, states = cell(vox, x, y, z)
                 values.append([x, y, z, name, states])
@@ -160,7 +161,9 @@ class ChamberRoutes(unittest.TestCase):
         forward = reached(self.vox, self.arch)
         footprint = {(x, z) for x in range(31) for z in range(31)
                      if 3.4 < math.hypot(x - 15, z - 15) <= 8.4}
-        treads = {(x, z): y for x, y, z in nodes if (x, z) in footprint}
+        # Survey the altar's vertical interval; the opaque GP8 roof also has a
+        # solid top above these x/z columns and is not an altar tread.
+        treads = {(x, z): y for x, y, z in nodes if (x, z) in footprint and 2 < y < 5}
         self.assertEqual(set(treads), footprint, 'An altar column has no clear supported tread')
         expected_counts = {2.5: 44, 3.: 48, 3.5: 32, 4.: 36, 4.5: 24}
         for feet, count in expected_counts.items():
@@ -219,6 +222,14 @@ class ChamberRoutes(unittest.TestCase):
         expected = [cell(guild, x, y, z) for x in range(25, 30)
                     for y in range(3) for z in range(12, 17)]
         self.assertEqual(decode(entry), expected)
+
+    def test_gp5_compatibility_manifest_is_frozen_and_exported_unchanged(self):
+        frozen = Path(__file__).resolve().parents[2] / 'scripts/data/guild_chamber_gp5.json'
+        self.assertEqual(hashlib.sha256(frozen.read_bytes()).hexdigest(),
+                         'a8f59e438d2a9e64876acb7ff5e2cd32494c03a06608c195b646d58a706a9916')
+        source = (GS.BP / 'scripts/fc_gamedata.js').read_text()
+        data, _ = json.JSONDecoder().raw_decode(source.split('export const DATA = ', 1)[1])
+        self.assertEqual(data['guildChamber']['compatibility'], [json.loads(frozen.read_text())])
 
     def test_bottom_slab_surfaces_and_swept_headroom(self):
         for x in (14, 15, 16):
@@ -285,13 +296,71 @@ class ChamberRoutes(unittest.TestCase):
         with self.assertRaisesRegex(AssertionError, 'Uncontained skylight'):
             containment(leaking)
 
-    def test_every_cell_outside_concentric_treads_and_water_rim_preserves_gp4_geometry(self):
-        # Independently frozen from GP4 owner at cd6815facd1312f7659fd64296d0f5167ce9b018.
-        self.assertEqual(outside_gp5_changes_digest(self.vox),
-                         '3f30b4612564c33d60c41b6bec5c7d998d3f2d752ebb531bfd022773c3706d4c')
+    def test_gp8_preserves_gp5_altar_entry_foundation_and_containment(self):
+        # 4,419 independently frozen cells from the unchanged GP7 Chamber owner.
+        self.assertEqual(protected_gp5_digest(self.vox),
+                         '431343b708bfb6b5c9a803bc8c787dc254d36f50e8abd5a197bd8e3b29b65a53')
         self.assertEqual(GS.GUILD_LAYOUT['maze_spawn'], (46, 70))
         self.assertEqual(GS.GUILD_LAYOUT['maze_study_y'], 12)
         self.assertEqual(GS.GUILD_LAYOUT['size'], (122, 30, 108))
+
+    def test_outer_walk_is_clear_all_around_and_local_obstruction_fails(self):
+        def outer_walk(vox):
+            accessible = reached(vox, self.arch)
+            for x in range(31):
+                for z in range(31):
+                    if 8.6 < math.hypot(x - 15, z - 15) <= 10.5:
+                        self.assertTrue(supported(vox, x, 2., z), f'Outer walk floor {(x, z)}')
+                        self.assertTrue(clear(vox, x, 2., z), f'Outer walk blocked {(x, z)}')
+                        self.assertIn((x, 2., z), accessible, f'Outer walk isolated {(x, z)}')
+        outer_walk(self.vox)
+        blocked = copy.deepcopy(self.vox)
+        blocked.set(24, 2, 15, 'minecraft:campfire')
+        with self.assertRaisesRegex(AssertionError, 'Outer walk blocked'):
+            outer_walk(blocked)
+
+    def test_pointed_wall_bays_have_connected_ribs_and_widen_below_apex(self):
+        # Independently surveyed east bay, then all four cardinal rotations.
+        # The original source supports pointed wall ribs, not their exact count.
+        profile = {3: {-3, 3}, 6: {-3, 3}, 7: {-3, -2, 2, 3},
+                   8: {-2, -1, 1, 2}, 9: {-1, 0, 1}, 10: {0}}
+        for turn in range(4):
+            for y, offsets in profile.items():
+                for tangent in range(-4, 5):
+                    x, z = 11, tangent
+                    for _ in range(turn):
+                        x, z = -z, x
+                    x, z = x + 15, z + 15
+                    # North entry keeps its GP5 aperture through y6; lamps
+                    # occupy the center at y6/7 of the other three bays.
+                    if turn == 3 and y <= 6 and abs(tangent) <= 2:
+                        continue
+                    if y in (6, 7) and tangent == 0:
+                        continue
+                    self.assertEqual(cell(self.vox, x, y, z)[0] == 'minecraft:stone_bricks',
+                                     tangent in offsets, f'Broken pointed rib {(x, y, z)}')
+
+    def test_shell_is_closed_except_entry_and_independent_wall_breach_fails(self):
+        def enclosure(vox):
+            room = copy.deepcopy(vox)
+            room.fill(13, 2, 0, 17, 6, 4, 'minecraft:stone_bricks')
+            visited = {(15, 8, 15)}
+            pending = deque(visited)
+            while pending:
+                x, y, z = pending.popleft()
+                self.assertTrue(0 < x < 30 and 0 < y < 19 and 0 < z < 30,
+                                f'Chamber shell leak {(x, y, z)}')
+                for dx, dy, dz in ((-1, 0, 0), (1, 0, 0), (0, -1, 0),
+                                   (0, 1, 0), (0, 0, -1), (0, 0, 1)):
+                    point = (x + dx, y + dy, z + dz)
+                    if point not in visited and cell(room, *point)[0] == 'minecraft:air':
+                        visited.add(point)
+                        pending.append(point)
+        enclosure(self.vox)
+        breach = copy.deepcopy(self.vox)
+        breach.fill(26, 5, 15, 30, 5, 15, 'minecraft:air')
+        with self.assertRaisesRegex(AssertionError, 'Chamber shell leak'):
+            enclosure(breach)
 
 
 if __name__ == '__main__':

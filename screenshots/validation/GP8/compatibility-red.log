@@ -1,0 +1,36 @@
+(node:4) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ an enrolled old Chamber plan finishes its exact original geometry across a visual revision (103.91309ms)
+✔ unknown plan hashes and damaged completed legacy cells never authorize a new revision (233.111694ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 1
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 350.209641
+
+✖ failing tests:
+
+test at scripts/tests/guild_caves.test.mjs:293:1
+✖ an enrolled old Chamber plan finishes its exact original geometry across a visual revision (103.91309ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'snapshot'
+  - 'ready'
+  
+      at ready (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_caves.test.mjs:154:10)
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_caves.test.mjs:311:63)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.start (node:internal/test_runner/test:1257:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'snapshot',
+    expected: 'ready',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

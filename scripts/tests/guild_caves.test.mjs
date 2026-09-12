@@ -43,7 +43,7 @@ function decode(manifest, base) {
   return result;
 }
 
-export function fixture({ physics = false } = {}) {
+export function fixture({ physics = false, chamber = DATA.guildChamber } = {}) {
   const base = { x: 0, y: 40, z: 0 }, props = new Map(), cells = new Map(), writes = [], jobs = new Map(), timeouts = [];
   let serial = 0, tick = 0, context, runtime, fault = null, propertyFault = null, loot = 0, art = 0, bulk = 0;
   const bulkOrigins = [];
@@ -107,9 +107,10 @@ export function fixture({ physics = false } = {}) {
     runTimeout(fn, delay = 0) { timeouts.push(Object.assign(fn, { delay })); },
   };
   const noOp = () => {};
-  function reload() {
+  function reload(nextChamber = chamber) {
+    chamber = nextChamber;
     jobs.clear();
-    context = vm.createContext({ createGuildCaveLifecycle: api.createGuildCaveLifecycle, DATA, world, system,
+    context = vm.createContext({ createGuildCaveLifecycle: api.createGuildCaveLifecycle, DATA: { ...DATA, guildChamber: chamber }, world, system,
       BlockPermutation: { resolve: permutation }, OW: () => dim, guildTerrainRepairRunning: false,
       fillLootChests: () => { loot++; }, hangChamberArt: () => { art++; }, ensureGuildChamberCullis: noOp,
       guildBounds: () => ({ base }), clearGuildRingScarecrows: noOp, repairGuildDemonApproach: noOp,
@@ -169,7 +170,7 @@ test('actual annex records completion only after every assembled Chamber/cave ce
     assert.deepEqual(f.cells.get(key).permutation.getAllStates(), permutation(cell.name, cell.states).getAllStates(), key);
   }
   assert.equal(f.bulk(), 0, 'Per-cell placement never replaces a whole occupied structure');
-  assert.deepEqual(f.decorations(), [1, 1]);
+  assert.deepEqual(f.decorations(), [1, 0]);
   const pages = [...f.props].filter(([key]) => key.startsWith(`${KEY}_`)).map(([, value]) => Buffer.byteLength(value));
   t.diagnostic(`${f.record().count} final cells; ${pages.length} journal pages; largest page ${Math.max(...pages)} bytes; total ${pages.reduce((a, b) => a + b, 0)} bytes`);
 });
@@ -285,8 +286,64 @@ test('snapshot, partially placed Chamber and verification reloads resume without
     });
     f.reload(); f.runtime().maintenance(); f.drain(); ready(f);
     const before = f.writes.length; f.reload(); f.runtime().maintenance();
-    assert.equal(f.writes.length, before); assert.deepEqual(f.decorations(), [1, 1]);
+    assert.equal(f.writes.length, before); assert.deepEqual(f.decorations(), [1, 0]);
   }
+});
+
+test('an enrolled old Chamber plan finishes its exact original geometry across a visual revision', () => {
+  const legacy = JSON.parse(fs.readFileSync('scripts/data/guild_chamber_gp5.json', 'utf8'));
+  const revision = JSON.parse(JSON.stringify(legacy));
+  // An independent valid material revision makes the lifecycle regression fail
+  // before the compatibility selector, without relying on one decorative design.
+  revision.palette = revision.palette.map(p => p.name === 'minecraft:quartz_pillar'
+    ? { name: 'minecraft:polished_andesite', states: {} } : p);
+  revision.compatibility = [legacy];
+  assert.notDeepEqual(revision.palette, legacy.palette);
+  for (const phase of ['snapshot', 'applying', 'verification']) {
+    const f = fixture({ chamber: legacy }); start(f);
+    if (phase === 'snapshot') f.step(2);
+    else if (phase === 'applying') f.until(() => f.writes.length > 30);
+    else f.until(() => {
+      const last = [...f.props.keys()].filter(k => k.startsWith(`${KEY}_`)).at(-1);
+      return last && /^1+$/.test(JSON.parse(f.props.get(last)).done);
+    });
+    const hash = f.record().hash;
+    f.reload(revision); f.runtime().maintenance(); f.drain(); ready(f);
+    assert.equal(f.record().hash, hash, phase);
+    const expected = new Map([...decode(legacy, f.base), ...api.guildCavePlan(f.base)].map(c => [coordinate(c), c]));
+    for (const [key, cell] of expected) assert.equal(f.cells.get(key)?.typeId, cell.name, `${phase}: ${key}`);
+    const before = f.writes.length; f.reload(revision); f.runtime().maintenance();
+    assert.equal(f.writes.length, before); assert.deepEqual(f.decorations(), [1, 0]);
+  }
+});
+
+test('unknown plan hashes and damaged completed legacy cells never authorize a new revision', () => {
+  const legacy = JSON.parse(fs.readFileSync('scripts/data/guild_chamber_gp5.json', 'utf8'));
+  const revision = { ...DATA.guildChamber, compatibility: [legacy] };
+  for (const mode of ['unknown-hash', 'changed-cell']) {
+    const f = fixture({ chamber: legacy }); start(f); f.until(() => f.writes.length > 30);
+    if (mode === 'unknown-hash') f.props.set(KEY, JSON.stringify({ ...f.record(), hash: 'unknown-plan' }));
+    else {
+      const [x, y, z] = f.writes[0].key.split(',').map(Number);
+      f.put({ x, y, z }, 'minecraft:chest');
+    }
+    const before = f.writes.length, original = f.props.get(KEY);
+    f.reload(revision); f.runtime().maintenance(); f.drain();
+    assert.equal(f.writes.length, before, mode); assert.notEqual(f.record().phase, 'ready');
+    if (mode === 'unknown-hash') assert.equal(f.props.get(KEY), original);
+  }
+});
+
+test('the shipped Chamber revision resumes a GP5 build without substituting new wall cells', () => {
+  const legacy = JSON.parse(fs.readFileSync('scripts/data/guild_chamber_gp5.json', 'utf8'));
+  assert.notDeepEqual(DATA.guildChamber.runs, legacy.runs, 'The test must cross the actual shipped geometry revision');
+  const f = fixture({ chamber: legacy }); start(f); f.until(() => f.writes.length > 30);
+  const enrolled = f.record().hash;
+  f.reload(DATA.guildChamber); f.runtime().maintenance(); f.drain(); ready(f);
+  assert.equal(f.record().hash, enrolled);
+  const expected = new Map([...decode(legacy, f.base), ...api.guildCavePlan(f.base)].map(c => [coordinate(c), c]));
+  for (const [key, cell] of expected) assert.equal(f.cells.get(key)?.typeId, cell.name, key);
+  assert.deepEqual(f.decorations(), [1, 0]);
 });
 
 test('unloaded and throwing getBlock during snapshot or Chamber placement are retryable', () => {

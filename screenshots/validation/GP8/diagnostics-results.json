@@ -1,0 +1,23 @@
+{
+  "guild-match": {
+    "command": [
+      "python",
+      "scripts/_audit_match.py"
+    ],
+    "exit_code": 0
+  },
+  "guild-roofs": {
+    "command": [
+      "python",
+      "scripts/_audit_roofs.py"
+    ],
+    "exit_code": 0
+  },
+  "guild-verify": {
+    "command": [
+      "python",
+      "scripts/_verify_guild.py"
+    ],
+    "exit_code": 0
+  }
+}

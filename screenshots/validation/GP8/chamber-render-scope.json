@@ -1,0 +1,9 @@
+{
+  "baseline_owner": "scripts/data/guild_chamber_gp5.json (unchanged GP5/GP7 Chamber geometry)",
+  "baseline_sha256": "a8f59e438d2a9e64876acb7ff5e2cd32494c03a06608c195b646d58a706a9916",
+  "source_after": "scripts/gen_structures.py:build_chamber_of_fate",
+  "scope": "Offline flat-color voxel geometry, native half-slab heights; other blocks including lamps are cubes. No engine lighting or perspective.",
+  "open_cutaway": "Remove y>=12 and the north half of the outer wall at radius>10.5 above the floor. Camera looks south into the retained walls.",
+  "east_bay": "Isolate x23..29/y1..11/z9..21, face the east wall from inside at low pitch. Adjacent room is cropped.",
+  "altar": "Crop radius8.6/y1..4. Exact protected altar ends at radius8.4; two obsolete floor lanterns beyond it disappear."
+}

@@ -174,7 +174,8 @@ function manifestCells(manifest, base) {
 // scheduler. Only a newly placed Guild can enroll. Absence of this journal is
 // deliberately NOT interpreted as permission to rebuild a saved/occupied cave.
 export function createGuildCaveLifecycle({ world, system, chamber, resolve, terrainReady = () => true, onReady = () => {} }) {
-  let active = null, nextAttempt = 0, cache = null;
+  let active = null, nextAttempt = 0, cacheAnchor = null;
+  const plans = new Map();
   const keyAt = (i) => `${RECORD}_${i}`;
   const save = (record) => world.setDynamicProperty(RECORD, JSON.stringify(record));
   const baseKey = (base) => JSON.stringify([base.x, base.y, base.z]);
@@ -183,9 +184,10 @@ export function createGuildCaveLifecycle({ world, system, chamber, resolve, terr
     const raw = world.getDynamicProperty(RECORD);
     return raw === undefined ? null : JSON.parse(raw);
   }
-  function plan(base) {
+  function plan(base, manifest = chamber) {
     const anchor = baseKey(base);
-    if (cache?.anchor === anchor) return cache;
+    if (cacheAnchor !== anchor) { plans.clear(); cacheAnchor = anchor; }
+    if (plans.has(manifest)) return plans.get(manifest);
     const permutations = new Map();
     function target(cell) {
       const key = signature(cell.name, cell.states);
@@ -196,14 +198,27 @@ export function createGuildCaveLifecycle({ world, system, chamber, resolve, terr
       return { ...cell, target: permutations.get(key) };
     }
     const cells = new Map();
-    for (const cell of [...manifestCells(chamber, base), ...guildCavePlan(base)]) cells.set(`${cell.x},${cell.y},${cell.z}`, target(cell));
-    const entry = new Map(manifestCells(chamber.entry, base).map((cell) => [`${cell.x},${cell.y},${cell.z}`, target(cell).target.signature]));
+    for (const cell of [...manifestCells(manifest, base), ...guildCavePlan(base)]) cells.set(`${cell.x},${cell.y},${cell.z}`, target(cell));
+    const entry = new Map(manifestCells(manifest.entry, base).map((cell) => [`${cell.x},${cell.y},${cell.z}`, target(cell).target.signature]));
     // All supports and containment are complete before attached decorations,
     // and every liquid source is last. Yielded placement cannot leak the new
     // skylight water or drop a lantern while its support is still unbuilt.
     const all = [...cells.values()].sort((a, b) => placementOrder(a) - placementOrder(b));
-    cache = { anchor, cells: all, entry, hash: hash(JSON.stringify([all.map((c) => [c.x, c.y, c.z, c.target.signature]), [...entry]])) };
-    return cache;
+    const owned = { anchor, cells: all, entry, hash: hash(JSON.stringify([all.map((c) => [c.x, c.y, c.z, c.target.signature]), [...entry]])) };
+    plans.set(manifest, owned);
+    return owned;
+  }
+  function enrolledPlan(base, record) {
+    const current = plan(base);
+    if (record.phase === "snapshot" && record.hash === undefined && record.count === undefined) return current;
+    if (record.hash === current.hash && record.count === current.cells.length) return current;
+    // Only exact recognized historical plans may finish their existing journal.
+    // Unknown hashes, missing pages and edited completed cells still fail closed.
+    for (const manifest of chamber.compatibility ?? []) {
+      const previous = plan(base, manifest);
+      if (record.hash === previous.hash && record.count === previous.cells.length) return previous;
+    }
+    return null;
   }
   function enroll(base) {
     try {
@@ -277,7 +292,8 @@ export function createGuildCaveLifecycle({ world, system, chamber, resolve, terr
         try { system.clearJob(active.id); } catch { }
         active = null;
       }
-      owned = plan(base);
+      owned = enrolledPlan(base, record);
+      if (!owned) return false;
       if (record.phase === "snapshot" && record.hash === undefined && record.count === undefined) {
         record.hash = owned.hash;
         record.count = owned.cells.length;

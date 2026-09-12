@@ -549,7 +549,7 @@ const guildCaves = createGuildCaveLifecycle({
     // The lifecycle durably claims this best-effort decoration before invoking
     // it. A failure may omit decoration, but reload never reseeds taken loot.
     fillLootChests(OW(), base.x + ox, base.y + oy, base.z + oz, sx, sy, sz, "fc:chamber_of_fate");
-    hangChamberArt(OW(), base.x + ox, base.y + oy, base.z + oz, sx);
+    // Original block reliefs own the walls; arbitrary vanilla paintings do not.
   },
 });
 
@@ -612,26 +612,6 @@ function populateSurroundings(dim, base, force = false) {
     world.setDynamicProperty("fc_guild_wild_done", true);
   };
   try { system.runJob(work()); } catch { }
-}
-
-// Hang real paintings on the chamber's cardinal walls (best-effort — the engine
-// picks whatever motif fits the space; mismatched art is fine, it's the gallery
-// feel that matters). The block frescoes carry the look if this no-ops.
-function hangChamberArt(dim, x0, y0, z0, S) {
-  const c = S >> 1, y = y0 + 6;
-  // (offset toward centre, facing) for each cardinal wall
-  const spots = [
-    { x: x0 + c, z: z0 + 2, dir: "south" },
-    { x: x0 + c, z: z0 + S - 3, dir: "north" },
-    { x: x0 + 2, z: z0 + c, dir: "east" },
-    { x: x0 + S - 3, z: z0 + c, dir: "west" },
-  ];
-  for (const s of spots) {
-    try {
-      const e = dim.spawnEntity("minecraft:painting", { x: s.x + 0.5, y, z: s.z + 0.5 });
-      try { e.setProperty?.("minecraft:cardinal_direction", s.dir); } catch { }
-    } catch { }
-  }
 }
 
 function trySpawn(dim, type, loc) { try { return dim.spawnEntity(type, loc); } catch { return undefined; } }

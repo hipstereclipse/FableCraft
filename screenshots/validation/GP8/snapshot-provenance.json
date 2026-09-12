@@ -1,0 +1,25 @@
+{
+  "source": "reviewed Git index; excludes unstaged parallel implementation and inherited dirtiness",
+  "baseline_head": "f12b608e84bd4774caf6a39f4b2ba708ef71821b",
+  "entries": 4258,
+  "reviewed_source_sha256": {
+    "docs/CONFORMANCE_CHECKLIST.md": "3620608cdb0c864288e45b6bb77562941024cae12067fd55297147195ae8f0a9",
+    "docs/GUILD_CHAMBER_INTERIOR.md": "ba555fb061c34d89e6a64a9ddb0093ab3f19b9fe41e5402c52f3716b90f5dba2",
+    "docs/GUILD_DEMON_PRIORITIES.md": "566154cfbf0c105d82686ed9487504f55a126bf5464308fa77d9c897e2c4fdc6",
+    "docs/HANDOFF.md": "0f0bcb51269433987804e3a0e14484d4aea07a8ecdf94b0f9703c59384ed4c59",
+    "packs/Fablecraft_BP/scripts/fc_gamedata.js": "bbf33decbfeebe66fb1beb1d6d501a2530ca247dd7d9d5390bf8400c0cad4983",
+    "packs/Fablecraft_BP/scripts/guild_caves.js": "c8b2030decde80d91997cf825c1c50a83791a15660884cd172a03d9373e6ac0a",
+    "packs/Fablecraft_BP/scripts/main.js": "82ec690acfbb743fbb09efbdffb83bb8d073771e28b65f4a655ca79b25043de9",
+    "packs/Fablecraft_BP/structures/fc/chamber_of_fate.mcstructure": "81d7568f0a3298932dce0164a5ddc26842b0d06859878178e9be5c46b274b217",
+    "screenshots/structures/contract/chamber_of_fate.png": "33b5ce6fbe224d08fc0043c0ab529238f77a935f4cee051109bee8d1947f52d7",
+    "screenshots/structures/contract/evidence.json": "427284a8d60622f3c2f90c29ebbf301629302a7f485b2b34e50456584a4025d7",
+    "scripts/data/guild_chamber_gp5.json": "a8f59e438d2a9e64876acb7ff5e2cd32494c03a06608c195b646d58a706a9916",
+    "scripts/gen_behavior.py": "82947f0b6386932fe5b2f36873c3ae682b1f39a08b99fbbb91ec043b9ff70360",
+    "scripts/gen_structures.py": "4909cc334ca65c505968007efecec9e9c55ec16ed9ba28b7a51d1bd094196093",
+    "scripts/tests/guild_caves.test.mjs": "45194a5c5227a90e9a023a89b8529211289d9673288bc4a4294d269f06081b95",
+    "scripts/tests/test_chamber_routes.py": "ee2c7ca4b2b87dacbea3fb2ec99af508a080277b500d7f8c2d12cf6a7581d16b",
+    "screenshots/validation/GP8/render-chamber-details.py": "bd0b0e9893a64b03a9eb3d438cdd6394b645dab0715e47588aca642ecb0a4e80"
+  },
+  "node_dependencies": "same installed locked dependencies via node_modules symlink",
+  "engine_acceptance": "unrun"
+}

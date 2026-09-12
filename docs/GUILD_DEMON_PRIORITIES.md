@@ -40,6 +40,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | DP3 | in-progress | Original-cell ticket return survives lost/recreated ledgers; unknown paid history defers registration; full standing return clearance; engine acceptance open |
 | DP4 | in-progress | Durable source owns Guild face maintenance; stale hints cannot spawn ordinary doors or reset history; engine acceptance open |
 | GP7 | in-progress | Retired obsolete approach/scarecrow sweeps preserve saved construction; generated routes and training remain checked; engine acceptance open |
+| GP8 | in-progress | Pointed Chamber wall bays, subdued masonry and clear outer walk; recognized older construction resumes its original plan; engine acceptance open |
 
 Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
 defects and manual status here. These passes are not completed legacy leaves.
@@ -456,7 +457,7 @@ source-authority review found no blocking defect. Live engine tests remain unrun
 
 ## GP7 — preserve saved Guild approach and training construction (2026-09-12)
 
-Commit: SELF: TLC Conformance — GP7: retire destructive Guild repair sweeps.
+Commit: f12b608e84bd4774caf6a39f4b2ba708ef71821b.
 The actual old maintenance callback repaved a player diamond floor and erased a
 chest when its legacy completion flag was missing. One unrelated unloaded cell
 left the flag absent and repeated those destructive writes on later passes.
@@ -495,3 +496,34 @@ repro. A separate activity owner should preserve resident/spouse identity and
 arbitrate requester-specific Follow/Wait with training and defence; avoid permanent
 taming or repeated-teleport shortcuts. Keep canonical staffing and reference-led
 Will/Chamber work open alongside these behavioral repairs.
+
+## GP8 — Chamber wall architecture and construction continuity (2026-09-12)
+
+Commit: SELF: TLC Conformance — GP8: refine Chamber walls and preserve enrolled builds.
+Original TLC battle views support pointed wall ribs, dark paving and broad curved
+altar steps. The new generator replaces isolated quartz/gold posts, colored
+placeholder panels, low fires and the luminous roof with attached pointed stone
+bays, dark masonry and elevated lamps. All 116 outer-walk cells connect to the
+entrance; 13 were previously obstructed. All 4,419 protected foundation, altar,
+entry and containment cells remain exact. The user's surrounding shallow steps,
+all anchors and the existing water/glass containment remain unchanged.
+
+A frozen GP5 manifest lets already-enrolled construction finish its exact original
+plan after this revision. It requires matching hash/count and the existing
+original-cell journal; unknown plans and changed player cells defer safely.
+Completed and legacy occupied rooms remain untouched. Arbitrary vanilla painting
+injection is retired for new construction; saved painting entities remain.
+See [GUILD_CHAMBER_INTERIOR.md](GUILD_CHAMBER_INTERIOR.md) and
+`screenshots/validation/GP8/` for before/after views, reference provenance and the
+old-controller failure reproduced before the fix. Eight bays and lamp positions
+are adaptations, not recovered measurements. Frescoes, neutral lighting, the
+central Cullis palette and full native appearance remain open.
+
+GP8 validation: 40 base gates, 23 cave lifecycle groups, 14 Chamber geometry
+and manifest groups, and all 62 script syntax checks pass from the reviewed-index
+snapshot. Fresh 35-asset C2 and all-category renders (51 mobs, 55 items, 130 recipes,
+32 structures, 13 galleries) completed, with fresh Guild diagnostics. Independent
+compatibility review found no blocker. GP7 exact-head CI 34718493910 passed.
+All Bedrock movement, light, fluid, saving and gameplay acceptance remains unrun.
+Next: the dedicated Will-island routine and low main-hall map relief, followed by
+continued reference/route review across adjoining rooms and NPC activity ownership.

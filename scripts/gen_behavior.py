@@ -4,6 +4,7 @@ blob consumed by scripts/main.js.
 """
 import json
 from copy import deepcopy
+from pathlib import Path
 
 from fc_lib import BP, NAMESPACE, write_json as _write_json, write_text
 from fc_strings import localize, text as branded_text
@@ -752,6 +753,10 @@ def guild_chamber_contract():
             "palette": [{"name": name, "states": states} for name, states in entry.palette],
             "runs": [[index, sum(1 for _ in cells)] for index, cells in groupby(entry.grid)],
         },
+        # Frozen GP5 inputs let an already-enrolled construction finish its
+        # original exact plan after later visual changes. Never retrofit rooms.
+        "compatibility": [json.loads((Path(__file__).resolve().parent
+                                      / "data/guild_chamber_gp5.json").read_text())],
     }
 
 

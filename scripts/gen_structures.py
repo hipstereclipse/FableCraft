@@ -3701,7 +3701,6 @@ def build_chamber_of_fate():
     placement verifies these generated cells after the Guild terrain settles;
     completed and legacy rooms are not repeatedly scrubbed or rebuilt.
     """
-    r = rng("struct", "chamber_fate")
     S, H, depth = CHAMBER_LAYOUT["size"]
     v = Vox(S, H, depth)
     c, cullis_feet, _ = CHAMBER_LAYOUT["cullis"]
@@ -3709,14 +3708,15 @@ def build_chamber_of_fate():
     INNER = 11.5         # inner face of the wall (open floor reaches to here)
     WALL_TOP = 11        # dome springs from here
 
-    # ---- floor: concentric flagstone rings ----
+    # ---- floor: dark outer flagstones around the preserved GP5 altar ----
     for x in range(S):
         for z in range(S):
             d = math.hypot(x - c, z - c)
             if d <= WALL_R + 0.6:
                 v.set(x, 0, z, DEEP_TILES if (x + z) % 3 else STONE)
             if d <= INNER:
-                v.set(x, 1, z, CHISELED if (x + z) % 2 else DEEP_TILES)
+                v.set(x, 1, z, (CHISELED if (x + z) % 2 else DEEP_TILES)
+                      if d <= 8.6 else DEEP_TILES)
 
     # ---- encircling wall (airtight, no gaps) ----
     for x in range(S):
@@ -3724,51 +3724,41 @@ def build_chamber_of_fate():
             d = math.hypot(x - c, z - c)
             if INNER < d <= WALL_R + 0.5:
                 for y in range(1, WALL_TOP):
-                    roll = r.random()
-                    v.set(x, y, z, STONE if roll < 0.7 else
-                          (CRACK if roll < 0.85 else MOSSY))
+                    v.set(x, y, z, DEEPSLATE_W if y not in (1, 10) else DEEP_TILES)
 
-    # ---- framed frescoes set into the inner wall face ----
-    # bold glazed murals (dragon-fire, the magic shield, the dark villain, the
-    # hero's gold halo, Albion's woods, the cold sea) each framed in gold and
-    # chiseled stone and lit by a brazier — "the chamber's most remarkable
-    # feature", per the lore.
-    murals = [
-        ("minecraft:red_glazed_terracotta", "minecraft:orange_glazed_terracotta"),
-        ("minecraft:light_blue_glazed_terracotta", "minecraft:blue_glazed_terracotta"),
-        ("minecraft:black_glazed_terracotta", "minecraft:purple_glazed_terracotta"),
-        ("minecraft:yellow_glazed_terracotta", "minecraft:white_glazed_terracotta"),
-        ("minecraft:green_glazed_terracotta", "minecraft:lime_glazed_terracotta"),
-        ("minecraft:cyan_glazed_terracotta", "minecraft:light_blue_glazed_terracotta"),
-    ]
-    for i, ang in enumerate(range(0, 360, 60)):
+    # ---- tall pointed wall bays, with attached ribs and recessed panels ----
+    # The native 2005 Prima p96 battle views show dark walls and narrow pointed
+    # ribs. Eight bays and these block proportions are Minecraft adaptations;
+    # the source cannot resolve the fresco subjects. Quiet stone reliefs replace
+    # the invented saturated glazed pictures rather than claiming new canon.
+    # Ribs stay against the shell: no freestanding posts obstruct the outer walk.
+    rib_ranges = {2: (2.5, 3.5), 3: (2.5, 3.5), 4: (2.5, 3.5),
+                  5: (2.5, 3.5), 6: (2.5, 3.5), 7: (1.5, 3.5),
+                  8: (.5, 2.5), 9: (0, 1.5), 10: (0, .5)}
+    for ang in range(0, 360, 45):
         a = math.radians(ang)
-        bx = c + round(math.cos(a) * (WALL_R - 1))
-        bz = c + round(math.sin(a) * (WALL_R - 1))
-        top, bot = murals[i % len(murals)]
-        tx, tz = -round(math.sin(a)), round(math.cos(a))   # tangent along the wall
-        for k in (-1, 0, 1):
-            px, pz = bx + tx * k, bz + tz * k
-            v.set(px, 4, pz, bot)
-            v.set(px, 5, pz, bot)
-            v.set(px, 6, pz, top)
-            v.set(px, 7, pz, top)
-            v.set(px, 3, pz, GOLD if k == 0 else CHISELED)   # framed base
-            v.set(px, 8, pz, GOLD if k == 0 else CHISELED)   # framed lintel
-        # a brazier on the floor before each fresco
-        lx = c + round(math.cos(a) * (WALL_R - 3))
-        lz = c + round(math.sin(a) * (WALL_R - 3))
-        v.set(lx, 1, lz, CHISELED)
-        v.set(lx, 2, lz, "minecraft:campfire")
-
-    # ---- inner ring columns (between the frescoes), holding the dome ----
-    for ang in range(30, 360, 60):
-        px = c + round(math.cos(math.radians(ang)) * 9)
-        pz = c + round(math.sin(math.radians(ang)) * 9)
-        for y in range(2, WALL_TOP - 1):
-            v.set(px, y, pz, QUARTZ if y < WALL_TOP - 2 else "minecraft:quartz_pillar")
-        v.set(px, WALL_TOP - 1, pz, GOLD)
-        v.set(px, 2, pz - 1, "minecraft:lantern", {"hanging": False})
+        nx, nz = math.cos(a), math.sin(a)
+        for x in range(S):
+            for z in range(S):
+                dx, dz = x - c, z - c
+                radial = dx * nx + dz * nz
+                tangent = abs(-dx * nz + dz * nx)
+                if not 10.5 <= radial <= 12.5 or tangent > 3.5:
+                    continue
+                for y, (low, high) in rib_ranges.items():
+                    if low - .001 <= tangent <= high + .001:
+                        v.set(x, y, z, CHISELED if y == 2 else STONE)
+                    elif radial >= 11.5 and tangent < low and 3 <= y <= 8:
+                        v.set(x, y, z, DEEP_TILES)
+                        if y in (4, 6) and tangent < .6:
+                            v.set(x, y, z, "minecraft:chiseled_deepslate")
+        # High wall lamps leave the floor and the full altar circumference clear.
+        # Their warm color/spacing are adaptations; combat screenshots do not
+        # establish neutral original lighting. North remains the open approach.
+        if ang != 270:
+            lx, lz = c + round(nx * 11), c + round(nz * 11)
+            v.set(lx, 7, lz, STONE)                 # sconce anchored into its bay
+            v.set(lx, 6, lz, LANTERN, {"hanging": True})
 
     # ---- central CULLIS GATE — a RAISED warded dais crowning a broad HILL: the
     #      whole chamber centre swells into a stone mound that climbs from the floor
@@ -3843,22 +3833,19 @@ def build_chamber_of_fate():
             for z in range(c - rad - 1, c + rad + 2):
                 d = math.hypot(x - c, z - c)
                 if rad - 1.6 <= d <= rad + 0.6:
-                    v.set(x, y, z, STONE if r.random() < 0.8 else CRACK)
-    for ang in range(0, 360, 90):
-        px = c + round(math.cos(math.radians(ang)) * 6)
-        pz = c + round(math.sin(math.radians(ang)) * 6)
-        v.set(px, WALL_TOP, pz, "minecraft:chain")
-        v.set(px, WALL_TOP - 1, pz, "minecraft:lantern", {"hanging": True})
-    # ---- a glowing 'daylight' skylight seals the dome top: glass (seen from
-    #      below) under a water layer under glowstone, so soft light pours down
-    #      and the Chamber of Fate is fully enclosed and naturally bright ----
+                    v.set(x, y, z, DEEPSLATE_W)
+    # ---- opaque vault, hiding the retained contained GP5 water cap ----
+    # Keep every glass/water/rim cell for the existing containment contract.
+    # A dark stone soffit hides the artificial skylight and a masonry upper cap
+    # replaces the glowing ceiling. The room is lit at the walls and Cullis.
     cap = H - 3
     for x in range(c - 8, c + 9):
         for z in range(c - 8, c + 9):
             if math.hypot(x - c, z - c) <= 7.6:
+                v.set(x, cap - 1, z, DEEP_TILES)
                 v.set(x, cap, z, "minecraft:glass")
                 v.set(x, cap + 1, z, "minecraft:water")
-                v.set(x, cap + 2, z, "minecraft:glowstone")
+                v.set(x, cap + 2, z, DEEP_TILES)
                 # The source layer needs a continuous lateral rim as well as
                 # its glass base. Without it water spills outside the dome.
                 for xx, zz in ((x - 1, z), (x + 1, z), (x, z - 1), (x, z + 1)):

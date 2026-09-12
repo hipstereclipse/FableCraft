@@ -1,0 +1,86 @@
+{
+  "before": {
+    "outer_walk_cells": 116,
+    "outer_walk_blocked": [
+      [
+        5,
+        15
+      ],
+      [
+        7,
+        9
+      ],
+      [
+        7,
+        10
+      ],
+      [
+        7,
+        19
+      ],
+      [
+        10,
+        6
+      ],
+      [
+        10,
+        24
+      ],
+      [
+        15,
+        24
+      ],
+      [
+        20,
+        6
+      ],
+      [
+        20,
+        24
+      ],
+      [
+        23,
+        9
+      ],
+      [
+        23,
+        10
+      ],
+      [
+        23,
+        19
+      ],
+      [
+        25,
+        15
+      ]
+    ],
+    "outer_walk_reachable_at_y2": 103,
+    "material_counts": {
+      "minecraft:glowstone": 177,
+      "minecraft:quartz_block": 37,
+      "minecraft:quartz_pillar": 6,
+      "minecraft:gold_block": 18,
+      "minecraft:campfire": 6,
+      "minecraft:lantern": 8,
+      "minecraft:water": 177,
+      "minecraft:glass": 221
+    }
+  },
+  "after": {
+    "outer_walk_cells": 116,
+    "outer_walk_blocked": [],
+    "outer_walk_reachable_at_y2": 116,
+    "material_counts": {
+      "minecraft:glowstone": 0,
+      "minecraft:quartz_block": 0,
+      "minecraft:quartz_pillar": 0,
+      "minecraft:gold_block": 0,
+      "minecraft:campfire": 0,
+      "minecraft:lantern": 7,
+      "minecraft:water": 177,
+      "minecraft:glass": 221
+    }
+  },
+  "changed_cells": 2874
+}

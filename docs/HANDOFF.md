@@ -18,11 +18,10 @@ with exploration, reward collection and a reliable portal back to the source.
 This overrides the old instruction to start W3.5 or keep adding unrelated POIs.
 Read docs/GUILD_DEMON_PRIORITIES.md first; it is the active execution queue.
 
-Current checkpoint: GP7 — obsolete Guild approach/scarecrow repairs retired; saved construction preserved
-Last resolved prior commit: 407e0ce0e779bbee772485d7a3b319931d86eab6 (pushed; DP4 exact-head CI 34718207560 passed).
-GP5 f7fb3f97c7932e461bd49336d7dee905ae1e4b47 is pushed; exact-head CI 34716905752 passed.
-Containing commit: TLC Conformance — GP7: retire destructive Guild repair sweeps.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP7: retire destructive Guild repair sweeps'.
+Current checkpoint: GP8 — pointed Chamber walls, clear outer walk and enrolled-plan compatibility
+Last resolved prior commit: f12b608e84bd4774caf6a39f4b2ba708ef71821b (pushed; GP7 exact-head CI 34718493910 passed).
+Containing commit: TLC Conformance — GP8: refine Chamber walls and preserve enrolled builds.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP8: refine Chamber walls and preserve enrolled builds'.
 Never invent a self-hash. Read the supplemental priority ledger for implementation
 scope, known defects and unrun engine checks.
 
@@ -305,3 +304,15 @@ all existing Guild/door suites, lint and spells. All 62 BP scripts pass ESM synt
 GP6 renders/GP5 diagnostics have matched reviewed dependency hashes. Independent
 review found no blocker. DP4 exact-head CI 34718207560 passed. GP7 native Bedrock
 acceptance remains unrun; inspect its containing commit's actual remote CI next.
+
+GP8: new Chambers use pointed attached wall ribs, dark stone and elevated lamps.
+All 116 outer-walk cells are reachable; 4,419 protected cells preserve the user's
+full surrounding altar steps, entry, foundation and water/glass containment.
+Frozen scripts/data/guild_chamber_gp5.json lets interrupted recognized GP5 builds
+finish their original appearance using the existing original-cell journal.
+Unknown or edited histories defer; occupied rooms/painting entities stay unchanged.
+Forty base gates, 23 cave groups, 14 Chamber groups, 62 ESM syntax checks and fresh
+C2/full renders/Guild diagnostics pass offline. All Bedrock checks remain unrun.
+See docs/GUILD_CHAMBER_INTERIOR.md. Next integrate/review GP9 dedicated Will practice
+and GP10 low map relief as separate checkpoints; source/evidence may already be
+unstaged. Then revisit connected rooms and requester-specific NPC Follow/Wait.

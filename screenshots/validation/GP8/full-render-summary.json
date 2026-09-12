@@ -1,0 +1,20 @@
+{
+  "command": "PYTHONPATH=scripts python (gen_screenshots.main with SHOTS=tmp/GP8-full-screenshots)",
+  "exit_code": 0,
+  "source": "isolated reviewed-index snapshot",
+  "png_counts": {
+    "gallery": 13,
+    "items": 55,
+    "mobs": 51,
+    "recipes": 130,
+    "structures": 32
+  },
+  "engine_acceptance": "unrun",
+  "render_owner_sha256": {
+    "scripts/gen_screenshots.py": "38a8994631baa7e5f0ee6cce3560ac173d92a44b927869dbc871af43e650c0bb",
+    "scripts/gen_structures.py": "4909cc334ca65c505968007efecec9e9c55ec16ed9ba28b7a51d1bd094196093",
+    "scripts/fc_mobs.py": "10b93528671072b2dca73ceec55f543613002eeafb8003c54cabda282abb3c3b",
+    "scripts/fc_data.py": "81ec9a420bdbb01782ba9c00c21efc65bd78ac6f2e52fc5349af14528b6c10c7",
+    "scripts/fc_lib.py": "c53491f9d640c9e10cb5b3d8f65ea8c85b3f526af03f7631d5d447ab6fe70797"
+  }
+}

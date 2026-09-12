@@ -1,0 +1,29 @@
+{
+  "source": "Casey Loe / Kaizen Media Group, Prima Official Game Guide, 2005, ISBN 0-7615-5180-8",
+  "pdf_page": 97,
+  "printed_page": 96,
+  "source_url": "https://www.ogxbox.co.uk/media/com_eshop/attachments/Fable_The_Lost_Chapters_Strategy_Guide_Book.pdf",
+  "inspected": "GP8: three native 226x166 original 2005 battle views inspected alongside before/after owner geometry. No external pixels committed.",
+  "files": {
+    "tmp/conformance/reference-chamber/native-005.png": "02169f01dece9dac0eaa9b2a28562fd008e6447634c32734abd38894d2fa3eed",
+    "tmp/conformance/reference-chamber/native-007.png": "b75d5bae71d8eb4fe16c5c8bf4e71a8596612f382eb4b00d81aa5e431deeb873",
+    "tmp/conformance/reference-chamber/native-009.png": "731613b8f8f7e672b8fa3d09d0e0a5defeaace610288c73d5acbc8f695d26ca1"
+  },
+  "supported_observations": [
+    "Dark masonry/paving",
+    "Tall pointed wall ribs",
+    "Broad curved altar steps"
+  ],
+  "adaptations": [
+    "Eight bays and their block proportions",
+    "Dark stone palette and recessed abstract reliefs",
+    "High warm wall lamps and opaque vault lighting choice"
+  ],
+  "not_established": [
+    "Neutral lighting level",
+    "Exact fresco subjects/sequence",
+    "Exact room/roof dimensions",
+    "Cave helix layout"
+  ],
+  "excluded": "Unverified-version Steam wall image remains excluded from this new wall design."
+}
