@@ -3,8 +3,8 @@
 User override, 2026-09-12: prioritize recursively improving the Guild layout,
 NPC behavior and accuracy to the original game, and redesign Demon Doors so an
 opened door acts like a Nether portal into its corresponding Fable-style reward
-room/world. This supersedes the old breadth-first milestone order. This document
-specifies future implementation; this priority update changes no gameplay.
+room/world. This supersedes the old breadth-first milestone order. Implementation follows the supplemental checkpoints below. GP1 establishes the
+offline baseline; later passes record their own gameplay changes and engine gaps.
 
 ## Execution order and recursive improvement
 
@@ -29,7 +29,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 
 | Pass | Status | Outcome required |
 | --- | --- | --- |
-| GP1 | todo | Guild reference/geometry/NPC audit and ranked defect ledger with baseline views |
+| GP1 | done | Offline reference/geometry/NPC/API audit, ranked defects and baseline views; engine observations unrun |
 | GP2 | todo | Repeated reference-led layout, architecture, interior and walking-route improvements |
 | GP3 | todo | Repeated character-specific Guild NPC behavior and interaction improvements |
 | DP1 | todo | Verified door/challenge/destination mapping and complete portal/return pilot |
@@ -155,3 +155,32 @@ only after the prioritized deliverables have evidence-backed acceptance, or
 when all remaining priority work truly depends on unavailable engine/reference
 access; record that dependency and do not mark it done. Merely adding rooms,
 passing asset hashes or generating attractive thumbnails does not close this work.
+
+## GP1 — baseline audit (2026-09-12)
+
+Commit: SELF: TLC Conformance — GP1: audit Guild routes NPCs and Demon Door storage.
+Baseline audited: f135546cd170f9c96d1e384576e8fb9a11b6f068; that exact head passed
+remote CI run 34709848060. This pass changes documentation and evidence only.
+
+The room ledger and baseline views are in [GUILD_GEOMETRY_AUDIT.md](GUILD_GEOMETRY_AUDIT.md);
+behavior traces and role/source distinctions are in [GUILD_NPC_AUDIT.md](GUILD_NPC_AUDIT.md);
+verified APIs and the portal/legacy contract are in [DEMON_DOOR_DESIGN.md](DEMON_DOOR_DESIGN.md).
+Evidence: `screenshots/validation/GP1/`. All 27 base gates and explicit lint, spells,
+syntax and Guild diagnostics pass as commands. The roof diagnostic reports 385
+overhanging eave cells, despite zero detached blocks. The transcribed-map classifier's
+85.3% structural agreement is not a TLC fidelity grade. Baseline route failures and
+NPC probe results document defects, not passing gameplay tests. Engine checks unrun.
+
+Ranked execution ledger:
+
+| Rank / defect | Evidence and effect | Next bounded owner pass |
+| --- | --- | --- |
+| 1 / G-ROUTE | Maze's study and rotunda gallery are clear at their anchors but disconnected from waking point. Tower rails overwrite treads; angular spiral gaps and later roof/bay fills sever circulation. | GP2: connected stair/gallery layout through gen_structures, preserving anchors and existing worlds |
+| 2 / N-TRAIN | Half-second station teleports and frozen movement replace believable training transitions; interactions and combat can compete with assignment. | GP3: station/session lifecycle, interruption/resumption and behavioral failure tests |
+| 3 / D-PORTAL | Guild face selects invented coordinate persona, pays immediately and moves into rock; no reward destination or return exists. | DP1/DP2: lamp/Library Arcanum pilot, supported isolated storage, durable unlock/reward/return and traversable aperture |
+| 4 / N-IDENTITY | Proximity counts cannot identify Guild residents after departure/reload; broad player targeting threatens innocent multiplayer visitors. | GP3 follow-up by risk, coupled runtime/behavior owners |
+| 5 / G-FIDELITY | Roof massing/interiors and the Will-island bridge interpretation need closer original-game comparison; current transcribed map has uncertain provenance. | Recursive Guild reference/layout review after first portal pilot |
+| 6 / G-CAVE | Runtime cave carving/repair has a separate completion lifecycle from the surface generator and needs integrated route verification. | GP4 integrated cave/Chamber/door review |
+
+GP1 is complete as an offline defect audit. GP2/GP3/DP1/DP2/GP4 acceptance remains
+open; no supplemental item changes the original C3 denominator of 45 leaves.

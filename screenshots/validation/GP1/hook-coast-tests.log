@@ -1,0 +1,12 @@
+test_abbey_terrace_stairs_clear_aisle_and_retained_bell (__main__.HookCoast.test_abbey_terrace_stairs_clear_aisle_and_retained_bell) ... ok
+test_actual_population_and_travel_on_supported_surfaces (__main__.HookCoast.test_actual_population_and_travel_on_supported_surfaces) ... ok
+test_entry_routes_to_lamp_abbey_graves_residents_and_all_chests (__main__.HookCoast.test_entry_routes_to_lamp_abbey_graves_residents_and_all_chests) ... ok
+test_graveyard_rows_bell_and_cottage_door_headroom (__main__.HookCoast.test_graveyard_rows_bell_and_cottage_door_headroom) ... ok
+test_lighthouse_internal_stairs_landing_beacon_and_foundation (__main__.HookCoast.test_lighthouse_internal_stairs_landing_beacon_and_foundation) ... ok
+test_stable_dimensions_palette_population_and_new_anchors (__main__.HookCoast.test_stable_dimensions_palette_population_and_new_anchors) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.420s
+
+OK
+PASS: actual hook_coast placement on snow/sand/rock, clear translated spawns, loot bounds and saved-region idempotence

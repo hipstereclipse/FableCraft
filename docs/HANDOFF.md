@@ -18,12 +18,12 @@ with exploration, reward collection and a reliable portal back to the source.
 This overrides the old instruction to start W3.5 or keep adding unrelated POIs.
 Read docs/GUILD_DEMON_PRIORITIES.md first; it is the active execution queue.
 
-Current checkpoint: PRIORITY — Guild and Demon Door redesign priorities documented.
-Implementation status: GP1/GP2/GP3/DP1/DP2/GP4 all todo; no redesign implemented here.
-Last resolved prior commit: 0a64e764f50ec349da5dff209b2e72e3a0885da2 (pushed).
-Containing commit: TLC Conformance — PRIORITY: prioritize Guild and Demon Door redesign.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — PRIORITY: prioritize Guild and Demon Door redesign'.
-Never invent a self-hash. Prior W3.4 SELF is resolved in the checklist.
+Current checkpoint: GP1 — offline defect audit and verified portal storage design; implementation follows
+Last resolved prior commit: f135546cd170f9c96d1e384576e8fb9a11b6f068 (pushed).
+Containing commit: TLC Conformance — GP1: audit Guild routes NPCs and Demon Door storage.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP1: audit Guild routes NPCs and Demon Door storage'.
+Never invent a self-hash. Read the supplemental priority ledger for implementation
+scope, known defects and unrun engine checks.
 
 Start with a reference/geometry/NPC defect audit, then a substantive Guild layout
 pass, a Guild NPC pass and a complete Guild Demon Door/destination pilot. Repeat
@@ -136,12 +136,9 @@ screenshots/validation/W3.3/remote-run.json. Inspect newest workflow's actual he
 All current world rows remain in-progress for manual/reference work, not done.
 
 Next three actions:
-1. git pull --ff-only; read docs/GUILD_DEMON_PRIORITIES.md; begin GP1 Guild
-   reference/layout/NPC audit and ranked defect ledger, not W3.5.
-2. Implement the next bounded Guild/door pass, run its base/domain validators,
-   inspect reference comparisons and record actual engine checks separately.
-3. Save evidence, update the priority ledger/checklist/handoff, commit one coherent
-   pass and push immediately; repeat the prioritized improvement cycle automatically.
+1. Read the GP1 room/NPC/door audits and implement GP2 stair/gallery connectivity.
+2. Complete GP3 training lifecycle, then DP1/DP2 Library Arcanum portal pilot.
+3. Validate, inspect, update evidence/handoff, commit and push each coherent pass.
    At context limits print this continuation prompt verbatim.
 
 Landmines: hundreds of apparent edits are CRLF noise. Never git add -A, commit -a,

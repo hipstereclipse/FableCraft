@@ -13,7 +13,8 @@ unrelated expansion. Execute [GUILD_DEMON_PRIORITIES.md](GUILD_DEMON_PRIORITIES.
 first: baseline audit, Guild layout and NPC passes, complete door/destination pilot,
 then repeat improvement passes. Keep every unfinished old leaf and its evidence.
 The supplemental GP/DP queue is separate from the historical 45-leaf scoreboard.
-The request in this checkpoint is to update priorities, not claim the redesign done.
+Supplemental implementation checkpoints and remaining acceptance are recorded in that
+priority ledger; no audit or automated pass alone establishes in-engine fidelity.
 
 ## Start here on either machine
 

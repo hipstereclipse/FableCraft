@@ -1,0 +1,87 @@
+{
+  "kind": "offline_baseline_control_flow_probe",
+  "main_js_sha256": "ea7528e2c1312ebfba6c24c4115b3adfd4a5f7bcd033275052c6757ab149d870",
+  "limitations": "Component success/failure is stubbed; no engine AI, collision, damage, navigation, or save-loading claims.",
+  "observations": {
+    "station_teleports_over_100_ticks": [
+      {
+        "type": "fc:guild_apprentice_might",
+        "teleports": 10
+      },
+      {
+        "type": "fc:guild_apprentice_might",
+        "teleports": 10
+      },
+      {
+        "type": "fc:guild_apprentice_skill",
+        "teleports": 10
+      }
+    ],
+    "rest_transition": [
+      {
+        "type": "fc:guild_apprentice_might",
+        "total_teleports": 11,
+        "frozen": false,
+        "location": {
+          "x": 12,
+          "y": 1,
+          "z": 42
+        }
+      },
+      {
+        "type": "fc:guild_apprentice_might",
+        "total_teleports": 11,
+        "frozen": false,
+        "location": {
+          "x": 16,
+          "y": 1,
+          "z": 35
+        }
+      },
+      {
+        "type": "fc:guild_apprentice_skill",
+        "total_teleports": 11,
+        "frozen": false,
+        "location": {
+          "x": 23,
+          "y": 1,
+          "z": 42
+        }
+      }
+    ],
+    "failed_stop": {
+      "tags": [],
+      "frozen_in_component_stub": true,
+      "stop_attempts": 1
+    },
+    "missing_partner": {
+      "tags": [
+        "fc_train_ring_a"
+      ],
+      "frozen_in_component_stub": true
+    },
+    "resident_left_and_returned": {
+      "spawned": [
+        "fc:guild_apprentice_will"
+      ],
+      "total_will_residents": 3
+    },
+    "foreign_trader_suppresses_repair": {
+      "spawned_traders": 0
+    },
+    "delayed_release_after_aggravation": {
+      "training_arrows": 1
+    },
+    "reaction_target_filter": [
+      {
+        "filters": {
+          "test": "is_family",
+          "subject": "other",
+          "value": "player"
+        },
+        "max_dist": 80
+      }
+    ],
+    "training_arrow_tag_references": 1
+  }
+}

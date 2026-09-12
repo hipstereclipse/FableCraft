@@ -1,0 +1,31 @@
+entrance (10, 1, 42) REACHABLE standable True minecraft:red_wool minecraft:air minecraft:air
+library (27, 1, 24) REACHABLE standable True minecraft:spruce_planks minecraft:air minecraft:air
+store (27, 1, 55) REACHABLE standable True minecraft:dark_oak_planks minecraft:air minecraft:air
+dining (39, 1, 42) REACHABLE standable True minecraft:stone_bricks minecraft:red_carpet minecraft:air
+skill_approach (16, 1, 35) REACHABLE standable True minecraft:chiseled_stone_bricks minecraft:air minecraft:air
+cullis_approach (16, 1, 49) REACHABLE standable True minecraft:chiseled_stone_bricks minecraft:air minecraft:air
+north_wing (33, 1, 10) REACHABLE standable True minecraft:stone_bricks minecraft:air minecraft:air
+north_bridge_west (42, 1, 7) REACHABLE standable True minecraft:stone_bricks minecraft:air minecraft:air
+north_bridge_east (78, 1, 5) REACHABLE standable True minecraft:stone_bricks minecraft:air minecraft:air
+NE_stores (78, 1, 20) REACHABLE standable True minecraft:stone_bricks minecraft:air minecraft:air
+NE_dorm_ground (88, 1, 20) REACHABLE standable True minecraft:deepslate_tiles minecraft:air minecraft:air
+NE_dorm_upper (91, 6, 20) REACHABLE standable True minecraft:spruce_planks minecraft:air minecraft:air
+dining_dorm_upper (40, 8, 45) REACHABLE standable True minecraft:dark_oak_planks minecraft:air minecraft:air
+rotunda_gallery (31, 10, 42) UNREACHED standable True minecraft:spruce_planks minecraft:air minecraft:air
+cloister_ground (22, 1, 69) REACHABLE standable True minecraft:deepslate_tiles minecraft:air minecraft:air
+cloister_upper (22, 6, 69) REACHABLE standable True minecraft:spruce_planks minecraft:air minecraft:air
+tower_ground (46, 1, 70) REACHABLE standable True minecraft:deepslate_tiles minecraft:air minecraft:air
+tower_middle (46, 7, 70) UNREACHED standable False minecraft:dark_oak_fence minecraft:dark_oak_fence minecraft:air
+maze (46, 12, 70) UNREACHED standable True minecraft:dark_oak_planks minecraft:air minecraft:air
+river_bridge_north (63, 2, 36) REACHABLE standable True minecraft:dark_oak_planks minecraft:air minecraft:air
+river_bridge_south (63, 2, 54) REACHABLE standable True minecraft:dark_oak_planks minecraft:air minecraft:air
+archery (86, 1, 39) REACHABLE standable True minecraft:coarse_dirt minecraft:air minecraft:air
+dueling (101, 1, 61) REACHABLE standable True minecraft:dirt_path minecraft:air minecraft:air
+will_island (62, 1, 86) REACHABLE standable True minecraft:grass_block minecraft:tallgrass minecraft:air
+door_approach (66, 1, 88) REACHABLE standable True minecraft:cobblestone minecraft:air minecraft:air
+woods_exit (119, 1, 32) REACHABLE standable True minecraft:grass_block minecraft:air minecraft:air
+cave_threshold (27, 1, 16) REACHABLE standable True minecraft:dark_oak_planks minecraft:air minecraft:air
+rendered baseline_exterior
+rendered baseline_ground_cutaway
+rendered baseline_hall_cutaway
+rendered baseline_tower_cutaway
