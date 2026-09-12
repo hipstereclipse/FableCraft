@@ -1,0 +1,1 @@
+PASS: all 95 faithful whole-message templates equal the pre-migration AST values, including color codes, punctuation, newlines and interpolation placeholders.

@@ -1,0 +1,28 @@
+✔ faithful: strict names, single-pass interpolation, stable IDs (86.220129ms)
+(node:64) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ faithful: root labels, mana, alignment and every legacy route (81.2979ms)
+✔ faithful: quick-slot mutation and return to the same hub (83.198628ms)
+✔ faithful: appearance controls and missing bridge fallback (86.652493ms)
+✔ faithful: saved place display and travel preserve canonical names and coordinates (169.696772ms)
+✔ faithful: bounty display retains amounts, timers, jurisdiction and stored record (140.591234ms)
+✔ faithful: earned title labels change without rewriting ownership or selected title (126.252033ms)
+✔ faithful: NPC voice interpolation and local t bindings do not shadow message access (129.759295ms)
+✔ faithful: buy and sell quantity modals use UI 2.0 options and preserve selected amounts (130.382205ms)
+✔ original: strict names, single-pass interpolation, stable IDs (83.738703ms)
+✔ original: root labels, mana, alignment and every legacy route (81.77476ms)
+✔ original: quick-slot mutation and return to the same hub (80.816671ms)
+✔ original: appearance controls and missing bridge fallback (81.211858ms)
+✔ original: saved place display and travel preserve canonical names and coordinates (115.699087ms)
+✔ original: bounty display retains amounts, timers, jurisdiction and stored record (130.210905ms)
+✔ original: earned title labels change without rewriting ownership or selected title (118.125836ms)
+✔ original: NPC voice interpolation and local t bindings do not shadow message access (122.001593ms)
+✔ original: buy and sell quantity modals use UI 2.0 options and preserve selected amounts (118.756375ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1973.515667

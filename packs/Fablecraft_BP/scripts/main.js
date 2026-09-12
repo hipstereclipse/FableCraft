@@ -11,7 +11,7 @@ import {
   ActionFormData, MessageFormData, ModalFormData,
 } from "@minecraft/server-ui";
 import { DATA } from "./fc_gamedata.js";
-import { itemName, t } from "./fc_strings.js";
+import { itemName, t as msg, template, placeName, titleName } from "./fc_strings.js";
 import {
   performFableEmote, refreshFableEmoteUnlocks,
 } from "./fable_emotes.js";
@@ -119,7 +119,7 @@ function moralityTitle(p) {
   if (m > -150) return "§7Neutral";
   if (m > -400) return "§cRogue";
   if (m > -750) return "§cVillain";
-  return t("alignment.skorm");
+  return msg("alignment.skorm");
 }
 
 function maxWill(p) { return 100 + P.get(p, "fc_up_magic_power", 0) * 50; }
@@ -266,9 +266,9 @@ function initHero(p) {
   if (firstInit) {
     P.set(p, "fc_init", true);
     P.set(p, "fc_will", 100);
-    showHeroTitle(p, "§6Fablecraft", { fadeInDuration: 10, stayDuration: 70, fadeOutDuration: 20, subtitle: "§eReforged — Welcome to Albion" });
-    p.sendMessage("§6═══ The Guildmaster ═══");
-    p.sendMessage("§f\"Ah, the new apprentice wakes. Your §eGuild Seal§f opens the Hero menu. Use a §eQuest Card§f to begin your training. Albion is watching, little sparrow.\"");
+    showHeroTitle(p, msg("legacy.init_hero_01"), { fadeInDuration: 10, stayDuration: 70, fadeOutDuration: 20, subtitle: msg("legacy.init_hero_02") });
+    p.sendMessage(msg("legacy.init_hero_03"));
+    p.sendMessage(msg("legacy.init_hero_04"));
     ensureDryLanding(p);
   }
   // Retry unfinished placement on every join. The world-level completion flag
@@ -317,7 +317,7 @@ system.afterEvents.scriptEventReceive.subscribe((ev) => {
     try {
       p?.sendMessage([
         "§6⚙ Guild anchors re-derived from base:",
-        `§b◈ Cullis §7${cullis.x},${cullis.y},${cullis.z} §8(${dist(cullis)} away)`,
+        msg("legacy.root_01", { v0: cullis.x, v1: cullis.y, v2: cullis.z, v3: dist(cullis) }),
         `§a✦ Skill §7${skill.x},${skill.y},${skill.z} §8(${dist(skill)} away)`,
         `§6❖ Boast §7${boast.x},${boast.y},${boast.z} §8(${dist(boast)} away)`,
         "§7Stand on each spot and re-run — it should read ~0–2m. If it's far off,",
@@ -517,7 +517,7 @@ function buildGuildWhenReady(p, dim, base, attempt) {
     try {
       p.teleport({ x: base.x + GUILD.wake.x + 0.5, y: y + 1, z: base.z + GUILD.wake.z + 0.5 },
         { facingLocation: { x: base.x + 26, y: y + 2, z: base.z + 42 } });
-      p.sendMessage("§6⚔ You awaken in the Heroes' Guild. The §bCullis Gate§6 glows in the Map Room's south-west nook; the §aSkill Shrine§6 waits to the north-west.");
+      p.sendMessage(msg("legacy.build_guild_when_ready_01"));
     } catch { }
   }, 10);
   }, 5);
@@ -1494,11 +1494,11 @@ world.afterEvents.entityDie.subscribe((ev) => {
   // A killing blow is the gravest crime — towns AND the Heroes' Guild answer it.
   accrueCrime(p, dead, "kill");
   if (dead.typeId === "fc:twinblade") {
-    world.sendMessage("§6§l⚔ Twinblade has fallen. The camps whisper of a new power in Albion.");
+    world.sendMessage(msg("legacy.root_02"));
   }
   // Jack of Blades: phase 2 — the Dragon
   if (dead.typeId === "fc:jack_of_blades") {
-    world.sendMessage("§4§l✦ Jack of Blades falls... but his mask drinks the darkness!");
+    world.sendMessage(msg("legacy.root_03"));
     const loc = dead.location, dim = dead.dimension;
     system.runTimeout(() => {
       dim.spawnParticle("minecraft:huge_explosion_emitter", loc);
@@ -1507,7 +1507,7 @@ world.afterEvents.entityDie.subscribe((ev) => {
     }, 60);
   }
   if (dead.typeId === "fc:jack_dragon") {
-    world.sendMessage("§6§l✦ The Dragon of Blades is destroyed. Albion is free.");
+    world.sendMessage(msg("legacy.root_04"));
     system.runTimeout(() => offerAeonsChoice(p), 40);
   }
 });
@@ -1526,8 +1526,8 @@ function nearestPlayer(dim, loc, range) {
 // The iconic choice: keep the Sword of Aeons, or cast it into the vortex.
 function offerAeonsChoice(p) {
   const f = new MessageFormData()
-    .title("§4The Sword of Aeons")
-    .body("The blade hums in your hands, heavy with your bloodline's power.\n\n§cKeep it§r — and rule Albion through fear.\n§eDestroy it§r — and Avo's Tear shall answer your sacrifice.")
+    .title(msg("legacy.offer_aeons_choice_01"))
+    .body(msg("legacy.offer_aeons_choice_02"))
     .button1("§cKEEP THE SWORD")
     .button2("§eDESTROY IT");
   f.show(p).then((res) => {
@@ -1536,7 +1536,7 @@ function offerAeonsChoice(p) {
       addMorality(p, -500);
       P.add(p, "fc_renown", 500);
       addTitle(p, "Avatar of Aeons");
-      p.sendMessage("§5The Sword feeds. Albion will learn to kneel.");
+      p.sendMessage(msg("legacy.offer_aeons_choice_03"));
     } else {
       removeItem(p, "fc:sword_of_aeons", 1);
       giveItem(p, "fc:avos_tear", 1);
@@ -1544,14 +1544,14 @@ function offerAeonsChoice(p) {
       P.add(p, "fc_renown", 500);
       addTitle(p, "Hero of Light");
       p.dimension.spawnParticle("minecraft:totem_particle", p.location);
-      p.sendMessage("§eThe Sword shatters into dawn — Avo's Tear is yours.");
+      p.sendMessage(msg("legacy.offer_aeons_choice_04"));
     }
   });
 }
 
 function addTitle(p, t) {
   const titles = P.getJ(p, "fc_titles", []);
-  if (!titles.includes(t)) { titles.push(t); P.setJ(p, "fc_titles", titles); p.sendMessage(`§6✦ Title earned: §e${t}`); }
+  if (!titles.includes(t)) { titles.push(t); P.setJ(p, "fc_titles", titles); p.sendMessage(`§6✦ Title earned: §e${titleName(t)}`); }
 }
 
 // ---------------------------------------------------------------------------
@@ -1661,7 +1661,7 @@ function recallToGuild(p) {
   p.dimension.spawnParticle("minecraft:large_explosion", p.location);
   p.teleport({ x: loc.x, y: loc.y + 1, z: loc.z });
   p.playSound("mob.endermen.portal");
-  p.sendMessage("§9✦ The Guild Seal carries you home.");
+  p.sendMessage(msg("legacy.recall_to_guild_01"));
 }
 
 // Expose the legacy ledgers to the storybook Hero Menu (wd/herobook.js). These
@@ -2152,7 +2152,7 @@ function itemsMenu(p) {
   const groups = ["Provisions", "Augments", "Experience Orbs", "Quest & Other"];
   const f = new ActionFormData().title(fableTitle("Items")).body(fableBody([
     "§7Select a page of your inventory.",
-    t("inventory.count", { count: entries.length }),
+    msg("inventory.count", { count: entries.length }),
   ]));
   for (const group of groups) {
     const count = entries.filter(({ item }) => customItemKind(item.typeId) === group)
@@ -2243,7 +2243,7 @@ function weaponLockerMenu(p) {
   const weapons = carriedWeapons(p);
   const held = heldItem(p);
   const f = new ActionFormData().title(fableTitle("Weapons")).body(fableBody([
-    held && DATA.weapons[held.typeId] ? `§6Drawn: §f${displayName(held.typeId)}` : t("weapons.none"),
+    held && DATA.weapons[held.typeId] ? `§6Drawn: §f${displayName(held.typeId)}` : msg("weapons.none"),
     "§8Choose a weapon to inspect or equip.",
   ]));
   for (const { item } of weapons) {
@@ -2488,7 +2488,7 @@ function completedQuestsMenu(p) {
   const done = doneQuests(p);
   const quests = DATA.quests.filter((q) => done.includes(q.id));
   const f = new ActionFormData().title(fableTitle("Quest History")).body(fableBody([
-    quests.length ? "§7Albion remembers these deeds." : "§8No completed Quest Cards yet.",
+    quests.length ? msg("legacy.completed_quests_menu_01") : "§8No completed Quest Cards yet.",
   ]));
   for (const q of quests) f.button(`§a✔ §f${q.name}\n§8${q.giver} · ${q.renown} renown`);
   f.button("§8Back");
@@ -2508,7 +2508,7 @@ function logbookMenu(p) {
   ]))
     .button("§6Hero's Handbook")
     .button("§9Will & Quick-Cast")
-    .button("§bCullis Gates")
+    .button(msg("legacy.logbook_menu_01"))
     .button("§4Crime & Bounties")
     .button("§aFactions & Standing")
     .button("§dTitles & Renown")
@@ -2516,8 +2516,8 @@ function logbookMenu(p) {
     .button("§8Back");
   const pages = [
     ["Hero's Handbook", [
-      "Use the Guild Seal to open this book.",
-      "Sneak-use the Seal to recall to the Heroes' Guild.",
+      msg("legacy.logbook_menu_02"),
+      msg("legacy.logbook_menu_03"),
       "Use Quest Cards or the Guild lecterns to accept work.",
       "Experience is divided into General, Strength, Skill and Will.",
     ]],
@@ -2527,9 +2527,9 @@ function logbookMenu(p) {
       "These bindings do not replace the items in your hotbar.",
       "The Will Focus casts the active power; sneak-use it to attune.",
     ]],
-    ["Cullis Gates", [
-      "Discovered Focus Sites join the Cullis lattice.",
-      "Stand on a gate and sneak, or choose Map from the Guild Seal.",
+    [msg("legacy.logbook_menu_04"), [
+      msg("legacy.logbook_menu_05"),
+      msg("legacy.logbook_menu_06"),
       "TLC navigation uses destinations and quest markers—not a golden trail.",
     ]],
     ["Crime & Bounties", [
@@ -2556,26 +2556,26 @@ function logbookPage(p, title, lines) {
 function mapMenu(p) {
   const sites = JSON.parse(world.getDynamicProperty("fc_cullis") ?? "[]");
   if (!sites.length) {
-    new ActionFormData().title(fableTitle(t("menu.map")))
+    new ActionFormData().title(fableTitle(msg("menu.map")))
       .body([
         FABLE_RULE,
         "§7No Focus Sites discovered yet.",
-        t("map.undiscovered"),
+        msg("map.undiscovered"),
         FABLE_RULE,
       ].join("\n"))
       .button("§8❖ Back")
       .show(p).then((r) => { if (!r.canceled) heroMenu(p); }).catch(() => { });
     return;
   }
-  const f = new ActionFormData().title(fableTitle(t("menu.map")))
+  const f = new ActionFormData().title(fableTitle(msg("menu.map")))
     .body(fableBody([
-      t("map.lattice"),
+      msg("map.lattice"),
       "§8Travel is destination-based; there is no breadcrumb trail.",
     ]))
-    .button(t("map.recall"), "textures/items/guild_seal");
+    .button(msg("map.recall"), "textures/items/guild_seal");
   for (const s of sites) {
     const d = Math.round(Math.hypot(p.location.x - s.x, p.location.z - s.z));
-    f.button(`§b◈ ${s.name}\n§8${d}m distant`, "textures/items/septimal_key");
+    f.button(msg("legacy.map_menu_01", { v0: placeName(s.name), v1: d }), "textures/items/septimal_key");
   }
   f.button("§8❖ Back");
   f.show(p).then((r) => {
@@ -2587,7 +2587,7 @@ function mapMenu(p) {
     p.playSound("fc.spell_cast", { pitch: 0.6 });
     p.teleport({ x: s.x + 0.5, y: s.y + 1, z: s.z + 0.5 });
     p.playSound("mob.endermen.portal");
-    showHeroTitle(p, "§b◈", { fadeInDuration: 2, stayDuration: 16, fadeOutDuration: 8, subtitle: `§f${s.name}` });
+    showHeroTitle(p, "§b◈", { fadeInDuration: 2, stayDuration: 16, fadeOutDuration: 8, subtitle: msg("legacy.map_menu_02", { v0: placeName(s.name) }) });
   }).catch(() => { });
 }
 
@@ -2615,11 +2615,11 @@ function statsMenu(p) {
     `${FABLE_DOT}§lAlignment§r  ${moralityTitle(p)} §7(${m})`,
     morBar,
     FABLE_RULE,
-    `§d ◈ Renown: §f${P.get(p, "fc_renown", 0)} §8· title: §e${activeTitle(p) || "none"}`,
+    `§d ◈ Renown: §f${P.get(p, "fc_renown", 0)} §8· title: §e${titleName(activeTitle(p)) || "none"}`,
     `§d ◈ Attractiveness: §f${attractiveness}`,
     `§4 ◈ Scariness: §f${scariness}`,
-    `§d ◈ Marital status: §f${P.get(p, "fc_married", false) ? t("stats.married") : "Unmarried"}`,
-    t("stats.clock", { hour: String(hour).padStart(2, "0"), minute: String(minute).padStart(2, "0") }),
+    `§d ◈ Marital status: §f${P.get(p, "fc_married", false) ? msg("stats.married") : "Unmarried"}`,
+    msg("stats.clock", { hour: String(hour).padStart(2, "0"), minute: String(minute).padStart(2, "0") }),
     FABLE_RULE,
     `§a ◈ General XP: §f${P.get(p, "fc_xp_general", 0)}`,
     `§c ◈ Strength XP: §f${P.get(p, "fc_xp_strength", 0)}`,
@@ -2651,11 +2651,11 @@ function factionMenu(p) {
     const v = rep(p, f);
     const tier = repTier(v);
     const col = { hostile: "§4", wary: "§c", neutral: "§7", friendly: "§a", revered: "§6" }[tier];
-    return ` ${col}◈ ${name}: ${tier.toUpperCase()} §8(${v})`;
+    return ` ${col}◈ ${placeName(name)}: ${tier.toUpperCase()} §8(${v})`;
   });
   const body = [
     FABLE_RULE,
-    "§7Albion keeps score. Guards, traders and barkeeps",
+    msg("legacy.faction_menu_01"),
     "§7all treat you by your standing.",
     FABLE_RULE,
     ...rows,
@@ -3153,10 +3153,10 @@ system.runInterval(() => {
 
 function activeTitle(p) { return P.getJ(p, "fc_active_title", ""); }
 function applyTitleTag(p) {
-  try { const t = activeTitle(p); p.nameTag = t ? `§e${t}\n§f${p.name}` : p.name; } catch { }
+  try { const t = activeTitle(p); p.nameTag = t ? `§e${titleName(t)}\n§f${p.name}` : p.name; } catch { }
 }
 // How an NPC addresses the Hero — by their worn title if they have one.
-function heroAddress(p) { return activeTitle(p) || "Hero"; }
+function heroAddress(p) { return titleName(activeTitle(p)) || "Hero"; }
 
 // Every Hero starts with the two earliest Guild titles already unlocked.
 function ensureBaseTitles(p) {
@@ -3173,13 +3173,13 @@ function titlesMenu(p) {
   const f = new ActionFormData().title(fableTitle("Titles & Renown")).body([
     FABLE_RULE,
     `§dRenown: §f${P.get(p, "fc_renown", 0)}`,
-    `§7Now wearing: §e${active || "(none)"}`,
+    `§7Now wearing: §e${titleName(active) || "(none)"}`,
     FABLE_RULE,
-    titles.length ? "§6Choose the title you wear — Albion will address you by it:"
+    titles.length ? msg("legacy.titles_menu_01")
       : "§7No titles yet. Earn renown and deeds to claim them.",
   ].join("\n"));
   f.button("§8✦ Wear no title");
-  for (const t of titles) f.button((t === active ? "§a● " : "§e✦ ") + t);
+  for (const t of titles) f.button((t === active ? "§a● " : "§e✦ ") + titleName(t));
   f.button("§8❖ Back");
   f.show(p).then((r) => {
     if (r.canceled) return;
@@ -3187,7 +3187,7 @@ function titlesMenu(p) {
     if (r.selection === titles.length + 1) { heroMenu(p); return; }
     const t = titles[r.selection - 1];
     P.setJ(p, "fc_active_title", t); applyTitleTag(p);
-    p.sendMessage(`§6✦ You will be known as §e${t}§6 across Albion.`);
+    p.sendMessage(msg("legacy.titles_menu_02", { v0: titleName(t) }));
   });
 }
 
@@ -3209,7 +3209,7 @@ function questBoard(p) {
     }
     return true;
   });
-  if (!avail.length) return p.sendMessage("§7No quest cards remain. Albion sleeps soundly... for now.");
+  if (!avail.length) return p.sendMessage(msg("legacy.quest_board_01"));
   const f = new ActionFormData().title(fableTitle("Quest Cards"))
     .body(`${FABLE_RULE}\n§7Choose a contract, Hero. Renown and gold await.\n${FABLE_RULE}`);
   for (const q of avail) {
@@ -3328,7 +3328,7 @@ system.runInterval(() => {
         const e = trySpawn(p.dimension, type, loc);
         if (e) {
           p.playSound("mob.wither.spawn", { volume: 0.6 });
-          p.sendMessage(`§4✦ ${e.typeId === "fc:jack_of_blades" ? "Jack of Blades steps from the shadows." : "Your quarry has found YOU."}`);
+          p.sendMessage(`§4✦ ${e.typeId === "fc:jack_of_blades" ? msg("legacy.root_05") : "Your quarry has found YOU."}`);
         }
       }
     });
@@ -3505,7 +3505,7 @@ function openDemonDoor(p, door, d) {
   giveXp(p, "general", d.reward.xp);
   addRep(p, "guild", 5);
   addTitle(p, "Door-Speaker");
-  showHeroTitle(p, "§5Demon Door Opened", { fadeInDuration: 8, stayDuration: 60, fadeOutDuration: 15, subtitle: `§7${d.name}` });
+  showHeroTitle(p, msg("legacy.open_demon_door_01"), { fadeInDuration: 8, stayDuration: 60, fadeOutDuration: 15, subtitle: `§7${d.name}` });
 }
 
 function animateDoorOpening(door) {
@@ -3723,7 +3723,7 @@ function spouseMenu(p, npc) {
         const lines = [
           "You make a hard world soft, Hero.",
           "Come home safe. The hearth's warm and the kettle's on.",
-          "Whatever Albion throws at you, throw me a wink first.",
+          msg("legacy.spouse_menu_01"),
           "I keep your trophies dusted. Mostly the less grisly ones.",
         ];
         setNpcLove(npc, Math.min(100, npcLove(npc) + 1));
@@ -3782,8 +3782,8 @@ function npcTalk(p, npc) {
   if (t === "fc:guildmaster") {
     const guildLn = guildRepLine(p);
     const you = heroAddress(p);
-    new ActionFormData().title("§6The Guildmaster")
-      .body(`§o"${m > 200 ? `Albion sings of your kindness, ${you}.` : m < -200 ? `I hear dark whispers about you, ${you}. Tread carefully.` : `Your training continues, ${you}.`}\n\nA Hero balances Strength, Skill and Will. Use Quest Cards to earn your renown. And do stop hitting the practice dummies with your forehead."§r${guildLn ? `\n\n§o"${guildLn}"§r` : ""}`)
+    new ActionFormData().title(msg("legacy.npc_talk_01"))
+      .body(`§o"${m > 200 ? msg("legacy.npc_talk_02", { v0: you }) : m < -200 ? `I hear dark whispers about you, ${you}. Tread carefully.` : `Your training continues, ${you}.`}\n\nA Hero balances Strength, Skill and Will. Use Quest Cards to earn your renown. And do stop hitting the practice dummies with your forehead."§r${guildLn ? `\n\n§o"${guildLn}"§r` : ""}`)
       .button("§eTake a Quest Card", "textures/items/quest_card")
       .button("§9Hero Menu")
       .button("§8Farewell")
@@ -3794,9 +3794,9 @@ function npcTalk(p, npc) {
       });
   } else if (t === "fc:maze") {
     const guildLn = guildRepLine(p);
-    new MessageFormData().title("§5Maze")
+    new MessageFormData().title(msg("legacy.npc_talk_03"))
       .body([
-        '§o"The Will is a muscle, Hero. Spell tomes hide in ruins and Demon Door hoards — each one a power your enemies will learn to dread. Visit the Oracle in the far snows, when you are ready for truths."§r',
+        msg("legacy.npc_talk_04"),
         guildLn ? `\n§7"${guildLn}"` : "",
       ].join(""))
       .button1("§9Receive a Lightning tome").button2("§8Leave")
@@ -3805,35 +3805,35 @@ function npcTalk(p, npc) {
           P.set(p, "fc_maze_gift", true);
           giveItem(p, "fc:spell_lightning", 1);
           giveItem(p, "fc:spell_fireball", 1);
-          p.sendMessage("§9✦ Maze presses two humming tomes into your hands.");
+          p.sendMessage(msg("legacy.npc_talk_05"));
         } else if (!r.canceled && r.selection === 0) {
-          p.sendMessage('§5Maze: "I am a Hero, not a lending library."');
+          p.sendMessage(msg("legacy.npc_talk_06"));
         }
       });
   } else if (t === "fc:theresa") {
     const renownLn = renownLine(p);
-    new ActionFormData().title("§dTheresa")
+    new ActionFormData().title(msg("legacy.npc_talk_07"))
       .body([
         `§o"${m >= 0 ? "I see many paths for you, and most are bright." : "Blood follows you like a stray dog, brother."} The blind see further than you'd think."§r`,
         renownLn ? `\n§7"${renownLn}"` : "",
       ].join(""))
       .button("§dAsk about your fate")
-      .button("§5Ask about Jack of Blades")
+      .button(msg("legacy.npc_talk_08"))
       .button("§8Leave")
       .show(p).then((r) => {
         if (r.canceled) return;
         if (r.selection === 0) {
-          p.sendMessage(`§dTheresa: §o"${m > 200 ? "Light follows you, Hero. Do not let it blind you to its cost." : m < -200 ? "Your shadow grows long. It will swallow you, in the end." : "Your path forks soon. Choose with your heart, not your purse."}"`);
+          p.sendMessage(msg("legacy.npc_talk_09", { v0: m > 200 ? "Light follows you, Hero. Do not let it blind you to its cost." : m < -200 ? "Your shadow grows long. It will swallow you, in the end." : "Your path forks soon. Choose with your heart, not your purse." }));
         } else if (r.selection === 1) {
-          p.sendMessage('§dTheresa: §o"He wears a mask of swords and calls it a face. When he comes, the Sword of Aeons will sing. What you do with it after is yours to choose — Albion remembers either way."');
+          p.sendMessage(msg("legacy.npc_talk_10"));
         }
       });
   } else if (t === "fc:lady_grey") {
     const married = P.get(p, "fc_married", false);
-    if (married) { p.sendMessage('§dLady Grey: §o"My consort. Bowerstone bores me — slay something interesting."'); return; }
+    if (married) { p.sendMessage(msg("legacy.npc_talk_11")); return; }
     const hasRing = countItem(p, "fc:wedding_ring") > 0;
     const done = doneQuests(p).includes("lady_greys_invitation");
-    new MessageFormData().title("§dLady Grey, Mayor of Bowerstone")
+    new MessageFormData().title(msg("legacy.npc_talk_12"))
       .body(done && hasRing
         ? '§o"A ring? For me? You do move quickly, Hero. Very well — I accept. Try not to die embarrassingly."'
         : '§o"Charmed. Complete my little... invitation, and bring a ring, and we shall discuss matrimony and property."')
@@ -3846,10 +3846,10 @@ function npcTalk(p, npc) {
           addMorality(p, 200);
           addTitle(p, "Consort of Bowerstone");
           p.playSound("random.levelup");
-        } else p.sendMessage('§dLady Grey: §o"Manners! How refreshing."');
+        } else p.sendMessage(msg("legacy.npc_talk_13"));
       });
   } else if (t === "fc:oracle") {
-    new ActionFormData().title("§bThe Oracle of Snowspire")
+    new ActionFormData().title(msg("legacy.npc_talk_14"))
       .body('§o"WE REMEMBER ALL. THE MASK RETURNS. THE BLOODLINE ENDURES. ASK, LITTLE EMBER."')
       .button("§bProphecy").button("§eRiddle me a reward").button("§8Depart")
       .show(p).then((r) => {
@@ -3865,20 +3865,20 @@ function npcTalk(p, npc) {
       });
   } else if (t === "fc:briar_rose") {
     const renownLn = renownLine(p);
-    new ActionFormData().title("§cBriar Rose")
+    new ActionFormData().title(msg("legacy.npc_talk_15"))
       .body([
         '§o"Done staring? The hills hide more than flowers, Hero."§r',
         renownLn ? `\n§7"${renownLn}"` : "",
       ].join(""))
-      .button("§cAsk about Demon Doors")
+      .button(msg("legacy.npc_talk_16"))
       .button("§dAsk about the roses")
       .button("§8Leave")
       .show(p).then((r) => {
         if (r.canceled) return;
         if (r.selection === 0) {
-          p.sendMessage('§cBriar Rose: §o"Demon Doors respond to deeds, not poetry. Multiplier 14 opens the Warrior\'s arch — if you can keep your footing."');
+          p.sendMessage(msg("legacy.npc_talk_17"));
         } else if (r.selection === 1) {
-          p.sendMessage('§cBriar Rose: §o"Every thorn here grew from a broken promise. Mind you don\'t leave one of your own behind."');
+          p.sendMessage(msg("legacy.npc_talk_18"));
         }
       });
   } else if (t === "fc:trader") {
@@ -3886,15 +3886,15 @@ function npcTalk(p, npc) {
   } else if (t === "fc:barkeep") {
     new ActionFormData().title("§6Barkeep")
       .body('§o"Welcome to the Cock in the Crown! Ale, pie, and only mild fistfights."')
-      .button("§6Hobbe Tooth Ale — 1 gold").button("§6Apple Pie — 1 gold").button("§7Any rumours?").button("§8Leave")
+      .button(msg("legacy.npc_talk_19")).button("§6Apple Pie — 1 gold").button("§7Any rumours?").button("§8Leave")
       .show(p).then((r) => {
         if (r.canceled) return;
         if (r.selection === 0 && removeItem(p, "fc:gold_coin", 1)) giveItem(p, "fc:golden_carrot_brew", 1);
         else if (r.selection === 1 && removeItem(p, "fc:gold_coin", 1)) giveItem(p, "fc:apple_pie", 1);
         else if (r.selection === 2) {
           const rumours = [
-            "They say a White Balverine prowls Knothole way. Silver, friend. Silver.",
-            "Lady Grey never did find her sister. Don't ask her about it.",
+            msg("legacy.npc_talk_20"),
+            msg("legacy.npc_talk_21"),
             "A door in the hills demanded my pies. My PIES.",
             "Snow folk swear the Oracle speaks in three voices at once.",
             "Bandits pay gold for Guild seals. Don't sell yours. Probably.",
@@ -3923,13 +3923,13 @@ function npcTalk(p, npc) {
     const tier = repTier(v);
     if (tier === "hostile") p.sendMessage("§cGuard: \"YOU! Don't move— GUARDS! GUARDS!\"");
     else if (tier === "wary" || m <= -200) p.sendMessage('§cGuard: "I\'ve got my eye on you, scoundrel."');
-    else if (tier === "revered") p.sendMessage(`§6Guard: "§o${FACTION_NAMES[town]} sleeps easy with you about, Hero. An honour.§r§6"`);
-    else if (tier === "friendly") p.sendMessage(`§9Guard: "Good to see a friend of ${FACTION_NAMES[town]}. Mind the Hobbes after dark."`);
-    else p.sendMessage('§9Guard: "All quiet, Hero. Mind the Hobbes after dark."');
+    else if (tier === "revered") p.sendMessage(msg("legacy.npc_talk_22", { v0: placeName(FACTION_NAMES[town]) }));
+    else if (tier === "friendly") p.sendMessage(msg("legacy.npc_talk_23", { v0: placeName(FACTION_NAMES[town]) }));
+    else p.sendMessage(msg("legacy.npc_talk_24"));
   } else if (t === "fc:guild_apprentice_might" || t === "fc:guild_apprentice_skill" || t === "fc:guild_apprentice_will") {
-    const lines = t.endsWith("might") ? ["The Guildmaster says footwork wins duels. My bruises agree.", "One day I'll take Twinblade's measure myself."]
-      : t.endsWith("skill") ? ["Maze says patience is an arrow loosed before the bow is drawn.", "I can hit the yard post nine times out of ten now."]
-        : ["The Will hums louder near the Cullis Gate.", "I saw blue fire in my sleep. Theresa said not to panic."];
+    const lines = t.endsWith("might") ? [msg("legacy.npc_talk_25"), msg("legacy.npc_talk_26")]
+      : t.endsWith("skill") ? [msg("legacy.npc_talk_27"), "I can hit the yard post nine times out of ten now."]
+        : [msg("legacy.npc_talk_28"), msg("legacy.npc_talk_29")];
     p.sendMessage(`§6Guild Apprentice: §f"${lines[Math.floor(Math.random() * lines.length)]}"`);
     const renownLn = renownLine(p);
     if (renownLn) p.sendMessage(`§6Guild Apprentice: §f"${renownLn}"`);
@@ -3942,7 +3942,7 @@ function npcTalk(p, npc) {
         : att > 500 ? ["You're that Hero from the songs!", "Sign my pitchfork?"]
           : ["Lovely weather, if the wasps don't carry you off.", "Buy a pie, they said. Adventure, they said.", "Have you seen my cousin? Tall, screams at beetles?"];
     new ActionFormData().title(fableTitle("Villager"))
-      .body(`§f§o"${lines[Math.floor(Math.random() * lines.length)]}"§r\n\n§8Standing with ${FACTION_NAMES[town]}: ${repTier(rep(p, town))}`)
+      .body(msg("legacy.npc_talk_30", { v0: lines[Math.floor(Math.random() * lines.length)], v1: placeName(FACTION_NAMES[town]), v2: repTier(rep(p, town)) }))
       .button("§6❖ Give 1 gold (charity)")
       .button("§7❖ Ask for rumours")
       .button("§8❖ Leave")
@@ -3953,13 +3953,13 @@ function npcTalk(p, npc) {
             addRep(p, town, 2);
             addMorality(p, 3);
             p.playSound("random.orb");
-            p.sendMessage('§fVillager: §o"Avo bless you, kind one!"');
+            p.sendMessage(msg("legacy.npc_talk_31"));
           } else p.sendMessage("§7Your purse is empty.");
         } else {
           const rum = [
-            "Twinblade's lot camp behind a palisade of whole trees. Cowards.",
+            msg("legacy.npc_talk_32"),
             "They say azurite veins glow blue in the deep dark. Will made stone.",
-            "The Cullis Gates hum when a storm is coming. Or a Hero.",
+            msg("legacy.npc_talk_33"),
             "Hollow Men wear whatever armour they died in. Some died rich.",
           ];
           p.sendMessage(`§fVillager: §o"${rum[Math.floor(Math.random() * rum.length)]}"`);
@@ -4019,7 +4019,7 @@ function buyQuantityMenu(p, shopTitle, stock) {
       if (r.selection === 1) return completePurchase(p, shopTitle, stock, max);
       if (r.selection === 2) {
         return new ModalFormData().title(fableTitle("Choose Amount"))
-          .slider(`${stock.label} (1–${max})`, 1, max, 1, max)
+          .slider(`${stock.label} (1–${max})`, 1, max, { valueStep: 1, defaultValue: max })
           .submitButton("Buy")
           .show(p).then((response) => {
             if (response.canceled) return buyQuantityMenu(p, shopTitle, stock);
@@ -4078,7 +4078,7 @@ function sellQuantityMenu(p, shopTitle, tier, entry) {
       if (r.selection === 1) return completeSale(p, shopTitle, tier, entry, entry.count);
       if (r.selection === 2) {
         return new ModalFormData().title(fableTitle("Choose Amount"))
-          .slider(`${displayName(entry.id)} (1–${entry.count})`, 1, entry.count, 1, entry.count)
+          .slider(`${displayName(entry.id)} (1–${entry.count})`, 1, entry.count, { valueStep: 1, defaultValue: entry.count })
           .submitButton("Sell")
           .show(p).then((response) => {
             if (response.canceled) return sellQuantityMenu(p, shopTitle, tier, entry);
@@ -4243,7 +4243,7 @@ system.runInterval(() => {
       const inCentre = Math.hypot(p.location.x - (near.x + 0.5), p.location.z - (near.z + 0.5)) < 1.3;
       if (!inCentre) {
         cullisDwell.delete(dwellKey);
-        showHeroActionBar(p, "§b◈ Cullis Gate §7— step into the light to travel");
+        showHeroActionBar(p, msg("legacy.root_06"));
         continue;
       }
       const NEED = 3;                             // intervals of 20t ≈ 3 seconds
@@ -4270,7 +4270,7 @@ system.runInterval(() => {
     } else {
       // bare travel-point — keep the sneak-to-travel fallback
       if (!p.isSneaking) {
-        showHeroActionBar(p, "§b◈ Cullis Gate §7— sneak to focus your Will and travel");
+        showHeroActionBar(p, msg("legacy.root_07"));
         continue;
       }
       const last = cullisCd.get(p.id) ?? -9999;
@@ -4418,18 +4418,18 @@ function boastMenu(p, base) {
   const f = new ActionFormData().title(fableTitle("Boast")).body([
     FABLE_RULE,
     `§dRenown: §f${P.get(p, "fc_renown", 0)}`,
-    `§7Now wearing: §e${active || "(none)"}`,
+    `§7Now wearing: §e${titleName(active) || "(none)"}`,
     FABLE_RULE,
     "§6Declare the title you wear before the crowd:",
   ].join("\n"));
   f.button("§8✦ Wear no title");
-  for (const t of ordered) f.button((t === active ? "§a● " : "§e✦ ") + t);
+  for (const t of ordered) f.button((t === active ? "§a● " : "§e✦ ") + titleName(t));
   f.show(p).then((res) => {
     if (res.canceled) return;
     if (res.selection === 0) { P.setJ(p, "fc_active_title", ""); applyTitleTag(p); p.sendMessage("§7You wear no title."); return; }
     const t = ordered[res.selection - 1];
     P.setJ(p, "fc_active_title", t); applyTitleTag(p);
-    p.sendMessage(`§6✦ You declare yourself §e${t}§6 before Albion!`);
+    p.sendMessage(msg("legacy.boast_menu_01", { v0: titleName(t) }));
     boastCheer(p, base);
   });
 }
@@ -4456,20 +4456,20 @@ function boastCheer(p, base) {
 const NPC_VOICE = {
   "fc:guildmaster": ["Mind your stance, {you}.", "Renown is earned, not given."],
   "fc:maze": ["The Will stirs around you, {you}.", "Knowledge is the deadliest blade."],
-  "fc:trader": ["Finest wares in Albion, {you}!", "Browse a while, no pressure."],
+  "fc:trader": [template("legacy.root_08"), "Browse a while, no pressure."],
   "fc:theresa": ["The future bends around you, {you}.", "I see paths you cannot."],
   "fc:oracle": ["The deep ice remembers your name, {you}.", "Ask, and the truth may wound you."],
-  "fc:briar_rose": ["Demon Doors love a riddle, {you}.", "Mind the wilds after dark."],
-  "fc:lady_grey": ["Bowerstone watches you closely, {you}.", "Charm opens more doors than steel."],
+  "fc:briar_rose": [template("legacy.root_09"), "Mind the wilds after dark."],
+  "fc:lady_grey": [template("legacy.root_10"), "Charm opens more doors than steel."],
   "fc:mercenary": ["Coin first, questions later, {you}.", "I've bled in worse places than this."],
   "fc:barkeep": ["Ale, {you}? Best in the guild.", "Mind the floor, just mopped."],
   "fc:guild_apprentice_might": ["One day I'll best you, {you}.", "*grunts, swinging a practice sword*"],
   "fc:guild_apprentice_skill": ["Bullseye! See that, {you}?", "*looses an arrow at the butt*"],
   "fc:guild_apprentice_will": ["The Will hums today…", "*sparks crackle between their fingers*"],
-  "fc:villager_albion": ["A real Hero! Bless you, {you}.", "Did you hear the news from Bowerstone?"],
+  "fc:villager_albion": ["A real Hero! Bless you, {you}.", msg("legacy.root_11")],
   "fc:villager_woman": ["Stay safe out there, {you}.", "My, but you've grown famous, {you}."],
-  "fc:villager_farmer": ["Crops won't tend themselves, {you}.", "Hobbes got into the turnips again."],
-  "fc:villager_tailor": ["I could let out that jerkin, {you}.", "Fine cloth from Bowerstone, just in."],
+  "fc:villager_farmer": ["Crops won't tend themselves, {you}.", msg("legacy.root_12")],
+  "fc:villager_tailor": ["I could let out that jerkin, {you}.", msg("legacy.root_13")],
   "fc:villager_blacksmith": ["Keep that blade keen, {you}.", "*hammer rings on hot iron*"],
   "fc:villager_fisher": ["The catch is good by the quay, {you}.", "Smells like rain off the coast."],
   "fc:guard_bowerstone": ["Move along, {you}.", "No trouble on my watch."],
@@ -4477,15 +4477,15 @@ const NPC_VOICE = {
   "fc:guard_snowspire": ["Cold enough for you, {you}?", "The Oracle sees all who pass."],
 };
 const NPC_NAME = {
-  "fc:guildmaster": "Guildmaster", "fc:maze": "Maze", "fc:trader": "Trader",
-  "fc:theresa": "Theresa", "fc:oracle": "The Oracle", "fc:briar_rose": "Briar Rose",
-  "fc:lady_grey": "Lady Grey", "fc:mercenary": "Mercenary", "fc:barkeep": "Alfie",
+  "fc:guildmaster": msg("legacy.root_14"), "fc:maze": msg("legacy.root_15"), "fc:trader": "Trader",
+  "fc:theresa": msg("legacy.root_16"), "fc:oracle": "The Oracle", "fc:briar_rose": msg("legacy.root_17"),
+  "fc:lady_grey": msg("legacy.root_18"), "fc:mercenary": "Mercenary", "fc:barkeep": "Alfie",
   "fc:guild_apprentice_might": "Apprentice", "fc:guild_apprentice_skill": "Apprentice",
   "fc:guild_apprentice_will": "Apprentice", "fc:villager_albion": "Villager",
   "fc:villager_woman": "Villager", "fc:villager_farmer": "Farmer",
   "fc:villager_tailor": "Tailor", "fc:villager_blacksmith": "Blacksmith",
-  "fc:villager_fisher": "Fisher", "fc:guard_bowerstone": "Bowerstone Guard",
-  "fc:guard_oakvale": "Oakvale Guard", "fc:guard_snowspire": "Snowspire Guard",
+  "fc:villager_fisher": "Fisher", "fc:guard_bowerstone": msg("legacy.root_19"),
+  "fc:guard_oakvale": msg("legacy.root_20"), "fc:guard_snowspire": msg("legacy.root_21"),
 };
 // the NPC's own synthesized voice cue (fc.entity.<id>), wired in RP sounds.json
 function npcVoiceSound(typeId) { return "fc.entity." + typeId.slice(3); }
@@ -4520,10 +4520,10 @@ function cullisTravel(p, sites, here) {
   if (!others.length) {
     return p.sendMessage("§7The Gate hums, but no sister-gates answer. Discover Focus Sites to expand the lattice.");
   }
-  const f = new ActionFormData().title("§b◈ Cullis Gate")
-    .body(`${FABLE_RULE}\n§7The lattice of Albion bends to your Will.\n§7Standing at: §b${here.name}\n${FABLE_RULE}`);
+  const f = new ActionFormData().title(msg("legacy.cullis_travel_01"))
+    .body(msg("legacy.cullis_travel_02", { v0: FABLE_RULE, v1: placeName(here.name), v2: FABLE_RULE }));
   for (const s of others) {
-    f.button(`§b${s.name}\n§8${Math.round(Math.hypot(p.location.x - s.x, p.location.z - s.z))}m distant`,
+    f.button(msg("legacy.cullis_travel_03", { v0: placeName(s.name), v1: Math.round(Math.hypot(p.location.x - s.x, p.location.z - s.z)) }),
       "textures/items/septimal_key");
   }
   f.show(p).then((r) => {
@@ -4533,7 +4533,7 @@ function cullisTravel(p, sites, here) {
     p.playSound("fc.spell_cast", { pitch: 0.6 });
     p.teleport({ x: s.x + 0.5, y: s.y + 1, z: s.z + 0.5 });
     p.playSound("mob.endermen.portal");
-    showHeroTitle(p, "§b◈", { fadeInDuration: 2, stayDuration: 16, fadeOutDuration: 8, subtitle: `§f${s.name}` });
+    showHeroTitle(p, "§b◈", { fadeInDuration: 2, stayDuration: 16, fadeOutDuration: 8, subtitle: msg("legacy.cullis_travel_04", { v0: placeName(s.name) }) });
   });
 }
 
@@ -4550,7 +4550,7 @@ function addRep(p, f, dv) {
   const v = Math.max(-200, Math.min(200, rep(p, f) + dv));
   P.set(p, `fc_rep_${f}`, v);
   if (Math.abs(dv) >= 5) {
-    p.sendMessage(`§7✦ ${FACTION_NAMES[f]}: ${dv > 0 ? "§a+" : "§c"}${dv} §7reputation (${v})`);
+    p.sendMessage(msg("legacy.add_rep_01", { v0: placeName(FACTION_NAMES[f]), v1: dv > 0 ? "§a+" : "§c", v2: dv, v3: v }));
   }
 }
 function repTier(v) {
@@ -4565,7 +4565,7 @@ function townAvgRep(p) {
 function renownLine(p) {
   const renown = P.get(p, "fc_renown", 0);
   const m = morality(p);
-  if (renown >= 1500) return m >= 0 ? "Your name is sung in every tavern from here to Bowerstone." : "They speak your name only after the door is barred.";
+  if (renown >= 1500) return m >= 0 ? msg("legacy.renown_line_01") : "They speak your name only after the door is barred.";
   if (renown >= 500) return m >= 0 ? "Word of your deeds is starting to travel." : "Folk go quiet when your name comes up.";
   if (renown >= 100) return "You're starting to make a name for yourself.";
   return "";
@@ -4727,7 +4727,7 @@ function bountySummaryLines(p) {
       const timer = record.expiresAtMs > 0 ? ` §8(${formatBountyTime(record.expiresAtMs - now)} left)` : "";
       const enforcers = record.town === GUILD_TOWN_KEY
         ? "Guild defenders" : `${response.cap} ${response.label} guards`;
-      return ` §c⚖ ${record.name}: §6${record.amount}g §7· §e${"★".repeat(bountyHeatLevel(record))}§7 · ${enforcers}${timer}`;
+      return msg("legacy.bounty_summary_lines_01", { v0: placeName(record.name), v1: record.amount, v2: "★".repeat(bountyHeatLevel(record)), v3: enforcers, v4: timer });
     }),
   ];
 }
@@ -5016,11 +5016,11 @@ function accrueCrime(p, victim, severity) {   // severity: "punch" | "kill"
   showHeroActionBar(p, `§4⚖ +${addAmount}g §8· §6${record.amount}g §8· §e${"★".repeat(Math.max(1, stars))} §8· ${formatBountyTime(record.expiresAtMs - now)}`, 45);
   if (!existed) {
     p.sendMessage(severity === "kill"
-      ? `§4⚖ MURDER WITNESSED — you are WANTED in ${record.name}.`
-      : `§4⚖ ASSAULT WITNESSED — you are WANTED in ${record.name}.`);
+      ? msg("legacy.accrue_crime_01", { v0: placeName(record.name) })
+      : msg("legacy.accrue_crime_02", { v0: placeName(record.name) }));
     try { p.playSound("raid.horn", { volume: 0.7, pitch: 1.1 }); } catch { }
   } else if (stars > priorStars) {
-    p.sendMessage(`§4⚖ Your wanted level in ${record.name} rises to §e${"★".repeat(stars)}§4.`);
+    p.sendMessage(msg("legacy.accrue_crime_03", { v0: placeName(record.name), v1: "★".repeat(stars) }));
     try { p.playSound("raid.horn", { volume: 0.5, pitch: 1.0 + stars * 0.05 }); } catch { }
   }
   activateEnforcers(p, record, record.enforcement === "hostile" ? "hostile" : "approach");
@@ -5089,7 +5089,7 @@ function clearSettlementBounty(p, placeKey, reason) {
   bountyDemand.delete(p.id);
   syncWantedTags(p, records);
   refreshWantedHud(p, dominantBounty(records));
-  if (reason) p.sendMessage(`§a⚖ ${record.name} bounty cleared — ${reason}.`);
+  if (reason) p.sendMessage(msg("legacy.clear_settlement_bounty_01", { v0: placeName(record.name), v1: reason }));
 }
 function sendToJail(p, record) {
   const release = outsideSettlementLocation(p, record);
@@ -5098,9 +5098,9 @@ function sendToJail(p, record) {
   p.teleport(release);
   showHeroTitle(p, "§8SENTENCED", {
     fadeInDuration: 5, stayDuration: 50, fadeOutDuration: 15,
-    subtitle: `§7Released outside ${record.name}; possessions confiscated`,
+    subtitle: msg("legacy.send_to_jail_01", { v0: placeName(record.name) }),
   });
-  p.sendMessage("§7The guards release you beyond the town limits with only your Guild Seal and Will powers.");
+  p.sendMessage(msg("legacy.send_to_jail_02"));
 }
 function demandBountyResolution(p, record) {
   const records = getBounties(p);
@@ -5111,7 +5111,7 @@ function demandBountyResolution(p, record) {
   const kills = bountyKillCount(current);
   const charge = kills > 0 ? `${kills} deaths` : "assaulting the townsfolk";
   new ActionFormData()
-    .title(`§4Warrant — ${current.name}`)
+    .title(msg("legacy.demand_bounty_resolution_01", { v0: placeName(current.name) }))
     .body([
       `§c"Hold there. You owe ${current.amount} gold for ${charge}."`,
       "",
@@ -5167,7 +5167,7 @@ system.runInterval(() => {
         else removeBountyGuards(p, record);
         delete records[key];
         bountyDemand.delete(p.id);
-        p.sendMessage(`§a⚖ Your wanted level in ${record.name} has faded.`);
+        p.sendMessage(msg("legacy.root_22", { v0: placeName(record.name) }));
         try { p.playSound("random.orb", { pitch: 0.7 }); } catch { }
         changed = true;
       }

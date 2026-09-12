@@ -52,6 +52,9 @@ class Naming(unittest.TestCase):
                              '§6Café: Zoë, take Dawnfall to the Wayfarer Hall. We’re ready!')
             self.assertEqual(names.text('§aBalverines §r/ Balverine'), '§aMoonfangs §r/ Moonfang')
 
+    def test_display_inventory_detects_names_after_color_codes(self):
+        self.assertEqual(names.faithful_matches('§6Fablecraft §dTheresa'), ['Fablecraft', 'Theresa'])
+
     def test_dictionary_keys_and_internal_references_unchanged(self):
         value = {'Albion': ['fc:balverine', 'wd:ghost_sword', 'textures/items/avos_tear', 42, True],
                  'display': 'Albion'}

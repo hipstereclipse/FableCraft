@@ -10,37 +10,38 @@ six reference snapshots are in docs/. User override (2026-09-12): finish the spe
 and continue as far as practical without permission questions. Retain separate
 milestone commits, validation, immediate pushes, evidence and fresh handoffs.
 
-Current milestone: L3.1 — generate runtime names and migrate the menu hub; status in-progress.
-Last resolved prior commit: 3642d33 (pushed before this milestone).
-Containing commit: TLC Conformance — L3.1: generate runtime names and migrate the menu hub.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — L3.1: generate runtime names and migrate the menu hub'.
+Current milestone: L3.2 — migrate legacy messages without rewriting saved identities; status in-progress.
+Last resolved prior commit: d8361d4 (pushed before this milestone).
+Containing commit: TLC Conformance — L3.2: migrate legacy messages without rewriting saved identities.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — L3.2: migrate legacy messages without rewriting saved identities'.
 Replace previous SELF evidence with the actual hash next step; never invent a self-hash.
 
-L3.1 code and automated validation are complete; row remains in-progress for its
-explicit manual menu checklist in docs/RUNTIME_NAMING.md. fc_strings.py owns the new
-fc_strings.js. It emits selected-mode semantic names, whole messages and canonical
-item/entity display names. Hero Menu text and key main.js inventory/map/status labels
-use it; bridge keys and save IDs are stable. Eight both-mode boundary tests cover menu
-routes, quick-slot mutation, interpolation and Appearance. Fixed existing UI2.0 modal
-argument incompatibility and aura zero persistence; before-failure evidence is saved.
-Two legacy shop sliders still use obsolete positional options: fix those in L3.2.
+L3.2 migrated 95 whole main.js messages through fc_strings.py; faithful templates
+match the original AST values exactly. Runtime import is aliased msg to avoid local
+t variables in NPC dialogue/title callbacks. Explicit placeName/titleName helpers
+translate recognized persisted labels only at display time, retaining canonical save
+names, jurisdiction keys, coordinates, title ownership and active selection. Two shop
+sliders now use the declared UI2.0 options shape. Eighteen both-mode runtime tests cover
+menu routes, slots, appearance, NPCs, travel, bounties, titles and shop callbacks.
 
-All current gates green: build (56JS), emotes31/21, HUD112/112, animations54,
-ESLint0errors/19warnings, spells17, entity-scan3, behavior4groups, animation10,
-branding14 and runtime-strings8. Logs: screenshots/validation/L3.1/. Original preview
-passes staged asset validation but retains ten files of known literal debt. The
-inventory shrank within main.js and herobook.js, not to zero. Next: main.js runtime
-quest/town/shop/crime messages and saved-site display migration without changing save
-keys or coordinates. L3.3 owns logbook/emote/HUD text. L4 remains fully blocked on
-release scanning and the final public name (Wayfarer Tales is provisional).
+The row remains in-progress: in-world checks in docs/RUNTIME_NAMING.md are unrun and a
+final vocabulary/case audit remains (e.g. Guild seals, inn names, Hollow Men). Existing
+known runtime matches now mostly represent canonical storage labels/comments. Explicit
+legacy lookup keys in generated fc_strings.js are still L4 release debt, not exemptions.
+The display inventory correctly strips color codes now, so prior counts understated
+names immediately following formatting codes. There are 11 files of known display debt.
+L3.3 should also translate the HUD navigation feed's saved landmark names; keep its
+payload/clip arithmetic unchanged. No original distribution is authorized by previews.
 
-L2 staging policy remains: default faithful packages only under tmp/builds/<run>/dist;
---branding original requires --preview and produces no archives. Do not edit generated
-fc_strings.js manually. Regenerate with python scripts/fc_strings.py. No Minecraft
-in-world tests have been run; Phase0.3 and spell/manual rows remain pending.
+All gates green in screenshots/validation/L3.2/: build56JS, emotes31/21, HUD112/112,
+animations54, ESLint0errors/19warnings, spells17, scan-fallback3, behavior4groups,
+animation10, branding15, runtime-strings18. Faithful and original staging validate;
+only faithful local archives are produced under tmp/builds/<run>/dist. Public original
+packaging remains blocked until L4 scanning and final title selection. Wayfarer Tales
+is provisional. Manual spell and Phase0.3 engine checks also remain unrun.
 
 Next three actions:
-1. git pull --ff-only; read the top pending row and start L3.2 (quests, towns, shops and crime).
+1. git pull --ff-only; read the top pending row and start L3.3 (Will, logbook, emote and HUD display text).
 2. Execute its numbered playbook steps and applicable base/domain validators; preserve
    real output under screenshots/validation/<ID>/, mark manual observations unrun.
 3. Update checklist/handoff in one explicitly staged milestone commit, push to origin,

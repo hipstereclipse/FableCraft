@@ -1,6 +1,6 @@
 # Runtime naming progress
 
-L3.1 code is implemented; required in-world checks remain unrun.
+L3.1 and L3.2 code is implemented; required in-world checks remain unrun.
 
 `scripts/fc_strings.py` owns `packs/Fablecraft_BP/scripts/fc_strings.js`. Run the
 Python file to regenerate faithful source output. Isolated builds invoke the same
@@ -17,8 +17,12 @@ status labels now follow the mode. Unknown item IDs retain the previous fallback
 `menu_bridge.js` contains registration keys and comments only, so it needs no runtime
 translation. Its historical comments remain visible to the debt inventory.
 
-Quest/town/shop/crime prose, persisted travel-site labels and unrelated legacy menus
-still require L3.2. Logbook content and other Will/emote/HUD prose require L3.3.
+L3.2 migrated 95 whole legacy messages, including quest/boss notifications, dialogue,
+NPC greetings and crime notices. Map/travel/bounty displays translate recognized saved
+place labels, including coordinate and Outskirts suffixes. Earned consort titles also
+translate at display time. Registration keys, stored names, title ownership, selection
+and coordinates remain canonical; neither helper rewrites saved state. Generic prose,
+unlisted vocabulary and case variants still require a final catalog review. Logbook content and other Will/emote/HUD prose require L3.3.
 These unfinished areas and comments remain in [BRANDING_DEBT.md](BRANDING_DEBT.md).
 All original packaging remains blocked; previews are development trees only.
 
@@ -27,8 +31,8 @@ All original packaging remains blocked; previews are development trees only.
 The existing Appearance page used UI 1.x positional control arguments despite the
 manifest declaring `@minecraft/server-ui` 2.0.0. The 2.0 API takes options objects for
 dropdown, toggle and slider controls. The migrated page now uses those objects, and
-setting aura density to zero remains zero after saving. Two legacy shop sliders still
-need the same API correction in L3.2.
+setting aura density to zero remains zero after saving. L3.2 also corrected both legacy shop quantity sliders without changing purchase/sale
+amounts or inventory IDs.
 
 Sources checked 2026-09-12: [Microsoft UI 2.0 changelog](https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/server-ui/changelog?view=minecraft-bedrock-stable),
 [dropdown options](https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/server-ui/modalformdatadropdownoptions?view=minecraft-bedrock-stable),
@@ -39,9 +43,11 @@ changelog and current signatures, not that stale example.
 
 ## Automated and manual evidence
 
-Eight actual-module boundary tests cover both modes, strict lookup/interpolation,
-canonical names, all eight legacy routes, quick-slot mutation/back navigation and
-Appearance state. The UI mock rejects obsolete positional options. Before-fix failure
+Eighteen actual-module boundary tests cover both modes, strict lookup/interpolation,
+canonical names, all eight legacy routes, quick-slot mutation/back navigation,
+Appearance state, travel/save identity, title ownership, bounty summaries, NPC dialogue
+and shop quantity callbacks. The 95 faithful message templates were compared to their
+pre-migration AST values and match exactly. The UI mock rejects obsolete positional options. Before-fix failure
 and after-fix results are under `screenshots/validation/L3.1/` alongside the full suite.
 Mocks do not prove Bedrock rendering, layout or asynchronous engine behavior.
 
@@ -56,5 +62,9 @@ public release archive.
 - [ ] Change Appearance detail, both toggles and aura values 0/1/2; reopen and verify.
 - [ ] Check item/entity names, long labels and color codes in inventory and weapon menus.
 - [ ] Check map heading/recall and status clock/marital labels in both modes.
-- [ ] Record remaining saved-site, quest and logbook faithful labels as L3.2/L3.3 debt.
+- [ ] Check NPC dialogue, rumors, quest completion and boss-choice notifications in both modes.
+- [ ] Buy/sell chosen quantities; verify default/max values, price and inventory changes.
+- [ ] Exercise crime/payment/expiry in Guild and town jurisdictions; verify translated notices.
+- [ ] Reopen existing travel sites and consort titles; retain saved identity and selected markers.
+- [ ] Record unknown saved-site spellings, case variants and logbook labels as naming debt.
 - [ ] Verify existing worlds retain inventory, ownership, slot state and discovered sites.
