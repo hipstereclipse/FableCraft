@@ -5454,8 +5454,9 @@ const STRUCTS = [
   { id: "fc:graveyard", w: 25, h: 13, d: 25, weight: 7, surf: ["grass", "dark"], theme: "dark", mobs: ["fc:undead", "fc:undead_soldier", "fc:undead_knight"],
     mobSpawns: [[12.5, 1, 12.5], [12.5, 1, 16.5], [15.5, 1, 10.5]] }, // gen_structures.graveyard walking lanes
   { id: "fc:focus_site", w: 13, h: 10, d: 13, weight: 7, surf: ["grass", "dark", "rock", "sand", "snow"], theme: "dark", cullis: true },
-  { id: "fc:oakvale_village", w: 35, h: 14, d: 35, weight: 8, surf: ["grass", "sand"], theme: "village", cullis: true,
-    mobs: ["fc:villager_farmer", "fc:villager_fisher", "fc:guard_oakvale"] },
+  { id: "fc:oakvale_village", w: 53, h: 14, d: 35, weight: 8, surf: ["grass", "sand"], theme: "village", cullis: true,
+    mobs: ["fc:villager_farmer", "fc:villager_fisher", "fc:guard_oakvale"],
+    mobSpawns: [[4.5, 1, 11.5], [22.5, 1, 24.5], [17.5, 1, 5.5]] },
   { id: "fc:bowerstone_market", w: 37, h: 21, d: 59, weight: 7, surf: ["grass"], theme: "village", cullis: true,
     mobs: ["fc:guard_bowerstone", "fc:trader", "fc:barkeep", "fc:villager_albion", "fc:lady_grey"],
     mobSpawns: [[18.5, 2, 38.5], [8.5, 1, 31.5], [29.5, 1, 48.5], [20.5, 1, 47.5], [18.5, 1, 9.5]] },

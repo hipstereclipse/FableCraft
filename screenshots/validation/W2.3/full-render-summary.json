@@ -1,0 +1,13 @@
+{
+  "command": "gen_screenshots.main() with fc_lib.SHOTS redirected before import",
+  "output": "tmp/conformance/W2.3-full-screenshots",
+  "exit_code": 0,
+  "png_counts": {
+    "gallery": 13,
+    "items": 55,
+    "mobs": 51,
+    "recipes": 130,
+    "structures": 26
+  },
+  "scope": "Full all-category pipeline; C2 separately renders all 29 structures."
+}

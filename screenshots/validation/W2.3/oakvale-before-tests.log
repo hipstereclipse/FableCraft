@@ -1,0 +1,68 @@
+PASS: actual oakvale_village placement on grass/sand, clear translated spawns, loot bounds and saved-region idempotence
+test_actual_scatter_population_cullis_and_saved_region (__main__.OakvaleMemorial.test_actual_scatter_population_cullis_and_saved_region) ... ok
+test_dimensions_palette_and_retained_runtime_contract (__main__.OakvaleMemorial.test_dimensions_palette_and_retained_runtime_contract) ... FAIL
+test_hero_separate_legs_head_and_raised_broad_axe (__main__.OakvaleMemorial.test_hero_separate_legs_head_and_raised_broad_axe) ... FAIL
+test_north_gate_to_garden_statue_graves_residents_and_cullis (__main__.OakvaleMemorial.test_north_gate_to_garden_statue_graves_residents_and_cullis) ... FAIL
+test_raised_garden_gate_stairs_and_grave_rows (__main__.OakvaleMemorial.test_raised_garden_gate_stairs_and_grave_rows) ... FAIL
+test_retained_oak_well_field_coast_and_chest_coordinates (__main__.OakvaleMemorial.test_retained_oak_well_field_coast_and_chest_coordinates) ... FAIL
+
+======================================================================
+FAIL: test_dimensions_palette_and_retained_runtime_contract (__main__.OakvaleMemorial.test_dimensions_palette_and_retained_runtime_contract)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_oakvale_memorial.py", line 42, in test_dimensions_palette_and_retained_runtime_contract
+    self.assertEqual((self.vox.sx,self.vox.sy,self.vox.sz),(53,14,35))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: (35, 14, 35) != (53, 14, 35)
+
+First differing element 0:
+35
+53
+
+- (35, 14, 35)
+?   -
+
++ (53, 14, 35)
+?  +
+
+
+======================================================================
+FAIL: test_hero_separate_legs_head_and_raised_broad_axe (__main__.OakvaleMemorial.test_hero_separate_legs_head_and_raised_broad_axe)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_oakvale_memorial.py", line 64, in test_hero_separate_legs_head_and_raised_broad_axe
+    self.assertEqual(self.block(44,4,13),'minecraft:chiseled_stone_bricks')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: None != 'minecraft:chiseled_stone_bricks'
+
+======================================================================
+FAIL: test_north_gate_to_garden_statue_graves_residents_and_cullis (__main__.OakvaleMemorial.test_north_gate_to_garden_statue_graves_residents_and_cullis)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_oakvale_memorial.py", line 98, in test_north_gate_to_garden_statue_graves_residents_and_cullis
+    for p in targets:self.assertTrue(p in reached,f'Blocked north-entry route: {p}')
+                     ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : Blocked north-entry route: (38, 3, 17)
+
+======================================================================
+FAIL: test_raised_garden_gate_stairs_and_grave_rows (__main__.OakvaleMemorial.test_raised_garden_gate_stairs_and_grave_rows)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_oakvale_memorial.py", line 52, in test_raised_garden_gate_stairs_and_grave_rows
+    self.assertEqual(self.block(x,y,z),'minecraft:stone_brick_stairs')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: None != 'minecraft:stone_brick_stairs'
+
+======================================================================
+FAIL: test_retained_oak_well_field_coast_and_chest_coordinates (__main__.OakvaleMemorial.test_retained_oak_well_field_coast_and_chest_coordinates)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_oakvale_memorial.py", line 73, in test_retained_oak_well_field_coast_and_chest_coordinates
+    self.assertTrue(self.clear(28,1,13))  # old squeezed statue is gone
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.347s
+
+FAILED (failures=5)

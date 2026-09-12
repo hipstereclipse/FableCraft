@@ -344,20 +344,20 @@
       "notes": []
     },
     "oakvale_village": {
-      "asset_sha256": "800d6394f082333f36ff05bcc7d589cad2150e5007bbc430512105826a241f5f",
+      "asset_sha256": "346a40d7f1d789a4affd23d738e55fa0e2ee593d7da173a25842c1521d24239a",
       "size": [
-        35,
+        53,
         14,
         35
       ],
-      "image_sha256": "efc075079aac945fc32de2a54a974646f1caa608ad10b22079e46474425a60b4",
+      "image_sha256": "661e458bebe68b7d1aa63974f0ed824e1f8442ed0d866dd86d200718da398f39",
       "grade": "S",
       "score": 100,
       "metrics": {
-        "coverage": 11.1,
-        "colors": 54,
-        "contrast": 0.83,
-        "brightness": 0.54,
+        "coverage": 10.6,
+        "colors": 63,
+        "contrast": 0.84,
+        "brightness": 0.53,
         "placeholder": false
       },
       "notes": []

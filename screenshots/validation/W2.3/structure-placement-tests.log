@@ -1,0 +1,15 @@
+✔ chapel_skorm: actual placement uses generator dimensions and preserves save envelope (2.746929ms)
+✔ demon_door_arch: actual placement uses generator dimensions and preserves save envelope (0.778566ms)
+✔ power_snowspire_oracle: actual placement uses generator dimensions and preserves save envelope (0.779498ms)
+✔ temple_avo: actual placement uses generator dimensions and preserves save envelope (0.673668ms)
+✔ arena_ring: actual placement uses generator dimensions and preserves save envelope (0.774969ms)
+✔ bowerstone_market: actual placement uses generator dimensions and preserves save envelope (0.641456ms)
+✔ oakvale_village: actual placement uses generator dimensions and preserves save envelope (0.658007ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 15.770413

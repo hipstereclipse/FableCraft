@@ -1,0 +1,5 @@
+{
+  "command": "FC_OAKVALE_TEST_SOURCE=tmp/conformance/W2.3-before-gen_structures.py python scripts/tests/test_oakvale_memorial.py",
+  "exit_code": 1,
+  "source_commit": "a0b59f28821869c4dfb8324c7de874fd531e0991"
+}

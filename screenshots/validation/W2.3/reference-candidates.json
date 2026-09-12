@@ -1,0 +1,15 @@
+{
+  "source_url": "https://www.coordinatedgaming.com/Walkthrough/Fable_Treasure_Of_The_Ghost_Pirate",
+  "image_url": "https://www.coordinatedgaming.com/img/games/Fable_Oakvale_Memorial_Garden.jpg",
+  "local_developer_only": "tmp/conformance/oakvale-reference.jpg",
+  "sha256": "7d99c96f737502dde0bbfb12f750487df700adf36d6a0de6b29b6853f432bd69",
+  "retrieved": "2026-09-12",
+  "scope": "Inspected entrance image; article labels game Fable, not a verified original-2005 TLC version. Not included in pack or committed as a source asset.",
+  "observations": "Open metal gates with tall stone piers and urns, uphill path, trees/rockwork. Generated garden entrance is a simplified open stone/lantern gate.",
+  "statue": {
+    "image_url": "https://www.coordinatedgaming.com/img/games/Fable_Memorial_Axe_Statue.jpg",
+    "local_developer_only": "tmp/conformance/oakvale-statue-reference.jpg",
+    "sha256": "4f0be76a7ab2e6cdb2d1c67b7c03e6c4c830433a9f2ae4e394b17df3356f7709",
+    "observations": "Lunging armored figure holds a diagonal axe over its shoulder on a weathered plinth. Generated upright figure and vertical axe are a substantial simplification; source game version remains unconfirmed."
+  }
+}

@@ -34,6 +34,7 @@ def main():
         'cullis-tests': [sys.executable, 'scripts/tests/test_cullis_gate.py'],
         'graveyard-tests': [sys.executable, 'scripts/tests/test_graveyard.py'],
         'bandit-camp-tests': [sys.executable, 'scripts/tests/test_bandit_camp.py'],
+        'oakvale-memorial-tests': [sys.executable, 'scripts/tests/test_oakvale_memorial.py'],
         'hook-coast-tests': [sys.executable, 'scripts/tests/test_hook_coast.py'],
         'bowerstone-north-tests': [sys.executable, 'scripts/tests/test_bowerstone_north.py'],
         'arena-halls-tests': [sys.executable, 'scripts/tests/test_arena_halls.py'],

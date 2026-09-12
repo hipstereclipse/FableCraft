@@ -3952,19 +3952,10 @@ def oakvale_village():
     v.set(scx - 1, 2, scz, "minecraft:oak_fence")
     v.set(scx + 1, 2, scz, "minecraft:oak_fence")
     v.set(fx0, 1, fz0 + 7, "minecraft:composter")
-    # memorial garden for the raid dead (east): statue + graves + roses
-    mx0, mz0 = 28, 13
-    v.set(mx0, 1, mz0, CHISELED)                       # plinth
-    v.set(mx0, 2, mz0, STONE)                          # the axe-hero
-    v.set(mx0, 3, mz0, STONE)
-    v.set(mx0, 4, mz0, "minecraft:smooth_quartz")      # head
-    v.set(mx0 + 1, 3, mz0, "minecraft:stone_brick_wall")  # raised arm
-    v.set(mx0 + 1, 4, mz0, DEEPSLATE_W)                # the axe
-    for gvx, gvz in ((mx0 - 2, mz0 + 2), (mx0, mz0 + 3), (mx0 + 2, mz0 + 2)):
-        v.set(gvx, 1, gvz, "minecraft:cobblestone_wall")
-        if r.random() < 0.6:
-            v.set(gvx + 1, 1, gvz, "minecraft:rose_bush")
-    v.set(mx0 - 1, 1, mz0 - 1, CANDLE, {"lit": True, "candles": 2})
+    # The W2.3 garden now occupies the eastern extension below. Preserve the
+    # three old rose rolls so unrelated seeded village flowers do not drift.
+    for _ in range(3):
+        r.random()
     # flower borders along the green
     for i in range(10):
         fx_, fz_ = 4 + r.randrange(W - 8), 5 + r.randrange(18)
@@ -3987,6 +3978,63 @@ def oakvale_village():
     for bz_ in (32, 33):
         v.set(c + 6, 1, bz_, SPRUCE)
     v.set(c + 6, 1, 31, SPRUCE_FENCE)
+    # Keep the existing coastal village coordinates; widen only to its east.
+    village = v
+    v = Vox(53, H, L)
+    for x in range(53):
+        for z in range(L):
+            if x < W:
+                for y in range(H):
+                    name, states = village.palette[village.grid[village.idx(x, y, z)]]
+                    v.set(x, y, z, name, states)
+            else:
+                v.set(x, 0, z, "minecraft:water" if z > 29 else
+                      "minecraft:sand" if z > 24 else "minecraft:grass_block")
+    # Connected lane leaves the north-entry axis before the oak and well.
+    v.fill(17, 0, 15, 34, 0, 16, GRAVEL)
+    v.fill(17, 1, 15, 34, 2, 16, "minecraft:air")
+    # Widening moves the existing center-based Cullis destination to (26,17).
+    v.set(26, 0, 17, GRAVEL)
+    v.fill(26, 1, 17, 26, 2, 17, "minecraft:air")
+    # Raised walled garden, with an open west gate and a two-step approach.
+    v.fill(37, 0, 6, 51, 1, 25, STONE)
+    v.fill(37, 2, 6, 51, 2, 25, "minecraft:grass_block")
+    for x in range(37, 52):
+        for z in (6, 25):
+            v.set(x, 3, z, MOSSY)
+            v.set(x, 4, z, "minecraft:stone_brick_wall")
+    for z in range(7, 25):
+        for x in (37, 51):
+            if x == 37 and 16 <= z <= 18:
+                continue
+            v.set(x, 3, z, MOSSY)
+            v.set(x, 4, z, "minecraft:stone_brick_wall")
+    for x, y in ((35, 1), (36, 2)):
+        for z in range(16, 19):
+            v.fill(x, 0, z, x, y, z, STONE)
+            v.set(x, y, z, "minecraft:stone_brick_stairs",
+                  {"weirdo_direction": 0, "upside_down_bit": False})
+    v.fill(37, 2, 16, 50, 2, 18, GRAVEL)
+    for z in (15, 19):
+        v.fill(37, 3, z, 37, 5, z, CHISELED)
+        v.set(37, 6, z, LANTERN, {"hanging": False})
+    # Original block sculpture: separated legs and a raised, broad axe silhouette.
+    v.fill(43, 3, 12, 45, 4, 14, CHISELED)
+    for x in (43, 45):
+        v.fill(x, 5, 13, x, 6, 13, STONE)
+    v.fill(44, 6, 13, 44, 8, 13, STONE)
+    v.fill(43, 8, 13, 46, 8, 13, STONE)
+    v.set(44, 9, 13, "minecraft:smooth_quartz")
+    v.fill(46, 8, 13, 46, 11, 13, DEEPSLATE_W)
+    v.fill(47, 10, 13, 48, 11, 13, DEEPSLATE_W)
+    v.set(44, 3, 16, CANDLE, {"lit": True, "candles": 2})
+    # Two grave rows flank the central aisle without obstructing the statue.
+    for x in (40, 44, 48):
+        for z in (9, 22):
+            v.set(x, 3, z, CHISELED)
+            v.set(x, 4, z, "minecraft:stone_brick_wall")
+            v.set(x, 2, z + (1 if z == 9 else -1), GRAVEL)
+            v.set(x - 1, 3, z, "minecraft:poppy")
     v.save("oakvale_village")
 
 

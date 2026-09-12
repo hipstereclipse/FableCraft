@@ -22,7 +22,7 @@ Offline generator renders; grades measure image appearance, not canon or playabi
 | hook_coast | S | 100 | 37/20/37 | [Hook Coast](hook_coast.png) |
 | knothole_glade | S | 100 | 35/15/35 | [Knothole Glade](knothole_glade.png) |
 | lookout_point | S | 100 | 21/12/21 | [Lookout Point](lookout_point.png) |
-| oakvale_village | S | 100 | 35/14/35 | [Oakvale](oakvale_village.png) |
+| oakvale_village | S | 100 | 53/14/35 | [Oakvale](oakvale_village.png) |
 | orchard_farm | S | 100 | 29/12/29 | [Orchard Farm](orchard_farm.png) |
 | power_guild_courtyard | S | 100 | 27/13/27 | [Guild Courtyard](power_guild_courtyard.png) |
 | power_necropolis | S | 100 | 29/14/29 | [Necropolis Ruin](power_necropolis.png) |
