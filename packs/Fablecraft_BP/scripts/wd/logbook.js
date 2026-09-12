@@ -5,6 +5,7 @@
 // the legacy handlers are authoritative.
 import { world } from "@minecraft/server";
 import { getState, mutateState } from "./state.js";
+import { t, bestiaryName } from "../fc_strings.js";
 
 function cleanName(typeId) {
   return String(typeId).replace(/^minecraft:/, "").replace(/^fc:/, "").replace(/_/g, " ");
@@ -25,11 +26,11 @@ export function recordDeed(player, deedId, amount = 1) {
 }
 
 function epithet(alignment) {
-  if (alignment >= 500) return "a beacon of Avo";
-  if (alignment >= 150) return "a Hero of good name";
-  if (alignment > -150) return "a Hero of uncertain heart";
-  if (alignment > -500) return "a Hero the towns mistrust";
-  return "a shadow over Albion";
+  if (alignment >= 500) return t("chronicle.beacon");
+  if (alignment >= 150) return t("chronicle.good");
+  if (alignment > -150) return t("chronicle.neutral");
+  if (alignment > -500) return t("chronicle.mistrusted");
+  return t("chronicle.evil");
 }
 
 // Returns { lines, totalKills, discovered } for the storybook Logbook page.
@@ -40,23 +41,23 @@ export function chronicle(player) {
   const totalKills = entries.reduce((sum, [, n]) => sum + n, 0);
 
   const lines = [];
-  lines.push(`§8“The story so far…”`);
-  lines.push(`§7You are §f${epithet(s.alignment)}§7, ${totalKills} battles deep.`);
-  lines.push(`§7Creatures known: §f${s.logbook.discovered.length}`);
+  lines.push(t("chronicle.heading"));
+  lines.push(t("chronicle.story", { epithet: epithet(s.alignment), kills: totalKills }));
+  lines.push(t("chronicle.discovered", { count: s.logbook.discovered.length }));
   if (entries.length) {
     lines.push("");
-    lines.push("§6Bestiary — most felled:");
-    for (const [name, n] of entries.slice(0, 8)) lines.push(`§7• §f${name} §8×${n}`);
+    lines.push(t("chronicle.bestiary"));
+    for (const [name, n] of entries.slice(0, 8)) lines.push(t("chronicle.entry", { name: bestiaryName(name), count: n }));
   }
   const deeds = Object.entries(s.logbook.deeds);
   if (deeds.length) {
     lines.push("");
-    lines.push("§6Notable deeds:");
-    for (const [id, n] of deeds.slice(0, 6)) lines.push(`§7• §f${id} §8×${n}`);
+    lines.push(t("chronicle.deeds"));
+    for (const [id, n] of deeds.slice(0, 6)) lines.push(t("chronicle.entry", { name: id, count: n }));
   }
   if (entries.length === 0 && deeds.length === 0) {
     lines.push("");
-    lines.push("§8Your chronicle is yet unwritten. Go forth and earn its pages.");
+    lines.push(t("chronicle.empty"));
   }
   return { lines, totalKills, discovered: s.logbook.discovered.length };
 }

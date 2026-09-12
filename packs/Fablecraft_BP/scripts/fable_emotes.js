@@ -1,3 +1,4 @@
+import { t as msg } from "./fc_strings.js";
 import {
   CommandPermissionLevel,
   CustomCommandParamType,
@@ -35,7 +36,7 @@ for (const emote of FABLE_EMOTES) {
 }
 
 function audit(kind, message) {
-  console.warn(`[Fablecraft][${new Date().toISOString()}][${kind}] ${message}`);
+  console.warn(msg("expression.message_01", { v0: new Date().toISOString(), v1: kind, v2: message }));
 }
 
 function clamp(value, min = -100, max = 100) {
@@ -430,10 +431,10 @@ function executeLockpick(player) {
 
 function executeOracleGesture(player, id) {
   const lines = {
-    yeron: "The Oracle answers Yeron: courage without wisdom is merely noise.",
-    moryk: "The Oracle answers Moryk: what was buried still remembers the sun.",
-    calran: "The Oracle answers Calran: the northern path opens after sacrifice.",
-    avisto: "The Oracle answers Avisto: your choices have already changed the ending.",
+    yeron: msg("expression.message_02"),
+    moryk: msg("expression.message_03"),
+    calran: msg("expression.message_04"),
+    avisto: msg("expression.message_05"),
   };
   const oracle = player.dimension.getEntities({
     location: player.location, maxDistance: 20, type: "fc:oracle",
@@ -493,7 +494,7 @@ function resolveNativeEmote(player, personaPieceId) {
   const choice = unlocked.find((id) => !used.has(id)) ?? unlocked[0] ?? "giggle";
   bindings[normalized] = choice;
   setJson(player, "fc_native_emote_bindings", bindings);
-  player.sendMessage(`§8Native emote bound to Fable expression: §e${FABLE_EMOTE_BY_ID.get(choice).name}`);
+  player.sendMessage(msg("expression.message_06", { v0: FABLE_EMOTE_BY_ID.get(choice).name }));
   audit("BIND", `${player.name} persona=${personaPieceId} -> ${choice}`);
   return choice;
 }
@@ -554,7 +555,7 @@ export function runFableEmoteTests(player) {
     });
   } catch (error) {
     audit("TEST_FAIL", `Could not spawn test NPC: ${error}`);
-    player.sendMessage("§cFable expression tests could not spawn the fixture NPC.");
+    player.sendMessage(msg("expression.message_07"));
     return;
   }
   for (const emote of FABLE_EMOTES) {
@@ -587,11 +588,11 @@ export function runFableEmoteTests(player) {
       // Fixture already removed.
     }
   }, 10);
-  player.sendMessage(`§6Fable expression tests: §a${passed} passed §c${failed} failed§6. See Content Log.`);
+  player.sendMessage(msg("expression.message_08", { v0: passed, v1: failed }));
 }
 
 export function runFableVisualDemo(player) {
-  player.sendMessage("§6Fable demo started. Begin video capture now; keep the player and NPC in frame.");
+  player.sendMessage(msg("expression.message_09"));
   const sequence = ["flirt", "blood_lust_roar", "fart", "vulgar_thrust"];
   sequence.forEach((id, index) => {
     system.runTimeout(() => performFableEmote(player, id, {
@@ -660,7 +661,7 @@ function registerCommands(registry) {
   registry.registerEnum("fable:npc_animation", ["walk", "idle", "run"]);
   registry.registerCommand({
     name: "fable:emote",
-    description: "Perform a Fable TLC expression",
+    description: msg("expression.message_10"),
     permissionLevel: CommandPermissionLevel.Any,
     cheatsRequired: false,
     mandatoryParameters: [{
@@ -713,7 +714,7 @@ function registerCommands(registry) {
   });
   registry.registerCommand({
     name: "fable:test",
-    description: "Run the Fable expression runtime tests",
+    description: msg("expression.message_11"),
     permissionLevel: CommandPermissionLevel.GameDirectors,
     cheatsRequired: true,
   }, (origin) => {
@@ -772,7 +773,7 @@ try {
     if (event.id === "fable:demo") runFableVisualDemo(player);
   });
 
-  audit("SYSTEM", `Fable expression system online (${FABLE_EMOTES.length} expressions)`);
+  audit("SYSTEM", msg("expression.message_12", { v0: FABLE_EMOTES.length }));
 } catch (bootError) {
-  console.warn(`[FableCraft] Fable emote system failed to initialize; the rest of the mod will still load. ${bootError}`);
+  console.warn(msg("expression.message_13", { v0: bootError }));
 }

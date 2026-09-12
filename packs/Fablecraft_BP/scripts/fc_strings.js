@@ -251,7 +251,32 @@ const MESSAGES = Object.freeze({
   "legacy.send_to_jail_01": "§7Released outside {v0}; possessions confiscated",
   "legacy.send_to_jail_02": "§7The guards release you beyond the town limits with only your Guild Seal and Will powers.",
   "legacy.demand_bounty_resolution_01": "§4Warrant — {v0}",
-  "legacy.root_22": "§a⚖ Your wanted level in {v0} has faded."
+  "legacy.root_22": "§a⚖ Your wanted level in {v0} has faded.",
+  "chronicle.beacon": "a beacon of Avo",
+  "chronicle.good": "a Hero of good name",
+  "chronicle.neutral": "a Hero of uncertain heart",
+  "chronicle.mistrusted": "a Hero the towns mistrust",
+  "chronicle.evil": "a shadow over Albion",
+  "chronicle.heading": "§8“The story so far…”",
+  "chronicle.story": "§7You are §f{epithet}§7, {kills} battles deep.",
+  "chronicle.discovered": "§7Creatures known: §f{count}",
+  "chronicle.bestiary": "§6Bestiary — most felled:",
+  "chronicle.entry": "§7• §f{name} §8×{count}",
+  "chronicle.deeds": "§6Notable deeds:",
+  "chronicle.empty": "§8Your chronicle is yet unwritten. Go forth and earn its pages.",
+  "expression.message_01": "[Fablecraft][{v0}][{v1}] {v2}",
+  "expression.message_02": "The Oracle answers Yeron: courage without wisdom is merely noise.",
+  "expression.message_03": "The Oracle answers Moryk: what was buried still remembers the sun.",
+  "expression.message_04": "The Oracle answers Calran: the northern path opens after sacrifice.",
+  "expression.message_05": "The Oracle answers Avisto: your choices have already changed the ending.",
+  "expression.message_06": "§8Native emote bound to Fable expression: §e{v0}",
+  "expression.message_07": "§cFable expression tests could not spawn the fixture NPC.",
+  "expression.message_08": "§6Fable expression tests: §a{v0} passed §c{v1} failed§6. See Content Log.",
+  "expression.message_09": "§6Fable demo started. Begin video capture now; keep the player and NPC in frame.",
+  "expression.message_10": "Perform a Fable TLC expression",
+  "expression.message_11": "Run the Fable expression runtime tests",
+  "expression.message_12": "Fable expression system online ({v0} expressions)",
+  "expression.message_13": "[FableCraft] Fable emote system failed to initialize; the rest of the mod will still load. {v0}"
 });
 const DISPLAY_NAMES = Object.freeze({
   "fc:iron_longsword": "Iron Longsword",
@@ -501,6 +526,59 @@ const DISPLAY_NAMES = Object.freeze({
   "fc:demon_door": "Demon Door",
   "wd:will_focus": "Will Focus"
 });
+const BESTIARY_NAMES = Object.freeze({
+  "balverine": "Balverine",
+  "white balverine": "White Balverine",
+  "frost balverine": "Frost Balverine",
+  "hobbe": "Hobbe",
+  "hobbe scout": "Hobbe Scout",
+  "bandit": "Bandit",
+  "bandit archer": "Bandit Archer",
+  "twinblade": "Twinblade",
+  "undead": "Hollow Man",
+  "undead soldier": "Hollow Soldier",
+  "undead knight": "Hollow Knight",
+  "wasp": "Wasp",
+  "wasp queen": "Wasp Queen",
+  "beetle": "Stag Beetle",
+  "earth troll": "Earth Troll",
+  "ice troll": "Ice Troll",
+  "rock giant": "Rock Giant",
+  "summoner": "Summoner",
+  "wraith": "Wraith",
+  "banshee": "Banshee",
+  "minion": "Minion",
+  "arachanox": "Arachanox",
+  "assassin": "Assassin",
+  "jack of blades": "Jack of Blades",
+  "jack dragon": "Dragon of Blades",
+  "villager albion": "Albion Villager",
+  "villager woman": "Albion Villager (Woman)",
+  "villager farmer": "Albion Farmer",
+  "villager tailor": "Bowerstone Tailor",
+  "villager blacksmith": "Albion Blacksmith",
+  "villager fisher": "Oakvale Fisher",
+  "guard bowerstone": "Bowerstone Guard",
+  "guard oakvale": "Oakvale Guard",
+  "guard snowspire": "Snowspire Guard",
+  "trader": "Trader",
+  "barkeep": "Barkeep",
+  "guildmaster": "Guildmaster",
+  "guild apprentice might": "Guild Apprentice (Might)",
+  "guild apprentice skill": "Guild Apprentice (Skill)",
+  "guild apprentice will": "Guild Apprentice (Will)",
+  "maze": "Maze",
+  "theresa": "Theresa",
+  "lady grey": "Lady Grey",
+  "oracle": "The Oracle",
+  "briar rose": "Briar Rose",
+  "mercenary": "Mercenary",
+  "nymph": "Nymph",
+  "summoned wasp": "Summoned Hornet",
+  "summoned hobbe": "Summoned Hobbe",
+  "summoned balverine": "Summoned Balverine",
+  "demon door": "Demon Door"
+});
 const LEGACY_PLACES = Object.freeze({
   "Twinblade's Bandits": "Twinblade's Bandits",
   "Heroes' Guild": "Heroes' Guild",
@@ -557,6 +635,9 @@ export function placeName(value) {
 }
 export function titleName(value) {
   return has(LEGACY_TITLES, value) ? LEGACY_TITLES[value] : value;
+}
+export function bestiaryName(savedName) {
+  return has(BESTIARY_NAMES, savedName) ? BESTIARY_NAMES[savedName] : savedName;
 }
 export function itemName(id) {
   if (has(DISPLAY_NAMES, id)) return DISPLAY_NAMES[id];

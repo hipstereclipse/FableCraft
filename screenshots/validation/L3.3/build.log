@@ -1,0 +1,10 @@
+Local faithful staging tree: /run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/builds/faithful-0jh4pp93
+validated: {'json': 685, 'png': 341, 'wav': 535, 'mcstructure': 29, 'js': 56}
+Fable expression audit passed: 31 expressions, 21 social NPCs, 11 NPC clips
+registry: packs/Fablecraft_BP/config/fable_emotes.json
+Fable HUD audit: 112/112 checks passed
+all cross-references OK
+Known display-name debt: 14 files; see /run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/builds/faithful-0jh4pp93/branding-debt.json
+local-only package /run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/builds/faithful-0jh4pp93/dist/Fablecraft_Reforged.mcaddon: 18.46 MB
+packaged Fablecraft_BP.mcpack: 0.45 MB
+packaged Fablecraft_RP.mcpack: 17.97 MB

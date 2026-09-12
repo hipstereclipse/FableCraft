@@ -14,12 +14,14 @@ from fc_lib import write_json
 from fc_strings import branding, emit_runtime, faithful_matches, text
 import gen_behavior
 import gen_resources
+import gen_emotes
+from gen_hud_runtime import emit as emit_hud_runtime
 
 
 def emit_display_files(root, selected):
     """Generate through the owners, restoring their target paths even on failure."""
     bp, rp = root / 'packs/Fablecraft_BP', root / 'packs/Fablecraft_RP'
-    with branding(selected), patch.object(gen_behavior, 'BP', bp), patch.object(gen_resources, 'RP', rp):
+    with branding(selected), patch.object(gen_behavior, 'BP', bp), patch.object(gen_resources, 'RP', rp), patch.object(gen_emotes, 'BP', bp):
         items = fc_data.all_items()
         for item in items:
             cat = item['cat']
@@ -31,6 +33,8 @@ def emit_display_files(root, selected):
         gen_behavior.emit_script_data()
         gen_resources.emit_lang(items)
         emit_runtime(bp)
+        gen_emotes.emit_registry()
+        emit_hud_runtime(bp)
         # These manifests are source templates. This helper owns staged display fields;
         # UUIDs, versions, dependency edges and script entry points remain unchanged.
         for pack in (bp, rp):

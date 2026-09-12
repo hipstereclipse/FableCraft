@@ -86,7 +86,26 @@ async function fixture(mode) {
     vm.runInContext(chunks.join('\n'), context);
     return vm.runInContext('({' + declarations.join(',') + '})', context);
   }
-  return { api, state, forms, opened, messages, bridge, choose, legacy, open: () => menu.namespace.openHeroMenu(player) };
+  async function logbook() {
+    delete mocks['logbook.js'];
+    const callbacks = {};
+    mocks['@minecraft/server'] = { world: { afterEvents: { entityDie: { subscribe(fn) { callbacks.kill = fn; } } } } };
+    const path = resolve('packs/Fablecraft_BP/scripts/wd/logbook.js');
+    cache.delete(path);
+    const module = await load(path); await module.evaluate();
+    return { module: module.namespace, callbacks };
+  }
+  async function hud(bindings) {
+    const source = await readFile('packs/Fablecraft_BP/scripts/fable_hud.js', 'utf8');
+    const ast = parse(source, { ecmaVersion: 'latest', sourceType: 'module', range: true });
+    Object.assign(context, { placeName: api.placeName, ...bindings });
+    for (const name of ['radarLines', 'payload']) {
+      const node = ast.body.find(n => n.type === 'FunctionDeclaration' && n.id.name === name);
+      vm.runInContext(source.slice(...node.range), context);
+    }
+    return vm.runInContext('({radarLines,payload})', context);
+  }
+  return { api, state, forms, opened, messages, bridge, choose, legacy, logbook, hud, open: () => menu.namespace.openHeroMenu(player) };
 }
 
 for (const mode of ['faithful', 'original']) {
@@ -247,5 +266,43 @@ for (const mode of ['faithful', 'original']) {
     await f.choose(f.forms.at(-1), { formValues: [2] });
     assert.equal(sales[0].amount, 2);
     assert.equal(sales[0].entry.id, 'fc:balverine_fang');
+  });
+
+  test(`${mode}: real logbook preserves old counters and discovery keys`, async () => {
+    const f = await fixture(mode);
+    f.state.logbook = { kills: { balverine: 2, skeleton: 2 }, discovered: ['balverine', 'skeleton'], deeds: {} };
+    const { module, callbacks } = await f.logbook();
+    callbacks.kill({ damageSource: { damagingEntity: { typeId: 'minecraft:player' } },
+      deadEntity: { typeId: 'fc:balverine' } });
+    module.recordDeed({}, 'rescued_friendly');
+    const before = JSON.stringify(f.state.logbook);
+    const result = module.chronicle({});
+    assert.equal(result.totalKills, 5);
+    assert.equal(result.discovered, 2);
+    assert.ok(result.lines.join('\n').includes(mode === 'faithful' ? 'Balverine' : 'Moonfang'));
+    assert.ok(result.lines.join('\n').includes(mode === 'faithful' ? 'beacon of Avo' : 'beacon of Dawnkeeper'));
+    assert.equal(f.state.logbook.kills.balverine, 3);
+    assert.deepEqual(f.state.logbook.discovered, ['balverine', 'skeleton']);
+    assert.equal(JSON.stringify(f.state.logbook), before);
+  });
+
+  test(`${mode}: HUD name translation preserves all 23 payload lines and spacer positions`, async () => {
+    const f = await fixture(mode);
+    const landmark = { name: 'Bowerstone (-1,2)', distance: 14 };
+    const api = await f.hud({
+      notices: new Map(), system: { currentTick: 0 },
+      statusLines: () => ['S0', 'S1', 'S2', 'S3'],
+      npcAwarenessState: () => 'seen', nearestLandmark: () => landmark,
+      heading: () => 'N', clock: () => 'CLOCK', CG: { blank: 'BLANK' },
+      radarRows: () => Array.from({ length: 11 }, (_, i) => `R${i}`),
+      countItem: () => 42, wantedStars: () => 'STARS',
+    });
+    const lines = api.payload({ id: 'hero' }).split('\n');
+    assert.equal(lines.length, 23);
+    assert.deepEqual([lines[5], lines[6], lines[7]], ['BLANK', 'CLOCK', 'BLANK']);
+    assert.deepEqual(lines.slice(8, 19), Array.from({ length: 11 }, (_, i) => `R${i}`));
+    assert.ok(lines[19].includes(mode === 'faithful' ? 'Bowerstone (-1,2)' : 'Rivergate (-1,2)'));
+    assert.deepEqual(lines.slice(20), ['§642', 'BLANK', 'STARS']);
+    assert.equal(landmark.name, 'Bowerstone (-1,2)');
   });
 }

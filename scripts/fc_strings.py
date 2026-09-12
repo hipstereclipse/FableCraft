@@ -326,6 +326,37 @@ MESSAGES.update({
     "legacy.root_22": "§a⚖ Your wanted level in {v0} has faded."
 })
 
+MESSAGES.update({
+    "chronicle.beacon": "a beacon of {@avo}",
+    "chronicle.good": "a Hero of good name",
+    "chronicle.neutral": "a Hero of uncertain heart",
+    "chronicle.mistrusted": "a Hero the towns mistrust",
+    "chronicle.evil": "a shadow over {@realm}",
+    "chronicle.heading": "§8“The story so far…”",
+    "chronicle.story": "§7You are §f{epithet}§7, {kills} battles deep.",
+    "chronicle.discovered": "§7Creatures known: §f{count}",
+    "chronicle.bestiary": "§6Bestiary — most felled:",
+    "chronicle.entry": "§7• §f{name} §8×{count}",
+    "chronicle.deeds": "§6Notable deeds:",
+    "chronicle.empty": "§8Your chronicle is yet unwritten. Go forth and earn its pages."
+})
+
+MESSAGES.update({
+    "expression.message_01": "[{@project_name}][{v0}][{v1}] {v2}",
+    "expression.message_02": "The Oracle answers {@oracle_yeron}: courage without wisdom is merely noise.",
+    "expression.message_03": "The Oracle answers {@oracle_moryk}: what was buried still remembers the sun.",
+    "expression.message_04": "The Oracle answers {@oracle_calran}: the northern path opens after sacrifice.",
+    "expression.message_05": "The Oracle answers {@oracle_avisto}: your choices have already changed the ending.",
+    "expression.message_06": "§8Native emote bound to {@game_name} expression: §e{v0}",
+    "expression.message_07": "§c{@game_name} expression tests could not spawn the fixture NPC.",
+    "expression.message_08": "§6{@game_name} expression tests: §a{v0} passed §c{v1} failed§6. See Content Log.",
+    "expression.message_09": "§6{@game_name} demo started. Begin video capture now; keep the player and NPC in frame.",
+    "expression.message_10": "Perform a {@game_name} TLC expression",
+    "expression.message_11": "Run the {@game_name} expression runtime tests",
+    "expression.message_12": "{@game_name} expression system online ({v0} expressions)",
+    "expression.message_13": "[{@project_name_caps}] {@game_name} emote system failed to initialize; the rest of the mod will still load. {v0}"
+})
+
 def message_template(key):
     return re.sub(r'\{@([\w]+)\}', lambda match: name(match[1]), MESSAGES[key])
 
@@ -349,6 +380,7 @@ def emit_runtime(bp):
         ('NAMES', {key: name(key) for key in STRINGS}),
         ('MESSAGES', {key: message_template(key) for key in MESSAGES}),
         ('DISPLAY_NAMES', display_names),
+        ('BESTIARY_NAMES', {m['id'].replace('_', ' '): text(m['name']) for m in MOBS}),
         ('LEGACY_PLACES', {STRINGS[key]['faithful']: name(key) for key in PLACE_KEYS}),
         ('LEGACY_TITLES', {STRINGS['consort_title']['faithful']: name('consort_title')}),
     ):
@@ -386,6 +418,9 @@ export function placeName(value) {
 }
 export function titleName(value) {
   return has(LEGACY_TITLES, value) ? LEGACY_TITLES[value] : value;
+}
+export function bestiaryName(savedName) {
+  return has(BESTIARY_NAMES, savedName) ? BESTIARY_NAMES[savedName] : savedName;
 }
 export function itemName(id) {
   if (has(DISPLAY_NAMES, id)) return DISPLAY_NAMES[id];

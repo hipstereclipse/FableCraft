@@ -10,38 +10,37 @@ six reference snapshots are in docs/. User override (2026-09-12): finish the spe
 and continue as far as practical without permission questions. Retain separate
 milestone commits, validation, immediate pushes, evidence and fresh handoffs.
 
-Current milestone: L3.2 — migrate legacy messages without rewriting saved identities; status in-progress.
-Last resolved prior commit: d8361d4 (pushed before this milestone).
-Containing commit: TLC Conformance — L3.2: migrate legacy messages without rewriting saved identities.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — L3.2: migrate legacy messages without rewriting saved identities'.
+Current milestone: L3.3 — route logbook expressions and HUD labels through generators; status in-progress.
+Last resolved prior commit: 833fbaf (pushed before this milestone).
+Containing commit: TLC Conformance — L3.3: route logbook expressions and HUD labels through generators.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — L3.3: route logbook expressions and HUD labels through generators'.
 Replace previous SELF evidence with the actual hash next step; never invent a self-hash.
 
-L3.2 migrated 95 whole main.js messages through fc_strings.py; faithful templates
-match the original AST values exactly. Runtime import is aliased msg to avoid local
-t variables in NPC dialogue/title callbacks. Explicit placeName/titleName helpers
-translate recognized persisted labels only at display time, retaining canonical save
-names, jurisdiction keys, coordinates, title ownership and active selection. Two shop
-sliders now use the declared UI2.0 options shape. Eighteen both-mode runtime tests cover
-menu routes, slots, appearance, NPCs, travel, bounties, titles and shop callbacks.
+L3.3 code and automated tests are delivered; manual/catalog review remains pending.
+Logbook narration uses message templates; canonical mob names are displayed without
+rewriting existing cleaned kill/discovery keys. Thirteen expression-system messages
+and the four generated Oracle names now use the single naming owner. Emote IDs,
+unlocks, animation bindings and rating axes remain unchanged. HUD runtime had no
+actual generator despite the inherited ownership rule: scripts/gen_hud_runtime.py
+now emits scripts/templates/hud_runtime.js into fable_hud.js. Edit the template and
+regenerate. Both HUD feeds translate saved site names without touching payload shape.
 
-The row remains in-progress: in-world checks in docs/RUNTIME_NAMING.md are unrun and a
-final vocabulary/case audit remains (e.g. Guild seals, inn names, Hollow Men). Existing
-known runtime matches now mostly represent canonical storage labels/comments. Explicit
-legacy lookup keys in generated fc_strings.js are still L4 release debt, not exemptions.
-The display inventory correctly strips color codes now, so prior counts understated
-names immediately following formatting codes. There are 11 files of known display debt.
-L3.3 should also translate the HUD navigation feed's saved landmark names; keep its
-payload/clip arithmetic unchanged. No original distribution is authorized by previews.
+All gates green in screenshots/validation/L3.3/: build56JS, emotes31/21, HUD112/112,
+animations54, ESLint0errors/19warnings, spells17, scan3, behavior4groups, animation10,
+branding16, runtime22 tests. HUD tests assert all23lines and spacer/radar boundaries.
+Inspected faithful preview: unchanged radar-column, missing hunger-frame and nav-bleed
+defects from0.2 remain. No visual A-grade or in-world pass. Preview/logs are committed.
 
-All gates green in screenshots/validation/L3.2/: build56JS, emotes31/21, HUD112/112,
-animations54, ESLint0errors/19warnings, spells17, scan-fallback3, behavior4groups,
-animation10, branding15, runtime-strings18. Faithful and original staging validate;
-only faithful local archives are produced under tmp/builds/<run>/dist. Public original
-packaging remains blocked until L4 scanning and final title selection. Wayfarer Tales
-is provisional. Manual spell and Phase0.3 engine checks also remain unrun.
+Known original-preview display debt is now six files, mostly explicit legacy keys and
+historical comments. This is NOT a complete release scan: lower-case IDs, filenames,
+escapes, aliases/case variants, unknown deed labels and unlisted vocabulary remain L4
+work. Original packaging stays blocked. Public title Wayfarer Tales is provisional;
+final naming requires user selection at release, not an autonomous claim. Independent
+C1 validation tooling can proceed without opening that release gate. Continue without
+permission pauses under the user's existing authorization.
 
 Next three actions:
-1. git pull --ff-only; read the top pending row and start L3.3 (Will, logbook, emote and HUD display text).
+1. git pull --ff-only; read the top pending row and start C1 (independent continuous-validation tooling; L4 release work stays blocked).
 2. Execute its numbered playbook steps and applicable base/domain validators; preserve
    real output under screenshots/validation/<ID>/, mark manual observations unrun.
 3. Update checklist/handoff in one explicitly staged milestone commit, push to origin,

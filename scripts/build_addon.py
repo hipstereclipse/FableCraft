@@ -23,6 +23,7 @@ GENERATORS = [
     "gen_entity_textures.py",
     "gen_behavior.py",
     "fc_strings.py",
+    "gen_hud_runtime.py",
     "gen_resources.py",
     "gen_wd.py",
     "gen_emotes.py",

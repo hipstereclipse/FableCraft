@@ -321,7 +321,7 @@ Acceptance: All strings in this file group are table-owned, interpolation correc
 
 References: [C] UIofFable.md: Menu System/Fast Travel; [B] string indirection.
 
-Files: `scripts/fc_strings.py`, `packs/Fablecraft_BP/scripts/fc_strings.js (generated)`, `packs/Fablecraft_BP/scripts/wd/`, `scripts/gen_ui.py`, `scripts/gen_hud_font.py`, `scripts/gen_emotes.py`.
+Files: `scripts/fc_strings.py`, `packs/Fablecraft_BP/scripts/fc_strings.js (generated)`, `packs/Fablecraft_BP/scripts/wd/`, `scripts/gen_hud_runtime.py`, `scripts/templates/hud_runtime.js`, `scripts/gen_emotes.py`. gen_ui/gen_hud_font own pixel assets, not runtime display prose.
 
 1. Generate fc_strings.js from the same Python table; never maintain a second translation table. Import the accessor in this milestone's handwritten runtime files; locate strings with rg and migrate whole messages including interpolation.
 2. Keep internal IDs, property keys, script events, texture paths and menu_bridge contracts stable. Resolve pack-path leaks through a future packaging map rather than breaking world saves. Add explicit mode tests for every migrated menu/message family.

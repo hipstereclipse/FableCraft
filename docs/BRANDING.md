@@ -27,7 +27,7 @@ the packs, regenerates the 194 data items and `fc_gamedata.js` through gen_behav
 and regenerates the actual `en_US.lang` values through gen_resources. The language
 keys, save/resource IDs, gameplay values and `languages.json` locale list stay stable.
 The generator lore helper also resolves names; handwritten runtime lore follows in L3.
-Emote and HUD generator text follows in L3.3.
+L3.3 also emits the expression registry and template-owned HUD runtime in staging.
 
 `fc_branding.py` owns staged manifest display fields. Header names/descriptions and
 author display names follow the mode; UUIDs, versions, dependencies and script entry
@@ -49,7 +49,8 @@ Use targeted generators and the established behavior regression gate before broa
 L3.1 now emits `fc_strings.js` from the same owner, with strict `name`, `t`, `template` and
 canonical `itemName` accessors. The Hero Menu text and key inventory/map/status
 messages are migrated. L3.2 migrates 95 legacy messages and reads saved place/title labels through explicit
-compatibility lookups; L3.3 owns remaining Will/emote/HUD display text. See
+compatibility lookups; L3.3 migrates logbook, expression and HUD display text; final vocabulary and in-world
+review remain. See
 [RUNTIME_NAMING.md](RUNTIME_NAMING.md) for the manual checklist.
 L4 must scan all archived paths and contents, including escaped/case-varied names,
 internal references and nested archives, with no release exemptions. Stable references

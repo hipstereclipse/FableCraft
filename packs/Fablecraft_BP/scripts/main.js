@@ -3125,7 +3125,7 @@ function heroRadarText(p) {
   const heading = compassPoint(p.getRotation().y);
   const landmark = nearestHudLandmark(p);
   const nav = landmark
-    ? `${heading} · ${landmark.name} · ${landmark.distance}m`
+    ? `${heading} · ${placeName(landmark.name)} · ${landmark.distance}m`
     : `${heading} · ${Math.floor(p.location.x)}, ${Math.floor(p.location.z)}`;
   const seen = heroVisibleToNpc(p);
   const eye = seen ? "§c◉" : "§a—";

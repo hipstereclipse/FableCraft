@@ -142,6 +142,20 @@ class StagedGeneration(unittest.TestCase):
         self.assertIn('Wayfarer Hall', json.dumps(original))
         self.assertNotIn('Jack of Blades', json.dumps(original))
 
+    def test_expression_display_names_preserve_unlocks_and_animation_ids(self):
+        path = 'packs/Fablecraft_BP/config/fable_emotes.json'
+        faithful, original = read_json(self.faithful, path), read_json(self.original, path)
+        self.assertEqual(len(faithful['emotes']), 31)
+        for first, second in zip(faithful['emotes'], original['emotes']):
+            self.assertEqual(first['id'], second['id'])
+            if first['id'] == 'yeron':
+                self.assertEqual(first['name'], 'Yeron')
+                self.assertEqual(second['name'], 'Aren')
+            first.pop('name'); second.pop('name')
+            self.assertEqual(first, second)
+        faithful.pop('emotes'); original.pop('emotes')
+        self.assertEqual(faithful, original)
+
     def test_manifest_identity_and_dependencies_preserved(self):
         for label in ('Fablecraft_BP', 'Fablecraft_RP'):
             relative = f'packs/{label}/manifest.json'

@@ -1,0 +1,11 @@
+✔ Guild defender lookup returns an empty list on an unreadable dimension (1.620797ms)
+✔ Protector alert tolerates a failed entity scan (4.627194ms)
+✔ Guard sweep tolerates failed scans and continues to later players (1.062231ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11.844875

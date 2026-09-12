@@ -1,0 +1,32 @@
+✔ faithful: strict names, single-pass interpolation, stable IDs (81.477267ms)
+(node:65) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ faithful: root labels, mana, alignment and every legacy route (81.823432ms)
+✔ faithful: quick-slot mutation and return to the same hub (83.542536ms)
+✔ faithful: appearance controls and missing bridge fallback (82.988348ms)
+✔ faithful: saved place display and travel preserve canonical names and coordinates (169.084171ms)
+✔ faithful: bounty display retains amounts, timers, jurisdiction and stored record (137.809424ms)
+✔ faithful: earned title labels change without rewriting ownership or selected title (131.829248ms)
+✔ faithful: NPC voice interpolation and local t bindings do not shadow message access (116.895921ms)
+✔ faithful: buy and sell quantity modals use UI 2.0 options and preserve selected amounts (122.835471ms)
+✔ faithful: real logbook preserves old counters and discovery keys (81.468298ms)
+✔ faithful: HUD name translation preserves all 23 payload lines and spacer positions (86.375157ms)
+✔ original: strict names, single-pass interpolation, stable IDs (85.170295ms)
+✔ original: root labels, mana, alignment and every legacy route (78.548318ms)
+✔ original: quick-slot mutation and return to the same hub (79.742734ms)
+✔ original: appearance controls and missing bridge fallback (80.276384ms)
+✔ original: saved place display and travel preserve canonical names and coordinates (131.030499ms)
+✔ original: bounty display retains amounts, timers, jurisdiction and stored record (139.506756ms)
+✔ original: earned title labels change without rewriting ownership or selected title (113.334935ms)
+✔ original: NPC voice interpolation and local t bindings do not shadow message access (116.670564ms)
+✔ original: buy and sell quantity modals use UI 2.0 options and preserve selected amounts (110.806052ms)
+✔ original: real logbook preserves old counters and discovery keys (80.404889ms)
+✔ original: HUD name translation preserves all 23 payload lines and spacer positions (81.400227ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2280.908611
