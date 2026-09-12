@@ -27,6 +27,9 @@ import {
 import {
   createGuildDefenceController, bindGuildDefence, isGuildDefender, provokeGuildDefence,
 } from "./guild_defence.js";
+import {
+  createGuildResidentsController, guildResidentSpawnPoint, GUILD_RESIDENTS_KEY,
+} from "./guild_residents.js";
 import "./wd/main.js";
 import { openHeroMenu as wdOpenHeroMenu } from "./wd/herobook.js";
 import { LEGACY_MENU } from "./wd/menu_bridge.js";
@@ -479,6 +482,7 @@ function buildGuildWhenReady(p, dim, base, attempt) {
     // Persist retry ownership before placing the new Guild. A failed marker
     // write follows this same build retry path, never creating an unowned cave.
     if (!guildCaves.enroll({ x: base.x, y, z: base.z })) throw new Error("Guild cave enrollment unavailable");
+    if (!guildResidents.initialize({ x: base.x, y, z: base.z }, true)) throw new Error("Guild resident enrollment unavailable");
     world.structureManager.place("fc:guild_hall", dim, { x: base.x, y, z: base.z });
   } catch {  // chunk-edge race — retry; the ticking area keeps loading them
     if (attempt < 600) system.runTimeout(() => buildGuildWhenReady(p, dim, base, attempt + 1), 10);
@@ -486,6 +490,9 @@ function buildGuildWhenReady(p, dim, base, attempt) {
   }
   world.setDynamicProperty("fc_guild_placed", true);
   world.setDynamicProperty("fc_guild_base", JSON.stringify({ x: base.x, y, z: base.z }));
+  // Founding and later maintenance share one durable population owner.
+  // Enroll/spawn independently of fallible loot, portal and decoration work.
+  guildResidents.reconcile({ x: base.x, y, z: base.z }, true);
   // New ground plan: you enter from the WEST onto the crimson runner before the
   // Map Room rotunda (local 26,42). Wake at (20,42), facing east to the Map.
   world.setDynamicProperty("fc_guild_loc", JSON.stringify({ x: base.x + GUILD.wake.x, y, z: base.z + GUILD.wake.z }));
@@ -499,35 +506,12 @@ function buildGuildWhenReady(p, dim, base, attempt) {
   const doorLoc = { x: base.x + GUILD.demon.x, y: y + 1, z: base.z + GUILD.demon.z };
   world.setDynamicProperty("fc_guild_door", JSON.stringify(doorLoc));
   ensureGuildDoorPilot(dim, doorLoc, true);
-  // Everything below is decoration: NPCs, the Cullis registration, loot, terrain
+  // Everything below is decoration: the Cullis registration, loot, terrain
   // and the buried Chamber. The Guild is already PLACED above, so none of this is
   // allowed to abort the build — wrap it so a single failure can't matter.
   try {
     // the Cullis Gate beacon core in the Map Room's SW nook (local 15,49)
     registerCullis("Heroes' Guild", { x: base.x + GUILD.cullis.x, y: y + 1, z: base.z + GUILD.cullis.z });
-    // Guildmaster greets arrivals at the Map; Maze keeps his tower study; Theresa
-    // reads in the Library (north); a trader works the Store (south).
-    trySpawn(dim, "fc:guildmaster", { x: base.x + 23, y: y + 1, z: base.z + 42 });
-    trySpawn(dim, "fc:maze", { x: base.x + GUILD.maze.x, y: y + GUILD.maze.studyY, z: base.z + GUILD.maze.z });   // tower floor 3
-    trySpawn(dim, "fc:theresa", { x: base.x + 26, y: y + 1, z: base.z + 23 });
-    // a Trader works the covered cart OUTSIDE the west gate (random wares + a title)
-    trySpawn(dim, "fc:trader", { x: base.x + 5, y: y + 1, z: base.z + 46 });
-    // apprentices at work across the grounds
-    trySpawn(dim, "fc:guild_apprentice_might", { x: base.x + 12, y: y + 1, z: base.z + 42 });
-    trySpawn(dim, "fc:guild_apprentice_might", { x: base.x + GUILD.dueling.x, y: y + 1, z: base.z + GUILD.dueling.z });
-    trySpawn(dim, "fc:guild_apprentice_skill", { x: base.x + GUILD.archery.x, y: y + 1, z: base.z + GUILD.archery.z });
-    trySpawn(dim, "fc:guild_apprentice_skill", { x: base.x + 42, y: y + 1, z: base.z + 40 });
-    trySpawn(dim, "fc:guild_apprentice_will", { x: base.x + 26, y: y + 1, z: base.z + 24 });
-    trySpawn(dim, "fc:guild_apprentice_will", { x: base.x + 16, y: y + 1, z: base.z + 35 });
-    // two watchmen keep the Guild's west entrance and answer violence on the grounds
-    for (const post of [{ x: 10, z: 39 }, { x: 10, z: 45 }]) {
-      const guard = trySpawn(dim, "fc:guard_bowerstone",
-        { x: base.x + post.x, y: y + 1, z: base.z + post.z });
-      try {
-        guard?.addTag("fc_guild_npc");
-        guard?.addTag("fc_guild_guard");
-      } catch { }
-    }
     // suits of armour stand guard at Maze's Tower's two ground entrances
     guardArmour(dim, { x: base.x + 41, y: y + 1, z: base.z + 72 }, { x: base.x + 40, y: y + 1, z: base.z + 72 });
     guardArmour(dim, { x: base.x + 46, y: y + 1, z: base.z + 67 }, { x: base.x + 46, y: y + 1, z: base.z + 66 });
@@ -1160,46 +1144,59 @@ system.runInterval(() => {
 }, 10);
 
 // ---------------------------------------------------------------------------
-// GUILD ROSTER — the Guild's residents are persistent (the distance-despawn was
-// removed in gen_behavior), but this restores any that were lost before that fix
-// or that a build hiccup never spawned. Runs only while a Hero is on the grounds
-// (so a wedded apprentice following the Hero elsewhere is never duplicated), and
-// counts the force-loaded campus, respawning only the shortfall at home posts.
+// Guild residence is a saved identity, independent of proximity and activity.
+// Historical ambiguity reserves a slot; unavailable IDs and death never respawn.
+// Home columns remain coupled to GUILD. Only new births choose nearby clear centres.
 // ---------------------------------------------------------------------------
-const GUILD_ROSTER = [
-  { type: "fc:guildmaster", homes: [{ x: 23, z: 42 }] },
-  { type: "fc:maze", homes: [{ x: GUILD.maze.x, y: GUILD.maze.studyY, z: GUILD.maze.z }] },
-  { type: "fc:theresa", homes: [{ x: 26, z: 23 }] },
-  { type: "fc:trader", homes: [{ x: 5, z: 46 }] },
-  { type: "fc:guard_bowerstone", tag: "fc_guild_guard", homes: [{ x: 10, z: 39 }, { x: 10, z: 45 }] },
-  { type: "fc:guild_apprentice_might", homes: [{ x: 12, z: 42 }, { x: GUILD.dueling.x, z: GUILD.dueling.z }] },
-  { type: "fc:guild_apprentice_skill", homes: [{ x: GUILD.archery.x, z: GUILD.archery.z }, { x: 42, z: 40 }] },
-  { type: "fc:guild_apprentice_will", homes: [{ x: 26, z: 24 }, { x: 16, z: 35 }] },
+const GUILD_RESIDENT_SLOTS = [
+  { id: "guildmaster", type: "fc:guildmaster", home: { x: 23, z: 42 } },
+  { id: "maze", type: "fc:maze", home: { x: GUILD.maze.x, y: GUILD.maze.studyY, z: GUILD.maze.z } },
+  { id: "theresa", type: "fc:theresa", home: { x: 26, z: 23 } },
+  { id: "trader", type: "fc:trader", home: { x: 5, z: 46 } },
+  { id: "guard_north", type: "fc:guard_bowerstone", guard: true, home: { x: 10, z: 39 } },
+  { id: "guard_south", type: "fc:guard_bowerstone", guard: true, home: { x: 10, z: 45 } },
+  { id: "might_hall", type: "fc:guild_apprentice_might", home: { x: 12, z: 42 } },
+  { id: "might_ring", type: "fc:guild_apprentice_might", home: { x: GUILD.dueling.x, z: GUILD.dueling.z } },
+  { id: "skill_range", type: "fc:guild_apprentice_skill", home: { x: GUILD.archery.x, z: GUILD.archery.z } },
+  { id: "skill_hall", type: "fc:guild_apprentice_skill", home: { x: 42, z: 40 } },
+  { id: "will_library", type: "fc:guild_apprentice_will", home: { x: 26, z: 24 } },
+  { id: "will_hall", type: "fc:guild_apprentice_will", home: { x: 16, z: 35 } },
 ];
-system.runInterval(() => {
+function guildResidentCandidates() {
+  const found = new Map(), b = guildBounds();
+  const collect = (dim, location, maxDistance) => {
+    try { for (const e of dim.getEntities({ location, maxDistance, families: ["fc_friendly"] })) found.set(e.id, e); } catch { }
+  };
+  if (b) collect(OW(), { x: b.base.x + 61, y: b.base.y + 1, z: b.base.z + 54 }, 140);
+  for (const p of world.getPlayers()) collect(p.dimension, p.location, 80);
+  return [...found.values()];
+}
+const guildResidents = createGuildResidentsController({
+  slots: GUILD_RESIDENT_SLOTS,
+  read: () => world.getDynamicProperty(GUILD_RESIDENTS_KEY),
+  write: value => world.setDynamicProperty(GUILD_RESIDENTS_KEY, value),
+  lookup: id => world.getEntity(id), candidates: guildResidentCandidates,
+  onCampus: e => isInsideGuild(e.location, e.dimension.id),
+  spawnPoint: (slot, base) => guildResidentSpawnPoint(OW(), {
+    x: base.x + slot.home.x, y: base.y + (slot.home.y ?? 1), z: base.z + slot.home.z,
+  }, slot),
+  spawn: (slot, point) => OW().spawnEntity(slot.type, point),
+});
+function maintainGuildResidents() {
   const b = guildBounds();
   if (!b || !world.getDynamicProperty("fc_guild_placed")) return;
-  if (!world.getPlayers().some((p) => isInsideGuild(p.location, p.dimension.id))) return;
-  const dim = OW();
-  const base = b.base;
-  const centre = { x: base.x + 61, y: base.y + 1, z: base.z + 54 };
-  for (const entry of GUILD_ROSTER) {
-    let present;
-    try {
-      const query = { type: entry.type, location: centre, maxDistance: 140 };
-      if (entry.tag) query.tags = [entry.tag];
-      present = dim.getEntities(query).length;
-    } catch { continue; }
-    for (let i = present; i < entry.homes.length; i++) {
-      const h = entry.homes[i];
-      const e = trySpawn(dim, entry.type, { x: base.x + h.x, y: base.y + (h.y ?? 1), z: base.z + h.z });
-      if (e) {
-        try { e.addTag("fc_guild_npc"); } catch { }
-        try { if (entry.tag) e.addTag(entry.tag); } catch { }
-      }
-    }
-  }
-}, 200);
+  const attended = world.getPlayers().some(p => isInsideGuild(p.location, p.dimension.id));
+  guildResidents.reconcile(b.base, attended);
+}
+system.runInterval(() => maintainGuildResidents(), 200);
+// Observe across dimensions without treating loading/removal as a new birth.
+world.afterEvents.entityLoad.subscribe(ev => { guildResidents.observe(ev.entity); });
+world.afterEvents.entityRemove.subscribe(ev => { guildResidents.removed(ev.removedEntityId); });
+world.afterEvents.entityDie.subscribe(ev => {
+  const b = guildBounds();
+  if (b && world.getDynamicProperty("fc_guild_placed")) guildResidents.initialize(b.base);
+  guildResidents.recordDeath(ev.deadEntity);
+});
 
 // ---------------------------------------------------------------------------
 // Combat multiplier + kill XP + morality + augment effects

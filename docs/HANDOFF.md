@@ -18,10 +18,10 @@ with exploration, reward collection and a reliable portal back to the source.
 This overrides the old instruction to start W3.5 or keep adding unrelated POIs.
 Read docs/GUILD_DEMON_PRIORITIES.md first; it is the active execution queue.
 
-Current checkpoint: GP5 — resumable new cave construction, Chamber access and containment repaired
-Last resolved prior commit: cd6815facd1312f7659fd64296d0f5167ce9b018 (pushed; exact-head CI 34713385082 passed).
-Containing commit: TLC Conformance — GP5: make Guild caves resumable and connect Chamber access.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP5: make Guild caves resumable and connect Chamber access'.
+Current checkpoint: GP6 — persistent resident IDs replace Guild proximity repair
+Last resolved prior commit: f7fb3f97c7932e461bd49336d7dee905ae1e4b47 (pushed; GP5 exact-head CI 34716905752 passed).
+Containing commit: TLC Conformance — GP6: preserve Guild resident identities.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP6: preserve Guild resident identities'.
 Never invent a self-hash. Read the supplemental priority ledger for implementation
 scope, known defects and unrun engine checks.
 
@@ -110,6 +110,20 @@ Cullis6, C2 contract16. Full rendering: 51 mobs,55 items,130 recipes,32 structur
 13 galleries. The initial C2 bulk-placement-only reader failure was fixed and its
 negative owner/manifest fixtures pass; initial logs are retained separately.
 
+GP6 creates twelve durable resident slots with conservative old-world adoption,
+confirmed-death tombstones and persistent native-spawn intent. Bound IDs retain
+ownership through departure, another dimension, removal and failed lookup.
+Extra/conflicting legacy residents are never deleted; unknown missing residents
+and unmarked interrupted spawn intents remain reserved. Spouse/Follow/name/social
+and quest state remain on originals. Only new births search checked same-height
+column centres within two blocks; all 12 pass final-voxel/sequential occupancy.
+Maze remains (46,12,70). No generated BP/RP output or existing location changes.
+Read docs/GUILD_RESIDENTS.md for exact migration/crash limits and manual checks.
+GP6 passes 39 base gates (resident 22/training 18/defence 14/cave 20), ESM syntax for 62 files,
+and full rendering: 51 mobs/55 items/130 recipes/32 structures/13 galleries. Six NPC cards
+remain hash-identical; static Guild diagnostics reuse byte-identical GP5 inputs.
+All loading/Follow/collision/crash tests remain unrun.
+
 The GP/DP priorities are supplemental, tracked separately from C3's original 45
 leaves; do not inflate the old scoreboard or mark these new deliverables done.
 Defer W3.5 and other unrelated expansion while this cycle has actionable work.
@@ -197,13 +211,13 @@ screenshots/validation/W3.3/remote-run.json. Inspect newest workflow's actual he
 All current world rows remain in-progress for manual/reference work, not done.
 
 Next three actions:
-1. Inspect exact-head CI, then complete GP6 persistent resident identity/repair
-   using docs/GUILD_NPC_AUDIT.md and the new cave checkpoint as baseline. A
-   resident leaving the 140-block scan must not license a replacement; preserve
-   original IDs, spouse/Follow state and legacy ambiguity.
-2. Return to Guild/door refinement: review portal integration and original-game
-   views, then fix the highest concrete defect. Keep ordinary story doors and
-   unrelated POI expansion deferred; do not let Guild perfection defer portals.
+1. Inspect exact-head CI. Finish the reproduced Guild portal integration fixes:
+   a visitor must retain its ticket home after a missing world ledger is recreated;
+   unreadable old paid-face history must not permit fresh rewards; fractional
+   return positions must check full standing headroom and select a safe fallback.
+2. Keep Guild/door refinement alternating with original-game reference comparison.
+   Geometry/NPC manual acceptance and conservative legacy cave migration remain
+   open. Do not substitute ordinary riddles for story doors or expand unrelated POIs.
 3. Continue separate milestones with base/domain gates, full renders as applicable,
    evidence, fresh handoff, commit and immediate push. Missing engine access leaves
    checks unrun, never passed. At context limits print this continuation verbatim.

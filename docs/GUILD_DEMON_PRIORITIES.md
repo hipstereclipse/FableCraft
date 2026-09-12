@@ -36,6 +36,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | DP2 | in-progress | First library grove and four in-room collectibles implemented; other designed worlds and direct TLC comparison remain open |
 | GP4 | in-progress | Offender-specific Guild defence and projectile attribution fixed offline; integrated cave lifecycle/route defects reproduced; engine acceptance remains open |
 | GP5 | in-progress | Resumable new cave/Chamber construction, Library threshold, concentric altar steps, water containment and recognized Cullis height correction; legacy geometry preserved; engine acceptance open |
+| GP6 | in-progress | Durable resident identities, conservative legacy adoption and checked new births replace proximity respawn; engine acceptance open |
 
 Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
 defects and manual status here. These passes are not completed legacy leaves.
@@ -321,7 +322,7 @@ followed by coupled threshold/Cullis fixes and persistent resident identity.
 
 ## GP5 — cave lifecycle and Chamber access (2026-09-12)
 
-Commit: SELF: TLC Conformance — GP5: make Guild caves resumable and connect Chamber access.
+Commit: f7fb3f97c7932e461bd49336d7dee905ae1e4b47 (pushed).
 The cave owner now distinguishes new enrolled construction from legacy occupied
 worlds. Durable original-cell snapshots and verified progress support conservative
 retries, with completion recorded only after final geometry verification. Ordinary
@@ -351,3 +352,46 @@ completed 51 mobs, 55 items, 130 recipes, 32 structures and 13 galleries.
 The first base run exposed the outdated bulk-placement-only C2 registration
 reader; its owner/manifest edge and independent negative fixtures are now fixed.
 Initial failed logs are retained. No live engine acceptance was performed.
+
+## GP6 — persistent Guild resident identities (2026-09-12)
+
+Commit: SELF: TLC Conformance — GP6: preserve Guild resident identities.
+Twelve durable slots replace nearby type-count population repair. A spouse or
+other resident leaving with one Hero is not duplicated while another remains
+at the Guild; unavailable IDs, removal and unloading retain ownership. Confirmed
+deaths leave tombstones. Fresh founding persists enrollment before placement,
+and native spawn intent before birth; failed marker/save operations recover
+bookkeeping without another native attempt. Duplicate or inconsistent slot
+claims reserve a persistent conflict rather than authorizing an extra resident.
+
+Legacy adoption records marker/tag/inferred provenance and preserves each
+original entity's spouse, Follow, name, social state and player progress.
+Unmarked generic traders/guards and unknown missing historical residents remain
+unresolved. No resident is deleted, replaced or teleported home; unmarked spawn
+intent after a crash may remain reserved indefinitely. Identity is an adaptation
+with explicit migration limits, not a canonical role/schedule implementation.
+
+New births use checked column centres within two blocks at the authored height,
+with no floor/headroom/furniture repair. Production final-voxel checks find all
+12 safe candidates, including sequential occupancy by prior births. Maze keeps
+its audited home (46,12,70); centre placement fixes its old four-column straddle.
+Adjacent safe births avoid Guildmaster map furniture, guard gate masonry and a
+Skill hall stair. Existing misplaced residents remain unchanged.
+
+Twenty-two focused groups execute the production controller and actual founding,
+maintenance/load/remove/death callbacks, including two Heroes, failed native
+spawns/saves, unload/reload, competing marker claims and corrupt registry data.
+See [GUILD_RESIDENTS.md](GUILD_RESIDENTS.md) and screenshots/validation/GP6/.
+Engine collision/loading, save/crash durability, spouse owner targeting and NPC AI
+timing remain unrun. Named/tutorial staffing, Will-island routines and walking to
+training remain priority work. Next: repair reproduced Guild portal return/history
+integration defects, then continue reference-led Guild/door refinement.
+
+GP6 passes all 39 base gates from `tmp/conformance/GP6-reviewed-snapshot`, including
+22 resident, 18 training, 14 defence and 20 cave groups. Base validation includes
+ESLint and the spell suite; all 62 BP JavaScript files also pass ESM syntax checks.
+The static Guild diagnostics reuse GP5 results with byte-identical dependency
+hashes recorded in additional-results.json. The full screenshot pipeline completed
+51 mobs, 55 items, 130 recipes, 32 structures and 13 galleries. All six representative
+NPC card hashes match GP4; Guildmaster, Maze and Will apprentice were inspected.
+No generated appearance outputs changed and no engine acceptance is claimed.

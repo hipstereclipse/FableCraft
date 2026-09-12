@@ -1,0 +1,15 @@
+{
+  "inspected": [
+    "guildmaster-static-card.png",
+    "maze-static-card.png",
+    "guild_apprentice_will-static-card.png"
+  ],
+  "findings": "Static cards preserve prior models/materials, with six representative hashes matching GP4. No visual asset changed. Cards cannot show resident identity, Follow ownership, native collision, loading or AI; all engine checks remain unrun.",
+  "pipeline": {
+    "gallery": 13,
+    "items": 55,
+    "mobs": 51,
+    "recipes": 130,
+    "structures": 32
+  }
+}

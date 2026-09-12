@@ -1,0 +1,327 @@
+{
+  "milestone": "GP6",
+  "date": "2026-09-12",
+  "kind": "offline_production_controller_callbacks_and_generated_voxels",
+  "engine": {
+    "status": "unrun",
+    "claims": [
+      "No engine AI, native collision, chunk loading, save durability or original-game fidelity acceptance is inferred from these tests."
+    ]
+  },
+  "command": "node --experimental-vm-modules scripts/tests/guild_residents.test.mjs",
+  "log": "screenshots/validation/GP6/resident-tests.log",
+  "result": {
+    "tests": 22,
+    "passed": 22,
+    "failed": 0,
+    "test_names": [
+      "fresh 12-slot population persists intent before each single birth and survives reload",
+      "two-player departure, dimension change, unavailable lookup and return retain exact resident IDs",
+      "loaded ID outside every candidate scan still restores only identity metadata",
+      "confirmed death leaves a durable tombstone, including failed save and a late removal",
+      "legacy empty or partially observed worlds never synthesize missing historical residents",
+      "foreign generic trader and town guard cannot suppress or occupy a fresh or legacy slot",
+      "legacy Guild tags enroll departed generic spouses without touching relationship or Follow state",
+      "unique unmarked named/apprentice campus candidates migrate; excess cohorts remain untouched",
+      "definitive slot markers take precedence and duplicate claims never remove or reassign an entity",
+      "fresh duplicate slot claims persist a conflict and never create a third resident after reload",
+      "one entity cannot use inconsistent metadata to occupy a second fresh slot",
+      "initialization and pre-spawn persistence failures perform no native spawn until saved",
+      "native spawn exception or missing return handle permanently reserves its intent",
+      "a write that persists intent then throws cannot authorize a birth after reload",
+      "post-spawn marker and registry failures retain the original ID without another birth",
+      "reload after native birth recovers its marker or keeps an unmarked intent reserved",
+      "identity-tag failure retries bookkeeping and never emits activity events",
+      "corrupt registries, duplicate IDs, unsupported schema and base mismatch fail closed",
+      "unloaded/blocked spawn preflight remains retryable before native spawn only",
+      "generated Guild gives all 12 homes bounded supported birth centres covering emitted colliders",
+      "production preflight refuses missing floors, unknown blocks, headroom, entities and failed scans",
+      "actual population enrollment precedes decoration; maintenance and death/load/remove callbacks preserve identity"
+    ]
+  },
+  "source_sha256": {
+    "packs/Fablecraft_BP/scripts/main.js": "ebd968a23148370318899cfc5d0abff6c6c4351f0764ed32a31cb9ecfdf214ee",
+    "packs/Fablecraft_BP/scripts/guild_residents.js": "48ac59a020c39853fb8dbceed16b60fcc826787b3b9bb3cdc904f86f68c6e739",
+    "scripts/tests/guild_residents.test.mjs": "b785d1861b64eca3b3b2bed5386bf6e1bc710eb952e8207ed62f1716bf7d7277",
+    "scripts/gen_structures.py": "14e23ab4971798b22ba5299f73aa7aed54d968e8331d66f62f61de30427eb53c",
+    "packs/Fablecraft_BP/manifest.json": "c9d758b649d7f7a40d42857e845120c53b0bfa57f6bda02773c2e6879b9ac249",
+    "packs/Fablecraft_BP/entities/guildmaster.json": "19be9dc5a49dc490ba0fa4a146c7b9d76a7aa637ee6ec516d1daf878071c0b3c",
+    "packs/Fablecraft_BP/entities/maze.json": "5dcb77716d0a93dc6514282203b3eddea4e1432013b67d954e01681bf14ada0f",
+    "packs/Fablecraft_BP/entities/theresa.json": "14d462b0a16ad6e0b7445abf235d1c82c0b0df7a9120bbb441eedac1f5b29f03",
+    "packs/Fablecraft_BP/entities/trader.json": "65347415c5afd26f15873d7d239d28a7a158b4ea0a0e54535b49917e3687ed6a",
+    "packs/Fablecraft_BP/entities/guard_bowerstone.json": "714985fa0b74994877b6738d47227708ec222c6432f7b980db688a97cb71099c",
+    "packs/Fablecraft_BP/entities/guild_apprentice_might.json": "060c9104064d2584e6c63ba0f0024a76c543110bc24d09f6eb6266033b8e948a",
+    "packs/Fablecraft_BP/entities/guild_apprentice_skill.json": "1dc3472698de2d6387db488bd9c41dc7b1a21c39a7c624c402985c22542ffbf8",
+    "packs/Fablecraft_BP/entities/guild_apprentice_will.json": "4d6b50b6511e01da2b2bdf93c883c1b0f98a74f9d70e58896019fb9183c1d93a"
+  },
+  "registry": {
+    "world_property": "fc_guild_residents_v1",
+    "entity_property": "fc_guild_resident_slot",
+    "schema": 1,
+    "slot_count": 12,
+    "states": [
+      "never",
+      "unknown",
+      "spawning",
+      "conflict",
+      "bound",
+      "dead"
+    ]
+  },
+  "measurement": {
+    "method": "The real guildResidentSpawnPoint reads cells from gen_structures.build_guild_hall; collider sizes are read from the eight emitted BP resident definitions.",
+    "coordinate_space": "Local to fc_guild_base; authored y defaults to 1.",
+    "independent_entities": "No nearby entities returned by occupancy query.",
+    "sequential_entities": "Earlier birth centers are returned by the real two-block-radius occupancy query in production roster order.",
+    "max_horizontal_offset_from_home_column_center": 2,
+    "preserved_authored_y": true,
+    "births": [
+      {
+        "slot": "guildmaster",
+        "type": "fc:guildmaster",
+        "authored_home": {
+          "x": 23,
+          "y": 1,
+          "z": 42
+        },
+        "independent_clear_center": {
+          "x": 22.5,
+          "y": 1,
+          "z": 41.5
+        },
+        "sequential_clear_center": {
+          "x": 22.5,
+          "y": 1,
+          "z": 41.5
+        }
+      },
+      {
+        "slot": "maze",
+        "type": "fc:maze",
+        "authored_home": {
+          "x": 46,
+          "y": 12,
+          "z": 70
+        },
+        "independent_clear_center": {
+          "x": 46.5,
+          "y": 12,
+          "z": 70.5
+        },
+        "sequential_clear_center": {
+          "x": 46.5,
+          "y": 12,
+          "z": 70.5
+        }
+      },
+      {
+        "slot": "theresa",
+        "type": "fc:theresa",
+        "authored_home": {
+          "x": 26,
+          "y": 1,
+          "z": 23
+        },
+        "independent_clear_center": {
+          "x": 26.5,
+          "y": 1,
+          "z": 23.5
+        },
+        "sequential_clear_center": {
+          "x": 26.5,
+          "y": 1,
+          "z": 23.5
+        }
+      },
+      {
+        "slot": "trader",
+        "type": "fc:trader",
+        "authored_home": {
+          "x": 5,
+          "y": 1,
+          "z": 46
+        },
+        "independent_clear_center": {
+          "x": 5.5,
+          "y": 1,
+          "z": 46.5
+        },
+        "sequential_clear_center": {
+          "x": 5.5,
+          "y": 1,
+          "z": 46.5
+        }
+      },
+      {
+        "slot": "guard_north",
+        "type": "fc:guard_bowerstone",
+        "authored_home": {
+          "x": 10,
+          "y": 1,
+          "z": 39
+        },
+        "independent_clear_center": {
+          "x": 11.5,
+          "y": 1,
+          "z": 39.5
+        },
+        "sequential_clear_center": {
+          "x": 11.5,
+          "y": 1,
+          "z": 39.5
+        }
+      },
+      {
+        "slot": "guard_south",
+        "type": "fc:guard_bowerstone",
+        "authored_home": {
+          "x": 10,
+          "y": 1,
+          "z": 45
+        },
+        "independent_clear_center": {
+          "x": 11.5,
+          "y": 1,
+          "z": 45.5
+        },
+        "sequential_clear_center": {
+          "x": 11.5,
+          "y": 1,
+          "z": 45.5
+        }
+      },
+      {
+        "slot": "might_hall",
+        "type": "fc:guild_apprentice_might",
+        "authored_home": {
+          "x": 12,
+          "y": 1,
+          "z": 42
+        },
+        "independent_clear_center": {
+          "x": 12.5,
+          "y": 1,
+          "z": 42.5
+        },
+        "sequential_clear_center": {
+          "x": 12.5,
+          "y": 1,
+          "z": 42.5
+        }
+      },
+      {
+        "slot": "might_ring",
+        "type": "fc:guild_apprentice_might",
+        "authored_home": {
+          "x": 101,
+          "y": 1,
+          "z": 61
+        },
+        "independent_clear_center": {
+          "x": 101.5,
+          "y": 1,
+          "z": 61.5
+        },
+        "sequential_clear_center": {
+          "x": 101.5,
+          "y": 1,
+          "z": 61.5
+        }
+      },
+      {
+        "slot": "skill_range",
+        "type": "fc:guild_apprentice_skill",
+        "authored_home": {
+          "x": 86,
+          "y": 1,
+          "z": 39
+        },
+        "independent_clear_center": {
+          "x": 86.5,
+          "y": 1,
+          "z": 39.5
+        },
+        "sequential_clear_center": {
+          "x": 86.5,
+          "y": 1,
+          "z": 39.5
+        }
+      },
+      {
+        "slot": "skill_hall",
+        "type": "fc:guild_apprentice_skill",
+        "authored_home": {
+          "x": 42,
+          "y": 1,
+          "z": 40
+        },
+        "independent_clear_center": {
+          "x": 41.5,
+          "y": 1,
+          "z": 40.5
+        },
+        "sequential_clear_center": {
+          "x": 41.5,
+          "y": 1,
+          "z": 40.5
+        }
+      },
+      {
+        "slot": "will_library",
+        "type": "fc:guild_apprentice_will",
+        "authored_home": {
+          "x": 26,
+          "y": 1,
+          "z": 24
+        },
+        "independent_clear_center": {
+          "x": 26.5,
+          "y": 1,
+          "z": 24.5
+        },
+        "sequential_clear_center": {
+          "x": 25.5,
+          "y": 1,
+          "z": 25.5
+        }
+      },
+      {
+        "slot": "will_hall",
+        "type": "fc:guild_apprentice_will",
+        "authored_home": {
+          "x": 16,
+          "y": 1,
+          "z": 35
+        },
+        "independent_clear_center": {
+          "x": 16.5,
+          "y": 1,
+          "z": 35.5
+        },
+        "sequential_clear_center": {
+          "x": 16.5,
+          "y": 1,
+          "z": 35.5
+        }
+      }
+    ]
+  },
+  "observed_cross_checks": {
+    "guild_training_groups": 18,
+    "guild_defence_groups": 14,
+    "guild_caves_groups": 19,
+    "passed": true,
+    "lint_errors": 0,
+    "inherited_main_lint_warnings": 19
+  },
+  "limitations": [
+    "Unknown historical slots never automatically receive replacement residents; unmarked generic traders and guards cannot be identified by proximity.",
+    "Named/apprentice legacy adoption is an inference from current loaded campus observations; provenance cannot reconstruct all old duplicates or summoned residents.",
+    "Duplicate claims never remove existing entities; a later single definitive marker can bind an existing claimant without proving others no longer exist.",
+    "A native spawn exception or a restart with only unmarked saved intent can leave a slot reserved indefinitely.",
+    "There is no atomic Bedrock transaction spanning native birth, entity marker writes and world registry persistence.",
+    "Safe birth offset and occupancy refusal are Minecraft adaptations; no existing resident moves and no floor, furniture or headroom is repaired.",
+    "Follow owner targeting, Wait random strolling, canonical staff/tutorial roles and in-engine acceptance remain separate open work."
+  ],
+  "source_hash_refresh": "Hashes refreshed from GP6 reviewed-index snapshot after final GP5 integration; full39gate run includes22resident groups."
+}

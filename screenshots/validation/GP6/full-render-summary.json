@@ -1,0 +1,53 @@
+{
+  "command": "python -u tmp/conformance/render-GP6-full.py; gen_screenshots.main() with fc_lib.SHOTS redirected before import",
+  "output": "tmp/conformance/GP6-full-screenshots",
+  "exit_code": 0,
+  "elapsed_seconds": 191.66,
+  "png_counts": {
+    "gallery": 13,
+    "items": 55,
+    "mobs": 51,
+    "recipes": 130,
+    "structures": 32
+  },
+  "render_owner_sha256": {
+    "scripts/gen_screenshots.py": "38a8994631baa7e5f0ee6cce3560ac173d92a44b927869dbc871af43e650c0bb",
+    "scripts/gen_structures.py": "14e23ab4971798b22ba5299f73aa7aed54d968e8331d66f62f61de30427eb53c",
+    "scripts/fc_mobs.py": "1362348c3df1db9ca4b3e47f5fc31ca1170dda976ed9fc137b12c5861ed059c4",
+    "scripts/fc_data.py": "81ec9a420bdbb01782ba9c00c21efc65bd78ac6f2e52fc5349af14528b6c10c7",
+    "scripts/fc_lib.py": "59753116ed20321b443138b0f3ef872bcac5ded9273964ed607a5a2ea804dec0"
+  },
+  "scope": "Full all-category offline pipeline from current workspace owner files; C2 separately covers all 35 structures. No engine execution.",
+  "representative_cards": [
+    {
+      "file": "screenshots/validation/GP6/guildmaster-static-card.png",
+      "sha256": "d47446be216fdc6c693b46a8675f9d29bd0a6306a567b4dfc64a9262957a4066",
+      "same_as_GP4_static_card": true
+    },
+    {
+      "file": "screenshots/validation/GP6/maze-static-card.png",
+      "sha256": "c305752ba491fa20a9214b519583b479e74b68af55015e1e99ba8dbf86fb8bef",
+      "same_as_GP4_static_card": true
+    },
+    {
+      "file": "screenshots/validation/GP6/guard_bowerstone-static-card.png",
+      "sha256": "2f53245af6542ed000455cb3c6a458e77d58ebd222e695fad4a53d235cafe7fc",
+      "same_as_GP4_static_card": true
+    },
+    {
+      "file": "screenshots/validation/GP6/guild_apprentice_might-static-card.png",
+      "sha256": "cc419c2e334627f6b4880e47f7a2fad7060846d307f8e8103b29d1e44ab2a394",
+      "same_as_GP4_static_card": true
+    },
+    {
+      "file": "screenshots/validation/GP6/guild_apprentice_skill-static-card.png",
+      "sha256": "941a203391cfb60febed732bfb914175da90e9ab612d240d7348246f2262a07e",
+      "same_as_GP4_static_card": true
+    },
+    {
+      "file": "screenshots/validation/GP6/guild_apprentice_will-static-card.png",
+      "sha256": "f9f5241caeb16e842b7724cb120f4c18e8ddba35e054e135a1916c2582cd9e2f",
+      "same_as_GP4_static_card": true
+    }
+  ]
+}
