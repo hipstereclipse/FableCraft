@@ -10,37 +10,40 @@ six reference snapshots are in docs/. User override (2026-09-12): finish the spe
 and continue as far as practical without permission questions. Retain separate
 milestone commits, validation, immediate pushes, evidence and fresh handoffs.
 
-Current milestone: C3 — generate reproducible progress scores; status done.
-Last resolved prior commit: b3a1a45 (pushed before this milestone).
-Containing commit: TLC Conformance — C3: generate reproducible progress scores.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — C3: generate reproducible progress scores'.
+Current milestone: W1.1 — replace the Cullis gate proxy with a stone disc; status in-progress.
+Last resolved prior commit: 05707d4 (pushed before this milestone).
+Containing commit: TLC Conformance — W1.1: replace the Cullis gate proxy with a stone disc.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — W1.1: replace the Cullis gate proxy with a stone disc'.
 Replace previous SELF evidence with the actual hash next step; never invent a self-hash.
 
-C3 implements the deterministic 45-leaf scoreboard in the marked checklist section.
-Run python scripts/conformance_score.py --write after any row update, then --check.
-CI now runs fifteen command gates, including ten scoreboard regression groups.
-Missing/duplicate IDs, invalid statuses, missing evidence paths, stale generated text
-and pending grades incorrectly marked done fail. Manual prose is preserved. Appearance
-histograms use the current C2 audit and are not canon grades. docs/SCORING.md records
-scope; screenshots/validation/C3/ records actual validation. C3 is done.
+W1.1 now generates a weathered circular stone disc with blue inlay, a flush sea-lantern
+core and eight carved runestones. fc:focus_site, its13x10x13 footprint and travel
+registration stay unchanged; arrival is local(6,1,6). Existing-world blocks are not
+retrofit. Five geometry/detector regression groups pass, including the actual runtime
+portal detector on emitted voxel data; the old owner fails the new geometry tests.
+C2 render/source hashes and audit were regenerated. docs/CULLIS_GATE.md has feature
+coordinates, routes, provenance and manual checks. W1.1 stays in-progress for in-world
+placement/travel and verified original2005 screenshot comparison; no canon-A claim.
 
-C2 remote CI passed at b3a1a45 (run34678157199); metadata is in validation/C2/remote-run.json.
-C2 links29 assets/renders and runtime placement roles, fixes four rectangular placement
-bounds and the stale27-block Guild asset, and moves Maze from the solid tower column
-to clear study floor (46,12,70). Its manual placement/interaction checklist remains
-pending in docs/STRUCTURE_CONTRACT.md. Inspect the latest pushed workflow for its
-actual head before beginning the next milestone; previous success is not current proof.
+The full all-category screenshot pass runs in isolated tmp/conformance/W1.1-full-screenshots;
+its log/audit and current card are retained in screenshots/validation/W1.1. Base validation
+uses scripts/validate.py (now16 gates). C3's scoreboard requires --write after EVERY
+checklist change: python scripts/conformance_score.py --write, then --check. It tracks
+45 plan leaves, explicit automated/manual counts and offline appearance grades separately.
 
-C1/L4 remote CI also passed. L4 release remains blocked by2,512 original-preview naming
-findings, unselected final public title (Wayfarer Tales provisional), and missing save
-compatibility remap. Do not exempt identifiers/paths/comments/legacy lookup keys.
-0.3/L3 and spell in-world checks remain pending; HUD defects are still narrow green
-radar, missing hunger frame and nav bleed. W1.1 can proceed independently: the existing
-focus_site remains a purple monolith/crystal proxy, and its target is a weathered round
-stone disc with blue glow while retaining fc:focus_site and travel registration.
+C3 remote CI passed at05707d4 (run34678394054); metadata is in screenshots/validation/C3/remote-run.json.
+C2/C1/L4 CI also passed at their recorded commits. Inspect the newest pushed run for its
+actual head before the next milestone. C2 fixes four rectangular POI bounds, the stale
+27-block Guild asset and Maze's blocked tower spawn (now46,12,70). Its manual checklist
+is still pending in docs/STRUCTURE_CONTRACT.md. No Guild tiling was applied.
+
+L4 releases remain blocked: original preview2,512 known-name findings, unselected final
+public title (Wayfarer Tales provisional), and missing saved-world remap. No exemptions.
+0.3/L3 and spell in-world checks remain pending. HUD still has narrow green radar,
+missing hunger frame and nav bleed. Keep these visible rather than scoring them passed.
 
 Next three actions:
-1. git pull --ff-only; read the top pending row and start W1.1 Cullis gate.
+1. git pull --ff-only; read the top pending row and start W1.2 Lychfield crypt.
 2. Execute its numbered playbook steps and applicable base/domain validators; preserve
    real output under screenshots/validation/<ID>/, mark manual observations unrun.
 3. Update checklist/handoff in one explicitly staged milestone commit, push to origin,

@@ -1,0 +1,11 @@
+{
+  "output": "tmp/conformance/W1.1-full-screenshots",
+  "png_counts": {
+    "gallery": 13,
+    "items": 55,
+    "mobs": 51,
+    "recipes": 130,
+    "structures": 26
+  },
+  "scope": "Full existing all-category pipeline; separate C2 renderer covers all29 structures including3 previously omitted annexes."
+}

@@ -1035,7 +1035,7 @@ def main():
         "knothole_glade": ("Knothole Glade", "Hidden timber village in Witchwood", "forest"),
         "hook_coast": ("Hook Coast", "Snowy port, lighthouse and abbey ruin", "frost"),
         "silver_chest_ruin": ("Silver Key Ruin", "Hidden silver chest dais", "forest"),
-        "focus_site": ("Focus Site", "Septimal Key attunement circle", "dark"),
+        "focus_site": ("Cullis Gate", "Weathered stone disc · blue inlay · travel lattice", "stone"),
         "power_guild_courtyard": ("Guild Courtyard", "Chalk stream · bridges · Will island", "holy"),
         "power_oakvale_quay": ("Oakvale Quay", "Village green, tree, well and coast", "forest"),
         "power_snowspire_oracle": ("Snowspire Oracle", "Frozen lane to the Oracle monolith", "frost"),

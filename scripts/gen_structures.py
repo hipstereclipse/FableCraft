@@ -2532,38 +2532,40 @@ def silver_chest_ruin():
 
 
 def focus_site():
-    """Focus Site: concentric obsidian rings, four rune monoliths chained in
-    light, and a levitating crystal above the focus dais."""
+    """Cullis gate: weathered circular stone disc with blue inlay and a flush core.
+
+    [B] Preserve the 13x10x13 saved footprint and local arrival (6,1,6).
+    The floor stays at y0 so existing travel registration never puts feet in a block.
+    """
     v = Vox(13, 10, 13)
     r = rng("struct", "focus")
     c = 6
+    # A low, legible circular rim; saturated blue is reserved for the magic signal.
     for x in range(13):
         for z in range(13):
-            d = math.hypot(x - c, z - c)
-            if d <= 5.6:
-                if d <= 1.2:
-                    v.set(x, 0, z, OBSIDIAN)
-                elif 2.4 < d <= 3.2:
-                    v.set(x, 0, z, "minecraft:crying_obsidian" if (x + z) % 2 else OBSIDIAN)
-                elif 4.6 < d <= 5.6:
-                    v.set(x, 0, z, CHISELED if (x + z) % 2 else STONE)
+            distance = math.hypot(x - c, z - c)
+            if distance <= 5.6:
+                if distance > 4.6:
+                    material = r.choice([STONE, STONE, MOSSY, CRACK, CHISELED])
+                elif 3.3 < distance <= 4.2:
+                    material = "minecraft:blue_glazed_terracotta"
                 else:
-                    v.set(x, 0, z, DEEP_TILES if (x + z) % 3 else STONE)
-    # four rune monoliths with glow caps
-    for cx, cz in ((1, c), (11, c), (c, 1), (c, 11)):
-        for y in range(1, 5):
-            v.set(cx, y, cz, OBSIDIAN if y < 3 else "minecraft:crying_obsidian")
-        v.set(cx, 5, cz, "minecraft:sea_lantern")
-        v.set(cx, 6, cz, "minecraft:end_rod")
-    # candle ring
-    for ang in range(0, 360, 45):
-        x = c + round(math.cos(math.radians(ang)) * 4)
-        z = c + round(math.sin(math.radians(ang)) * 4)
-        v.set(x, 1, z, CANDLE, {"lit": True, "candles": 1 + ang % 3})
-    # central dais + levitating crystal
-    v.set(c, 1, c, "minecraft:beacon")
-    v.set(c, 4, c, "minecraft:amethyst_block")
-    v.set(c, 5, c, "minecraft:amethyst_cluster")
+                    material = r.choice([STONE, STONE, CRACK, DEEP_TILES])
+                v.set(x, 0, z, material)
+    # Four worn approach strips, each three blocks wide and level with the disc.
+    for offset in (-1, 0, 1):
+        for edge in (0, 1, 11, 12):
+            v.set(c + offset, 0, edge, MCOBBLE if offset else CHISELED)
+            v.set(edge, 0, c + offset, MCOBBLE if offset else CHISELED)
+    # These eight runestones satisfy the existing isCullisConfigured detector.
+    for dx, dz in ((2, 0), (-2, 0), (0, 2), (0, -2), (3, 0), (-3, 0), (0, 3), (0, -3)):
+        v.set(c + dx, 0, c + dz, CHISELED)
+    v.set(c, 0, c, "minecraft:sea_lantern")
+    # Blue-white sparks are emitted by the existing bounded runtime Cullis loop.
+    # Small broken rim stones frame the disc without blocking a cardinal approach.
+    for x, z in ((2, 2), (10, 2), (2, 10), (10, 10)):
+        v.set(x, 0, z, MCOBBLE)
+        v.set(x, 1, z, "minecraft:mossy_stone_brick_slab")
     v.save("focus_site")
 
 

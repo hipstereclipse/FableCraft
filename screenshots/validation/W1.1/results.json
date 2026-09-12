@@ -1,0 +1,124 @@
+{
+  "python": "3.14.7",
+  "platform": "Linux-7.1.8-1-cachyos-x86_64-with-glibc2.44",
+  "checks": {
+    "build": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/build_addon.py"
+      ],
+      "exit_code": 0
+    },
+    "lint": {
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "exit_code": 0
+    },
+    "expressions": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/verify_emotes.py"
+      ],
+      "exit_code": 0
+    },
+    "animations": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/_audit_anims.py"
+      ],
+      "exit_code": 0
+    },
+    "hud": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/audit_hud.py",
+        "--check"
+      ],
+      "exit_code": 0
+    },
+    "behavior-tests": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/tests/test_gen_behavior.py"
+      ],
+      "exit_code": 0
+    },
+    "animation-tests": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/tests/test_animation_audit.py"
+      ],
+      "exit_code": 0
+    },
+    "branding-tests": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/tests/test_branding.py"
+      ],
+      "exit_code": 0
+    },
+    "branding-scan-tests": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/tests/test_branding_scan.py"
+      ],
+      "exit_code": 0
+    },
+    "structure-tests": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/tests/test_structure_manifest.py"
+      ],
+      "exit_code": 0
+    },
+    "structure-placement-tests": {
+      "command": [
+        "node",
+        "scripts/tests/structure_placement.test.cjs"
+      ],
+      "exit_code": 0
+    },
+    "cullis-tests": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/tests/test_cullis_gate.py"
+      ],
+      "exit_code": 0
+    },
+    "scoreboard-tests": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/tests/test_conformance_score.py"
+      ],
+      "exit_code": 0
+    },
+    "scoreboard": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/conformance_score.py",
+        "--check"
+      ],
+      "exit_code": 0
+    },
+    "runtime-tests": {
+      "command": [
+        "npm",
+        "test"
+      ],
+      "exit_code": 0
+    },
+    "original-preview": {
+      "command": [
+        "/usr/bin/python",
+        "scripts/build_addon.py",
+        "--branding",
+        "original",
+        "--preview"
+      ],
+      "exit_code": 0
+    }
+  }
+}

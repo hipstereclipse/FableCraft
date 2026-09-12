@@ -362,6 +362,8 @@ Files: `scripts/gen_structures.py`, `packs/Fablecraft_BP/scripts/main.js`, `scri
 
 Acceptance: Cullis gate landmarks visible; emitted footprint matches runtime; no missing palette entries or broken interaction anchors; render and AUDIT row agree. In-world placement/walk-through pending until checked.
 
+2026-09-12 checkpoint: owner now emits a weathered disc/blue inlay at the existing ID and footprint. Five geometry/detector regression groups pass; old owner fails the new clearance/palette expectations. Dedicated structure provenance and full screenshot evidence are retained. See docs/CULLIS_GATE.md; verified original-TLC screenshot comparison and in-world walk-through remain pending.
+
 ### W1.2 — Lychfield crypt
 
 References: [C] architecture.md: Lychfield; FullWorld §9; [G] visual_reference.md: Core Look; [B] scatter adaptation.

@@ -154,20 +154,20 @@
       "notes": []
     },
     "focus_site": {
-      "asset_sha256": "b2778853354068f3d34adfd58609c36e4788af6a4e3fc32d1357bebe7d1067bd",
+      "asset_sha256": "5bfc25f0b6144da8cab0c6d5a52c34eef15b6d5254c34f5e723a8336adfcbeba",
       "size": [
         13,
         10,
         13
       ],
-      "image_sha256": "7447b18f501e253b830e2d7f029ce8a55f255fd300f63c774dba915b3d33018e",
+      "image_sha256": "a4dc576af4a9a013420448a1d7410bce4a510e47b90c84f18caaedba22c36d05",
       "grade": "S",
       "score": 100,
       "metrics": {
-        "coverage": 24.0,
-        "colors": 23,
-        "contrast": 0.94,
-        "brightness": 0.48,
+        "coverage": 18.0,
+        "colors": 16,
+        "contrast": 0.74,
+        "brightness": 0.44,
         "placeholder": false
       },
       "notes": []
