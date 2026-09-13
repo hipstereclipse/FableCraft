@@ -62,6 +62,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | GP22 | in-progress | Separate shallow scenic mountain/tower cutouts add depth to the range while preserving targets, complete routes and actual Skill rays; native acceptance open |
 | DP10 | in-progress | Pinned Arboretum preparation history, successful placement/seed receipts and fresh live-chest verification prevent stale or ambiguous effects; native acceptance open |
 | GP23 | in-progress | Taller lamps on the eight existing bridge posts improve the reference-led silhouette while preserving decks, approaches and checked routes; native acceptance open |
+| GP24 | in-progress | Separate dining seats replace continuous rows within the existing furniture footprint; native acceptance open |
 
 Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
 defects and manual status here. These passes are not completed legacy leaves.
@@ -1337,7 +1338,7 @@ Third-family source/room/challenge/guard integration remains proposed.
 
 ## GP23 — taller Guild bridge lamps (2026-09-13)
 
-Commit: SELF: TLC Conformance — GP23: raise the Guild bridge lamps.
+Commit: 4aed7cff4bdb6cecc706e2c4711067cab648d530. Pushed; exact-head CI 34771480199 passed.
 Original TLC view131726186 shows a long dark lamp post beside the capped bridge
 end. The eight existing lamp heads rise one block on extended dark-oak posts:
 x58/68,z35/37/53/55,y2 lantern becomes fence and y3 gains the same lantern state.
@@ -1380,3 +1381,68 @@ Next bounded furniture comparison: GP23/dining-followup.* finds continuous seat
 rows beside the long table. An ignored twelve-seat removal prototype preserves
 all previous walk/reachable nodes and checked routes; original count, red round
 stool form and full twin dining stairs remain unresolved. No GP24 is authored.
+
+
+## GP24 — separate Guild dining seats (2026-09-13)
+
+Commit: SELF: TLC Conformance — GP24: separate the Guild dining seats.
+Original TLC dining views 343658414 and 236178734 show separate stools around
+long tables. The dining owner now retains alternate seats within the current
+rows. Twelve former seat cells change: eight become air and four receive the
+existing carpet runner. Exact count, spacing and surviving stair shape are
+Minecraft adaptations. Full red stool forms, table dressing and twin internal
+stairs remain unresolved. See [GUILD_DINING_SEATS.md](GUILD_DINING_SEATS.md).
+All 56 base gates and 65 ESM syntax checks pass in the isolated reviewed-index
+snapshot. Behavior regression passed before Guild-only regeneration. Only Guild
+changes among 1,663 worktree pack files; all nine protected unrelated files stay
+exact. Actual GP23/current generators reproduce their respective serialized
+assets. Exactly twelve cells change, with all other 395,268 cells, palette/state,
+metadata/layers, RNG, layout, anchors and 678 Maze reservations preserved.
+
+All prior walking and reachable nodes remain: 13,806→13,818 walking nodes and
+10,597→10,609 gate-reachable nodes. Seven complete selected gate paths retain
+identical coordinates, and eight existing local routes pass. Independent body
+checks cover six dining aisles and twelve new gap crossings in both directions,
+with radius 0.4 and height 2.1 covering the eight current resident entity types.
+They model carpet at 1/16 block and use explicit raise/translate/lower segments,
+with a separate complete footprint-support interval survey. Four negative
+fixtures detect blocked gaps, low headroom and missing support. Native carpet
+step dynamics and actor navigation remain unrun.
+
+The actual resident spawn helper preserves all twelve default spawn choices,
+including Skill hall at (41.5,1,40.5), and all prior candidates remain available.
+A removed seat adds one possible future Skill birth candidate at (42.5,1,39.5)
+when earlier choices are unavailable or occupied. The new carpet at (42,1,41)
+remains rejected as non-air. Forty-eight unavailable block/occupancy probes
+refuse births. No resident is spawned or moved by this offline review, and no
+runtime or saved identity behavior changes. Actual Skill ray/shot/arrival
+harness outputs remain identical.
+
+Fresh 36-asset C2, all 282 full-render PNGs, seven Guild documentation scenes
+and three diagnostics pass. Only Guild's asset hash changes in C2 evidence;
+all 36 C2 images, 282 full PNGs and seven documentation images remain exact.
+Root inspected both cards, the gallery, both wide Guild views and four focused
+decoded before/after views. Two independent plan views expose the room footprint.
+The wide cameras hide this interior change; focused views supply the visual
+comparison. GP24 is the next asset/documentation baseline.
+
+The author helper initially assumed a uniform ceiling at y7; two existing
+supports have underside y6. That assertion was corrected without production
+changes and the original failure remains. Its initial report also duplicated a
+JSON key, hiding the candidate-node count; original report/helper/output and the
+corrected explicit counts are retained. Portable and missing-reference runs
+pass without changing source, asset or viewed pixels. Exact raw lint output is
+retained in JSON; its readable log removes only an extra terminal newline.
+No base gate failed. See the original logs and correction notes under GP24.
+
+Native acceptance remains unrun; the legacy scoreboard stays 45 leaves and 7 done.
+The next-door follow-up specifies a separate third-family owner, proposed disjoint
+grid/keys and complete integration matrix. Strict numeric multiplier reads alone
+do not prove active combat freshness after reload. No third world is implemented.
+
+The bounded next-door reference follow-up directly verifies one installed
+Lightning augmentation on Cutlass Bluetane against original guide PDF110/108.
+Two modestly larger weapon/exterior mirror images remain provisional because
+capture provenance is unknown. No new larger verified Butterfly House interior
+was found; the accepted corpus remains 37. Exact links, hashes and retrieval
+failures are in GP24/next-door-reference-manifest.json. External pixels stay ignored.

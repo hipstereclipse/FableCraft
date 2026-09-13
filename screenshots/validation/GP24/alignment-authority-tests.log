@@ -1,0 +1,16 @@
+✔ reads exact current alignment without changing unrelated history or legacy mirrors (21.18658ms)
+✔ missing, malformed and unsupported history never initializes or migrates authority (39.168898ms)
+✔ missing or invalid alignment is never clamped, rounded or inherited from full-evil legacy state (22.650561ms)
+✔ invalid/nonplayer/missing handles refuse before reading saved history (2.733873ms)
+✔ unreadable persistence defers and each subsequent call obtains fresh state (2.767988ms)
+✔ existing normal alignment mutation and its legacy mirror retain their owner behavior (4.702639ms)
+(node:292) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 106.973473

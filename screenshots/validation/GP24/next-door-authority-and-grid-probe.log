@@ -1,0 +1,147 @@
+{
+  "status": "Scratch proposal only; no production reader/controller/keys added",
+  "strictReaderCases": [
+    {
+      "raw": "undefined",
+      "type": "undefined",
+      "legacyAccepts": false,
+      "strictValue": null,
+      "strictAccepts": false
+    },
+    {
+      "raw": "null",
+      "type": "object",
+      "legacyAccepts": false,
+      "strictValue": null,
+      "strictAccepts": false
+    },
+    {
+      "raw": "false",
+      "type": "boolean",
+      "legacyAccepts": false,
+      "strictValue": null,
+      "strictAccepts": false
+    },
+    {
+      "raw": "13",
+      "type": "number",
+      "legacyAccepts": false,
+      "strictValue": 13,
+      "strictAccepts": false
+    },
+    {
+      "raw": "14",
+      "type": "number",
+      "legacyAccepts": true,
+      "strictValue": 14,
+      "strictAccepts": true
+    },
+    {
+      "raw": "14.5",
+      "type": "number",
+      "legacyAccepts": true,
+      "strictValue": null,
+      "strictAccepts": false
+    },
+    {
+      "raw": "14",
+      "type": "string",
+      "legacyAccepts": true,
+      "strictValue": null,
+      "strictAccepts": false
+    },
+    {
+      "raw": "NaN",
+      "type": "number",
+      "legacyAccepts": false,
+      "strictValue": null,
+      "strictAccepts": false
+    },
+    {
+      "raw": "Infinity",
+      "type": "number",
+      "legacyAccepts": true,
+      "strictValue": null,
+      "strictAccepts": false
+    },
+    {
+      "raw": "-1",
+      "type": "number",
+      "legacyAccepts": false,
+      "strictValue": null,
+      "strictAccepts": false
+    },
+    {
+      "raw": "9007199254740991",
+      "type": "number",
+      "legacyAccepts": true,
+      "strictValue": 9007199254740991,
+      "strictAccepts": true
+    },
+    {
+      "raw": "9007199254740992",
+      "type": "number",
+      "legacyAccepts": true,
+      "strictValue": null,
+      "strictAccepts": false
+    }
+  ],
+  "unreadableReturns": null,
+  "reloadExample": {
+    "fc_mult": 14,
+    "fc_lastHit": 10000,
+    "currentTick": 20,
+    "existingDecayPredicate": false,
+    "strictRawThresholdAccepts": true,
+    "meaning": "Numeric strictness alone cannot witness session freshness or original combat-event qualification."
+  },
+  "proposedGrid": {
+    "origin": [
+      640000,
+      272,
+      600000
+    ],
+    "maxRooms": 4096,
+    "maxSources": 64,
+    "stride": 128,
+    "maxProposedRoomSize": [
+      49,
+      28,
+      49
+    ],
+    "xBounds": {
+      "guild": {
+        "physical": [
+          600000,
+          608113
+        ],
+        "excluded": [
+          599840,
+          608273
+        ]
+      },
+      "arboretum": {
+        "physical": [
+          620000,
+          628113
+        ],
+        "excluded": [
+          619840,
+          628273
+        ]
+      },
+      "proposed_butterfly": {
+        "physical": [
+          640000,
+          648113
+        ],
+        "excluded": [
+          639840,
+          648273
+        ]
+      }
+    },
+    "minimumExcludedGap": 11567
+  },
+  "native": "unrun"
+}

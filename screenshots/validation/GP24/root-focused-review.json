@@ -1,0 +1,19 @@
+{
+  "reviewer": "root",
+  "inspection": "Full original photos and all four decoded before/after views inspected directly.",
+  "images_sha256": {
+    "tmp/conformance/gp24-author/dining-side-GP23.png": "88f99856f7da9545f9079c87324c904ab595fed4b94a18bf21a521e4092b0dd0",
+    "tmp/conformance/gp24-author/dining-side-GP24.png": "8edb1b888f570b7a7da3f2ca09e5094c56b55cb09c3a5f8ccb5305b00587e336",
+    "tmp/conformance/gp24-author/dining-approach-GP23.png": "9ce98797067d56ed92cea83d25cd0646834f633587b0e89df2867f5b243fec4b",
+    "tmp/conformance/gp24-author/dining-approach-GP24.png": "ec6d5901bc15de5158f0fcf7fb8d1dfb13082ab85bac256f1fdba8161331674f",
+    "tmp/conformance/next-guild-reference/reference-343658414.jpg": "bd626549861c1af627e085b1eb6a4a7a7c0f120c941e4876c2afba941088c78e",
+    "tmp/conformance/next-guild-reference/reference-236178734.jpg": "8ad4018a973a1d47007924aa9c05a901cda720380ace0d6ffe53c91fedb775e7"
+  },
+  "findings": [
+    "Separate chair forms and clear gaps are visible at identical framing.",
+    "Original photos support separated red round stools beside long decorated tables; stock stair shapes, six seats per side and one-block spacing are adaptations.",
+    "Existing table, lamps, food, appliances, floor and runner retain their owners. Four vacated seat cells now admit existing carpet placement.",
+    "Cutaways omit perimeter walls and upper floor; furniture/texture/lighting are approximate."
+  ],
+  "native_acceptance": "unrun"
+}

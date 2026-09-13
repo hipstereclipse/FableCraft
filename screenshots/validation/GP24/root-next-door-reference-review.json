@@ -1,0 +1,13 @@
+{
+  "reviewer": "root",
+  "images_viewed_sha256": {
+    "prima-p110.png": "d38120fc649e9fb4e88dc01f2c9817d89bc3cfb11aad8c83dda844e0df8534fa",
+    "prima-p108.png": "a3e5c07ce5f6ff3c90ad07572311f8d176c2ff755c3242cd79d0bcbcab8e6451",
+    "mirror-cutlass-bluetane.jpg": "2c75e902b563c83c6522f1c55c63c01e4714d73a75ed764e90d8005283527d7c",
+    "mirror-greatwood-caves.jpg": "cc5ad970c1e6add4a4c09b04ea789ae22543333aab37ae6f4876518a497753c3"
+  },
+  "findings": "Complete guide pages show one filled Lightning augmentation on Cutlass Bluetane and no empty circles. The symbol matches the labeled Lightning entry. Both small mirror images were directly inspected; source dimensions, capture edition/build/mods remain unknown. No larger verified Butterfly House interior recovered.",
+  "corpus_count": 37,
+  "external_pixels": "All remain ignored scratch; no image copied into evidence or pack.",
+  "native_acceptance": "unrun"
+}

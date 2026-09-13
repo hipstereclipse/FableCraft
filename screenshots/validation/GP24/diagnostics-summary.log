@@ -1,0 +1,1 @@
+{"guild-match": {"command": ["/usr/bin/python", "scripts/_audit_match.py"], "exit_code": 0}, "guild-roofs": {"command": ["/usr/bin/python", "scripts/_audit_roofs.py"], "exit_code": 0}, "guild-verify": {"command": ["/usr/bin/python", "scripts/_verify_guild.py"], "exit_code": 0}}

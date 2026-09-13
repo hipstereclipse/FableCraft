@@ -1,0 +1,32 @@
+(node:232) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+PASS canonical light challenge, no consumption/opening payout, animation aperture
+PASS surviving paid door, missing history and durable face replacement
+PASS full-volume allocation preflight rejects occupied cell without clearing
+PASS loading authority, unloaded chunks and missing structure fail at source
+PASS partial native seeding stays quarantined across reload without replay or replenishment
+PASS native chest discovery persists depletion across revisits and reload
+PASS concurrent visitors keep independent exact-source tickets and return safely
+PASS failed entry, blocked source, reload/death recovery and no portal bounce
+PASS realm protection and ordinary-world exclusions are dimension/location bounded
+PASS source readiness gates unlock and entry; corrupt tickets recover from the room record
+PASS return loading leases are removed in the saved source dimension
+PASS independent shell, minor lid, approach and branch defects prevent admission/seeding
+PASS committed return ticket survives missing/corrupt world state; invalid or misplaced tickets cannot travel
+PASS placement and every native seed follow exact persisted preparation receipts
+PASS unavailable or nonboolean native bulk authority cannot place a room
+PASS late changes behind the completed air scan survive the final native volume check
+PASS unknown legacy placing and intent-only placement history never authorize reconstruction
+PASS a placement call that throws after emitting blocks cannot replay across reload
+PASS all reward slots must be empty before even the first native reward write
+PASS silent item type, count, name, lore and write losses never become ready
+PASS fresh post-seed inventories reject extra slots and replaced native container handles
+PASS a native seed callback cannot replace authority or fill the next reward before another write
+PASS lost, thrown or substituted preparation commits never permit the dependent effect
+PASS placed receipt retries verification and initial seeding without replaying placement
+PASS seeded receipts retry only readiness after fresh inventory and room verification
+PASS write-after-commit exceptions preserve conservative intent and usable effect receipts
+PASS late shell loss and occupants block reward writes after placement
+PASS an active preparation refuses missing, unreadable or changed primary authority
+PASS legacy ready and visited rooms preserve depleted shared rewards without preparation metadata
+Demon Door pilot: 29 groups passed; engine checks remain unrun.

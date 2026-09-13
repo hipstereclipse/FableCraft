@@ -1,0 +1,38 @@
+[
+  {
+    "file": "weapons-wordpress.html",
+    "url": "https://fablelc.wordpress.com/armas-lendarias/",
+    "ok": false,
+    "error": "URLError(gaierror(-3, 'Temporary failure in name resolution'))"
+  },
+  {
+    "file": "tlc-guide-mirror.html",
+    "url": "https://game.lhg100.com/Article/gameguides/F/201512/12647.html",
+    "ok": false,
+    "error": "URLError(gaierror(-3, 'Temporary failure in name resolution'))"
+  },
+  {
+    "file": "mirror-greatwood-caves.jpg",
+    "url": "https://game.lhg100.com/Article/UploadFiles/201512/2015121518480789.jpg",
+    "ok": false,
+    "error": "URLError(gaierror(-3, 'Temporary failure in name resolution'))"
+  },
+  {
+    "file": "mirror-cutlass-bluetane.jpg",
+    "url": "https://game.lhg100.com/Article/UploadFiles/201512/2015121518481228.jpg",
+    "ok": false,
+    "error": "URLError(gaierror(-3, 'Temporary failure in name resolution'))"
+  },
+  {
+    "file": "steam-butterfly-1.html",
+    "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=butterfly&browsefilter=toprated&p=1",
+    "ok": false,
+    "error": "URLError(gaierror(-3, 'Temporary failure in name resolution'))"
+  },
+  {
+    "file": "steam-greatwood-1.html",
+    "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=greatwood&browsefilter=toprated&p=1",
+    "ok": false,
+    "error": "URLError(gaierror(-3, 'Temporary failure in name resolution'))"
+  }
+]

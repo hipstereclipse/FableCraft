@@ -1,0 +1,151 @@
+{
+  "audit": "Bounded original-TLC third-door reference augmentation; scratch only; no production or new room/source asset",
+  "captured_utc": "2026-09-13T17:43:20.461594+00:00",
+  "candidate_scope": "Seven unique external candidate page/image URLs attempted (one Fandom page unavailable, two text pages, two mirror images, two Steam app204030 listings), plus two pages of the already retained original TLC guide. No extra Steam follow-up fetched.",
+  "retained_primary_guide": {
+    "path": "tmp/conformance/reference-arcanum/prima-tlc-guide.pdf",
+    "url": "https://www.ogxbox.co.uk/media/com_eshop/attachments/Fable_The_Lost_Chapters_Strategy_Guide_Book.pdf",
+    "sha256": "0872726adb299a10c94b31d482aecb540d740bf61fab1f22cb08cdcf81ae1a2b",
+    "downloaded_again": false,
+    "edition": "Fable: The Lost Chapters; retained 176-page Prima guide, PDF creation September 2005",
+    "viewed_pages": [
+      {
+        "pdf_page": 110,
+        "printed_page": 109,
+        "render": "prima-p110.png",
+        "finding": "Cutlass Bluetane: legendary light cleaver; damage165, value40425; Greatwood Caves Demon Door; one filled augmentation symbol and no empty socket rings."
+      },
+      {
+        "pdf_page": 108,
+        "printed_page": 107,
+        "render": "prima-p108.png",
+        "finding": "The filled symbol in Cutlass row matches labeled Lightning augmentation: amber/brown octagonal disc with pale central lightning mark."
+      }
+    ],
+    "image_resolution_limits": "Full-page renders2033\u00d72600 are viewing enlargement, not additional embedded detail. PDF inventory reports Cutlass weapon icon object1162 at71\u00d771; filled augmentation object2378 at35\u00d735; Lightning key object1118 at71\u00d771."
+  },
+  "external_candidates": [
+    {
+      "url": "https://fable.fandom.com/wiki/Cutlass_Bluetane",
+      "status": "web fetch402 Payment Required; no retrieved pixels or evidence accepted"
+    },
+    {
+      "url": "https://fablelc.wordpress.com/armas-lendarias/",
+      "file": "weapons-wordpress.html",
+      "status": "actual page text and retained HTML inspected",
+      "use": "Secondary text corroboration only: title Fable: The Lost Chapters; Cutlass row165 and Raio/Lightning; page has dated2009 comments. No useful weapon/room pixels. Do not use player comments as canonical evidence."
+    },
+    {
+      "url": "https://game.lhg100.com/Article/gameguides/F/201512/12647.html",
+      "status": "actual web-tool page text inspected; raw HTML retrieval403 retained in fetch log",
+      "evidence": "Title Fable: The Lost Chapters Game Guide & Walkthrough; linked image18 under Greatwood Caves, linked image63 under Cutlass Bluetane; chapter names match original TLC content. Mirror path201512 cannot prove original image date; precise capture build/mod/settings unknown. Not yet a primary original-edition verified corpus source."
+    },
+    {
+      "url": "https://game.lhg100.com/Article/UploadFiles/201512/2015121518480789.jpg",
+      "file": "mirror-greatwood-caves.jpg",
+      "viewed": true,
+      "finding": "280\u00d7210 classic-style gameplay pixels: Hero masks central lower doorway; pointed inset stone frame with surrounding curved stonework, cliff/rock sides, two flanking warm lights and rough ground approach. Source geometry beyond this view is unknown.",
+      "edition_limit": "Associated TLC mirror guide and classic HUD are supporting context, not direct independently verified capture edition/build. No interior coverage."
+    },
+    {
+      "url": "https://game.lhg100.com/Article/UploadFiles/201512/2015121518481228.jpg",
+      "file": "mirror-cutlass-bluetane.jpg",
+      "viewed": true,
+      "finding": "250\u00d7257 inventory panel: dark broad cleaver blade with irregular notched edge and pointed upper corner, narrow wrapped tan/brown grip; single blue circular lightning emblem at panel top. Silhouette is consistent with retained original guide icon.",
+      "edition_limit": "TLC mirror page association and classic inventory style support provisional use; original capture provenance/build/mods unknown. Image does not independently prove damage/value/socket rules."
+    },
+    {
+      "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=butterfly&browsefilter=toprated&p=1",
+      "file": "steam-butterfly-1.html",
+      "status": "actual retained HTML inspected; seven app204030 cards, titles about Hero morality butterflies; no card labeled Butterfly House. Individual pixels not downloaded; no assertion their unseen contents prove absence."
+    },
+    {
+      "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=greatwood&browsefilter=toprated&p=1",
+      "file": "steam-greatwood-1.html",
+      "status": "actual retained HTML inspected; two app204030 cards titled Greatwood Forest at night and Greatwood Lake key/bridge; no targeted Caves doorway/interior card. Individual pixels not downloaded."
+    }
+  ],
+  "conclusion": {
+    "closed": "Original TLC guide directly supports one installed Lightning augmentation, no empty socket rings shown, and the established165 damage/40425 value/light legendary cleaver facts.",
+    "improved_provisionally": "Modestly larger exterior and weapon inventory images retained and visually inspected, but mirror origin not enough for original-edition corpus acceptance.",
+    "still_open": "No new larger original-edition verified Butterfly House interior. Retained PDF174 embedded214\u00d7123 dark frame remains inadequate for walls, roof, full route, chest/end geometry or furnishing dimensions. No greenhouse/arboretum inference authorized."
+  },
+  "artifacts": [
+    {
+      "file": "fetch-network-results.json",
+      "bytes": 2188,
+      "sha256": "9afd1f6da8b7f65f0783a772236887f20a7a6cd62bbe8abb4f1bbfbc85ab93e0"
+    },
+    {
+      "file": "fetch-results.json",
+      "bytes": 1397,
+      "sha256": "680663fca2304f14e59b1ed746ae4dddc1f1b9a7c0dcc0a53175e218edd9b90a"
+    },
+    {
+      "file": "fetch.py",
+      "bytes": 1651,
+      "sha256": "d10b14c4fe3a9b5776a55a5536f5fe9f261abcc3ab43bf2e23ae4a53d6b25608"
+    },
+    {
+      "file": "mirror-cutlass-bluetane.jpg",
+      "bytes": 22936,
+      "sha256": "2c75e902b563c83c6522f1c55c63c01e4714d73a75ed764e90d8005283527d7c",
+      "dimensions": [
+        250,
+        257
+      ]
+    },
+    {
+      "file": "mirror-greatwood-caves.jpg",
+      "bytes": 27354,
+      "sha256": "cc5ad970c1e6add4a4c09b04ea789ae22543333aab37ae6f4876518a497753c3",
+      "dimensions": [
+        280,
+        210
+      ]
+    },
+    {
+      "file": "prima-image-inventory.txt",
+      "bytes": 10044,
+      "sha256": "c7eef2aca3d89df6d75ff466fb59dd34cf8d2a0bb178adcf30393ffe56ec92d2"
+    },
+    {
+      "file": "prima-p108.png",
+      "bytes": 3704319,
+      "sha256": "a3e5c07ce5f6ff3c90ad07572311f8d176c2ff755c3242cd79d0bcbcab8e6451",
+      "dimensions": [
+        2033,
+        2600
+      ]
+    },
+    {
+      "file": "prima-p110.png",
+      "bytes": 3929363,
+      "sha256": "d38120fc649e9fb4e88dc01f2c9817d89bc3cfb11aad8c83dda844e0df8534fa",
+      "dimensions": [
+        2033,
+        2600
+      ]
+    },
+    {
+      "file": "steam-butterfly-1.html",
+      "bytes": 72344,
+      "sha256": "06700fe32804dd3c08a99522f559588e746620a6457afc6119238117b00f226b"
+    },
+    {
+      "file": "steam-card-inventory.json",
+      "bytes": 2798,
+      "sha256": "65ee6887b37cb8b5ee2739cd5bedbd1a259810984bc5f4f5b6b8dd4748d8df5d"
+    },
+    {
+      "file": "steam-greatwood-1.html",
+      "bytes": 53417,
+      "sha256": "a63614aa6e1b929d584565f43824e361e500b82cb3097879eea7cc56081f2a39"
+    },
+    {
+      "file": "weapons-wordpress.html",
+      "bytes": 266404,
+      "sha256": "dddea4b8afd293f2b388a13526f8ba3cd0bff789f1a6502cdf88771be95a5b33"
+    }
+  ]
+}

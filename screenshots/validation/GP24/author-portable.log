@@ -1,0 +1,26 @@
+{
+  "changed": 12,
+  "after_materials": {
+    "minecraft:air": 8,
+    "minecraft:red_carpet": 4
+  },
+  "old_nodes": 13806,
+  "candidate_nodes": 13818,
+  "old_reachable": 10597,
+  "new_reachable": 10609,
+  "bfs_paths_identical": true,
+  "new_gap_sweeps": 12,
+  "negative_fixtures": {
+    "continuous_seating_rejected": true,
+    "nonseat_change_rejected": true,
+    "blocked_gap_rejected": true
+  },
+  "source_sha256": "34aa61e27c7cf21ba506f40a607b3fdca3b971119054b0c8a8873be418dc82df",
+  "asset_sha256": "8192ec979c3f72479c8bc8ab9b240e0c98ee8232b306d081f061dd5ba7b884d1",
+  "images": [
+    "/tmp/fablecraft-gp24-author-portable/dining-side-GP23.png",
+    "/tmp/fablecraft-gp24-author-portable/dining-side-GP24.png",
+    "/tmp/fablecraft-gp24-author-portable/dining-approach-GP23.png",
+    "/tmp/fablecraft-gp24-author-portable/dining-approach-GP24.png"
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "baseline_commit": "4aed7cff4bdb6cecc706e2c4711067cab648d530",
+  "scope": "Read-only third canonical Door implementation feasibility, no source/room/item assets authored",
+  "files_sha256": {
+    "packs/Fablecraft_BP/scripts/main.js": "c18b286d79bc16d6b3ea08985d5882f7a2411ae2aeb61de3bd83594d6ffb103e",
+    "packs/Fablecraft_BP/scripts/arboretum_doors.js": "d66d184a9a8a87587dab054209fab8a69c658a663edec0e1f119eb2531c25125",
+    "packs/Fablecraft_BP/scripts/fc_demon_doors.js": "e64d1745b314e5547c2f055fbfd5f4c7b3b0f42cc223d1b9e33b525b7b732637",
+    "scripts/fc_data.py": "46bc9c597aa98e0faaeb8497a1a6e918423112a208fc873d876231ad33c1bbd0",
+    "scripts/door_realms.py": "809431f12cd647ca9c65b3718cd2ffb92eab44061655dbb6f696be67fe3dea42",
+    "scripts/gen_behavior.py": "a150aeaf49331d2348ddde239c6d6d548fa0f7c3b414e802d9d30e000ccd1ef1",
+    "scripts/gen_resources.py": "ae6d38b664909b1a13c2e21f140527f9891f7e8301001f12649da64cd555eb94",
+    "scripts/gen_item_textures.py": "3e77fe8bab563d887e865138ee866ca83ddcd0648c9a60ce13e63a50efded45e",
+    "scripts/structure_manifest.json": "3452ed143beb4ccd9e9b8d3bc1669736932906b1ddd0521b0448ddaffc70aabc",
+    "scripts/structure_tables.cjs": "fc5b358235e3ba6955f3c42992cadb39563df0e47d10e478d9bcf9d7b814ad2e",
+    "scripts/structure_contract.py": "65d86c6c1cdf8a1799ed6a7178db55bbad7318064593c70d4b0174edab2e5f45",
+    "screenshots/validation/DP10/next-door-audit.md": "d57be1232d56e241a29711ebd55100b51cd0a66aeccca74594214f125f29c05f",
+    "screenshots/validation/DP10/next-door-provenance.json": "17f42e5063c203d211c9f23025559fd27c9d99d8465c251e4fbc7c4a47ed2f9b",
+    "screenshots/validation/GP22/next-door-provenance.json": "565abf33e6d788bc5b4af737ccfa25c5f1b193845b9a87eb38b025401a5752df",
+    "tmp/conformance/reference-arcanum/prima-tlc-guide.txt": "820ed22a4a920335f078d726fe547848522e72bb2da0483f5ea9e9dbcf9ae81d",
+    "tmp/conformance/dp10-door-audit/prima-p174.png": "4266b19fbfc18178ed8e6ab41e85f9c987a70ec5dbc7e7bff047fce4f0ded600"
+  },
+  "native_acceptance": "unrun",
+  "network_requests": 0,
+  "page174_pixels_inspected": true,
+  "audit_sha256": {
+    "plan.md": "b6d6b3e7a76cdb46bb930e0e7888b4e831f5a2bb2707307f10d34b11926ba36f",
+    "authority-and-grid-probe.mjs": "1a34d2418f3f7ac2bbdb0353f1e141ed5ff14a985c1957292f9fb57383311719",
+    "authority-and-grid-result.json": "67d58ad864ed0296bfe274cbb881929253fa5e84b175b0696d17536e44160980",
+    "authority-and-grid-probe.log": "67d58ad864ed0296bfe274cbb881929253fa5e84b175b0696d17536e44160980"
+  },
+  "curated_files_sha256": {
+    "next-door-followup.md": "3f486dc1be7a1dbeebcc0131b0673d25a6d9368c83f00257de5fae7bcfb8b516",
+    "next-door-authority-and-grid-probe.mjs": "4d0e9b9b0e68f82aff512a242a833de8ef1d91d2f7f87c2ecfa2ee920784b1f8"
+  },
+  "curation": "Copied original plan, probe, output, and hashes. Curated plan explains evidence retention; probe accepts a pinned main path and writes its renamed result. No production change. A subsequent separately manifested reference pass resolves the Lightning icon and records provisional larger mirror views.",
+  "additional_reference_manifest_sha256": "2187f4faff87f0fcc614c32687f501a8335cc0c76ab5efbfebe3157fc05578a0"
+}

@@ -1,0 +1,53 @@
+[
+  {
+    "file": "weapons-wordpress.html",
+    "url": "https://fablelc.wordpress.com/armas-lendarias/",
+    "resolved_url": "https://fablelc.wordpress.com/armas-lendarias/",
+    "bytes": 266404,
+    "sha256": "dddea4b8afd293f2b388a13526f8ba3cd0bff789f1a6502cdf88771be95a5b33",
+    "content_type": "text/html; charset=UTF-8",
+    "ok": true
+  },
+  {
+    "file": "tlc-guide-mirror.html",
+    "url": "https://game.lhg100.com/Article/gameguides/F/201512/12647.html",
+    "ok": false,
+    "error": "<HTTPError 403: 'Forbidden'>"
+  },
+  {
+    "file": "mirror-greatwood-caves.jpg",
+    "url": "https://game.lhg100.com/Article/UploadFiles/201512/2015121518480789.jpg",
+    "resolved_url": "https://game.lhg100.com/Article/UploadFiles/201512/2015121518480789.jpg",
+    "bytes": 27354,
+    "sha256": "cc5ad970c1e6add4a4c09b04ea789ae22543333aab37ae6f4876518a497753c3",
+    "content_type": "image/jpeg",
+    "ok": true
+  },
+  {
+    "file": "mirror-cutlass-bluetane.jpg",
+    "url": "https://game.lhg100.com/Article/UploadFiles/201512/2015121518481228.jpg",
+    "resolved_url": "https://game.lhg100.com/Article/UploadFiles/201512/2015121518481228.jpg",
+    "bytes": 22936,
+    "sha256": "2c75e902b563c83c6522f1c55c63c01e4714d73a75ed764e90d8005283527d7c",
+    "content_type": "image/jpeg",
+    "ok": true
+  },
+  {
+    "file": "steam-butterfly-1.html",
+    "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=butterfly&browsefilter=toprated&p=1",
+    "resolved_url": "https://steamcommunity.com/app/204030/screenshots/?searchText=butterfly&browsefilter=toprated&p=1",
+    "bytes": 72344,
+    "sha256": "06700fe32804dd3c08a99522f559588e746620a6457afc6119238117b00f226b",
+    "content_type": "text/html; charset=UTF-8",
+    "ok": true
+  },
+  {
+    "file": "steam-greatwood-1.html",
+    "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=greatwood&browsefilter=toprated&p=1",
+    "resolved_url": "https://steamcommunity.com/app/204030/screenshots/?searchText=greatwood&browsefilter=toprated&p=1",
+    "bytes": 53417,
+    "sha256": "a63614aa6e1b929d584565f43824e361e500b82cb3097879eea7cc56081f2a39",
+    "content_type": "text/html; charset=UTF-8",
+    "ok": true
+  }
+]

@@ -1,0 +1,14 @@
+{
+  "reviewer": "root",
+  "directly_viewed_sha256": {
+    "screenshots/structures/contract/guild_hall.png": "df09891b7f2c41b47a37a4753be30c8e29d0ccff84294baa31e24ea803c2878a",
+    "screenshots/structures/guild_hall.png": "0132b7fa71a3635f935668cd94013698801c628524f3e5b65a1e6733e5051db9",
+    "screenshots/gallery/places.png": "95c9c57928b1a9900113cb0a832a16a99ac7f9f358a7efb1c6e3b47a54dd43c3",
+    "screenshots/docs/01_hero_guild_gate.png": "6260321afeac55107a4fd6e8e899ea034917f23bad9fdd3e645e666c49e41605",
+    "screenshots/docs/12_guild_wide_lake_view.png": "eade3d4dc7622c10dd491561388ac79f21a96aa1341bc738e65a84b7385c5561"
+  },
+  "findings": "Both Guild cards, containing gallery and both wide documentation views inspected. All are byte-identical to actual GP23 outputs; this interior seat change is hidden at those angles. Four focused decoded views supply visible before/after evidence.",
+  "full_render_count": 282,
+  "documentation_scenes": 7,
+  "native_acceptance": "unrun"
+}

@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/gp24-author/check_and_render.py", line 56, in <module>
+    assert ceiling==7
+           ^^^^^^^^^^
+AssertionError

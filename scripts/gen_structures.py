@@ -1253,15 +1253,17 @@ def build_guild_hall():
         for z in range(ROT_Z - 3, ROT_Z + 4):
             v.set(x, 6, z, SLATE if z in (ROT_Z - 3, ROT_Z + 3) else DEEP_TILES)
     # The final circulation builder also owns the upper gallery/dining bridge.
-    # two long banquet tables joined END-TO-END down the CENTRE (along the hall's
-    # length), benches down both long sides, candelabra spaced along the boards
+    # Long banquet tables run along the hall's centre. Original TLC dining views
+    # show separate stools; these spaced seats use the existing block shape within
+    # the current rows. Their number and spacing are Minecraft adaptations.
     tcx = (dx0 + dx1) // 2
     for tz in range(dz0 + 3, dz1 - 3):
         v.set(tcx, 2, tz, "minecraft:oak_planks")               # table top
         if (tz - dz0) % 4 == 0:
             v.set(tcx, 1, tz, "minecraft:oak_fence")            # legs
-        v.set(tcx - 2, 1, tz, OAK_STAIR, {"weirdo_direction": 1, "upside_down_bit": False})
-        v.set(tcx + 2, 1, tz, OAK_STAIR, {"weirdo_direction": 0, "upside_down_bit": False})
+        if (tz - (dz0 + 3)) % 2 == 0:
+            v.set(tcx - 2, 1, tz, OAK_STAIR, {"weirdo_direction": 1, "upside_down_bit": False})
+            v.set(tcx + 2, 1, tz, OAK_STAIR, {"weirdo_direction": 0, "upside_down_bit": False})
     for tz in range(dz0 + 4, dz1 - 3, 4):                       # feast dressing
         v.set(tcx, 3, tz, LANTERN, {"hanging": False})
     v.set(tcx, 2, dz0 + 3, "minecraft:cake")

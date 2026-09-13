@@ -1,0 +1,56 @@
+{
+  "purpose": "Evidence-only report-key/portable-helper correction; production owner and asset unchanged.",
+  "original_report": {
+    "path": "tmp/conformance/gp24-author/author-report-initial.json",
+    "sha256": "8a75b399c6a82faebc7eed59f6e689bb43c30d31bff6dbd9118fde598e98610f"
+  },
+  "original_helper": {
+    "path": "tmp/conformance/gp24-author/author-helper-initial.py",
+    "sha256": "a707ad15a27624ec359b6c57cee67efb40881abccf2c351c4bbdf1989bd59e10"
+  },
+  "original_success_log": {
+    "path": "tmp/conformance/gp24-author/author-report-initial.log",
+    "sha256": "ea4b81d10ac7ab4a389753780b3854722b6e2692bc123337fad73ca1defb1411"
+  },
+  "owner_sha256": "34aa61e27c7cf21ba506f40a607b3fdca3b971119054b0c8a8873be418dc82df",
+  "asset_sha256": "8192ec979c3f72479c8bc8ab9b240e0c98ee8232b306d081f061dd5ba7b884d1",
+  "original_images": {
+    "dining-approach-GP23.png": "9ce98797067d56ed92cea83d25cd0646834f633587b0e89df2867f5b243fec4b",
+    "dining-approach-GP24.png": "ec6d5901bc15de5158f0fcf7fb8d1dfb13082ab85bac256f1fdba8161331674f",
+    "dining-side-GP23.png": "88f99856f7da9545f9079c87324c904ab595fed4b94a18bf21a521e4092b0dd0",
+    "dining-side-GP24.png": "8edb1b888f570b7a7da3f2ca09e5094c56b55cb09c3a5f8ccb5305b00587e336"
+  },
+  "issue": "Duplicate literal walking.new_nodes overwrote the candidate node count with the added-node list when constructing the Python dictionary. Raw successful console output retained the correct count13818.",
+  "fix": "Use candidate_nodes for the count and added_nodes for the list; add --output/--baseline-owner/--baseline-asset plus optional --references. Source-comparison images are generated only when requested and both source images exist; missing external pixels cause a recorded skip. Historical accepted source hashes are retained from GP23 reference-index.json.",
+  "corrected_report_sha256": "a9ace3fff7ca8bb7cb26ec27de7489ff3db89f7ef05323e7490350aaf288b3e7",
+  "corrected_helper_sha256": "3706665534d58efed9afbec12f94494a6123f69045b5b86345892fe54b04b5a7",
+  "corrected_log_sha256": "bd7ddaee1f9d200b3c9dece483ce83706a302a5c46a3397376f69016f327318c",
+  "four_rendered_images_byte_identical": true,
+  "verified_candidate_nodes": 13818,
+  "verified_added_nodes": 12,
+  "production_hashes_unchanged": true,
+  "portable_check": {
+    "workdir": "/tmp",
+    "output": "/tmp/fablecraft-gp24-author-portable",
+    "explicit_baseline_paths": true,
+    "references_requested": false,
+    "status": "passed",
+    "candidate_nodes": 13818,
+    "added_nodes": 12,
+    "source_sheet_generated": false,
+    "four_images_byte_identical": true,
+    "log_sha256": "b6ec9807ddd0e07590a29a41603588f6e37977267f1f0d17fc00ee1a15923571",
+    "report_sha256": "459863972803617717df272f268758a73351fb4023dc587c27a10b34ee71fa2b"
+  },
+  "missing_references_check": {
+    "method": "Read-only Path.is_file fixture reports the two source images unavailable; no source file moved or removed.",
+    "references_requested": true,
+    "status": "skipped: external source pixels unavailable",
+    "source_sheet_generated": false,
+    "historical_source_hashes_exact": true,
+    "candidate_nodes": 13818,
+    "added_nodes": 12,
+    "log_sha256": "8d9b0bb67b910b110d4143ef8c39836605a2ed28ababaa1bcb78b680afafbe41",
+    "report_sha256": "5425ecf3e1b011ca90258e76935eb2e9cfad0eed19c6825565e47d96555148ee"
+  }
+}

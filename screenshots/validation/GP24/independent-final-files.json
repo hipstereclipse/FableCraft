@@ -1,0 +1,26 @@
+{
+  "source_sha256": {
+    "before": "203d2c02fc9198981a0e789b8ab04c5cbac1463950711ead35ea3a254fcfa031",
+    "after": "34aa61e27c7cf21ba506f40a607b3fdca3b971119054b0c8a8873be418dc82df"
+  },
+  "asset_sha256": {
+    "before": "843043e22060d948e49f691e459ae164c5f3a2eacda8b21d5c38105a02dab7c3",
+    "after": "8192ec979c3f72479c8bc8ab9b240e0c98ee8232b306d081f061dd5ba7b884d1"
+  },
+  "native_acceptance": "unrun",
+  "files": {
+    "review.py": "d2ee048782e6e40e0447ca43ad33cf2980a89f59446f62b7f5aa3059df3b5174",
+    "resident-probe.mjs": "dc394aa5f8b9bbf71798b0c4a004fc3f0060cf0ca1e1655205c8b789072317a5",
+    "reference-reinspection.json": "8b2cfda22807d4bfc1cfd890e8c4e7d852113ee7f304be0cd65fd98beb18e953",
+    "review.json": "14831297fcb41d00ea4a90d90c7117267384e670d31522386c00140d324d8af2",
+    "review.log": "73aa3f2cb287ed67616f5ed12fac8676a407146030b46c08bfbbc31aa90ea4b1",
+    "resident-probe.log": "116b13ea7a53067e2d483c5234027af52262dffaa81cba78367f4422fdb3c7b1",
+    "README.md": "b2fb6c0bc5298bb607b140dcbf68592a2e2bb7ea6c996c00a63a0e7d97a1770f",
+    "dining-plan-before.png": "d501d430dd562cc3ed9c5c0e4d3172a0f540470a288b2e7d6ee972b3df20b6ea",
+    "dining-plan-after.png": "d50e2b9ac8ff65e9578e41f096628bf1ab3f33159bd31fe6a7354ebf73c4ac52",
+    "review-initial.log": "73aa3f2cb287ed67616f5ed12fac8676a407146030b46c08bfbbc31aa90ea4b1",
+    "review-portable.log": "73aa3f2cb287ed67616f5ed12fac8676a407146030b46c08bfbbc31aa90ea4b1"
+  },
+  "final_command": "python tmp/conformance/gp24-independent/review.py --render --output tmp/conformance/gp24-independent/portable-run",
+  "result": "pass; final output copied to scratch root for convenient curation; no production edits or staging"
+}

@@ -1,0 +1,570 @@
+{
+  "purpose": "GP24 author verification of actual GP23/root-regenerated GP24 decoded voxels, in-memory owner RNG and bounded dining views.",
+  "baseline_commit": "4aed7cff4bdb6cecc706e2c4711067cab648d530",
+  "owner_sha256": "34aa61e27c7cf21ba506f40a607b3fdca3b971119054b0c8a8873be418dc82df",
+  "baseline_owner_sha256": "203d2c02fc9198981a0e789b8ab04c5cbac1463950711ead35ea3a254fcfa031",
+  "baseline_asset_sha256": "843043e22060d948e49f691e459ae164c5f3a2eacda8b21d5c38105a02dab7c3",
+  "current_asset_sha256": "8192ec979c3f72479c8bc8ab9b240e0c98ee8232b306d081f061dd5ba7b884d1",
+  "changes": [
+    {
+      "at": [
+        38,
+        1,
+        37
+      ],
+      "before": [
+        "minecraft:oak_stairs",
+        {
+          "weirdo_direction": 1,
+          "upside_down_bit": false
+        }
+      ],
+      "after": [
+        "minecraft:air",
+        {}
+      ]
+    },
+    {
+      "at": [
+        38,
+        1,
+        39
+      ],
+      "before": [
+        "minecraft:oak_stairs",
+        {
+          "weirdo_direction": 1,
+          "upside_down_bit": false
+        }
+      ],
+      "after": [
+        "minecraft:air",
+        {}
+      ]
+    },
+    {
+      "at": [
+        38,
+        1,
+        41
+      ],
+      "before": [
+        "minecraft:oak_stairs",
+        {
+          "weirdo_direction": 1,
+          "upside_down_bit": false
+        }
+      ],
+      "after": [
+        "minecraft:red_carpet",
+        {}
+      ]
+    },
+    {
+      "at": [
+        38,
+        1,
+        43
+      ],
+      "before": [
+        "minecraft:oak_stairs",
+        {
+          "weirdo_direction": 1,
+          "upside_down_bit": false
+        }
+      ],
+      "after": [
+        "minecraft:red_carpet",
+        {}
+      ]
+    },
+    {
+      "at": [
+        38,
+        1,
+        45
+      ],
+      "before": [
+        "minecraft:oak_stairs",
+        {
+          "weirdo_direction": 1,
+          "upside_down_bit": false
+        }
+      ],
+      "after": [
+        "minecraft:air",
+        {}
+      ]
+    },
+    {
+      "at": [
+        38,
+        1,
+        47
+      ],
+      "before": [
+        "minecraft:oak_stairs",
+        {
+          "weirdo_direction": 1,
+          "upside_down_bit": false
+        }
+      ],
+      "after": [
+        "minecraft:air",
+        {}
+      ]
+    },
+    {
+      "at": [
+        42,
+        1,
+        37
+      ],
+      "before": [
+        "minecraft:oak_stairs",
+        {
+          "weirdo_direction": 0,
+          "upside_down_bit": false
+        }
+      ],
+      "after": [
+        "minecraft:air",
+        {}
+      ]
+    },
+    {
+      "at": [
+        42,
+        1,
+        39
+      ],
+      "before": [
+        "minecraft:oak_stairs",
+        {
+          "weirdo_direction": 0,
+          "upside_down_bit": false
+        }
+      ],
+      "after": [
+        "minecraft:air",
+        {}
+      ]
+    },
+    {
+      "at": [
+        42,
+        1,
+        41
+      ],
+      "before": [
+        "minecraft:oak_stairs",
+        {
+          "weirdo_direction": 0,
+          "upside_down_bit": false
+        }
+      ],
+      "after": [
+        "minecraft:red_carpet",
+        {}
+      ]
+    },
+    {
+      "at": [
+        42,
+        1,
+        43
+      ],
+      "before": [
+        "minecraft:oak_stairs",
+        {
+          "weirdo_direction": 0,
+          "upside_down_bit": false
+        }
+      ],
+      "after": [
+        "minecraft:red_carpet",
+        {}
+      ]
+    },
+    {
+      "at": [
+        42,
+        1,
+        45
+      ],
+      "before": [
+        "minecraft:oak_stairs",
+        {
+          "weirdo_direction": 0,
+          "upside_down_bit": false
+        }
+      ],
+      "after": [
+        "minecraft:air",
+        {}
+      ]
+    },
+    {
+      "at": [
+        42,
+        1,
+        47
+      ],
+      "before": [
+        "minecraft:oak_stairs",
+        {
+          "weirdo_direction": 0,
+          "upside_down_bit": false
+        }
+      ],
+      "after": [
+        "minecraft:air",
+        {}
+      ]
+    }
+  ],
+  "changed_cells": 12,
+  "after_material_counts": {
+    "minecraft:air": 8,
+    "minecraft:red_carpet": 4
+  },
+  "all_nonseat_cells_exact": true,
+  "unchanged_cells": 395268,
+  "palette_states_exact": true,
+  "actual_baseline_owner_matches_serialized_asset": true,
+  "actual_current_owner_matches_serialized_asset": true,
+  "rng_stream_states_exact": true,
+  "rng_stream_state_sha256": "40b12a1969b7c5112051e10adb3bf19e23a57a381b0d16af2315b155a3d9007a",
+  "layout_anchors_exact": true,
+  "walking": {
+    "old_nodes": 13806,
+    "new_nodes": [
+      [
+        38,
+        1,
+        37
+      ],
+      [
+        38,
+        1,
+        39
+      ],
+      [
+        38,
+        1,
+        41
+      ],
+      [
+        38,
+        1,
+        43
+      ],
+      [
+        38,
+        1,
+        45
+      ],
+      [
+        38,
+        1,
+        47
+      ],
+      [
+        42,
+        1,
+        37
+      ],
+      [
+        42,
+        1,
+        39
+      ],
+      [
+        42,
+        1,
+        41
+      ],
+      [
+        42,
+        1,
+        43
+      ],
+      [
+        42,
+        1,
+        45
+      ],
+      [
+        42,
+        1,
+        47
+      ]
+    ],
+    "all_old_nodes_retained": true,
+    "old_reachable": 10597,
+    "new_reachable": 10609,
+    "all_old_reachable_retained": true,
+    "seven_old_complete_paths_still_valid": true,
+    "seven_bfs_paths_identical": true,
+    "eight_local_routes_pass": true,
+    "new_gap_body_crossings": [
+      {
+        "at": [
+          38,
+          1,
+          37
+        ],
+        "feet": 1.0,
+        "old_hits": [
+          [
+            38,
+            1,
+            37
+          ]
+        ],
+        "new_hits": [],
+        "ceiling_underside": 7,
+        "modeled_head_top": 2.9,
+        "remaining_headroom": 4.1
+      },
+      {
+        "at": [
+          38,
+          1,
+          39
+        ],
+        "feet": 1.0,
+        "old_hits": [
+          [
+            38,
+            1,
+            39
+          ]
+        ],
+        "new_hits": [],
+        "ceiling_underside": 7,
+        "modeled_head_top": 2.9,
+        "remaining_headroom": 4.1
+      },
+      {
+        "at": [
+          38,
+          1,
+          41
+        ],
+        "feet": 1.0625,
+        "old_hits": [
+          [
+            38,
+            1,
+            41
+          ]
+        ],
+        "new_hits": [],
+        "ceiling_underside": 6,
+        "modeled_head_top": 2.9625,
+        "remaining_headroom": 3.0375
+      },
+      {
+        "at": [
+          38,
+          1,
+          43
+        ],
+        "feet": 1.0625,
+        "old_hits": [
+          [
+            38,
+            1,
+            43
+          ]
+        ],
+        "new_hits": [],
+        "ceiling_underside": 6,
+        "modeled_head_top": 2.9625,
+        "remaining_headroom": 3.0375
+      },
+      {
+        "at": [
+          38,
+          1,
+          45
+        ],
+        "feet": 1.0,
+        "old_hits": [
+          [
+            38,
+            1,
+            45
+          ]
+        ],
+        "new_hits": [],
+        "ceiling_underside": 7,
+        "modeled_head_top": 2.9,
+        "remaining_headroom": 4.1
+      },
+      {
+        "at": [
+          38,
+          1,
+          47
+        ],
+        "feet": 1.0,
+        "old_hits": [
+          [
+            38,
+            1,
+            47
+          ]
+        ],
+        "new_hits": [],
+        "ceiling_underside": 7,
+        "modeled_head_top": 2.9,
+        "remaining_headroom": 4.1
+      },
+      {
+        "at": [
+          42,
+          1,
+          37
+        ],
+        "feet": 1.0,
+        "old_hits": [
+          [
+            42,
+            1,
+            37
+          ]
+        ],
+        "new_hits": [],
+        "ceiling_underside": 7,
+        "modeled_head_top": 2.9,
+        "remaining_headroom": 4.1
+      },
+      {
+        "at": [
+          42,
+          1,
+          39
+        ],
+        "feet": 1.0,
+        "old_hits": [
+          [
+            42,
+            1,
+            39
+          ]
+        ],
+        "new_hits": [],
+        "ceiling_underside": 7,
+        "modeled_head_top": 2.9,
+        "remaining_headroom": 4.1
+      },
+      {
+        "at": [
+          42,
+          1,
+          41
+        ],
+        "feet": 1.0625,
+        "old_hits": [
+          [
+            42,
+            1,
+            41
+          ]
+        ],
+        "new_hits": [],
+        "ceiling_underside": 7,
+        "modeled_head_top": 2.9625,
+        "remaining_headroom": 4.0375
+      },
+      {
+        "at": [
+          42,
+          1,
+          43
+        ],
+        "feet": 1.0625,
+        "old_hits": [
+          [
+            42,
+            1,
+            43
+          ]
+        ],
+        "new_hits": [],
+        "ceiling_underside": 7,
+        "modeled_head_top": 2.9625,
+        "remaining_headroom": 4.0375
+      },
+      {
+        "at": [
+          42,
+          1,
+          45
+        ],
+        "feet": 1.0,
+        "old_hits": [
+          [
+            42,
+            1,
+            45
+          ]
+        ],
+        "new_hits": [],
+        "ceiling_underside": 7,
+        "modeled_head_top": 2.9,
+        "remaining_headroom": 4.1
+      },
+      {
+        "at": [
+          42,
+          1,
+          47
+        ],
+        "feet": 1.0,
+        "old_hits": [
+          [
+            42,
+            1,
+            47
+          ]
+        ],
+        "new_hits": [],
+        "ceiling_underside": 7,
+        "modeled_head_top": 2.9,
+        "remaining_headroom": 4.1
+      }
+    ],
+    "negative_fixtures": {
+      "continuous_seating_rejected": true,
+      "nonseat_change_rejected": true,
+      "blocked_gap_rejected": true
+    }
+  },
+  "carpet_height_limit": "Legacy walking graph treats carpet as passable at floor feet y1. Four new carpet gaps are rendered 1/16 high and conservatively swept at feet1.0625; continuous raised segments do not execute stepping transitions. Native Bedrock small-step/collider behavior remains unrun.",
+  "render_scope": "Actual serialized interior x37..44,y0..3,z34..50; walls and upper floor omitted. Fixed framing/scale. Stairs approximate two boxes, fences narrow posts, lanterns/cake simplified. Flat colors; no native textures or lighting.",
+  "source_refs": [
+    {
+      "id": "343658414",
+      "path": "tmp/conformance/next-guild-reference/reference-343658414.jpg",
+      "sha256": "bd626549861c1af627e085b1eb6a4a7a7c0f120c941e4876c2afba941088c78e"
+    },
+    {
+      "id": "236178734",
+      "path": "tmp/conformance/next-guild-reference/reference-236178734.jpg",
+      "sha256": "8ad4018a973a1d47007924aa9c05a901cda720380ace0d6ffe53c91fedb775e7"
+    }
+  ],
+  "source_support": "Both full original343658414 and236178734 images reinspected. Separate low red-covered stools and long decorated tables are visible. Exact count/spacing, stock chair shape and positions remain adaptations.",
+  "twin_stairs": "Too broad for this bounded furniture pass: original two red-covered stair runs are visible, but cropped endpoints, upper connections and complete room dimensions are not. Current dining dormitory has a solid y7 floor, gallery bridge and external stair access. Adding twin internal stairs would require floor/stairwell/wall/bed/door circulation redesign, exceeding non-seat scope. Keep this as a next-layout audit, not a completed match.",
+  "next_scope": "Round red stool shape and decorated table runner/mugs need separately inspected prototypes; retain all table lighting until native light review. No full dining layout or Library lighting claim.",
+  "source_images_external": true,
+  "initial_helper_correction": "Initial assumption of uniform y7 ceiling failed at two existing gallery supports x38,z41/43,y6. Original failure retained in author-initial.log; captions and ceiling assertion corrected to actual final cells, with no production change.",
+  "native_acceptance": "Unrun",
+  "authored_files": [
+    "scripts/gen_structures.py"
+  ],
+  "staging": "None by author agent; root owns stage/commit and generation."
+}

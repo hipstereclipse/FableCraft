@@ -1,0 +1,9 @@
+{
+  "reviewer": "root",
+  "directly_viewed_sha256": {
+    "dining-plan-before.png": "d501d430dd562cc3ed9c5c0e4d3172a0f540470a288b2e7d6ee972b3df20b6ea",
+    "dining-plan-after.png": "d50e2b9ac8ff65e9578e41f096628bf1ab3f33159bd31fe6a7354ebf73c4ac52"
+  },
+  "scope": "Both independent final decoded dining plans inspected; gap and carpet pattern matches four focused cutaways and final serialized delta.",
+  "native_acceptance": "unrun"
+}

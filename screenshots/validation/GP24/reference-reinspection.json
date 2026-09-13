@@ -1,0 +1,110 @@
+{
+  "references": [
+    {
+      "id": "343658414",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/31851510498053393/A5FD4BE287B0403EFFE623408B0F2742DE775150/",
+      "author": "Rhys Anderson Kinloch",
+      "source_listing": {
+        "term": "guild",
+        "page": 2,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=2",
+        "path": "tmp/conformance/next-guild-reference/steam-guild-2.html",
+        "bytes": 83284,
+        "sha256": "457bc2162d11f1da864282c5ebe326beeed5d9b2fc2456792abaee04dcd15198",
+        "retrieved_utc": "2026-09-13T16:53:39.516018+00:00"
+      },
+      "path": "tmp/conformance/next-guild-reference/reference-343658414.jpg",
+      "bytes": 140664,
+      "sha256": "bd626549861c1af627e085b1eb6a4a7a7c0f120c941e4876c2afba941088c78e",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:18.437756+00:00",
+      "scene": "Guild dining hall: ordinary gameplay, table end and stair doorway",
+      "visible_findings": [
+        "Long decorated timber table has a pale central strip bordered in teal, dark curling surface motifs and separate mugs on pale coasters.",
+        "Small round red-covered stools sit at the table; large timber casks are visible at left.",
+        "Red wall panels stand between heavy timber posts over dark circular-pattern lower panels; a pointed stone opening holds stairs leading toward daylight.",
+        "A narrow pointed blue/purple window is visible high on the left wall."
+      ],
+      "limits": [
+        "Maze and child Hero obscure the foreground, and table ends/room boundaries are cropped. Full furniture count, floor plan and lighting values are unestablished.",
+        "This is dining-hall evidence, not neutral Library or Maze-study evidence."
+      ],
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=343658414",
+      "posted_date": null,
+      "posted_date_note": "Detail download returned generic Steam Workshop shell; no posting date inferred from screenshot ID.",
+      "capture_date": null,
+      "patch_mod_status": "Unknown",
+      "edition_confidence": "High: exact ID and direct image URL matched a saved app-204030 card and original classic pixels were inspected. Does not establish patch/mod status.",
+      "actual_pixels_inspected": true,
+      "inspection": "Full source image displayed with view_image, plus contact-sheet review.",
+      "detail_page_proof": {
+        "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=343658414",
+        "bytes": 310393,
+        "sha256": "d8aefee5c773bcb42c7e6cb9603295e02647856832d1ae84a31c74df55a8bee0",
+        "retrieved_utc": "2026-09-13T16:55:29.590624+00:00",
+        "path": "tmp/conformance/next-guild-reference/steam-343658414-detail.html",
+        "result": "Generic Steam Workshop shell; posting date unavailable"
+      },
+      "newly_accepted_in": "GP23",
+      "root_full_pixel_review_confirmed": true
+    },
+    {
+      "id": "236178734",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/3318330593752315032/C758A7D35F011A544BAAABAA3D38A17EB2C5EC1C/",
+      "author": "Generic Name",
+      "source_listing": {
+        "term": "guild",
+        "page": 3,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=3",
+        "path": "tmp/conformance/next-guild-reference/steam-guild-3.html",
+        "bytes": 83872,
+        "sha256": "38aa6026293dff07600edeb4846aff9c00ae1650b49fbe2c0bdc88f759fd42c4",
+        "retrieved_utc": "2026-09-13T16:53:39.580439+00:00"
+      },
+      "path": "tmp/conformance/next-guild-reference/reference-236178734.jpg",
+      "bytes": 356114,
+      "sha256": "8ad4018a973a1d47007924aa9c05a901cda720380ace0d6ffe53c91fedb775e7",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "retrieved_utc": "2026-09-13T16:54:21.779794+00:00",
+      "scene": "Guild dining hall: wide ordinary view with two stair runs",
+      "visible_findings": [
+        "Long decorated dining-table surfaces are aligned end to end with pale teal-bordered runners, repeated curling motifs and separate mugs on pale squares.",
+        "Many separate short round red-covered stools line the table.",
+        "Two red-covered stair runs rise behind the dining area with a central masonry support and dark timber handrails.",
+        "Red wall fields, heavy decorated timber posts, continuous patterned lower panels and diagonal stone floor seams are visible."
+      ],
+      "limits": [
+        "Foreground Hero, apprentices and image edges occlude parts of the room and furniture; no exact table/stool total or full floor plan is asserted.",
+        "Character glows and unknown rendering settings preclude calibrated neutral lighting. This is dining-hall evidence, not Library evidence."
+      ],
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=236178734",
+      "posted_date": null,
+      "posted_date_note": "Detail download returned generic Steam Workshop shell; no posting date inferred from screenshot ID.",
+      "capture_date": null,
+      "patch_mod_status": "Unknown",
+      "edition_confidence": "High: exact ID and direct image URL matched a saved app-204030 card and original classic pixels were inspected. Does not establish patch/mod status.",
+      "actual_pixels_inspected": true,
+      "inspection": "Full source image displayed with view_image, plus contact-sheet review.",
+      "detail_page_proof": {
+        "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=236178734",
+        "bytes": 310393,
+        "sha256": "afe90dfaac064c84dbe02e0ec43ea9701569559c1b4d51dc5af8184d81c67861",
+        "retrieved_utc": "2026-09-13T16:55:30.131912+00:00",
+        "path": "tmp/conformance/next-guild-reference/steam-236178734-detail.html",
+        "result": "Generic Steam Workshop shell; posting date unavailable"
+      },
+      "newly_accepted_in": "GP23",
+      "root_full_pixel_review_confirmed": true
+    }
+  ],
+  "observation": "Both images show distinct low red-covered stools with floor space between seats; exact count, dimensions, oak-stair shape and current row positions are not established. Twin internal stair runs, full table decoration, mug props, stool form and materials remain unresolved.",
+  "native_acceptance": "unrun"
+}
