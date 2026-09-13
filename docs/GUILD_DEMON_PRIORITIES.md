@@ -58,6 +58,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | DP7 | in-progress | New Gorge instances open into a separately authored Arboretum with witnessed challenge, physical shared Pickhammer, bounded allocation and exact-source return; native acceptance open |
 | DP8 | in-progress | Independent realm maintenance/tick boundaries preserve healthy Arboretum dwell returns through failed Guild claim writes; native acceptance open |
 | GP21 | in-progress | Reference-led timber firing divider adds ten cells with a clear three-column Skill bay, preserving complete checked routes and all other campus cells; native acceptance open |
+| DP9 | in-progress | Guarded Library preparation prevents ambiguous structure/seed replay, verifies exact reward readback and late containment; native acceptance open |
 
 Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
 defects and manual status here. These passes are not completed legacy leaves.
@@ -1187,7 +1188,7 @@ still needs native calibration; do not retry unchanged failed pinned downloads.
 
 ## GP21 — timber archery firing divider (2026-09-13)
 
-Commit: SELF: TLC Conformance — GP21: frame the Guild archery firing bay.
+Commit: c001e51929401de8068b85aff42cb7d10fb4f3ec. Pushed; exact-head CI 34740634798 passed.
 A newly inspected original TLC range view shows a transverse low timber divider
 in front of the scenic targets. Two stock-fence sections now frame the current
 Skill firing bay: exactly ten cells, x80..81/x85..92,y1,z38. Extent, spruce material,
@@ -1224,3 +1225,34 @@ Next: reproduce the older Guild preparation/reward ambiguity before changing its
 saved contract; continue range scenic cutout/platform/interior comparisons and
 individual canonical door worlds. Native acceptance stays open for the facility
 and both existing portal pilots; no unchanged failed pinned download was retried.
+
+
+## DP9 — guarded Library preparation (2026-09-13)
+
+Commit: SELF: TLC Conformance — DP9: guard Library preparation and reward receipts.
+Eleven actual-predecessor probes reproduced destructive placing replay, late
+volume/shell changes, silent/wrong reward writes, unexpected existing contents
+and a late occupant at seeding. An optional preparation journal in the existing
+Guild record now witnesses placement intent, successful placement, seed intent
+and verified seed completion. Each transition checks current authority and reads
+back its write before allowing the next effect. Unknown legacy placing and
+interrupted placement/seed intents never authorize another effect.
+
+Fresh native volume and containment queries refuse unloaded/changed blocks.
+All four live containers must start empty; exact type, quantity, name, lore and
+all unused slots are checked after seeding. Receipt recovery verifies existing
+blocks/rewards without replacing or replenishing them. Ready/visited rooms,
+depletion, paid/unknown suppression, source/cell/grid and exact tickets retain
+their established history. No Guild or destination geometry changes.
+
+See [LIBRARY_ARCANUM_PREPARATION.md](LIBRARY_ARCANUM_PREPARATION.md) and
+`screenshots/validation/DP9/`. All 55 base gates, 65 ESM checks, fresh C2 and Guild diagnostics pass in the
+isolated reviewed-index snapshot. Runtime 29 and actual adapter 39 groups pass;
+independent review passes 34 cases. Its two intermediate per-item authority/
+contents defects are fixed, with initial output retained. All 36 assets/C2
+images and seven visual owners match GP21; full 282-PNG and seven Guild doc
+scenes are retained from unchanged inputs, not rerun. Only two handwritten
+scripts change among 1,662 snapshot pack files. No native server or world has
+run. GP21 remains the visual baseline. Native
+crash durability, loading cost, multiplayer, collection and collision remain
+unrun; the legacy scoreboard stays 45 leaves and 7 done.

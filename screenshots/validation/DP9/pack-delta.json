@@ -1,0 +1,10 @@
+{
+  "baseline": "GP21 reviewed snapshot",
+  "files": 1662,
+  "changed": [
+    "packs/Fablecraft_BP/scripts/fc_demon_doors.js",
+    "packs/Fablecraft_BP/scripts/main.js"
+  ],
+  "all_other_files": "exact SHA256 equality",
+  "regeneration": "not required; only handwritten runtime changes"
+}

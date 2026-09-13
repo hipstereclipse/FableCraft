@@ -1,0 +1,28 @@
+(node:5) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"name":"journal_allocated_before","before":{"placements":1,"seeds":4,"phase":"ready","preparation":"seeded"},"after":{"placements":1,"seeds":4,"phase":"ready","preparation":"seeded"}}
+{"name":"journal_allocated_after","before":{"placements":1,"seeds":4,"phase":"ready","preparation":"seeded"},"after":{"placements":1,"seeds":4,"phase":"ready","preparation":"seeded"}}
+{"name":"journal_allocated_drop","before":{"placements":1,"seeds":4,"phase":"ready","preparation":"seeded"},"after":{"placements":1,"seeds":4,"phase":"ready","preparation":"seeded"}}
+{"name":"journal_allocated_substitute","before":{"placements":1,"seeds":4,"phase":"ready","preparation":"seeded"},"after":{"placements":1,"seeds":4,"phase":"ready","preparation":"seeded"}}
+{"name":"journal_placing_before","before":{"placements":0,"seeds":0,"phase":"allocated"},"after":{"placements":1,"seeds":4,"phase":"ready","preparation":"seeded"}}
+{"name":"journal_placing_after","before":{"placements":0,"seeds":0,"phase":"placing","preparation":"placing"},"after":{"placements":0,"seeds":0,"phase":"placing","preparation":"placing"}}
+{"name":"journal_placing_drop","before":{"placements":0,"seeds":0,"phase":"allocated"},"after":{"placements":1,"seeds":4,"phase":"ready","preparation":"seeded"}}
+{"name":"journal_placing_substitute","before":{"placements":0,"seeds":0,"phase":"placing","preparation":"placing"},"after":{"placements":0,"seeds":0,"phase":"placing","preparation":"placing"}}
+{"name":"journal_placed_before","before":{"placements":1,"seeds":0,"phase":"placing","preparation":"placing"},"after":{"placements":1,"seeds":0,"phase":"placing","preparation":"placing"}}
+{"name":"journal_placed_after","before":{"placements":1,"seeds":0,"phase":"placing","preparation":"placed"},"after":{"placements":1,"seeds":4,"phase":"ready","preparation":"seeded"}}
+{"name":"journal_placed_drop","before":{"placements":1,"seeds":0,"phase":"placing","preparation":"placing"},"after":{"placements":1,"seeds":0,"phase":"placing","preparation":"placing"}}
+{"name":"journal_placed_substitute","before":{"placements":1,"seeds":0,"phase":"placing","preparation":"placed"},"after":{"placements":1,"seeds":4,"phase":"ready","preparation":"seeded"}}
+{"name":"journal_seeding_before","before":{"placements":1,"seeds":0,"phase":"placing","preparation":"placed"},"after":{"placements":1,"seeds":4,"phase":"ready","preparation":"seeded"}}
+{"name":"journal_seeding_after","before":{"placements":1,"seeds":0,"phase":"placing","preparation":"seeding"},"after":{"placements":1,"seeds":0,"phase":"placing","preparation":"seeding"}}
+{"name":"journal_seeding_drop","before":{"placements":1,"seeds":0,"phase":"placing","preparation":"placed"},"after":{"placements":1,"seeds":4,"phase":"ready","preparation":"seeded"}}
+{"name":"journal_seeding_substitute","before":{"placements":1,"seeds":0,"phase":"placing","preparation":"seeding"},"after":{"placements":1,"seeds":0,"phase":"placing","preparation":"seeding"}}
+{"name":"journal_seeded_before","before":{"placements":1,"seeds":4,"phase":"placing","preparation":"seeding"},"after":{"placements":1,"seeds":4,"phase":"placing","preparation":"seeding"}}
+{"name":"journal_seeded_after","before":{"placements":1,"seeds":4,"phase":"placing","preparation":"seeded"},"after":{"placements":1,"seeds":4,"phase":"ready","preparation":"seeded"}}
+{"name":"journal_seeded_drop","before":{"placements":1,"seeds":4,"phase":"placing","preparation":"seeding"},"after":{"placements":1,"seeds":4,"phase":"placing","preparation":"seeding"}}
+{"name":"journal_seeded_substitute","before":{"placements":1,"seeds":4,"phase":"placing","preparation":"seeded"},"after":{"placements":1,"seeds":4,"phase":"ready","preparation":"seeded"}}
+{"name":"journal_ready_before","before":{"placements":1,"seeds":4,"phase":"placing","preparation":"seeded"},"after":{"placements":1,"seeds":4,"phase":"ready","preparation":"seeded"}}
+{"name":"journal_ready_after","before":{"placements":1,"seeds":4,"phase":"ready","preparation":"seeded"},"after":{"placements":1,"seeds":4,"phase":"ready","preparation":"seeded"}}
+{"name":"journal_ready_drop","before":{"placements":1,"seeds":4,"phase":"placing","preparation":"seeded"},"after":{"placements":1,"seeds":4,"phase":"ready","preparation":"seeded"}}
+{"name":"journal_ready_substitute","before":{"placements":1,"seeds":4,"phase":"ready","preparation":"seeded"},"after":{"placements":1,"seeds":4,"phase":"ready","preparation":"seeded"}}
+{"name":"history_replaced_during_first_seed_still_gets_other_three_effects","seeds":4,"historyPreserved":true,"phase":"ready","claimed":[true,true,true,true]}
+{"name":"later_container_filled_during_first_seed_is_overwritten","phase":"ready","seeds":4,"replacedForeignStack":"minecraft:book"}

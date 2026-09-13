@@ -226,8 +226,10 @@ baseline shared-door reward policy rather than introducing a per-player farm.
    search a small bounded set of clear source-approach alternatives; do not
    carve terrain or silently send the player to a different door.
 
-Persist seeding/build phases before any room becomes accessible. On interrupted
-first build, retry only while no visit is recorded; do not reset a visited room.
+Persist seeding/build phases before any room becomes accessible. DP9 supersedes the original unvisited-only retry rule: unknown legacy placing
+and interrupted placement/seed intents never authorize replay. Saved success
+receipts permit only verification and the next unperformed phase. Do not reset
+a visited room. See [the Library preparation contract](LIBRARY_ARCANUM_PREPARATION.md).
 If a ready room is damaged/missing, permit recovery return and report the room
 unavailable; reconstructing it requires a separate versioned repair that keeps
 all seeded/claimed history. Separate property writes and container operations

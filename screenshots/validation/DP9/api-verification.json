@@ -1,0 +1,18 @@
+{
+  "date": "2026-09-13",
+  "pinned_server_api": "2.1.0",
+  "pinned_types_sha256": "38e989f3f0371967c1df82a12d5f37a3832cbff3944e38be8bb51638ed0e771d",
+  "verified_signatures": [
+    "Dimension.containsBlock(BlockVolumeBase, BlockFilter, allowUnloadedChunks?: boolean): boolean",
+    "Container.size: number; getItem(slot): ItemStack | undefined; setItem(slot, ItemStack?): void",
+    "ItemStack.typeId, amount, nameTag, getLore(): string[]"
+  ],
+  "native_adapter": "containsBlock with exclusive non-air/non-barrier filter; allowUnloadedChunks false; only strict false means no mismatch",
+  "sources": [
+    "https://registry.npmjs.org/@minecraft/server/2.1.0",
+    "https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/server/dimension?view=minecraft-bedrock-stable",
+    "https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/server/container?view=minecraft-bedrock-stable",
+    "https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/server/itemstack?view=minecraft-bedrock-stable"
+  ],
+  "native_execution": "unrun; type and documented API availability are not execution proof"
+}

@@ -1,0 +1,675 @@
+{
+  "purpose": "DP9 independent reference-only follow-up. No production, generated geometry or tracked documentation edits.",
+  "date_utc": "2026-09-13",
+  "inspection_completed_utc": "2026-09-13T12:02:12Z",
+  "external_pixel_policy": "All downloaded HTML, external source pixels, contact sheets and these notes remain ignored under tmp/conformance/dp9-reference; original existing GP21 image remains at its prior ignored path.",
+  "search_scope": {
+    "terms": [
+      "guild",
+      "library",
+      "maze",
+      "training",
+      "bridge",
+      "archery",
+      "range",
+      "dormitory",
+      "study"
+    ],
+    "listing_pages": [
+      {
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated",
+        "path": "tmp/conformance/dp9-reference/steam-guild.html",
+        "bytes": 84536,
+        "sha256": "59bc41ffdcf7619bede3e32404289b3229fc7d9e8627322f947559ccffa9cbde",
+        "local_file_saved_utc": "2026-09-13T11:59:14.502312+00:00"
+      },
+      {
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=library&browsefilter=toprated",
+        "path": "tmp/conformance/dp9-reference/steam-library.html",
+        "bytes": 53264,
+        "sha256": "94e7b203b5a77c70118a1f9ca3c801de2d769b104c861b92e0a8e987c4344a71",
+        "local_file_saved_utc": "2026-09-13T11:59:14.547312+00:00"
+      },
+      {
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=maze&browsefilter=toprated",
+        "path": "tmp/conformance/dp9-reference/steam-maze.html",
+        "bytes": 83391,
+        "sha256": "fa79f31eb103f18671feae96e8b6a510acd4aaf3adb8f2cddcf6455d3d4f7073",
+        "local_file_saved_utc": "2026-09-13T11:59:14.526312+00:00"
+      },
+      {
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=training&browsefilter=toprated",
+        "path": "tmp/conformance/dp9-reference/steam-training.html",
+        "bytes": 83411,
+        "sha256": "3130fad47b08969daff59001bec5d16de065e5de3d0ddbd60cba8c67dcddb239",
+        "local_file_saved_utc": "2026-09-13T11:59:14.508312+00:00"
+      },
+      {
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=bridge&browsefilter=toprated",
+        "path": "tmp/conformance/dp9-reference/steam-bridge.html",
+        "bytes": 60531,
+        "sha256": "376d12241e67d6e4e36e82179e99cc53e358c51543b4ce66cfefc8e6d153e8ff",
+        "local_file_saved_utc": "2026-09-13T11:59:14.473311+00:00"
+      },
+      {
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=archery&browsefilter=toprated",
+        "path": "tmp/conformance/dp9-reference/steam-archery.html",
+        "bytes": 64922,
+        "sha256": "0693aba8d109131d4592690244e9a04004664410480a07eaf70562e5641dc6a3",
+        "local_file_saved_utc": "2026-09-13T12:00:42.909675+00:00"
+      },
+      {
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=range&browsefilter=toprated",
+        "path": "tmp/conformance/dp9-reference/steam-range.html",
+        "bytes": 44397,
+        "sha256": "97b4ea89f23bf4aa76ad6ad55c46c2fc2793dc6288e4b3d09fa2df55d4b3764c",
+        "local_file_saved_utc": "2026-09-13T12:00:42.616670+00:00"
+      },
+      {
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=dormitory&browsefilter=toprated",
+        "path": "tmp/conformance/dp9-reference/steam-dormitory.html",
+        "bytes": 44553,
+        "sha256": "f164fbe374b7081f271b1538f067a884b3468977709713259fcf351007414c1c",
+        "local_file_saved_utc": "2026-09-13T12:00:42.607670+00:00"
+      },
+      {
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=study&browsefilter=toprated",
+        "path": "tmp/conformance/dp9-reference/steam-study.html",
+        "bytes": 44397,
+        "sha256": "ed39eb6ed60f6a0ef86dc25859943dd61759a53c4f3d52c5579a53dbb2904ddc",
+        "local_file_saved_utc": "2026-09-13T12:00:42.606670+00:00"
+      }
+    ],
+    "image_candidates_downloaded": 23,
+    "new_useful_original_TLC_photos": 3,
+    "limits": "First screenshot-listing page per query only; deliberately bounded and not exhaustive. Empty range/dormitory/study cards yielded no images. Archery returned two known Guild views and three prior excluded non-Guild views; bridge returned four prior excluded non-Guild views.",
+    "web_queries": [
+      "site.steamcommunity.com/sharedfiles/filedetails \"Fable - The Lost Chapters\" \"Guild\" archery",
+      "Fable The Lost Chapters guild bridge screenshot archery"
+    ],
+    "detail_page_result": "Three newly accepted screenshot detail downloads returned generic Workshop JavaScript shells. Two web open attempts also failed. Original edition evidence comes from exact app-204030 listing cards plus inspected original classic pixels, not date or caption inference."
+  },
+  "committed_reference_corpus_unchanged": 27,
+  "new_references": [
+    {
+      "source": "steam-guild.html",
+      "id": "91147839",
+      "appid": "204030",
+      "caption": "The Guild.",
+      "image": "https://images.steamusercontent.com/ugc/920113049598722245/D6744214C1E7D3F662FEB496091384D859D43081/?imw=1024&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
+      "direct_url": "https://images.steamusercontent.com/ugc/920113049598722245/D6744214C1E7D3F662FEB496091384D859D43081/",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "path": "tmp/conformance/dp9-reference/reference-91147839.jpg",
+      "bytes": 312415,
+      "sha256": "35acb2d3ba89ee83c1b474b19fe50b6cc88cb1c98fec8faef9a0744ae1ab358d",
+      "scene": "Guild grounds: daylight bridge and circular-windowed stone tower",
+      "visible_findings": [
+        "Right bridge has a timber-colored plank deck between broad continuous parapets that rise toward the middle, with curling dark motifs on pale inset faces and chunky capped end posts.",
+        "A tall post lantern stands immediately outside the near right bridge end.",
+        "Part of a second decorated bridge is visible at the far left edge beyond practice dummies.",
+        "The tower has large round inset/window features, pointed gables above them, heavy horizontal bands and an upper polygonal stage."
+      ],
+      "limits": [
+        "Hero, trees, rocks and image boundaries occlude the approach and left bridge.",
+        "No calibrated bridge width, slope, parapet thickness, coordinate orientation, lighting value or two-actor clearance follows from this view."
+      ],
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=91147839",
+      "source_listing": {
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated",
+        "path": "tmp/conformance/dp9-reference/steam-guild.html",
+        "bytes": 84536,
+        "sha256": "59bc41ffdcf7619bede3e32404289b3229fc7d9e8627322f947559ccffa9cbde",
+        "local_file_saved_utc": "2026-09-13T11:59:14.502312+00:00"
+      },
+      "detail_page_attempt": {
+        "id": "91147839",
+        "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=91147839",
+        "path": "tmp/conformance/dp9-reference/steam-91147839-detail.html",
+        "bytes": 310333,
+        "sha256": "ac4916d242d37bd93061892bc9091c0032b1f81dcf2282c057dd99e4ce26ca76",
+        "title": "Steam Workshop",
+        "detail_stats": [],
+        "description": [],
+        "breadcrumb": [],
+        "app_links": [],
+        "local_file_saved_utc": "2026-09-13T12:01:13.013140+00:00"
+      },
+      "retrieved_utc": "2026-09-13",
+      "posted_date": null,
+      "posted_date_note": "Not recoverable from accessible pages: saved detail response is a generic Steam Workshop JavaScript shell. No date was inferred from screenshot ID.",
+      "capture_date": null,
+      "author": "MikeyWhooster",
+      "edition_confidence": "High: exact screenshot ID and direct asset URL match saved original-TLC app 204030 listing card; actual classic game pixels visually inspected. Does not establish patch/mod status.",
+      "actual_pixels_inspected": true,
+      "inspection": "Full image using view_image; 3243931107 additionally displayed with original 3840 x 1080 detail.",
+      "new_for_this_reference_audit": true,
+      "local_file_saved_utc": "2026-09-13T12:00:02.427050+00:00"
+    },
+    {
+      "source": "steam-guild.html",
+      "id": "350434796",
+      "appid": "204030",
+      "caption": "The guild :3",
+      "image": "https://images.steamusercontent.com/ugc/39734699865396745/EF6AD800E188178288FE55841E5F507EBAA8D57F/?imw=1024&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
+      "direct_url": "https://images.steamusercontent.com/ugc/39734699865396745/EF6AD800E188178288FE55841E5F507EBAA8D57F/",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "path": "tmp/conformance/dp9-reference/reference-350434796.jpg",
+      "bytes": 193209,
+      "sha256": "674f796b0407cb39306bdc548fd6d5b92207b1ec5912e01d97431c0f5d431c5a",
+      "scene": "Guild main map hall: stair, under-stair arch and Cullis gate",
+      "visible_findings": [
+        "Stone stairs rise behind a thick timber handrail and broadly spaced timber posts; the stair base spans a pointed stone passage.",
+        "A separate pointed doorway behind the stair foot contains the blue Cullis effect.",
+        "Red carpet bands connect the doorways around a relief-map table above diagonal-pattern stone paving.",
+        "The upper hall has a continuous curved masonry band and a projecting dark timber floor/edge above the stair."
+      ],
+      "limits": [
+        "Hero and table occlude the foreground floor; Guildmaster glow and warm display/render settings prevent neutral color calibration.",
+        "No complete stair run, corridor width, route clearance, full furniture count or floor plan can be recovered from the still."
+      ],
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=350434796",
+      "source_listing": {
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated",
+        "path": "tmp/conformance/dp9-reference/steam-guild.html",
+        "bytes": 84536,
+        "sha256": "59bc41ffdcf7619bede3e32404289b3229fc7d9e8627322f947559ccffa9cbde",
+        "local_file_saved_utc": "2026-09-13T11:59:14.502312+00:00"
+      },
+      "detail_page_attempt": {
+        "id": "350434796",
+        "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=350434796",
+        "path": "tmp/conformance/dp9-reference/steam-350434796-detail.html",
+        "bytes": 310393,
+        "sha256": "b30ca7738558aaf1c6feb213f0e18fa54aa0827dcbac7cbaab864b7e82e04a96",
+        "title": "Steam Workshop",
+        "detail_stats": [],
+        "description": [],
+        "breadcrumb": [],
+        "app_links": [],
+        "local_file_saved_utc": "2026-09-13T12:01:12.855137+00:00"
+      },
+      "retrieved_utc": "2026-09-13",
+      "posted_date": null,
+      "posted_date_note": "Not recoverable from accessible pages: saved detail response is a generic Steam Workshop JavaScript shell. No date was inferred from screenshot ID.",
+      "capture_date": null,
+      "author": "Midnight Wolf",
+      "edition_confidence": "High: exact screenshot ID and direct asset URL match saved original-TLC app 204030 listing card; actual classic game pixels visually inspected. Does not establish patch/mod status.",
+      "actual_pixels_inspected": true,
+      "inspection": "Full image using view_image; 3243931107 additionally displayed with original 3840 x 1080 detail.",
+      "new_for_this_reference_audit": true,
+      "local_file_saved_utc": "2026-09-13T12:00:01.980043+00:00"
+    },
+    {
+      "source": "steam-guild.html",
+      "id": "3243931107",
+      "appid": "204030",
+      "caption": "HEROES GUILD",
+      "image": "https://images.steamusercontent.com/ugc/2464109208832061044/651335E0C0E130E8DA282B98638B1517AB1FC6CC/?imw=1024&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
+      "direct_url": "https://images.steamusercontent.com/ugc/2464109208832061044/651335E0C0E130E8DA282B98638B1517AB1FC6CC/",
+      "dimensions": [
+        3840,
+        1080
+      ],
+      "path": "tmp/conformance/dp9-reference/reference-3243931107.jpg",
+      "bytes": 875656,
+      "sha256": "8d100af257cdea17c994bbc30ed0f1d2193e464ea8f345a8fad26475112764b5",
+      "scene": "Guild courtyard and watercourse: wide elevated panorama",
+      "visible_findings": [
+        "Two decorated timber bridge spans cross separate visible portions of the watercourse beyond the formal courtyard.",
+        "Low straight hedges divide clipped trees and two visible tiered fountain basins; a stone-paved route runs beside the watercourse.",
+        "Long Guild masonry walls have repeated buttress-like strips and slate-colored roofs; round windows sit beneath roof projections on the near right building.",
+        "The two bridge spans show deck planks and continuous rising decorated side members from above."
+      ],
+      "limits": [
+        "Unusual 3840 x 1080 panorama and elevated camera: camera/FOV, rendering settings, capture tooling and mod status are unknown; no inference of standard playable viewpoint is made.",
+        "Perspective and obscured endpoints prevent metric deck width, full approach geometry, exact world orientation or native route proof.",
+        "This is suitable for qualitative relationships only; no full campus plan or new bridge layout is authorized."
+      ],
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3243931107",
+      "source_listing": {
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated",
+        "path": "tmp/conformance/dp9-reference/steam-guild.html",
+        "bytes": 84536,
+        "sha256": "59bc41ffdcf7619bede3e32404289b3229fc7d9e8627322f947559ccffa9cbde",
+        "local_file_saved_utc": "2026-09-13T11:59:14.502312+00:00"
+      },
+      "detail_page_attempt": {
+        "id": "3243931107",
+        "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3243931107",
+        "path": "tmp/conformance/dp9-reference/steam-3243931107-detail.html",
+        "bytes": 310453,
+        "sha256": "7abc17560abedad1df48492dd290546c09c2050dbbc3d60ce8a72891c3d70763",
+        "title": "Steam Workshop",
+        "detail_stats": [],
+        "description": [],
+        "breadcrumb": [],
+        "app_links": [],
+        "local_file_saved_utc": "2026-09-13T12:01:13.079141+00:00"
+      },
+      "retrieved_utc": "2026-09-13",
+      "posted_date": null,
+      "posted_date_note": "Not recoverable from accessible pages: saved detail response is a generic Steam Workshop JavaScript shell. No date was inferred from screenshot ID.",
+      "capture_date": null,
+      "author": "Jack Of Blades",
+      "edition_confidence": "High: exact screenshot ID and direct asset URL match saved original-TLC app 204030 listing card; actual classic game pixels visually inspected. Does not establish patch/mod status.",
+      "actual_pixels_inspected": true,
+      "inspection": "Full image using view_image; 3243931107 additionally displayed with original 3840 x 1080 detail.",
+      "new_for_this_reference_audit": true,
+      "local_file_saved_utc": "2026-09-13T12:00:02.344049+00:00"
+    }
+  ],
+  "excluded_candidates": [
+    {
+      "source": "steam-guild.html",
+      "id": "153346573",
+      "appid": "204030",
+      "caption": "",
+      "image": "https://images.steamusercontent.com/ugc/612769210754709307/607FCB838FF326786E7C8A197346908478962E23/?imw=1024&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
+      "direct_url": "https://images.steamusercontent.com/ugc/612769210754709307/607FCB838FF326786E7C8A197346908478962E23/",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "path": "tmp/conformance/dp9-reference/reference-153346573.jpg",
+      "bytes": 169565,
+      "sha256": "f5dcd2a955aa1cd0d9d75b7a82df03cc096fbf527fe2da9d485ca1464776d4d7",
+      "reason": "Very distant Guild exterior at strong sunset; no useful new bounded archery/bridge/interior detail.",
+      "inspection": "Contact-sheet pixels inspected; 131726146 also displayed full resolution. Caption alone was not used to accept any architectural claim.",
+      "local_file_saved_utc": "2026-09-13T12:00:02.413050+00:00"
+    },
+    {
+      "source": "steam-guild.html",
+      "id": "3346393920",
+      "appid": "204030",
+      "caption": "",
+      "image": "https://images.steamusercontent.com/ugc/2479885846050835268/3E6DDEA2E81119E03A7EE13DF8FAD128D0DC59B5/?imw=1024&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
+      "direct_url": "https://images.steamusercontent.com/ugc/2479885846050835268/3E6DDEA2E81119E03A7EE13DF8FAD128D0DC59B5/",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "path": "tmp/conformance/dp9-reference/reference-3346393920.jpg",
+      "bytes": 607465,
+      "sha256": "01bee86b63871377b14549e44ec981e76f2ea433c3c5b64cd6b745db92a1a3f1",
+      "reason": "Combat and heavy effects obscure courtyard; original unmodified asset appearance not established. Not accepted as architectural evidence.",
+      "inspection": "Contact-sheet pixels inspected; 131726146 also displayed full resolution. Caption alone was not used to accept any architectural claim.",
+      "local_file_saved_utc": "2026-09-13T12:00:02.004043+00:00"
+    },
+    {
+      "source": "steam-guild.html",
+      "id": "311467718",
+      "appid": "204030",
+      "caption": "",
+      "image": "https://images.steamusercontent.com/ugc/531744890152760028/D9376645AE9AC457FFA130325A58EBF6B76AFDC3/?imw=1024&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
+      "direct_url": "https://images.steamusercontent.com/ugc/531744890152760028/D9376645AE9AC457FFA130325A58EBF6B76AFDC3/",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "path": "tmp/conformance/dp9-reference/reference-311467718.jpg",
+      "bytes": 332529,
+      "sha256": "8d90fff7bd8abd0552731833c179ae2bbdec193df504f2f9e0e2ac7f62c168f8",
+      "reason": "Forest route rather than the Guild facilities targeted by this pass.",
+      "inspection": "Contact-sheet pixels inspected; 131726146 also displayed full resolution. Caption alone was not used to accept any architectural claim.",
+      "local_file_saved_utc": "2026-09-13T12:00:02.918057+00:00"
+    },
+    {
+      "source": "steam-guild.html",
+      "id": "131726146",
+      "appid": "204030",
+      "caption": "",
+      "image": "https://images.steamusercontent.com/ugc/576731339878061610/FABC0F71F023EAF58E084FA0443100DC724C4318/?imw=1024&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
+      "direct_url": "https://images.steamusercontent.com/ugc/576731339878061610/FABC0F71F023EAF58E084FA0443100DC724C4318/",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "path": "tmp/conformance/dp9-reference/reference-131726146.jpg",
+      "bytes": 304477,
+      "sha256": "c211d339fe882cd4368e27b10b0574b87d956ba8181f61c0c25a9d8b33a42349",
+      "reason": "Previously GP16-excluded introductory exterior angle; dark partly obscured facade and foreground lanterns, no useful bridge deck evidence.",
+      "inspection": "Contact-sheet pixels inspected; 131726146 also displayed full resolution. Caption alone was not used to accept any architectural claim.",
+      "local_file_saved_utc": "2026-09-13T12:00:02.244047+00:00"
+    },
+    {
+      "source": "steam-library.html",
+      "id": "242496650",
+      "appid": "204030",
+      "caption": "",
+      "image": "https://images.steamusercontent.com/ugc/3318332036015369336/B14641CF3A0CB3C840EDA27928BC53DA5440A6B0/",
+      "direct_url": "https://images.steamusercontent.com/ugc/3318332036015369336/B14641CF3A0CB3C840EDA27928BC53DA5440A6B0/",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "path": "tmp/conformance/dp9-reference/reference-242496650.jpg",
+      "bytes": 230181,
+      "sha256": "0ad886251f00839f9e53247b4b1d9e18ca71104c83f5f31963f40f0a5d5c790d",
+      "reason": "Previously GP16-excluded Arcanum Demon Door library; not Guild Library.",
+      "inspection": "Contact-sheet pixels inspected; 131726146 also displayed full resolution. Caption alone was not used to accept any architectural claim.",
+      "local_file_saved_utc": "2026-09-13T12:00:03.254063+00:00"
+    },
+    {
+      "source": "steam-maze.html",
+      "id": "2805769575",
+      "appid": "204030",
+      "caption": "",
+      "image": "https://images.steamusercontent.com/ugc/1862812394155664031/34F3FD719031C318FED50CD9F838512D3DA87597/?imw=1024&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
+      "direct_url": "https://images.steamusercontent.com/ugc/1862812394155664031/34F3FD719031C318FED50CD9F838512D3DA87597/",
+      "dimensions": [
+        3840,
+        2160
+      ],
+      "path": "tmp/conformance/dp9-reference/reference-2805769575.jpg",
+      "bytes": 971471,
+      "sha256": "b5cfc86624e50c4f1f31aafcaea5918ca3fed1dc0b507f0bbf4629979f3c0c89",
+      "reason": "Maze close-up in burning settlement, not Guild architecture.",
+      "inspection": "Contact-sheet pixels inspected; 131726146 also displayed full resolution. Caption alone was not used to accept any architectural claim.",
+      "local_file_saved_utc": "2026-09-13T12:00:02.535052+00:00"
+    },
+    {
+      "source": "steam-maze.html",
+      "id": "247403109",
+      "appid": "204030",
+      "caption": "",
+      "image": "https://images.steamusercontent.com/ugc/432651567407081062/B7C47E3E9BE1367B1610A109E8321E44A3F29161/",
+      "direct_url": "https://images.steamusercontent.com/ugc/432651567407081062/B7C47E3E9BE1367B1610A109E8321E44A3F29161/",
+      "dimensions": [
+        1024,
+        600
+      ],
+      "path": "tmp/conformance/dp9-reference/reference-247403109.jpg",
+      "bytes": 171798,
+      "sha256": "86bd424cbc352ee264e7128ebfad62e1d0a758142247e325a06770effef5ef6d",
+      "reason": "Quest reward overlay rather than visible Guild architecture.",
+      "inspection": "Contact-sheet pixels inspected; 131726146 also displayed full resolution. Caption alone was not used to accept any architectural claim.",
+      "local_file_saved_utc": "2026-09-13T12:00:03.160061+00:00"
+    },
+    {
+      "source": "steam-maze.html",
+      "id": "87889476",
+      "appid": "204030",
+      "caption": "",
+      "image": "https://images.steamusercontent.com/ugc/560948983312625743/D64E3209810B16D9AF43B26384973883C4AC734A/?imw=1024&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
+      "direct_url": "https://images.steamusercontent.com/ugc/560948983312625743/D64E3209810B16D9AF43B26384973883C4AC734A/",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "path": "tmp/conformance/dp9-reference/reference-87889476.jpg",
+      "bytes": 284865,
+      "sha256": "5f45e1bf39d50c2ab803a4baf5ed17fc8c1297faa205c547a7283e95cf8148e4",
+      "reason": "Maze fight on snowy Hook Coast-like street, not Guild architecture.",
+      "inspection": "Contact-sheet pixels inspected; 131726146 also displayed full resolution. Caption alone was not used to accept any architectural claim.",
+      "local_file_saved_utc": "2026-09-13T12:00:02.606053+00:00"
+    },
+    {
+      "source": "steam-maze.html",
+      "id": "2227437940",
+      "appid": "204030",
+      "caption": "",
+      "image": "https://images.steamusercontent.com/ugc/1635325934678987030/7334156FD43EE0EE350017A293337BFF854293AD/?imw=1024&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
+      "direct_url": "https://images.steamusercontent.com/ugc/1635325934678987030/7334156FD43EE0EE350017A293337BFF854293AD/",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "path": "tmp/conformance/dp9-reference/reference-2227437940.jpg",
+      "bytes": 327949,
+      "sha256": "61d28e6a3dd9393d7ef78512a8c1beede7b248d2745498e6c029ac5b5555c184",
+      "reason": "Maze and Hero outside a settlement tavern; not Guild interior/bridge.",
+      "inspection": "Contact-sheet pixels inspected; 131726146 also displayed full resolution. Caption alone was not used to accept any architectural claim.",
+      "local_file_saved_utc": "2026-09-13T12:00:02.953058+00:00"
+    },
+    {
+      "source": "steam-maze.html",
+      "id": "1509181017",
+      "appid": "204030",
+      "caption": "",
+      "image": "https://images.steamusercontent.com/ugc/961971522308374627/E62DF1B46823398481101F812F84CA8D15CE8FA6/?imw=1024&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
+      "direct_url": "https://images.steamusercontent.com/ugc/961971522308374627/E62DF1B46823398481101F812F84CA8D15CE8FA6/",
+      "dimensions": [
+        1680,
+        1050
+      ],
+      "path": "tmp/conformance/dp9-reference/reference-1509181017.jpg",
+      "bytes": 262685,
+      "sha256": "ad01d938659a4fb16de5c1e0e0ce810369ed8ec5a801cadef763f6ff98435084",
+      "reason": "Maze in burning settlement cutscene; not Guild architecture.",
+      "inspection": "Contact-sheet pixels inspected; 131726146 also displayed full resolution. Caption alone was not used to accept any architectural claim.",
+      "local_file_saved_utc": "2026-09-13T12:00:02.784055+00:00"
+    },
+    {
+      "source": "steam-maze.html",
+      "id": "818433268",
+      "appid": "204030",
+      "caption": "",
+      "image": "https://images.steamusercontent.com/ugc/177161792745051423/30332C467C77E2A475A3779BB8D1403203913AB3/",
+      "direct_url": "https://images.steamusercontent.com/ugc/177161792745051423/30332C467C77E2A475A3779BB8D1403203913AB3/",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "path": "tmp/conformance/dp9-reference/reference-818433268.jpg",
+      "bytes": 103306,
+      "sha256": "d4dadc27a96771b43de1da30e9027214d0fa7e7ed004a2af5a2a11ec8b1e077b",
+      "reason": "Close-up of Maze during death scene; architectural detail unusable.",
+      "inspection": "Contact-sheet pixels inspected; 131726146 also displayed full resolution. Caption alone was not used to accept any architectural claim.",
+      "local_file_saved_utc": "2026-09-13T12:00:03.236062+00:00"
+    },
+    {
+      "source": "steam-maze.html",
+      "id": "572395823",
+      "appid": "204030",
+      "caption": "",
+      "image": "https://images.steamusercontent.com/ugc/402308081308682876/8137ECFEC620F59A780D4D7C477A42F01414C915/",
+      "direct_url": "https://images.steamusercontent.com/ugc/402308081308682876/8137ECFEC620F59A780D4D7C477A42F01414C915/",
+      "dimensions": [
+        640,
+        480
+      ],
+      "path": "tmp/conformance/dp9-reference/reference-572395823.jpg",
+      "bytes": 54608,
+      "sha256": "a47045ec3bdb88935ed139058aa3fdc9904c543d124e7727b6e1f8fbcf944836",
+      "reason": "Lower-resolution burning-settlement Maze cutscene; not Guild architecture.",
+      "inspection": "Contact-sheet pixels inspected; 131726146 also displayed full resolution. Caption alone was not used to accept any architectural claim.",
+      "local_file_saved_utc": "2026-09-13T12:00:03.448066+00:00"
+    },
+    {
+      "source": "steam-maze.html",
+      "id": "340641141",
+      "appid": "204030",
+      "caption": "",
+      "image": "https://images.steamusercontent.com/ugc/544135968591910688/04A2CC712E363DD7C2E3FB10441F42A60A8E4CA3/?imw=1024&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
+      "direct_url": "https://images.steamusercontent.com/ugc/544135968591910688/04A2CC712E363DD7C2E3FB10441F42A60A8E4CA3/",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "path": "tmp/conformance/dp9-reference/reference-340641141.jpg",
+      "bytes": 389083,
+      "sha256": "6c3525506ced814f26b3fa07915e28d46d9d582fde4b13b23cf5adf3b95abc80",
+      "reason": "Maze fight with fiery spell effect on settlement paving; not Guild architecture.",
+      "inspection": "Contact-sheet pixels inspected; 131726146 also displayed full resolution. Caption alone was not used to accept any architectural claim.",
+      "local_file_saved_utc": "2026-09-13T12:00:04.627084+00:00"
+    },
+    {
+      "source": "steam-training.html",
+      "id": "3778944340",
+      "appid": "204030",
+      "caption": "",
+      "image": "https://images.steamusercontent.com/ugc/10967209723761398314/CE05828E3A337DBF4461858079B4F9F8FBC06930/?imw=1024&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
+      "direct_url": "https://images.steamusercontent.com/ugc/10967209723761398314/CE05828E3A337DBF4461858079B4F9F8FBC06930/",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "path": "tmp/conformance/dp9-reference/reference-3778944340.jpg",
+      "bytes": 328746,
+      "sha256": "b493631da45630578e39997108c0a12155844f973d6417a6414ee614db69d07c",
+      "reason": "Dragon boss arena; not Guild architecture.",
+      "inspection": "Contact-sheet pixels inspected; 131726146 also displayed full resolution. Caption alone was not used to accept any architectural claim.",
+      "local_file_saved_utc": "2026-09-13T12:00:03.588068+00:00"
+    },
+    {
+      "source": "steam-training.html",
+      "id": "285634542",
+      "appid": "204030",
+      "caption": "",
+      "image": "https://images.steamusercontent.com/ugc/584656846198920812/CFA856D402D06131E7EF96D7D7E7A1D24F33D906/?imw=1024&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
+      "direct_url": "https://images.steamusercontent.com/ugc/584656846198920812/CFA856D402D06131E7EF96D7D7E7A1D24F33D906/",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "path": "tmp/conformance/dp9-reference/reference-285634542.jpg",
+      "bytes": 307298,
+      "sha256": "f513a28433e2e0e1d1130e835c6cca00eada3a14dcc7e900e13d018e50303ffe",
+      "reason": "Graduation character close-up; partly visible Chamber panels add no needed bounded feature beyond established Chamber references.",
+      "inspection": "Contact-sheet pixels inspected; 131726146 also displayed full resolution. Caption alone was not used to accept any architectural claim.",
+      "local_file_saved_utc": "2026-09-13T12:00:05.000090+00:00"
+    },
+    {
+      "source": "steam-training.html",
+      "id": "157637695",
+      "appid": "204030",
+      "caption": "",
+      "image": "https://images.steamusercontent.com/ugc/576742024050832584/E994B7A6F23C65025448A749A7DDD7060BBF8553/?imw=1024&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
+      "direct_url": "https://images.steamusercontent.com/ugc/576742024050832584/E994B7A6F23C65025448A749A7DDD7060BBF8553/",
+      "dimensions": [
+        1280,
+        1024
+      ],
+      "path": "tmp/conformance/dp9-reference/reference-157637695.jpg",
+      "bytes": 168257,
+      "sha256": "fcc66e25363876423ba9f3a59e522ad724eae54ec3e9bff19a4bb483e9876e73",
+      "reason": "Demon Door face close-up; no archery/interior/bridge geometry evidence.",
+      "inspection": "Contact-sheet pixels inspected; 131726146 also displayed full resolution. Caption alone was not used to accept any architectural claim.",
+      "local_file_saved_utc": "2026-09-13T12:00:04.072075+00:00"
+    },
+    {
+      "source": "steam-training.html",
+      "id": "689539994",
+      "appid": "204030",
+      "caption": "",
+      "image": "https://images.steamusercontent.com/ugc/448484556142729858/7A85BB753AB1F3D3E6DE1278C8A9BF22FAA8610C/",
+      "direct_url": "https://images.steamusercontent.com/ugc/448484556142729858/7A85BB753AB1F3D3E6DE1278C8A9BF22FAA8610C/",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "path": "tmp/conformance/dp9-reference/reference-689539994.jpg",
+      "bytes": 156119,
+      "sha256": "d142c9f3abcbc821e77620c63b328757eb5d575dceacbe3138438705e3cce4ea",
+      "reason": "Melee grade instructor close-up with distant obscured bridge; weaker than accepted 91147839.",
+      "inspection": "Contact-sheet pixels inspected; 131726146 also displayed full resolution. Caption alone was not used to accept any architectural claim.",
+      "local_file_saved_utc": "2026-09-13T12:00:03.581068+00:00"
+    },
+    {
+      "source": "steam-training.html",
+      "id": "242153649",
+      "appid": "204030",
+      "caption": "",
+      "image": "https://images.steamusercontent.com/ugc/615046359655176216/C863DD8F7B1544BDFF4FE85F96CE190247C17AC0/",
+      "direct_url": "https://images.steamusercontent.com/ugc/615046359655176216/C863DD8F7B1544BDFF4FE85F96CE190247C17AC0/",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "path": "tmp/conformance/dp9-reference/reference-242153649.jpg",
+      "bytes": 108150,
+      "sha256": "e51898caef42211b5b58e2a07cb4edd73e7c7e9864477b5b82ecfab503393ac6",
+      "reason": "Lower-resolution duplicate of the introductory angle represented by 131726146.",
+      "inspection": "Contact-sheet pixels inspected; 131726146 also displayed full resolution. Caption alone was not used to accept any architectural claim.",
+      "local_file_saved_utc": "2026-09-13T12:00:03.741070+00:00"
+    },
+    {
+      "source": "steam-training.html",
+      "id": "139538127",
+      "appid": "204030",
+      "caption": "",
+      "image": "https://images.steamusercontent.com/ugc/1081137251645371397/3DFF480419E4F4221A681FDDFFF923EB1811D163/?imw=1024&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
+      "direct_url": "https://images.steamusercontent.com/ugc/1081137251645371397/3DFF480419E4F4221A681FDDFFF923EB1811D163/",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "path": "tmp/conformance/dp9-reference/reference-139538127.jpg",
+      "bytes": 269550,
+      "sha256": "5438e2e9764c17ae8413ca5cf475d85bc4d621c1bbdd93b40f92837de5ab3ce8",
+      "reason": "Will-training character/dummies view; no clear new bounded bridge/deck/archery feature.",
+      "inspection": "Contact-sheet pixels inspected; 131726146 also displayed full resolution. Caption alone was not used to accept any architectural claim.",
+      "local_file_saved_utc": "2026-09-13T12:00:04.420081+00:00"
+    },
+    {
+      "source": "steam-training.html",
+      "id": "32553647",
+      "appid": "204030",
+      "caption": "",
+      "image": "https://images.steamusercontent.com/ugc/612720018403309803/4A473FDC564E5D81399E01D4B88097A020480544/",
+      "direct_url": "https://images.steamusercontent.com/ugc/612720018403309803/4A473FDC564E5D81399E01D4B88097A020480544/",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "path": "tmp/conformance/dp9-reference/reference-32553647.jpg",
+      "bytes": 296472,
+      "sha256": "2a283e1254c48165c41b9e55f23b0e112601a91c0edb4faa716824f8eab598f2",
+      "reason": "Melee practice ring view; outside this bounded archery/platform/interior/bridge follow-up.",
+      "inspection": "Contact-sheet pixels inspected; 131726146 also displayed full resolution. Caption alone was not used to accept any architectural claim.",
+      "local_file_saved_utc": "2026-09-13T12:00:04.707085+00:00"
+    }
+  ],
+  "known_reference_reinspected": {
+    "id": "141099874",
+    "url": "https://images.steamusercontent.com/ugc/1082264740983808145/FD6694CA87C1AF4855829F975D4DBDC4E6246106/",
+    "path": "tmp/conformance/gp21-reference/reference-141099874.jpg",
+    "sha256": "6661646bf5aff6570803136b666571fa2f5f98c638b17b65510b719c7862f392",
+    "dimensions": [
+      1024,
+      768
+    ],
+    "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=141099874",
+    "version_confidence": "High: apphub_Card matches data-appid 204030, screenshot ID and direct URL; detail page explicitly Fable - The Lost Chapters and posting date Apr 24, 2013 @ 1:30pm; classic pixels inspected. Posting date is not a capture timestamp and patch/mod status is unknown.",
+    "counted_as_new": false,
+    "actual_pixels_inspected": true,
+    "inspection": "Original 1024 x 768 displayed using view_image.",
+    "visible_findings": [
+      "The scenic mountains are separate low irregular silhouettes in front of the large painted panel; taller multi-peak forms occur at left and lower forms at right.",
+      "A large crenellated tower silhouette stands forward at right with a narrow dark inset/slit; two smaller castle-wall-like forms are visible deeper in the range, partly hidden by targets.",
+      "There are real visual gaps between scenery depth layers and straw target forms; the foreground tower is not simply painted onto the rear board.",
+      "The dirt shooting platform is bounded in the foreground by a curved brown timber strip, while the green-brown transverse divider stands farther toward the scenery."
+    ],
+    "limits": [
+      "Count, full perimeter and exact depth/height are uncertain because of occlusion and perspective.",
+      "Flat scenic silhouettes do not justify solid full-scale towers, mountains or relocating active targets.",
+      "No source measurements or native collider/ray behavior can be recovered from this image."
+    ],
+    "local_file_saved_utc": "2026-09-13T05:08:31.095511+00:00"
+  },
+  "future_pass_recommendation": {
+    "priority": "Separate shallow scenic silhouettes ahead of the existing archery board, starting with a low stepped mountain cue and a small crenellated tower cue; undertake only a scratch footprint/collision survey before any authoring.",
+    "observed_original_features": "Layered freestanding painted mountain/castle profiles; curved timber platform lip; continuous rising decorated bridge parapets. The new photos corroborate bridges/interior and do not add a new range photograph.",
+    "candidate_survey_box": "Current adaptation board is x80..88, y1..6, z30. An initial bounded survey may inspect only its foreground strip x80..88, y1..3, z31..32 for a one-block-thick stepped silhouette. This is a proposed investigation box, NOT a chosen/clear/approved footprint, and is not an original-game measurement.",
+    "do_not_assume_box_is_free": "Current hay/target structures, kitchen approach routes and every currently valid Skill lane/corridor must be checked in final serialized voxels; static reference work did not check these cells or choose placements.",
+    "protected_features": [
+      "Existing board cells x80..88/y1..6/z30 and GP21 firing rail cells x80..81 and x85..92/y1/z38.",
+      "Entire three-column firing opening x82..84 at z38 including expanded fence collision envelope; all five actor-offset firing checks and 13-sample arrival corridor.",
+      "Every target, dummy, hay support, all floors and doors, the unique fletching table, all seven gate routes, eight local routes, both bridge decks/approaches, Maze anchor and 678 reservations.",
+      "No full campus, bridge-width, target-count, axis-orientation or original full-perimeter claim from these photos."
+    ],
+    "adaptations_to_label": "Voxel dimensions, chosen material palette, stepped silhouette geometry, depth, any exact placement and collision bounds would be Minecraft adaptations. A full volumetric turret or terrain mountain would exceed the pictured scenic cutout evidence.",
+    "platform": "Keep current floor/circulation. The lip is visibly timber and curved, but a raised Minecraft curb/fence could consume route/collision space; establish a survey with actor-expanded shapes before proposing such cells. Exact original curve extent remains unknown.",
+    "bridge": "Retain current decks and approaches. New daytime view 91147839 strengthens the case for broad decorated rising side members and exterior post lamps, but no deck width/arch rise/bracing dimensions are established. No bridge narrowing or route change follows.",
+    "interior": "350434796 strengthens the existing stone-arch and timber stair-hand-rail relationship. Preserve passages and stair treads; exact furnishing, room dimensions and light levels remain open.",
+    "native_status": "Native lighting, walking, collision, two-Hero passing, saved-world acceptance and Skill arrival calibration remain unrun; no production change is authorized by the reference audit alone."
+  },
+  "notes_finalized_utc": "2026-09-13T12:04:31.725611+00:00",
+  "date_semantics": "Image capture times and three new posting dates are unavailable. local_file_saved_utc records local download-save time from filesystem metadata; it is not the game capture timestamp. Known 141099874 posting date remains Apr 24, 2013 @ 1:30pm per prior accepted saved detail page."
+}

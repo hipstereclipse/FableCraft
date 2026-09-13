@@ -16,21 +16,42 @@ if (!process.argv[2]) throw new Error('Run through python scripts/tests/test_dem
 const geometry = JSON.parse(await readFile(process.argv[2], 'utf8'));
 assert.deepEqual(geometry.size, [49, 28, 49]);
 
-function fixture({ sourceDimension = 'minecraft:overworld' } = {}) {
+function fixture({ sourceDimension = 'minecraft:overworld', bulk = 'native' } = {}) {
   const properties = new Map(), blocks = new Map(), commands = [], commandDimensions = [], errors = [], places = [], players = [];
+  const seeds = [], writes = [], probes = [], effects = [];
   const source = { x: 10, y: 1, z: 10, dimension: sourceDimension };
   const system = { currentTick: 0 };
   const flags = { loaded: true, lease: true, structure: true, entities: [], teleport: 'ok', seedFail: false, sourceReady: true, damage: null };
   class ItemStack {
     constructor(typeId, amount) { this.typeId = typeId; this.amount = amount; }
-    setLore(lore) { this.lore = lore; }
+    setLore(lore) { this.lore = [...lore]; }
+    getLore() { return [...(this.lore ?? [])]; }
   }
+  const copyItem = (item) => {
+    if (!item) return undefined;
+    const copy = new ItemStack(item.typeId, item.amount);
+    copy.nameTag = item.nameTag; copy.setLore(item.getLore?.() ?? item.lore ?? []);
+    return copy;
+  };
   function chest() {
     const slots = new Map();
-    return { size: 27, getItem: (slot) => slots.get(slot), setItem(slot, value) {
+    const c = { size: 27, slots, getItem: (slot) => copyItem(slots.get(slot)), setItem(slot, value) {
+      const effect = { container: c, slot, value: copyItem(value) };
+      seeds.push(effect); effects.push({ kind: 'seed', ...effect });
+      const fault = flags.seedFault?.(effect, seeds.length);
       if (flags.seedFail) { flags.seedFail = false; throw new Error('injected inventory failure'); }
+      if (fault === 'before') throw new Error('injected inventory failure before write');
+      if (fault === 'drop') return;
+      value = copyItem(value);
+      if (fault === 'type') value.typeId = 'minecraft:diamond';
+      if (fault === 'count') value.amount = 2;
+      if (fault === 'name') value.nameTag = 'Substituted keepsake';
+      if (fault === 'lore') value.setLore(['Substituted lore']);
       if (value) slots.set(slot, value); else slots.delete(slot);
+      flags.afterSeed?.(effect, seeds.length);
+      if (fault === 'after') throw new Error('injected inventory failure after write');
     } };
+    return c;
   }
   function block(typeId = 'minecraft:air', inventory = null) {
     return { typeId, isAir: typeId === 'minecraft:air', getComponent: (name) => name === 'minecraft:inventory' && inventory ? { container: inventory } : undefined };
@@ -38,6 +59,7 @@ function fixture({ sourceDimension = 'minecraft:overworld' } = {}) {
   const dim = {
     id: 'minecraft:overworld',
     getBlock(p) {
+      flags.beforeBlock?.(p);
       if (!flags.loaded && p.x >= 600000) return undefined;
       if (blocks.has(key(p))) return blocks.get(key(p));
       return block(Math.floor(p.y) === 0 ? 'minecraft:cobblestone' : 'minecraft:air');
@@ -48,6 +70,7 @@ function fixture({ sourceDimension = 'minecraft:overworld' } = {}) {
   };
   const dimensions = { 'minecraft:overworld': dim, 'minecraft:nether': { ...dim, id: 'minecraft:nether' }, 'minecraft:the_end': { ...dim, id: 'minecraft:the_end' } };
   function placeRoom(_dim, origin) {
+    effects.push({ kind: 'place', origin: plain(origin) });
     if (!flags.structure) throw new Error('pack structure missing');
     places.push(plain(origin));
     for (let i = 0; i < geometry.grid.length; i++) {
@@ -56,10 +79,23 @@ function fixture({ sourceDimension = 'minecraft:overworld' } = {}) {
       blocks.set(key(add(origin, position)), block(type, ['minecraft:chest', 'minecraft:barrel'].includes(type) ? chest() : null));
     }
     if (flags.damage) blocks.set(key(add(origin, flags.damage.at)), block(flags.damage.type));
+    flags.afterPlace?.(origin);
   }
   const world = {
-    getDynamicProperty: (name) => properties.get(name),
-    setDynamicProperty: (name, value) => value === undefined ? properties.delete(name) : properties.set(name, value),
+    getDynamicProperty(name) {
+      if (name === DOOR_STATE_KEY && flags.stateReadFail) throw new Error('injected unavailable world record');
+      return properties.get(name);
+    },
+    setDynamicProperty(name, value) {
+      const record = name === DOOR_STATE_KEY && value !== undefined ? JSON.parse(value) : null;
+      writes.push({ name, value, record }); effects.push({ kind: 'property', name, record });
+      const fault = flags.worldWrite?.(record, name);
+      if (fault === 'before') throw new Error('injected world write failure before persistence');
+      if (fault === 'drop') return;
+      if (fault === 'substitute') value = JSON.stringify({ ...record, source: { ...record.source, x: record.source.x + 1 } });
+      if (value === undefined) properties.delete(name); else properties.set(name, value);
+      if (fault === 'after') throw new Error('injected world write failure after persistence');
+    },
     getDimension(id) { const resolved = dimensions[id.includes(':') ? id : `minecraft:${id}`]; assert.ok(resolved, `unsupported dimension ${id}`); return resolved; },
     getPlayers: () => players,
     structureManager: { place(_id, dimension, at) { placeRoom(dimension, at); } },
@@ -90,7 +126,19 @@ function fixture({ sourceDimension = 'minecraft:overworld' } = {}) {
       triggerEvent() {}, teleport(position) { this.location = plain(position); } };
   }
   let pilot;
-  const reload = () => (pilot = createDemonDoorPilot({ world, system, ItemStack, placeRoom, sourceReady: () => flags.sourceReady, report: (error) => errors.push(error) }));
+  const volumeIsBlock = (dimension, origin, size, typeId) => {
+    const probe = { dimension: dimension.id, origin: plain(origin), size: plain(size), typeId };
+    probes.push(probe); flags.beforeProbe?.(probe);
+    if (bulk === 'throw') throw new Error('injected unavailable native volume');
+    if (bulk === 'truthy') return 1;
+    for (let x = 0; x < size.x; x++) for (let y = 0; y < size.y; y++) for (let z = 0; z < size.z; z++) {
+      if (dimension.getBlock(add(origin, { x, y, z }))?.typeId !== typeId) return false;
+    }
+    return true;
+  };
+  const reload = () => (pilot = createDemonDoorPilot({ world, system, ItemStack, placeRoom,
+    ...(bulk === 'missing' ? {} : { volumeIsBlock, volumeIsEmpty: (d, o, s) => volumeIsBlock(d, o, s, 'minecraft:air') }),
+    sourceReady: () => flags.sourceReady, report: (error) => errors.push(error) }));
   const step = (count = 1) => { for (let i = 0; i < count; i++) { system.currentTick += 5; pilot.tick(); } };
   const state = () => plain(pilot.getState());
   const rewardContainer = (index) => dim.getBlock(add(state().room.origin, ARCANUM.rewards[index].at)).getComponent('minecraft:inventory').container;
@@ -104,8 +152,16 @@ function fixture({ sourceDimension = 'minecraft:overworld' } = {}) {
     assert.equal(state().room?.phase, 'ready', errors.join('\n'));
     leave(p);
   };
+  const start = (p, door) => {
+    pilot.registerGuild(source, door, { isNew: true }); pilot.interact(p, door, 'minecraft:lantern');
+  };
+  const until = (predicate, limit = 500) => {
+    for (let i = 0; i < limit && !predicate(); i++) step();
+    assert.ok(predicate(), `Expected fixture checkpoint; ${errors.join('\n')}`);
+  };
   reload();
   return { source, system, flags, block, blocks, properties, commands, commandDimensions, errors, places, players, dim, world,
+    seeds, writes, probes, effects, chest, ItemStack, start, until,
     player, face, step, state, build, enter, leave, reload, rewardContainer, get pilot() { return pilot; } };
 }
 
@@ -185,21 +241,26 @@ await group('loading authority, unloaded chunks and missing structure fail at so
   }
 });
 
-await group('interrupted private preparation resumes without duplicate room reward', () => {
-  const f = fixture(), p = f.player(), door = f.face();
-  f.flags.seedFail = true;
-  f.pilot.registerGuild(f.source, door, { isNew: true });
-  f.pilot.interact(p, door, 'minecraft:lantern');
-  f.step(200);
-  assert.equal(f.state().room.phase, 'placing');
-  assert.equal(f.state().rewards.seeded, false);
-  assert.equal(p.moves.length, 0);
-  f.reload(); f.build(p, door);
-  assert.equal(f.state().rewards.seeded, true);
-  for (let i = 0; i < ARCANUM.rewards.length; i++) assert.equal(f.rewardContainer(i).getItem(0).amount, 1);
-  const before = f.places.length;
-  f.reload(); f.leave(p); f.enter(p);
-  assert.equal(f.places.length, before, 'a ready room is never reconstructed');
+await group('partial native seeding stays quarantined across reload without replay or replenishment', () => {
+  for (const failure of ['before', 'after']) {
+    const f = fixture(), p = f.player(), door = f.face();
+    f.flags.seedFault = (_effect, count) => count === 2 ? failure : null;
+    f.start(p, door); f.step(260);
+    assert.equal(f.state().room.phase, 'placing');
+    assert.equal(f.state().room.preparation.phase, 'seeding');
+    assert.equal(f.state().rewards.seeded, false);
+    assert.deepEqual(f.state().rewards.claimed, [false, false, false, false]);
+    assert.equal(f.rewardContainer(0).getItem(0).typeId, 'fc:elixir_of_life');
+    assert.equal(f.seeds.length, 2);
+    const foreign = add(f.state().room.origin, { x: 11, y: 11, z: 11 });
+    f.blocks.set(key(foreign), f.block('minecraft:diamond_block'));
+    f.flags.seedFault = null; f.reload(); f.leave(p); f.enter(p); f.step(260);
+    assert.equal(f.places.length, 1);
+    assert.equal(f.seeds.length, 2);
+    assert.equal(f.dim.getBlock(foreign).typeId, 'minecraft:diamond_block');
+    assert.equal(p.moves.length, 0);
+    assert.equal(p.props.has(DOOR_RETURN_KEY), false);
+  }
 });
 
 await group('native chest discovery persists depletion across revisits and reload', () => {
@@ -375,6 +436,259 @@ await group('committed return ticket survives missing/corrupt world state; inval
   p.props.set(DOOR_RETURN_KEY, JSON.stringify(original));
   p.location = { x: 10.5, y: 1, z: 6.5 };
   assert.equal(f.pilot.requestReturn(p), false, 'valid ticket cannot teleport a player outside its exact cell');
+});
+
+await group('placement and every native seed follow exact persisted preparation receipts', () => {
+  const f = fixture(), p = f.player(), door = f.face(); f.build(p, door);
+  assert.equal(f.state().schema, 1);
+  assert.deepEqual(f.state().room.preparation, { schema: 1, phase: 'seeded' });
+  const phases = f.writes.map(w => w.record?.room?.preparation?.phase).filter(Boolean);
+  assert.deepEqual([...new Set(phases)], ['placing', 'placed', 'seeding', 'seeded']);
+  const placement = f.effects.findIndex(e => e.kind === 'place');
+  assert.equal(f.effects[placement - 1].record.room.preparation.phase, 'placing');
+  const firstSeed = f.effects.findIndex(e => e.kind === 'seed');
+  assert.equal(f.effects[firstSeed - 1].record.room.preparation.phase, 'seeding');
+  assert.equal(f.seeds.length, 4);
+  ARCANUM.rewards.forEach((reward, i) => {
+    const c = f.rewardContainer(i), item = c.getItem(0);
+    assert.equal(item.typeId, reward.item); assert.equal(item.amount, 1);
+    assert.equal(item.nameTag, reward.name);
+    assert.deepEqual(item.getLore(), reward.name ? ['A keepsake from the Library Arcanum.'] : []);
+    for (let slot = 1; slot < c.size; slot++) assert.equal(c.getItem(slot), undefined);
+  });
+});
+
+await group('unavailable or nonboolean native bulk authority cannot place a room', () => {
+  for (const bulk of ['missing', 'throw', 'truthy']) {
+    const f = fixture({ bulk }), p = f.player(), door = f.face(); f.start(p, door); f.step(260);
+    assert.equal(f.places.length, 0, bulk); assert.equal(f.seeds.length, 0, bulk);
+    assert.equal(p.moves.length, 0, bulk); assert.notEqual(f.state().room?.phase, 'ready', bulk);
+  }
+});
+
+await group('late changes behind the completed air scan survive the final native volume check', () => {
+  const f = fixture(), p = f.player(), door = f.face(), target = add(realmOrigin(0), { x: 1, y: 1, z: 1 });
+  f.start(p, door); f.step(10); // The first x/y slice has already been read.
+  f.blocks.set(key(target), f.block('minecraft:diamond_block')); f.step(260);
+  assert.equal(f.dim.getBlock(target).typeId, 'minecraft:diamond_block');
+  assert.equal(f.places.length, 0); assert.equal(f.seeds.length, 0); assert.equal(p.moves.length, 0);
+  assert.ok(f.probes.some(probe => probe.typeId === 'minecraft:air'));
+});
+
+await group('unknown legacy placing and intent-only placement history never authorize reconstruction', () => {
+  for (const preparation of [undefined, { schema: 1, phase: 'placing' }, { schema: 1, phase: 'seeding' }]) {
+    const f = fixture(), p = f.player(), door = f.face(); f.pilot.registerGuild(f.source, door, { isNew: true });
+    const state = f.state(); state.unlocked = true;
+    state.room = { cell: 0, origin: plain(realmOrigin(0)), version: 1, phase: 'placing', visited: false };
+    if (preparation) state.room.preparation = preparation;
+    const raw = JSON.stringify(state); f.properties.set(DOOR_STATE_KEY, raw);
+    f.reload(); f.leave(p); f.enter(p); f.step(260);
+    assert.equal(f.properties.get(DOOR_STATE_KEY), raw);
+    assert.equal(f.places.length, 0); assert.equal(f.seeds.length, 0); assert.equal(p.moves.length, 0);
+  }
+});
+
+await group('a placement call that throws after emitting blocks cannot replay across reload', () => {
+  const f = fixture(), p = f.player(), door = f.face();
+  f.flags.afterPlace = () => { throw new Error('injected placement failure after world mutation'); };
+  f.start(p, door); f.step(260);
+  assert.equal(f.state().room.preparation.phase, 'placing'); assert.equal(f.places.length, 1);
+  const target = add(f.state().room.origin, { x: 11, y: 11, z: 11 });
+  f.blocks.set(key(target), f.block('minecraft:diamond_block'));
+  f.flags.afterPlace = null; f.reload(); f.leave(p); f.enter(p); f.step(260);
+  assert.equal(f.places.length, 1); assert.equal(f.seeds.length, 0); assert.equal(p.moves.length, 0);
+  assert.equal(f.dim.getBlock(target).typeId, 'minecraft:diamond_block');
+});
+
+await group('all reward slots must be empty before even the first native reward write', () => {
+  for (const suppressed of [false, true]) {
+    const f = fixture(), p = f.player(), door = f.face({ open: suppressed });
+    f.flags.afterPlace = origin => {
+      const c = f.dim.getBlock(add(origin, ARCANUM.rewards[3].at)).getComponent('minecraft:inventory').container;
+      c.slots.set(26, new f.ItemStack('minecraft:diamond', 3));
+    };
+    f.pilot.registerGuild(f.source, door, { isNew: !suppressed });
+    f.pilot.interact(p, door, 'minecraft:lantern'); f.leave(p); f.enter(p); f.step(260);
+    assert.equal(f.places.length, 1); assert.equal(f.seeds.length, 0); assert.equal(p.moves.length, 0);
+    assert.equal(f.rewardContainer(3).getItem(26).amount, 3);
+    assert.notEqual(f.state().room.phase, 'ready');
+  }
+});
+
+await group('silent item type, count, name, lore and write losses never become ready', () => {
+  for (const failure of ['drop', 'type', 'count', 'name', 'lore']) {
+    const f = fixture(), p = f.player(), door = f.face();
+    f.flags.seedFault = (_effect, count) => count === 2 ? failure : null;
+    f.start(p, door); f.step(260);
+    assert.equal(f.state().room.preparation.phase, 'seeding', failure);
+    assert.equal(f.state().rewards.seeded, false, failure);
+    assert.deepEqual(f.state().rewards.claimed, [false, false, false, false], failure);
+    const attempts = f.seeds.length;
+    f.flags.seedFault = null; f.reload(); f.leave(p); f.enter(p); f.step(260);
+    assert.equal(f.seeds.length, attempts, failure); assert.equal(f.places.length, 1, failure);
+    assert.equal(p.moves.length, 0, failure);
+  }
+});
+
+await group('fresh post-seed inventories reject extra slots and replaced native container handles', () => {
+  for (const failure of ['extra', 'replaced', 'unavailable']) {
+    const f = fixture(), p = f.player(), door = f.face();
+    f.flags.afterSeed = (_effect, count) => {
+      if (count !== 4) return;
+      if (failure === 'extra') f.rewardContainer(0).slots.set(26, new f.ItemStack('minecraft:diamond', 1));
+      else {
+        const at = add(f.state().room.origin, ARCANUM.rewards[0].at);
+        const replacement = failure === 'replaced' ? f.chest() : null;
+        f.blocks.set(key(at), f.block('minecraft:chest', replacement));
+      }
+    };
+    f.start(p, door); f.step(260);
+    assert.equal(f.state().room.preparation.phase, 'seeding', failure);
+    assert.equal(f.state().rewards.seeded, false, failure); assert.equal(p.moves.length, 0, failure);
+    f.flags.afterSeed = null; f.reload(); f.leave(p); f.enter(p); f.step(260);
+    assert.equal(f.seeds.length, 4, failure); assert.equal(f.places.length, 1, failure);
+  }
+});
+
+await group('a native seed callback cannot replace authority or fill the next reward before another write', () => {
+  for (const failure of ['history', 'inventory']) {
+    const f = fixture(), p = f.player(), door = f.face(); let changed;
+    f.flags.afterSeed = (_effect, count) => {
+      if (count !== 1) return;
+      if (failure === 'history') {
+        const record = f.state(); record.room.phase = 'ready'; record.room.visited = true;
+        record.room.preparation.phase = 'seeded'; record.rewards.seeded = true;
+        record.rewards.claimed = [true, true, true, true];
+        changed = JSON.stringify(record); f.properties.set(DOOR_STATE_KEY, changed);
+      } else f.rewardContainer(1).slots.set(0, new f.ItemStack('minecraft:diamond', 64));
+    };
+    f.start(p, door); f.step(260);
+    assert.equal(f.seeds.length, 1, failure); assert.equal(f.places.length, 1, failure);
+    assert.equal(p.moves.length, 0, failure);
+    if (failure === 'history') assert.equal(f.properties.get(DOOR_STATE_KEY), changed);
+    else {
+      assert.equal(f.rewardContainer(1).getItem(0).typeId, 'minecraft:diamond');
+      assert.equal(f.rewardContainer(1).getItem(0).amount, 64);
+      assert.equal(f.state().room.preparation.phase, 'seeding');
+    }
+  }
+});
+
+await group('lost, thrown or substituted preparation commits never permit the dependent effect', () => {
+  for (const phase of ['placing', 'placed', 'seeding', 'seeded', 'ready']) {
+    for (const fault of ['before', 'drop', 'substitute']) {
+      const f = fixture(), p = f.player(), door = f.face();
+      f.flags.worldWrite = record => (phase === 'ready' ? record?.room?.phase === phase
+        : record?.room?.preparation?.phase === phase) ? fault : null;
+      f.start(p, door); f.step(260);
+      assert.equal(p.moves.length, 0, `${phase}/${fault}`);
+      if (phase === 'ready' && fault === 'substitute') {
+        assert.equal(f.state().source.x, f.source.x + 1, 'failed read-back leaves the actual substituted native value untouched');
+        assert.ok(f.errors.length > 0);
+      } else assert.notEqual(f.state()?.room?.phase, 'ready', `${phase}/${fault}`);
+      assert.equal(f.places.length, phase === 'placing' ? 0 : 1, `${phase}/${fault}`);
+      assert.equal(f.seeds.length, ['seeded', 'ready'].includes(phase) ? 4 : 0, `${phase}/${fault}`);
+    }
+  }
+});
+
+await group('placed receipt retries verification and initial seeding without replaying placement', () => {
+  const f = fixture(), p = f.player(), door = f.face(); let original;
+  f.flags.afterPlace = origin => {
+    const at = add(origin, ARCANUM.arrival); original = f.dim.getBlock(at);
+    f.blocks.set(key(at), f.block('minecraft:stone'));
+  };
+  f.start(p, door); f.step(260);
+  assert.equal(f.state().room.preparation.phase, 'placed'); assert.equal(f.seeds.length, 0);
+  f.blocks.set(key(add(f.state().room.origin, ARCANUM.arrival)), original);
+  f.flags.afterPlace = null; f.reload(); f.build(p, door);
+  assert.equal(f.places.length, 1); assert.equal(f.seeds.length, 4);
+  assert.equal(f.state().room.phase, 'ready');
+});
+
+await group('seeded receipts retry only readiness after fresh inventory and room verification', () => {
+  for (const damage of ['none', 'inventory', 'shell', 'route']) {
+    const f = fixture(), p = f.player(), door = f.face();
+    f.flags.worldWrite = record => record?.room?.phase === 'ready' ? 'drop' : null;
+    f.start(p, door); f.step(260);
+    assert.equal(f.state().room.preparation.phase, 'seeded');
+    assert.equal(f.seeds.length, 4); assert.equal(p.moves.length, 0);
+    if (damage === 'inventory') f.rewardContainer(0).slots.delete(0);
+    if (damage === 'shell') f.blocks.set(key(add(f.state().room.origin, { x: 0, y: 4, z: 5 })), f.block('minecraft:air'));
+    if (damage === 'route') f.blocks.set(key(add(f.state().room.origin, ARCANUM.arrival)), f.block('minecraft:stone'));
+    f.flags.worldWrite = null; f.reload();
+    if (damage === 'none') f.build(p, door);
+    else { f.leave(p); f.enter(p); f.step(260); assert.notEqual(f.state().room.phase, 'ready', damage); }
+    assert.equal(f.seeds.length, 4, damage); assert.equal(f.places.length, 1, damage);
+  }
+});
+
+await group('write-after-commit exceptions preserve conservative intent and usable effect receipts', () => {
+  for (const phase of ['placing', 'placed', 'seeding', 'seeded', 'ready']) {
+    const f = fixture(), p = f.player(), door = f.face();
+    f.flags.worldWrite = record => (phase === 'ready' ? record?.room?.phase === phase
+      : record?.room?.preparation?.phase === phase) ? 'after' : null;
+    f.start(p, door); f.step(260);
+    const placements = f.places.length, seeds = f.seeds.length;
+    f.flags.worldWrite = null; f.reload();
+    if (['placed', 'seeded', 'ready'].includes(phase)) {
+      f.build(p, door); assert.equal(f.state().room.phase, 'ready', phase);
+      assert.equal(f.seeds.length, 4, phase);
+    } else {
+      f.leave(p); f.enter(p); f.step(260);
+      assert.equal(p.moves.length, 0, phase); assert.equal(f.seeds.length, seeds, phase);
+    }
+    assert.equal(f.places.length, placements, phase);
+  }
+});
+
+await group('late shell loss and occupants block reward writes after placement', () => {
+  for (const failure of ['shell', 'player', 'entity', 'entity-unavailable']) {
+    const f = fixture(), p = f.player(), door = f.face(); f.start(p, door);
+    f.until(() => f.places.length === 1); f.step(4);
+    if (failure === 'shell') f.blocks.set(key(add(f.state().room.origin, { x: 0, y: 4, z: 5 })), f.block('minecraft:air'));
+    else if (failure === 'player') { const visitor = f.player('intruder'); visitor.location = add(f.state().room.origin, { x: 11, y: 3, z: 11 }); }
+    else if (failure === 'entity') f.flags.entities = [{ id: 'intruder' }];
+    else f.dim.getEntities = () => { throw new Error('injected unavailable entity occupancy'); };
+    f.step(260);
+    assert.equal(f.seeds.length, 0, failure); assert.equal(p.moves.length, 0, failure);
+    assert.notEqual(f.state().room.phase, 'ready', failure); assert.equal(f.places.length, 1, failure);
+  }
+});
+
+await group('an active preparation refuses missing, unreadable or changed primary authority', () => {
+  for (const checkpoint of ['scan', 'placed']) for (const failure of ['missing', 'corrupt', 'unreadable', 'changed']) {
+    const f = fixture(), p = f.player(), door = f.face(); f.start(p, door);
+    if (checkpoint === 'scan') f.step(10); else f.until(() => f.places.length === 1);
+    const before = f.properties.get(DOOR_STATE_KEY), original = JSON.parse(before);
+    if (failure === 'missing') f.properties.delete(DOOR_STATE_KEY);
+    if (failure === 'corrupt') f.properties.set(DOOR_STATE_KEY, '{broken');
+    if (failure === 'unreadable') f.flags.stateReadFail = true;
+    if (failure === 'changed') { original.rewards.suppressed = true; f.properties.set(DOOR_STATE_KEY, JSON.stringify(original)); }
+    const backing = f.properties.get(DOOR_STATE_KEY), attempts = f.writes.length;
+    f.step(260);
+    assert.equal(f.properties.get(DOOR_STATE_KEY), backing, `${checkpoint}/${failure}`);
+    assert.equal(f.writes.length, attempts, `${checkpoint}/${failure}`);
+    assert.equal(f.places.length, checkpoint === 'placed' ? 1 : 0, `${checkpoint}/${failure}`);
+    assert.equal(f.seeds.length, 0, `${checkpoint}/${failure}`); assert.equal(p.moves.length, 0, `${checkpoint}/${failure}`);
+  }
+});
+
+await group('legacy ready and visited rooms preserve depleted shared rewards without preparation metadata', () => {
+  for (const visited of [false, true]) {
+    const f = fixture(), p = f.player(), door = f.face(); f.build(p, door);
+    const record = f.state(); delete record.room.preparation; record.room.visited = visited;
+    record.rewards.claimed[0] = true; f.properties.set(DOOR_STATE_KEY, JSON.stringify(record));
+    f.rewardContainer(0).slots.delete(0); f.reload(); f.leave(p); f.enter(p);
+    assert.equal(f.pilot.occupiedRealm(p), true); assert.equal(f.places.length, 1); assert.equal(f.seeds.length, 4);
+    assert.equal(f.rewardContainer(0).getItem(0), undefined); assert.equal(f.state().room.preparation, undefined);
+    assert.equal(f.pilot.requestReturn(p), true);
+    f.leave(p); const moves = p.moves.length;
+    f.blocks.set(key(add(f.state().room.origin, { x: 0, y: 4, z: 5 })), f.block('minecraft:air'));
+    f.enter(p); f.step(260);
+    assert.equal(p.moves.length, moves, 'cached readiness cannot bypass a new nonsentinel shell hole');
+    assert.equal(f.places.length, 1); assert.equal(f.seeds.length, 4);
+  }
 });
 
 console.log(`Demon Door pilot: ${count} groups passed; engine checks remain unrun.`);

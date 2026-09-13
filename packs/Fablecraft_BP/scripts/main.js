@@ -3233,6 +3233,12 @@ const guildDoorAperture = createGuildDoorAperture({ world, fingerprint: DATA.gui
 const guildDoorPilot = createDemonDoorPilot({ world, system, ItemStack,
   definition: DATA.demonDoorRealms.guild_library_arcanum,
   placeRoom: (dim, origin) => world.structureManager.place("fc:library_arcanum", dim, origin, { includeEntities: false }),
+  volumeIsEmpty: (dim, origin, size) => dim.containsBlock(new BlockVolume(origin,
+    { x: origin.x + size.x - 1, y: origin.y + size.y - 1, z: origin.z + size.z - 1 }),
+  { excludeTypes: ["minecraft:air"] }, false) === false,
+  volumeIsBlock: (dim, origin, size, typeId) => dim.containsBlock(new BlockVolume(origin,
+    { x: origin.x + size.x - 1, y: origin.y + size.y - 1, z: origin.z + size.z - 1 }),
+  { excludeTypes: [typeId] }, false) === false,
   sourceReady: (source) => guildDoorAperture.ready(source, TICKS()),
   canEnter: (p) => arboretumDoors.allowsOtherEntry(p),
   report: (message) => console.warn(`[Fablecraft] ${message}`) });

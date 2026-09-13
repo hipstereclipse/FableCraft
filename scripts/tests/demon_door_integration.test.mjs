@@ -44,6 +44,19 @@ async function fixture() {
   }
   const dimension = {
     id: 'minecraft:overworld', getBlock: blockAt,
+    containsBlock(volume, filter, allowUnloadedChunks) {
+      operations.push({ kind: 'volume', volume, filter, allowUnloadedChunks });
+      for (let x = volume.from.x; x <= volume.to.x; x++) for (let y = volume.from.y; y <= volume.to.y; y++) {
+        for (let z = volume.from.z; z <= volume.to.z; z++) {
+          if (this.unloadedCell === cell({ x, y, z })) {
+            if (!allowUnloadedChunks) throw new Error('injected native UnloadedChunksError');
+            continue;
+          }
+          if (!filter.excludeTypes.includes(this.getBlock({ x, y, z }).typeId)) return true;
+        }
+      }
+      return false;
+    },
     getEntities(query) {
       if (this.failScan) throw new Error('injected unloaded entity scan');
       return entities.filter((e) => !e.removed && e.dimension.id === this.id && (!query.type || query.type === e.typeId)
@@ -95,7 +108,9 @@ async function fixture() {
     createArboretumDoors: arboretumApi.createArboretumDoors,
     readAlignmentAuthority: () => null, GameMode: { Survival: 'Survival', Adventure: 'Adventure' },
     createDemonDoorPilot: (options) => { configuration = options; return pilotApi.createDemonDoorPilot(options); },
-    ItemStack: class {}, EquipmentSlot: { Mainhand: 'Mainhand' }, MessageFormData,
+    ItemStack: class {}, BlockVolume: class {
+      constructor(from, to) { this.from = plain(from); this.to = plain(to); }
+    }, EquipmentSlot: { Mainhand: 'Mainhand' }, MessageFormData,
     TICKS: () => system.currentTick, OW: () => dimension, trySpawn: spawn,
     morality: () => 0, countItem: () => 100, removeItem: () => true, P: { get: () => 0 },
     openDemonDoor: (...args) => payouts.push(args), doorRiddle: (...args) => payouts.push(['riddle', ...args]),
@@ -145,6 +160,33 @@ test('production singleton passes canonical data, aperture gate and literal dest
   const obstacle = f.blockAt(add(f.source, { x: 0, y: 1, z: 2 })); obstacle.typeId = 'minecraft:diamond_block';
   assert.equal(f.configuration.sourceReady(f.source), false);
   assert.equal(obstacle.typeId, 'minecraft:diamond_block');
+});
+
+test('actual Guild bulk adapters use inclusive native volumes and fail on unloaded cells', async () => {
+  const f = await fixture(), origin = { x: 600000, y: 272, z: 600000 }, size = { x: 3, y: 2, z: 4 };
+  const end = { x: origin.x + 2, y: origin.y + 1, z: origin.z + 3 };
+  assert.equal(f.configuration.volumeIsEmpty(f.dimension, origin, size), true);
+  const initial = f.operations.find(operation => operation.kind === 'volume');
+  assert.deepEqual(plain(initial.volume), { from: origin, to: end });
+  assert.deepEqual(plain(initial.filter), { excludeTypes: ['minecraft:air'] });
+  assert.equal(initial.allowUnloadedChunks, false);
+  f.blockAt(end).typeId = 'minecraft:diamond_block';
+  assert.equal(f.configuration.volumeIsEmpty(f.dimension, origin, size), false, 'inclusive far corner is checked');
+  for (let x = 0; x < size.x; x++) for (let y = 0; y < size.y; y++) for (let z = 0; z < size.z; z++) {
+    f.blockAt(add(origin, { x, y, z })).typeId = 'minecraft:barrier';
+  }
+  assert.equal(f.configuration.volumeIsBlock(f.dimension, origin, size, 'minecraft:barrier'), true);
+  f.blockAt(end).typeId = 'minecraft:air';
+  assert.equal(f.configuration.volumeIsBlock(f.dimension, origin, size, 'minecraft:barrier'), false);
+  f.dimension.unloadedCell = cell(origin);
+  for (const probe of [() => f.configuration.volumeIsEmpty(f.dimension, origin, size),
+    () => f.configuration.volumeIsBlock(f.dimension, origin, size, 'minecraft:barrier')]) {
+    let result = false;
+    try { result = probe(); } catch (error) { assert.match(error.message, /UnloadedChunksError/); }
+    assert.equal(result, false, 'unloaded native data must never provide affirmative authority');
+  }
+  assert.ok(f.operations.filter(operation => operation.kind === 'volume').every(operation => operation.allowUnloadedChunks === false));
+  assert.equal(f.placements.length, 0);
 });
 
 test('production maintenance preserves a paid survivor before removing duplicate mouth faces', async () => {

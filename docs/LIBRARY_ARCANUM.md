@@ -107,19 +107,28 @@ Overworld cell beginning at (600000,272,600000); this is isolated storage, not
 Nether travel or a custom dimension. An unused cell is persisted before the
 worker scans its entire 67,228-block volume for air, checks players/entities,
 and places the structure. Occupied candidates are skipped without clearing.
-Scans are spread over ticks. Only the pilot's named ticking areas are managed.
+Scans are spread over ticks. DP9 also checks the complete volume immediately
+before placement with a native bulk query that refuses unloaded chunks. Only
+the pilot's named ticking areas are managed.
 Unavailable command authority, missing chunks or missing structures leave
 entry at the source and back off before retrying.
 
 The worker verifies all 9,794 barrier cells before first admission and after
 reload/unloaded-room recovery. Entry also checks the arrival, return, central
 walk, side branches, each reward approach and every container's lid space.
-Rewards are seeded while the room is inaccessible, before the ready record.
-A visited or ready room is never replaced or replenished. Missing or damaged
+DP9 records verified placement and seed intents/receipts in the existing Guild
+record. Rewards are seeded only after all four containers are verified empty
+and the destination is checked unoccupied. Fresh exact item/count/name/lore and
+all-slot readback precede the ready record. A visited or ready room is never
+replaced or replenished. Missing or damaged
 containers refuse future admission and still allow recovery return for visitors
-already inside. Interrupted first-build retries are restricted to unvisited
-state; property writes and container changes are not an atomic engine save.
-Actual crash durability remains a required engine test.
+already inside. Unknown legacy placing and interrupted placement/seed intents now remain closed;
+unvisited state alone never permits replay. A saved placement receipt permits
+verification; a saved seed receipt permits ready persistence after exact readback.
+Neither retries block/item effects. Fresh complete shell queries also precede
+entry into cached ready rooms. See [the DP9 preparation contract](LIBRARY_ARCANUM_PREPARATION.md).
+Property writes and container changes are not an atomic engine save. Actual
+crash durability remains a required engine test.
 
 Each player records a safe source approach before travel. Return tries that
 exact recorded position first, then a small set of safe alternatives beside the

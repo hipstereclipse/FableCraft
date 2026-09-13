@@ -1,0 +1,362 @@
+node:internal/child_process:1144
+    result.error = new ErrnoException(result.error, 'spawnSync ' + options.file);
+                   ^
+
+<ref *1> Error: spawnSync git EPERM
+    at Object.spawnSync (node:internal/child_process:1144:20)
+    at spawnSync (node:child_process:928:24)
+    at execFileSync (node:child_process:971:15)
+    at file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/screenshots/validation/DP9/baseline-probes.mjs:6:14
+    at ModuleJob.run (node:internal/modules/esm/module_job:569:25)
+    at async node:internal/modules/esm/loader:650:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  errno: -1,
+  code: 'EPERM',
+  syscall: 'spawnSync git',
+  path: 'git',
+  spawnargs: [
+    'show',
+    'c001e51929401de8068b85aff42cb7d10fb4f3ec:packs/Fablecraft_BP/scripts/fc_demon_doors.js'
+  ],
+  error: [Circular *1],
+  status: 0,
+  signal: null,
+  output: [
+    null,
+    '// Owned runtime: Guild Demon Door pilot. Bedrock effects are injected so tests\n' +
+      '// execute this module itself without importing a fake @minecraft/server package.\n' +
+      'export const ARCANUM = Object.freeze({\n' +
+      '  id: "fc:library_arcanum", version: 1, size: { x: 49, y: 28, z: 49 },\n' +
+      '  arrival: { x: 24.5, y: 3, z: 7.5 }, exit: { x: 24.5, y: 3, z: 3.5 },\n' +
+      '  rewards: [\n' +
+      '    { at: { x: 24, y: 3, z: 35 }, item: "fc:elixir_of_life" },\n' +
+      '    { at: { x: 16, y: 3, z: 28 }, item: "minecraft:book", name: "Making Friends" },\n' +
+      '    { at: { x: 32, y: 3, z: 28 }, item: "minecraft:book", name: "Book of Spells" },\n' +
+      '    { at: { x: 16, y: 3, z: 34 }, item: "minecraft:paper", name: "Howl Tattoo" },\n' +
+      '  ],\n' +
+      '});\n' +
+      'export const DOOR_STATE_KEY = "fc_dp_guild_v1";\n' +
+      'export const DOOR_RETURN_KEY = "fc_dp_return_v1";\n' +
+      'const ROOM_LEASE = "fc_dp_guild_load", SOURCE_LEASE = "fc_dp_guild_return";\n' +
+      'const add = (a, b) => ({ x: a.x + b.x, y: a.y + b.y, z: a.z + b.z });\n' +
+      'const finitePosition = (p) => p && [p.x, p.y, p.z].every(Number.isFinite);\n' +
+      'const distance = (a, b) => Math.hypot(a.x - b.x, a.y - b.y, a.z - b.z);\n' +
+      'const parse = (value) => { try { return JSON.parse(value); } catch { return null; } };\n' +
+      'const supportedDimensions = new Set(["minecraft:overworld", "minecraft:nether", "minecraft:the_end"]);\n' +
+      'const validSource = (p) => finitePosition(p) && Math.abs(p.x) < 30000000 && Math.abs(p.z) < 30000000\n' +
+      '  && p.y >= -63 && p.y <= 317 && supportedDimensions.has(p.dimension);\n' +
+      'const shellPoints = [];\n' +
+      'for (let x = 0; x < 49; x++) for (let y = 0; y < 28; y++) for (let z = 0; z < 49; z++) {\n' +
+      '  if (x === 0 || x === 48 || y === 0 || y === 27 || z === 0 || z === 48) shellPoints.push({ x, y, z });\n' +
+      '}\n' +
+      'const shellSentinels = shellPoints.filter(({ x, y, z }) => [0, 24, 48].includes(x)\n' +
+      '  && [0, 14, 27].includes(y) && [0, 24, 48].includes(z));\n' +
+      'export const realmOrigin = (cell) => ({ x: 600000 + (cell % 64) * 128, y: 272, z: 600000 + Math.floor(cell / 64) * 128 });\n' +
+      'export function inRealm(position, origin, margin = 0) {\n' +
+      '  return finitePosition(position) && finitePosition(origin)\n' +
+      '    && position.x >= origin.x - margin && position.x < origin.x + ARCANUM.size.x + margin\n' +
+      '    && position.y >= origin.y - margin && position.y < origin.y + ARCANUM.size.y + margin\n' +
+      '    && position.z >= origin.z - margin && position.z < origin.z + ARCANUM.size.z + margin;\n' +
+      '}\n' +
+      'export function inDoorOpening(position, anchor) {\n' +
+      '  return finitePosition(position) && finitePosition(anchor)\n' +
+      '    && Math.abs(position.x - anchor.x) <= 1.35 && Math.abs(position.z - anchor.z) <= 0.9\n' +
+      '    && position.y >= anchor.y - 0.15 && position.y <= anchor.y + 2.4;\n' +
+      '}\n' +
+      '\n' +
+      'export function createDemonDoorPilot({ world, system, ItemStack, report = () => {}, definition = null, placeRoom = null, sourceReady = () => true, canEnter = () => true }) {\n' +
+      '  if (definition && (definition.id !== "guild_library_arcanum" || definition.destination?.structure !== ARCANUM.id)) {\n' +
+      '    throw new Error("Guild Demon Door definition does not match its generated destination contract.");\n' +
+      '  }\n' +
+      '  let job = null, opening = null, roomLease = false, sourceLease = false, leaseLastUsed = -1000, buildRetryAt = 0;\n' +
+      '  let verifiedReadyCell = null;\n' +
+      '  const dwell = new Map(), cooldown = new Map(), disarmed = new Set(), seen = new Set();\n' +
+      '  const notices = new Map(), approach = new Map(), returnWait = new Map();\n' +
+      '  const leaseDimensions = new Map();\n' +
+      '  const now = () => system.currentTick;\n' +
+      '  const dimension = (id = "minecraft:overworld") => world.getDimension(id);\n' +
+      '  const blockAt = (dim, p) => { try { return dim.getBlock(p) ?? null; } catch { return null; } };\n' +
+      '  const air = (b) => !!b && (b.isAir === true || b.typeId === "minecraft:air");\n' +
+      '  const floorIds = new Set(["stone", "stone_bricks", "chiseled_stone_bricks", "mossy_stone_bricks", "cracked_stone_bricks", "cobblestone", "mossy_cobblestone", "grass_block", "dirt", "coarse_dirt", "dirt_with_roots", "grass_path", "dirt_path", "gravel", "andesite", "polished_andesite", "deepslate", "polished_deepslate", "bedrock", "oak_planks", "dark_oak_planks", "spruce_planks"].map((id) => `minecraft:${id}`));\n' +
+      '  function read() {\n' +
+      '    let r;\n' +
+      '    try { r = parse(world.getDynamicProperty(DOOR_STATE_KEY)); } catch { return null; }\n' +
+      '    if (!r || r.schema !== 1 || r.id !== "guild" || r.archetype !== "guild_library_arcanum"\n' +
+      '      || !validSource(r.source) || typeof r.unlocked !== "boolean"\n' +
+      '      || !r.rewards || typeof r.rewards.seeded !== "boolean" || typeof r.rewards.suppressed !== "boolean"\n' +
+      '      || !Array.isArray(r.rewards.claimed) || r.rewards.claimed.length !== 4\n' +
+      '      || !r.rewards.claimed.every((claimed) => typeof claimed === "boolean")) return null;\n' +
+      '    if (r.room && (!Number.isInteger(r.room.cell) || r.room.cell < 0 || r.room.cell >= 4096\n' +
+      '      || !finitePosition(r.room.origin) || distance(r.room.origin, realmOrigin(r.room.cell)) > 0.01\n' +
+      '      || !["allocated", "placing", "ready"].includes(r.room.phase) || typeof r.room.visited !== "boolean"\n' +
+      '      || r.room.version !== ARCANUM.version || (r.room.phase === "ready" && !r.rewards.seeded))) return null;\n' +
+      '    return r;\n' +
+      '  }\n' +
+      '  function save(r) { world.setDynamicProperty(DOOR_STATE_KEY, JSON.stringify(r)); }\n' +
+      '  function getSource(candidate = null) {\n' +
+      '    try {\n' +
+      '      // Once present, the progress ledger is the sole placement authority.\n' +
+      '      // Corrupt/unavailable history must not fall back to a new source.\n' +
+      '      if (world.getDynamicProperty(DOOR_STATE_KEY) !== undefined) return read()?.source ?? null;\n' +
+      '      const hint = candidate ?? parse(world.getDynamicProperty("fc_guild_door"));\n' +
+      '      const source = { ...hint, dimension: hint?.dimension ?? "minecraft:overworld" };\n' +
+      '      return validSource(source) ? source : null;\n' +
+      '    } catch { return null; }\n' +
+      '  }\n' +
+      '  function readTicket(p) {\n' +
+      '    try {\n' +
+      '      const t = parse(p.getDynamicProperty(DOOR_RETURN_KEY));\n' +
+      '      const valid = t?.schema === 1 && t.doorId === "guild" && validSource(t.source)\n' +
+      '        && Number.isInteger(t.cell) && t.cell >= 0 && t.cell < 4096\n' +
+      '        && ["entering", "inside", "outside", "returning"].includes(t.phase);\n' +
+      '      return { available: true, ticket: valid ? t : null };\n' +
+      '    } catch {\n' +
+      '      // A failed read is not evidence that the committed way home is absent.\n' +
+      '      // Read-only guards may ignore this player; recovery must defer all writes.\n' +
+      '      return { available: false, ticket: null };\n' +
+      '    }\n' +
+      '  }\n' +
+      '  function ticket(p, t = readTicket(p).ticket, r = read()) {\n' +
+      '    return t && t.cell === r?.room?.cell && t.source.dimension === r.source.dimension\n' +
+      '      && distance(t.source, r.source) < 16 ? t : null;\n' +
+      '  }\n' +
+      '  function occupiedTicket(p, t = readTicket(p).ticket) {\n' +
+      '    try {\n' +
+      '      if (p?.isValid === false) return null;\n' +
+      '      // This committed ticket remains a return authority when a missing world\n' +
+      '      // ledger is later recreated for another/no room. Actual occupancy of its\n' +
+      '      // exact bounded Overworld cell is required; a stale outside ticket cannot\n' +
+      "      // teleport its owner or select someone else's destination.\n" +
+      '      return t && p.dimension.id === dimension().id && inRealm(p.location, realmOrigin(t.cell)) ? t : null;\n' +
+      '    } catch { return null; }\n' +
+      '  }\n' +
+      '  function saveTicket(p, t) { p.setDynamicProperty(DOOR_RETURN_KEY, t ? JSON.stringify(t) : undefined); }\n' +
+      '  function notice(p, text) {\n' +
+      '    const key = `${p.id}|${text}`;\n' +
+      '    if (now() - (notices.get(key) ?? -1000) < 100) return;\n' +
+      '    notices.set(key, now());\n' +
+      '    try { p.sendMessage(`§5Demon Door: §7${text}`); } catch { }\n' +
+      '  }\n' +
+      '  function safe(dim, p) {\n' +
+      '    if (!finitePosition(p)) return false;\n' +
+      '    for (const dx of [-0.3, 0.3]) for (const dz of [-0.3, 0.3]) {\n' +
+      '      const x = Math.floor(p.x + dx), z = Math.floor(p.z + dz), y = Math.floor(p.y);\n' +
+      '      if (!floorIds.has(blockAt(dim, { x, y: y - 1, z })?.typeId)) return false;\n' +
+      '      // A recorded approach can have fractional feet while jumping. Check\n' +
+      '      // every cell intersected by the standing player, including a third cell\n' +
+      '      // above those feet, so a blocked exact point can select a safe fallback.\n' +
+      '      for (let headY = y; headY < Math.ceil(p.y + 1.8); headY++) if (!air(blockAt(dim, { x, y: headY, z }))) return false;\n' +
+      '    }\n' +
+      '    return true;\n' +
+      '  }\n' +
+      '  function lease(dim, name, origin, size) {\n' +
+      '    try {\n' +
+      '      // Remove only our own possibly orphaned lease before recreating it.\n' +
+      '      try { dim.runCommand(`tickingarea remove ${name}`); } catch { }\n' +
+      '      const end = add(origin, { x: size.x - 1, y: size.y - 1, z: size.z - 1 });\n' +
+      '      const result = dim.runCommand(`tickingarea add ${Math.floor(origin.x)} ${Math.floor(origin.y)} ${Math.floor(origin.z)} ${Math.floor(end.x)} ${Math.floor(end.y)} ${Math.floor(end.z)} ${name} true`);\n' +
+      '      if (result?.successCount === 0) return false;\n' +
+      '      leaseDimensions.set(name, dim.id);\n' +
+      '      return true;\n' +
+      '    } catch (e) { report(`Demon Door loading unavailable: ${String(e)}`); return false; }\n' +
+      '  }\n' +
+      '  function removeLease(name) {\n' +
+      '    try { dimension(leaseDimensions.get(name)).runCommand(`tickingarea remove ${name}`); } catch { }\n' +
+      '    leaseDimensions.delete(name);\n' +
+      '    if (name === ROOM_LEASE) roomLease = false;\n' +
+      '    else sourceLease = false;\n' +
+      '  }\n' +
+      '  function registerGuild(source, face = null, { isNew = false } = {}) {\n' +
+      '    if (world.getDynamicProperty(DOOR_STATE_KEY) !== undefined) {\n' +
+      '      const existing = read();\n' +
+      '      if (!existing) report("Demon Door record is invalid; refusing to reset saved progress.");\n' +
+      '      return existing;\n' +
+      '    }\n' +
+      '    if (!finitePosition(source)) return null;\n' +
+      '    source = { ...source, dimension: source.dimension ?? "minecraft:overworld" };\n' +
+      '    if (!validSource(source)) return null;\n' +
+      '    let legacyOpen = false, idx = null;\n' +
+      '    if (face) {\n' +
+      '      try {\n' +
+      '        legacyOpen = face.getDynamicProperty("fc_door_open") === true;\n' +
+      '        idx = face.getDynamicProperty("fc_door_idx") ?? null;\n' +
+      '      } catch {\n' +
+      '        report("Guild door legacy history is temporarily unreadable; registration deferred.");\n' +
+      '        return null;\n' +
+      '      }\n' +
+      '    }\n' +
+      '    const status = isNew ? "new" : face ? (legacyOpen ? "surviving_open" : "surviving_closed") : "history_unknown";\n' +
+      '    const r = { schema: 1, id: "guild", archetype: "guild_library_arcanum",\n' +
+      '      source: { ..'... 20021 more characters,
+    ''
+  ],
+  pid: 12,
+  stdout: '// Owned runtime: Guild Demon Door pilot. Bedrock effects are injected so tests\n' +
+    '// execute this module itself without importing a fake @minecraft/server package.\n' +
+    'export const ARCANUM = Object.freeze({\n' +
+    '  id: "fc:library_arcanum", version: 1, size: { x: 49, y: 28, z: 49 },\n' +
+    '  arrival: { x: 24.5, y: 3, z: 7.5 }, exit: { x: 24.5, y: 3, z: 3.5 },\n' +
+    '  rewards: [\n' +
+    '    { at: { x: 24, y: 3, z: 35 }, item: "fc:elixir_of_life" },\n' +
+    '    { at: { x: 16, y: 3, z: 28 }, item: "minecraft:book", name: "Making Friends" },\n' +
+    '    { at: { x: 32, y: 3, z: 28 }, item: "minecraft:book", name: "Book of Spells" },\n' +
+    '    { at: { x: 16, y: 3, z: 34 }, item: "minecraft:paper", name: "Howl Tattoo" },\n' +
+    '  ],\n' +
+    '});\n' +
+    'export const DOOR_STATE_KEY = "fc_dp_guild_v1";\n' +
+    'export const DOOR_RETURN_KEY = "fc_dp_return_v1";\n' +
+    'const ROOM_LEASE = "fc_dp_guild_load", SOURCE_LEASE = "fc_dp_guild_return";\n' +
+    'const add = (a, b) => ({ x: a.x + b.x, y: a.y + b.y, z: a.z + b.z });\n' +
+    'const finitePosition = (p) => p && [p.x, p.y, p.z].every(Number.isFinite);\n' +
+    'const distance = (a, b) => Math.hypot(a.x - b.x, a.y - b.y, a.z - b.z);\n' +
+    'const parse = (value) => { try { return JSON.parse(value); } catch { return null; } };\n' +
+    'const supportedDimensions = new Set(["minecraft:overworld", "minecraft:nether", "minecraft:the_end"]);\n' +
+    'const validSource = (p) => finitePosition(p) && Math.abs(p.x) < 30000000 && Math.abs(p.z) < 30000000\n' +
+    '  && p.y >= -63 && p.y <= 317 && supportedDimensions.has(p.dimension);\n' +
+    'const shellPoints = [];\n' +
+    'for (let x = 0; x < 49; x++) for (let y = 0; y < 28; y++) for (let z = 0; z < 49; z++) {\n' +
+    '  if (x === 0 || x === 48 || y === 0 || y === 27 || z === 0 || z === 48) shellPoints.push({ x, y, z });\n' +
+    '}\n' +
+    'const shellSentinels = shellPoints.filter(({ x, y, z }) => [0, 24, 48].includes(x)\n' +
+    '  && [0, 14, 27].includes(y) && [0, 24, 48].includes(z));\n' +
+    'export const realmOrigin = (cell) => ({ x: 600000 + (cell % 64) * 128, y: 272, z: 600000 + Math.floor(cell / 64) * 128 });\n' +
+    'export function inRealm(position, origin, margin = 0) {\n' +
+    '  return finitePosition(position) && finitePosition(origin)\n' +
+    '    && position.x >= origin.x - margin && position.x < origin.x + ARCANUM.size.x + margin\n' +
+    '    && position.y >= origin.y - margin && position.y < origin.y + ARCANUM.size.y + margin\n' +
+    '    && position.z >= origin.z - margin && position.z < origin.z + ARCANUM.size.z + margin;\n' +
+    '}\n' +
+    'export function inDoorOpening(position, anchor) {\n' +
+    '  return finitePosition(position) && finitePosition(anchor)\n' +
+    '    && Math.abs(position.x - anchor.x) <= 1.35 && Math.abs(position.z - anchor.z) <= 0.9\n' +
+    '    && position.y >= anchor.y - 0.15 && position.y <= anchor.y + 2.4;\n' +
+    '}\n' +
+    '\n' +
+    'export function createDemonDoorPilot({ world, system, ItemStack, report = () => {}, definition = null, placeRoom = null, sourceReady = () => true, canEnter = () => true }) {\n' +
+    '  if (definition && (definition.id !== "guild_library_arcanum" || definition.destination?.structure !== ARCANUM.id)) {\n' +
+    '    throw new Error("Guild Demon Door definition does not match its generated destination contract.");\n' +
+    '  }\n' +
+    '  let job = null, opening = null, roomLease = false, sourceLease = false, leaseLastUsed = -1000, buildRetryAt = 0;\n' +
+    '  let verifiedReadyCell = null;\n' +
+    '  const dwell = new Map(), cooldown = new Map(), disarmed = new Set(), seen = new Set();\n' +
+    '  const notices = new Map(), approach = new Map(), returnWait = new Map();\n' +
+    '  const leaseDimensions = new Map();\n' +
+    '  const now = () => system.currentTick;\n' +
+    '  const dimension = (id = "minecraft:overworld") => world.getDimension(id);\n' +
+    '  const blockAt = (dim, p) => { try { return dim.getBlock(p) ?? null; } catch { return null; } };\n' +
+    '  const air = (b) => !!b && (b.isAir === true || b.typeId === "minecraft:air");\n' +
+    '  const floorIds = new Set(["stone", "stone_bricks", "chiseled_stone_bricks", "mossy_stone_bricks", "cracked_stone_bricks", "cobblestone", "mossy_cobblestone", "grass_block", "dirt", "coarse_dirt", "dirt_with_roots", "grass_path", "dirt_path", "gravel", "andesite", "polished_andesite", "deepslate", "polished_deepslate", "bedrock", "oak_planks", "dark_oak_planks", "spruce_planks"].map((id) => `minecraft:${id}`));\n' +
+    '  function read() {\n' +
+    '    let r;\n' +
+    '    try { r = parse(world.getDynamicProperty(DOOR_STATE_KEY)); } catch { return null; }\n' +
+    '    if (!r || r.schema !== 1 || r.id !== "guild" || r.archetype !== "guild_library_arcanum"\n' +
+    '      || !validSource(r.source) || typeof r.unlocked !== "boolean"\n' +
+    '      || !r.rewards || typeof r.rewards.seeded !== "boolean" || typeof r.rewards.suppressed !== "boolean"\n' +
+    '      || !Array.isArray(r.rewards.claimed) || r.rewards.claimed.length !== 4\n' +
+    '      || !r.rewards.claimed.every((claimed) => typeof claimed === "boolean")) return null;\n' +
+    '    if (r.room && (!Number.isInteger(r.room.cell) || r.room.cell < 0 || r.room.cell >= 4096\n' +
+    '      || !finitePosition(r.room.origin) || distance(r.room.origin, realmOrigin(r.room.cell)) > 0.01\n' +
+    '      || !["allocated", "placing", "ready"].includes(r.room.phase) || typeof r.room.visited !== "boolean"\n' +
+    '      || r.room.version !== ARCANUM.version || (r.room.phase === "ready" && !r.rewards.seeded))) return null;\n' +
+    '    return r;\n' +
+    '  }\n' +
+    '  function save(r) { world.setDynamicProperty(DOOR_STATE_KEY, JSON.stringify(r)); }\n' +
+    '  function getSource(candidate = null) {\n' +
+    '    try {\n' +
+    '      // Once present, the progress ledger is the sole placement authority.\n' +
+    '      // Corrupt/unavailable history must not fall back to a new source.\n' +
+    '      if (world.getDynamicProperty(DOOR_STATE_KEY) !== undefined) return read()?.source ?? null;\n' +
+    '      const hint = candidate ?? parse(world.getDynamicProperty("fc_guild_door"));\n' +
+    '      const source = { ...hint, dimension: hint?.dimension ?? "minecraft:overworld" };\n' +
+    '      return validSource(source) ? source : null;\n' +
+    '    } catch { return null; }\n' +
+    '  }\n' +
+    '  function readTicket(p) {\n' +
+    '    try {\n' +
+    '      const t = parse(p.getDynamicProperty(DOOR_RETURN_KEY));\n' +
+    '      const valid = t?.schema === 1 && t.doorId === "guild" && validSource(t.source)\n' +
+    '        && Number.isInteger(t.cell) && t.cell >= 0 && t.cell < 4096\n' +
+    '        && ["entering", "inside", "outside", "returning"].includes(t.phase);\n' +
+    '      return { available: true, ticket: valid ? t : null };\n' +
+    '    } catch {\n' +
+    '      // A failed read is not evidence that the committed way home is absent.\n' +
+    '      // Read-only guards may ignore this player; recovery must defer all writes.\n' +
+    '      return { available: false, ticket: null };\n' +
+    '    }\n' +
+    '  }\n' +
+    '  function ticket(p, t = readTicket(p).ticket, r = read()) {\n' +
+    '    return t && t.cell === r?.room?.cell && t.source.dimension === r.source.dimension\n' +
+    '      && distance(t.source, r.source) < 16 ? t : null;\n' +
+    '  }\n' +
+    '  function occupiedTicket(p, t = readTicket(p).ticket) {\n' +
+    '    try {\n' +
+    '      if (p?.isValid === false) return null;\n' +
+    '      // This committed ticket remains a return authority when a missing world\n' +
+    '      // ledger is later recreated for another/no room. Actual occupancy of its\n' +
+    '      // exact bounded Overworld cell is required; a stale outside ticket cannot\n' +
+    "      // teleport its owner or select someone else's destination.\n" +
+    '      return t && p.dimension.id === dimension().id && inRealm(p.location, realmOrigin(t.cell)) ? t : null;\n' +
+    '    } catch { return null; }\n' +
+    '  }\n' +
+    '  function saveTicket(p, t) { p.setDynamicProperty(DOOR_RETURN_KEY, t ? JSON.stringify(t) : undefined); }\n' +
+    '  function notice(p, text) {\n' +
+    '    const key = `${p.id}|${text}`;\n' +
+    '    if (now() - (notices.get(key) ?? -1000) < 100) return;\n' +
+    '    notices.set(key, now());\n' +
+    '    try { p.sendMessage(`§5Demon Door: §7${text}`); } catch { }\n' +
+    '  }\n' +
+    '  function safe(dim, p) {\n' +
+    '    if (!finitePosition(p)) return false;\n' +
+    '    for (const dx of [-0.3, 0.3]) for (const dz of [-0.3, 0.3]) {\n' +
+    '      const x = Math.floor(p.x + dx), z = Math.floor(p.z + dz), y = Math.floor(p.y);\n' +
+    '      if (!floorIds.has(blockAt(dim, { x, y: y - 1, z })?.typeId)) return false;\n' +
+    '      // A recorded approach can have fractional feet while jumping. Check\n' +
+    '      // every cell intersected by the standing player, including a third cell\n' +
+    '      // above those feet, so a blocked exact point can select a safe fallback.\n' +
+    '      for (let headY = y; headY < Math.ceil(p.y + 1.8); headY++) if (!air(blockAt(dim, { x, y: headY, z }))) return false;\n' +
+    '    }\n' +
+    '    return true;\n' +
+    '  }\n' +
+    '  function lease(dim, name, origin, size) {\n' +
+    '    try {\n' +
+    '      // Remove only our own possibly orphaned lease before recreating it.\n' +
+    '      try { dim.runCommand(`tickingarea remove ${name}`); } catch { }\n' +
+    '      const end = add(origin, { x: size.x - 1, y: size.y - 1, z: size.z - 1 });\n' +
+    '      const result = dim.runCommand(`tickingarea add ${Math.floor(origin.x)} ${Math.floor(origin.y)} ${Math.floor(origin.z)} ${Math.floor(end.x)} ${Math.floor(end.y)} ${Math.floor(end.z)} ${name} true`);\n' +
+    '      if (result?.successCount === 0) return false;\n' +
+    '      leaseDimensions.set(name, dim.id);\n' +
+    '      return true;\n' +
+    '    } catch (e) { report(`Demon Door loading unavailable: ${String(e)}`); return false; }\n' +
+    '  }\n' +
+    '  function removeLease(name) {\n' +
+    '    try { dimension(leaseDimensions.get(name)).runCommand(`tickingarea remove ${name}`); } catch { }\n' +
+    '    leaseDimensions.delete(name);\n' +
+    '    if (name === ROOM_LEASE) roomLease = false;\n' +
+    '    else sourceLease = false;\n' +
+    '  }\n' +
+    '  function registerGuild(source, face = null, { isNew = false } = {}) {\n' +
+    '    if (world.getDynamicProperty(DOOR_STATE_KEY) !== undefined) {\n' +
+    '      const existing = read();\n' +
+    '      if (!existing) report("Demon Door record is invalid; refusing to reset saved progress.");\n' +
+    '      return existing;\n' +
+    '    }\n' +
+    '    if (!finitePosition(source)) return null;\n' +
+    '    source = { ...source, dimension: source.dimension ?? "minecraft:overworld" };\n' +
+    '    if (!validSource(source)) return null;\n' +
+    '    let legacyOpen = false, idx = null;\n' +
+    '    if (face) {\n' +
+    '      try {\n' +
+    '        legacyOpen = face.getDynamicProperty("fc_door_open") === true;\n' +
+    '        idx = face.getDynamicProperty("fc_door_idx") ?? null;\n' +
+    '      } catch {\n' +
+    '        report("Guild door legacy history is temporarily unreadable; registration deferred.");\n' +
+    '        return null;\n' +
+    '      }\n' +
+    '    }\n' +
+    '    const status = isNew ? "new" : face ? (legacyOpen ? "surviving_open" : "surviving_closed") : "history_unknown";\n' +
+    '    const r = { schema: 1, id: "guild", archetype: "guild_library_arcanum",\n' +
+    '      source: { ..'... 20021 more characters,
+  stderr: ''
+}
+
+Node.js v26.7.0

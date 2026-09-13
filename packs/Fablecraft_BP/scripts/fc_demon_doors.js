@@ -39,7 +39,8 @@ export function inDoorOpening(position, anchor) {
     && position.y >= anchor.y - 0.15 && position.y <= anchor.y + 2.4;
 }
 
-export function createDemonDoorPilot({ world, system, ItemStack, report = () => {}, definition = null, placeRoom = null, sourceReady = () => true, canEnter = () => true }) {
+export function createDemonDoorPilot({ world, system, ItemStack, report = () => {}, definition = null, placeRoom = null,
+  volumeIsEmpty = () => false, volumeIsBlock = () => false, sourceReady = () => true, canEnter = () => true }) {
   if (definition && (definition.id !== "guild_library_arcanum" || definition.destination?.structure !== ARCANUM.id)) {
     throw new Error("Guild Demon Door definition does not match its generated destination contract.");
   }
@@ -68,6 +69,23 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
     return r;
   }
   function save(r) { world.setDynamicProperty(DOOR_STATE_KEY, JSON.stringify(r)); }
+  // Preparation extends the existing record without changing old ready rooms or
+  // return schemas. Compare fresh authority before each write and read it back
+  // before allowing the next native effect. These are not atomic engine saves.
+  function savePreparation(r, expected) {
+    try {
+      if (JSON.stringify(read()) !== expected) return false;
+      const raw = JSON.stringify(r);
+      world.setDynamicProperty(DOOR_STATE_KEY, raw);
+      if (world.getDynamicProperty(DOOR_STATE_KEY) !== raw) return false;
+      if (job) job.record = raw;
+      return true;
+    } catch { return false; }
+  }
+  function preparationPhase(r) {
+    const p = r.room?.preparation;
+    return p?.schema === 1 && ["placing", "placed", "seeding", "seeded"].includes(p.phase) ? p.phase : null;
+  }
   function getSource(candidate = null) {
     try {
       // Once present, the progress ledger is the sole placement authority.
@@ -228,29 +246,77 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
       && air(blockAt(dim, add(o, add(reward.at, { x: 0, y: 1, z: 0 }))))
       && safe(dim, add(o, add(reward.at, { x: 0.5, y: 0, z: -0.5 }))));
   }
+  function shellIntact(o) {
+    try {
+      for (const [at, size] of [
+        [{ x: 0, y: 0, z: 0 }, { x: 1, y: 28, z: 49 }], [{ x: 48, y: 0, z: 0 }, { x: 1, y: 28, z: 49 }],
+        [{ x: 0, y: 0, z: 0 }, { x: 49, y: 1, z: 49 }], [{ x: 0, y: 27, z: 0 }, { x: 49, y: 1, z: 49 }],
+        [{ x: 0, y: 0, z: 0 }, { x: 49, y: 28, z: 1 }], [{ x: 0, y: 0, z: 48 }, { x: 49, y: 28, z: 1 }],
+      ]) if (volumeIsBlock(dimension(), add(o, at), size, "minecraft:barrier") !== true) return false;
+      return true;
+    } catch { return false; }
+  }
+  function unoccupied(o) {
+    try {
+      if (world.getPlayers().some(p => p.dimension.id === dimension().id && inRealm(p.location, o))) return false;
+      return dimension().getEntities({ location: add(o, { x: 24, y: 14, z: 24 }), maxDistance: 45 }).length === 0;
+    } catch { return false; }
+  }
+  function rewardsVerified(r, empty = false) {
+    try {
+      return ARCANUM.rewards.every(reward => {
+        // Reacquire native handles: a detached inventory is not the live chest.
+        const c = container(dimension(), add(r.room.origin, reward.at));
+        if (!c || !Number.isInteger(c.size) || c.size !== 27) return false;
+        for (let slot = 0; slot < c.size; slot++) {
+          const item = c.getItem(slot);
+          if (empty || r.rewards.suppressed || slot !== 0) { if (item) return false; }
+          else if (item?.typeId !== reward.item || item.amount !== 1
+            || (item.nameTag ?? "") !== (reward.name ?? "")
+            || JSON.stringify(item.getLore()) !== JSON.stringify(reward.name ? ["A keepsake from the Library Arcanum."] : [])) return false;
+        }
+        return true;
+      });
+    } catch { return false; }
+  }
+  function containerEmpty(c) {
+    if (!c || c.size !== 27) return false;
+    for (let slot = 0; slot < c.size; slot++) if (c.getItem(slot)) return false;
+    return true;
+  }
   function ensureRoom(r = read()) {
     if (!r?.unlocked || job || now() < buildRetryAt) return;
     if (r.room?.phase === "ready" && verifiedReadyCell === r.room.cell && roomVerified(r)) { leaseLastUsed = now(); return; }
+    const readyOnly = r.room?.phase === "ready" || r.room?.visited === true;
+    if (!readyOnly && (r.rewards.seeded || r.rewards.claimed.some(Boolean)
+      || r.room?.phase === "allocated" && r.room.preparation !== undefined
+      || r.room?.phase === "placing" && !["placed", "seeded"].includes(preparationPhase(r)))) {
+      failJob("Demon Door preparation history is ambiguous; refusing placement replay or reward reseeding."); return;
+    }
     if (!r.room) {
+      const expected = JSON.stringify(r);
       r.room = { cell: 0, origin: realmOrigin(0), version: ARCANUM.version, phase: "allocated", visited: false };
-      save(r);
+      if (!savePreparation(r, expected)) { failJob("Demon Door allocation journal could not be verified."); return; }
     }
     if (!roomLease) roomLease = lease(dimension(), ROOM_LEASE, r.room.origin, ARCANUM.size);
     if (!roomLease) { buildRetryAt = now() + 200; return; }
     leaseLastUsed = now();
-    job = { phase: "loading", started: now(), scan: 0, verifyScan: 0, skips: 0, readyOnly: r.room.phase === "ready" || r.room.visited === true };
+    job = { phase: "loading", started: now(), scan: 0, verifyScan: 0, skips: 0, readyOnly,
+      record: JSON.stringify(r) };
   }
   function failJob(message) {
-    report(message);
     verifiedReadyCell = null;
     buildRetryAt = now() + 200;
     job = null;
     removeLease(ROOM_LEASE);
+    try { report(message); } catch { }
   }
   function tickBuild() {
     if (!job) return;
     const r = read();
-    if (!r?.room) { failJob("Demon Door room state disappeared."); return; }
+    if (!r?.room || JSON.stringify(r) !== job.record || !r.unlocked) {
+      failJob("Demon Door room history changed or became unavailable; preparation deferred."); return;
+    }
     const o = r.room.origin, dim = dimension();
     if (now() - job.started > 1200) { failJob("Demon Door room loading timed out; entrance remains at source."); return; }
     leaseLastUsed = now();
@@ -260,7 +326,7 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
         if (!roomVerified(r)) { failJob("Visited Demon Door room is damaged; refusing to rebuild or replenish rewards."); return; }
         job.phase = "verify";
       } else {
-        job.phase = r.room.phase === "allocated" ? "preflight" : "place";
+        job.phase = r.room.phase === "allocated" ? "preflight" : "verify";
       }
     }
     if (job.phase === "preflight") {
@@ -274,7 +340,7 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
           if (++job.skips >= 8 || r.room.cell >= 4095) { failJob("Demon Door allocation found occupied cells; no blocks changed."); return; }
           r.room.cell++;
           r.room.origin = realmOrigin(r.room.cell);
-          save(r);
+          if (!savePreparation(r, job.record)) { failJob("Demon Door candidate journal could not be verified."); return; }
           removeLease(ROOM_LEASE);
           roomLease = lease(dim, ROOM_LEASE, r.room.origin, ARCANUM.size);
           if (!roomLease) { job = null; return; }
@@ -286,16 +352,21 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
       job.phase = "place";
     }
     if (job.phase === "place") {
-      // No player can be present when first placement/retry may replace blocks.
-      if (world.getPlayers().some((p) => p.dimension.id === dim.id && inRealm(p.location, o))) return;
       try {
-        if (dim.getEntities({ location: add(o, { x: 24, y: 14, z: 24 }), maxDistance: 45 }).length) {
-          failJob("Demon Door destination contains entities; placement deferred."); return;
+        // The sliced scan is only a survey. A late native bulk check must still
+        // prove the entire volume empty, with unavailable chunks refused.
+        if (volumeIsEmpty(dim, o, ARCANUM.size) !== true || !unoccupied(o)) {
+          failJob("Demon Door destination changed or is unavailable; no blocks placed."); return;
         }
         r.room.phase = "placing";
-        save(r);
+        r.room.preparation = { schema: 1, phase: "placing" };
+        if (!savePreparation(r, job.record)) { failJob("Demon Door placement journal could not be verified."); return; }
         if (placeRoom) placeRoom(dim, o);
         else world.structureManager.place(ARCANUM.id, dim, o, { includeEntities: false });
+        // A missing receipt never authorizes a second structure placement,
+        // even if the native call changed some/all blocks before throwing.
+        r.room.preparation.phase = "placed";
+        if (!savePreparation(r, job.record)) { failJob("Demon Door placement receipt is unavailable; no structure replay."); return; }
         job.phase = "verify";
       } catch (e) { failJob(`Demon Door structure unavailable: ${String(e)}`); }
       return;
@@ -311,23 +382,44 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
       }
       if (job.verifyScan < shellPoints.length) return;
       if (!roomVerified(r)) return;
+      if (!shellIntact(o)) { failJob("Demon Door containment changed or is unavailable; admission refused."); return; }
       if (job.readyOnly) { verifiedReadyCell = r.room.cell; job = null; return; }
+      if (!unoccupied(o) || r.rewards.seeded || r.rewards.claimed.some(Boolean)) {
+        failJob("Demon Door preparation is occupied or has reward history; no writes."); return;
+      }
       try {
-        for (const reward of ARCANUM.rewards) {
-          const c = container(dim, add(o, reward.at));
-          if (!r.rewards.suppressed) {
-            const item = new ItemStack(reward.item, 1);
-            if (reward.name) {
-              item.nameTag = reward.name;
-              item.setLore(["A keepsake from the Library Arcanum."]);
+        if (preparationPhase(r) === "placed") {
+          if (!rewardsVerified(r, true)) { failJob("Demon Door reward containers are not empty or readable; no contents replaced."); return; }
+          r.room.preparation.phase = "seeding";
+          if (!savePreparation(r, job.record)) { failJob("Demon Door seed journal could not be verified; no reward writes."); return; }
+          for (const reward of ARCANUM.rewards) {
+            if (!r.rewards.suppressed) {
+              const item = new ItemStack(reward.item, 1);
+              if (reward.name) {
+                item.nameTag = reward.name;
+                item.setLore(["A keepsake from the Library Arcanum."]);
+              }
+              const c = container(dim, add(o, reward.at));
+              // A preceding native effect may invalidate a later container or
+              // its authority. Never overwrite contents observed after intent.
+              if (!containerEmpty(c) || !unoccupied(o) || JSON.stringify(read()) !== job.record) {
+                failJob("Demon Door reward authority or contents changed; remaining writes refused."); return;
+              }
+              c.setItem(0, item);
             }
-            c.setItem(0, item);
           }
+          if (!rewardsVerified(r)) { failJob("Demon Door reward readback mismatched; no admission or reseeding."); return; }
+          r.room.preparation.phase = "seeded";
+          if (!savePreparation(r, job.record)) { failJob("Demon Door seed receipt is unavailable; no reseeding."); return; }
+        }
+        if (preparationPhase(r) !== "seeded" || !rewardsVerified(r)
+          || !roomVerified(r) || !shellIntact(o) || !unoccupied(o)) {
+          failJob("Demon Door final preparation changed or is unavailable; no admission or reseeding."); return;
         }
         r.rewards.seeded = true;
         r.rewards.claimed = ARCANUM.rewards.map(() => r.rewards.suppressed);
         r.room.phase = "ready";
-        save(r);
+        if (!savePreparation(r, job.record)) { failJob("Demon Door ready journal could not be verified; no reseeding."); return; }
         verifiedReadyCell = r.room.cell;
         job = null;
       } catch (e) { failJob(`Demon Door reward preparation failed: ${String(e)}`); }
@@ -348,7 +440,8 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
     if (!sourceIsReady(r)) { notice(p, "My passage is obstructed. Clear the doorway before entering."); return false; }
     ensureRoom(r);
     r = read();
-    if (opening || job || r?.room?.phase !== "ready" || verifiedReadyCell !== r.room.cell || !roomVerified(r)) {
+    if (opening || job || r?.room?.phase !== "ready" || verifiedReadyCell !== r.room.cell || !roomVerified(r)
+      || !shellIntact(r.room.origin)) {
       notice(p, "The passage is taking shape. Wait in the light to cross."); return "pending";
     }
     if (ticket(p, currentTicket, r)?.phase === "inside") return false;

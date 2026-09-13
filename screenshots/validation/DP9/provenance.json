@@ -1,0 +1,36 @@
+{
+  "milestone": "DP9",
+  "baseline_head": "c001e51929401de8068b85aff42cb7d10fb4f3ec",
+  "reviewed_index_listing_sha256": "8e5ca007d00aad9f75594e530c69445254c782c2e4a5cb0aead45ca5b052fb91",
+  "source": "git checkout-index --all; no working-tree source copied",
+  "snapshot": "tmp/conformance/DP9-reviewed-snapshot",
+  "untracked_dependency": "node_modules symlink; ignored vanilla item cache copied for deterministic offline rendering",
+  "containing_commit": "SELF: TLC Conformance \u2014 DP9: guard Library preparation and reward receipts",
+  "prior_ci": {
+    "GP21": {
+      "run": 34740634798,
+      "conclusion": "success"
+    }
+  },
+  "validated_production_sha256": {
+    "packs/Fablecraft_BP/scripts/fc_demon_doors.js": "e64d1745b314e5547c2f055fbfd5f4c7b3b0f42cc223d1b9e33b525b7b732637",
+    "packs/Fablecraft_BP/scripts/main.js": "c18b286d79bc16d6b3ea08985d5882f7a2411ae2aeb61de3bd83594d6ffb103e",
+    "scripts/tests/demon_doors.test.mjs": "adc6428ea9b4218658978650094bf519ba094da530333d865bec5090d51b8e86",
+    "scripts/tests/demon_door_integration.test.mjs": "70a3669b10a8532c5d7c909651366dd9cd37cd547ed591c2c7ed069f30ad4f15"
+  },
+  "protected_unrelated_sha256": {
+    "dist/Fablecraft_BP.mcpack": "9543bfd4cd22a67a2e3d063da3d2b23ed7a213679a322422f4b0fa9b937b3170",
+    "dist/Fablecraft_RP.mcpack": "48fb847212ac5fcde7873c102623e47c68e2272c7417d1c3bc8fe1c02639b2e7",
+    "dist/Fablecraft_Reforged.mcaddon": "6e8c1a1ee1c4ac1c0c972428c222b9438a94157e3a2fd734583c5d52fd037df8",
+    "scripts/_align/overlay_ground.png": "1e905d600576ce9eb3b612c3bd3d2e4c48492fe7906ba72833b2ffb77bd9c538",
+    "scripts/_align/overlay_ground_zoom.png": "e64756d886d5bf33cd8a2c19262f2296510f127aaf7b2cc349efb56100ebf8e4",
+    "scripts/_align/overlay_td.png": "1a0d57296b5f7ddb1f725d418aee5307319f59cd7d566ec06a1f04596dcdb4a9",
+    "scripts/_align/overlay_td_zoom.png": "a98c94fe9bf934658398bda742624d7456749dabce4a47199b8e463e7775d5a2",
+    ".eslintrc.json": "79742942e1401d824e46c2ac132c6e3a905a0a343413c5cd440bc3fc51bd9123",
+    "packs/Fablecraft_BP/scripts/package.json": "1bf0e53fc74b05f1aade7451fbac72f1944b067d4229d96bae7a225519a250e4"
+  },
+  "base_gates": 55,
+  "esm_scripts": 65,
+  "final_docs": "Refreshed after source validation; scoreboard rerun and final named docs staged separately.",
+  "native_acceptance": "unrun"
+}
