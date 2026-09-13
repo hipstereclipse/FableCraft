@@ -181,7 +181,7 @@ reboot. Each pass inspects period screenshots and the original Prima guide, land
 reviewed milestone commit, and records its exact scope, evidence and remaining defects in
 [the priority ledger](docs/GUILD_DEMON_PRIORITIES.md).
 
-**Guild passes (GP1–GP17)**
+**Guild passes (GP1–GP20)**
 
 - **Halls & circulation.** The lobby, upper gallery, dining hall and Maze's tower stairs are
   joined by continuous half-step routes, and the broad Library and Store archways stand open
@@ -190,32 +190,56 @@ reviewed milestone commit, and records its exact scope, evidence and remaining d
 - **The map table.** The Map Room's random jewel mosaic and beacon are replaced by a low
   wood-framed land-and-sea relief, with every adjacent interaction preserved.
   ([map table](docs/GUILD_MAP_TABLE.md))
+
+![The Map Room](screenshots/docs/23_guild_map_room.png)
+
 - **The Library.** Continuous framed bookcases, an accessible reading desk and properly
   supported lamps furnish the room without disturbing the spine, cave or commons routes.
   ([library interior](docs/GUILD_LIBRARY_INTERIOR.md))
+
+![The Guild Library](screenshots/docs/24_guild_library.png)
+
 - **The Chamber of Fate.** New cave and Chamber construction is journalled and resumable.
   Bright placeholder posts gave way to attached pointed wall bays, dark masonry and high
   lamps, then to nested inset panels, carved marks, colored window strips and muted
   grey/ochre paving drawn from neutral reference views.
   ([chamber interior](docs/GUILD_CHAMBER_INTERIOR.md), [neutral details](docs/GUILD_CHAMBER_NEUTRAL_DETAILS.md), [cave lifecycle](docs/GUILD_CAVE_LIFECYCLE.md))
+
+![The Chamber of Fate](screenshots/docs/25_chamber_of_fate.png)
+
 - **Training grounds.** Training sessions are single-acquisition with real interruption
   handling; Will apprentices practise harmless island lightning while Might alone fills the
   sparring ring; the archery range regained its painted valley backboard; and Skill practice
   now preflights the live target, its support and every crossed cell of the firing lane
   before it fires.
   ([training](docs/GUILD_TRAINING.md), [Will training](docs/GUILD_WILL_TRAINING.md), [archery backboard](docs/GUILD_ARCHERY_BACKBOARD.md), [Skill preflight](docs/GUILD_SKILL_PREFLIGHT.md))
+
+![The Archery Range](screenshots/docs/26_archery_backboard.png)
+
 - **Residents & upkeep.** Twelve Guild residents keep durable identities across reloads
   instead of respawning by proximity, Guild defence targets the actual offender rather than
   every Hero present, and the old destructive repair sweeps that bulldozed saved
-  construction are retired.
-  ([residents](docs/GUILD_RESIDENTS.md), [defence](docs/GUILD_DEFENCE.md), [maintenance](docs/GUILD_MAINTENANCE.md))
+  construction are retired. The two Skill residents now take Follow and Wait from one
+  recorded requester, so a Wait no longer broadcasts at every bystander and defence can
+  always release it.
+  ([residents](docs/GUILD_RESIDENTS.md), [defence](docs/GUILD_DEFENCE.md), [maintenance](docs/GUILD_MAINTENANCE.md), [activity ownership](docs/GUILD_ACTIVITY_OWNERSHIP.md))
+- **Maze's tower.** The study regained a supported two-column timber case and its red rug,
+  eleven surveyed cells that leave the stair volumes and Maze's own anchor untouched.
+  ([Maze study](docs/GUILD_MAZE_STUDY.md))
+
+![Maze's Study](screenshots/docs/27_maze_study.png)
+
 - **Dormitory.** The erased final northeast stair tread is restored, completing the ascent to
-  the upper deck. ([dormitory stairs](docs/GUILD_DORM_STAIRS.md))
+  the upper deck, and the sleeping-level partition carries a framed red bay on both faces.
+  ([dormitory stairs](docs/GUILD_DORM_STAIRS.md), [wall bay](docs/GUILD_DORM_WALL_BAY.md))
+
+![The Dormitory](screenshots/docs/28_guild_dormitory.png)
+
 - **Romance & marriage.** Deferred proposal and divorce responses revalidate the current
   requester, ownership and eligibility before they mutate anything, so a competing proposal
   cannot quietly steal a partner or spend a second wedding ring.
 
-**Demon Door passes (DP1–DP5)**
+**Demon Door passes (DP1–DP7)**
 
 The first walk-through Demon Door reward world is in place. The Guild lamp door opens into the
 **Library Arcanum** — an isolated, individually designed room with its own collectibles and an
@@ -223,7 +247,18 @@ exact-source return arch. Rooms are allocated per visitor, paid history survives
 recreated ledgers, a single durable source owns the Guild-side door face so stale hints cannot
 mint unkeyed doors, and occupied rooms keep their break, build, explosion and world-generation
 guards even after ledger loss or replacement.
-([Library Arcanum](docs/LIBRARY_ARCANUM.md), [door design](docs/DEMON_DOOR_DESIGN.md), [room protections](docs/LIBRARY_ARCANUM_PROTECTIONS.md))
+([Library Arcanum](docs/LIBRARY_ARCANUM.md), [door design](docs/DEMON_DOOR_DESIGN.md), [room protections](docs/LIBRARY_ARCANUM_PROTECTIONS.md), [ticket reads](docs/LIBRARY_ARCANUM_TICKET_READS.md))
+
+![Demon Door — The Library Arcanum](screenshots/docs/29_library_arcanum.png)
+
+A second world followed. Newly registered **Greatwood Gorge** doors open into the
+**Arboretum** — a walled woodland of nine rooted trees around a three-wide walking loop, with
+Wellow's Pickhammer waiting in its one chest. Its keyed definition is kept separate from the
+eight legacy personas, and each source instance holds a single shared physical reward rather
+than handing out items on arrival.
+([Arboretum](docs/ARBORETUM.md))
+
+![Demon Door — The Arboretum](screenshots/docs/30_arboretum.png)
 
 > **Verification status — read this before believing the list above.** These passes are
 > validated **offline only**: generator, structure and runtime test groups plus rendered

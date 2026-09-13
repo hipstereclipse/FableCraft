@@ -7,6 +7,7 @@ renderer used for the gallery); a handful of UI/inventory mockups and the
 recipe/collage scenes round out the set.
 """
 import math
+import sys
 import textwrap
 
 from PIL import Image, ImageDraw, ImageFont
@@ -14,7 +15,7 @@ from PIL import Image, ImageDraw, ImageFont
 from fc_lib import ROOT, SHOTS, rng
 from gen_screenshots import (
     backdrop, render_structure, mob_quads, cube_quads, rot_y,
-    ENT_TEX, ITEM_TEX,
+    BLOCK_COLORS, ENT_TEX, ITEM_TEX,
 )
 from fc_mobs import MOBS
 import gen_structures as GS
@@ -41,7 +42,22 @@ STRUCTURE_BUILDERS = {
     "bowerstone_market": GS.bowerstone_market,
     "focus_site": GS.focus_site,
     "demon_door_arch": GS.demon_door_arch,
+    "chamber_of_fate": GS.chamber_of_fate,
+    "library_arcanum": GS.library_arcanum,
+    "arboretum": GS.arboretum,
 }
+
+# The shared renderer has no colour for these three, so they draw as the magenta
+# "unknown block" placeholder - plainly visible on the Chamber's window ring and
+# in Maze's study. setdefault keeps the fix scoped to the documentation set: the
+# structure cards rendered straight from gen_screenshots stay byte-identical, so
+# this cannot perturb a visual checkpoint baseline.
+for _block, _rgb in {
+    "minecraft:glass": (190, 220, 235),
+    "minecraft:blue_carpet": (58, 78, 160),
+    "minecraft:light_blue_glazed_terracotta": (126, 178, 214),
+}.items():
+    BLOCK_COLORS.setdefault(_block, _rgb)
 
 STRUCT_MOOD = {
     "guild_hall": "holy",
@@ -53,6 +69,9 @@ STRUCT_MOOD = {
     "bowerstone_market": "stone",
     "focus_site": "dark",
     "demon_door_arch": "dark",
+    "chamber_of_fate": "dark",
+    "library_arcanum": "royal",
+    "arboretum": "forest",
 }
 
 _VOX_CACHE = {}
@@ -75,6 +94,51 @@ def get_vox(name):
             GS.Vox.save = orig_save
         _VOX_CACHE[name] = next(iter(captured.values()))
     return _VOX_CACHE[name]
+
+
+def cutaway(vox, box, open_sides=(0, 0, 0, 0)):
+    """Lift an inclusive sub-volume out of a structure as a fresh Vox.
+
+    render_structure only emits block faces that touch air, so a room buried in
+    the campus volume renders as a sealed box. Slicing it out is what exposes the
+    interior at all. open_sides then strips (west, north, east, south) layers: at
+    the default yaw the west and north walls stand between the camera and the
+    floor, so dropping a course or two turns the box into a dollhouse view while
+    the far walls remain as a backdrop.
+    """
+    x0, y0, z0, x1, y1, z1 = box
+    west, north, east, south = open_sides
+    sub = GS.Vox(x1 - x0 + 1, y1 - y0 + 1, z1 - z0 + 1)
+    for x in range(x0, x1 + 1):
+        if x - x0 < west or x1 - x < east:
+            continue
+        for z in range(z0, z1 + 1):
+            if z - z0 < north or z1 - z < south:
+                continue
+            for y in range(y0, y1 + 1):
+                name, states = vox.palette[vox.grid[vox.idx(x, y, z)]]
+                sub.set(x - x0, y - y0, z - z0, name, states)
+    return sub
+
+
+def frame_box(box, bounds, aspect, pad=0.10):
+    """Grow a drawn-content bbox to the output aspect, clamped to the canvas."""
+    x0, y0, x1, y1 = box
+    bw, bh = bounds
+    mx, my = (x1 - x0) * pad, (y1 - y0) * pad
+    x0, y0, x1, y1 = x0 - mx, y0 - my, x1 + mx, y1 + my
+    cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
+    target = aspect[0] / aspect[1]
+    w, h = x1 - x0, y1 - y0
+    if w / h < target:
+        w = h * target
+    else:
+        h = w / target
+    w, h = min(w, bw), min(h, bh)
+    w, h = min(w, h * target), min(h, w / target)
+    cx = min(max(cx, w / 2), bw - w / 2)
+    cy = min(max(cy, h / 2), bh - h / 2)
+    return (round(cx - w / 2), round(cy - h / 2), round(cx + w / 2), round(cy + h / 2))
 
 
 def cached_backdrop(size, mood):
@@ -183,13 +247,20 @@ def holy_glow_fx(center, height=4.5):
 
 
 def compose_structure_scene(struct_name, mobs=(), effects=(), mood=None, veil=None,
-                             yaw=None, pitch=None, crop_offset=(0, 0)):
+                             yaw=None, pitch=None, crop_offset=(0, 0),
+                             cut=None, open_sides=(0, 0, 0, 0), fit=False):
     """Render a real structure with mobs/effects composited in, cropped to a
-    16:9 close-up so creatures read clearly (not a tiny dollhouse view)."""
+    16:9 close-up so creatures read clearly (not a tiny dollhouse view).
+
+    cut lifts a single room out of the volume so its interior is visible; mob
+    positions stay in whole-structure coordinates and are rebased here."""
     vox = get_vox(struct_name)
+    ox, oy, oz = (cut[0], cut[1], cut[2]) if cut else (0, 0, 0)
+    if cut:
+        vox = cutaway(vox, cut, open_sides)
     extra = []
     for mob_id, pos, kwargs in mobs:
-        extra += place_mob(mob_id, pos, **kwargs)
+        extra += place_mob(mob_id, (pos[0] - ox, pos[1] - oy, pos[2] - oz), **kwargs)
     for fx in effects:
         extra += fx
     kw = {}
@@ -197,8 +268,25 @@ def compose_structure_scene(struct_name, mobs=(), effects=(), mood=None, veil=No
         kw["yaw"] = yaw
     if pitch is not None:
         kw["pitch"] = pitch
+    mood_name = mood or STRUCT_MOOD.get(struct_name, "stone")
+    if fit:
+        # Whole-room framing. The square render below gets cropped to 16:9, which
+        # throws away the top and bottom of a sliced room and lands the reader on
+        # a wall of floorboards. Render straight into 16:9 instead, then re-frame
+        # on the pixels actually drawn: render_quads fits the volume to the
+        # SHORTER image axis, leaving a wide low room swimming in backdrop.
+        rsize = (RENDER_SIZE, RENDER_SIZE * OUT_SIZE[1] // OUT_SIZE[0])
+        render = render_structure(vox, size=rsize, extra_quads=extra, **kw)
+        canvas = cached_backdrop(rsize, mood_name)
+        canvas.alpha_composite(render)
+        if veil:
+            canvas.alpha_composite(Image.new("RGBA", canvas.size, veil))
+        drawn = render.getbbox()
+        if drawn:
+            canvas = canvas.crop(frame_box(drawn, rsize, OUT_SIZE))
+        return canvas.resize(OUT_SIZE, Image.Resampling.LANCZOS)
     render = render_structure(vox, size=(RENDER_SIZE, RENDER_SIZE), extra_quads=extra, **kw)
-    canvas = cached_backdrop((RENDER_SIZE, RENDER_SIZE), mood or STRUCT_MOOD.get(struct_name, "stone"))
+    canvas = cached_backdrop((RENDER_SIZE, RENDER_SIZE), mood_name)
     canvas.alpha_composite(render)
     if veil:
         canvas.alpha_composite(Image.new("RGBA", canvas.size, veil))
@@ -795,6 +883,77 @@ SCENES = [
         "title": "Gallery and Media",
         "subtitle": "Procedural assets and gameplay collage",
     },
+    # --- TLC conformance set -------------------------------------------------
+    # Rooms rebuilt by the GP passes plus the two Demon Door reward worlds. Each
+    # "cut" is the room's own footprint in whole-structure coordinates and
+    # open_sides drops the near wall courses so the camera can see in; without
+    # them this work sits under a roof and never reaches a reader. Mob y values
+    # are the probed standing surface, not the floor block.
+    {
+        "id": "23_guild_map_room", "kind": "scene3d", "fit": True, "struct": "guild_hall",
+        "title": "The Map Room",
+        "subtitle": "A low wood-framed land-and-sea relief replaced the old jewel mosaic",
+        "cut": (18, 0, 34, 34, 6, 50), "open_sides": (2, 2, 0, 0), "pitch": 0.74,
+        "mobs": [("guildmaster", (21, 1, 44), {"yaw": 0.7}),
+                 ("guild_apprentice_might", (31, 1, 45), {"yaw": 2.4})],
+    },
+    {
+        "id": "24_guild_library", "kind": "scene3d", "fit": True, "struct": "guild_hall",
+        "title": "The Guild Library",
+        "subtitle": "Continuous framed cases, a reading desk and supported lamps",
+        "cut": (18, 0, 16, 36, 8, 30), "open_sides": (2, 2, 0, 0), "pitch": 0.64,
+        "mobs": [("guild_apprentice_will", (23, 1, 20), {"yaw": 1.4}),
+                 ("guild_apprentice_skill", (30, 1, 24), {"yaw": 2.8}),
+                 ("theresa", (33, 1, 27), {"yaw": 3.4})],
+    },
+    {
+        "id": "25_chamber_of_fate", "kind": "scene3d", "fit": True, "struct": "chamber_of_fate",
+        "title": "The Chamber of Fate",
+        "subtitle": "Pointed wall bays, inset panels and coloured window strips",
+        "cut": (0, 0, 0, 30, 11, 30), "open_sides": (2, 2, 0, 0), "pitch": 0.58,
+        "mobs": [("maze", (18, 5, 13), {"yaw": 0.4}),
+                 ("guildmaster", (13, 5, 18), {"yaw": 3.3})],
+    },
+    {
+        "id": "26_archery_backboard", "kind": "scene3d", "fit": True, "struct": "guild_hall",
+        "title": "The Archery Range",
+        "subtitle": "The scenic valley backboard restored behind the firing lanes",
+        "cut": (78, 0, 28, 94, 9, 44), "open_sides": (2, 0, 0, 2),
+        "yaw": 0.72, "pitch": 0.52,
+        "mobs": [("guild_apprentice_skill", (86, 1, 40), {"yaw": 3.1})],
+    },
+    {
+        "id": "27_maze_study", "kind": "scene3d", "fit": True, "struct": "guild_hall",
+        "title": "Maze's Study",
+        "subtitle": "Supported timber cases and the restored red rug at the tower top",
+        # Viewed from the south-west so the GP18 cases at x43-44,z75 present their
+        # own face; the ceiling is cut at y15 to stop the tower piers walling it in.
+        "cut": (40, 10, 66, 52, 15, 78), "open_sides": (2, 0, 0, 3),
+        "yaw": 0.72, "pitch": 0.66,
+        "mobs": [("maze", (46, 12, 70), {"yaw": 0.9})],
+    },
+    {
+        "id": "28_guild_dormitory", "kind": "scene3d", "fit": True, "struct": "guild_hall",
+        "title": "The Dormitory",
+        "subtitle": "A framed red bay in the partition, beside the restored stair landing",
+        # Sleeping level: floor y5, beds y6, the GP20 bay y7-8, ceiling y11. Viewed
+        # from the east so the beds read AND the bay's face is the far wall.
+        "cut": (80, 4, 12, 92, 10, 26), "open_sides": (0, 2, 2, 0),
+        "yaw": math.pi + 0.72, "pitch": 0.60,
+        "mobs": [("guild_apprentice_might", (85, 6, 20), {"yaw": 1.6})],
+    },
+    {
+        "id": "29_library_arcanum", "kind": "scene3d", "fit": True, "struct": "library_arcanum",
+        "title": "Demon Door \u2014 The Library Arcanum",
+        "subtitle": "Walk the Guild lamp door into a reward world of its own",
+        "pitch": 0.52,
+    },
+    {
+        "id": "30_arboretum", "kind": "scene3d", "fit": True, "struct": "arboretum",
+        "title": "Demon Door \u2014 The Arboretum",
+        "subtitle": "Nine rooted trees, a walking loop and Wellow's Pickhammer",
+        "pitch": 0.52,
+    },
 ]
 
 
@@ -808,6 +967,9 @@ def render_scene(scene):
         img = compose_structure_scene(
             scene["struct"], mobs=scene.get("mobs", ()), effects=scene.get("effects", ()),
             veil=scene.get("veil"), yaw=scene.get("yaw"), pitch=scene.get("pitch"),
+            crop_offset=scene.get("crop_offset", (0, 0)),
+            cut=scene.get("cut"), open_sides=scene.get("open_sides", (0, 0, 0, 0)),
+            fit=scene.get("fit", False),
         )
         if "items" in scene:
             ids, label = scene["items"]
@@ -844,16 +1006,19 @@ def write_index(rows):
     (DOC_DIR / "INDEX.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
-def main():
+def main(only=None):
     DOC_DIR.mkdir(parents=True, exist_ok=True)
     rows = []
     for scene in SCENES:
+        if only and scene["id"] not in only:
+            continue
         img = render_scene(scene)
         out = DOC_DIR / f"{scene['id']}.png"
         img.convert("RGB").save(out, quality=92)
         rows.append((scene["id"], scene["title"], scene["subtitle"]))
         print(f"wrote {out.name}")
-    write_index(rows)
+    if not only:                 # a filtered run must not truncate the index
+        write_index(rows)
     if MISSING_ASSETS:
         missing = ", ".join(sorted(set(MISSING_ASSETS)))
         raise SystemExit(f"missing documentation assets: {missing}")
@@ -861,4 +1026,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    # Optional scene ids limit the run while iterating on a single view.
+    main(only=set(sys.argv[1:]) or None)
