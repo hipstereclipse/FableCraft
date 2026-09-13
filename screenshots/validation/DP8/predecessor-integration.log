@@ -1,0 +1,115 @@
+✔ actual scatter reserves new Gorge before placement, confirms after final geometry, then marks region (58.442677ms)
+✔ old region markers never enroll or replay saved Gorges; pending reservations survive marker loss and ambiguous placement (145.427335ms)
+✔ actual sourceReady accepts final Gorge floor/throat and refuses edited support/headroom without repair (35.070517ms)
+✔ canonical face dispatch preserves instance ownership and cannot pay a legacy persona after marker loss or corrupt state (42.179525ms)
+✔ actual completed-use counts one per event in one instance while preserving native consumption/morality ownership (43.306384ms)
+✔ completed food requires Survival/Adventure; unavailable alignment cannot shortcut pre-normalization full evil (241.731766ms)
+✔ same object/same tick replay and competing nearby instances never multiply one completed-use credit (34.933301ms)
+✔ full-evil interaction uses actual raw alignment authority, not old -500 or tier -950 or legacy fallback (159.292147ms)
+✔ shared block/item guards and queued return use the occupied ticket exact source across families (32.429774ms)
+✔ deferred return cannot transfer an old clicked arch into another cell or missing ticket authority (66.216961ms)
+✔ successful-placement receipt permits deferred confirmation; absent/uncertain receipt never replays source (101.497986ms)
+✔ two Heroes retain separate food counters and another family read failure cannot take over entry authority (45.685922ms)
+✔ actual room adapter accepts final authored geometry and seeds one physical chest after fresh bulk validation (711.631593ms)
+✔ late edited block or unavailable final bulk query refuses room placement after sliced scan (927.63504ms)
+✔ an unavailable other-family ticket blocks new entry without blocking a healthy own exact-source return (72.916488ms)
+✔ a shell hole edited after sliced verification refuses ready state and reward seeding (684.784217ms)
+✖ actual periodic callback preserves Arboretum dwell return through before/after Guild claim write failures (76.799052ms)
+✖ actual periodic callback advances Arboretum preparation while Guild claim persistence remains unavailable (40.787518ms)
+✖ each periodic face-maintenance failure preserves both runtime ticks and retries on the unchanged cadence (35.405106ms)
+✖ an Arboretum tick failure cannot revoke the preceding healthy Guild dwell return (24.607078ms)
+(node:6) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 16
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3598.681492
+
+✖ failing tests:
+
+test at tmp/conformance/dp8/predecessor-integration.mjs:210:1
+✖ actual periodic callback preserves Arboretum dwell return through before/after Guild claim write failures (76.799052ms)
+  AssertionError [ERR_ASSERTION]: Got unwanted exception: before
+  Actual message: "write:fc_dp_guild_v1"
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/dp8/predecessor-integration.mjs:216:56)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: Error: write:fc_dp_guild_v1
+        at fail (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/dp8/predecessor-integration.mjs:33:82)
+        at Object.setDynamicProperty (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/dp8/predecessor-integration.mjs:34:111)
+        at save (fc_demon_doors.js:70:28)
+        at Object.tick (fc_demon_doors.js:524:9)
+        at Object.portalTick (evalmachine.<anonymous>:10:18)
+        at file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/dp8/predecessor-integration.mjs:216:75
+        at getActual (node:assert:580:5)
+        at strict.doesNotThrow (node:assert:748:32)
+        at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/dp8/predecessor-integration.mjs:216:56)
+        at async Test.run (node:internal/test_runner/test:1404:7),
+    expected: undefined,
+    operator: 'doesNotThrow',
+    diff: 'simple'
+  }
+
+test at tmp/conformance/dp8/predecessor-integration.mjs:226:1
+✖ actual periodic callback advances Arboretum preparation while Guild claim persistence remains unavailable (40.787518ms)
+  Error: write:fc_dp_guild_v1
+      at fail (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/dp8/predecessor-integration.mjs:33:82)
+      at Object.setDynamicProperty (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/dp8/predecessor-integration.mjs:34:111)
+      at save (fc_demon_doors.js:70:28)
+      at Object.tick (fc_demon_doors.js:524:9)
+      at Object.portalTick (evalmachine.<anonymous>:10:18)
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/dp8/predecessor-integration.mjs:229:114)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7)
+
+test at tmp/conformance/dp8/predecessor-integration.mjs:236:1
+✖ each periodic face-maintenance failure preserves both runtime ticks and retries on the unchanged cadence (35.405106ms)
+  AssertionError [ERR_ASSERTION]: Got unwanted exception: Guild
+  Actual message: "injected maintenance player read"
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/dp8/predecessor-integration.mjs:241:34)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: Error: injected maintenance player read
+        at f.world.getPlayers (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/dp8/predecessor-integration.mjs:240:68)
+        at Object.portalTick (evalmachine.<anonymous>:4:25)
+        at file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/dp8/predecessor-integration.mjs:241:53
+        at getActual (node:assert:580:5)
+        at strict.doesNotThrow (node:assert:748:32)
+        at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/dp8/predecessor-integration.mjs:241:34)
+        at async Test.run (node:internal/test_runner/test:1404:7)
+        at async Test.processPendingSubtests (node:internal/test_runner/test:969:7),
+    expected: undefined,
+    operator: 'doesNotThrow',
+    diff: 'simple'
+  }
+
+test at tmp/conformance/dp8/predecessor-integration.mjs:251:1
+✖ an Arboretum tick failure cannot revoke the preceding healthy Guild dwell return (24.607078ms)
+  AssertionError [ERR_ASSERTION]: Got unwanted exception.
+  Actual message: "injected Arboretum outer failure"
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/dp8/predecessor-integration.mjs:260:55)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: Error: injected Arboretum outer failure
+        at f.runtime.arboretumDoors.tick (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/dp8/predecessor-integration.mjs:259:58)
+        at Object.portalTick (evalmachine.<anonymous>:11:18)
+        at file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/dp8/predecessor-integration.mjs:260:74
+        at getActual (node:assert:580:5)
+        at strict.doesNotThrow (node:assert:748:32)
+        at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/dp8/predecessor-integration.mjs:260:55)
+        at async Test.run (node:internal/test_runner/test:1404:7)
+        at async Test.processPendingSubtests (node:internal/test_runner/test:969:7),
+    expected: undefined,
+    operator: 'doesNotThrow',
+    diff: 'simple'
+  }

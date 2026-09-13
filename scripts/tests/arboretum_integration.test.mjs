@@ -19,20 +19,21 @@ def capture(v,name):out['fc:'+name]={'size':[v.sx,v.sy,v.sz],'palette':v.palette
 with patch.object(g.Vox,'save',capture):
  g.greatwood_gorge()
  g.arboretum()
+ g.library_arcanum()
 print(json.dumps(out))`],{encoding:'utf8',maxBuffer:8*1024*1024});
 assert.equal(geometryRun.status,0,geometryRun.stderr);const geometry=JSON.parse(geometryRun.stdout);
 const sourceNames=['fc_demon_doors.js','guild_door_aperture.js','arboretum_doors.js','fc_gamedata.js','wd/alignment.js','wd/state.js','wd/config.js'];
 const source=Object.fromEntries(sourceNames.map(n=>[n,readFileSync('packs/Fablecraft_BP/scripts/'+n,'utf8')]));
 async function fixture(){
  const events=[],props=new Map(),players=[],entities=[],volumes=[],blocks=new Map(),faults=new Map(),timers=[],payouts=[],configs={};
- const context=vm.createContext({console:{warn:message=>events.push(['warn',message]),log(){}}}),modules=new Map();
+ const context=vm.createContext({console:{warn:message=>{fail('warn');events.push(['warn',message]);},log(){}}}),modules=new Map();
  async function load(name){if(modules.has(name))return modules.get(name);const m=new vm.SourceTextModule(source[name],{context,identifier:name});modules.set(name,m);await m.link(dep=>load(name.startsWith('wd/')?'wd/'+dep.slice(2):dep.slice(2)));return m;}
  const api={};for(const n of sourceNames){const m=await load(n);await m.evaluate();api[n]=m.namespace;}
  const system={currentTick:1,run:fn=>timers.push(fn),runTimeout:fn=>timers.push(fn)};
  function fail(key){const n=faults.get(key)??0;if(n>0){faults.set(key,n-1);throw Error(key);}}
  const world={getDynamicProperty(key){fail('read:'+key);return props.get(key);},setDynamicProperty(key,value){fail('write:'+key);world.beforeWrite?.(key,value);events.push(['world-write',key,value]);if(value===undefined)props.delete(key);else props.set(key,value);world.afterWrite?.(key,value);fail('after-write:'+key);},getPlayers:()=>players.filter(p=>p.isValid),getDimension:id=>dimensions[id==='overworld'?'minecraft:overworld':id]};
  function material(dim,p){for(const v of [...volumes].reverse()){const [sx,sy,sz]=v.data.size,x=Math.floor(p.x-v.origin.x),y=Math.floor(p.y-v.origin.y),z=Math.floor(p.z-v.origin.z);if(v.dim===dim.id&&x>=0&&x<sx&&y>=0&&y<sy&&z>=0&&z<sz)return v.data.palette[v.data.grid[x*sy*sz+y*sz+z]][0];}return Math.floor(p.y)===64?'minecraft:cobblestone':'minecraft:air';}
- function blockAt(dim,p){const key=dim.id+'/'+cell(p);fail('block:'+key);if(!blocks.has(key)){let changed;const inventory={size:27,items:new Map(),getItem(i){return this.items.get(i);},setItem(i,item){this.items.set(i,item);events.push(['inventory-write',key,i,item?.typeId]);}};blocks.set(key,{location:{x:Math.floor(p.x),y:Math.floor(p.y),z:Math.floor(p.z)},get typeId(){return changed??material(dim,p);},set typeId(v){changed=v;},get isAir(){return this.typeId==='minecraft:air';},setType(v){changed=v;events.push(['block-write',key,v]);},getComponent(id){return id==='minecraft:inventory'&&this.typeId==='minecraft:chest'?{container:inventory}:undefined;}});}return blocks.get(key);}
+ function blockAt(dim,p){const key=dim.id+'/'+cell(p);fail('block:'+key);if(!blocks.has(key)){let changed;const inventory={size:27,items:new Map(),getItem(i){return this.items.get(i);},setItem(i,item){this.items.set(i,item);events.push(['inventory-write',key,i,item?.typeId]);}};blocks.set(key,{location:{x:Math.floor(p.x),y:Math.floor(p.y),z:Math.floor(p.z)},get typeId(){return changed??material(dim,p);},set typeId(v){changed=v;},get isAir(){return this.typeId==='minecraft:air';},setType(v){changed=v;events.push(['block-write',key,v]);},getComponent(id){return id==='minecraft:inventory'&&['minecraft:chest','minecraft:barrel'].includes(this.typeId)?{container:inventory}:undefined;}});}return blocks.get(key);}
  const dimensions=Object.fromEntries(['minecraft:overworld','minecraft:nether','minecraft:the_end'].map(id=>[id,{id,getBlock(p){return blockAt(this,p);},containsBlock(volume,filter,allowUnloaded){events.push(['bulk',plain(volume),plain(filter)]);this.beforeBulk?.(volume,filter);fail('bulk');assert.equal(filter.excludeTypes.length,1);assert.equal(typeof filter.excludeTypes[0],'string');assert.equal(allowUnloaded,false);for(let x=volume.from.x;x<=volume.to.x;x++)for(let y=volume.from.y;y<=volume.to.y;y++)for(let z=volume.from.z;z<=volume.to.z;z++){const p={x,y,z};if(!filter.excludeTypes.includes(blocks.get(this.id+'/'+cell(p))?.typeId??material(this,p)))return true;}return false;},getEntities(query){fail('scan');return entities.filter(e=>e.isValid&&e.dimension===this&&(!query.type||query.type===e.typeId)&&(!query.location||Math.hypot(e.location.x-query.location.x,e.location.y-query.location.y,e.location.z-query.location.z)<=query.maxDistance));},runCommand(command){events.push(['command',id,command]);return {successCount:1};},spawnParticle(){}}]));
  const dim=dimensions['minecraft:overworld'];
  world.structureManager={place(id,d,origin,options){events.push(['structure',id,plain(origin),options]);fail('structure-before');if(geometry[id])volumes.push({dim:d.id,origin:plain(origin),data:geometry[id]});fail('structure-after');}};
@@ -62,7 +63,7 @@ async function fixture(){
  function placeDirect(origin={dimension:dim.id,x:300,y:64,z:400},region='direct'){const id=runtime.arboretumDoors.beginPlacement({regionKey:region,origin});assert.ok(id);world.structureManager.place('fc:greatwood_gorge',world.getDimension(origin.dimension),origin);assert.equal(runtime.arboretumDoors.recordPlaced(id),true);assert.equal(runtime.arboretumDoors.confirmPlacement(id),true);return runtime.arboretumDoors.getState(id);}
  function approach(p,r){p.dimension=world.getDimension(r.source.dimension);p.location={...add(r.source,{x:0,y:0,z:-1})};}
  function eat(p,ev={source:p,itemStack:{typeId:'fc:crunchy_chick',amount:16},useDuration:0}){complete(ev);system.currentTick+=24;return ev;}
- return {api,configs,runtime,world,dim,dimensions,player,face,props,events,faults,payouts,system,timers,complete,breakBlock,useBlock,itemUse,placeDirect,approach,eat,blockAt:p=>blockAt(dim,p),flush(){while(timers.length)timers.shift()();}};
+ return {portalTick:callback('system.runInterval(() => {','guildDoorPilot.tick()'),api,configs,runtime,world,dim,dimensions,player,face,props,events,faults,payouts,system,timers,complete,breakBlock,useBlock,itemUse,placeDirect,approach,eat,blockAt:p=>blockAt(dim,p),flush(){while(timers.length)timers.shift()();}};
 }
 
 test('actual scatter reserves new Gorge before placement, confirms after final geometry, then marks region',async()=>{
@@ -186,4 +187,78 @@ test('a shell hole edited after sliced verification refuses ready state and rewa
  f.dim.beforeBulk=(volume,filter)=>{if(filter.excludeTypes[0]==='minecraft:barrier'){injected=true;f.blockAt(origin).typeId='minecraft:air';}};
  for(let i=0;i<400&&!injected;i++){f.system.currentTick+=5;f.runtime.arboretumDoors.tick();}
  assert.equal(injected,true);const after=f.runtime.arboretumDoors.getState(r.id);assert.notEqual(after.room.phase,'ready');assert.equal(after.reward.seeded,false);assert.equal(f.events.filter(e=>e[0]==='inventory-write').length,0);assert.equal(f.blockAt(origin).typeId,'minecraft:air');
+});
+
+// A previously committed ready Guild room uses actual current room voxels and
+// native-container fixtures. The runtime still owns claim persistence and travel.
+function readyGuild(f){
+ const guild=f.api['fc_demon_doors.js'],source={dimension:f.dim.id,x:20.5,y:65,z:20.5};
+ const record=f.runtime.guildDoorPilot.registerGuild(source,f.face(source),{isNew:true}),origin=guild.realmOrigin(0);
+ f.world.structureManager.place(guild.ARCANUM.id,f.dim,origin,{includeEntities:false});
+ record.unlocked=true;record.room={cell:0,origin,version:1,phase:'ready',visited:true};record.rewards.seeded=true;
+ for(const reward of guild.ARCANUM.rewards)f.blockAt(add(origin,reward.at)).getComponent('minecraft:inventory').container.setItem(0,{typeId:reward.item,amount:1});
+ f.props.set(guild.DOOR_STATE_KEY,JSON.stringify(record));assert.equal(f.runtime.guildDoorPilot.getState().room.phase,'ready');
+ return {guild,source,collect(){f.blockAt(add(origin,guild.ARCANUM.rewards[0].at)).getComponent('minecraft:inventory').container.items.delete(0);}};
+}
+function rememberArboretum(f,r,p,cell=7){
+ const ar=f.api['arboretum_doors.js'],source={...add(r.source,{x:0,y:0,z:-1}),dimension:f.dim.id};
+ p.location=add(ar.arboretumOrigin(cell),ar.ARBORETUM.arrival);
+ p.props.set(ar.ARBORETUM_RETURN_KEY,JSON.stringify({schema:1,family:'arboretum',id:r.id,cell,source,door:r.source,phase:'inside'}));
+ return {ar,source,cell};
+}
+
+test('actual periodic callback preserves Arboretum dwell return through before/after Guild claim write failures',async()=>{
+ for(const mode of ['healthy','before','after','report-fails']){
+  const f=await fixture(),g=readyGuild(f),r=f.placeDirect(),p=f.player(),remembered=rememberArboretum(f,r,p);
+  f.portalTick();p.location=add(remembered.ar.arboretumOrigin(remembered.cell),remembered.ar.ARBORETUM.exit);g.collect();
+  if(mode!=='healthy')f.faults.set((mode==='after'?'after-write:':'write:')+g.guild.DOOR_STATE_KEY,30);
+  if(mode==='report-fails')f.faults.set('warn',30);
+  for(let i=0;i<12;i++){f.system.currentTick+=5;assert.doesNotThrow(()=>f.portalTick(),mode);}
+  assert.deepEqual(p.location,{x:remembered.source.x,y:remembered.source.y,z:remembered.source.z},mode);
+  assert.equal(p.props.has(remembered.ar.ARBORETUM_RETURN_KEY),false,mode);
+  assert.equal(f.events.filter(e=>e[0]==='teleport'&&e[1]===p.id).length,1,mode);
+  assert.equal(f.runtime.guildDoorPilot.getState().rewards.claimed[0],['healthy','after'].includes(mode),mode);
+  if(['before','after'].includes(mode))assert.ok(f.events.some(e=>e[0]==='warn'&&e[1].includes('Guild portal tick deferred')),mode);
+  assert.equal(f.payouts.length,0);assert.equal(f.events.filter(e=>e[0]==='structure').length,2,'No room replay from periodic failure');
+ }
+});
+
+test('actual periodic callback advances Arboretum preparation while Guild claim persistence remains unavailable',async()=>{
+ const f=await fixture(),g=readyGuild(f),r=f.placeDirect(),p=f.player();f.approach(p,r);for(let i=0;i<10;i++)f.eat(p);
+ g.collect();f.faults.set('write:'+g.guild.DOOR_STATE_KEY,500);
+ for(let i=0;i<400&&f.runtime.arboretumDoors.getState(r.id).room?.phase!=='ready';i++){f.system.currentTick+=5;f.portalTick();}
+ const ready=f.runtime.arboretumDoors.getState(r.id);assert.equal(ready.room.phase,'ready');assert.equal(ready.reward.seeded,true);
+ assert.equal(f.runtime.guildDoorPilot.getState().rewards.claimed[0],false);
+ assert.equal(f.events.filter(e=>e[0]==='structure'&&e[1]==='fc:arboretum').length,1);
+ assert.equal(f.events.filter(e=>e[0]==='inventory-write'&&e[3]==='fc:wellows_pickhammer').length,1);
+});
+
+test('each periodic face-maintenance failure preserves both runtime ticks and retries on the unchanged cadence',async()=>{
+ for(const owner of ['Guild','Arboretum']){
+  const f=await fixture(),g=readyGuild(f),r=f.placeDirect(),p=f.player(),remembered=rememberArboretum(f,r,p);
+  f.approach(p,r);g.collect();const original=f.world.getPlayers;let reads=0;
+  f.world.getPlayers=()=>{if(++reads===(owner==='Guild'?1:2))throw Error('injected maintenance player read');return original();};
+  f.system.currentTick=40;assert.doesNotThrow(()=>f.portalTick(),owner);
+  assert.equal(f.runtime.guildDoorPilot.getState().rewards.claimed[0],true,'Guild tick still persisted ordinary collection');
+  assert.equal(JSON.parse(p.props.get(remembered.ar.ARBORETUM_RETURN_KEY)).phase,'outside','Arboretum tick reconciled exact stale ticket');
+  assert.ok(f.events.some(e=>e[0]==='warn'&&e[1].includes(owner+(owner==='Guild'?' door':'')+' face maintenance deferred')),owner);
+  f.world.getPlayers=original;f.system.currentTick=80;f.portalTick();
+  assert.ok(f.dim.getEntities({type:'fc:demon_door'}).some(face=>face.props.get('fc_door_identity')===r.id),'Face maintenance retried without source replay');
+  assert.equal(f.events.filter(e=>e[0]==='structure').length,2);assert.equal(f.payouts.length,0);
+ }
+});
+
+test('an Arboretum tick failure cannot revoke the preceding healthy Guild dwell return',async()=>{
+ const f=await fixture(),g=readyGuild(f),p=f.player(),guild=g.guild,origin=guild.realmOrigin(0);
+ const exact={...g.source,x:g.source.x+1,z:g.source.z-3.5};
+ p.location=add(origin,guild.ARCANUM.arrival);p.props.set(guild.DOOR_RETURN_KEY,JSON.stringify({schema:1,doorId:'guild',cell:0,source:exact,phase:'inside'}));
+ f.portalTick();p.location=add(origin,guild.ARCANUM.exit);
+ // All actual Arboretum property/visitor reads already catch ordinary API
+ // failures. An outer throw is injected to verify the scheduler boundary too.
+ const tick=f.runtime.arboretumDoors.tick;let calls=0;
+ f.runtime.arboretumDoors.tick=()=>{calls++;tick();throw Error('injected Arboretum outer failure');};
+ for(let i=0;i<12;i++){f.system.currentTick+=5;assert.doesNotThrow(()=>f.portalTick());}
+ assert.equal(calls,12);assert.deepEqual(p.location,{x:exact.x,y:exact.y,z:exact.z});assert.equal(p.props.has(guild.DOOR_RETURN_KEY),false);
+ assert.equal(f.events.filter(e=>e[0]==='teleport'&&e[1]===p.id).length,1);
+ assert.ok(f.events.some(e=>e[0]==='warn'&&e[1].includes('Arboretum portal tick deferred')));
 });

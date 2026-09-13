@@ -1,0 +1,12 @@
+test_actual_scatter_population_travel_and_saved_region (__main__.BowerstoneNorth.test_actual_scatter_population_travel_and_saved_region) ... ok
+test_class_wall_forecourt_and_connected_wealthy_street (__main__.BowerstoneNorth.test_class_wall_forecourt_and_connected_wealthy_street) ... ok
+test_manifest_runtime_palette_bounds_and_residents (__main__.BowerstoneNorth.test_manifest_runtime_palette_bounds_and_residents) ... ok
+test_manor_two_floors_windows_furnishings_and_open_door (__main__.BowerstoneNorth.test_manor_two_floors_windows_furnishings_and_open_door) ... ok
+test_south_to_manor_spawns_cullis_and_chest_access (__main__.BowerstoneNorth.test_south_to_manor_spawns_cullis_and_chest_access) ... ok
+test_stair_clearance_directions_and_landing (__main__.BowerstoneNorth.test_stair_clearance_directions_and_landing) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.726s
+
+OK
+PASS: actual bowerstone_market placement on grass, clear translated spawns, loot bounds and saved-region idempotence

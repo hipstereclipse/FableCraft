@@ -13,14 +13,31 @@ online reference photos and make Demon Doors traversable into distinct original
 reward worlds. Continue autonomously with separate reviewed milestone commits,
 validation/evidence, immediate pushes and fresh handoffs; no routine questions.
 
-Current checkpoint: DP7 — Greatwood Gorge → The Arboretum
-Last resolved prior commit: 71d70ed9f8ab21f49221a2c040f283c398f3f0ec (GP20 pushed; exact-head CI 34737680186 passed).
-Containing commit: TLC Conformance — DP7: open new Gorge doors into the Arboretum.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — DP7: open new Gorge doors into the Arboretum'.
+Current checkpoint: DP8 — independent Demon Door maintenance and returns
+Last resolved prior commit: e13127194b8bd596bf9db9fee03633a413825f24 (DP7 pushed; exact-head CI 34739113768 passed).
+Containing commit: TLC Conformance — DP8: isolate Demon Door maintenance failures.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — DP8: isolate Demon Door maintenance failures'.
 Never invent a self-hash. Supplemental passes stay in-progress while native
 acceptance is unrun; the legacy scoreboard remains 45 leaves and 7 done.
 
-## Current Arboretum checkpoint
+## Current maintenance checkpoint
+
+DP8 isolates Guild face maintenance, Arboretum face maintenance and each runtime
+tick inside the existing five-tick interval; face maintenance stays every forty
+ticks. Failed Guild claim persistence no longer skips healthy Arboretum return
+or preparation. Reporting failures are isolated too. Controllers, schemas,
+geometry, allocation, shared rewards and exact-source ticket semantics stay exact.
+Twenty actual integration groups pass; all four new groups fail against the
+actual DP7 main, with sixteen existing groups retained. Validation evidence and
+scope are in DEMON_DOOR_TICK_ISOLATION.md and screenshots/validation/DP8/.
+All 55 base gates and 65 ESM checks pass, with fresh C2 and Guild diagnostics.
+All 36 assets/C2 images and six visual owners match DP7. Its full 282-image
+evidence is retained from unchanged inputs, not rerun. DP7 remains the unchanged
+visual baseline. Native acceptance stays unrun.
+The older Guild unvisited placing/seed retry contract remains separate audit work;
+this scheduler correction does not supply Arboretum's conservative preparation.
+
+## Retained Arboretum checkpoint
 
 DP7 implements the second complete offline portal pilot for newly registered
 Greatwood Gorges. The canonical keyed definition is separate from all eight

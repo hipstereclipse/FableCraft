@@ -1,0 +1,11 @@
+test_authored_map_is_seed_independent_but_retains_37_legacy_draws (__main__.GuildMapTable.test_authored_map_is_seed_independent_but_retains_37_legacy_draws) ... ok
+test_complete_guild_delta_is_confined_to_map_furniture (__main__.GuildMapTable.test_complete_guild_delta_is_confined_to_map_furniture) ... ok
+test_connected_land_and_recessed_sea_replace_jewel_mosaic_and_beacon (__main__.GuildMapTable.test_connected_land_and_recessed_sea_replace_jewel_mosaic_and_beacon) ... ok
+test_independent_beacon_broken_rim_and_rng_shift_fixtures_fail (__main__.GuildMapTable.test_independent_beacon_broken_rim_and_rng_shift_fixtures_fail) ... ok
+test_low_wood_rim_preserves_the_exact_table_footprint (__main__.GuildMapTable.test_low_wood_rim_preserves_the_exact_table_footprint) ... ok
+test_wake_lectern_fronts_and_existing_side_approaches_remain_reachable (__main__.GuildMapTable.test_wake_lectern_fronts_and_existing_side_approaches_remain_reachable) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.838s
+
+OK

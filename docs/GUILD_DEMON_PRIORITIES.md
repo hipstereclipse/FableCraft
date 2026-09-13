@@ -56,6 +56,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | DP6 | in-progress | Preserve exact return tickets during unavailable reads; retain confirmed absent/corrupt fallback and independent occupied-room guards; native acceptance open |
 | GP20 | in-progress | One reference-led framed red dormitory wall bay replaces ten existing solid materials; routes, room fixtures and saved geometry preserved; native acceptance open |
 | DP7 | in-progress | New Gorge instances open into a separately authored Arboretum with witnessed challenge, physical shared Pickhammer, bounded allocation and exact-source return; native acceptance open |
+| DP8 | in-progress | Independent realm maintenance/tick boundaries preserve healthy Arboretum dwell returns through failed Guild claim writes; native acceptance open |
 
 Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
 defects and manual status here. These passes are not completed legacy leaves.
@@ -1111,7 +1112,7 @@ native acceptance remain open.
 
 ## DP7 — Greatwood Gorge to The Arboretum (2026-09-13)
 
-Commit: SELF: TLC Conformance — DP7: open new Gorge doors into the Arboretum.
+Commit: e13127194b8bd596bf9db9fee03633a413825f24. Pushed; exact-head CI 34739113768 passed.
 The second end-to-end pilot gives newly registered Gorges a distinct wooded
 reward world, a physical shared Wellow’s Pickhammer and exact-instance return.
 Current full evil or ten witnessed completed Crunchy Chick uses unlock it.
@@ -1157,3 +1158,27 @@ assets/C2 images remain exact. Only the Gorge card and containing places gallery
 change among 281 existing full PNGs, with one Arboretum card added. Root inspected
 both cards, the gallery and six focused geometry views. Native acceptance remains
 unrun. DP7 is the next visual baseline; C3 retains 45 leaves and 7 done.
+
+
+## DP8 — independent Demon Door maintenance and returns (2026-09-13)
+
+Commit: SELF: TLC Conformance — DP8: isolate Demon Door maintenance failures.
+A failed Library reward-claim write escaped the shared periodic callback and
+prevented a healthy Arboretum visitor's normal dwell return. Four independent
+operation boundaries now isolate both families' face maintenance and runtime
+ticks, including failed diagnostic reporting. Existing five/forty-tick cadence,
+controllers, schemas, source/reward history, geometry and exact tickets remain.
+
+See [DEMON_DOOR_TICK_ISOLATION.md](DEMON_DOOR_TICK_ISOLATION.md) and
+`screenshots/validation/DP8/`. Twenty actual integration groups pass; the four
+new groups fail against the actual DP7 main while sixteen prior groups pass.
+The independent callback review found no blocker; root reviewed the actual
+controller integration, semantic patch and predecessor failures. All 55 base gates, 65 ESM checks, fresh C2 and Guild diagnostics pass.
+All 36 assets/C2 images and visual owners match DP7; full renders are retained
+from its unchanged inputs, not rerun.
+Native travel, multiplayer and persistence remain unrun. This correction does
+not harden the older Guild first-build preparation or close either door pilot.
+
+Next: reference-led firing-divider/interior improvements, then a separately
+reproduced audit of Guild preparation/reward ambiguity. Purposeful Skill arrival
+still needs native calibration; do not retry unchanged failed pinned downloads.

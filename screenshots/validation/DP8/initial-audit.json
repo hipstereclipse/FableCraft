@@ -1,0 +1,58 @@
+{
+  "scope": "Actual main periodic callback and both runtime owners with generated room/source voxels; no native engine execution.",
+  "hashes": {
+    "packs/Fablecraft_BP/scripts/main.js": "9ec3a4b057549b2d5fc184fdd09aaaddf151b062cb1c9485572221e3298e21ff",
+    "packs/Fablecraft_BP/scripts/fc_demon_doors.js": "1983f15f8a0d4fbbd215dade175ce7c5f38889f31fe068bfca5a7869e9c71d6f",
+    "packs/Fablecraft_BP/scripts/arboretum_doors.js": "d2ea54066b594d57a3b9432c2a3b11edc85b41d08f2305caf96122c7ce9e7557",
+    "scripts/tests/arboretum_integration.test.mjs": "84be78055cbb8ad123366e3b3d3e657d50e61fa39408c2c7a76169524fc65de3",
+    "tmp/conformance/dp8-audit/geometry.json": "21f61aa07bb6ed160fafa57e4382c6c8427c406cf9c06f561041a8ef274515c1"
+  },
+  "observed": [
+    {
+      "case": "healthy",
+      "periodicTeleports": 1,
+      "exceptions": 0,
+      "returnedByDwell": true,
+      "ticketPreserved": null,
+      "directOwnReturnWorks": false,
+      "guildClaimed": true
+    },
+    {
+      "case": "guild-claim-write-before",
+      "periodicTeleports": 0,
+      "exceptions": 12,
+      "returnedByDwell": false,
+      "ticketPreserved": {
+        "schema": 1,
+        "family": "arboretum",
+        "id": "arboretum:0",
+        "cell": 7,
+        "source": {
+          "x": 332.5,
+          "y": 70,
+          "z": 406.5,
+          "dimension": "minecraft:overworld"
+        },
+        "door": {
+          "x": 332.5,
+          "y": 70,
+          "z": 407.5,
+          "dimension": "minecraft:overworld"
+        },
+        "phase": "inside"
+      },
+      "directOwnReturnWorks": true,
+      "guildClaimed": false
+    },
+    {
+      "case": "guild-claim-write-after",
+      "periodicTeleports": 1,
+      "exceptions": 1,
+      "returnedByDwell": true,
+      "ticketPreserved": null,
+      "directOwnReturnWorks": false,
+      "guildClaimed": true
+    }
+  ],
+  "nativeAcceptance": "unrun"
+}

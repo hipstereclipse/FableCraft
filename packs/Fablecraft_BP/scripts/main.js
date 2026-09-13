@@ -3355,16 +3355,26 @@ function guildDoorWorldExcluded(p) {
 }
 
 system.runInterval(() => {
-  if (TICKS() % 40 === 0) {
-    const source = guildDoorPilot.getSource();
-    if (source && world.getPlayers().some((p) => p.dimension.id === (source.dimension ?? "minecraft:overworld")
-      && Math.hypot(p.location.x - source.x, p.location.z - source.z) < 80)) {
-      ensureGuildDoorPilot(world.getDimension(source.dimension ?? "minecraft:overworld"), source);
+  // Each family's derived maintenance and runtime work is independent. A
+  // failed Guild claim write must not prevent another realm's healthy return.
+  const run = (operation, action) => {
+    try { action(); }
+    catch (error) {
+      try { console.warn(`[Fablecraft] ${operation} deferred: ${String(error)}`); } catch { }
     }
-    ensureArboretumFaces(OW());
+  };
+  if (TICKS() % 40 === 0) {
+    run("Guild door face maintenance", () => {
+      const source = guildDoorPilot.getSource();
+      if (source && world.getPlayers().some((p) => p.dimension.id === (source.dimension ?? "minecraft:overworld")
+        && Math.hypot(p.location.x - source.x, p.location.z - source.z) < 80)) {
+        ensureGuildDoorPilot(world.getDimension(source.dimension ?? "minecraft:overworld"), source);
+      }
+    });
+    run("Arboretum face maintenance", () => ensureArboretumFaces(OW()));
   }
-  guildDoorPilot.tick();
-  arboretumDoors.tick();
+  run("Guild portal tick", () => guildDoorPilot.tick());
+  run("Arboretum portal tick", () => arboretumDoors.tick());
 }, 5);
 
 // These are stable 2.1 events. The experimental playerPlaceBlock before-event

@@ -1,0 +1,21 @@
+{
+  "baseline": "e13127194b8bd596bf9db9fee03633a413825f24",
+  "baseline_main_sha256": "9ec3a4b057549b2d5fc184fdd09aaaddf151b062cb1c9485572221e3298e21ff",
+  "current_inputs_sha256": {
+    "packs/Fablecraft_BP/scripts/main.js": "acda6ddc8e436ef9ba2934b93035255e3ee9173979a296d6c37273f72a5898dd",
+    "scripts/tests/arboretum_integration.test.mjs": "7c195ff6db5bd707db6c6a81cf72ffe6059e06034b67ad8d18fc1ec213e49e5f",
+    "packs/Fablecraft_BP/scripts/fc_demon_doors.js": "1983f15f8a0d4fbbd215dade175ce7c5f38889f31fe068bfca5a7869e9c71d6f",
+    "packs/Fablecraft_BP/scripts/arboretum_doors.js": "d2ea54066b594d57a3b9432c2a3b11edc85b41d08f2305caf96122c7ce9e7557",
+    "scripts/door_realms.py": "809431f12cd647ca9c65b3718cd2ffb92eab44061655dbb6f696be67fe3dea42"
+  },
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "tmp/conformance/dp8/predecessor-integration.mjs"
+  ],
+  "exit_code": 1,
+  "expected_predecessor_failures": 4,
+  "retained_predecessor_passes": 16,
+  "scope": "Final actual main-adapter tests; only main source replaced by actual DP7 commit. Current realm owners and actual generated voxels.",
+  "native_acceptance": "unrun"
+}

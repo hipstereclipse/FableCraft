@@ -1,0 +1,14 @@
+test_actual_runtime_room_waypoints_markers_and_source_match_python_owner (__main__.ArboretumGeometry.test_actual_runtime_room_waypoints_markers_and_source_match_python_owner) ... ok
+test_canonical_data_fixed_registration_and_renderer_share_the_new_owner (__main__.ArboretumGeometry.test_canonical_data_fixed_registration_and_renderer_share_the_new_owner) ... ok
+test_complete_dry_loop_spine_and_reward_approach_both_directions (__main__.ArboretumGeometry.test_complete_dry_loop_spine_and_reward_approach_both_directions) ... ok
+test_dimension_palette_containment_and_no_clipped_writes (__main__.ArboretumGeometry.test_dimension_palette_containment_and_no_clipped_writes) ... ok
+test_independent_obstruction_support_lid_and_shell_failures (__main__.ArboretumGeometry.test_independent_obstruction_support_lid_and_shell_failures) ... ok
+test_one_empty_reward_chest_with_clear_lid_and_three_wide_front (__main__.ArboretumGeometry.test_one_empty_reward_chest_with_clear_lid_and_three_wide_front) ... ok
+test_owner_is_deterministic_and_does_not_consume_shared_generator_rng (__main__.ArboretumGeometry.test_owner_is_deterministic_and_does_not_consume_shared_generator_rng) ... ok
+test_return_detectors_and_both_sides_of_timber_throat (__main__.ArboretumGeometry.test_return_detectors_and_both_sides_of_timber_throat) ... ok
+test_substantial_rooted_canopy_and_no_library_furnishings_or_water (__main__.ArboretumGeometry.test_substantial_rooted_canopy_and_no_library_furnishings_or_water) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.617s
+
+OK
