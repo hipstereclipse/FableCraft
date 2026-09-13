@@ -63,7 +63,11 @@ def button_texture(name: str, fill, edge, highlight, pressed=False):
         draw.line((2, 2, 5, 2), fill=highlight)
         draw.line((2, 2, 2, 5), fill=highlight)
     save(image, name)
-    write_json(UI / f"{name}.json", {"nineslice_size": 2, "base_size": [8, 8]})
+    # The bevel is drawn at row/col 2, so a slice of 2 leaves it inside the
+    # stretched centre and Bedrock smears that one highlight pixel across a
+    # quarter of the button. Slicing at 3 puts the bevel in the fixed edge
+    # bands and leaves a uniform 2x2 centre (rows/cols 3-4) to stretch.
+    write_json(UI / f"{name}.json", {"nineslice_size": 3, "base_size": [8, 8]})
 
 
 def scroll_textures():
