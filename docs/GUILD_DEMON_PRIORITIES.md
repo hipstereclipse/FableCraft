@@ -57,6 +57,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | GP20 | in-progress | One reference-led framed red dormitory wall bay replaces ten existing solid materials; routes, room fixtures and saved geometry preserved; native acceptance open |
 | DP7 | in-progress | New Gorge instances open into a separately authored Arboretum with witnessed challenge, physical shared Pickhammer, bounded allocation and exact-source return; native acceptance open |
 | DP8 | in-progress | Independent realm maintenance/tick boundaries preserve healthy Arboretum dwell returns through failed Guild claim writes; native acceptance open |
+| GP21 | in-progress | Reference-led timber firing divider adds ten cells with a clear three-column Skill bay, preserving complete checked routes and all other campus cells; native acceptance open |
 
 Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
 defects and manual status here. These passes are not completed legacy leaves.
@@ -1162,7 +1163,7 @@ unrun. DP7 is the next visual baseline; C3 retains 45 leaves and 7 done.
 
 ## DP8 — independent Demon Door maintenance and returns (2026-09-13)
 
-Commit: SELF: TLC Conformance — DP8: isolate Demon Door maintenance failures.
+Commit: 2d56f97e325642c936b7ad4898efff09981bb926. Pushed; exact-head CI 34740141802 passed.
 A failed Library reward-claim write escaped the shared periodic callback and
 prevented a healthy Arboretum visitor's normal dwell return. Four independent
 operation boundaries now isolate both families' face maintenance and runtime
@@ -1182,3 +1183,44 @@ not harden the older Guild first-build preparation or close either door pilot.
 Next: reference-led firing-divider/interior improvements, then a separately
 reproduced audit of Guild preparation/reward ambiguity. Purposeful Skill arrival
 still needs native calibration; do not retry unchanged failed pinned downloads.
+
+
+## GP21 — timber archery firing divider (2026-09-13)
+
+Commit: SELF: TLC Conformance — GP21: frame the Guild archery firing bay.
+A newly inspected original TLC range view shows a transverse low timber divider
+in front of the scenic targets. Two stock-fence sections now frame the current
+Skill firing bay: exactly ten cells, x80..81/x85..92,y1,z38. Extent, spruce material,
+three-column opening and straight alignment are explicit block adaptations;
+original diagonal bracing, cap detail and full platform/perimeter remain open.
+The unrelated 22-cell hypothetical side-rail footprint was not authored.
+
+The independent actual-DP7/current serialized comparison preserves all other
+395,270 cells, RNG, palette, layout, anchors and 678 Maze reservations. Seven
+complete gate paths keep identical coordinates; eight local routes, all tested
+Skill rays and the 13-sample future arrival corridor remain clear. A continuous
+lower-fence negative intersects the expanded ray sweep despite passing the older
+block-cell harness; the authored three-column bay avoids that collision bound.
+Native movement/collision and the arrival calibration remain unrun.
+
+See [GUILD_ARCHERY_FIRING_DIVIDER.md](GUILD_ARCHERY_FIRING_DIVIDER.md) and
+`screenshots/validation/GP21/`. Behavior tests passed before Guild-only generation.
+The new accepted TLC reference brings the supplementary corpus to 27; six 2009
+classic exteriors remain separate uncounted corroboration. External pixels stay
+ignored. All 55 base gates and 65 ESM checks pass, with fresh C2, all 282 full
+PNGs and Guild diagnostics. Only Guild changes among 36 assets/C2 images; only
+its card and places gallery change among 282 full PNGs. Three of seven fresh
+Guild documentation scenes change. Root inspected those three, both Guild cards,
+the gallery and six detail views. GP21 is the next visual baseline.
+
+Concurrent documentation/screenshot commit 2c34743f4cc8414f66fac7c9e27f62b5bdcfa623
+is preserved; its exact-head CI 34740012446 passed. It arrived after DP8's local
+snapshot and before DP8's commit; DP8's final exact-head CI 34740141802 also passed.
+Its documentation renderer is unchanged by GP21; applicable Guild views are
+regenerated from the new isolated snapshot. No saved-world rebuild or new runtime
+activity/reward behavior is included. Legacy C3 remains 45 leaves and 7 done.
+
+Next: reproduce the older Guild preparation/reward ambiguity before changing its
+saved contract; continue range scenic cutout/platform/interior comparisons and
+individual canonical door worlds. Native acceptance stays open for the facility
+and both existing portal pilots; no unchanged failed pinned download was retried.

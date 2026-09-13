@@ -1,0 +1,378 @@
+{
+  "purpose": "GP21 bounded additional Guild photo and range/bridge reference investigation",
+  "date": "2026-09-13",
+  "search_scope": {
+    "web_queries": [
+      "Fable The Lost Chapters guild archery range wooden fence bridge screenshot",
+      "site.steamcommunity.com/sharedfiles/filedetails 204030 guild bridge archery"
+    ],
+    "image_query": "Fable The Lost Chapters Guild archery training original screenshots",
+    "listing_sources": [
+      {
+        "name": "steam-archery.html",
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=archery&browsefilter=toprated",
+        "bytes": 64922,
+        "sha256": "8b6f3664a0b4c81b88732cd1fe41273a6481afdb57282034a91ab85815ecc6dd"
+      },
+      {
+        "name": "steam-bridge.html",
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=bridge&browsefilter=toprated",
+        "bytes": 60531,
+        "sha256": "5cdaf11ac314b4bdbe16b56c4af2c34bf9cb296d476320fbd058548286ee0736"
+      }
+    ],
+    "source_page": {
+      "name": "fablegame-sparrows.html",
+      "url": "https://fablegame.info/forum/2-77-1",
+      "bytes": 95223,
+      "sha256": "5985f26ffc7a3a84e2e51cf1177a5f46e4e5813b2ebef85bd28667ff5d80c4d2"
+    },
+    "new_image_downloads": 14,
+    "accepted_distinct_new_images": 1,
+    "scope_limit": "Two Steam screenshot-listing queries and six linked images in one dated forum post; not exhaustive.",
+    "classic_corroboration_images_pending_exact_edition": 6
+  },
+  "prior_accepted_distinct_images": 26,
+  "updated_accepted_distinct_images": 27,
+  "external_pixel_policy": "External images, HTML and contact sheets remain ignored under tmp/conformance/gp21-reference. Commit only textual evidence. Only screenshot 141099874 is an accepted new TLC production source; the six forum images remain uncounted corroboration pending exact-edition confirmation.",
+  "references": [
+    {
+      "listing_file": "tmp/conformance/gp21-reference/steam-archery.html",
+      "appid": "204030",
+      "id": "141099874",
+      "url": "https://images.steamusercontent.com/ugc/1082264740983808145/FD6694CA87C1AF4855829F975D4DBDC4E6246106/",
+      "caption": "Me learning archery :D",
+      "path": "tmp/conformance/gp21-reference/reference-141099874.jpg",
+      "bytes": 200613,
+      "sha256": "6661646bf5aff6570803136b666571fa2f5f98c638b17b65510b719c7862f392",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=141099874",
+      "scene": "Guild archery range, ordinary gameplay aimed toward scenic targets",
+      "actual_pixels_inspected": true,
+      "inspection_resolution": "original 1024 x 768",
+      "listing_url": "https://steamcommunity.com/app/204030/screenshots/?searchText=archery&browsefilter=toprated",
+      "listing_sha256": "8b6f3664a0b4c81b88732cd1fe41273a6481afdb57282034a91ab85815ecc6dd",
+      "version_confidence": "High: apphub_Card matches data-appid 204030, screenshot ID and direct URL; detail page explicitly Fable - The Lost Chapters and posting date Apr 24, 2013 @ 1:30pm; classic pixels inspected. Posting date is not a capture timestamp and patch/mod status is unknown.",
+      "author": "badboy466",
+      "detail_html": {
+        "path": "tmp/conformance/gp21-reference/steam-141099874-detail.html",
+        "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=141099874",
+        "sha256": "2997a5888e0efdb1b448783fa388f39573e78a55365a322dde70a1184cf91cba",
+        "bytes": 46607
+      },
+      "visible_findings": [
+        "A low green-brown timber barrier spans the target-facing edge of the dirt firing platform, between shooter and target scenery.",
+        "Capped uprights carry thick horizontal timbers; a central panel contains diagonals, with closely paired posts separating adjacent rail sections.",
+        "A curved timber lip borders the visible foreground dirt platform. Behind the rail, freestanding mountain and castle-shaped scenery occupies distinct depth layers before a larger painted mountain/conifer backdrop.",
+        "Straw target forms appear in front of scenery at differing depths; perspective and occlusion prevent a complete count."
+      ],
+      "limits": [
+        "The low barrier is transverse to the shooting view. It does not establish the full range perimeter, side-rail extent, end openings, or present Minecraft axes.",
+        "The diagonal braces and capped members are visible original shapes. Stock spruce fences, selected positions and openings are block-scale adaptations.",
+        "No exact lengths, height calibration, complete target count, lighting level or movement behavior can be measured from this still."
+      ]
+    }
+  ],
+  "excluded_images": [
+    {
+      "listing_file": "tmp/conformance/gp21-reference/steam-archery.html",
+      "appid": "204030",
+      "id": "93744082",
+      "url": "https://images.steamusercontent.com/ugc/540684781231547246/C87195464E17FCD22C89E37965E2154909C71E26/",
+      "caption": "",
+      "path": "tmp/conformance/gp21-reference/reference-93744082.jpg",
+      "bytes": 239464,
+      "sha256": "a3854dfe15bf0ec00b2ef5be52dedba0019ee162a0b976687821e617f9fe3a01",
+      "dimensions": [
+        1360,
+        768
+      ],
+      "reason": "Forest archery scenery differs from Guild range; useful as non-Guild source only.",
+      "inspection": "Downloaded image contact-sheet pixels; no caption-derived identity claim."
+    },
+    {
+      "listing_file": "tmp/conformance/gp21-reference/steam-archery.html",
+      "appid": "204030",
+      "id": "93744403",
+      "url": "https://images.steamusercontent.com/ugc/540684781231576321/A4F41CF64A49A6C22946DEFC984E904D0D500939/",
+      "caption": "",
+      "path": "tmp/conformance/gp21-reference/reference-93744403.jpg",
+      "bytes": 153101,
+      "sha256": "f7b68f2bf8eb65470d8439d8cb77a8b71e6a2e157727593b101d54ab89f2ff39",
+      "dimensions": [
+        1360,
+        768
+      ],
+      "reason": "Dark combat encounter, not Guild architecture.",
+      "inspection": "Downloaded image contact-sheet pixels; no caption-derived identity claim."
+    },
+    {
+      "listing_file": "tmp/conformance/gp21-reference/steam-archery.html",
+      "appid": "204030",
+      "id": "93744273",
+      "url": "https://images.steamusercontent.com/ugc/540684781231564360/D5DC0C4C4D238610FF305150D6BD423563716A22/",
+      "caption": "",
+      "path": "tmp/conformance/gp21-reference/reference-93744273.jpg",
+      "bytes": 172158,
+      "sha256": "173d365aa0e7f5124735f1afab54fcd87f42aa8460de3b1be09a69a577b3d784",
+      "dimensions": [
+        1360,
+        768
+      ],
+      "reason": "Dark wooded path/combat, not Guild architecture.",
+      "inspection": "Downloaded image contact-sheet pixels; no caption-derived identity claim."
+    },
+    {
+      "listing_file": "tmp/conformance/gp21-reference/steam-bridge.html",
+      "appid": "204030",
+      "id": "158167777",
+      "url": "https://images.steamusercontent.com/ugc/615022620916965737/F2FFFA2E5CD4E6521E9E07F189FFD53BE3A3A363/",
+      "caption": "",
+      "path": "tmp/conformance/gp21-reference/reference-158167777.jpg",
+      "bytes": 181858,
+      "sha256": "8763e31688a994849541cc59eff371f445435d45d17014cbbd5a465fa16d7eca",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "reason": "Burning covered wooden bridge, not the Guild open plank spans.",
+      "inspection": "Downloaded image contact-sheet pixels; no caption-derived identity claim."
+    },
+    {
+      "listing_file": "tmp/conformance/gp21-reference/steam-bridge.html",
+      "appid": "204030",
+      "id": "173820513",
+      "url": "https://images.steamusercontent.com/ugc/597013386387364884/6E890666F7A9F5A051B942E14EBD4A5A62ED3A78/",
+      "caption": "",
+      "path": "tmp/conformance/gp21-reference/reference-173820513.jpg",
+      "bytes": 294967,
+      "sha256": "08f75760ea12b5ad88c71191a8e9a31290a869a6aa5b36ac134fce37f6a943c5",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "reason": "Narrow broken timber bridge in rocky terrain, not the Guild decorated open spans.",
+      "inspection": "Downloaded image contact-sheet pixels; no caption-derived identity claim."
+    },
+    {
+      "listing_file": "tmp/conformance/gp21-reference/steam-bridge.html",
+      "appid": "204030",
+      "id": "153496553",
+      "url": "https://images.steamusercontent.com/ugc/576740413766519668/43FDDDFF2C4FCF17125E47A225B98644E45CA1C5/",
+      "caption": "",
+      "path": "tmp/conformance/gp21-reference/reference-153496553.jpg",
+      "bytes": 280546,
+      "sha256": "e1da2cd23a6fa457cf780ba39c3351b7687bb7589c6a5e0c80a6bd3e2adb86d0",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "reason": "Same non-Guild rocky broken timber bridge; unsuitable as Guild evidence.",
+      "inspection": "Downloaded image contact-sheet pixels; no caption-derived identity claim."
+    },
+    {
+      "listing_file": "tmp/conformance/gp21-reference/steam-bridge.html",
+      "appid": "204030",
+      "id": "84338256",
+      "url": "https://images.steamusercontent.com/ugc/955012051039029357/A7FAD0904B4E3E1331268C112C50C04631746188/",
+      "caption": "",
+      "path": "tmp/conformance/gp21-reference/reference-84338256.jpg",
+      "bytes": 246122,
+      "sha256": "c94981d2cf4ccdd82f25277f0cd71f38d78cc1cdb0d3248360f4a193893e38b7",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "reason": "Broken timber bridge in rocky terrain, not Guild architecture.",
+      "inspection": "Downloaded image contact-sheet pixels; no caption-derived identity claim."
+    }
+  ],
+  "known_reference_reinspected": {
+    "id": "689540321",
+    "path": "tmp/conformance/reference-guild-additional/gp16-reference-689540321.jpg",
+    "counted_as_new": false,
+    "observation": "The original grade-cutscene view corroborates the transverse low braced barrier and curved timber lip, with characters obscuring its ends."
+  },
+  "recommendation": {
+    "source_supported": "Add a bounded low timber firing-divider cue facing the scenic targets if final-voxel collision/ray surveys can preserve target lane and circulation.",
+    "adaptations": [
+      "Minecraft dimensions, axis alignment and openings must remain explicit adaptations.",
+      "Stock spruce-fence horizontal members approximate timber rails but do not reproduce capped or diagonal original bracing.",
+      "Do not claim five perimeter dummies or entire circular range are verified by these partial photos."
+    ],
+    "bridge": "Retain existing deck/approach geometry. The dated classic daylight image is corroboration pending exact-edition attribution and must not independently authorize a production change.",
+    "remaining": "Final chosen rail cells and negatives belong to geometry/implementation evidence, not this reference-only investigation. Native walking, lighting and NPC behavior remain unrun."
+  },
+  "accepted_attribution_split": {
+    "TLC_app_204030_confirmed": 1,
+    "classic_game_2009_forum_corroboration_pending_exact_edition_not_counted": 6
+  },
+  "corroborating_images_pending_exact_edition": [
+    {
+      "id": "fablegame-vor1",
+      "page_url": "https://fablegame.info/forum/2-77-1",
+      "url": "https://fablegame.info/sparrow_screens/vor1.jpg",
+      "path": "tmp/conformance/gp21-reference/vor1.jpg",
+      "sha256": "a2eff7fc2064cb191337c8036849e2a39f2037eeaf0dc05e377edde8da3e627b",
+      "bytes": 107682,
+      "dimensions": [
+        1024,
+        768
+      ],
+      "scene": "Guild courtyard exterior architectural detail",
+      "actual_pixels_inspected": true,
+      "inspection_resolution": "original 1024 x 768",
+      "source_html_sha256": "5985f26ffc7a3a84e2e51cf1177a5f46e4e5813b2ebef85bd28667ff5d80c4d2",
+      "source_post_author": "Torionel™",
+      "source_post_displayed": "22.05.2009, 23:42",
+      "version_confidence": "Strong original classic-game corroboration: source post predates Anniversary, is in Fable TLC forum archive, and original PC-style HUD/assets were inspected. Unlike Steam reference this has no app-ID proof; exact build, capture date and modification status are unknown.",
+      "visible_findings": [
+        "Pointed timber-edged lower arcade bays, heavy timber uprights and beams, small pointed upper windows, slate-like roof and exposed timber eaves.",
+        "Part of a large circular framed window is visible on the adjoining tower; suits of armour occupy several lower arcade bays."
+      ],
+      "limits": [
+        "Uploader red arrows annotate sparrow positions and must not be reproduced as game geometry.",
+        "Perspective, partial views, bow/character occlusion and display settings prevent exact dimensions, full facility layout or calibrated light/color claims."
+      ]
+    },
+    {
+      "id": "fablegame-vor2",
+      "page_url": "https://fablegame.info/forum/2-77-1",
+      "url": "https://fablegame.info/sparrow_screens/vor2.jpg",
+      "path": "tmp/conformance/gp21-reference/vor2.jpg",
+      "sha256": "20dce82444a7346afe6ca2a6163d50631136cf1747581480ee53e5961403ce59",
+      "bytes": 126208,
+      "dimensions": [
+        1024,
+        768
+      ],
+      "scene": "Guild courtyard exterior architectural detail",
+      "actual_pixels_inspected": true,
+      "inspection_resolution": "original 1024 x 768",
+      "source_html_sha256": "5985f26ffc7a3a84e2e51cf1177a5f46e4e5813b2ebef85bd28667ff5d80c4d2",
+      "source_post_author": "Torionel™",
+      "source_post_displayed": "22.05.2009, 23:42",
+      "version_confidence": "Strong original classic-game corroboration: source post predates Anniversary, is in Fable TLC forum archive, and original PC-style HUD/assets were inspected. Unlike Steam reference this has no app-ID proof; exact build, capture date and modification status are unknown.",
+      "visible_findings": [
+        "Tall narrow pointed stained-glass panels on the adjoining tower, small pointed windows on the low connecting wall and heavy timber eave framing.",
+        "An ornate grey stone statue on a carved square pedestal stands beside a clipped topiary and tiered water feature."
+      ],
+      "limits": [
+        "Uploader red arrows annotate sparrow positions and must not be reproduced as game geometry.",
+        "Perspective, partial views, bow/character occlusion and display settings prevent exact dimensions, full facility layout or calibrated light/color claims."
+      ]
+    },
+    {
+      "id": "fablegame-vor3",
+      "page_url": "https://fablegame.info/forum/2-77-1",
+      "url": "https://fablegame.info/sparrow_screens/vor3.jpg",
+      "path": "tmp/conformance/gp21-reference/vor3.jpg",
+      "sha256": "6a89f6f47786da7c53e1f9ae6d467e336bdc1076a2175f9f5826e48b9c6c631b",
+      "bytes": 127517,
+      "dimensions": [
+        1024,
+        768
+      ],
+      "scene": "Guild courtyard exterior architectural detail",
+      "actual_pixels_inspected": true,
+      "inspection_resolution": "original 1024 x 768",
+      "source_html_sha256": "5985f26ffc7a3a84e2e51cf1177a5f46e4e5813b2ebef85bd28667ff5d80c4d2",
+      "source_post_author": "Torionel™",
+      "source_post_displayed": "22.05.2009, 23:42",
+      "version_confidence": "Strong original classic-game corroboration: source post predates Anniversary, is in Fable TLC forum archive, and original PC-style HUD/assets were inspected. Unlike Steam reference this has no app-ID proof; exact build, capture date and modification status are unknown.",
+      "visible_findings": [
+        "Large stone tower has circular inset window motifs beneath projecting gables and a narrower upper stage.",
+        "Broad stepped platforms support angular decorated freestanding structures; adjoining arcade and small pointed window visible."
+      ],
+      "limits": [
+        "Uploader red arrows annotate sparrow positions and must not be reproduced as game geometry.",
+        "Perspective, partial views, bow/character occlusion and display settings prevent exact dimensions, full facility layout or calibrated light/color claims."
+      ]
+    },
+    {
+      "id": "fablegame-vor4",
+      "page_url": "https://fablegame.info/forum/2-77-1",
+      "url": "https://fablegame.info/sparrow_screens/vor4.jpg",
+      "path": "tmp/conformance/gp21-reference/vor4.jpg",
+      "sha256": "c75012b75852ec42c33e99453ce2b300f284fb651d5bbc453a64d117b714c977",
+      "bytes": 144727,
+      "dimensions": [
+        1024,
+        768
+      ],
+      "scene": "Guild bridge and courtyard garden",
+      "actual_pixels_inspected": true,
+      "inspection_resolution": "original 1024 x 768",
+      "source_html_sha256": "5985f26ffc7a3a84e2e51cf1177a5f46e4e5813b2ebef85bd28667ff5d80c4d2",
+      "source_post_author": "Torionel™",
+      "source_post_displayed": "22.05.2009, 23:43",
+      "version_confidence": "Strong original classic-game corroboration: source post predates Anniversary, is in Fable TLC forum archive, and original PC-style HUD/assets were inspected. Unlike Steam reference this has no app-ID proof; exact build, capture date and modification status are unknown.",
+      "visible_findings": [
+        "A timber-plank bridge has broad solid arched parapets, light inset scrolling patterns and chunky capped end posts.",
+        "Clipped hedge beds and separate topiary trees surround a tiered stone water feature; mature broad-canopy trees stand behind."
+      ],
+      "limits": [
+        "Uploader red arrows annotate sparrow positions and must not be reproduced as game geometry.",
+        "Perspective, partial views, bow/character occlusion and display settings prevent exact dimensions, full facility layout or calibrated light/color claims.",
+        "No complete deck-width measurement or native collision/traversal evidence; retain existing proven bridge route."
+      ]
+    },
+    {
+      "id": "fablegame-vor5",
+      "page_url": "https://fablegame.info/forum/2-77-1",
+      "url": "https://fablegame.info/sparrow_screens/vor5.jpg",
+      "path": "tmp/conformance/gp21-reference/vor5.jpg",
+      "sha256": "c563a61cc6d0f358da0eb3f132093f4336c349773096b132750a98bb012557dd",
+      "bytes": 130097,
+      "dimensions": [
+        1024,
+        768
+      ],
+      "scene": "Guild courtyard exterior architectural detail",
+      "actual_pixels_inspected": true,
+      "inspection_resolution": "original 1024 x 768",
+      "source_html_sha256": "5985f26ffc7a3a84e2e51cf1177a5f46e4e5813b2ebef85bd28667ff5d80c4d2",
+      "source_post_author": "Torionel™",
+      "source_post_displayed": "22.05.2009, 23:43",
+      "version_confidence": "Strong original classic-game corroboration: source post predates Anniversary, is in Fable TLC forum archive, and original PC-style HUD/assets were inspected. Unlike Steam reference this has no app-ID proof; exact build, capture date and modification status are unknown.",
+      "visible_findings": [
+        "Two pointed stone doorways flank narrow pointed colored windows; the wall has a continuous shallow overhang and timber supports.",
+        "A humanoid stone statue on a round plinth stands between separate clipped topiary forms, with irregular stone paving in front."
+      ],
+      "limits": [
+        "Uploader red arrows annotate sparrow positions and must not be reproduced as game geometry.",
+        "Perspective, partial views, bow/character occlusion and display settings prevent exact dimensions, full facility layout or calibrated light/color claims."
+      ]
+    },
+    {
+      "id": "fablegame-vor6",
+      "page_url": "https://fablegame.info/forum/2-77-1",
+      "url": "https://fablegame.info/sparrow_screens/vor6.jpg",
+      "path": "tmp/conformance/gp21-reference/vor6.jpg",
+      "sha256": "b56eb9cb70fbfe2878f3e83a499dcd095d532be21199b1013d8b1097ec15537b",
+      "bytes": 110079,
+      "dimensions": [
+        1024,
+        768
+      ],
+      "scene": "Guild courtyard exterior architectural detail",
+      "actual_pixels_inspected": true,
+      "inspection_resolution": "original 1024 x 768",
+      "source_html_sha256": "5985f26ffc7a3a84e2e51cf1177a5f46e4e5813b2ebef85bd28667ff5d80c4d2",
+      "source_post_author": "Torionel™",
+      "source_post_displayed": "22.05.2009, 23:43",
+      "version_confidence": "Strong original classic-game corroboration: source post predates Anniversary, is in Fable TLC forum archive, and original PC-style HUD/assets were inspected. Unlike Steam reference this has no app-ID proof; exact build, capture date and modification status are unknown.",
+      "visible_findings": [
+        "Projecting slate-like gables show substantial exposed timber rafters and eave undersides over pointed stone doorways.",
+        "Heavy timber posts and horizontal beams frame the adjoining arcade."
+      ],
+      "limits": [
+        "Uploader red arrows annotate sparrow positions and must not be reproduced as game geometry.",
+        "Perspective, partial views, bow/character occlusion and display settings prevent exact dimensions, full facility layout or calibrated light/color claims."
+      ]
+    }
+  ]
+}

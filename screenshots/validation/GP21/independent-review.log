@@ -1,0 +1,1 @@
+{"scope": "Actual final owner comparison", "actual_changes": 10, "candidate_cells": 10, "walking_nodes_removed": 10, "local_routes": 8, "gate_destinations": 7, "expanded_ray_offsets": 5, "route_negatives": 6, "cross_fence_overhang_detected": true, "both_harnesses_pass": true, "native": "unrun"}

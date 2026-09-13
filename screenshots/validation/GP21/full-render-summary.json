@@ -1,0 +1,12 @@
+{
+  "output": "tmp/GP21-full-screenshots",
+  "png_counts": {
+    "gallery": 13,
+    "items": 55,
+    "mobs": 51,
+    "recipes": 130,
+    "structures": 33
+  },
+  "command": "gen_screenshots.main with SHOTS=tmp/GP21-full-screenshots",
+  "native_acceptance": "unrun"
+}

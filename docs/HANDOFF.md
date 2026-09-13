@@ -13,14 +13,62 @@ online reference photos and make Demon Doors traversable into distinct original
 reward worlds. Continue autonomously with separate reviewed milestone commits,
 validation/evidence, immediate pushes and fresh handoffs; no routine questions.
 
-Current checkpoint: DP8 — independent Demon Door maintenance and returns
-Last resolved prior commit: e13127194b8bd596bf9db9fee03633a413825f24 (DP7 pushed; exact-head CI 34739113768 passed).
-Containing commit: TLC Conformance — DP8: isolate Demon Door maintenance failures.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — DP8: isolate Demon Door maintenance failures'.
+Current checkpoint: GP21 — timber archery firing divider
+Last resolved prior commit: 2d56f97e325642c936b7ad4898efff09981bb926 (DP8 pushed; exact-head CI 34740141802 passed).
+Containing commit: TLC Conformance — GP21: frame the Guild archery firing bay.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP21: frame the Guild archery firing bay'.
 Never invent a self-hash. Supplemental passes stay in-progress while native
 acceptance is unrun; the legacy scoreboard remains 45 leaves and 7 done.
 
-## Current maintenance checkpoint
+## Current firing-divider checkpoint
+
+GP21 adds two low timber rail sections across the firing foreground, supported
+by newly inspected original TLC screenshot 141099874 (Steam app 204030, posted
+April 24, 2013). It shows horizontal timbers, capped uprights and diagonal braces;
+full rail ends/perimeter are outside the crop. Stock fences, extent, alignment
+and the three-column firing gap are explicit adaptations. The old 22-cell side
+rail feasibility prototype was not authored. Original scenic low tower/mountain
+forms and curved platform edging remain useful next comparisons.
+
+Exactly ten cells change: x80..81 and x85..92, y1,z38, air to spruce fence. All
+other 395,270 campus cells, palette/states, RNG, anchors, targets, props, roofs,
+bridges and 678 Maze reservations stay exact. Maze remains (46,12,70). Both old
+bridge runs, eight local routes, seven complete gate paths (identical coordinates)
+and the 13-sample future arrival corridor remain. Only ten occupied rail cells
+leave the walking graph, 13,822 to 13,812 nodes; every other node remains.
+A new independent sweep follows actual emitted lines at five tolerated offsets
+and accounts for fence collision extending from a lower cell. Filling x83,y1,z38
+would intersect that sweep even though the older block-cell ray check sees air
+at y2. The authored x82..84 gap stays clear. This is a conservative offline bound;
+native movement/collision remains unrun. Do not blindly accept a continuous rail.
+
+Behavior tests passed before Guild-only regeneration; whole-pack hashing sees
+only Guild change among 1,663 files. All 55 base gates and 65 ESM checks pass in
+the reviewed-index snapshot. Fresh C2, all 282 full PNGs and Guild diagnostics
+pass. Only Guild changes among 36 assets/C2 images; only its full card and places
+gallery change among 282 PNGs. Three of seven fresh Guild documentation scenes
+change: 01_hero_guild_gate, 12_guild_wide_lake_view, 26_archery_backboard. Root
+inspected those three, both Guild cards, the gallery and six decoded detail views.
+Initial two render launches failed shell redirection before Python (missing tmp/);
+that ignored directory was created and those commands reran. A later summary-copy
+filename error was corrected only in the helper. Original errors are retained.
+No gameplay gate failed. Full/doc shared renders simplify fences as cubes; the
+six focused views use thin approximate posts/rails. GP21 is the visual baseline.
+See GUILD_ARCHERY_FIRING_DIVIDER.md and screenshots/validation/GP21/.
+
+The supplementary accepted TLC corpus is now 27. Six new dated-2009 classic
+exteriors remain uncounted corroboration pending exact-edition confirmation.
+External pixels/HTML stay ignored in tmp/conformance/gp21-reference; only their
+URLs/hashes/observations are committed. No native server/world was run. Existing
+occupied Guilds are never rebuilt; reanchor remains coordinate refresh only.
+
+Concurrent README/screenshot commit 2c34743f4cc8414f66fac7c9e27f62b5bdcfa623 is
+preserved; exact-head CI 34740012446 passed. It landed after DP8's local snapshot
+but before DP8 commit; final DP8 exact-head CI also passed. Its documentation
+renderer stays exact. GP21 regenerates applicable Guild images and updates the
+README's milestone labels/divider link and shared per-source reward semantics.
+
+## Retained maintenance checkpoint
 
 DP8 isolates Guild face maintenance, Arboretum face maintenance and each runtime
 tick inside the existing five-tick interval; face maintenance stays every forty
@@ -89,10 +137,10 @@ only the Gorge asset/C2 image changes and the Arboretum is added; all 34 other
 assets/C2 images remain exact. Only the Gorge card and containing places gallery
 change among 281 existing full PNGs, with one Arboretum card added. Root inspected
 both cards, the gallery and six focused geometry views. Native acceptance remains
-unrun. DP7 is the next visual baseline; C3 retains 45 leaves and 7 done.
+unrun. DP7 supplied the preceding visual baseline; C3 retains 45 leaves and 7 done.
 
 See docs/ARBORETUM.md and screenshots/validation/DP7/ for validation and limits.
-Use DP7 as the next visual baseline: C2 now 36 assets and full cards 33 structures.
+Use GP21 as the next visual baseline: C2 has 36 assets and full cards 33 structures.
 
 ## Retained dormitory checkpoint
 
@@ -179,30 +227,28 @@ See docs/GUILD_ACTIVITY_OWNERSHIP.md and GP19 evidence.
 
 ## Next three actions
 
-1. Continue the Guild fidelity cycle with original-reference evidence for adjoining
-   range/bridge geometry or the remaining interiors. GP20’s surveyed 22-cell rail
-   candidate keeps both crossings, seven destinations and the actual Skill ray
-   clear, but original rail extent/bracing must be established before authoring.
-   Find and inspect original TLC pixels; preserve URLs/hashes and label dimensions
-   and block materials as adaptations. Keep Maze, all routes/RNG and occupied
-   construction intact. Do not declare facility fidelity from render grades.
-2. Resume purposeful Skill station arrival once the required native calibration
-   is available. The 2.1 Script API has no script navigation command. DP6's
-   station-arrival-followup.md proposes a strict skill_range approach phase,
-   verifies 13 corridor samples and 27 prototype refusals and requires actual offset,
-   search and event calibration. Maintain resident/activity/defence/session
-   authority; no fallback/repeated teleport. GP20/bedrock-availability-report.md
-   records bounded official pinned-download DNS/HTTP2/timeout failures. No binary
-   was acquired or server/world executed; these are transport failures, not proof
-   of archive absence or engine incompatibility. Do not keep retrying unchanged
-   failed transport while independent content work is available.
-3. Continue individual Demon Door worlds from a verified original pairing and a
-   current-source audit. DP7 now supplies the Arboretum pilot; do not repeat a
-   geometry-only or registration-only implementation as another complete realm.
-   Prioritize any reproduced return/allocation/reward defect, preserve legacy
-   personas and saved instances, and keep original murder-solution parity open.
-   Do not retry unchanged pinned-server transport failures while independent
-   implementation/reference work remains available.
+1. Reproduce the retained Guild first-build preparation risks with the actual
+   controller, generated Library voxels and native effect faults. DP8 only isolates
+   callbacks. Old unvisited `placing` retries can replay and reward writes precede
+   ready without exact read-back. These are documented legacy semantics, not yet
+   a new reproduced DP9. Audit late volume/shell changes and interrupted partial
+   seeding before a coherent guarded receipt/write-ahead design. Preserve old
+   ready/visited rooms, suppression, tickets and Guild history; never copy new
+   Arboretum guarantees onto the older controller without implementation/tests.
+2. Continue original-reference Guild fidelity: 141099874 supports separate low
+   scenic mountain/tower cutouts in front of the painted range panel and curved
+   timber platform edging. Verify a footprint that preserves every existing
+   target/hay/mark, both south doors, full active rays, the new three-column firing
+   bay and future arrival corridor. Continue interior/bridge comparisons; six new
+   classic exterior images require exact-edition confirmation before independent
+   production use. Never infer complete layout or original dimensions from crops.
+3. Purposeful Skill arrival still requires native offset/search/event calibration;
+   preserve DP6's 13-sample/27-refusal proposal and GP19 authority. Do not retry
+   unchanged official pinned-server transport failures while independent work
+   exists. Continue individual Demon Door worlds only from verified original
+   pairings and complete source/room/reward/return audits. DP7 supplies the second
+   complete offline pilot; preserve eight legacy personas, old unregistered Gorges,
+   Nostro and original murder-solution parity as open work.
 
 ## Facility and reference constraints
 
@@ -214,8 +260,8 @@ steps, saved construction and progress. Reanchor updates coordinates only, never
 geometry. No blind occupied-Guild reload or retired repair/tiling sweeps.
 
 Original 2005 TLC pixels only: no Anniversary, sequels, reboot art or search-caption
-inferences. Source snapshots are under docs/references/fable-tlc-expert/. The 26
-additional inspected views are indexed in docs/GUILD_ONLINE_REFERENCES.md; GP16 adds
+inferences. Source snapshots are under docs/references/fable-tlc-expert/. The 27
+additional inspected TLC views are indexed in docs/GUILD_ONLINE_REFERENCES.md; GP16 adds
 seven, including a wide dormitory image posted April 2013, two bridges, archery/melee
 and hall details. GP15 has two Maze-study views. Record source URLs/hashes and visible
 features separately from block adaptations. External pixels remain ignored under
@@ -269,9 +315,8 @@ GP18 had 48 base gates, 62 ESM checks, fresh 35-asset C2/full 281 PNG renders an
 diagnostics. Concurrent README/font commit f7e875564d7aa61885ba5324e0a2a743f6751363 is
 preserved (CI 34731885346 passed). Its Linux font fallback changed all 281 cards versus
 GP16; the actual predecessor rendered with the same font/cache matches GP18 exactly.
-DP7 is now the next visual-input baseline; GP20 remains the comparison baseline
-for earlier checkpoints. Full cards have 32 structures;
-C2 now has 36 assets; full cards include 33 structures. The external vanilla item cache stays ignored.
+GP21 is now the next visual-input baseline; DP7/GP20 remain comparison baselines
+for earlier checkpoints. C2 has 36 assets; full cards include 33 structures. The external vanilla item cache stays ignored.
 
 After EVERY checklist edit run python scripts/conformance_score.py --write then --check.
 Never change the 45-leaf denominator or infer completion from supplemental passes.

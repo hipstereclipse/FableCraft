@@ -1,0 +1,13 @@
+{
+  "files_before": 1663,
+  "files_after": 1663,
+  "changes": [
+    {
+      "path": "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure",
+      "before": "b9330af161ecc3fed96ccca1db05b51c059eacbd65b3cfbe90facdbce11015a0",
+      "after": "717960af9318ef30c8110da54f736a3c8cc590bce098f2094a70eaf9440a4366"
+    }
+  ],
+  "behavior_before_generation": "behavior-before-generation.log",
+  "generator_sha256": "43d388cc198e5914bf9e5683867a9f4246437188f85ebe4b860a99e2753a4184"
+}

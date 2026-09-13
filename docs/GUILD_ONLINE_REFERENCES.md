@@ -1,7 +1,7 @@
 # Additional original TLC Guild image references
 
-At the user's request, 26 additional distinct gameplay images were found online,
-downloaded to ignored scratch and visually inspected during GP11–GP16. These
+At the user's request, 27 additional distinct TLC gameplay images were found online,
+downloaded to ignored scratch and visually inspected during GP11–GP21. These
 supplement the original 2005 Prima guide and earlier three map-hall references.
 They are reference observations, not calibrated floor plans or imported pack art.
 
@@ -30,6 +30,15 @@ They are reference observations, not calibrated floor plans or imported pack art
 Seven GP16 additions include a wide dormitory view, two bridge angles, melee and
 archery details, and hall ceiling/stair views. See the [GP16 reference audit](../screenshots/validation/GP16/reference-followup.md)
 for their individual source links and the bounded Maze/dormitory comparison.
+
+GP21 adds [original TLC archery view 141099874](https://steamcommunity.com/sharedfiles/filedetails/?id=141099874),
+posted April 24, 2013, with a clear transverse timber firing divider, diagonal
+braces and separate scenic target cutouts. It supports the bounded
+[firing-divider adaptation](GUILD_ARCHERY_FIRING_DIVIDER.md), not a full perimeter
+or calibrated dimensions. Six additional 2009 classic exterior images remain
+uncounted corroboration pending exact-edition confirmation. They do not independently
+support production changes. [GP21 provenance and exclusions](../screenshots/validation/GP21/reference-followup.json)
+retain every URL/hash and separate the accepted TLC image from those candidates.
 
 ## Attribution and limits
 
@@ -81,6 +90,7 @@ Exact hashes, dimensions, confidence, exclusions and individual observations:
 - [Three supplementary Maze/dormitory views](../screenshots/validation/GP15/interior-reference-followup.json).
 - [Seven dormitory/training/bridge/hall views](../screenshots/validation/GP16/additional-online-references.json).
 
-External pixels remain under ignored `tmp/conformance/reference-guild-additional`;
+External pixels remain under ignored `tmp/conformance/reference-guild-additional`
+and `tmp/conformance/gp21-reference`;
 only these textual source records are committed. Later changes must preserve
 this distinction between observed features and chosen adaptations.

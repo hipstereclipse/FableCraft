@@ -181,7 +181,7 @@ reboot. Each pass inspects period screenshots and the original Prima guide, land
 reviewed milestone commit, and records its exact scope, evidence and remaining defects in
 [the priority ledger](docs/GUILD_DEMON_PRIORITIES.md).
 
-**Guild passes (GP1–GP20)**
+**Guild passes (GP1–GP21)**
 
 - **Halls & circulation.** The lobby, upper gallery, dining hall and Maze's tower stairs are
   joined by continuous half-step routes, and the broad Library and Store archways stand open
@@ -209,10 +209,10 @@ reviewed milestone commit, and records its exact scope, evidence and remaining d
 
 - **Training grounds.** Training sessions are single-acquisition with real interruption
   handling; Will apprentices practise harmless island lightning while Might alone fills the
-  sparring ring; the archery range regained its painted valley backboard; and Skill practice
-  now preflights the live target, its support and every crossed cell of the firing lane
+  sparring ring; the archery range regained its painted valley backboard and low timber firing
+  divider; Skill practice now preflights the live target, its support and every crossed cell of the firing lane
   before it fires.
-  ([training](docs/GUILD_TRAINING.md), [Will training](docs/GUILD_WILL_TRAINING.md), [archery backboard](docs/GUILD_ARCHERY_BACKBOARD.md), [Skill preflight](docs/GUILD_SKILL_PREFLIGHT.md))
+  ([training](docs/GUILD_TRAINING.md), [Will training](docs/GUILD_WILL_TRAINING.md), [archery backboard](docs/GUILD_ARCHERY_BACKBOARD.md), [firing divider](docs/GUILD_ARCHERY_FIRING_DIVIDER.md), [Skill preflight](docs/GUILD_SKILL_PREFLIGHT.md))
 
 ![The Archery Range](screenshots/docs/26_archery_backboard.png)
 
@@ -239,12 +239,12 @@ reviewed milestone commit, and records its exact scope, evidence and remaining d
   requester, ownership and eligibility before they mutate anything, so a competing proposal
   cannot quietly steal a partner or spend a second wedding ring.
 
-**Demon Door passes (DP1–DP7)**
+**Demon Door passes (DP1–DP8)**
 
 The first walk-through Demon Door reward world is in place. The Guild lamp door opens into the
 **Library Arcanum** — an isolated, individually designed room with its own collectibles and an
-exact-source return arch. Rooms are allocated per visitor, paid history survives lost or
-recreated ledgers, a single durable source owns the Guild-side door face so stale hints cannot
+exact-source return arch. Rooms and physical rewards are shared per source door; paid history
+survives lost or recreated ledgers, a single durable source owns the Guild-side door face so stale hints cannot
 mint unkeyed doors, and occupied rooms keep their break, build, explosion and world-generation
 guards even after ledger loss or replacement.
 ([Library Arcanum](docs/LIBRARY_ARCANUM.md), [door design](docs/DEMON_DOOR_DESIGN.md), [room protections](docs/LIBRARY_ARCANUM_PROTECTIONS.md), [ticket reads](docs/LIBRARY_ARCANUM_TICKET_READS.md))

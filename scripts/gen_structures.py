@@ -710,6 +710,20 @@ def build_guild_archery_backboard(v):
             v.set(cx - 6 + column, 6 - row, cz - 9, colors[symbol])
 
 
+def build_guild_archery_firing_rails(v):
+    """Low timber divider adapted from original TLC range view 141099874.
+
+    The photographed rail separates firing ground from the target scenery.
+    Stock fences approximate its timbers; extent and three-wide firing gap are
+    adaptations. Leave the live Skill ray, arrival corridor and side paths open:
+    a fence below the ray still has a collider extending above its block cell.
+    This final fixture changes ten former-air cells without consuming RNG.
+    """
+    cx, cz, _ = GUILD_LAYOUT["archery"]
+    for dx in (-6, -5, -1, 0, 1, 2, 3, 4, 5, 6):
+        v.set(cx + dx, 1, cz - 1, SPRUCE_FENCE)
+
+
 def build_guild_library_interior(v):
     """Tall framed shelves and a reading desk inside the existing Library.
 
@@ -1643,10 +1657,10 @@ def build_guild_hall():
         plank_bridge(bridge_z)
 
     # ================= EAST TRAINING GROUNDS (across the river) =================
-    # the ARCHERY RANGE — a CIRCULAR packed-dirt range (canon design) set hard
+    # the ARCHERY RANGE — an adapted circular packed-dirt footprint set hard
     # against the Kitchen's SOUTH wall (attached to the building), a dirt apron
     # joining the two; the red bullseye stands on the NORTH backstop and five
-    # straw dummies ring the rim. It sits EAST of the riverside walk and the link
+    # adapted straw dummies ring the rim. It sits EAST of the riverside walk and the link
     # path skirts its edge, so it never blocks the through-route.
     acx, acz, arr = ARCH_X, ARCH_Z, ARCH_R
     # FLAT, hole-free dirt — NO gravel (a gravity block: it settles into the async
@@ -2579,6 +2593,7 @@ def build_guild_hall():
     build_guild_circulation(v)           # final owner of stair, landing and doorway volumes
     fix_floating_decor(v)                # re-seat every lantern; no floaters
     build_guild_archery_backboard(v)     # after every RNG-dependent landscape pass
+    build_guild_archery_firing_rails(v)  # preserve the open Skill lane and approaches
     build_guild_maze_study(v)            # surveyed fixtures beside final circulation
     build_guild_dorm_wall_bay(v)         # material-only bay in the existing partition
     return v
