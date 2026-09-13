@@ -179,6 +179,57 @@
           "speed_multiplier": 1.35,
           "track_target": true
         }
+      },
+      "fc:guild_activity_follow_range": {
+        "minecraft:behavior.follow_mob": {
+          "priority": 1,
+          "search_range": 20,
+          "speed_multiplier": 1.05,
+          "stop_distance": 3,
+          "use_home_position_restriction": false,
+          "filters": {
+            "all_of": [
+              {
+                "test": "is_family",
+                "subject": "other",
+                "value": "player"
+              },
+              {
+                "test": "has_tag",
+                "subject": "other",
+                "value": "fc_skill_range_requester_v1"
+              }
+            ]
+          }
+        }
+      },
+      "fc:guild_activity_follow_hall": {
+        "minecraft:behavior.follow_mob": {
+          "priority": 1,
+          "search_range": 20,
+          "speed_multiplier": 1.05,
+          "stop_distance": 3,
+          "use_home_position_restriction": false,
+          "filters": {
+            "all_of": [
+              {
+                "test": "is_family",
+                "subject": "other",
+                "value": "player"
+              },
+              {
+                "test": "has_tag",
+                "subject": "other",
+                "value": "fc_skill_hall_requester_v1"
+              }
+            ]
+          }
+        }
+      },
+      "fc:guild_activity_wait": {
+        "minecraft:movement": {
+          "value": 0.0
+        }
       }
     },
     "components": {
@@ -261,23 +312,76 @@
           "component_groups": [
             "fc:guild_training"
           ]
+        },
+        "filters": {
+          "all_of": [
+            {
+              "test": "has_tag",
+              "subject": "self",
+              "value": "fc_guild_activity_owned_v1",
+              "operator": "not"
+            },
+            {
+              "test": "has_tag",
+              "subject": "self",
+              "value": "fc_guild_defending",
+              "operator": "not"
+            }
+          ]
         }
       },
       "fc:guild_training_stop": {
-        "remove": {
-          "component_groups": [
-            "fc:guild_training"
-          ]
-        },
-        "add": {
-          "component_groups": [
-            "fc:guild_roaming"
-          ]
-        }
+        "sequence": [
+          {
+            "remove": {
+              "component_groups": [
+                "fc:guild_training"
+              ]
+            },
+            "add": {
+              "component_groups": [
+                "fc:guild_roaming"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "fc_guild_activity_owned_v1"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "fc_guild_activity_wait_v1"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "self",
+                  "value": "fc_guild_defending",
+                  "operator": "not"
+                }
+              ]
+            },
+            "add": {
+              "component_groups": [
+                "fc:guild_activity_wait"
+              ]
+            }
+          }
+        ]
       },
       "fc:react_flee": {
         "sequence": [
           {
+            "filters": {
+              "test": "has_tag",
+              "subject": "self",
+              "value": "fc_guild_activity_owned_v1",
+              "operator": "not"
+            },
             "remove": {
               "component_groups": [
                 "fc:reaction_flee",
@@ -309,6 +413,12 @@
       "fc:react_follow": {
         "sequence": [
           {
+            "filters": {
+              "test": "has_tag",
+              "subject": "self",
+              "value": "fc_guild_activity_owned_v1",
+              "operator": "not"
+            },
             "remove": {
               "component_groups": [
                 "fc:reaction_flee",
@@ -340,6 +450,12 @@
       "fc:react_watch": {
         "sequence": [
           {
+            "filters": {
+              "test": "has_tag",
+              "subject": "self",
+              "value": "fc_guild_activity_owned_v1",
+              "operator": "not"
+            },
             "remove": {
               "component_groups": [
                 "fc:reaction_flee",
@@ -371,6 +487,12 @@
       "fc:react_attack": {
         "sequence": [
           {
+            "filters": {
+              "test": "has_tag",
+              "subject": "self",
+              "value": "fc_guild_activity_owned_v1",
+              "operator": "not"
+            },
             "remove": {
               "component_groups": [
                 "fc:reaction_flee",
@@ -402,6 +524,12 @@
       "fc:react_neutral": {
         "sequence": [
           {
+            "filters": {
+              "test": "has_tag",
+              "subject": "self",
+              "value": "fc_guild_activity_owned_v1",
+              "operator": "not"
+            },
             "remove": {
               "component_groups": [
                 "fc:reaction_flee",
@@ -426,23 +554,234 @@
         ]
       },
       "fc:guild_defence_start": {
-        "remove": {
-          "component_groups": [
-            "fc:guild_defence",
-            "fc:reaction_attack"
-          ]
-        },
-        "add": {
-          "component_groups": [
-            "fc:guild_defence"
-          ]
-        }
+        "sequence": [
+          {
+            "remove": {
+              "component_groups": [
+                "fc:guild_activity_follow_range",
+                "fc:guild_activity_follow_hall",
+                "fc:guild_activity_wait",
+                "fc:guild_training",
+                "fc:guild_roaming"
+              ]
+            },
+            "add": {
+              "component_groups": [
+                "fc:guild_roaming"
+              ]
+            }
+          },
+          {
+            "remove": {
+              "component_groups": [
+                "fc:guild_defence",
+                "fc:reaction_attack"
+              ]
+            },
+            "add": {
+              "component_groups": [
+                "fc:guild_defence"
+              ]
+            }
+          }
+        ]
       },
       "fc:guild_defence_stop": {
         "remove": {
           "component_groups": [
             "fc:guild_defence",
             "fc:reaction_attack"
+          ]
+        }
+      },
+      "fc:guild_activity_stop": {
+        "sequence": [
+          {
+            "remove": {
+              "component_groups": [
+                "fc:guild_activity_follow_range",
+                "fc:guild_activity_follow_hall",
+                "fc:guild_activity_wait",
+                "fc:reaction_flee",
+                "fc:reaction_follow",
+                "fc:reaction_watch",
+                "fc:reaction_attack",
+                "fc:guild_training",
+                "fc:guild_roaming"
+              ]
+            },
+            "add": {
+              "component_groups": [
+                "fc:guild_roaming"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "has_tag",
+              "subject": "self",
+              "value": "fc_guild_defending"
+            },
+            "add": {
+              "component_groups": [
+                "fc:guild_defence"
+              ]
+            }
+          }
+        ]
+      },
+      "fc:guild_activity_follow_range": {
+        "sequence": [
+          {
+            "remove": {
+              "component_groups": [
+                "fc:guild_activity_follow_range",
+                "fc:guild_activity_follow_hall",
+                "fc:guild_activity_wait",
+                "fc:reaction_flee",
+                "fc:reaction_follow",
+                "fc:reaction_watch",
+                "fc:reaction_attack",
+                "fc:guild_training",
+                "fc:guild_roaming"
+              ]
+            },
+            "add": {
+              "component_groups": [
+                "fc:guild_roaming"
+              ]
+            }
+          },
+          {
+            "add": {
+              "component_groups": [
+                "fc:guild_activity_follow_range"
+              ]
+            }
+          }
+        ],
+        "filters": {
+          "all_of": [
+            {
+              "test": "has_tag",
+              "subject": "self",
+              "value": "fc_guild_activity_owned_v1"
+            },
+            {
+              "test": "has_tag",
+              "subject": "self",
+              "value": "fc_guild_defending",
+              "operator": "not"
+            },
+            {
+              "test": "has_tag",
+              "subject": "self",
+              "value": "fc_guild_activity_wait_v1",
+              "operator": "not"
+            }
+          ]
+        }
+      },
+      "fc:guild_activity_follow_hall": {
+        "sequence": [
+          {
+            "remove": {
+              "component_groups": [
+                "fc:guild_activity_follow_range",
+                "fc:guild_activity_follow_hall",
+                "fc:guild_activity_wait",
+                "fc:reaction_flee",
+                "fc:reaction_follow",
+                "fc:reaction_watch",
+                "fc:reaction_attack",
+                "fc:guild_training",
+                "fc:guild_roaming"
+              ]
+            },
+            "add": {
+              "component_groups": [
+                "fc:guild_roaming"
+              ]
+            }
+          },
+          {
+            "add": {
+              "component_groups": [
+                "fc:guild_activity_follow_hall"
+              ]
+            }
+          }
+        ],
+        "filters": {
+          "all_of": [
+            {
+              "test": "has_tag",
+              "subject": "self",
+              "value": "fc_guild_activity_owned_v1"
+            },
+            {
+              "test": "has_tag",
+              "subject": "self",
+              "value": "fc_guild_defending",
+              "operator": "not"
+            },
+            {
+              "test": "has_tag",
+              "subject": "self",
+              "value": "fc_guild_activity_wait_v1",
+              "operator": "not"
+            }
+          ]
+        }
+      },
+      "fc:guild_activity_wait": {
+        "sequence": [
+          {
+            "remove": {
+              "component_groups": [
+                "fc:guild_activity_follow_range",
+                "fc:guild_activity_follow_hall",
+                "fc:guild_activity_wait",
+                "fc:reaction_flee",
+                "fc:reaction_follow",
+                "fc:reaction_watch",
+                "fc:reaction_attack",
+                "fc:guild_training",
+                "fc:guild_roaming"
+              ]
+            },
+            "add": {
+              "component_groups": [
+                "fc:guild_roaming"
+              ]
+            }
+          },
+          {
+            "add": {
+              "component_groups": [
+                "fc:guild_activity_wait"
+              ]
+            }
+          }
+        ],
+        "filters": {
+          "all_of": [
+            {
+              "test": "has_tag",
+              "subject": "self",
+              "value": "fc_guild_activity_owned_v1"
+            },
+            {
+              "test": "has_tag",
+              "subject": "self",
+              "value": "fc_guild_defending",
+              "operator": "not"
+            },
+            {
+              "test": "has_tag",
+              "subject": "self",
+              "value": "fc_guild_activity_wait_v1"
+            }
           ]
         }
       }

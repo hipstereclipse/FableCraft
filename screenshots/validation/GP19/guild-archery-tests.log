@@ -1,0 +1,12 @@
+test_actual_production_skill_station_and_emitted_ray_use_clear_final_voxels (__main__.GuildArcheryBackboard.test_actual_production_skill_station_and_emitted_ray_use_clear_final_voxels) ... ok
+test_behind_and_side_approaches_and_complete_gate_return_routes (__main__.GuildArcheryBackboard.test_behind_and_side_approaches_and_complete_gate_return_routes) ... ok
+test_exact_final_campus_scope_and_shared_rng (__main__.GuildArcheryBackboard.test_exact_final_campus_scope_and_shared_rng) ... ok
+test_existing_targets_dummies_floors_and_runtime_anchors_are_unchanged (__main__.GuildArcheryBackboard.test_existing_targets_dummies_floors_and_runtime_anchors_are_unchanged) ... ok
+test_independent_missing_frame_unsupported_base_and_blocked_approach_fail (__main__.GuildArcheryBackboard.test_independent_missing_frame_unsupported_base_and_blocked_approach_fail) ... ok
+test_supported_closed_timber_frame_and_non_emissive_landscape (__main__.GuildArcheryBackboard.test_supported_closed_timber_frame_and_non_emissive_landscape) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 1.585s
+
+OK
+{"station":{"x":183.5,"y":65,"z":-160.5},"target":{"x":183.5,"y":66.45,"z":-165.5},"actual_emitted_particles_on_clear_lane":6,"final_generated_station_clear":true,"offline_ray_clear":true,"negative_cases":10,"crossed_cell_negatives":29,"runtime_skill_lane_preflight":true,"engine_acceptance":"unrun"}

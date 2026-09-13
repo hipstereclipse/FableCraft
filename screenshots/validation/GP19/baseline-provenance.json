@@ -1,0 +1,14 @@
+{
+  "baseline_commit": "c83246751b86aa489897efa3d0cadd49f303c588",
+  "scope": "Two observed GP18 defects: Wait broadcasts neutral to both followers and unrelated trainee; stale fear emits flee after newer Follow",
+  "command": "FC_ACTIVITY_MAIN_SOURCE=tmp/conformance/gp19-review/GP18/main.js FC_ACTIVITY_BASELINE_PROBE=1 node --experimental-vm-modules scripts/tests/guild_activity_integration.test.mjs",
+  "source_reproduction": "Export main.js and fable_emotes.js from baseline_commit to the named ignored directory before running. Supporting unchanged modules are read from the current checkout.",
+  "exit_code": 0,
+  "sha256": {
+    "tmp/conformance/gp19-review/GP18/main.js": "3de202b284cde2acb20f22361b007570fb8154368d6d03fc3c22ea80d01122f8",
+    "tmp/conformance/gp19-review/GP18/fable_emotes.js": "4fad3f0db107b8d050c5a5e8965dc66bcf0926192c0494c36fd55be96700e366",
+    "screenshots/validation/GP19/gp18-baseline-probe.log": "bd8f69c70d3b27b22f37270cfc650ebbf88882260088fe20533b6b42a34c3021",
+    "scripts/tests/guild_activity_integration.test.mjs": "26437c003b4d458e39109de566caaf4867ec56f339ab5ca66057098ba75b115d"
+  },
+  "native_acceptance": "unrun"
+}

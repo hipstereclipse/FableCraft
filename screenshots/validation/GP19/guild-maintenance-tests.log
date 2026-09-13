@@ -1,0 +1,23 @@
+(node:11) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+....
+----------------------------------------------------------------------
+Ran 4 tests in 0.775s
+
+OK
+✔ missing legacy flags preserve player floors, containers and both scarecrow sites (5.901178ms)
+✔ existing true, false and unknown legacy flag values are retained across reload (8.72447ms)
+✔ unloaded former footprint cells cannot cause repeated clears of new player edits (3.119766ms)
+✔ unreadable cells and write failures never authorize a repair attempt (3.325007ms)
+✔ obsolete flag read failures do not interrupt cave, terrain or apprentice maintenance (1.778981ms)
+✔ unplaced Guilds do not enter maintenance or enroll old geometry (1.660505ms)
+✔ blocked legacy training station is preserved and refused by the actual session owner (9.250973ms)
+✔ clear training stations still acquire once through the actual maintenance callback (2.202508ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 59.470105

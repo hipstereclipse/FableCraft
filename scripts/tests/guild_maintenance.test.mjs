@@ -56,6 +56,7 @@ function fixture({ legacyFlags, failRead, failWrite = false, failFlag = false } 
       world, OW: () => dim, guildBounds: () => ({ base: { x:0,y:0,z:0 } }), TICKS: () => tick,
       system: { runTimeout() {}, get currentTick() { return tick; } },
       isMarried: () => false, isInsideGuild: () => true, guildApprentices: () => entities,
+      guildActivityReserved: () => false, // This maintenance fixture uses only unmanaged Might residents.
       placeGuildAnnexes: () => adjacent.push('caves'), repairGuildTerrain: () => adjacent.push('terrain'),
       repairGuildSkirtVegetation: () => adjacent.push('skirt'),
     });

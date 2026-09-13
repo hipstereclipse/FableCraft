@@ -206,6 +206,25 @@ export function createGuildResidentsController({ slots, read, write, lookup, can
     r.status = "dead"; dirty = true; observed.delete(id); flush(); return true;
   }
   function removed(id) { observed.delete(id); }
+  // Read-only activity authority: never trust an optimistic cached enrollment,
+  // adopt an entity, flush a failed save, or rewrite its marker from this path.
+  function binding(entity, base) {
+    try {
+      if (!entity || entity.isValid !== true || typeof entity.id !== "string" || !entity.id) return { kind: "blocked", reason: "invalid-entity" };
+      const raw = read();
+      const saved = typeof raw === "string" ? JSON.parse(raw) : undefined;
+      if (!valid(saved) || !sameBase(saved.base, base)) return { kind: "blocked", reason: "unavailable-registry" };
+      const current = entity.getDynamicProperty(GUILD_RESIDENT_SLOT);
+      const record = saved.residents.find(r => r.entityId === entity.id);
+      if (!record) {
+        const copied = saved.residents.some(r => current === `${saved.base.x},${saved.base.y},${saved.base.z}/${r.slot}`);
+        return { kind: copied ? "blocked" : "other", reason: copied ? "unbound-marker" : undefined };
+      }
+      if (record.status !== "bound" || record.type !== entity.typeId
+        || current !== `${saved.base.x},${saved.base.y},${saved.base.z}/${record.slot}`) return { kind: "blocked", reason: "identity-mismatch" };
+      return { kind: "bound", slot: record.slot, entityId: record.entityId, type: record.type, base: { ...saved.base } };
+    } catch { return { kind: "blocked", reason: "unreadable-registry" }; }
+  }
   function snapshot() { return { blocked, state: state ? JSON.parse(JSON.stringify(state)) : undefined }; }
-  return { initialize, reconcile, observe, removed, recordDeath, snapshot };
+  return { initialize, reconcile, observe, removed, recordDeath, snapshot, binding };
 }

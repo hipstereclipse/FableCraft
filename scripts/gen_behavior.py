@@ -264,6 +264,68 @@ def melee_behaviors(mob, target_players=True):
     }
 
 
+def add_guild_skill_activity(cgroups, events):
+    """Native effects for the two runtime-owned Skill requester channels.
+
+    The journal/roster owner verifies the entity and manages both self markers
+    and exactly one player tag per channel. Markers are derived effects, not
+    permission to claim a resident. No taming or script movement is introduced.
+    """
+    owned = {"test": "has_tag", "subject": "self", "value": "fc_guild_activity_owned_v1"}
+    waiting = {"test": "has_tag", "subject": "self", "value": "fc_guild_activity_wait_v1"}
+    defending = {"test": "has_tag", "subject": "self", "value": "fc_guild_defending"}
+    not_owned = {**owned, "operator": "not"}
+    not_defending = {**defending, "operator": "not"}
+    activity = ["fc:guild_activity_follow_range", "fc:guild_activity_follow_hall",
+                "fc:guild_activity_wait"]
+    social = ["fc:reaction_flee", "fc:reaction_follow", "fc:reaction_watch", "fc:reaction_attack"]
+    for slot in ("range", "hall"):
+        group = f"fc:guild_activity_follow_{slot}"
+        follow = deepcopy(cgroups["fc:reaction_follow"]["minecraft:behavior.follow_mob"])
+        follow["filters"] = {"all_of": [
+            {"test": "is_family", "subject": "other", "value": "player"},
+            {"test": "has_tag", "subject": "other", "value": f"fc_skill_{slot}_requester_v1"},
+        ]}
+        cgroups[group] = {"minecraft:behavior.follow_mob": follow}
+    # Wait stops voluntary walking but preserves gravity and ordinary pushes.
+    cgroups["fc:guild_activity_wait"] = {"minecraft:movement": {"value": 0.0}}
+    reset = {
+        "remove": {"component_groups": [*activity, *social, "fc:guild_training", "fc:guild_roaming"]},
+        "add": {"component_groups": ["fc:guild_roaming"]},
+    }
+    defence_again = {"filters": defending, "add": {"component_groups": ["fc:guild_defence"]}}
+    # Stop is unconditional, including with stale markers after failed cleanup.
+    events["fc:guild_activity_stop"] = {"sequence": [deepcopy(reset), deepcopy(defence_again)]}
+    for group in activity:
+        is_wait = group.endswith("_wait")
+        event = {"sequence": [deepcopy(reset), {"add": {"component_groups": [group]}}]}
+        event["filters"] = {"all_of": [owned, not_defending,
+                                        waiting if is_wait else {**waiting, "operator": "not"}]}
+        events[group] = event
+
+    # Later legacy training cleanup must not release an owned Wait. Every
+    # removal precedes restoration because shared component keys do not fall
+    # back to base values. Activity stop deliberately never uses this path.
+    events["fc:guild_training_start"]["filters"] = {"all_of": [not_owned, not_defending]}
+    events["fc:guild_training_stop"] = {"sequence": [events["fc:guild_training_stop"], {
+        "filters": {"all_of": [owned, waiting, not_defending]},
+        "add": {"component_groups": ["fc:guild_activity_wait"]},
+    }]}
+    # Direct legacy social events cannot overwrite a reserved activity. Combat
+    # reapplication remains outside this gate so its target filters survive.
+    for name in ("fc:react_flee", "fc:react_follow", "fc:react_watch", "fc:react_attack", "fc:react_neutral"):
+        social_action, combat_action = events[name]["sequence"]
+        events[name] = {"sequence": [{"filters": not_owned, **social_action}, combat_action]}
+
+    # Defence wins even if script preemption/tag cleanup failed. Remove only
+    # the owned activity here; legacy social follow/watch retain their existing
+    # overlay contract. Restoring roaming comes after movement-key deletion.
+    events["fc:guild_defence_start"] = {"sequence": [{
+        "remove": {"component_groups": [*activity, "fc:guild_training", "fc:guild_roaming"]},
+        "add": {"component_groups": ["fc:guild_roaming"]},
+    }, events["fc:guild_defence_start"]]}
+
+
 def emit_entity(mob):
     eid = mob["id"]
     behavior = mob["behavior"]
@@ -617,6 +679,9 @@ def emit_entity(mob):
                     "filters": {"test": "has_tag", "subject": "self", "value": "fc_guild_defending"},
                     "add": {"component_groups": ["fc:guild_defence"]},
                 }]}
+
+    if eid == "guild_apprentice_skill":
+        add_guild_skill_activity(cgroups, events)
 
     if mob.get("despawn"):
         comp["minecraft:timer"] = {"looping": False, "time": mob["despawn"] / 20.0,

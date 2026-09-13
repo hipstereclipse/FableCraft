@@ -52,6 +52,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | DP5 | in-progress | Occupied original-ticket rooms retain block/explosion and world-generation guards after lost/replaced ledger; own-cell return clicks revalidate; native acceptance open |
 | GP17 | in-progress | Deferred relationship actions revalidate current requester/ownership/eligibility before mutations; competing proposals cannot steal ownership or consume twice; native acceptance open |
 | GP18 | in-progress | Supported Maze-study bookcase and red carpet accents from inspected original views; preserve surveyed routes, anchors and all unrelated campus cells; native acceptance open |
+| GP19 | in-progress | Requester-owned Follow/Wait for the two canonical Skill residents with durable cleanup and social/training/defence arbitration; native acceptance open |
 
 Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
 defects and manual status here. These passes are not completed legacy leaves.
@@ -921,7 +922,7 @@ generic native Follow targeting, roaming after Wait or station teleports.
 
 ## GP18 — supported Maze-study furnishings (2026-09-12)
 
-Commit: SELF: TLC Conformance — GP18: restore supported Maze study furnishings.
+Commit: c83246751b86aa489897efa3d0cadd49f303c588 (pushed; exact-head CI 34733425350 passed).
 The final GP17 survey found that the source-authored study bookcase was skipped
 and the bed erased by circulation clearance. A final generator fixture now adds
 a supported two-column timber bookcase in the surveyed southwest pocket and
@@ -965,3 +966,56 @@ authority. Continue round lattice window, bordered rug, red wall-panel and
 bridge/range comparisons, plus individual Demon Door worlds. Native lighting,
 carpet collision, turning, navigation, multiplayer and saved-world acceptance
 remain unrun; GP18 does not close facility fidelity or alter the 45-leaf score.
+
+
+## GP19 — requester-owned Skill Follow and Wait (2026-09-12)
+
+Commit: SELF: TLC Conformance — GP19: own Skill Follow and Wait by requester.
+The two canonical Skill residents now accept activity through fresh exact resident
+registry/marker/type/base/ID authority. A versioned world journal and write-ahead
+initialization witness preserve requester, revision and outstanding tag cleanup.
+Two native Follow channels select only their tagged requesting Hero; owned Wait
+stops voluntary walking. Only the owner can change/resume/release activity; current
+spouse authority remains required for married residents. Identity, opinion,
+relationship, construction and reward history retain their existing owners.
+
+Training cleanup precedes new native activity, and at least one tick separates
+stop from replacement requester tags. Deferred activation rechecks live authority.
+Reload stops/reconciles without automatic Follow resurrection. Offline holders,
+failed writes and unavailable history block reuse; each channel has a 64-holder
+limit and persistent overflow quarantine. Failed local observations that cannot
+be persisted before a crash remain an explicit limit. Deleting both journal and
+witness is indistinguishable from first installation; no atomic recovery claim.
+
+Wait bypasses generic admiration and no longer broadcasts neutral to unrelated
+followers/trainees. Outside this pilot, stationary Wait defers; legacy generic
+Follow remains separate work. Spouse movement menus capture activity revision,
+and delayed fear/idle callbacks cannot replace newer activity/training/defence.
+Boast gathering excludes owned/pending activity. Defence independently removes
+Wait/Follow and restores movement without changing offender selection. Only the
+Skill entity is regenerated; no geometry, anchors, resources or reward changes.
+
+See [GUILD_ACTIVITY_OWNERSHIP.md](GUILD_ACTIVITY_OWNERSHIP.md) and
+`screenshots/validation/GP19/`. All 51 base gates and 64 ESM syntax checks pass in
+the isolated reviewed-index snapshot. Sixteen controller, nine actual integration
+and eight native component-transition groups pass, with 24 relationship, 33
+training, 22 resident and 14 defence groups retained. Independent review passes
+13 additional failure probes; early failures and repairs are recorded. An actual
+GP18 probe reproduces both old Wait broadcast and stale fear replacement.
+One missing activity dependency in the Might-only maintenance fixture was repaired
+and that gate rerun; the first failure remains in evidence. No production code
+changed during that correction. Fresh 35-asset C2 and Guild diagnostics pass.
+All 35 structure assets, 35 C2 images and six rendering/data/geometry owners match
+GP18; full-render evidence is retained from GP18, not rerun. Only Skill differs
+among 51 isolated entity outputs. GP18 exact-head CI 34733425350 passed.
+Every native movement, multiplayer and persistence check remains unrun.
+
+The [door follow-up audit](../screenshots/validation/GP19/door-followup-audit.md)
+reproduces a distinct return-history defect: an unreadable player ticket becomes
+null, letting orphan recovery overwrite a valid exact source with a default.
+When that default is obstructed, the preserved-source control succeeds while the
+faulted path remains stranded after reads recover. Prioritize a separate DP6
+unavailable-ticket distinction before mutation, retaining DP5 per-player guards
+and intended absent/corrupt recovery. Then continue purposeful station arrival,
+reactive training, reference-led interiors/bridges/range and individual door worlds.
+This bounded pilot does not close whole-facility or native conformance.

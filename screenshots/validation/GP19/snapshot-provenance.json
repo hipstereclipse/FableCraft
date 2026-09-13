@@ -1,0 +1,51 @@
+{
+  "source": "reviewed Git index exported to isolated snapshot; unrelated work excluded",
+  "baseline_head": "c83246751b86aa489897efa3d0cadd49f303c588",
+  "tested_executable_sha256": {
+    "packs/Fablecraft_BP/entities/guild_apprentice_skill.json": "87e38dd83e2c580047855f5921db60d19a04b3f4d36a725d011ed6afa659e994",
+    "packs/Fablecraft_BP/scripts/fable_emotes.js": "f6166eb181fbe850d52bcc7599b1bd22881700500117202d6e9578fe2c89af2f",
+    "packs/Fablecraft_BP/scripts/guild_activity.js": "9571f7cabb92799874ec4adb0481887dca9d4a644c69648e14e604e281f3fa19",
+    "packs/Fablecraft_BP/scripts/guild_activity_hooks.js": "77b2750d7fa9992c46b4ed5fac9b24f28be605dbc4fe26c02238fda117662af5",
+    "packs/Fablecraft_BP/scripts/guild_defence.js": "a5ae11d1b74ce1c2016de20fd2bc1ff6a79b903921fffe83d0e7857d91b4b4e9",
+    "packs/Fablecraft_BP/scripts/guild_residents.js": "a83cb051e485f932464a7d6fef8bfd3e107a701a7d6ad2e5819ed6b9a610e9d5",
+    "packs/Fablecraft_BP/scripts/main.js": "2d158bedac0198480e359f10d93ea67710ab1a777a9e16117479ddbf11d32c8d",
+    "scripts/gen_behavior.py": "a150aeaf49331d2348ddde239c6d6d548fa0f7c3b414e802d9d30e000ccd1ef1",
+    "scripts/tests/guild_activity.test.mjs": "feeea149e375e56da50ed5b500747275d44a9ee9b36cd5875a2494eee0e005a2",
+    "scripts/tests/guild_activity_integration.test.mjs": "26437c003b4d458e39109de566caaf4867ec56f339ab5ca66057098ba75b115d",
+    "scripts/tests/guild_defence.test.mjs": "826afc9f5334ca7fa28687fb35c1a9fcbc7d97747382837d9fe31d8fdab774c2",
+    "scripts/tests/guild_maintenance.test.mjs": "3f2021fc6e3b6c7fdf2261eab77a10c2d7d92f41ec7d91c6dc37f83119f2bd20",
+    "scripts/tests/guild_relationships.test.mjs": "511df42689c200cf269cc339cd633d97594c3911c805fc8e0524942879598c59",
+    "scripts/tests/guild_residents.test.mjs": "b93c1fb1102620eca1e6774caf3e467f211332f8357948139ceb9f7a56df930d",
+    "scripts/tests/guild_training.test.mjs": "3aa7b29a2f1bc6a1c8f59a43bf8f2bfbe350d84202eaa357b55b704f6c63681c",
+    "scripts/tests/test_gen_behavior.py": "c2573a99f42106fb35e7a498bd5232009598ab4d88cfbd510f6e498a86fe318e",
+    "scripts/tests/test_guild_activity_behavior.py": "60c11199c661a0cddfc1e43d71cc10f529ac67918c72d445c0930b1c727f8747",
+    "scripts/validate.py": "0f05dd0ad2fac845c8f1eb96fcb82ea31c90c15fe88d09dc5842d41d457686e0"
+  },
+  "final_documentation_sha256": {
+    "docs/CONFORMANCE_CHECKLIST.md": "cc3348781214d2199cc2cf3d8d227885fd802159ba4c8e378aef018a01123976",
+    "docs/GUILD_ACTIVITY_OWNERSHIP.md": "9145cfebb4d93dead03a2ca81dc392126cdda62f1cb05d41d62356dce55012eb",
+    "docs/GUILD_DEMON_PRIORITIES.md": "098731d3f8e27d96ac844981b06c9f77c6959f9e2efb7ba922e3b2e569ceb94a",
+    "docs/HANDOFF.md": "89be4b065cf26518932ca8fe4e6bfdb5adf3c4bcb4d2ecd51d06a013d385376a"
+  },
+  "documentation_timing": "Final documents refreshed after code validation; all staged executable source matches the tested snapshot",
+  "node_dependencies": "same locked installed dependencies via node_modules symlink",
+  "engine_acceptance": "unrun",
+  "targeted_rerun": {
+    "scope": "Only the failed maintenance gate rerun; production source unchanged",
+    "reason": "Might-only actual-maintenance fixture was missing the new external activity-reservation dependency; explicitly supplies unmanaged=false",
+    "test_sha256": "3f2021fc6e3b6c7fdf2261eab77a10c2d7d92f41ec7d91c6dc37f83119f2bd20",
+    "original_results": "initial-results.json",
+    "original_log": "initial-guild-maintenance-tests.log",
+    "command": [
+      "/usr/bin/python",
+      "scripts/tests/test_guild_maintenance.py"
+    ],
+    "exit_code": 0
+  },
+  "artifact_code_sha256": {
+    "screenshots/validation/GP19/door-followup-audit.mjs": "9e8d25cdfcfe4432d19a76f797e79c56854a8dbdd4665179dc278550e306ea7a",
+    "screenshots/validation/GP19/independent-controller-probe.mjs": "258fd8a8c2ee3afad1c7fdb6d9a3a9957c57478f24b6d2f42660927235315799",
+    "screenshots/validation/GP19/regenerate-skill-behavior.py": "552ab52bd3e35addef3121ec506d5d1eea63a3827fcbdc641c231bc3b609155b",
+    "screenshots/validation/GP19/rerun-maintenance-fixture.py": "ea473cef4673b360322910364caa34198aaa267ab60cbd177a9d0ace10e476a2"
+  }
+}

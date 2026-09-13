@@ -1,0 +1,55 @@
+(node:138) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+F...
+======================================================================
+FAIL: test_actual_maintenance_callback_preserves_old_worlds_and_training (__main__.GuildMaintenance.test_actual_maintenance_callback_preserves_old_worlds_and_training)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/GP19-reviewed-snapshot/scripts/tests/test_guild_maintenance.py", line 57, in test_actual_maintenance_callback_preserves_old_worlds_and_training
+    self.assertEqual(result.returncode, 0, 'Actual maintenance callback regression failed')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : Actual maintenance callback regression failed
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.422s
+
+FAILED (failures=1)
+✔ missing legacy flags preserve player floors, containers and both scarecrow sites (3.139033ms)
+✔ existing true, false and unknown legacy flag values are retained across reload (4.220108ms)
+✔ unloaded former footprint cells cannot cause repeated clears of new player edits (1.833952ms)
+✔ unreadable cells and write failures never authorize a repair attempt (2.09507ms)
+✔ obsolete flag read failures do not interrupt cave, terrain or apprentice maintenance (1.417196ms)
+✔ unplaced Guilds do not enter maintenance or enroll old geometry (0.917262ms)
+✔ blocked legacy training station is preserved and refused by the actual session owner (2.213226ms)
+✖ clear training stations still acquire once through the actual maintenance callback (1.351781ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 7
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 32.742713
+
+✖ failing tests:
+
+test at scripts/tests/guild_maintenance.test.mjs:131:1
+✖ clear training stations still acquire once through the actual maintenance callback (1.351781ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/GP19-reviewed-snapshot/scripts/tests/guild_maintenance.test.mjs:133:10)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

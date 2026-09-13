@@ -1,0 +1,44 @@
+{
+  "baseline_commit": "c83246751b86aa489897efa3d0cadd49f303c588",
+  "baseline_source_sha256": "05c75e6c53b275a6eb82e424cecb9fefd8327aa184d1a6ae05f5091be945ba7f",
+  "current_source_sha256": "a150aeaf49331d2348ddde239c6d6d548fa0f7c3b414e802d9d30e000ccd1ef1",
+  "emitted_entity_count": 51,
+  "semantically_changed_entities": [
+    "entities/guild_apprentice_skill.json"
+  ],
+  "command": [
+    "/usr/bin/python",
+    "screenshots/validation/GP19/regenerate-skill-behavior.py"
+  ],
+  "pre_regeneration_commands": [
+    {
+      "command": [
+        "/usr/bin/python",
+        "scripts/tests/test_gen_behavior.py"
+      ],
+      "exit_code": 0,
+      "log": "pre-regeneration-behavior.log",
+      "timing": "Before targeted Skill regeneration"
+    },
+    {
+      "command": [
+        "/usr/bin/python",
+        "scripts/tests/test_guild_activity_behavior.py"
+      ],
+      "exit_code": 0,
+      "log": "native-activity-tests.log",
+      "timing": "Before targeted Skill regeneration"
+    }
+  ],
+  "pack_files_before": 1661,
+  "pack_files_after": 1661,
+  "changed_pack_files": [
+    {
+      "path": "packs/Fablecraft_BP/entities/guild_apprentice_skill.json",
+      "before_sha256": "1dc3472698de2d6387db488bd9c41dc7b1a21c39a7c624c402985c22542ffbf8",
+      "after_sha256": "87e38dd83e2c580047855f5921db60d19a04b3f4d36a725d011ed6afa659e994"
+    }
+  ],
+  "current_isolated_output_matches_shipped": true,
+  "native_acceptance": "unrun"
+}

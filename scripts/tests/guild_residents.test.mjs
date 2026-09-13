@@ -295,6 +295,7 @@ test('actual population enrollment precedes decoration; maintenance and death/lo
     isInsideGuild:(p,id)=>id==='minecraft:overworld'&&p.x>=0&&p.x<=122,
     forceLoadGuild:()=>true,sampleGroundY:()=>66,OVERWORLD_SEA_LEVEL:63,showHeroTitle:()=>{},
     guildCaves:{enroll:()=>true,pendingBase:()=>undefined},ensureGuildDoorPilot:()=>{},
+    reconcileGuildActivity(){},preemptNpcActivity(){}, // Separate owner integration is exercised by GP19 tests.
     registerCullis:()=>{decorated=true;throw Error('decoration unavailable');},
   });
   f.dimension.spawnEntity=(type,p)=>f.entity(type,p);

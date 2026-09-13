@@ -12,7 +12,7 @@ individually designed corresponding reward worlds with return travel. Start the
 GP/DP queue in [GUILD_DEMON_PRIORITIES.md](GUILD_DEMON_PRIORITIES.md) before W3.5.
 That newly authorized queue is tracked separately from these 45 historical leaves;
 the existing completion counts do not measure Guild/portal redesign completion.
-Latest supplemental checkpoint: GP18. See GUILD_DEMON_PRIORITIES.md for exact
+Latest supplemental checkpoint: GP19. See GUILD_DEMON_PRIORITIES.md for exact
 scope and evidence. Engine acceptance remains pending; the 45-leaf counts are unchanged.
 
 ## Prerequisites and bootstrap

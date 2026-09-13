@@ -8,6 +8,9 @@ import {parse} from 'espree';
 const sourcePath=process.env.FC_RELATIONSHIP_SOURCE??'packs/Fablecraft_BP/scripts/main.js';
 const source=await readFile(sourcePath,'utf8');
 const training=await readFile(join(dirname(sourcePath),'guild_training.js'),'utf8');
+const withActivity=source.includes('./guild_activity_hooks.js');
+const hookSource=withActivity?await readFile(join(dirname(sourcePath),'guild_activity_hooks.js'),'utf8'):null;
+const activitySource=withActivity?await readFile(join(dirname(sourcePath),'guild_activity.js'),'utf8'):null;
 const ast=parse(source,{ecmaVersion:'latest',sourceType:'module',range:true});
 const required=['P','inv','countItem','removeItem','LOVE_HEART','PET_NAMES','HELD_GIFTS','GIFT_COOLDOWN_TICKS',
   'isRomanceable','npcLove','setNpcLove','isMarried','isMySpouse','npcName','marryNpc','proposeMenu',
@@ -24,6 +27,12 @@ async function fixture({deferredProperties=false}={}){
   const context=vm.createContext({});const module=new vm.SourceTextModule(training,{context});
   await module.link(()=>{throw Error('Training owner must remain injected');});await module.evaluate();
   const api=module.namespace,forms=[],operations=[],caught=[],npcs=[],actors=[];
+  let hookModule,activityModule;
+  if(withActivity){
+    hookModule=new vm.SourceTextModule(hookSource,{context});await hookModule.link(()=>module);await hookModule.evaluate();
+    activityModule=new vm.SourceTextModule(activitySource,{context});await activityModule.link(()=>{throw Error('Activity must stay injected');});await activityModule.evaluate();
+    Object.assign(context,Object.fromEntries(Object.keys(hookModule.namespace).map(k=>[k,hookModule.namespace[k]])));
+  }
   const dim={id:'minecraft:overworld',spawnParticle(id){operations.push(['particle',id]);},
     getBlock:p=>({typeId:p.y===0?'minecraft:coarse_dirt':'minecraft:air',isAir:p.y>0})};
   const faults=new Map();
@@ -52,7 +61,7 @@ async function fixture({deferredProperties=false}={}){
   }
   function player(id=`hero-${++serial}`){const p=actor('minecraft:player',id);for(const slot of [0,2])p.items.set(slot,{typeId:'fc:wedding_ring',amount:1});return p;}
   function npc(owner='',id=`resident-${++serial}`){const e=actor('fc:guild_apprentice_skill',id);e.sync.set('fc:married',owner?1:0);e.sync.set('fc:love_hate',80);
-    e.props.set('fc_spouse_player',owner);e.props.set('fc_guild_resident_slot','skill_range');e.props.set('fc_social_history','retained');npcs.push(e);return e;}
+    e.props.set('fc_spouse_player',owner);e.props.set('fc_guild_resident_slot','skill_range');e.props.set('fc_social_history','retained');npcs.push(e);activity?.reconcile([e]);operations.length=0;return e;}
   class Form{
     title(value){this.titleText=value;return this;}body(){return this;}button(){return this;}button1(){return this;}button2(){return this;}
     show(player){this.player=player;forms.push(this);return {then:fn=>{this.resolve=(selection,canceled=false)=>{try{return fn({selection,canceled});}catch(e){caught.push(e.message);this.reject?.(e);}};return {catch:fn=>{this.reject=fn;}};},catch:fn=>{this.reject=fn;}};}
@@ -62,8 +71,17 @@ async function fixture({deferredProperties=false}={}){
     system:{currentTick:10},addMorality:(p,n)=>operations.push(['morality',p.id,n])});
   vm.runInContext(declarations,context);
   const runtime=vm.runInContext('({propose:proposeMenu,marry:marryNpc,spouse:spouseMenu,divorce:divorceConfirm,gift:offerGift})',context);
-  const ctl=api.createGuildTrainingController({now:()=>10,session:()=>0,canTrain:()=>true});api.bindGuildTrainingReactions(ctl);
-  return {context,api,ctl,forms,operations,caught,npcs,dim,faults,player,npc,runtime,
+  const ctl=api.createGuildTrainingController({now:()=>context.system.currentTick,session:()=>Math.floor(context.system.currentTick/3600),canTrain:e=>!hookModule?.namespace.guildActivityReserved(e)});api.bindGuildTrainingReactions(ctl);
+  let activity,activityRaw,witness;
+  if(withActivity){
+    activity=activityModule.namespace.createGuildActivityController({now:()=>context.system.currentTick,
+      read:()=>activityRaw,write:v=>{activityRaw=v;},readWitness:()=>witness,writeWitness:v=>{witness=v;},
+      base:()=>({x:0,y:0,z:0}),resolve:e=>npcs.some(n=>n.id===e.id)?{kind:'bound',slot:'skill_range',entityId:e.id,type:e.typeId,base:{x:0,y:0,z:0}}:{kind:'other'},
+      lookup:id=>actors.find(e=>e.id===id&&e.isValid),players:()=>actors.filter(e=>e.typeId==='minecraft:player'&&e.isValid),
+      stopTraining:e=>{ctl.interrupt(e);return !ctl.reserved(e);},trainingReserved:e=>ctl.reserved(e),
+    });hookModule.namespace.bindGuildActivity(activity,ctl);activity.reconcile();
+  }
+  return {context,api,ctl,activity,settle(){context.system.currentTick++;activity?.reconcile(npcs);},forms,operations,caught,npcs,dim,faults,player,npc,runtime,
     inject(id,method,phase='before',count=1){faults.set(`${id}:${method}`,{phase,count});},
     flushProperties(){for(const e of actors){for(const [key,value] of e.pending)e.sync.set(key,value);e.pending.clear();}},
     trackedForms(){return vm.runInContext('typeof relationshipForms === "undefined" ? -1 : relationshipForms.size',context);},
@@ -184,10 +202,10 @@ test('an old menu stays invalid after divorce and remarriage to the same Hero',a
 
 test('legitimate spouse Follow and Wait still invoke the actual training interruption hook',async()=>{
   for(const choice of [1,2]){
-    const f=await fixture(),p=f.player(),n=f.npc(p.id);setSpouses(p,[n.id]);f.ctl.beginPass([n]);const token=f.ctl.acquire(n,'fc_train_range',n.location,{x:83.5,y:2.45,z:34.5});
-    assert.notEqual(token,null);const before=f.snapshot(p,n);f.operations.length=0;f.runtime.spouse(p,n);f.forms[0].resolve(choice);
+    const f=await fixture(),p=f.player(),n=f.npc(p.id);setSpouses(p,[n.id]);f.context.system.currentTick=4000;f.activity?.reconcile([n]);f.ctl.beginPass([n]);const token=f.ctl.acquire(n,'fc_train_range',n.location,{x:83.5,y:2.45,z:34.5});
+    assert.notEqual(token,null);const before=f.snapshot(p,n);f.operations.length=0;f.runtime.spouse(p,n);f.forms[0].resolve(choice);f.settle();
     assert.equal(f.ctl.isActive(n,token),false);assert.equal(n.hasTag('fc_guild_following'),choice===1);assert.equal(f.snapshot(p,n),before);
-    assert.ok(f.operations.some(op=>op[0]==='event'&&op[2]===(choice===1?'fc:react_follow':'fc:react_neutral')));
+    assert.ok(f.operations.some(op=>op[0]==='event'&&op[2]===(withActivity?(choice===1?'fc:guild_activity_follow_range':'fc:guild_activity_wait'):(choice===1?'fc:react_follow':'fc:react_neutral'))));
   }
 });
 
@@ -242,7 +260,7 @@ test('stable IDs reject older forms through distinct native wrappers and after d
   const f=await fixture(),p=f.player(),n=f.npc(p.id),otherP={...p},otherN={...n};setSpouses(p,[n.id]);
   f.runtime.spouse(p,n);f.runtime.spouse(otherP,otherN);f.forms[0].resolve(1);
   assert.equal(f.operations.length,0);assert.equal(f.trackedForms(),1);
-  f.forms[1].resolve(2);assert.ok(f.operations.some(op=>op[0]==='event'&&op[2]==='fc:react_neutral'));assert.equal(f.trackedForms(),0);
+  f.forms[1].resolve(2);f.settle();assert.ok(f.operations.some(op=>op[0]==='event'&&op[2]===(withActivity?'fc:guild_activity_wait':'fc:react_neutral')));assert.equal(f.trackedForms(),0);
   f.runtime.spouse(p,n);f.runtime.divorce(otherP,otherN);f.forms[3].resolve(0);n.sync.set('fc:love_hate',80);f.runtime.marry(otherP,otherN);
   const before=f.snapshot(p,n);f.operations.length=0;f.forms[2].resolve(1);noAction(f,before,p,n);
   const g=await fixture(),hero=g.player(),resident=g.npc();g.runtime.propose(hero,resident);g.runtime.propose({...hero},{...resident});
@@ -328,7 +346,7 @@ test('changed payment slots and unconfirmed inventory writes suppress success wi
 });
 
 test('a successful proposal keeps the production training interruption owner and preserved resident identity',async()=>{
-  const f=await fixture(),p=f.player(),n=f.npc();f.ctl.beginPass([n]);const token=f.ctl.acquire(n,'fc_train_range',n.location,{x:83.5,y:2.45,z:34.5});
-  assert.notEqual(token,null);f.runtime.propose(p,n);f.forms[0].resolve(0);
+  const f=await fixture(),p=f.player(),n=f.npc();f.context.system.currentTick=4000;f.activity?.reconcile([n]);f.ctl.beginPass([n]);const token=f.ctl.acquire(n,'fc_train_range',n.location,{x:83.5,y:2.45,z:34.5});
+  assert.notEqual(token,null);f.runtime.propose(p,n);f.forms[0].resolve(0);f.settle();
   assert.equal(f.ctl.isActive(n,token),false);assert.equal(n.hasTag('fc_guild_following'),true);assert.equal(n.props.get('fc_guild_resident_slot'),'skill_range');
 });

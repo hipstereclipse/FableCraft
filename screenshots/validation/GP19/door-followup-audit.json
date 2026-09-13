@@ -1,0 +1,226 @@
+{
+  "audited_head": "c83246751b86aa489897efa3d0cadd49f303c588 plus GP19 working edits",
+  "source_sha256": {
+    "main": "2d158bedac0198480e359f10d93ea67710ab1a777a9e16117479ddbf11d32c8d",
+    "portal": "aee84404ebb7f8b5ebc63b7b584de2e1c08918e67094dc2d9e762044e6035b62",
+    "aperture": "5db5993efaebf1787125cd2552379f1a9220d5e485fa7edd9c4b52603681fbb5",
+    "gamedata": "b649dacfc8960dcbff44534b8b553ccaecfb327aa28ce1096814393d259941eb"
+  },
+  "results": [
+    {
+      "path": "readable",
+      "ticket_read_errors": 0,
+      "original_source": {
+        "x": 102.1,
+        "y": 65,
+        "z": 195.5,
+        "dimension": "minecraft:overworld"
+      },
+      "default_return_corridor_blocked": false,
+      "source_after_periodic_reconciliation": {
+        "x": 102.1,
+        "y": 65,
+        "z": 195.5,
+        "dimension": "minecraft:overworld"
+      },
+      "return_moves": 1,
+      "returned_to": {
+        "x": 102.1,
+        "y": 65,
+        "z": 195.5
+      },
+      "ticket_backing_history_preserved": false,
+      "default_approach_used": false,
+      "world_history_unchanged": true,
+      "structures_placed": 0
+    },
+    {
+      "path": "readable_blocked_default",
+      "ticket_read_errors": 0,
+      "original_source": {
+        "x": 102.1,
+        "y": 65,
+        "z": 195.5,
+        "dimension": "minecraft:overworld"
+      },
+      "default_return_corridor_blocked": true,
+      "source_after_periodic_reconciliation": {
+        "x": 102.1,
+        "y": 65,
+        "z": 195.5,
+        "dimension": "minecraft:overworld"
+      },
+      "return_moves": 1,
+      "returned_to": {
+        "x": 102.1,
+        "y": 65,
+        "z": 195.5
+      },
+      "ticket_backing_history_preserved": false,
+      "default_approach_used": false,
+      "world_history_unchanged": true,
+      "structures_placed": 0
+    },
+    {
+      "path": "periodic_unreadable",
+      "ticket_read_errors": 2,
+      "original_source": {
+        "x": 102.1,
+        "y": 65,
+        "z": 195.5,
+        "dimension": "minecraft:overworld"
+      },
+      "default_return_corridor_blocked": false,
+      "source_after_periodic_reconciliation": {
+        "x": 100.5,
+        "y": 65,
+        "z": 196.5,
+        "dimension": "minecraft:overworld"
+      },
+      "return_moves": 1,
+      "returned_to": {
+        "x": 100.5,
+        "y": 65,
+        "z": 196.5
+      },
+      "ticket_backing_history_preserved": false,
+      "default_approach_used": true,
+      "world_history_unchanged": true,
+      "structures_placed": 0
+    },
+    {
+      "path": "periodic_unreadable_blocked_default",
+      "ticket_read_errors": 2,
+      "original_source": {
+        "x": 102.1,
+        "y": 65,
+        "z": 195.5,
+        "dimension": "minecraft:overworld"
+      },
+      "default_return_corridor_blocked": true,
+      "source_after_periodic_reconciliation": {
+        "x": 100.5,
+        "y": 65,
+        "z": 196.5,
+        "dimension": "minecraft:overworld"
+      },
+      "return_moves": 0,
+      "returned_to": null,
+      "ticket_backing_history_preserved": false,
+      "default_approach_used": false,
+      "world_history_unchanged": true,
+      "structures_placed": 0
+    },
+    {
+      "path": "command_unreadable",
+      "ticket_read_errors": 2,
+      "original_source": {
+        "x": 102.1,
+        "y": 65,
+        "z": 195.5,
+        "dimension": "minecraft:overworld"
+      },
+      "default_return_corridor_blocked": false,
+      "source_after_periodic_reconciliation": null,
+      "return_moves": 1,
+      "returned_to": {
+        "x": 100.5,
+        "y": 65,
+        "z": 196.5
+      },
+      "ticket_backing_history_preserved": false,
+      "default_approach_used": true,
+      "world_history_unchanged": true,
+      "structures_placed": 0
+    },
+    {
+      "path": "arch_click_unreadable",
+      "ticket_read_errors": 5,
+      "original_source": {
+        "x": 102.1,
+        "y": 65,
+        "z": 195.5,
+        "dimension": "minecraft:overworld"
+      },
+      "default_return_corridor_blocked": false,
+      "source_after_periodic_reconciliation": null,
+      "return_moves": 1,
+      "returned_to": {
+        "x": 100.5,
+        "y": 65,
+        "z": 196.5
+      },
+      "ticket_backing_history_preserved": false,
+      "default_approach_used": true,
+      "world_history_unchanged": true,
+      "structures_placed": 0
+    },
+    {
+      "path": "missing_ticket",
+      "ticket_read_errors": 0,
+      "original_source": {
+        "x": 102.1,
+        "y": 65,
+        "z": 195.5,
+        "dimension": "minecraft:overworld"
+      },
+      "default_return_corridor_blocked": false,
+      "source_after_periodic_reconciliation": null,
+      "return_moves": 1,
+      "returned_to": {
+        "x": 100.5,
+        "y": 65,
+        "z": 196.5
+      },
+      "ticket_backing_history_preserved": true,
+      "default_approach_used": true,
+      "world_history_unchanged": true,
+      "structures_placed": 0
+    },
+    {
+      "path": "corrupt_ticket",
+      "ticket_read_errors": 0,
+      "original_source": {
+        "x": 102.1,
+        "y": 65,
+        "z": 195.5,
+        "dimension": "minecraft:overworld"
+      },
+      "default_return_corridor_blocked": false,
+      "source_after_periodic_reconciliation": null,
+      "return_moves": 1,
+      "returned_to": {
+        "x": 100.5,
+        "y": 65,
+        "z": 196.5
+      },
+      "ticket_backing_history_preserved": false,
+      "default_approach_used": true,
+      "world_history_unchanged": true,
+      "structures_placed": 0
+    },
+    {
+      "path": "both_unreadable",
+      "ticket_read_errors": 2,
+      "original_source": {
+        "x": 102.1,
+        "y": 65,
+        "z": 195.5,
+        "dimension": "minecraft:overworld"
+      },
+      "default_return_corridor_blocked": false,
+      "source_after_periodic_reconciliation": {
+        "x": 102.1,
+        "y": 65,
+        "z": 195.5,
+        "dimension": "minecraft:overworld"
+      },
+      "return_moves": 0,
+      "returned_to": null,
+      "ticket_backing_history_preserved": true,
+      "default_approach_used": false,
+      "world_history_unchanged": true,
+      "structures_placed": 0
+    }
+  ]
+}

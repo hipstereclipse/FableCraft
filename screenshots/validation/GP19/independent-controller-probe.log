@@ -1,0 +1,63 @@
+(node:3) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "source_sha256": "9571f7cabb92799874ec4adb0481887dca9d4a644c69648e14e604e281f3fa19",
+  "command": "node --experimental-vm-modules screenshots/validation/GP19/independent-controller-probe.mjs",
+  "native_acceptance": "unrun; fixture records calls rather than executing Bedrock goals",
+  "passed": 13,
+  "failed": 0,
+  "cases": [
+    {
+      "name": "revision exhaustion still stops loaded persisted follow",
+      "passed": true
+    },
+    {
+      "name": "revision exhaustion still stops loaded persisted wait",
+      "passed": true
+    },
+    {
+      "name": "corrupt witness while active removes native activity without resetting history",
+      "passed": true
+    },
+    {
+      "name": "holder write beforeWrite failure grants no player tag",
+      "passed": true
+    },
+    {
+      "name": "holder write afterWrite failure grants no player tag",
+      "passed": true
+    },
+    {
+      "name": "tag grant mutates then throws and owner disconnects: debt survives reload",
+      "passed": true
+    },
+    {
+      "name": "tag removal mutates then throws: no optimistic authority release",
+      "passed": true
+    },
+    {
+      "name": "failed idle preemption cannot revive the captured old revision after reconciliation",
+      "passed": true
+    },
+    {
+      "name": "unreadable unexpected online tag holder cannot disappear from cleanup debt by disconnecting",
+      "passed": true
+    },
+    {
+      "name": "failed discovery-debt write remains blocked when the unexpected holder disconnects",
+      "passed": true
+    },
+    {
+      "name": "a conflicting newly bound candidate cannot hide the still-loaded durable owner from cleanup",
+      "passed": true
+    },
+    {
+      "name": "active Follow detects corrupted NPC marker fc_guild_activity_owned_v1",
+      "passed": true
+    },
+    {
+      "name": "active Follow detects corrupted NPC marker fc_guild_activity_wait_v1",
+      "passed": true
+    }
+  ]
+}

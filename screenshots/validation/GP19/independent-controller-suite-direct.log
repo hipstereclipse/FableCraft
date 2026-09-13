@@ -1,0 +1,26 @@
+✔ witness and exact roster bindings precede any native channel permission (4.774755ms)
+✔ independent Heroes acquire only their canonical channel after a native-stop tick barrier (5.709259ms)
+✔ owned Wait holds movement, blocks unrelated requesters, and release restores movement/history (5.351256ms)
+✔ idle reconciliation never repeatedly cancels training; activation waits for actual training cleanup (8.397712ms)
+✔ disconnect keeps holder debt and forbids reassignment until reconnect cleanup is verified (5.588709ms)
+✔ unload and reload reconcile saved Follow/Wait without resurrection or replacement residents (8.175488ms)
+✔ queued activation rechecks generation, wrapper IDs, marriage, dimension and defensive state (35.331479ms)
+✔ defence preemption restores Wait despite tag errors and retains retry obligations (9.721438ms)
+✔ missing established journal, malformed history and witness/read failures never become empty authority (20.230521ms)
+✔ strict fresh roster resolver rejects cached saves, copied markers and wrong identity without writes (3.270393ms)
+✔ active duplicate/missing channel tags or NPC marker drift stop native Follow without resurrection (22.685628ms)
+✔ unavailable or conflicting fresh identity still stops the loaded durable resident and never falls through (19.187881ms)
+✔ failed request/preempt revision persistence cannot revive captured idle callbacks on retry (19.961638ms)
+✔ unreadable or unsaved discovered holder debt survives disconnect and cleans reachable holders fairly (15.949809ms)
+✔ exhausted persisted revisions stop native effects while keeping authority blocked (9.298782ms)
+✔ holder overflow remains quarantined across failed persistence, cleared tags and reload (5.546819ms)
+(node:3) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 216.770227

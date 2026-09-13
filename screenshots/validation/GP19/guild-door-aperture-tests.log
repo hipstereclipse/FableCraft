@@ -1,0 +1,14 @@
+(node:208) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ known old throat clears once without any surrounding writes; new throat needs none (2.398798ms)
+✔ foreign block, missing chunk and absent floor prevent every mutation (0.643859ms)
+✔ partially cleared approved migration resumes after failure; ready rooms preserve new blocks (0.460058ms)
+✔ invalid record or changed anchor refuses to reset the migration (0.43456ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11.486455

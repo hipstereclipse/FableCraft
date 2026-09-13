@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'scripts'))
 import fc_data
 from fc_mobs import MOBS, is_romanceable
+from test_guild_activity_behavior import NativeState
 
 source = Path(os.environ.get('FC_BEHAVIOR_SOURCE', ROOT / 'scripts/gen_behavior.py'))
 spec = importlib.util.spec_from_file_location('behavior_under_test', source)
@@ -67,16 +68,11 @@ class BehaviorRegression(unittest.TestCase):
             with self.subTest(mob=mob['id']):
                 gb.emit_entity(mob)
                 data = json.loads((self.bp / 'entities' / (mob['id'] + '.json')).read_text())['minecraft:entity']
-                live = dict(data['components'])
-                groups = data['component_groups']
+                state = NativeState(data)
+                live = state.live
                 for event in ('fc:guild_training_start', 'fc:guild_training_stop',
                               'fc:guild_training_stop', 'fc:guild_training_start', 'fc:guild_training_stop'):
-                    action = data['events'][event]
-                    for group in action.get('remove', {}).get('component_groups', []):
-                        for key in groups[group]:
-                            live.pop(key, None)
-                    for group in action.get('add', {}).get('component_groups', []):
-                        live.update(groups[group])
+                    state.apply(event)
                     if event.endswith('_start'):
                         self.assertEqual(live['minecraft:movement']['value'], 0)
                     else:
@@ -128,22 +124,9 @@ class BehaviorRegression(unittest.TestCase):
             with self.subTest(mob=mob['id']):
                 gb.emit_entity(mob)
                 data = json.loads((self.bp / 'entities' / (mob['id'] + '.json')).read_text())['minecraft:entity']
-                groups, live, active, tags = data['component_groups'], dict(data['components']), set(), set()
-                def apply(action):
-                    if 'sequence' in action:
-                        for part in action['sequence']:
-                            apply(part)
-                        return
-                    if 'filters' in action and action['filters']['value'] not in tags:
-                        return
-                    for group in action.get('remove', {}).get('component_groups', []):
-                        if group in active:
-                            for key in groups[group]:
-                                live.pop(key, None)
-                            active.remove(group)
-                    for group in action.get('add', {}).get('component_groups', []):
-                        active.add(group)
-                        live.update(groups[group])
+                state = NativeState(data)
+                groups, live, active, tags = data['component_groups'], state.live, state.active, state.tags
+                apply = state.apply
                 apply(data['events']['fc:react_follow'])
                 tags.add('fc_guild_defending')
                 apply(data['events']['fc:guild_defence_start'])

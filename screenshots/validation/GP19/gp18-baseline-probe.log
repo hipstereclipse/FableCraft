@@ -1,0 +1,14 @@
+{"baseline":"GP18","observed_defect":"Wait broadcast","neutral_targets":["canonical-range","canonical-hall","unrelated-might"],"unrelated_training_interrupted":true}
+{"baseline":"GP18","observed_defect":"stale fear callback","newer_reaction":"fc:react_follow","later_stale_event":"fc:react_flee"}
+✔ GP18 actual Wait broadcasts neutral to two prior followers and an unrelated active trainee (39.988247ms)
+✔ GP18 actual deferred fear overwrites a later Follow reaction (17.838472ms)
+(node:15) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 66.867405

@@ -1,0 +1,67 @@
+{
+  "source_sha256": "bcb2bbba10031a1926cf941b3c34899d16e2cdd615942ba33133bc81aba9620d",
+  "command": "node --experimental-vm-modules screenshots/validation/GP19/independent-controller-probe.mjs",
+  "native_acceptance": "unrun; fixture records calls rather than executing Bedrock goals",
+  "passed": 7,
+  "failed": 6,
+  "cases": [
+    {
+      "name": "revision exhaustion still stops loaded persisted follow",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: No native stop at maximum persisted revision"
+    },
+    {
+      "name": "revision exhaustion still stops loaded persisted wait",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: No native stop at maximum persisted revision"
+    },
+    {
+      "name": "corrupt witness while active removes native activity without resetting history",
+      "passed": true
+    },
+    {
+      "name": "holder write beforeWrite failure grants no player tag",
+      "passed": true
+    },
+    {
+      "name": "holder write afterWrite failure grants no player tag",
+      "passed": true
+    },
+    {
+      "name": "tag grant mutates then throws and owner disconnects: debt survives reload",
+      "passed": true
+    },
+    {
+      "name": "tag removal mutates then throws: no optimistic authority release",
+      "passed": true
+    },
+    {
+      "name": "failed idle preemption cannot revive the captured old revision after reconciliation",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Old callback authority became valid again after failed preempt write\n\ntrue !== false\n"
+    },
+    {
+      "name": "unreadable unexpected online tag holder cannot disappear from cleanup debt by disconnecting",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Unreadable online holder was never journaled"
+    },
+    {
+      "name": "failed discovery-debt write remains blocked when the unexpected holder disconnects",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Failed discovery debt was forgotten when holder went offline\n\n'idle' !== 'stopping'\n"
+    },
+    {
+      "name": "a conflicting newly bound candidate cannot hide the still-loaded durable owner from cleanup",
+      "passed": false,
+      "error": "AssertionError [ERR_ASSERTION]: Conflicting candidate hid durable old ID from cleanup"
+    },
+    {
+      "name": "active Follow detects corrupted NPC marker fc_guild_activity_owned_v1",
+      "passed": true
+    },
+    {
+      "name": "active Follow detects corrupted NPC marker fc_guild_activity_wait_v1",
+      "passed": true
+    }
+  ]
+}

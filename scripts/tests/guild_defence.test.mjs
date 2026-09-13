@@ -82,6 +82,7 @@ async function fixture() {
       bountyCrimeKind:e=>api.isGuildDefender(e)?'guard':e.families.includes('fc_friendly')?'civilian':null,
       settlementForCrime:(p,victim)=>victim.location.x<122?{key:'guild_heroes',town:'guild',name:'Heroes Guild',dimension:'minecraft:overworld',x:0,z:0,w:122}:null,
       familyOf:()=>null,nearestPlayer:()=>{throw Error('Never guess a projectile owner');},
+      preemptNpcActivity:e=>interruptions.push(`activity:${e.id}`),routeGuildActivityReaction:()=>false,
       notifyGuildTrainingReaction(){},setNpcLove(){},npcLove:()=>0,audit(){},
     });
     const names=['P','BOUNTY_KEY','BOUNTY_AMOUNT','BOUNTY_TIME_MS','BOUNTY_TIMER_START_MS','BOUNTY_TIMER_MAX_MS',

@@ -9,6 +9,8 @@ import {
 import { FABLE_EMOTES, FABLE_EMOTE_BY_ID } from "./fable_emote_registry.js";
 import { notifyGuildTrainingReaction } from "./guild_training.js";
 import { provokeGuildDefence } from "./guild_defence.js";
+import { routeGuildActivityReaction, requestNpcActivity, captureGuildReaction,
+  guildReactionCurrent, guildActivityReserved } from "./guild_activity_hooks.js";
 
 const CAMERA_TICKS = 40;
 const SOCIAL_RANGE = 12;
@@ -248,6 +250,7 @@ function forceThirdPerson(player, ticks = CAMERA_TICKS) {
 
 function triggerNpcEvent(npc, eventName, player = null) {
   if (eventName === "fc:react_attack" && provokeGuildDefence(npc, player)) return;
+  if (routeGuildActivityReaction(npc, eventName, player)) return;
   try {
     npc.triggerEvent(eventName);
     notifyGuildTrainingReaction(npc, eventName);
@@ -261,13 +264,14 @@ function playNpcReaction(npc, animationKey, ticks = 55) {
   if (!animation) return;
   const token = (reactionTokens.get(npc.id) ?? 0) + 1;
   reactionTokens.set(npc.id, token);
+  const activityToken = captureGuildReaction(npc);
   try {
     npc.playAnimation(animation, { blendOutTime: 0.2 });
   } catch (error) {
     audit("NPC_ANIM_FAIL", `${npc.typeId} ${animation}: ${error}`);
   }
   system.runTimeout(() => {
-    if (reactionTokens.get(npc.id) !== token) return;
+    if (reactionTokens.get(npc.id) !== token || !guildReactionCurrent(npc, activityToken)) return;
     try {
       npc.playAnimation(REACTION_ANIMATIONS.idle, { blendOutTime: 0.25 });
     } catch {
@@ -300,8 +304,17 @@ function finePlayer(player, guard, amount = 50) {
 }
 
 function chooseNpcReaction(player, npc, emote, success, axes) {
+  // Explicit Wait is dispatched once, before any admiration can create Follow.
+  if (emote.functional === "wait") return "wait_request";
+  if (emote.functional === "follow" && success) {
+    const result = requestNpcActivity(npc, player, "follow");
+    if (!result.accepted) return "follow_deferred";
+    playNpcReaction(npc, "cheer");
+    return result.pending ? "follow_pending" : "follow";
+  }
+  if (guildActivityReserved(npc)) return "activity_retained";
   if (!success) {
-    triggerNpcEvent(npc, "fc:react_watch");
+    triggerNpcEvent(npc, "fc:react_watch", player);
     playNpcReaction(npc, "laugh");
     return "laugh_at_player";
   }
@@ -313,31 +326,36 @@ function chooseNpcReaction(player, npc, emote, success, axes) {
   }
   if (axes.fearFunny >= 45) {
     playNpcReaction(npc, "cower", 30);
-    system.runTimeout(() => triggerNpcEvent(npc, "fc:react_flee"), 24);
+    const activityToken = captureGuildReaction(npc);
+    const reactionToken = reactionTokens.get(npc.id);
+    system.runTimeout(() => {
+      if (reactionTokens.get(npc.id) === reactionToken && guildReactionCurrent(npc, activityToken))
+        triggerNpcEvent(npc, "fc:react_flee", player);
+    }, 24);
     return "flee";
   }
   if (axes.loveHate >= 55) {
-    triggerNpcEvent(npc, "fc:react_follow");
+    triggerNpcEvent(npc, "fc:react_follow", player);
     playNpcReaction(npc, "cheer");
     maybeGiveGift(player, npc, axes.loveHate);
     return "follow";
   }
   if (axes.fearFunny <= -35 || emote.category === "funny") {
-    triggerNpcEvent(npc, "fc:react_watch");
+    triggerNpcEvent(npc, "fc:react_watch", player);
     playNpcReaction(npc, Math.random() < 0.5 ? "laugh" : "clap");
     return "laugh_or_clap";
   }
   if (emote.category === "scary") {
-    triggerNpcEvent(npc, "fc:react_watch");
+    triggerNpcEvent(npc, "fc:react_watch", player);
     playNpcReaction(npc, "cower");
     return "cower";
   }
   if (emote.category === "rude" || emote.category === "criminal") {
-    triggerNpcEvent(npc, "fc:react_watch");
+    triggerNpcEvent(npc, "fc:react_watch", player);
     playNpcReaction(npc, "angry");
     return "angry";
   }
-  triggerNpcEvent(npc, emote.functional === "follow" ? "fc:react_follow" : "fc:react_watch");
+  triggerNpcEvent(npc, emote.functional === "follow" ? "fc:react_follow" : "fc:react_watch", player);
   playNpcReaction(npc, emote.category === "romantic" ? "cheer" : "clap");
   return emote.category === "romantic" ? "cheer" : "approve";
 }
@@ -453,7 +471,7 @@ function executeFunctionalEffect(player, emote) {
   if (emote.functional === "lockpick") return executeLockpick(player);
   if (emote.functional === "oracle") return executeOracleGesture(player, emote.id);
   if (emote.functional === "wait") {
-    for (const npc of nearbyNpcs(player)) triggerNpcEvent(npc, "fc:react_neutral");
+    for (const npc of nearbyNpcs(player)) requestNpcActivity(npc, player, "wait");
   }
 }
 
@@ -476,7 +494,7 @@ export function performFableEmote(player, id, options = {}) {
   } catch (error) {
     audit("PLAYER_ANIM_FAIL", `${player.name} ${emote.animation}: ${error}`);
   }
-  if (options.react !== false) {
+  if (options.react !== false && emote.functional !== "wait") {
     for (const npc of nearbyNpcs(player)) applyNpcEffect(player, npc, emote, success, true);
   }
   setMorality(player, success ? emote.effect.morality : -1);

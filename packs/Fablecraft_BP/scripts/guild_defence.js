@@ -18,7 +18,7 @@ export function provokeGuildDefence(entity, player, ticks = 320) {
   return true;
 }
 
-export function createGuildDefenceController({ now, players, defenders, inGuild, hasWarrant, interruptTraining }) {
+export function createGuildDefenceController({ now, players, defenders, inGuild, hasWarrant, interruptTraining, interruptActivity = () => {} }) {
   const records = new Map(), provocations = new Map();
   const usable = e => { try { return !!e && e.isValid !== false; } catch { return false; } };
   const close = (a, b) => {
@@ -84,6 +84,7 @@ export function createGuildDefenceController({ now, players, defenders, inGuild,
       if (record.active) continue;
       try {
         interruptTraining(record.entity);
+        interruptActivity(record.entity);
         record.entity.addTag(GUILD_DEFENDING_TAG);
         record.entity.triggerEvent("fc:guild_defence_start");
         record.active = true;

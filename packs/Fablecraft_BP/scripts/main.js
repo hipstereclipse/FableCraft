@@ -30,6 +30,9 @@ import {
 import {
   createGuildResidentsController, guildResidentSpawnPoint, GUILD_RESIDENTS_KEY,
 } from "./guild_residents.js";
+import { createGuildActivityController, GUILD_ACTIVITY_KEY, GUILD_ACTIVITY_WITNESS } from "./guild_activity.js";
+import { bindGuildActivity, guildActivityStatus, guildActivityReserved, requestNpcActivity,
+  preemptNpcActivity } from "./guild_activity_hooks.js";
 import "./wd/main.js";
 import { openHeroMenu as wdOpenHeroMenu } from "./wd/herobook.js";
 import { LEGACY_MENU } from "./wd/menu_bridge.js";
@@ -804,7 +807,7 @@ const guildTraining = createGuildTrainingController({
   now: TICKS,
   session: () => guildTrainingSession(TICKS(), world.getTimeOfDay()),
   canTrain: (entity) => !entity.hasTag("fc_aggravated") && !entity.hasTag("fc_guild_defending") && !entity.hasTag("fc_guild_following")
-    && !isMarried(entity) && isInsideGuild(entity.location, entity.dimension.id),
+    && !guildActivityReserved(entity) && !isMarried(entity) && isInsideGuild(entity.location, entity.dimension.id),
 });
 bindGuildTrainingReactions(guildTraining);
 
@@ -1179,6 +1182,24 @@ const guildResidents = createGuildResidentsController({
   }, slot),
   spawn: (slot, point) => OW().spawnEntity(slot.type, point),
 });
+const guildActivity = createGuildActivityController({
+  now: TICKS,
+  read: () => world.getDynamicProperty(GUILD_ACTIVITY_KEY),
+  write: value => world.setDynamicProperty(GUILD_ACTIVITY_KEY, value),
+  readWitness: () => world.getDynamicProperty(GUILD_ACTIVITY_WITNESS),
+  writeWitness: value => world.setDynamicProperty(GUILD_ACTIVITY_WITNESS, value),
+  base: () => guildBounds()?.base,
+  resolve: entity => guildResidents.binding(entity, guildBounds()?.base),
+  lookup: id => world.getEntity(id), players: () => world.getPlayers(),
+  stopTraining: entity => { interruptGuildTraining(entity); return !guildTraining.reserved(entity); },
+  trainingReserved: entity => guildTraining.reserved(entity),
+});
+bindGuildActivity(guildActivity, guildTraining);
+function reconcileGuildActivity(entities = []) { guildActivity.reconcile(entities); }
+system.runInterval(() => reconcileGuildActivity(guildResidentCandidates()), 20);
+world.afterEvents.playerSpawn.subscribe(() => reconcileGuildActivity());
+world.afterEvents.playerLeave.subscribe(() => reconcileGuildActivity());
+
 function maintainGuildResidents() {
   const b = guildBounds();
   if (!b || !world.getDynamicProperty("fc_guild_placed")) return;
@@ -1187,12 +1208,14 @@ function maintainGuildResidents() {
 }
 system.runInterval(() => maintainGuildResidents(), 200);
 // Observe across dimensions without treating loading/removal as a new birth.
-world.afterEvents.entityLoad.subscribe(ev => { guildResidents.observe(ev.entity); });
-world.afterEvents.entityRemove.subscribe(ev => { guildResidents.removed(ev.removedEntityId); });
+world.afterEvents.entityLoad.subscribe(ev => { guildResidents.observe(ev.entity); reconcileGuildActivity([ev.entity]); });
+world.afterEvents.entityRemove.subscribe(ev => { guildResidents.removed(ev.removedEntityId); reconcileGuildActivity(); });
 world.afterEvents.entityDie.subscribe(ev => {
   const b = guildBounds();
   if (b && world.getDynamicProperty("fc_guild_placed")) guildResidents.initialize(b.base);
+  preemptNpcActivity(ev.deadEntity);
   guildResidents.recordDeath(ev.deadEntity);
+  reconcileGuildActivity();
 });
 
 // ---------------------------------------------------------------------------
@@ -3145,8 +3168,15 @@ world.beforeEvents.playerInteractWithEntity.subscribe((ev) => {
   if (NPC_TYPES.includes(t)) {
     ev.cancel = true;
     const usedItem = ev.itemStack?.typeId;
+    const playerId = p.id, targetId = target.id, dimension = p.dimension.id;
     system.run(() => {
-      interruptGuildTraining(target);
+      try {
+        if (p.isValid !== true || target.isValid !== true || p.id !== playerId || target.id !== targetId
+          || p.dimension.id !== dimension || target.dimension.id !== dimension
+          || ![p.location.x, p.location.y, p.location.z, target.location.x, target.location.y, target.location.z].every(Number.isFinite)
+          || Math.hypot(p.location.x - target.location.x, p.location.y - target.location.y, p.location.z - target.location.z) > 6) return;
+      } catch { return; }
+      if (!guildActivityReserved(target)) interruptGuildTraining(target);
       // a one-shot wave the moment the Hero is greeted (humanoid NPCs only; the
       // call is a harmless no-op on plans without the clip, e.g. the Oracle)
       try { target.playAnimation("animation.fc.biped.greet", { blendOutTime: 0.4 }); } catch { }
@@ -3648,7 +3678,8 @@ function marryNpc(p, npc) {
   const pet = PET_NAMES[Math.floor(Math.random() * PET_NAMES.length)];
   try { npc.nameTag = `§d${pet} ♥ §r§7(${base})`; } catch { }
   addMorality(p, 40);
-  try { npc.triggerEvent("fc:react_follow"); notifyGuildTrainingReaction(npc, "fc:react_follow"); } catch { }
+  preemptNpcActivity(npc);
+  requestNpcActivity(npc, p, "follow");
   try { npc.playAnimation("animation.npc.cheer", { blendOutTime: 0.3 }); } catch { }
   try { p.playSound("random.levelup"); } catch { }
   try {
@@ -3658,7 +3689,7 @@ function marryNpc(p, npc) {
         { x: l.x, y: l.y + 1.6 + Math.random() * 0.9, z: l.z });
     }
   } catch { }
-  p.sendMessage(`§d♥ You and ${base} are wed! They will follow your heart now.`);
+  p.sendMessage(`§d♥ You and ${base} are wed!`);
   return true;
 }
 
@@ -3734,7 +3765,7 @@ function divorceConfirm(p, npc) {
         { before: current.owner, after: "", read: () => npc.getDynamicProperty("fc_spouse_player"), write: value => npc.setDynamicProperty("fc_spouse_player", value) },
       ])) return;
       try { npc.nameTag = ""; } catch { }
-      try { npc.triggerEvent("fc:react_neutral"); notifyGuildTrainingReaction(npc, "fc:react_neutral"); } catch { }
+      if (!preemptNpcActivity(npc)) requestNpcActivity(npc, p, "idle");
       addMorality(p, -30);
       p.sendMessage(`§7You and ${base} have parted ways.`);
     }).catch(() => respond.dismiss());
@@ -3744,6 +3775,7 @@ function spouseMenu(p, npc) {
   const state = readRelationship(p, npc);
   if (!state || state.married !== 1 || state.owner !== p.id) return;
   const base = npcName(npc), respond = relationshipResponse(p, npc, state);
+  const activityRevision = guildActivityStatus(npc).revision;
   const m = morality(p);
   const greet = m > 200 ? "My love! The whole village glows when you visit."
     : m < -200 ? "You're back. They whisper such things about you... I don't believe a word. Mostly."
@@ -3770,12 +3802,14 @@ function spouseMenu(p, npc) {
         try { npc.playAnimation("animation.npc.cheer", { blendOutTime: 0.3 }); } catch { }
         p.sendMessage(`§d${base}: §o"${lines[Math.floor(Math.random() * lines.length)]}"`);
       } else if (r.selection === 1) {
-        try { npc.triggerEvent("fc:react_follow"); notifyGuildTrainingReaction(npc, "fc:react_follow"); } catch { }
+        const result = requestNpcActivity(npc, p, "follow", { expectedRevision: activityRevision });
+        if (!result.accepted) { p.sendMessage("§7Your companion cannot follow right now."); return; }
         try { npc.lookAt?.(p.getHeadLocation()); } catch { }
-        p.sendMessage(`§d${base}: §o"Lead on, my love."`);
+        p.sendMessage(result.pending ? "§7Your companion is preparing to follow." : `§d${base}: §o"Lead on, my love."`);
       } else if (r.selection === 2) {
-        try { npc.triggerEvent("fc:react_neutral"); notifyGuildTrainingReaction(npc, "fc:react_neutral"); } catch { }
-        p.sendMessage(`§d${base}: §o"I'll wait right here for you."`);
+        const result = requestNpcActivity(npc, p, "wait", { expectedRevision: activityRevision, acquireWait: true });
+        if (!result.accepted) { p.sendMessage("§7Your companion cannot wait here right now."); return; }
+        p.sendMessage(result.pending ? "§7Your companion is stopping." : `§d${base}: §o"I'll wait right here for you."`);
       } else if (r.selection === 3) {
         const id = bestGiftInBag(p);
         if (!id) { p.sendMessage("§7You have nothing to give. Try a flower or an apple pie."); return; }
@@ -4461,7 +4495,7 @@ function boastGatherCrowd(p, base) {
   folk = folk.filter((e) => e.typeId && e.typeId.startsWith("fc:")
     && e.typeId !== "fc:oracle" && e.typeId !== "fc:demon_door" && e.typeId !== "fc:maze"
     && !e.hasTag("fc_aggravated") && !e.hasTag("fc_guild_defending") && !e.hasTag("fc_guild_following")
-    && !guildTraining.reserved(e));
+    && !guildTraining.reserved(e) && !guildActivityReserved(e));
   folk = folk.slice(0, renown < 30 ? 2 : 24);            // almost nobody for an unknown
   const fx0 = base.x + 8, fz0 = base.z + 31;             // lawn just before the stage
   const face = { x: base.x + 4, y: base.y + 3, z: base.z + 27 };
@@ -5480,6 +5514,7 @@ function hasGuildWarrant(p) {
 const guildDefence = createGuildDefenceController({
   now: TICKS, players: () => world.getPlayers(), defenders: guildDefenders,
   inGuild: isInsideGuild, hasWarrant: hasGuildWarrant, interruptTraining: interruptGuildTraining,
+  interruptActivity: preemptNpcActivity,
 });
 bindGuildDefence(guildDefence);
 function rallyGuildDefenders() {

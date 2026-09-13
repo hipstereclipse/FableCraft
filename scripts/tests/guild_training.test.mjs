@@ -91,6 +91,7 @@ async function fixture() {
       system:{currentTick:tick,runTimeout:(fn,delay)=>timers.push({fn,at:tick+delay}),run:fn=>fn()},
       guildBounds:()=>({base:{x:0,y:0,z:0}}),isMarried:e=>!!e.married,
       isInsideGuild:(loc,id)=>id==='minecraft:overworld',
+      guildActivityReserved:()=>false,routeGuildActivityReaction:()=>false, // Activity arbitration has its own actual-controller integration suite.
       clearGuildRingScarecrows(){},repairGuildDemonApproach(){},repairGuildTerrain(){},repairGuildSkirtVegetation(){},
       placeGuildAnnexes(){}, // GP5's adjacent owner has its own actual-callback suite.
       isRomanceable:()=>false,npcTalk:(p,e)=>dialogues.push(e.id),P:{get:()=>500},
@@ -242,7 +243,7 @@ test('production scheduler repeats harmless activity without repeated placement 
 
 test('production conversation interrupts immediately and prevents same-session resumption',async()=>{
   const f=await fixture(),a=f.entity(),b=f.entity(),archer=f.entity('fc:guild_apprentice_skill');const runtime=await f.runtime();
-  runtime.training();const ev={target:archer,player:{},cancel:false};runtime.interact(ev);
+  runtime.training();const ev={target:archer,player:{id:'hero',isValid:true,dimension:archer.dimension,location:{...archer.location}},cancel:false};runtime.interact(ev);
   assert.equal(ev.cancel,true);assert.equal(runtime.dialogues.length,1);assert.equal(archer.frozen,false);
   f.advance(30);runtime.training();f.runDue();assert.equal(archer.placements.length,1);assert.equal(archer.frozen,false);
   assert.equal(f.sounds.some(s=>s.id==='random.bow'),false);assert.equal(f.spawned.length,0);
@@ -332,7 +333,7 @@ test('Will delayed pulses cancel before first release on conversation, Follow, d
   for(const cause of ['conversation','follow','watch','aggravation','defence','rest','night','invalid','dimension','displaced','dummy','lane']){
     const f=await fixture();willDummy(f);const will=f.entity('fc:guild_apprentice_will'),runtime=await f.runtime();
     runtime.training();assert.equal(will.frozen,true,cause);
-    if(cause==='conversation')runtime.interact({target:will,player:{},cancel:false});
+    if(cause==='conversation')runtime.interact({target:will,player:{id:'hero',isValid:true,dimension:will.dimension,location:{...will.location}},cancel:false});
     if(cause==='follow'||cause==='watch')runtime.emote(will,`fc:react_${cause}`);
     if(cause==='aggravation')will.addTag('fc_aggravated');
     if(cause==='defence')will.addTag('fc_guild_defending');
@@ -485,7 +486,7 @@ test('Skill delayed pulse preserves conversation, Follow, Watch, spouse and defe
     const f=await fixture(),skill=f.entity('fc:guild_apprentice_skill'),runtime=await f.runtime();
     runtime.training();const properties={fc_guild_resident_slot:'skill_range',fc_spouse_player:'hero-a',fc_love:90};
     skill.properties=properties;skill.nameTag='Saved resident';const id=skill.id,before=[...f.blocks];
-    if(cause==='conversation')runtime.interact({target:skill,player:{},cancel:false});
+    if(cause==='conversation')runtime.interact({target:skill,player:{id:'hero',isValid:true,dimension:skill.dimension,location:{...skill.location}},cancel:false});
     if(cause==='follow'||cause==='watch')runtime.emote(skill,`fc:react_${cause}`);
     if(cause==='married')skill.married=true;
     if(cause==='aggravation')skill.addTag('fc_aggravated');
