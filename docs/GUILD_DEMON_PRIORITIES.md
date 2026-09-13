@@ -54,6 +54,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | GP18 | in-progress | Supported Maze-study bookcase and red carpet accents from inspected original views; preserve surveyed routes, anchors and all unrelated campus cells; native acceptance open |
 | GP19 | in-progress | Requester-owned Follow/Wait for the two canonical Skill residents with durable cleanup and social/training/defence arbitration; native acceptance open |
 | DP6 | in-progress | Preserve exact return tickets during unavailable reads; retain confirmed absent/corrupt fallback and independent occupied-room guards; native acceptance open |
+| GP20 | in-progress | One reference-led framed red dormitory wall bay replaces ten existing solid materials; routes, room fixtures and saved geometry preserved; native acceptance open |
 
 Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
 defects and manual status here. These passes are not completed legacy leaves.
@@ -1024,7 +1025,8 @@ This bounded pilot does not close whole-facility or native conformance.
 
 ## DP6 — preserve unavailable exact-source return tickets (2026-09-12)
 
-Commit: SELF: TLC Conformance — DP6: preserve unreadable exact-source return tickets.
+Commit: 274da7f779aec56562341a7dc75de58a8907b81c. Pushed; exact-head CI
+34736624694 passed.
 The GP19 audit reproduced orphan recovery overwriting a valid exact return point
 when the player-ticket read temporarily threw. The ticket reader now distinguishes
 unavailable authority from confirmed missing/corrupt data. The affected periodic
@@ -1057,3 +1059,49 @@ reference-led interior/bridge/range comparison and individually designed door wo
 Preserve saved construction, exact-source returns, resident/relationship history,
 legacy persona compatibility and Nostro's distinct story passage. The first portal
 pilot and the facility still have open native and reference acceptance.
+
+
+## GP20 — framed red dormitory wall bay (2026-09-13)
+
+Commit: SELF: TLC Conformance — GP20: add a framed red Guild dormitory bay.
+The inspected original TLC dormitory screenshot 141296214 shows red plaster-like
+infill, heavy timber uprights and dark carved lower panels. One existing plain
+stone partition bay now uses six red terracotta cells between four dark-oak side
+cells, x84, y7..8, z17..21. Size, placement and block materials are adaptations;
+this does not establish the generated two-floor layout or complete room fidelity.
+The shared roof courses remain exact. Both faces of the one-block partition
+change, including its reverse beside the lower stores roof.
+
+The final structure helper uses no RNG and changes only existing solid materials.
+No floor, stair, bed, light, window, opening, anchor or saved-world geometry changes.
+The renderer gains one approximate red-terracotta color entry. Required behavior
+regressions passed before targeted generation; only the Guild asset changed among
+1,661 pack files. Independent decoded comparison proves exactly ten of 395,280 cells change,
+with all other materials, RNG/layout, 13,822 walking nodes and both dorm stair
+routes intact. All 51 base gates and 64 ESM checks pass in the reviewed snapshot.
+The initial build found stale C2 source metadata before the fresh render finished;
+its red log remains, and only the build gate was rerun after adding the generated
+C2 image/record. Fresh 35-asset C2, full 281-PNG renders and Guild diagnostics pass.
+Only Guild changes among 35 assets/C2 images; only its full card and containing
+places gallery change among 281 PNGs versus GP18. Six focused decoded views were
+inspected. Use GP20 as the next visual-input baseline.
+See GUILD_DORM_WALL_BAY.md and screenshots/validation/GP20/. Native acceptance remains
+unrun; legacy C3 still has 45 leaves and 7 done.
+
+The adjoining bridge/range survey found both existing bridge centerlines intact.
+A hypothetical 22-cell rail footprint preserves surveyed routes and the actual
+Skill ray, but precise source rail extent/bracing remains unverified. The DP6
+arrival proposal still needs native offset/search/event calibration. A bounded
+attempt to acquire the official pinned Linux server received transport failures;
+no server or world was executed. Continue independent canonical-door/interior work
+without inferring that these native checks passed.
+
+The next distinct door candidate is Greatwood Gorge → The Arboretum, supported by
+the retained 2005 guide's labelled interior and source views. GP20's
+arboretum-followup.md records the bounded end-to-end scope: newly registered
+Gorge instances, immutable identity, a disjoint realm grid, witnessed completed
+consumption/full-evil admission, one physical shared Wellow's Pickhammer chest,
+and exact-source return. Preserve all eight legacy personas, unregistered older
+Gorges, Guild tickets/history and Nostro. This remains a proposal, not a second
+implemented reward world; original murder parity, detailed source layout and
+native acceptance remain open.

@@ -1,6 +1,6 @@
 # TLC Conformance checklist
 
-Updated 2026-09-12. Leaf rows are the units of execution. See the playbook for recipes,
+Updated 2026-09-13. Leaf rows are the units of execution. See the playbook for recipes,
 acceptance and evidence policy. `SELF` resolves to the commit containing that row update;
 replace with a real hash in the next milestone. A mock or render is never an in-game pass.
 
@@ -12,7 +12,7 @@ individually designed corresponding reward worlds with return travel. Start the
 GP/DP queue in [GUILD_DEMON_PRIORITIES.md](GUILD_DEMON_PRIORITIES.md) before W3.5.
 That newly authorized queue is tracked separately from these 45 historical leaves;
 the existing completion counts do not measure Guild/portal redesign completion.
-Latest supplemental checkpoint: DP6. See GUILD_DEMON_PRIORITIES.md for exact
+Latest supplemental checkpoint: GP20. See GUILD_DEMON_PRIORITIES.md for exact
 scope and evidence. Engine acceptance remains pending; the 45-leaf counts are unchanged.
 
 ## Prerequisites and bootstrap

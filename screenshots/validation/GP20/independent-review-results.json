@@ -1,0 +1,613 @@
+{
+  "baseline_commit": "274da7f779aec56562341a7dc75de58a8907b81c",
+  "source_sha256": {
+    "before": "0f7183e1e394ccd00faf3b509493a949b35f54ad62ba1373cf4860bc328b0108",
+    "after": "787e34d47d364485ed30f2a12f8a96fa761d54016038f9a4bbe24369e27955b8"
+  },
+  "renderer_sha256": {
+    "before": "29a0e4ac2520a966632468824a78fd2d7f6269924bd3c9bbe5afab0356b05e45",
+    "after": "8b0c678299481e734e945c63764e9122145f6ca90784f0dc60aad1db319c78d3"
+  },
+  "serialized_sha256": {
+    "before": "a92f2c2ac76f1923b87f8c673a586d6427bb9a32a01dc5c83b7ab9f2091180e8",
+    "after": "b9330af161ecc3fed96ccca1db05b51c059eacbd65b3cfbe90facdbce11015a0"
+  },
+  "both_serialized_owners_match_their_assets": true,
+  "decoded_compared_cells": 395280,
+  "exact_changes": [
+    {
+      "at": [
+        84,
+        7,
+        17
+      ],
+      "before": [
+        "minecraft:stone_bricks",
+        {}
+      ],
+      "after": [
+        "minecraft:dark_oak_planks",
+        {}
+      ]
+    },
+    {
+      "at": [
+        84,
+        7,
+        18
+      ],
+      "before": [
+        "minecraft:stone_bricks",
+        {}
+      ],
+      "after": [
+        "minecraft:red_terracotta",
+        {}
+      ]
+    },
+    {
+      "at": [
+        84,
+        7,
+        19
+      ],
+      "before": [
+        "minecraft:stone_bricks",
+        {}
+      ],
+      "after": [
+        "minecraft:red_terracotta",
+        {}
+      ]
+    },
+    {
+      "at": [
+        84,
+        7,
+        20
+      ],
+      "before": [
+        "minecraft:stone_bricks",
+        {}
+      ],
+      "after": [
+        "minecraft:red_terracotta",
+        {}
+      ]
+    },
+    {
+      "at": [
+        84,
+        7,
+        21
+      ],
+      "before": [
+        "minecraft:stone_bricks",
+        {}
+      ],
+      "after": [
+        "minecraft:dark_oak_planks",
+        {}
+      ]
+    },
+    {
+      "at": [
+        84,
+        8,
+        17
+      ],
+      "before": [
+        "minecraft:stone_bricks",
+        {}
+      ],
+      "after": [
+        "minecraft:dark_oak_planks",
+        {}
+      ]
+    },
+    {
+      "at": [
+        84,
+        8,
+        18
+      ],
+      "before": [
+        "minecraft:stone_bricks",
+        {}
+      ],
+      "after": [
+        "minecraft:red_terracotta",
+        {}
+      ]
+    },
+    {
+      "at": [
+        84,
+        8,
+        19
+      ],
+      "before": [
+        "minecraft:stone_bricks",
+        {}
+      ],
+      "after": [
+        "minecraft:red_terracotta",
+        {}
+      ]
+    },
+    {
+      "at": [
+        84,
+        8,
+        20
+      ],
+      "before": [
+        "minecraft:stone_bricks",
+        {}
+      ],
+      "after": [
+        "minecraft:red_terracotta",
+        {}
+      ]
+    },
+    {
+      "at": [
+        84,
+        8,
+        21
+      ],
+      "before": [
+        "minecraft:stone_bricks",
+        {}
+      ],
+      "after": [
+        "minecraft:dark_oak_planks",
+        {}
+      ]
+    }
+  ],
+  "protected_ne_room_cells": 4820,
+  "protected_ne_windows": [
+    [
+      98,
+      3,
+      9
+    ],
+    [
+      98,
+      3,
+      13
+    ],
+    [
+      98,
+      3,
+      17
+    ],
+    [
+      98,
+      3,
+      21
+    ],
+    [
+      98,
+      3,
+      25
+    ],
+    [
+      98,
+      7,
+      9
+    ],
+    [
+      98,
+      7,
+      13
+    ],
+    [
+      98,
+      7,
+      17
+    ],
+    [
+      98,
+      7,
+      21
+    ],
+    [
+      98,
+      7,
+      25
+    ]
+  ],
+  "protected_ne_y5_deck_cells": 345,
+  "protected_maze_cells": 678,
+  "all_existing_palette_entries_unchanged": true,
+  "added_palette": {
+    "name": "minecraft:red_terracotta",
+    "states": {},
+    "version": 18176512
+  },
+  "secondary_layer_entities_origin_metadata_unchanged": true,
+  "layout_and_all_anchors_unchanged": true,
+  "rng_instances": 1,
+  "rng_calls_and_final_states_unchanged": true,
+  "full_campus_walking_nodes_identical": true,
+  "full_campus_walking_nodes": 13822,
+  "gate_reachable_nodes": 10613,
+  "bedroom_reachable_nodes": 238,
+  "dorm_half_cell_stair_nodes": 284,
+  "dorm_ascent": [
+    [
+      90.25,
+      1.0,
+      9.25
+    ],
+    [
+      89.75,
+      1.5,
+      9.25
+    ],
+    [
+      89.25,
+      1.5,
+      9.25
+    ],
+    [
+      89.25,
+      2.0,
+      9.75
+    ],
+    [
+      89.25,
+      2.5,
+      10.25
+    ],
+    [
+      89.25,
+      3.0,
+      10.75
+    ],
+    [
+      88.75,
+      3.5,
+      10.75
+    ],
+    [
+      88.25,
+      4.0,
+      10.75
+    ],
+    [
+      88.25,
+      4.0,
+      11.25
+    ],
+    [
+      87.75,
+      4.5,
+      11.25
+    ],
+    [
+      87.25,
+      5.0,
+      11.25
+    ],
+    [
+      86.75,
+      5.5,
+      11.25
+    ],
+    [
+      86.75,
+      5.5,
+      11.75
+    ],
+    [
+      86.75,
+      6.0,
+      12.25
+    ],
+    [
+      87.25,
+      6.0,
+      12.25
+    ],
+    [
+      87.75,
+      6.0,
+      12.25
+    ],
+    [
+      88.25,
+      6.0,
+      12.25
+    ],
+    [
+      88.75,
+      6.0,
+      12.25
+    ],
+    [
+      89.25,
+      6.0,
+      12.25
+    ],
+    [
+      89.75,
+      6.0,
+      12.25
+    ],
+    [
+      90.25,
+      6.0,
+      12.25
+    ]
+  ],
+  "dorm_descent": [
+    [
+      90.25,
+      6.0,
+      12.25
+    ],
+    [
+      89.75,
+      6.0,
+      12.25
+    ],
+    [
+      89.25,
+      6.0,
+      12.25
+    ],
+    [
+      88.75,
+      6.0,
+      12.25
+    ],
+    [
+      88.25,
+      6.0,
+      12.25
+    ],
+    [
+      87.75,
+      6.0,
+      12.25
+    ],
+    [
+      87.25,
+      6.0,
+      12.25
+    ],
+    [
+      86.75,
+      6.0,
+      12.25
+    ],
+    [
+      86.75,
+      5.5,
+      11.75
+    ],
+    [
+      87.25,
+      5.0,
+      11.75
+    ],
+    [
+      87.75,
+      4.5,
+      11.75
+    ],
+    [
+      88.25,
+      4.0,
+      11.75
+    ],
+    [
+      88.75,
+      3.5,
+      11.75
+    ],
+    [
+      88.75,
+      3.5,
+      11.25
+    ],
+    [
+      88.75,
+      3.5,
+      10.75
+    ],
+    [
+      89.25,
+      3.0,
+      10.75
+    ],
+    [
+      89.75,
+      3.0,
+      10.75
+    ],
+    [
+      89.75,
+      2.5,
+      10.25
+    ],
+    [
+      89.75,
+      2.0,
+      9.75
+    ],
+    [
+      89.75,
+      1.5,
+      9.25
+    ],
+    [
+      90.25,
+      1.0,
+      9.25
+    ]
+  ],
+  "wall_front_points": [
+    [
+      85,
+      6.0,
+      17
+    ],
+    [
+      85,
+      6.0,
+      18
+    ],
+    [
+      85,
+      6.0,
+      19
+    ],
+    [
+      85,
+      6.0,
+      20
+    ],
+    [
+      85,
+      6.0,
+      21
+    ]
+  ],
+  "independent_negatives": [
+    {
+      "at": [
+        85,
+        6,
+        20
+      ],
+      "injected": "minecraft:stone_bricks",
+      "result": "detected"
+    },
+    {
+      "at": [
+        86,
+        5,
+        11
+      ],
+      "injected": "minecraft:air",
+      "result": "detected"
+    },
+    {
+      "at": [
+        86,
+        6,
+        11
+      ],
+      "injected": "minecraft:stone_bricks",
+      "result": "detected"
+    }
+  ],
+  "structure_assets_compared": 35,
+  "structure_asset_deltas": [
+    "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure"
+  ],
+  "renderer_color_delta_only": {
+    "minecraft:red_terracotta": [
+      143,
+      61,
+      47
+    ]
+  },
+  "reference": {
+    "screenshot_id": "141296214",
+    "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=141296214",
+    "direct_url": "https://images.steamusercontent.com/ugc/578987645587124015/D3BB8A140BEE2B3A4804BCA0160C23FB17BA0604/",
+    "caption": "don't mind the people sleeping",
+    "local_path": "tmp/conformance/reference-guild-additional/gp16-reference-141296214.jpg",
+    "sha256": "4ca01ba79c85df67c6c644cdb7133403e4f6e90270432abd56403166632127cb",
+    "dimensions": [
+      1024,
+      768
+    ],
+    "listing_url": "https://steamcommunity.com/app/204030/screenshots/?searchText=sleep&browsefilter=toprated",
+    "listing_html_path": "tmp/conformance/reference-guild-additional/gp16-steam-sleep.html",
+    "listing_html_sha256": "638e5aa45a2d5ae484aa8ac877bd0efcd87e53a7b90867033d29fdc610f7c77d",
+    "version": "Fable: The Lost Chapters, original classic PC",
+    "version_confidence": "High: saved original-TLC app 204030 listing card has exact screenshot ID and direct URL; classic pixels inspected. Patch/mod status remains unknown.",
+    "actual_pixels_inspected": true,
+    "scene": "Guild dormitory, wide ordinary gameplay view",
+    "visible_findings": [
+      "At least three separate red-covered wooden bed forms: one cropped at the left edge and two against the rear wall.",
+      "Red plaster-like upper wall panels between heavy timber uprights; continuous dark carved lower wall panels.",
+      "Tall narrow pointed blue windows, diagonal-pattern stone floor and several separate rectangular patterned rugs.",
+      "Stone pointed doorway at left and part of a suspended circular fixture at the top edge."
+    ],
+    "limits": [
+      "A useful wide non-burning room view, but not the entire room: the exact total bed count, hidden furniture and complete floor/roof plan remain unknown.",
+      "Purple NPC selection/social glow and unknown display settings prevent calibrated neutral-light or color claims.",
+      "Guild minimap, visible beds and original wall details support room identity; the image does not establish the present generator's two-floor dormitory layout."
+    ],
+    "detail_page": {
+      "path": "tmp/conformance/reference-guild-additional/gp16-dormitory-detail.html",
+      "sha256": "0e838ad61a4ec6c8e776e2f7148c40673851b9f7ab09af822bc5d96d653a2729",
+      "author": "Ovenmuffins",
+      "posted_as_displayed": "Apr 25, 2013 @ 6:35pm",
+      "note": "Saved detail HTML explicitly names Fable - The Lost Chapters and matches caption and 1024 x 768 size; posting date precedes Anniversary but is not a calibrated capture timestamp."
+    }
+  },
+  "views": {
+    "dorm-east-interior": {
+      "bounds": [
+        84,
+        89,
+        5,
+        8,
+        16,
+        22
+      ],
+      "yaw": -1.3507963267948966,
+      "pitch": 0.3,
+      "description": "Dormitory east face; ceiling/roof y9+ omitted, existing bed and deck retained"
+    },
+    "dorm-west-roof": {
+      "bounds": [
+        80,
+        84,
+        5,
+        10,
+        16,
+        22
+      ],
+      "yaw": 1.7907963267948965,
+      "pitch": 0.3,
+      "description": "Reverse west face at a low angle; retained stores roof occludes the changed wall"
+    },
+    "dorm-west-roof-high": {
+      "bounds": [
+        80,
+        84,
+        5,
+        10,
+        16,
+        22
+      ],
+      "yaw": 1.7907963267948965,
+      "pitch": 1.0,
+      "description": "Reverse west face from above; existing roof and narrow recess retained"
+    }
+  },
+  "font": {
+    "requested_path": "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+    "actual_path": "/usr/share/fonts/TTF/DejaVuSans.ttf",
+    "sha256": "6038a160b491e121c1f12c7bccb4a9c8730296e3adc1086a059404ed84b7451c"
+  },
+  "image_hashes": {
+    "dorm-east-interior-after.png": "2fee021289f70454c498394f5b1fe842cb075aade8199ebde27e02868edbfa23",
+    "dorm-east-interior-before.png": "c5c2f0d309ff18dd513214f0a8247fb8414286c736c7eff301908683df09b9b5",
+    "dorm-west-roof-after.png": "ac04373aef42746278e9f802f94f4cd8694242bc104af1dd4a087b9d9070d40a",
+    "dorm-west-roof-before.png": "5a4711a0d08d16f60b9bf6f226149131cade5298e820097b7415f61205f3b0fd",
+    "dorm-west-roof-high-after.png": "8092048971d53e925194ce2df94b1d821d42156e40bea589c20170d57cabda3d",
+    "dorm-west-roof-high-before.png": "d997ebce469b49b4fb9459b3dbf5a939cbe5475bf581d7acbd388e24cc693e02"
+  },
+  "render_limits": "Actual decoded before/after owner output, clipped per view. Flat approximate colors; carpets thin, bed/furniture/roof cells otherwise full cubes. No native textures, lighting, width-aware collision or movement simulation. Low west view occludes changed wall behind unchanged stores roof; high west view reveals red reverse face in existing roof recess.",
+  "native_acceptance": "unrun"
+}

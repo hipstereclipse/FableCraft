@@ -1,0 +1,10 @@
+Captured error excerpts from actual exec tool results; progress meters omitted.
+
+Default sandbox:
+curl: (6) Could not resolve host: www.minecraft.net
+
+Escalated default HTTPS:
+curl: (92) HTTP/2 stream 1 reset by server (error 0x2 INTERNAL_ERROR)
+
+Escalated HTTP/1.1 fallback:
+curl: (28) Operation timed out after 45005 milliseconds with 0 bytes received

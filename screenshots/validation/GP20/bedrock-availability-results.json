@@ -1,0 +1,70 @@
+{
+  "task": "Bounded official pinned Bedrock server acquisition and disposable isolated startup audit",
+  "recorded_at_utc": "2026-09-13T04:04:10.507635+00:00",
+  "pinned_candidate_url": "https://www.minecraft.net/bedrockdedicatedserver/bin-linux/bedrock-server-1.21.100.7.zip",
+  "url_version_not_verified_by_successful_response": true,
+  "current_official_links_observation": {
+    "source": "https://net-secondary.web.minecraft-services.net/api/v1.0/download/links",
+    "retrieval": "web tool open; application/json",
+    "linux_download": "https://www.minecraft.net/bedrockdedicatedserver/bin-linux/bedrock-server-1.26.45.1.zip",
+    "pinned_1_21_100_7_not_in_current_links": true
+  },
+  "host_observed": {
+    "architecture": "x86_64",
+    "glibc": "2.44",
+    "tools": [
+      "curl",
+      "unzip",
+      "unshare",
+      "timeout",
+      "python"
+    ]
+  },
+  "attempts": [
+    {
+      "scope": "default sandbox",
+      "command_protocol": "curl default HTTPS",
+      "exit_code": 6,
+      "error": "Could not resolve host: www.minecraft.net"
+    },
+    {
+      "scope": "authorized escalated exec",
+      "command_protocol": "curl default HTTPS (HTTP/2)",
+      "exit_code": 92,
+      "error": "HTTP/2 stream 1 reset by server (error 0x2 INTERNAL_ERROR)"
+    },
+    {
+      "scope": "authorized escalated exec",
+      "command_protocol": "curl --http1.1",
+      "exit_code": 28,
+      "elapsed_ms_reported": 45005,
+      "received_bytes": 0,
+      "error": "Operation timed out after 45005 milliseconds with 0 bytes received"
+    }
+  ],
+  "common_download_limits": {
+    "connect_timeout_seconds": 10,
+    "total_timeout_seconds": 45,
+    "max_redirects": 3,
+    "protocols": "HTTPS only, including redirects",
+    "TLS_verification": "default enabled"
+  },
+  "saved_header_files": {
+    "bedrock-availability-http1.headers": 0,
+    "bedrock-availability-http2.headers": 0
+  },
+  "archive_files": {},
+  "archive_acquired": false,
+  "archive_extracted": false,
+  "binary_dependency_inspection": "not possible without binary",
+  "server_executed": false,
+  "observed_server_version": null,
+  "startup_acceptance": "unrun",
+  "facility_acceptance": "unrun",
+  "license_agreement_action": "none",
+  "network_namespace_server_run": "not attempted; no binary",
+  "production_or_system_changes": "none; evidence only in ignored tmp",
+  "interpretation": "Transport failures only. No HTTP status established absence of pinned archive, and no engine incompatibility was tested.",
+  "artifact_original_directory": "tmp/conformance/bedrock-runtime-audit",
+  "artifact_copy_note": "Copied to GP20; header filenames adjusted, captured network outcomes unchanged. No new request or execution."
+}

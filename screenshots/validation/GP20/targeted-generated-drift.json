@@ -1,0 +1,11 @@
+{
+  "command": "gen_structures.guild_hall() only; behavior regression passed first",
+  "compared_pack_files": 1661,
+  "changed": {
+    "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure": {
+      "before": "a92f2c2ac76f1923b87f8c673a586d6427bb9a32a01dc5c83b7ab9f2091180e8",
+      "after": "b9330af161ecc3fed96ccca1db05b51c059eacbd65b3cfbe90facdbce11015a0"
+    }
+  },
+  "generated_owner_sha256": "787e34d47d364485ed30f2a12f8a96fa761d54016038f9a4bbe24369e27955b8"
+}

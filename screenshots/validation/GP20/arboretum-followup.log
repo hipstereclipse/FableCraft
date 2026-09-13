@@ -1,0 +1,269 @@
+{
+  "scope": "DP7 candidate only; no production, saved-world or staging mutations",
+  "head": "274da7f779aec56562341a7dc75de58a8907b81c",
+  "existing_canonical_ids": [
+    "guild_library_arcanum"
+  ],
+  "legacy_catalogue": [
+    {
+      "index": 0,
+      "id": "gourmand",
+      "requirement": {
+        "type": "items",
+        "item": "fc:apple_pie",
+        "count": 5,
+        "hint": "Bring me FIVE apple pies. Warm ones."
+      },
+      "reward": {
+        "items": [
+          {
+            "id": "fc:wellows_pickhammer",
+            "count": 1
+          },
+          {
+            "id": "fc:gold_coin",
+            "count": 20
+          }
+        ],
+        "xp": 250
+      }
+    },
+    {
+      "index": 1,
+      "id": "warrior",
+      "requirement": {
+        "type": "multiplier",
+        "count": 14,
+        "hint": "Return mid-battle with a Combat Multiplier of 14 or more."
+      },
+      "reward": {
+        "items": [
+          {
+            "id": "fc:the_harbinger",
+            "count": 1
+          }
+        ],
+        "xp": 400
+      }
+    },
+    {
+      "index": 2,
+      "id": "judge",
+      "requirement": {
+        "type": "morality_min",
+        "count": 500,
+        "hint": "Return when your goodness shines (Morality 500+)."
+      },
+      "reward": {
+        "items": [
+          {
+            "id": "fc:archon_torso",
+            "count": 1
+          },
+          {
+            "id": "fc:holy_warrior_helm",
+            "count": 1
+          }
+        ],
+        "xp": 350
+      }
+    },
+    {
+      "index": 3,
+      "id": "corrupted",
+      "requirement": {
+        "type": "morality_max",
+        "count": -500,
+        "hint": "Return drenched in wickedness (Morality -500 or worse)."
+      },
+      "reward": {
+        "items": [
+          {
+            "id": "fc:demon_helm",
+            "count": 1
+          },
+          {
+            "id": "fc:fire_assassin_torso",
+            "count": 1
+          }
+        ],
+        "xp": 350
+      }
+    },
+    {
+      "index": 4,
+      "id": "hoarder",
+      "requirement": {
+        "type": "items",
+        "item": "fc:gold_coin",
+        "count": 50,
+        "hint": "Feed my slot FIFTY gold coins."
+      },
+      "reward": {
+        "items": [
+          {
+            "id": "fc:orkons_club",
+            "count": 1
+          },
+          {
+            "id": "fc:silver_key",
+            "count": 2
+          }
+        ],
+        "xp": 300
+      }
+    },
+    {
+      "index": 5,
+      "id": "moonlit",
+      "requirement": {
+        "type": "night_multiplier",
+        "count": 5,
+        "hint": "Come at night, riding a Combat Multiplier of 5 or more."
+      },
+      "reward": {
+        "items": [
+          {
+            "id": "fc:avenger",
+            "count": 1
+          }
+        ],
+        "xp": 300
+      }
+    },
+    {
+      "index": 6,
+      "id": "riddler",
+      "requirement": {
+        "type": "riddle",
+        "riddle": "I have a face I cannot wash, a mouth that cannot eat, and I sing to no one before dawn. What am I?",
+        "answers": [
+          "A rooster",
+          "A Demon Door",
+          "A clock",
+          "A grave"
+        ],
+        "correct": 2,
+        "hint": "Answer my riddle correctly."
+      },
+      "reward": {
+        "items": [
+          {
+            "id": "fc:silver_key",
+            "count": 5
+          },
+          {
+            "id": "fc:summoners_grimoire",
+            "count": 1
+          }
+        ],
+        "xp": 300
+      }
+    },
+    {
+      "index": 7,
+      "id": "arboretum",
+      "requirement": {
+        "type": "renown",
+        "count": 1000,
+        "hint": "Return when Albion sings of your deeds (Renown 1000+)."
+      },
+      "reward": {
+        "items": [
+          {
+            "id": "fc:solus_greatsword",
+            "count": 1
+          },
+          {
+            "id": "fc:elixir_of_life",
+            "count": 1
+          }
+        ],
+        "xp": 500
+      }
+    }
+  ],
+  "actual_scatter": {
+    "gorge": {
+      "id": "fc:greatwood_gorge",
+      "w": 39,
+      "h": 16,
+      "d": 43,
+      "weight": 6,
+      "surf": [
+        "grass",
+        "rock"
+      ],
+      "theme": "forest",
+      "loot": "greatwood_gorge",
+      "door": false,
+      "cullis": false,
+      "mobs": [
+        "fc:bandit",
+        "fc:bandit",
+        "fc:bandit_archer"
+      ],
+      "mobSpawns": [
+        [
+          12.5,
+          6,
+          19.5
+        ],
+        [
+          29.5,
+          6,
+          23.5
+        ],
+        [
+          33.5,
+          6,
+          30.5
+        ]
+      ]
+    },
+    "legacyArch": {
+      "id": "fc:demon_door_arch",
+      "w": 23,
+      "h": 18,
+      "d": 13,
+      "weight": 10,
+      "surf": [
+        "grass",
+        "dark",
+        "rock",
+        "snow"
+      ],
+      "theme": "dark",
+      "door": true
+    }
+  },
+  "gorge_generated_matches_shipped": true,
+  "compared_gorge_cells": 26832,
+  "existing_crunchy_chick_morality": -15,
+  "selected_candidate": "greatwood_gorge_arboretum",
+  "reference_limits": {
+    "source_image": [
+      207,
+      153
+    ],
+    "interior_image": [
+      116,
+      180
+    ],
+    "interior_label_visible": "The Arboretum",
+    "full_layout_or_native_acceptance": "unverified"
+  },
+  "source_sha256": {
+    "scripts/fc_data.py": "81ec9a420bdbb01782ba9c00c21efc65bd78ac6f2e52fc5349af14528b6c10c7",
+    "scripts/gen_structures.py": "787e34d47d364485ed30f2a12f8a96fa761d54016038f9a4bbe24369e27955b8",
+    "scripts/door_realms.py": "2f6e52b2166935f2c2f48da2de6723930746d84294d9fd0116beaeee8d31bf69",
+    "packs/Fablecraft_BP/scripts/main.js": "2d158bedac0198480e359f10d93ea67710ab1a777a9e16117479ddbf11d32c8d",
+    "packs/Fablecraft_BP/scripts/fc_demon_doors.js": "843d0ce71425bd8969fff29a88504210358e5977ddf1f62a518f0a6a886c33d0",
+    "packs/Fablecraft_BP/scripts/wd/alignment.js": "4a8c17dd1cbe5750ec01fa2e4f9e414ad23ca751eef47e28799b54883f2cce7d",
+    "packs/Fablecraft_BP/scripts/wd/state.js": "eaa655398a73b1d389d0ee0a1bd928c5e182d8939bfa7e4a59cdac24be35d39b",
+    "packs/Fablecraft_BP/structures/fc/greatwood_gorge.mcstructure": "60bf0e783d5d5e3f39608eb07fdc4219e1cc57cc48470adb55e78a69d59ba3e5",
+    "tmp/conformance/reference-arcanum/prima-tlc-guide.pdf": "0872726adb299a10c94b31d482aecb540d740bf61fab1f22cb08cdcf81ae1a2b",
+    "tmp/conformance/dp7-candidate/prima-p173-image-018.png": "ce5e4a818753be841cb330bc678518b09f51b4ae8d8e39d064f54ca9c5cc9b7c",
+    "tmp/conformance/dp7-candidate/prima-p46-image-017.png": "21a3de27f3cf18fb20b6dde8ff0470812efc8e5114ab495ae1301a4cb414abe8"
+  }
+}

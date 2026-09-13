@@ -13,14 +13,37 @@ online reference photos and make Demon Doors traversable into distinct original
 reward worlds. Continue autonomously with separate reviewed milestone commits,
 validation/evidence, immediate pushes and fresh handoffs; no routine questions.
 
-Current checkpoint: DP6 — preserve unavailable exact-source return tickets
-Last resolved prior commit: 6f490a7263226ce50e3ad72769ceaa3ad3fa2d24 (GP19 pushed; exact-head CI 34735910068 passed).
-Containing commit: TLC Conformance — DP6: preserve unreadable exact-source return tickets.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — DP6: preserve unreadable exact-source return tickets'.
+Current checkpoint: GP20 — framed red Guild dormitory wall bay
+Last resolved prior commit: 274da7f779aec56562341a7dc75de58a8907b81c (DP6 pushed; exact-head CI 34736624694 passed).
+Containing commit: TLC Conformance — GP20: add a framed red Guild dormitory bay.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP20: add a framed red Guild dormitory bay'.
 Never invent a self-hash. Supplemental passes stay in-progress while native
 acceptance is unrun; the legacy scoreboard remains 45 leaves and 7 done.
 
-## Current return-history checkpoint
+## Current dormitory checkpoint
+
+GP20 changes ten existing solid partition materials at x84, y7..8, z17..21:
+six red terracotta infill cells and four dark-oak side cells. Original TLC view
+141296214 supports the red plaster/timber motif; bay size, placement and block
+materials are adaptations. Both partition faces change, including the reverse
+beside the stores roof. All other campus cells, fixtures, roof courses, stairs,
+windows, anchors and shared RNG stay fixed; no occupied-world rebuild.
+The shared renderer adds one approximate red-terracotta color entry.
+Behavior regression passed before targeted Guild generation; only the Guild
+asset changed among 1,661 pack files. All 51 base gates and 64 ESM checks pass.
+Initial build found stale C2 source metadata before the fresh render completed;
+its red log is retained, then only build reran successfully after generated C2
+image/record staging. Fresh 35-asset C2, all 281 full PNGs and Guild diagnostics
+pass. Only the Guild asset/C2 image, its full card and the containing places
+gallery change versus GP18; all other 34 assets/C2 images and 279 full PNGs are
+exact. Use GP20 as the next visual baseline. Independent DP6/current NBT comparison
+proves all other 395,270 campus cells, seeded RNG and layout retained, including
+4,820 other NE-room cells, 345 deck cells, ten windows and 678 Maze reservations.
+All 13,822 walking nodes and both 21-point dorm stair paths remain. Six decoded
+views were inspected.
+See docs/GUILD_DORM_WALL_BAY.md and screenshots/validation/GP20/.
+
+## Retained return-history checkpoint
 
 DP6 passes all 51 base gates and 64 ESM syntax checks in its reviewed snapshot,
 with fresh 35-asset C2 and Guild diagnostics. All geometry/visual inputs match GP18;
@@ -82,23 +105,33 @@ See docs/GUILD_ACTIVITY_OWNERSHIP.md and GP19 evidence.
 
 ## Next three actions
 
-1. Advance purposeful training-station arrival using the verified native-goal route
-   after GP19 requester ownership. The 2.1 Script API has no script navigation
-   command. Preserve exact resident/activity/defence/session authority and recheck
-   live station/support/lane on actual arrival. Refuse edited or alternate targets;
-   no fallback/repeated teleport. See screenshots/validation/DP6/station-arrival-followup.md:
-   native offset/search/event calibration is required before the approach phase can
-   ship. Its prototype verifies 13 corridor samples and 27 refusal cases, not native
-   movement. Offset centering and historical target provenance remain unresolved;
-   the existing one-placement session remains an adaptation. Advance independent
-   reference-led geometry while that engine gate is unavailable.
-2. Continue reference-led Guild interior/bridge/range comparisons. Round lattice
-   Maze windows, bordered rug, red wall panels, bridge silhouettes and braced range
-   rails remain open. Preserve all audited routes, anchors, RNG and saved geometry.
-3. Continue individually designed Demon Door worlds with stable canonical identity,
-   challenge/reward mapping, distinct destination, shared collection and exact-source
-   reusable return. Preserve Nostro's separate story passage and the existing legacy
-   personas until each verified integration exists. Native acceptance remains open.
+1. Implement the next distinct Demon Door world: Greatwood Gorge → The Arboretum.
+   Read screenshots/validation/GP20/arboretum-followup.md and its reproducible
+   catalogue probe. Root inspected the retained 2005 source/interior PNGs. Build
+   one end-to-end pilot for newly registered Gorge instances: immutable identity,
+   disjoint bounded allocation, witnessed actual completed chicks/full-evil
+   challenge, an individually authored shaded wooded loop, one physical shared
+   Wellow's Pickhammer chest, reusable traversal and exact-source return. Preserve
+   all eight legacy personas (including mismatched legacy indices 0/7), already placed
+   unregistered Gorges, Guild v1 tickets/state and Nostro. Do not turn a geometry-
+   or registration-only result into a completed portal claim. Detailed original
+   layout, murder-solution parity and native acceptance remain open.
+2. Resume purposeful Skill station arrival once the required native calibration
+   is available. The 2.1 Script API has no script navigation command. DP6's
+   station-arrival-followup.md proposes a strict skill_range approach phase,
+   verifies 13 corridor samples and 27 prototype refusals and requires actual offset,
+   search and event calibration. Maintain resident/activity/defence/session
+   authority; no fallback/repeated teleport. GP20/bedrock-availability-report.md
+   records bounded official pinned-download DNS/HTTP2/timeout failures. No binary
+   was acquired or server/world executed; these are transport failures, not proof
+   of archive absence or engine incompatibility. Do not keep retrying unchanged
+   failed transport while independent content work is available.
+3. Continue original-reference comparisons for the remaining Guild interiors,
+   Maze round windows/rug/panels and range/bridge silhouettes. GP20's bridge-range
+   survey proves two intact crossings; 22 hypothetical rail cells preserve its
+   six local routes, seven gate destinations and actual Skill ray, but rails are
+   not implemented. Establish their source extent/bracing before authoring.
+   Preserve all routes, anchors, RNG, saved construction and native limitations.
 
 ## Facility and reference constraints
 
@@ -165,7 +198,8 @@ GP18 had 48 base gates, 62 ESM checks, fresh 35-asset C2/full 281 PNG renders an
 diagnostics. Concurrent README/font commit f7e875564d7aa61885ba5324e0a2a743f6751363 is
 preserved (CI 34731885346 passed). Its Linux font fallback changed all 281 cards versus
 GP16; the actual predecessor rendered with the same font/cache matches GP18 exactly.
-Use GP18, not GP16, as the next visual-input baseline. Full cards have 32 structures;
+GP20 is now the next visual-input baseline; GP18 remains the comparison baseline
+for earlier checkpoints. Full cards have 32 structures;
 C2 has 35 assets. The external vanilla item cache stays ignored.
 
 After EVERY checklist edit run python scripts/conformance_score.py --write then --check.

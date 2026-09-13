@@ -1,0 +1,9 @@
+{
+  "bridges_clear": 2,
+  "bridge_negatives": 3,
+  "candidate_rail_cells": 22,
+  "retained_local_routes": 6,
+  "gate_destinations_retained": 7,
+  "actual_skill_harness": "baseline and hypothetical rails pass",
+  "native": "unrun"
+}

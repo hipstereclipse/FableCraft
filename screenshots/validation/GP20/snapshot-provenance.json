@@ -1,0 +1,27 @@
+{
+  "source": "Reviewed Git index exported to isolated snapshot; generated C2 output reviewed and staged after its fresh render; unrelated work excluded",
+  "baseline_head": "274da7f779aec56562341a7dc75de58a8907b81c",
+  "tested_input_sha256": {
+    "scripts/gen_structures.py": "787e34d47d364485ed30f2a12f8a96fa761d54016038f9a4bbe24369e27955b8",
+    "scripts/gen_screenshots.py": "8b0c678299481e734e945c63764e9122145f6ca90784f0dc60aad1db319c78d3",
+    "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure": "b9330af161ecc3fed96ccca1db05b51c059eacbd65b3cfbe90facdbce11015a0",
+    "screenshots/structures/contract/guild_hall.png": "833ddd4ff6656a943299aed8c9de8a33f7a81e859fd09131c42264a32beaf0a1",
+    "screenshots/structures/contract/evidence.json": "43277ea3b03bb6c8b82c2b1ec3951d1c95491ee19224a6b2dff107de9625dbc3"
+  },
+  "final_documentation_sha256": {
+    "docs/CONFORMANCE_CHECKLIST.md": "80d130aef0df4c4878b8b005d8ea0c8594800c58243af5916ef3abb3f46b9b39",
+    "docs/GUILD_DEMON_PRIORITIES.md": "b5382c8214b785316f83933d6b034e47ef73abb39d148349a172376ab8c74478",
+    "docs/HANDOFF.md": "e5b0951bf137af1d99f3a3ddb7e445afbfa848f0c745ee3df4b2c88454f6ac25",
+    "docs/GUILD_DORM_WALL_BAY.md": "310de5b19d3b4c5166bec985f0b09e1d705f471748e05e25dbe30a7b8dbbe48a"
+  },
+  "artifact_code_sha256": {
+    "screenshots/validation/GP20/independent-review.py": "a7e56a7badd92390a504286c5f87c2079e1ac25bdade15c040c7a7c2f8ed11dd",
+    "screenshots/validation/GP20/rerun-build.py": "c817664d9d1ef5cc58edd7655a4137e90c6ac9bdd0ba5779e737eeb4c8b22dcd",
+    "screenshots/validation/GP20/bridge-range-survey.py": "20c3af1aff9d874f0401ef9245c98e6f58634dea5d2f4df04842ea3d40ad2519",
+    "screenshots/validation/GP20/arboretum-followup.mjs": "3f3a6e0d9e0bfe7e3d7d691142e3ac23b76b3325ff7e1958899c639c29b5a221",
+    "screenshots/validation/GP20/arboretum-followup.py": "64f2a28b30c67352b15d1b4277e609c1bf7ee01a96c66f51ad952475f7a67441"
+  },
+  "documentation_timing": "Final documentation refreshed after validation; all staged production and generated contract inputs match the successful snapshot",
+  "node_dependencies": "Same locked dependencies via node_modules symlink",
+  "engine_acceptance": "unrun"
+}

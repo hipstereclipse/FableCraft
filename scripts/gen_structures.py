@@ -757,6 +757,20 @@ def build_guild_maze_study(v):
             v.set(x, y, 75, DARKOAK if y in (12, 15) else "minecraft:bookshelf")
 
 
+def build_guild_dorm_wall_bay(v):
+    """One red plaster-like bay between dark timber sides in the upper dorm.
+
+    Original TLC view 141296214 supports red wall infill and heavy framing.
+    This ten-cell bay replaces existing solid partition materials only; the
+    shared roof courses, stairs, windows and furnishing remain unchanged.
+    Its size and position are adaptations. No shared randomness is consumed.
+    """
+    for y in (7, 8):
+        for z in range(17, 22):
+            v.set(74 + GUILD_EAST, y, z,
+                  DARKOAK if z in (17, 21) else "minecraft:red_terracotta")
+
+
 def build_guild_hall():
     """The Heroes' Guild of Albion — laid out to match the canonical ground plan.
 
@@ -2566,6 +2580,7 @@ def build_guild_hall():
     fix_floating_decor(v)                # re-seat every lantern; no floaters
     build_guild_archery_backboard(v)     # after every RNG-dependent landscape pass
     build_guild_maze_study(v)            # surveyed fixtures beside final circulation
+    build_guild_dorm_wall_bay(v)         # material-only bay in the existing partition
     return v
 
 

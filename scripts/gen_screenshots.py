@@ -416,6 +416,7 @@ BLOCK_COLORS = {
     "minecraft:fern": (92, 132, 72), "minecraft:tallgrass": (102, 142, 76),
     "minecraft:dark_oak_leaves": (52, 82, 42),
     "minecraft:white_terracotta": (224, 214, 196), "minecraft:calcite": (228, 226, 220),
+    "minecraft:red_terracotta": (143, 61, 47),
     "minecraft:light_blue_terracotta": (113, 108, 137),
     "minecraft:purple_terracotta": (118, 70, 86), "minecraft:green_terracotta": (76, 83, 42),
     "minecraft:diorite": (200, 198, 196), "minecraft:polished_diorite": (212, 210, 208),
