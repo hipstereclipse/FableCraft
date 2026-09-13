@@ -1,0 +1,13 @@
+{
+  "command": [
+    "node",
+    "scripts/tests/structure_placement.test.cjs"
+  ],
+  "exit_code": 0,
+  "reason": "Only the older rectangular-placement fixture lacked the new external portal dependencies; production unchanged.",
+  "source": "reviewed Git index snapshot; only this fixture refreshed after the first full run",
+  "sha256": {
+    "scripts/tests/structure_placement.test.cjs": "b9b70d9243d65e955c9ade9c4b4e696f489dca2b79571e10db53a9d1ea6f0978",
+    "packs/Fablecraft_BP/scripts/main.js": "9ec3a4b057549b2d5fc184fdd09aaaddf151b062cb1c9485572221e3298e21ff"
+  }
+}

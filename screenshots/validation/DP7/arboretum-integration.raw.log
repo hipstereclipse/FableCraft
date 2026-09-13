@@ -1,0 +1,26 @@
+✔ actual scatter reserves new Gorge before placement, confirms after final geometry, then marks region (34.89538ms)
+✔ old region markers never enroll or replay saved Gorges; pending reservations survive marker loss and ambiguous placement (85.532285ms)
+✔ actual sourceReady accepts final Gorge floor/throat and refuses edited support/headroom without repair (19.936702ms)
+✔ canonical face dispatch preserves instance ownership and cannot pay a legacy persona after marker loss or corrupt state (22.212494ms)
+✔ actual completed-use counts one per event in one instance while preserving native consumption/morality ownership (29.183132ms)
+✔ completed food requires Survival/Adventure; unavailable alignment cannot shortcut pre-normalization full evil (148.433712ms)
+✔ same object/same tick replay and competing nearby instances never multiply one completed-use credit (19.739758ms)
+✔ full-evil interaction uses actual raw alignment authority, not old -500 or tier -950 or legacy fallback (103.236527ms)
+✔ shared block/item guards and queued return use the occupied ticket exact source across families (25.817621ms)
+✔ deferred return cannot transfer an old clicked arch into another cell or missing ticket authority (40.711796ms)
+✔ successful-placement receipt permits deferred confirmation; absent/uncertain receipt never replays source (63.871599ms)
+✔ two Heroes retain separate food counters and another family read failure cannot take over entry authority (32.989651ms)
+✔ actual room adapter accepts final authored geometry and seeds one physical chest after fresh bulk validation (464.854869ms)
+✔ late edited block or unavailable final bulk query refuses room placement after sliced scan (576.36524ms)
+✔ an unavailable other-family ticket blocks new entry without blocking a healthy own exact-source return (44.320991ms)
+✔ a shell hole edited after sliced verification refuses ready state and reward seeding (553.666392ms)
+(node:15) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2274.683739

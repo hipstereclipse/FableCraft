@@ -1,7 +1,7 @@
 // Will & Destiny morality. This module owns alignment changes and tier mapping.
 // Post-cutover, wd:state is authoritative for alignment; every change derives
 // back to the legacy fc_morality property for the monolith's readers.
-import { clamp, getState, mutateState } from "./state.js";
+import { clamp, getState, mutateState, WD_STATE_KEY, WD_SCHEMA_VERSION } from "./state.js";
 
 export const ALIGNMENT_DEEDS = Object.freeze({
   hostileKill: 3,
@@ -30,6 +30,22 @@ export function alignmentTier(alignment) {
 
 export function getAlignment(player) {
   return getState(player).alignment;
+}
+
+// Challenge authority must not initialize, migrate, clamp or borrow legacy
+// morality when current saved alignment is unavailable. null means defer.
+export function readAlignmentAuthority(player) {
+  try {
+    if (player?.isValid !== true || player.typeId !== "minecraft:player"
+      || typeof player.id !== "string" || !player.id) return null;
+    const raw = player.getDynamicProperty(WD_STATE_KEY);
+    if (typeof raw !== "string" || !raw) return null;
+    const state = JSON.parse(raw);
+    if (!state || typeof state !== "object" || Array.isArray(state)
+      || state.schemaVersion !== WD_SCHEMA_VERSION || !Number.isInteger(state.alignment)
+      || state.alignment < -1000 || state.alignment > 1000) return null;
+    return state.alignment;
+  } catch { return null; }
 }
 
 export function setAlignment(player, value, showFeedback = true) {

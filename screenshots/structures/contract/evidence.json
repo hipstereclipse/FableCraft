@@ -249,13 +249,13 @@
       "notes": []
     },
     "greatwood_gorge": {
-      "asset_sha256": "60bf0e783d5d5e3f39608eb07fdc4219e1cc57cc48470adb55e78a69d59ba3e5",
+      "asset_sha256": "77f2f37c610a5d7618a53c8785ef29aebe7e8cb866c4f56376d6ba973f69e7d5",
       "size": [
         39,
         16,
         43
       ],
-      "image_sha256": "0c4e697715f077dd2052a6c96ac640a336dee2ad30200d4cb596fa71404786c9",
+      "image_sha256": "e9e959193aa472f6e92aa1573c08a5eee86af4909afcf771f54a84bffe87dd7e",
       "grade": "S",
       "score": 100,
       "metrics": {
@@ -414,6 +414,25 @@
         "coverage": 12.4,
         "colors": 46,
         "contrast": 0.87,
+        "brightness": 0.36,
+        "placeholder": false
+      },
+      "notes": []
+    },
+    "arboretum": {
+      "asset_sha256": "678c15573abf29e17f52c4edfb09cdc58b89f138d3172ba2d4667eb9827fd23c",
+      "size": [
+        49,
+        28,
+        49
+      ],
+      "image_sha256": "b29cd332807d7dd16c5543c1d64a3bc47890f5f2665e8970423f7e9cca98c69f",
+      "grade": "S",
+      "score": 100,
+      "metrics": {
+        "coverage": 19.1,
+        "colors": 25,
+        "contrast": 0.89,
         "brightness": 0.36,
         "placeholder": false
       },

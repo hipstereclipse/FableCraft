@@ -19,7 +19,11 @@ for (const surface of pick.surf) {
   const dim = {};
   const context = {
     REGION: 160, Math,
-    guildDoorWorldExcluded: () => false, guildDoorPilot: { excludesWorldPosition: () => false },
+    guildDoorWorldExcluded: () => false, doorWorldPositionExcluded: () => false,
+    // This fixture checks translated population/loot bounds. Dedicated actual
+    // Arboretum adapter tests exercise registration and its failure paths.
+    arboretumDoors: { isRecordedRegion: () => false, beginPlacement: () => 'arboretum:0',
+      recordPlaced: () => true, confirmPlacement: () => true },
     world: { getDynamicProperty: () => saved, setDynamicProperty: () => { saved = true; },
       structureManager: { place: (id, dimension, at) => { assert.equal(id, pick.id); assert.equal(dimension, dim); origin = at; placements++; } } },
     hash2: () => 0, pickStruct: () => pick, sampleGroundY: () => 65,

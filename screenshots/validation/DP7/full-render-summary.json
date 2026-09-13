@@ -1,0 +1,25 @@
+{
+  "command": [
+    "/usr/bin/python",
+    "-c",
+    "import sys; sys.path.insert(0,'scripts'); from pathlib import Path; import gen_screenshots as g; g.SHOTS=Path('tmp/DP7-full-screenshots'); g.main()"
+  ],
+  "exit_code": 0,
+  "source": "isolated reviewed-index snapshot",
+  "output": "tmp/DP7-full-screenshots",
+  "png_counts": {
+    "gallery": 13,
+    "items": 55,
+    "mobs": 51,
+    "recipes": 130,
+    "structures": 33
+  },
+  "engine_acceptance": "unrun",
+  "render_owner_sha256": {
+    "scripts/gen_screenshots.py": "3f5fdaf91f1d4c8bbdb32c76ce8339b296594968de8f4600382d2438b19789f4",
+    "scripts/gen_structures.py": "82783e7baaffff88a07b41a7fa97713af41f206d8d377cb6d15d928014cb47ca",
+    "scripts/fc_mobs.py": "cf19fb87027bf031db63451a0a3af24e249bbf8eb4e016188bab49772d824f51",
+    "scripts/fc_data.py": "46bc9c597aa98e0faaeb8497a1a6e918423112a208fc873d876231ad33c1bbd0",
+    "scripts/fc_lib.py": "c53491f9d640c9e10cb5b3d8f65ea8c85b3f526af03f7631d5d447ab6fe70797"
+  }
+}

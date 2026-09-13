@@ -670,6 +670,20 @@ CANONICAL_DEMON_DOORS = {
         "destination": {"structure": "fc:library_arcanum", "version": 1},
         "reward": {"items": [{"id": "fc:elixir_of_life", "count": 1}], "xp": 0},
     },
+    "greatwood_gorge_arboretum": {
+        "id": "greatwood_gorge_arboretum", "name": "The Arboretum",
+        # Original challenge/reward, separately keyed from the eight legacy
+        # personas. This pilot counts witnessed food uses; murder stays open.
+        # Dialogue and the exact ten-use witness are block-game adaptations.
+        "greeting": "Show me a heart without mercy, or eat ten Crunchy Chicks before my face.",
+        "requirement": {"type": "evil_or_chicks", "alignment": -1000,
+                        "chicks": 10, "item": "fc:crunchy_chick",
+                        "hint": "Return fully evil, or eat ten Crunchy Chicks here in Survival or Adventure."},
+        "success": "I have seen enough. Step through to the Arboretum.",
+        "fail": "I am still watching, Hero. Your deeds here are remembered.",
+        "destination": {"structure": "fc:arboretum", "version": 1},
+        "reward": {"items": [{"id": "fc:wellows_pickhammer", "count": 1}], "xp": 0},
+    },
 }
 
 DEMON_DOORS = [

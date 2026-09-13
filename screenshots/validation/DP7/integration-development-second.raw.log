@@ -1,0 +1,39 @@
+✔ actual scatter reserves new Gorge before placement, confirms after final geometry, then marks region (48.470469ms)
+✔ old region markers never enroll or replay saved Gorges; pending reservations survive marker loss and ambiguous placement (136.448475ms)
+✔ actual sourceReady accepts final Gorge floor/throat and refuses edited support/headroom without repair (26.961111ms)
+✔ canonical face dispatch preserves instance ownership and cannot pay a legacy persona after marker loss or corrupt state (38.994002ms)
+✔ actual completed-use counts one per event in one instance while preserving native consumption/morality ownership (51.894932ms)
+✖ Creative/unreadable mode and pre-normalization unreadable alignment cannot gain witnessed progress (137.616353ms)
+✔ same object/same tick replay and competing nearby instances never multiply one completed-use credit (36.622298ms)
+✔ full-evil interaction uses actual raw alignment authority, not old -500 or tier -950 or legacy fallback (144.400998ms)
+✔ shared block/item guards and queued return use the occupied ticket exact source across families (27.752714ms)
+✔ deferred return cannot transfer an old clicked arch into another cell or missing ticket authority (58.325303ms)
+(node:4) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 9
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 765.854789
+
+✖ failing tests:
+
+test at scripts/tests/arboretum_integration.test.mjs:104:1
+✖ Creative/unreadable mode and pre-normalization unreadable alignment cannot gain witnessed progress (137.616353ms)
+  AssertionError [ERR_ASSERTION]: unreadable-state
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/arboretum_integration.test.mjs:107:19)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

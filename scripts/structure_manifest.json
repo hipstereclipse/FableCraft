@@ -247,6 +247,13 @@
       "title": "Knothole Glade"
     },
     {
+      "name": "arboretum",
+      "generator": "arboretum",
+      "kind": "fixed",
+      "size": [49, 28, 49],
+      "title": "The Arboretum"
+    },
+    {
       "name": "library_arcanum",
       "generator": "library_arcanum",
       "kind": "fixed",

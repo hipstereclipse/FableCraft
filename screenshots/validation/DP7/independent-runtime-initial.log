@@ -1,0 +1,99 @@
+{
+  "controller_sha256": "7079fd2504a825226dedb01d469b0ffef94e5ce2a926184fe09e42c55cb415a1",
+  "fixture_sha256": "e705334b08800f31040d04dbfef91feb48a14018b977b6f7ace19d4b8b61ebcd",
+  "actual_geometry_sha256": "40122e38230fa2581102a0fdbe6f72b6d291b1c9d664ac038936af783357c38f",
+  "scope": "Six independently selected negative probes. Actual current owner geometry; fixture dependency setup from the permanent controller suite.",
+  "passed": 5,
+  "total": 6,
+  "results": [
+    {
+      "case": "seed-ignored",
+      "pass": true,
+      "observed": {
+        "phase": "seeding",
+        "reward": {
+          "seeded": false,
+          "claimed": false
+        },
+        "slot": null,
+        "placements": 1
+      }
+    },
+    {
+      "case": "seed-wrong-item",
+      "pass": true,
+      "observed": {
+        "phase": "seeding",
+        "reward": {
+          "seeded": false,
+          "claimed": false
+        },
+        "slot": {
+          "typeId": "minecraft:stone",
+          "amount": 1
+        },
+        "placements": 1
+      }
+    },
+    {
+      "case": "seed-wrong-count",
+      "pass": true,
+      "observed": {
+        "phase": "seeding",
+        "reward": {
+          "seeded": false,
+          "claimed": false
+        },
+        "slot": {
+          "typeId": "fc:wellows_pickhammer",
+          "amount": 2
+        },
+        "placements": 1
+      }
+    },
+    {
+      "case": "surviving-cell-reservation-blocks-pristine-bootstrap",
+      "pass": true,
+      "observed": {
+        "recorded": true,
+        "id": null,
+        "witness": null,
+        "index": null
+      }
+    },
+    {
+      "case": "previously-checked-nonsentinel-shell-hole-blocks-ready",
+      "pass": true,
+      "observed": {
+        "at": {
+          "x": 620000,
+          "y": 274,
+          "z": 600005
+        },
+        "phase": "placing",
+        "reward": {
+          "seeded": false,
+          "claimed": false
+        },
+        "seeds": 0,
+        "reports": [
+          "Arboretum containment changed during verification; no admission."
+        ]
+      }
+    },
+    {
+      "case": "exhausted-revision-preserves-readable-history",
+      "pass": false,
+      "observed": {
+        "result": true,
+        "readable": false,
+        "committedRevision": 9007199254740991,
+        "secondResult": false,
+        "terminalReadable": false
+      }
+    }
+  ],
+  "native_acceptance": "unrun"
+}
+(node:4) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)

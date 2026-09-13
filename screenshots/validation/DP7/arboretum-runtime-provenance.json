@@ -1,0 +1,43 @@
+{
+  "scope": "New Arboretum runtime and its actual-generated-room test suite only; main/geometry/alignment/integration owned separately",
+  "checks": [
+    {
+      "command": "node --experimental-vm-modules scripts/tests/arboretum_doors.test.mjs",
+      "exit": 0,
+      "groups_passed": 27,
+      "groups_failed": 0,
+      "actual_generated_cells": 67228,
+      "log": "screenshots/validation/DP7/arboretum-runtime-focused.raw.log"
+    },
+    {
+      "command": "node_modules/.bin/eslint packs/Fablecraft_BP/scripts/arboretum_doors.js",
+      "exit": 0
+    },
+    {
+      "command": "node --input-type=module --check < packs/Fablecraft_BP/scripts/arboretum_doors.js",
+      "exit": 0
+    },
+    {
+      "command": "node --check scripts/tests/arboretum_doors.test.mjs",
+      "exit": 0
+    }
+  ],
+  "source_sha256": {
+    "packs/Fablecraft_BP/scripts/arboretum_doors.js": "d2ea54066b594d57a3b9432c2a3b11edc85b41d08f2305caf96122c7ce9e7557",
+    "scripts/tests/arboretum_doors.test.mjs": "e705334b08800f31040d04dbfef91feb48a14018b977b6f7ace19d4b8b61ebcd",
+    "scripts/door_realms.py": "809431f12cd647ca9c65b3718cd2ffb92eab44061655dbb6f696be67fe3dea42",
+    "scripts/gen_structures.py": "82783e7baaffff88a07b41a7fa97713af41f206d8d377cb6d15d928014cb47ca"
+  },
+  "evidence_sha256": {
+    "screenshots/validation/DP7/arboretum-runtime-focused.raw.log": "cc6b2c728c22cfad0b78cbd6ce01bdcc65fda715f267a71eb8bd5990d5539513"
+  },
+  "fixture": "Python calls current build_arboretum(Vox), with Vox.save suppressed only at its filesystem boundary; JavaScript executes the actual new runtime with injected Bedrock APIs and actual room cells.",
+  "earlier_runs": {
+    "screenshots/validation/DP7/runtime-development-first-runtime.log": "Launcher EPERM from child pipe configuration before any runtime groups; fixed explicit stdio and buffer.",
+    "screenshots/validation/DP7/runtime-development-runtime-second.log": "21 groups passed, two fixture wait budgets failed (second candidate scan and cold reload full-shell verification). Bounded helpers now wait for observed readiness/occupancy.",
+    "screenshots/validation/DP7/runtime-development-runtime-final-candidate.log": "26 groups passed before final revision-exhaustion guard/regression."
+  },
+  "native_acceptance": "unrun",
+  "whole_world_dynamic_property_erasure": "unrecoverable; no promise of reconstructing missing identities/rewards",
+  "engine_atomicity": "unproven: native completed consumption, persistence, structure placement and inventory transfer are separate operations; ambiguous histories fail closed"
+}

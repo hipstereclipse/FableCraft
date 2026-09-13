@@ -1,0 +1,97 @@
+{
+  "source_sha256": {
+    "packs/Fablecraft_BP/scripts/wd/config.js": "0474b28acd194ae6a2314f127b51a959f8eac397622374704683f27701c93f46",
+    "packs/Fablecraft_BP/scripts/wd/state.js": "eaa655398a73b1d389d0ee0a1bd928c5e182d8939bfa7e4a59cdac24be35d39b",
+    "packs/Fablecraft_BP/scripts/wd/alignment.js": "4a8c17dd1cbe5750ec01fa2e4f9e414ad23ca751eef47e28799b54883f2cce7d",
+    "packs/Fablecraft_BP/scripts/main.js": "2d158bedac0198480e359f10d93ea67710ab1a777a9e16117479ddbf11d32c8d"
+  },
+  "pinned_types_sha256": "38e989f3f0371967c1df82a12d5f37a3832cbff3944e38be8bb51638ed0e771d",
+  "pinned_complete_use_fields": [
+    [
+      "itemStack",
+      "ItemStack"
+    ],
+    [
+      "source",
+      "Player"
+    ],
+    [
+      "useDuration",
+      "number"
+    ]
+  ],
+  "unique_native_use_id_exposed": false,
+  "alignment_cases": [
+    {
+      "name": "missing",
+      "current_getAlignment": -1000,
+      "proposed_fresh_alignment": null,
+      "current_writes": 1
+    },
+    {
+      "name": "malformed",
+      "current_getAlignment": -1000,
+      "proposed_fresh_alignment": null,
+      "current_writes": 1
+    },
+    {
+      "name": "missing_alignment",
+      "current_getAlignment": -1000,
+      "proposed_fresh_alignment": null,
+      "current_writes": 0
+    },
+    {
+      "name": "string_alignment",
+      "current_getAlignment": -1000,
+      "proposed_fresh_alignment": null,
+      "current_writes": 0
+    },
+    {
+      "name": "fractional_alignment",
+      "current_getAlignment": -1000,
+      "proposed_fresh_alignment": null,
+      "current_writes": 0
+    },
+    {
+      "name": "out_of_range",
+      "current_getAlignment": -1000,
+      "proposed_fresh_alignment": null,
+      "current_writes": 0
+    },
+    {
+      "name": "unsupported_schema",
+      "current_getAlignment": -1000,
+      "proposed_fresh_alignment": null,
+      "current_writes": 1
+    },
+    {
+      "name": "unreadable",
+      "current_getAlignment": -1000,
+      "proposed_fresh_alignment": null,
+      "current_writes": 1
+    },
+    {
+      "name": "valid_full_evil",
+      "current_getAlignment": -1000,
+      "proposed_fresh_alignment": -1000,
+      "current_writes": 0
+    },
+    {
+      "name": "valid_not_full",
+      "current_getAlignment": -999,
+      "proposed_fresh_alignment": -999,
+      "current_writes": 0
+    }
+  ],
+  "baseline_callback_replay": {
+    "injected_same_event_twice_alignment": [
+      -15,
+      -30
+    ],
+    "native_replay_observed": false,
+    "stack16_still_one_effect_per_callback": true
+  },
+  "prototype_only": true,
+  "production_edits": false,
+  "native_consumption_and_replay_acceptance": "unrun"
+}

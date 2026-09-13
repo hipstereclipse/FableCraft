@@ -5,13 +5,14 @@
 // boss phases (Jack of Blades), augments, and the Guild.
 // ============================================================================
 import {
-  world, system, EquipmentSlot, EntityDamageCause, ItemStack, MolangVariableMap, BlockPermutation,
+  world, system, EquipmentSlot, EntityDamageCause, ItemStack, MolangVariableMap, BlockPermutation, BlockVolume, GameMode,
 } from "@minecraft/server";
 import {
   ActionFormData, MessageFormData, ModalFormData,
 } from "@minecraft/server-ui";
 import { DATA } from "./fc_gamedata.js";
 import { createDemonDoorPilot } from "./fc_demon_doors.js";
+import { createArboretumDoors } from "./arboretum_doors.js";
 import { createGuildDoorAperture } from "./guild_door_aperture.js";
 import { createGuildCaveLifecycle } from "./guild_caves.js";
 import { itemName, t as msg, template, placeName, titleName } from "./fc_strings.js";
@@ -39,7 +40,7 @@ import { LEGACY_MENU } from "./wd/menu_bridge.js";
 // Phase 3 cutover: the legacy progression mutators below funnel through wd/ so
 // wd:state is the source of truth. The rich legacy deed-detection (quests,
 // factions, bounty, bosses, loot) stays; only the morality/XP STORAGE moves.
-import { changeAlignment } from "./wd/alignment.js";
+import { changeAlignment, readAlignmentAuthority } from "./wd/alignment.js";
 import { addDisciplineXp } from "./wd/stats.js";
 
 const OW = () => world.getDimension("overworld");
@@ -344,7 +345,7 @@ system.afterEvents.scriptEventReceive.subscribe((ev) => {
   }
   if (p?.typeId !== "minecraft:player") return;
   if (ev.id === "fc:door_return") {
-    guildDoorPilot.requestReturn(p);
+    requestDoorReturn(p);
   } else if (ev.id === "fc:wanted") {
     const lines = bountySummaryLines(p);
     try { p.sendMessage(lines.length ? lines.join("\n") : "§7You have no active warrants."); } catch { }
@@ -1595,11 +1596,20 @@ function removeAugments(p) {
 // ---------------------------------------------------------------------------
 // Consumables
 // ---------------------------------------------------------------------------
+const witnessedFoodEvents = new WeakSet();
 world.afterEvents.itemCompleteUse.subscribe((ev) => {
   const p = ev.source, it = ev.itemStack;
   if (!p || !it) return;
   const c = DATA.consumables[it.typeId];
   if (!c) return;
+  // The native food event consumes the chick. Witness before existing morality
+  // effects can normalize missing history; never remove a second item here.
+  // No durable event ID exists in 2.1: object and controller tick suppression
+  // are bounded replay protection, not a native exactly-once guarantee.
+  if (it.typeId === "fc:crunchy_chick" && !witnessedFoodEvents.has(ev)) {
+    witnessedFoodEvents.add(ev);
+    arboretumDoors.completeUse(p, it.typeId);
+  }
   if (c.heal) healPlayer(p, c.heal);
   if (c.will) P.set(p, "fc_will", Math.min(maxWill(p), willEnergy(p) + c.will));
   if (c.morality) addMorality(p, c.morality);
@@ -3224,7 +3234,86 @@ const guildDoorPilot = createDemonDoorPilot({ world, system, ItemStack,
   definition: DATA.demonDoorRealms.guild_library_arcanum,
   placeRoom: (dim, origin) => world.structureManager.place("fc:library_arcanum", dim, origin, { includeEntities: false }),
   sourceReady: (source) => guildDoorAperture.ready(source, TICKS()),
+  canEnter: (p) => arboretumDoors.allowsOtherEntry(p),
   report: (message) => console.warn(`[Fablecraft] ${message}`) });
+const arboretumDoors = createArboretumDoors({ world, system, ItemStack,
+  definition: DATA.demonDoorRealms.greatwood_gorge_arboretum,
+  placeRoom: (dim, origin) => world.structureManager.place("fc:arboretum", dim, origin, { includeEntities: false }),
+  volumeIsEmpty: (dim, origin, size) => dim.containsBlock(new BlockVolume(origin,
+    { x: origin.x + size.x - 1, y: origin.y + size.y - 1, z: origin.z + size.z - 1 }),
+  { excludeTypes: ["minecraft:air"] }, false) === false,
+  volumeIsBlock: (dim, origin, size, typeId) => dim.containsBlock(new BlockVolume(origin,
+    { x: origin.x + size.x - 1, y: origin.y + size.y - 1, z: origin.z + size.z - 1 }),
+  { excludeTypes: [typeId] }, false) === false,
+  sourceReady: arboretumSourceReady,
+  canEnter: (p) => guildDoorPilot.allowsOtherEntry(p),
+  readAlignment: readAlignmentAuthority,
+  canWitnessUse: (p) => [GameMode.Survival, GameMode.Adventure].includes(p.getGameMode()),
+  report: (message) => console.warn(`[Fablecraft] ${message}`) });
+
+function arboretumSourceReady(record) {
+  try {
+    const o = record.origin, dim = world.getDimension(o.dimension);
+    // New Gorge throat and supported north approach; this is read-only even
+    // after a visitor has edited the surrounding saved structure.
+    for (let x = 31; x <= 33; x++) for (let z = 6; z <= 11; z++) {
+      if (dim.getBlock({ x: o.x + x, y: o.y + 5, z: o.z + z })?.typeId !== "minecraft:grass_block") return false;
+      for (let y = 6; y <= 9; y++) {
+        if (dim.getBlock({ x: o.x + x, y: o.y + y, z: o.z + z })?.typeId !== "minecraft:air") return false;
+      }
+    }
+    return true;
+  } catch { return false; }
+}
+
+function ensureArboretumFaces(dim) {
+  // Only the receipt written after a successful native placement permits this
+  // retry. Unknown pending placements stay reserved without adoption/rebuild.
+  for (const record of arboretumDoors.sources({ includePending: true })) {
+    if (record.placement === "placed" && record.source.dimension === dim.id
+      && world.getPlayers().some((p) => p.dimension.id === dim.id
+        && Math.hypot(p.location.x - record.source.x, p.location.z - record.source.z) < 80)) {
+      arboretumDoors.confirmPlacement(record.id);
+    }
+  }
+  for (const record of arboretumDoors.sources()) {
+    const s = record.source;
+    if (s.dimension !== dim.id || !world.getPlayers().some((p) => p.dimension.id === dim.id
+      && Math.hypot(p.location.x - s.x, p.location.z - s.z) < 80)) continue;
+    try {
+      const faces = dim.getEntities({ type: "fc:demon_door", location: s, maxDistance: 8 })
+        .filter((face) => arboretumDoors.sourceAt(face.dimension.id, face.location)?.id === record.id);
+      const face = faces[0];
+      if (face) {
+        if (!arboretumDoors.bindFace(face)) continue;
+        arboretumDoors.reconcileFace(face);
+        for (const duplicate of faces.slice(1)) {
+          try { duplicate.remove(); } catch { arboretumDoors.bindFace(duplicate); arboretumDoors.reconcileFace(duplicate); }
+        }
+        continue;
+      }
+      const at = { x: s.x, y: s.y + (record.unlocked ? 5 : 0), z: s.z };
+      const replacement = trySpawn(dim, "fc:demon_door", at);
+      if (!replacement) continue;
+      if (!arboretumDoors.bindFace(replacement)) { try { replacement.remove(); } catch { } continue; }
+      replacement.teleport(at, { facingLocation: { x: s.x, y: at.y + 1, z: s.z - 14 } });
+      arboretumDoors.reconcileFace(replacement);
+    } catch { /* Retry face maintenance; never replay a source placement. */ }
+  }
+}
+
+function doorProtectsBlock(dimensionId, position) {
+  return guildDoorPilot.protectsBlock(dimensionId, position) || arboretumDoors.protectsBlock(dimensionId, position);
+}
+function doorWorldPositionExcluded(dimensionId, position) {
+  return guildDoorPilot.excludesWorldPosition(dimensionId, position) || arboretumDoors.excludesWorldPosition(dimensionId, position);
+}
+function occupiedDoor(p) {
+  if (guildDoorPilot.occupiedRealm(p)) return guildDoorPilot;
+  if (arboretumDoors.occupiedRealm(p)) return arboretumDoors;
+  return null;
+}
+function requestDoorReturn(p) { return occupiedDoor(p)?.requestReturn(p) ?? false; }
 
 function isGuildDoorSource(dimId, loc) {
   const sources = [guildDoorPilot.getSource()];
@@ -3262,7 +3351,7 @@ function ensureGuildDoorPilot(dim, source = null, isNew = false) {
 }
 
 function guildDoorWorldExcluded(p) {
-  return guildDoorPilot.excludesWorldPosition(p.dimension.id, p.location);
+  return doorWorldPositionExcluded(p.dimension.id, p.location);
 }
 
 system.runInterval(() => {
@@ -3272,25 +3361,28 @@ system.runInterval(() => {
       && Math.hypot(p.location.x - source.x, p.location.z - source.z) < 80)) {
       ensureGuildDoorPilot(world.getDimension(source.dimension ?? "minecraft:overworld"), source);
     }
+    ensureArboretumFaces(OW());
   }
   guildDoorPilot.tick();
+  arboretumDoors.tick();
 }, 5);
 
 // These are stable 2.1 events. The experimental playerPlaceBlock before-event
 // is deliberately unnecessary: building is blocked at the block interaction.
 world.beforeEvents.playerBreakBlock.subscribe((ev) => {
-  if (guildDoorPilot.protectsBlock(ev.dimension.id, ev.block.location)) ev.cancel = true;
+  if (doorProtectsBlock(ev.dimension.id, ev.block.location)) ev.cancel = true;
 });
 world.beforeEvents.playerInteractWithBlock.subscribe((ev) => {
-  if (!guildDoorPilot.protectsBlock(ev.player.dimension.id, ev.block.location)) return;
+  if (!doorProtectsBlock(ev.player.dimension.id, ev.block.location)) return;
   const b = { ...ev.block.location }, dimensionId = ev.player.dimension.id;
-  if (guildDoorPilot.isReturnBlock(ev.player, dimensionId, b)) {
+  const owner = occupiedDoor(ev.player);
+  if (owner?.isReturnBlock(ev.player, dimensionId, b)) {
     ev.cancel = true;
     const p = ev.player;
     system.run(() => {
       // Recheck this same player's occupancy at the clicked arch after deferral.
       // Movement to another cell cannot turn an old click into a different exit.
-      if (guildDoorPilot.isReturnBlock(p, dimensionId, b)) guildDoorPilot.requestReturn(p);
+      if (owner.isReturnBlock(p, dimensionId, b)) owner.requestReturn(p);
     });
     return;
   }
@@ -3299,13 +3391,13 @@ world.beforeEvents.playerInteractWithBlock.subscribe((ev) => {
   ev.cancel = true;
 });
 world.beforeEvents.itemUse.subscribe((ev) => {
-  if (!guildDoorPilot.occupiedRealm(ev.source)) return;
+  if (!occupiedDoor(ev.source)) return;
   const id = ev.itemStack?.typeId ?? "";
   if (["minecraft:ender_pearl", "minecraft:chorus_fruit", "minecraft:flint_and_steel", "minecraft:fire_charge"].includes(id)
       || id.endsWith("_bucket") || id.endsWith("_spawn_egg")) ev.cancel = true;
 });
 world.beforeEvents.explosion.subscribe((ev) => {
-  ev.setImpactedBlocks(ev.getImpactedBlocks().filter((block) => !guildDoorPilot.protectsBlock(ev.dimension.id, block.location)));
+  ev.setImpactedBlocks(ev.getImpactedBlocks().filter((block) => !doorProtectsBlock(ev.dimension.id, block.location)));
 });
 
 function doorPersona(door) {
@@ -3323,6 +3415,7 @@ function doorPersona(door) {
 // somehow lost — so a carved arch never reads as a blank wall.
 function ensureDemonDoor(dim, loc, facingZ) {
   if (isGuildDoorSource(dim.id, loc)) { ensureGuildDoorPilot(dim); return; }
+  if (arboretumDoors.sourceAt(dim.id, loc)) { ensureArboretumFaces(dim); return; }
   let present;
   try {
     present = dim.getEntities({ location: loc, maxDistance: 4, type: "fc:demon_door" }).length > 0;
@@ -3345,6 +3438,7 @@ function recordDemonDoor(loc, faceZ) {
 }
 
 function ensureAllDemonDoors(dim) {
+  ensureArboretumFaces(dim);
   const doors = [];
   const players = world.getPlayers();
   const source = guildDoorPilot.getSource();
@@ -3360,6 +3454,10 @@ function ensureAllDemonDoors(dim) {
 }
 
 function demonDoorTalk(p, door, heldItemId) {
+  if (arboretumDoors.isCanonicalFace(door) || arboretumDoors.sourceAt(door.dimension.id, door.location)) {
+    if (!arboretumDoors.interact(p, door, heldItemId)) p.sendMessage("§5Demon Door: §7My passage cannot be read. Your saved progress is preserved.");
+    return;
+  }
   if (door.getDynamicProperty("fc_door_identity") === "guild" || isGuildDoorSource(door.dimension.id, door.location)) {
     ensureGuildDoorPilot(door.dimension);
     if (!guildDoorPilot.interact(p, door, heldItemId)) p.sendMessage("§5Demon Door: §7My passage cannot be read. Your saved progress is preserved.");
@@ -5707,12 +5805,15 @@ function maybePlace(p, rx, rz) {
   if (guildDoorWorldExcluded(p)) return;
   const key = `fc_rgn_${rx}_${rz}`;
   if (world.getDynamicProperty(key)) return;
+  // A pending or unreadable canonical placement remains reserved even if the
+  // ordinary scatter marker was lost. Existing Gorges are never adopted.
+  if (arboretumDoors.isRecordedRegion(key)) return;
 
   // deterministic jittered anchor (NW corner) well inside the region cell
   const jx = Math.floor(hash2(rx * 7 + 1, rz) * (REGION - 56)) + 28;
   const jz = Math.floor(hash2(rx, rz * 7 + 1) * (REGION - 56)) + 28;
   const x = rx * REGION + jx, z = rz * REGION + jz;
-  if (guildDoorPilot.excludesWorldPosition(p.dimension.id, { x, y: p.location.y, z })) return;
+  if (doorWorldPositionExcluded(p.dimension.id, { x, y: p.location.y, z })) return;
 
   // not every cell gets a build — retire empties immediately (deterministic, no
   // chunks needed) so the sweep never revisits them
@@ -5737,9 +5838,14 @@ function maybePlace(p, rx, rz) {
   if (tooCloseToExisting(x, z, envelope, 24)) { world.setDynamicProperty(key, 1); return; }
 
   const pY = cy - 1;                                // baked ground (local y0) flush with the land
+  const canonicalGorge = pick.id === "fc:greatwood_gorge";
+  const placementId = canonicalGorge
+    ? arboretumDoors.beginPlacement({ regionKey: key, origin: { dimension: dim.id, x, y: pY, z } }) : null;
+  if (canonicalGorge && !placementId) return;
   try {
     world.structureManager.place(pick.id, dim, { x, y: pY, z });
-  } catch { return; }                               // chunk-edge race — retry next sweep
+  } catch { return; } // Canonical pending reservation forbids an ambiguous replay.
+  if (placementId && arboretumDoors.recordPlaced(placementId)) arboretumDoors.confirmPlacement(placementId);
   world.setDynamicProperty(key, 1);
   recordPlace(x, z, envelope, pick.id, pick.theme);
 

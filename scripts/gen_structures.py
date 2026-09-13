@@ -5567,6 +5567,13 @@ def archon_folly():
 
 
 
+def open_gorge_arboretum_throat(v):
+    """Only the new-placement source passage; saved Gorges are never rebuilt."""
+    from door_realms import GORGE_ARBORETUM_SOURCE
+    v.fill(*GORGE_ARBORETUM_SOURCE['throatMin'],
+           *GORGE_ARBORETUM_SOURCE['throatMax'], 'minecraft:air')
+
+
 def greatwood_gorge():
     """Raised forest banks, guarded timber bridge and a navigable dry ravine."""
     v = Vox(39,16,43)
@@ -5625,6 +5632,7 @@ def greatwood_gorge():
                 for y in (10,11,12):
                     if abs(xx-x)+abs(zz-z)<4 or r.random()<.4:
                         v.set(xx,y,zz,"minecraft:oak_leaves",{"persistent_bit":True})
+    open_gorge_arboretum_throat(v)
     v.save("greatwood_gorge")
 
 
@@ -5634,12 +5642,19 @@ def library_arcanum():
     return build_library_arcanum(Vox)
 
 
+def arboretum():
+    """Explicit owner for the separate Greatwood Gorge reward woodland."""
+    from door_realms import build_arboretum
+    return build_arboretum(Vox)
+
+
 def main():
     print("building structures:")
     demon_door_arch()
     guild_hall()
     chamber_of_fate()
     library_arcanum()
+    arboretum()
     oakvale_village()
     bowerstone_market()
     knothole_glade()

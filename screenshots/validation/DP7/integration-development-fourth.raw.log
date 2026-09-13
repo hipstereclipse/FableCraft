@@ -1,0 +1,63 @@
+✔ actual scatter reserves new Gorge before placement, confirms after final geometry, then marks region (56.976864ms)
+✔ old region markers never enroll or replay saved Gorges; pending reservations survive marker loss and ambiguous placement (149.462363ms)
+✔ actual sourceReady accepts final Gorge floor/throat and refuses edited support/headroom without repair (33.049724ms)
+✔ canonical face dispatch preserves instance ownership and cannot pay a legacy persona after marker loss or corrupt state (37.972863ms)
+✔ actual completed-use counts one per event in one instance while preserving native consumption/morality ownership (45.850915ms)
+✔ completed food requires Survival/Adventure; unavailable alignment cannot shortcut pre-normalization full evil (235.351093ms)
+✔ same object/same tick replay and competing nearby instances never multiply one completed-use credit (36.647968ms)
+✔ full-evil interaction uses actual raw alignment authority, not old -500 or tier -950 or legacy fallback (167.492232ms)
+✔ shared block/item guards and queued return use the occupied ticket exact source across families (35.162156ms)
+✔ deferred return cannot transfer an old clicked arch into another cell or missing ticket authority (64.691855ms)
+✖ successful-placement receipt permits deferred confirmation; absent/uncertain receipt never replays source (69.579218ms)
+✔ two Heroes retain separate food counters and another family read failure cannot take over entry authority (40.322896ms)
+✖ actual room adapter accepts final authored geometry and seeds one physical chest after fresh bulk validation (708.199926ms)
+✔ late edited block or unavailable final bulk query refuses room placement after sliced scan (834.494811ms)
+✔ an unavailable other-family ticket blocks new entry without blocking a healthy own exact-source return (68.161004ms)
+(node:5) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 13
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2598.762326
+
+✖ failing tests:
+
+test at scripts/tests/arboretum_integration.test.mjs:140:1
+✖ successful-placement receipt permits deferred confirmation; absent/uncertain receipt never replays source (69.579218ms)
+  AssertionError [ERR_ASSERTION]: receipt-after
+  + actual - expected
+  
+  + 'placed'
+  - 'confirmed'
+  
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/arboretum_integration.test.mjs:147:80)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'placed',
+    expected: 'confirmed',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/arboretum_integration.test.mjs:159:1
+✖ actual room adapter accepts final authored geometry and seeds one physical chest after fresh bulk validation (708.199926ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  'placing' !== 'ready'
+  
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/arboretum_integration.test.mjs:162:61)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'placing',
+    expected: 'ready',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

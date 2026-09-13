@@ -39,7 +39,7 @@ export function inDoorOpening(position, anchor) {
     && position.y >= anchor.y - 0.15 && position.y <= anchor.y + 2.4;
 }
 
-export function createDemonDoorPilot({ world, system, ItemStack, report = () => {}, definition = null, placeRoom = null, sourceReady = () => true }) {
+export function createDemonDoorPilot({ world, system, ItemStack, report = () => {}, definition = null, placeRoom = null, sourceReady = () => true, canEnter = () => true }) {
   if (definition && (definition.id !== "guild_library_arcanum" || definition.destination?.structure !== ARCANUM.id)) {
     throw new Error("Guild Demon Door definition does not match its generated destination contract.");
   }
@@ -342,6 +342,9 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
   }
   function sourceIsReady(r) { try { return sourceReady(r.source) === true; } catch { return false; } }
   function attemptEntry(p, r, currentTicket) {
+    // Another realm's unreadable/active return history cannot be overwritten
+    // by a new crossing. Returns never depend on this admission-only gate.
+    try { if (canEnter(p) !== true) return false; } catch { return false; }
     if (!sourceIsReady(r)) { notice(p, "My passage is obstructed. Clear the doorway before entering."); return false; }
     ensureRoom(r);
     r = read();
@@ -424,6 +427,11 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
     } catch { return null; }
   }
   function occupiedRealm(p) { return !!occupiedOrigin(p); }
+  function allowsOtherEntry(p) {
+    const current = readTicket(p);
+    return current.available && !occupiedRealm(p)
+      && (!current.ticket || current.ticket.phase === "outside");
+  }
   function protectedOrigins() {
     // Current allocation remains protected even when empty. Lost/replaced
     // allocations can also be protected while a loaded visitor's own valid
@@ -531,6 +539,6 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
     for (const [id, started] of returnWait) if (now() - started > 200 || !active.has(id)) returnWait.delete(id);
     if (sourceLease && returnWait.size === 0) removeLease(SOURCE_LEASE);
   }
-  return { registerGuild, matchesFace, reconcileFace, interact, tick, requestReturn, occupiedRealm, protectsBlock, excludesWorldPosition, isReturnBlock,
+  return { registerGuild, matchesFace, reconcileFace, interact, tick, requestReturn, occupiedRealm, protectsBlock, excludesWorldPosition, isReturnBlock, allowsOtherEntry,
     getState: read, getSource, getReturnTicket: ticket };
 }

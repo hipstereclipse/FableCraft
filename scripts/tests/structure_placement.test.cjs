@@ -20,7 +20,10 @@ for (const id of ['chapel_skorm', 'demon_door_arch', 'power_snowspire_oracle', '
     const dimension = {};
     const context = {
       REGION: 256, Math: math,
-      guildDoorWorldExcluded: () => false, guildDoorPilot: { excludesWorldPosition: () => false },
+      guildDoorWorldExcluded: () => false, doorWorldPositionExcluded: () => false,
+      // Dimension/envelope tests use unreserved ordinary regions. The actual
+      // canonical registration and failure paths run in the Arboretum suite.
+      arboretumDoors: { isRecordedRegion: () => false },
       world: { getDynamicProperty: () => undefined, setDynamicProperty: capture('saveRegion'), structureManager: { place: capture('place') } },
       hash2: () => 0, pickStruct: () => pick,
       sampleGroundY: (...args) => { calls.sample = args; return 65; },

@@ -1,0 +1,10 @@
+{
+  "pre_regeneration_gate": "geometry-pre-regeneration-behavior.log and data-pre-regeneration-behavior.log: 8 passed",
+  "owner": "scripts/gen_behavior.py:emit_script_data",
+  "paths": {
+    "packs/Fablecraft_BP/scripts/fc_gamedata.js": {
+      "before": "b649dacfc8960dcbff44534b8b553ccaecfb327aa28ce1096814393d259941eb",
+      "after": "91aace7d4e0bec3c7e7a3279a625dfed36559e43619bc1ce111a129077a82087"
+    }
+  }
+}

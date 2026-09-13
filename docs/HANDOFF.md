@@ -13,14 +13,71 @@ online reference photos and make Demon Doors traversable into distinct original
 reward worlds. Continue autonomously with separate reviewed milestone commits,
 validation/evidence, immediate pushes and fresh handoffs; no routine questions.
 
-Current checkpoint: GP20 — framed red Guild dormitory wall bay
-Last resolved prior commit: 274da7f779aec56562341a7dc75de58a8907b81c (DP6 pushed; exact-head CI 34736624694 passed).
-Containing commit: TLC Conformance — GP20: add a framed red Guild dormitory bay.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP20: add a framed red Guild dormitory bay'.
+Current checkpoint: DP7 — Greatwood Gorge → The Arboretum
+Last resolved prior commit: 71d70ed9f8ab21f49221a2c040f283c398f3f0ec (GP20 pushed; exact-head CI 34737680186 passed).
+Containing commit: TLC Conformance — DP7: open new Gorge doors into the Arboretum.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — DP7: open new Gorge doors into the Arboretum'.
 Never invent a self-hash. Supplemental passes stay in-progress while native
 acceptance is unrun; the legacy scoreboard remains 45 leaves and 7 done.
 
-## Current dormitory checkpoint
+## Current Arboretum checkpoint
+
+DP7 implements the second complete offline portal pilot for newly registered
+Greatwood Gorges. The canonical keyed definition is separate from all eight
+legacy personas. Full current evil or ten completed Survival/Adventure Crunchy
+Chick uses witnessed by the same Hero/instance unlock the door. Original murder
+parity remains open. Native completion has no unique use ID: same-object/tick
+suppression is bounded, and consumption/crash durability is not proven.
+Food progress is independent of alignment availability; the full-evil shortcut
+requires a fresh strict raw schema3 integer -1000 before existing normalization.
+
+New source identity is reserved before structure placement. A receipt after a
+successful call permits confirmation retries; unknown pending source builds
+never replay. Separate witness/index/instance/cell reservations preserve allocator
+history and cap sources/progress rather than evicting them. Missing established
+or unavailable history defers. Old unregistered Gorges, legacy fc_door_idx values,
+Guild state/ticket schemas, saved construction and Nostro stay unchanged.
+
+Arboretum cells start (620000,272,600000), 128 spacing, 64 columns, 4096 cells;
+this grid is disjoint from the Guild. The 49x28x49 woodland has nine rooted trees,
+a three-wide loop, one Wellow’s Pickhammer chest and a timber return frame.
+Arrival (24.5,3,7.5), exit (24.5,3,3.5), chest (34,3,35). Each source instance has
+one physical shared reward, never opening-time item/XP. Journaled placement,
+seeding and ready state never rebuild a visited room or reseed ambiguous reward
+history. Read-back and late bulk block/shell checks precede admission.
+
+The source is local (32.5,6,7.5), facing north. Exactly 43 old cells become air
+in x31..33,y6..9,z7..11; the supported fallback is z6.5. All other 26,789 Gorge
+cells and RNG stay exact. All Guild/Library assets stay exact. Original guide
+pixels support wooded character but not the authored dimensions, roots or loop.
+No external pixels are committed. Six focused geometry views were inspected.
+
+Player tickets retain instance/cell/exact source through lost/replaced ledgers.
+Both families share guards and reject nested/unreadable-history admission while
+healthy own-family returns remain independent. Deferred exit clicks recheck the
+same owner/cell. Native movement, loading/performance, two-Hero behavior,
+collection, collision, lighting and persistence remain unrun.
+All 55 base gates and 65 ESM syntax checks pass in the isolated reviewed-index
+snapshot. Runtime 27, actual main integration 16, alignment 6, Arboretum geometry 9,
+Gorge 9, Library 5 and retained Guild adapter 38 groups pass. Independent runtime
+review passes six negative probes against the final owner; its retained initial
+checkpoint reproduces the revision-exhaustion defect before the final guard.
+The first full run passed 54/55: the older rectangular-placement fixture lacked
+new external portal dependencies. Only that fixture changed and its nine groups
+reran successfully; the original result/log is retained. The earlier population
+fixture correction and development failures are also explicitly recorded.
+
+Fresh 36-asset C2, all 282 full PNGs and Guild diagnostics pass. Compared with GP20,
+only the Gorge asset/C2 image changes and the Arboretum is added; all 34 other
+assets/C2 images remain exact. Only the Gorge card and containing places gallery
+change among 281 existing full PNGs, with one Arboretum card added. Root inspected
+both cards, the gallery and six focused geometry views. Native acceptance remains
+unrun. DP7 is the next visual baseline; C3 retains 45 leaves and 7 done.
+
+See docs/ARBORETUM.md and screenshots/validation/DP7/ for validation and limits.
+Use DP7 as the next visual baseline: C2 now 36 assets and full cards 33 structures.
+
+## Retained dormitory checkpoint
 
 GP20 changes ten existing solid partition materials at x84, y7..8, z17..21:
 six red terracotta infill cells and four dark-oak side cells. Original TLC view
@@ -36,7 +93,7 @@ its red log is retained, then only build reran successfully after generated C2
 image/record staging. Fresh 35-asset C2, all 281 full PNGs and Guild diagnostics
 pass. Only the Guild asset/C2 image, its full card and the containing places
 gallery change versus GP18; all other 34 assets/C2 images and 279 full PNGs are
-exact. Use GP20 as the next visual baseline. Independent DP6/current NBT comparison
+exact. GP20 remains the prior visual baseline. Independent DP6/current NBT comparison
 proves all other 395,270 campus cells, seeded RNG and layout retained, including
 4,820 other NE-room cells, 345 deck cells, ten windows and 678 Maze reservations.
 All 13,822 walking nodes and both 21-point dorm stair paths remain. Six decoded
@@ -105,17 +162,13 @@ See docs/GUILD_ACTIVITY_OWNERSHIP.md and GP19 evidence.
 
 ## Next three actions
 
-1. Implement the next distinct Demon Door world: Greatwood Gorge → The Arboretum.
-   Read screenshots/validation/GP20/arboretum-followup.md and its reproducible
-   catalogue probe. Root inspected the retained 2005 source/interior PNGs. Build
-   one end-to-end pilot for newly registered Gorge instances: immutable identity,
-   disjoint bounded allocation, witnessed actual completed chicks/full-evil
-   challenge, an individually authored shaded wooded loop, one physical shared
-   Wellow's Pickhammer chest, reusable traversal and exact-source return. Preserve
-   all eight legacy personas (including mismatched legacy indices 0/7), already placed
-   unregistered Gorges, Guild v1 tickets/state and Nostro. Do not turn a geometry-
-   or registration-only result into a completed portal claim. Detailed original
-   layout, murder-solution parity and native acceptance remain open.
+1. Continue the Guild fidelity cycle with original-reference evidence for adjoining
+   range/bridge geometry or the remaining interiors. GP20’s surveyed 22-cell rail
+   candidate keeps both crossings, seven destinations and the actual Skill ray
+   clear, but original rail extent/bracing must be established before authoring.
+   Find and inspect original TLC pixels; preserve URLs/hashes and label dimensions
+   and block materials as adaptations. Keep Maze, all routes/RNG and occupied
+   construction intact. Do not declare facility fidelity from render grades.
 2. Resume purposeful Skill station arrival once the required native calibration
    is available. The 2.1 Script API has no script navigation command. DP6's
    station-arrival-followup.md proposes a strict skill_range approach phase,
@@ -126,12 +179,13 @@ See docs/GUILD_ACTIVITY_OWNERSHIP.md and GP19 evidence.
    was acquired or server/world executed; these are transport failures, not proof
    of archive absence or engine incompatibility. Do not keep retrying unchanged
    failed transport while independent content work is available.
-3. Continue original-reference comparisons for the remaining Guild interiors,
-   Maze round windows/rug/panels and range/bridge silhouettes. GP20's bridge-range
-   survey proves two intact crossings; 22 hypothetical rail cells preserve its
-   six local routes, seven gate destinations and actual Skill ray, but rails are
-   not implemented. Establish their source extent/bracing before authoring.
-   Preserve all routes, anchors, RNG, saved construction and native limitations.
+3. Continue individual Demon Door worlds from a verified original pairing and a
+   current-source audit. DP7 now supplies the Arboretum pilot; do not repeat a
+   geometry-only or registration-only implementation as another complete realm.
+   Prioritize any reproduced return/allocation/reward defect, preserve legacy
+   personas and saved instances, and keep original murder-solution parity open.
+   Do not retry unchanged pinned-server transport failures while independent
+   implementation/reference work remains available.
 
 ## Facility and reference constraints
 
@@ -198,9 +252,9 @@ GP18 had 48 base gates, 62 ESM checks, fresh 35-asset C2/full 281 PNG renders an
 diagnostics. Concurrent README/font commit f7e875564d7aa61885ba5324e0a2a743f6751363 is
 preserved (CI 34731885346 passed). Its Linux font fallback changed all 281 cards versus
 GP16; the actual predecessor rendered with the same font/cache matches GP18 exactly.
-GP20 is now the next visual-input baseline; GP18 remains the comparison baseline
+DP7 is now the next visual-input baseline; GP20 remains the comparison baseline
 for earlier checkpoints. Full cards have 32 structures;
-C2 has 35 assets. The external vanilla item cache stays ignored.
+C2 now has 36 assets; full cards include 33 structures. The external vanilla item cache stays ignored.
 
 After EVERY checklist edit run python scripts/conformance_score.py --write then --check.
 Never change the 45-leaf denominator or infer completion from supplemental passes.

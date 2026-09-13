@@ -1,0 +1,39 @@
+✔ actual scatter reserves new Gorge before placement, confirms after final geometry, then marks region (44.77981ms)
+✔ old region markers never enroll or replay saved Gorges; pending reservations survive marker loss and ambiguous placement (142.510668ms)
+✔ actual sourceReady accepts final Gorge floor/throat and refuses edited support/headroom without repair (28.316295ms)
+✔ canonical face dispatch preserves instance ownership and cannot pay a legacy persona after marker loss or corrupt state (35.267155ms)
+✔ actual completed-use counts one per event in one instance while preserving native consumption/morality ownership (49.26618ms)
+✖ completed food requires Survival/Adventure; unavailable alignment cannot shortcut pre-normalization full evil (132.106469ms)
+✔ same object/same tick replay and competing nearby instances never multiply one completed-use credit (37.696519ms)
+✔ full-evil interaction uses actual raw alignment authority, not old -500 or tier -950 or legacy fallback (143.451114ms)
+✔ shared block/item guards and queued return use the occupied ticket exact source across families (27.543938ms)
+✔ deferred return cannot transfer an old clicked arch into another cell or missing ticket authority (56.59573ms)
+(node:4) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 9
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 757.739704
+
+✖ failing tests:
+
+test at scripts/tests/arboretum_integration.test.mjs:104:1
+✖ completed food requires Survival/Adventure; unavailable alignment cannot shortcut pre-normalization full evil (132.106469ms)
+  AssertionError [ERR_ASSERTION]: Existing normalization occurred only after the witness decision
+  
+  -15 !== -1000
+  
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/arboretum_integration.test.mjs:108:274)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: -15,
+    expected: -1000,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

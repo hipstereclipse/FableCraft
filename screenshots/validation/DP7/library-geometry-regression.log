@@ -1,0 +1,10 @@
+test_boundary_and_pond_are_contained (test_library_arcanum.ArcanumGeometry.test_boundary_and_pond_are_contained) ... ok
+test_connected_discovery_sites_and_return_from_both_sides (test_library_arcanum.ArcanumGeometry.test_connected_discovery_sites_and_return_from_both_sides) ... ok
+test_dimensions_and_no_clipped_writes (test_library_arcanum.ArcanumGeometry.test_dimensions_and_no_clipped_writes) ... ok
+test_empty_container_asset_lids_and_adjacent_routes (test_library_arcanum.ArcanumGeometry.test_empty_container_asset_lids_and_adjacent_routes) ... ok
+test_negative_blocked_return_chest_and_broken_containment (test_library_arcanum.ArcanumGeometry.test_negative_blocked_return_chest_and_broken_containment) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.213s
+
+OK

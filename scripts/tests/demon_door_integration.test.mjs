@@ -8,7 +8,7 @@ import { parse } from 'espree';
 
 const main = await readFile('packs/Fablecraft_BP/scripts/main.js', 'utf8');
 const ast = parse(main, { ecmaVersion: 'latest', sourceType: 'module', range: true });
-const sources = await Promise.all(['fc_demon_doors.js', 'guild_door_aperture.js', 'fc_gamedata.js']
+const sources = await Promise.all(['fc_demon_doors.js', 'guild_door_aperture.js', 'fc_gamedata.js', 'arboretum_doors.js']
   .map((name) => readFile(`packs/Fablecraft_BP/scripts/${name}`, 'utf8')));
 const text = (node) => main.slice(...node.range);
 const plain = (value) => JSON.parse(JSON.stringify(value));
@@ -33,7 +33,7 @@ async function fixture() {
     await loaded.link(() => { throw new Error('Injected owned modules have no engine imports'); });
     await loaded.evaluate(); modules.push(loaded.namespace);
   }
-  const [pilotApi, apertureApi, dataApi] = modules;
+  const [pilotApi, apertureApi, dataApi, arboretumApi] = modules;
   const system = { currentTick: 0, run(fn) { timers.push(fn); }, runTimeout(fn) { timers.push(fn); } };
   function blockAt(p, type = Math.floor(p.y) === 64 ? 'minecraft:cobblestone' : 'minecraft:air') {
     const key = cell(p);
@@ -92,6 +92,8 @@ async function fixture() {
   Object.assign(context, {
     world, system, DATA: dataApi.DATA,
     createGuildDoorAperture: apertureApi.createGuildDoorAperture,
+    createArboretumDoors: arboretumApi.createArboretumDoors,
+    readAlignmentAuthority: () => null, GameMode: { Survival: 'Survival', Adventure: 'Adventure' },
     createDemonDoorPilot: (options) => { configuration = options; return pilotApi.createDemonDoorPilot(options); },
     ItemStack: class {}, EquipmentSlot: { Mainhand: 'Mainhand' }, MessageFormData,
     TICKS: () => system.currentTick, OW: () => dimension, trySpawn: spawn,
@@ -99,7 +101,8 @@ async function fixture() {
     openDemonDoor: (...args) => payouts.push(args), doorRiddle: (...args) => payouts.push(['riddle', ...args]),
     hash2: () => 0.75,
   });
-  vm.runInContext(declarations(['guildDoorAperture', 'guildDoorPilot', 'isGuildDoorSource', 'ensureGuildDoorPilot',
+  vm.runInContext(declarations(['guildDoorAperture', 'guildDoorPilot', 'arboretumDoors', 'arboretumSourceReady', 'ensureArboretumFaces',
+    'doorProtectsBlock', 'doorWorldPositionExcluded', 'occupiedDoor', 'requestDoorReturn', 'isGuildDoorSource', 'ensureGuildDoorPilot',
     'guildDoorWorldExcluded', 'heldItem', 'doorPersona', 'demonDoorTalk', 'ensureDemonDoor', 'ensureAllDemonDoors', 'REGION', 'maybePlace']), context);
   const runtime = vm.runInContext('({guildDoorPilot,guildDoorAperture,ensureGuildDoorPilot,isGuildDoorSource,guildDoorWorldExcluded,demonDoorTalk,ensureDemonDoor,ensureAllDemonDoors,maybePlace,REGION})', context);
   function callback(prefix, contains = '', name = prefix) {
@@ -111,10 +114,10 @@ async function fixture() {
   }
   const interact = callback('world.beforeEvents.playerInteractWithEntity.subscribe(');
   const portalTick = callback('system.runInterval(', 'guildDoorPilot.tick()', 'portal tick');
-  const breakBlock = callback('world.beforeEvents.playerBreakBlock.subscribe(', 'guildDoorPilot');
-  const useBlock = callback('world.beforeEvents.playerInteractWithBlock.subscribe(', 'guildDoorPilot');
-  const itemUse = callback('world.beforeEvents.itemUse.subscribe(', 'guildDoorPilot');
-  const explosion = callback('world.beforeEvents.explosion.subscribe(', 'guildDoorPilot');
+  const breakBlock = callback('world.beforeEvents.playerBreakBlock.subscribe(', 'doorProtectsBlock');
+  const useBlock = callback('world.beforeEvents.playerInteractWithBlock.subscribe(', 'doorProtectsBlock');
+  const itemUse = callback('world.beforeEvents.itemUse.subscribe(', 'occupiedDoor');
+  const explosion = callback('world.beforeEvents.explosion.subscribe(', 'doorProtectsBlock');
   const scriptEvent = callback('system.afterEvents.scriptEventReceive.subscribe(', 'fc:door_return');
   const scatter = callback('system.runInterval(', 'maybePlace(p,', 'scatter');
   const boss = callback('system.runInterval(', 'Your quarry has found YOU.', 'quest boss');

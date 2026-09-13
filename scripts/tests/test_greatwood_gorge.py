@@ -12,6 +12,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import gen_structures as GS
 from gen_screenshots import BLOCK_COLORS
 from structure_contract import ROOT, MANIFEST, runtime_tables
+from door_realms import GORGE_ARBORETUM_SOURCE
+from test_guild_map_table import voxel_changes
 
 
 class GreatwoodGorge(unittest.TestCase):
@@ -95,6 +97,44 @@ class GreatwoodGorge(unittest.TestCase):
             path=Path(directory)/'gorge.json';path.write_text(json.dumps(blocks))
             result=subprocess.run(['node','scripts/tests/poi_population.cjs',str(path),'greatwood_gorge'],cwd=ROOT,text=True,capture_output=True)
         self.assertEqual(result.returncode,0,result.stdout+result.stderr);print(result.stdout.strip())
+
+    def test_new_canonical_source_full_throat_and_both_approaches(self):
+        self.assertEqual(GORGE_ARBORETUM_SOURCE['center'],(32.5,6,7.5))
+        self.assertEqual(GORGE_ARBORETUM_SOURCE['normal'],(0,0,-1))
+        reached=self.reached()
+        for x in range(31,34):
+            for z in range(6,13):
+                self.assertEqual(self.block(x,5,z),'minecraft:grass_block',f'Lost source support {(x,z)}')
+                for y in range(6,10):
+                    self.assertEqual(self.block(x,y,z),'minecraft:air',f'Blocked source approach {(x,y,z)}')
+                self.assertIn((x,6,z),reached)
+        self.assertEqual(self.block(32,10,7),GS.CHISELED,'Lost lintel')
+
+    def test_source_only_changes_43_existing_cells_without_shared_rng_drift(self):
+        captures={}; streams=[]; old_rng=GS.rng
+        def tracked_rng(*keys):
+            stream=old_rng(*keys); streams.append((keys,stream)); return stream
+        with patch.object(GS,'rng',tracked_rng):
+            with patch.object(GS.Vox,'save',lambda v,n:captures.setdefault('before',v)), patch.object(GS,'open_gorge_arboretum_throat',lambda *_:None):
+                GS.greatwood_gorge()
+            with patch.object(GS.Vox,'save',lambda v,n:captures.setdefault('after',v)):
+                GS.greatwood_gorge()
+        before,after=captures['before'],captures['after']
+        changed=set(voxel_changes(before,after))
+        expected={(x,y,z) for x in range(31,34) for y in range(6,10) for z in range(8,11)}
+        expected|={(x,y,7) for x in range(31,34) for y in (7,8)}|{(32,9,7)}
+        self.assertEqual(changed,expected);self.assertEqual(len(changed),43)
+        self.assertTrue(all(after.palette[after.grid[after.idx(*p)]][0]=='minecraft:air' for p in changed))
+        self.assertEqual([(k,s.getstate()) for k,s in streams[:1]],[(k,s.getstate()) for k,s in streams[1:]])
+
+    def test_source_obstruction_and_missing_support_are_rejected(self):
+        original=self.vox.grid.copy()
+        try:
+            for at,name in (((32,7,9),GS.STONE),((33,5,11),'minecraft:air'),((31,8,6),GS.STONE)):
+                self.vox.set(*at,name)
+                with self.assertRaises(AssertionError):self.test_new_canonical_source_full_throat_and_both_approaches()
+                self.vox.grid[:]=original
+        finally:self.vox.grid[:]=original
 
     def test_broken_bridge_closed_shack_and_blocked_stairs_negative_fixtures(self):
         original=self.vox.grid.copy()

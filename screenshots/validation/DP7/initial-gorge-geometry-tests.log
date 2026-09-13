@@ -1,0 +1,39 @@
+test_actual_scatter_bandits_loot_and_saved_region (test_greatwood_gorge.GreatwoodGorge.test_actual_scatter_bandits_loot_and_saved_region) ... FAIL
+test_broken_bridge_closed_shack_and_blocked_stairs_negative_fixtures (test_greatwood_gorge.GreatwoodGorge.test_broken_bridge_closed_shack_and_blocked_stairs_negative_fixtures) ... ok
+test_continuous_bridge_deck_and_guardrails (test_greatwood_gorge.GreatwoodGorge.test_continuous_bridge_deck_and_guardrails) ... ok
+test_dimensions_palette_and_runtime_contract (test_greatwood_gorge.GreatwoodGorge.test_dimensions_palette_and_runtime_contract) ... ok
+test_new_canonical_source_full_throat_and_both_approaches (test_greatwood_gorge.GreatwoodGorge.test_new_canonical_source_full_throat_and_both_approaches) ... ok
+test_routes_to_checkpoint_chest_face_and_lower_ravine (test_greatwood_gorge.GreatwoodGorge.test_routes_to_checkpoint_chest_face_and_lower_ravine) ... ok
+test_source_obstruction_and_missing_support_are_rejected (test_greatwood_gorge.GreatwoodGorge.test_source_obstruction_and_missing_support_are_rejected) ... ok
+test_source_only_changes_43_existing_cells_without_shared_rng_drift (test_greatwood_gorge.GreatwoodGorge.test_source_only_changes_43_existing_cells_without_shared_rng_drift) ... ok
+test_stairs_face_and_exact_chest (test_greatwood_gorge.GreatwoodGorge.test_stairs_face_and_exact_chest) ... ok
+
+======================================================================
+FAIL: test_actual_scatter_bandits_loot_and_saved_region (test_greatwood_gorge.GreatwoodGorge.test_actual_scatter_bandits_loot_and_saved_region)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/test_greatwood_gorge.py", line 99, in test_actual_scatter_bandits_loot_and_saved_region
+    self.assertEqual(result.returncode,0,result.stdout+result.stderr);print(result.stdout.strip())
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : evalmachine.<anonymous>:7
+  if (arboretumDoors.isRecordedRegion(key)) return;
+  ^
+
+ReferenceError: arboretumDoors is not defined
+    at Object.maybePlace (evalmachine.<anonymous>:7:3)
+    at Object.<anonymous> (/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/poi_population.cjs:35:11)
+    at Module._compile (node:internal/modules/cjs/loader:1934:14)
+    at Object..js (node:internal/modules/cjs/loader:2074:10)
+    at Module.load (node:internal/modules/cjs/loader:1656:32)
+    at Module._load (node:internal/modules/cjs/loader:1448:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47
+
+Node.js v26.7.0
+
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.915s
+
+FAILED (failures=1)

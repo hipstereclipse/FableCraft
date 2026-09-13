@@ -1,0 +1,33 @@
+{
+  "package": "@minecraft/server",
+  "version": "2.1.0",
+  "source": "https://registry.npmjs.org/@minecraft/server/2.1.0",
+  "pinned_index_d_ts_sha256": "38e989f3f0371967c1df82a12d5f37a3832cbff3944e38be8bb51638ed0e771d",
+  "local_archive": "tmp/conformance/gp17-activity-audit/index.d.ts",
+  "containsBlock": "containsBlock(volume: BlockVolumeBase, filter: BlockFilter, allowUnloadedChunks?: boolean): boolean;",
+  "BlockVolume": "constructor(from: Vector3, to: Vector3);",
+  "BlockFilter.excludeTypes": "excludeTypes?: string[];",
+  "ItemCompleteUseAfterEvent_fields": [
+    [
+      "itemStack",
+      "ItemStack"
+    ],
+    [
+      "source",
+      "Player"
+    ],
+    [
+      "useDuration",
+      "number"
+    ]
+  ],
+  "native_unique_use_id": false,
+  "bulk_allowUnloadedChunks": false,
+  "current_primary_references": [
+    "https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/server/itemcompleteuseafterevent?view=minecraft-bedrock-stable",
+    "https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/server/dimension?view=minecraft-bedrock-stable#containsblock",
+    "https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/server/blockvolume?view=minecraft-bedrock-stable",
+    "https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/server/blockfilter?view=minecraft-bedrock-stable"
+  ],
+  "native_runtime_acceptance": "unrun"
+}

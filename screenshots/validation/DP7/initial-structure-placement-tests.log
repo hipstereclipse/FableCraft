@@ -1,0 +1,125 @@
+✖ chapel_skorm: actual placement uses generator dimensions and preserves save envelope (2.573317ms)
+✖ demon_door_arch: actual placement uses generator dimensions and preserves save envelope (0.836448ms)
+✖ power_snowspire_oracle: actual placement uses generator dimensions and preserves save envelope (0.718244ms)
+✖ temple_avo: actual placement uses generator dimensions and preserves save envelope (0.627672ms)
+✖ arena_ring: actual placement uses generator dimensions and preserves save envelope (0.619587ms)
+✖ bowerstone_market: actual placement uses generator dimensions and preserves save envelope (0.596874ms)
+✖ oakvale_village: actual placement uses generator dimensions and preserves save envelope (0.641999ms)
+✖ grey_house: actual placement uses generator dimensions and preserves save envelope (0.684701ms)
+✖ bargate_prison: actual placement uses generator dimensions and preserves save envelope (0.835587ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 0
+ℹ fail 9
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 23.311631
+
+✖ failing tests:
+
+test at scripts/tests/structure_placement.test.cjs:15:3
+✖ chapel_skorm: actual placement uses generator dimensions and preserves save envelope (2.573317ms)
+  ReferenceError: arboretumDoors is not defined
+      at Object.maybePlace (evalmachine.<anonymous>:7:3)
+      at TestContext.<anonymous> (/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/DP7-reviewed-snapshot/scripts/tests/structure_placement.test.cjs:32:13)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.start (node:internal/test_runner/test:1257:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)
+
+test at scripts/tests/structure_placement.test.cjs:15:3
+✖ demon_door_arch: actual placement uses generator dimensions and preserves save envelope (0.836448ms)
+  ReferenceError: arboretumDoors is not defined
+      at Object.maybePlace (evalmachine.<anonymous>:7:3)
+      at TestContext.<anonymous> (/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/DP7-reviewed-snapshot/scripts/tests/structure_placement.test.cjs:32:13)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+
+test at scripts/tests/structure_placement.test.cjs:15:3
+✖ power_snowspire_oracle: actual placement uses generator dimensions and preserves save envelope (0.718244ms)
+  ReferenceError: arboretumDoors is not defined
+      at Object.maybePlace (evalmachine.<anonymous>:7:3)
+      at TestContext.<anonymous> (/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/DP7-reviewed-snapshot/scripts/tests/structure_placement.test.cjs:32:13)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7)
+
+test at scripts/tests/structure_placement.test.cjs:15:3
+✖ temple_avo: actual placement uses generator dimensions and preserves save envelope (0.627672ms)
+  ReferenceError: arboretumDoors is not defined
+      at Object.maybePlace (evalmachine.<anonymous>:7:3)
+      at TestContext.<anonymous> (/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/DP7-reviewed-snapshot/scripts/tests/structure_placement.test.cjs:32:13)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7)
+
+test at scripts/tests/structure_placement.test.cjs:15:3
+✖ arena_ring: actual placement uses generator dimensions and preserves save envelope (0.619587ms)
+  ReferenceError: arboretumDoors is not defined
+      at Object.maybePlace (evalmachine.<anonymous>:7:3)
+      at TestContext.<anonymous> (/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/DP7-reviewed-snapshot/scripts/tests/structure_placement.test.cjs:32:13)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7)
+
+test at scripts/tests/structure_placement.test.cjs:15:3
+✖ bowerstone_market: actual placement uses generator dimensions and preserves save envelope (0.596874ms)
+  ReferenceError: arboretumDoors is not defined
+      at Object.maybePlace (evalmachine.<anonymous>:7:3)
+      at TestContext.<anonymous> (/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/DP7-reviewed-snapshot/scripts/tests/structure_placement.test.cjs:32:13)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7)
+
+test at scripts/tests/structure_placement.test.cjs:15:3
+✖ oakvale_village: actual placement uses generator dimensions and preserves save envelope (0.641999ms)
+  ReferenceError: arboretumDoors is not defined
+      at Object.maybePlace (evalmachine.<anonymous>:7:3)
+      at TestContext.<anonymous> (/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/DP7-reviewed-snapshot/scripts/tests/structure_placement.test.cjs:32:13)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7)
+
+test at scripts/tests/structure_placement.test.cjs:15:3
+✖ grey_house: actual placement uses generator dimensions and preserves save envelope (0.684701ms)
+  ReferenceError: arboretumDoors is not defined
+      at Object.maybePlace (evalmachine.<anonymous>:7:3)
+      at TestContext.<anonymous> (/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/DP7-reviewed-snapshot/scripts/tests/structure_placement.test.cjs:32:13)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7)
+
+test at scripts/tests/structure_placement.test.cjs:15:3
+✖ bargate_prison: actual placement uses generator dimensions and preserves save envelope (0.835587ms)
+  ReferenceError: arboretumDoors is not defined
+      at Object.maybePlace (evalmachine.<anonymous>:7:3)
+      at TestContext.<anonymous> (/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/DP7-reviewed-snapshot/scripts/tests/structure_placement.test.cjs:32:13)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1397:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:969:18)
+      at Test.postRun (node:internal/test_runner/test:1537:19)
+      at Test.run (node:internal/test_runner/test:1462:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7)

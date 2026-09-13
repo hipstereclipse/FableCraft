@@ -1,0 +1,86 @@
+{
+  "baseline_commit": "71d70ed9f8ab21f49221a2c040f283c398f3f0ec",
+  "baseline_source_sha256": {
+    "packs/Fablecraft_BP/scripts/wd/config.js": "0474b28acd194ae6a2314f127b51a959f8eac397622374704683f27701c93f46",
+    "packs/Fablecraft_BP/scripts/wd/state.js": "eaa655398a73b1d389d0ee0a1bd928c5e182d8939bfa7e4a59cdac24be35d39b",
+    "packs/Fablecraft_BP/scripts/wd/alignment.js": "4a8c17dd1cbe5750ec01fa2e4f9e414ad23ca751eef47e28799b54883f2cce7d",
+    "packs/Fablecraft_BP/scripts/main.js": "2d158bedac0198480e359f10d93ea67710ab1a777a9e16117479ddbf11d32c8d"
+  },
+  "current_helper_source_sha256": {
+    "packs/Fablecraft_BP/scripts/wd/config.js": "0474b28acd194ae6a2314f127b51a959f8eac397622374704683f27701c93f46",
+    "packs/Fablecraft_BP/scripts/wd/state.js": "eaa655398a73b1d389d0ee0a1bd928c5e182d8939bfa7e4a59cdac24be35d39b",
+    "packs/Fablecraft_BP/scripts/wd/alignment.js": "0e1521db9b324be21c6391b5c4b8696f6a31cce5385831935da628ca5d4311d7"
+  },
+  "alignment_cases": [
+    {
+      "name": "missing",
+      "baseline_getAlignment": -1000,
+      "actual_DP7_readAlignmentAuthority": null,
+      "baseline_writes": 1
+    },
+    {
+      "name": "malformed",
+      "baseline_getAlignment": -1000,
+      "actual_DP7_readAlignmentAuthority": null,
+      "baseline_writes": 1
+    },
+    {
+      "name": "missing_alignment",
+      "baseline_getAlignment": -1000,
+      "actual_DP7_readAlignmentAuthority": null,
+      "baseline_writes": 0
+    },
+    {
+      "name": "string_alignment",
+      "baseline_getAlignment": -1000,
+      "actual_DP7_readAlignmentAuthority": null,
+      "baseline_writes": 0
+    },
+    {
+      "name": "fractional_alignment",
+      "baseline_getAlignment": -1000,
+      "actual_DP7_readAlignmentAuthority": null,
+      "baseline_writes": 0
+    },
+    {
+      "name": "out_of_range",
+      "baseline_getAlignment": -1000,
+      "actual_DP7_readAlignmentAuthority": null,
+      "baseline_writes": 0
+    },
+    {
+      "name": "unsupported_schema",
+      "baseline_getAlignment": -1000,
+      "actual_DP7_readAlignmentAuthority": null,
+      "baseline_writes": 1
+    },
+    {
+      "name": "unreadable",
+      "baseline_getAlignment": -1000,
+      "actual_DP7_readAlignmentAuthority": null,
+      "baseline_writes": 1
+    },
+    {
+      "name": "valid_full_evil",
+      "baseline_getAlignment": -1000,
+      "actual_DP7_readAlignmentAuthority": -1000,
+      "baseline_writes": 0
+    },
+    {
+      "name": "valid_not_full",
+      "baseline_getAlignment": -999,
+      "actual_DP7_readAlignmentAuthority": -999,
+      "baseline_writes": 0
+    }
+  ],
+  "baseline_callback_replay": {
+    "injected_same_event_twice_alignment": [
+      -15,
+      -30
+    ],
+    "native_replay_observed": false,
+    "stack16_still_one_effect_per_callback": true
+  },
+  "actual_source_with_injected_engine_boundaries": true,
+  "native_consumption_and_replay_acceptance": "unrun"
+}

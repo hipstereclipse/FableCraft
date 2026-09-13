@@ -1,0 +1,69 @@
+{
+  "source_sha256_before": {
+    "packs/Fablecraft_BP/scripts/main.js": "9ec3a4b057549b2d5fc184fdd09aaaddf151b062cb1c9485572221e3298e21ff",
+    "packs/Fablecraft_BP/scripts/arboretum_doors.js": "d2ea54066b594d57a3b9432c2a3b11edc85b41d08f2305caf96122c7ce9e7557",
+    "packs/Fablecraft_BP/scripts/fc_demon_doors.js": "1983f15f8a0d4fbbd215dade175ce7c5f38889f31fe068bfca5a7869e9c71d6f",
+    "packs/Fablecraft_BP/scripts/guild_door_aperture.js": "5db5993efaebf1787125cd2552379f1a9220d5e485fa7edd9c4b52603681fbb5",
+    "packs/Fablecraft_BP/scripts/fc_gamedata.js": "91aace7d4e0bec3c7e7a3279a625dfed36559e43619bc1ce111a129077a82087",
+    "packs/Fablecraft_BP/scripts/wd/alignment.js": "0e1521db9b324be21c6391b5c4b8696f6a31cce5385831935da628ca5d4311d7",
+    "packs/Fablecraft_BP/scripts/wd/state.js": "eaa655398a73b1d389d0ee0a1bd928c5e182d8939bfa7e4a59cdac24be35d39b",
+    "packs/Fablecraft_BP/scripts/wd/config.js": "0474b28acd194ae6a2314f127b51a959f8eac397622374704683f27701c93f46",
+    "scripts/gen_structures.py": "82783e7baaffff88a07b41a7fa97713af41f206d8d377cb6d15d928014cb47ca",
+    "scripts/door_realms.py": "809431f12cd647ca9c65b3718cd2ffb92eab44061655dbb6f696be67fe3dea42",
+    "scripts/tests/arboretum_integration.test.mjs": "84be78055cbb8ad123366e3b3d3e657d50e61fa39408c2c7a76169524fc65de3",
+    "scripts/tests/alignment_authority.test.mjs": "8fa9c30804e89f731dc06b121cc89c5240f9504d447d771d6202d6e7a8dcaf84",
+    "screenshots/validation/DP7/authority-baseline-probe.mjs": "990d244b5a826d79bfa332ebd7b4a4bbee52aaa74c9299428e56e0a0340f025b"
+  },
+  "source_sha256_after": {
+    "packs/Fablecraft_BP/scripts/main.js": "9ec3a4b057549b2d5fc184fdd09aaaddf151b062cb1c9485572221e3298e21ff",
+    "packs/Fablecraft_BP/scripts/arboretum_doors.js": "d2ea54066b594d57a3b9432c2a3b11edc85b41d08f2305caf96122c7ce9e7557",
+    "packs/Fablecraft_BP/scripts/fc_demon_doors.js": "1983f15f8a0d4fbbd215dade175ce7c5f38889f31fe068bfca5a7869e9c71d6f",
+    "packs/Fablecraft_BP/scripts/guild_door_aperture.js": "5db5993efaebf1787125cd2552379f1a9220d5e485fa7edd9c4b52603681fbb5",
+    "packs/Fablecraft_BP/scripts/fc_gamedata.js": "91aace7d4e0bec3c7e7a3279a625dfed36559e43619bc1ce111a129077a82087",
+    "packs/Fablecraft_BP/scripts/wd/alignment.js": "0e1521db9b324be21c6391b5c4b8696f6a31cce5385831935da628ca5d4311d7",
+    "packs/Fablecraft_BP/scripts/wd/state.js": "eaa655398a73b1d389d0ee0a1bd928c5e182d8939bfa7e4a59cdac24be35d39b",
+    "packs/Fablecraft_BP/scripts/wd/config.js": "0474b28acd194ae6a2314f127b51a959f8eac397622374704683f27701c93f46",
+    "scripts/gen_structures.py": "82783e7baaffff88a07b41a7fa97713af41f206d8d377cb6d15d928014cb47ca",
+    "scripts/door_realms.py": "809431f12cd647ca9c65b3718cd2ffb92eab44061655dbb6f696be67fe3dea42",
+    "scripts/tests/arboretum_integration.test.mjs": "84be78055cbb8ad123366e3b3d3e657d50e61fa39408c2c7a76169524fc65de3",
+    "scripts/tests/alignment_authority.test.mjs": "8fa9c30804e89f731dc06b121cc89c5240f9504d447d771d6202d6e7a8dcaf84",
+    "screenshots/validation/DP7/authority-baseline-probe.mjs": "990d244b5a826d79bfa332ebd7b4a4bbee52aaa74c9299428e56e0a0340f025b"
+  },
+  "sources_stable_during_run": true,
+  "commands": [
+    {
+      "command": [
+        "node",
+        "--experimental-vm-modules",
+        "scripts/tests/alignment_authority.test.mjs"
+      ],
+      "exit_code": 0,
+      "raw_log": "alignment-authority.raw.log",
+      "raw_log_sha256": "37b8b7838050bf31b14e7c9497aab073c015ecc14915a34474761da330effe8d"
+    },
+    {
+      "command": [
+        "node",
+        "--experimental-vm-modules",
+        "scripts/tests/arboretum_integration.test.mjs"
+      ],
+      "exit_code": 0,
+      "raw_log": "arboretum-integration.raw.log",
+      "raw_log_sha256": "f55a0fc8705a493f58ace87acd17ef33b4706a56362545cf6312a22899fb4df7"
+    },
+    {
+      "command": [
+        "node",
+        "--experimental-vm-modules",
+        "screenshots/validation/DP7/authority-baseline-probe.mjs"
+      ],
+      "exit_code": 0,
+      "raw_log": "authority-baseline.raw.log",
+      "raw_log_sha256": "5198035f8ea98fcd83ace2441e457b25f42870a45e67e71a9cabdd50e92d4454"
+    }
+  ],
+  "alignment_groups": 6,
+  "integration_groups": 16,
+  "baseline_alignment_rows": 10,
+  "native_acceptance": "unrun"
+}

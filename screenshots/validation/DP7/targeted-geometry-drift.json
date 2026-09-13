@@ -1,0 +1,23 @@
+{
+  "files_before": 1661,
+  "files_after": 1662,
+  "changes": [
+    {
+      "path": "packs/Fablecraft_BP/structures/fc/arboretum.mcstructure",
+      "before": null,
+      "after": "678c15573abf29e17f52c4edfb09cdc58b89f138d3172ba2d4667eb9827fd23c"
+    },
+    {
+      "path": "packs/Fablecraft_BP/structures/fc/greatwood_gorge.mcstructure",
+      "before": "60bf0e783d5d5e3f39608eb07fdc4219e1cc57cc48470adb55e78a69d59ba3e5",
+      "after": "77f2f37c610a5d7618a53c8785ef29aebe7e8cb866c4f56376d6ba973f69e7d5"
+    }
+  ],
+  "library_arcanum_owner_equals_unchanged_shipped": true,
+  "library_sha256": "5e296dd3f30916a064181beb32f5e59692f830611449b7c920031caede9ab7c7",
+  "behavior_before_generation": "geometry-pre-regeneration-behavior.log",
+  "source_sha256": {
+    "scripts/gen_structures.py": "82783e7baaffff88a07b41a7fa97713af41f206d8d377cb6d15d928014cb47ca",
+    "scripts/door_realms.py": "809431f12cd647ca9c65b3718cd2ffb92eab44061655dbb6f696be67fe3dea42"
+  }
+}

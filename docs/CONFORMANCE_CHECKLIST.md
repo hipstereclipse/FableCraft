@@ -12,7 +12,7 @@ individually designed corresponding reward worlds with return travel. Start the
 GP/DP queue in [GUILD_DEMON_PRIORITIES.md](GUILD_DEMON_PRIORITIES.md) before W3.5.
 That newly authorized queue is tracked separately from these 45 historical leaves;
 the existing completion counts do not measure Guild/portal redesign completion.
-Latest supplemental checkpoint: GP20. See GUILD_DEMON_PRIORITIES.md for exact
+Latest supplemental checkpoint: DP7. See GUILD_DEMON_PRIORITIES.md for exact
 scope and evidence. Engine acceptance remains pending; the 45-leaf counts are unchanged.
 
 ## Prerequisites and bootstrap
@@ -136,7 +136,7 @@ Manual counts reflect explicit grade cells; absence of a pending label is not pr
 that a feature has been tested in-world. The spell in-world checklist also remains separate.
 
 Current offline structure appearance grades from
-[the C2 audit](../screenshots/structures/contract/AUDIT.md): S=33, A=2, B=0, C=0, D=0.
+[the C2 audit](../screenshots/structures/contract/AUDIT.md): S=34, A=2, B=0, C=0, D=0.
 These are renderer metrics, not canon/playability grades. No letter-grade average
 or overall canon-conformance score is inferred.
 

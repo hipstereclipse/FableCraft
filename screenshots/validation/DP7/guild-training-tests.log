@@ -1,0 +1,43 @@
+✔ one checked station placement per active session; release does not teleport home (3.839953ms)
+✔ failed stop keeps state pending and retries; successful cleanup does not repeat (1.473198ms)
+✔ failed start and tag writes clean up and cannot re-place during the same session (3.995237ms)
+✔ reload reconciles both old role tags and tagless frozen components (2.555984ms)
+✔ failed legacy cleanup prevents acquisition until a later successful release (1.923734ms)
+✔ inactive invalid handles are forgotten and a returned id reconciles again (1.425568ms)
+✔ blocked headroom, side footprint, unsupported or unloaded station never acquires (4.761823ms)
+✔ authored floors work with stable 2.1 Block fields and unknown replacements are refused (2.986321ms)
+✔ engine placement false/throw is not retried or replaced by unchecked teleport (5.903561ms)
+✔ pair acquisition is all-or-release; retained lone partner is released (3.697482ms)
+✔ combat, Follow, married state, dimension change and displacement invalidate activity (8.59329ms)
+✔ night, empty scan and invalid/unloaded entity cancel tokens; reloaded entity is reconciled (4.17034ms)
+✔ an old session token cannot interrupt a new assignment or neutralize defence (1.491312ms)
+✔ production scheduler repeats harmless activity without repeated placement and releases on rest (15.267825ms)
+✔ production conversation interrupts immediately and prevents same-session resumption (10.387777ms)
+✔ production scheduler releases a lone fighter when the partner disappears (9.930489ms)
+✔ production delayed archery cancels on aggression, rest, death and social Watch/Follow (47.073959ms)
+✔ production boast excludes active trainees, aggravated defenders and followers (10.719348ms)
+✔ Will practice stays on the island and never substitutes for missing Might fighters (10.823866ms)
+✔ Will refuses blocked, replaced and unavailable island support, dummy or beam without writes (52.9563ms)
+✔ Will delayed pulses cancel before first release on conversation, Follow, defence and load/session changes (92.68616ms)
+✔ Will interruption between pulses cancels all remaining feedback and retains social and resident identity (8.11975ms)
+✔ Will cleanup retries failed events and reconciles old Will role tags after reload (9.616072ms)
+✔ Will engine placement failure never retries during the session or falls back to teleport (11.953451ms)
+✔ old Will callbacks cannot release a newly acquired later session (8.861219ms)
+✔ Skill clear pulses retain their six-particle ray, checked placement and saved resident state (6.195155ms)
+✔ Skill refuses edited or unavailable target, hay, lane and standing cells before acquisition (83.499213ms)
+✔ Skill delayed pulse rechecks each edited or unavailable cell and cannot resume the interrupted session (87.929608ms)
+✔ Skill missing-chunk exceptions refuse acquisition and cancel a queued pulse with retriable cleanup (48.090539ms)
+✔ Skill checks every later scheduled pulse after a previously successful shot (7.10863ms)
+✔ Skill delayed pulse preserves conversation, Follow, Watch, spouse and defender precedence (62.442545ms)
+✔ old Skill callbacks cannot inspect an edited lane or release a later assignment (5.527627ms)
+✔ Skill engine placement failure keeps the existing one-attempt session limit (12.043312ms)
+(node:62) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ℹ tests 33
+ℹ suites 0
+ℹ pass 33
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 659.818595

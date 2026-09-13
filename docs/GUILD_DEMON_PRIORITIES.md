@@ -55,6 +55,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | GP19 | in-progress | Requester-owned Follow/Wait for the two canonical Skill residents with durable cleanup and social/training/defence arbitration; native acceptance open |
 | DP6 | in-progress | Preserve exact return tickets during unavailable reads; retain confirmed absent/corrupt fallback and independent occupied-room guards; native acceptance open |
 | GP20 | in-progress | One reference-led framed red dormitory wall bay replaces ten existing solid materials; routes, room fixtures and saved geometry preserved; native acceptance open |
+| DP7 | in-progress | New Gorge instances open into a separately authored Arboretum with witnessed challenge, physical shared Pickhammer, bounded allocation and exact-source return; native acceptance open |
 
 Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
 defects and manual status here. These passes are not completed legacy leaves.
@@ -1063,7 +1064,8 @@ pilot and the facility still have open native and reference acceptance.
 
 ## GP20 — framed red dormitory wall bay (2026-09-13)
 
-Commit: SELF: TLC Conformance — GP20: add a framed red Guild dormitory bay.
+Commit: 71d70ed9f8ab21f49221a2c040f283c398f3f0ec. Pushed; exact-head CI
+34737680186 passed.
 The inspected original TLC dormitory screenshot 141296214 shows red plaster-like
 infill, heavy timber uprights and dark carved lower panels. One existing plain
 stone partition bay now uses six red terracotta cells between four dark-oak side
@@ -1105,3 +1107,53 @@ and exact-source return. Preserve all eight legacy personas, unregistered older
 Gorges, Guild tickets/history and Nostro. This remains a proposal, not a second
 implemented reward world; original murder parity, detailed source layout and
 native acceptance remain open.
+
+
+## DP7 — Greatwood Gorge to The Arboretum (2026-09-13)
+
+Commit: SELF: TLC Conformance — DP7: open new Gorge doors into the Arboretum.
+The second end-to-end pilot gives newly registered Gorges a distinct wooded
+reward world, a physical shared Wellow’s Pickhammer and exact-instance return.
+Current full evil or ten witnessed completed Crunchy Chick uses unlock it.
+Counters belong to one Hero and one door; original murder parity remains open.
+The native food event has no unique use token, so same-object/tick suppression is
+bounded and native consumption/crash durability remains unrun.
+
+Separate immutable source registration, placement receipts, initialization witness,
+instance history and monotonic realm allocation preserve existing worlds. Unknown
+pending source placement is never replayed; a successful saved receipt permits
+confirmation retries. Existing unregistered Gorges and all eight legacy personas
+retain their behavior. Guild schemas, exact tickets, current/old occupied-cell
+guards and Nostro remain separate. Fresh raw alignment authority never migrates
+or borrows legacy values to authorize a challenge.
+
+Only 43 existing Gorge cells become the new mouth opening, with the rest of its
+26,832 cells and RNG unchanged. The authored 49×28×49 Arboretum has large rooted
+trees, a winding dry loop, one chest and a timber return frame. The original small
+2005 guide image supports the wooded setting, not these exact dimensions or
+furnishings. All Guild and Library geometry remains exact; no occupied-room
+rebuild or reseeding is introduced. Native scan/loading cost, movement, lighting,
+collection, multiplayer and persistence acceptance remain unrun.
+See [ARBORETUM.md](ARBORETUM.md) and `screenshots/validation/DP7/` for evidence and
+limits. Continue the facility/door cycle with proven defects and original pixels;
+this pass does not close whole-facility or catalogue conformance.
+
+
+## DP7 validation result
+
+All 55 base gates and 65 ESM syntax checks pass in the isolated reviewed-index
+snapshot. Runtime 27, actual main integration 16, alignment 6, Arboretum geometry 9,
+Gorge 9, Library 5 and retained Guild adapter 38 groups pass. Independent runtime
+review passes six negative probes against the final owner; its retained initial
+checkpoint reproduces the revision-exhaustion defect before the final guard.
+The first full run passed 54/55: the older rectangular-placement fixture lacked
+new external portal dependencies. Only that fixture changed and its nine groups
+reran successfully; the original result/log is retained. The earlier population
+fixture correction and development failures are also explicitly recorded.
+
+Fresh 36-asset C2, all 282 full PNGs and Guild diagnostics pass. Compared with GP20,
+only the Gorge asset/C2 image changes and the Arboretum is added; all 34 other
+assets/C2 images remain exact. Only the Gorge card and containing places gallery
+change among 281 existing full PNGs, with one Arboretum card added. Root inspected
+both cards, the gallery and six focused geometry views. Native acceptance remains
+unrun. DP7 is the next visual baseline; C3 retains 45 leaves and 7 done.
