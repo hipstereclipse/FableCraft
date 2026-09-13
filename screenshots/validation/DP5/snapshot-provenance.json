@@ -1,0 +1,19 @@
+{
+  "source": "reviewed Git index exported to isolated snapshot; unrelated work excluded",
+  "baseline_head": "e5cf6069d22b6bda767e2face677d4caf6db28ee",
+  "tested_executable_sha256": {
+    "packs/Fablecraft_BP/scripts/fc_demon_doors.js": "aee84404ebb7f8b5ebc63b7b584de2e1c08918e67094dc2d9e762044e6035b62",
+    "packs/Fablecraft_BP/scripts/main.js": "ce3ab2e866663102ce86e1e0cfe18b836983b394313d4e91e372e5369ac261c2",
+    "scripts/tests/demon_door_integration.test.mjs": "b739f75deed73f8d9ae50f056b3b1d1f44fad6c7394191a3d939bbb147b9e3f0"
+  },
+  "final_documentation_sha256": {
+    "docs/CONFORMANCE_CHECKLIST.md": "15a4e1aa57127c618f854f308a7cf9ab6299d71d4a253531eafcdefe62fd2d2b",
+    "docs/GUILD_DEMON_PRIORITIES.md": "a40e436c89862a870511a9773729a05a5db7a93d5857955116cb83651d6e496c",
+    "docs/HANDOFF.md": "42614de0ec21c6caf9b1a181344b6077e2885d0521c488db325053885689a0eb",
+    "docs/LIBRARY_ARCANUM.md": "657c8540d764f22a9e7fd0aa18b3b3748f3c75bffc52992abf838ec36a04b1e8",
+    "docs/LIBRARY_ARCANUM_PROTECTIONS.md": "a4874e259de5a10f6f76a0e9636cbb80e0d49e8023044e159846aba3227f7aa4"
+  },
+  "documentation_timing": "Final documents refreshed after code validation; all staged executable source matches the tested snapshot",
+  "node_dependencies": "same locked installed dependencies via node_modules symlink",
+  "engine_acceptance": "unrun"
+}

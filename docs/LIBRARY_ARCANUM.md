@@ -147,6 +147,12 @@ prior payment history remains unrecoverable. This limitation is recorded, not
 inferred from current inventory. A transient read failure in surviving-face history
 defers registration; it never establishes that rewards were unpaid.
 
+DP5 now retains block and spawning protections for valid loaded original-cell
+visitors through the same lost/replaced-ledger recovery cases. Return-arch clicks
+revalidate the requesting player at the captured original cell. See
+[LIBRARY_ARCANUM_PROTECTIONS.md](LIBRARY_ARCANUM_PROTECTIONS.md) for scope,
+failed-scan/departure limits and actual callback tests.
+
 The reserved footprint plus a 160-block margin is excluded from normal scatter
 and scripted quest-boss spawning at every height. The room is outside the loot,
 settlement and Cullis registries. Stable before-events block player breaking,

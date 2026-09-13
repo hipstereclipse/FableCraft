@@ -117,6 +117,7 @@ async function fixture() {
   const explosion = callback('world.beforeEvents.explosion.subscribe(', 'guildDoorPilot');
   const scriptEvent = callback('system.afterEvents.scriptEventReceive.subscribe(', 'fc:door_return');
   const scatter = callback('system.runInterval(', 'maybePlace(p,', 'scatter');
+  const boss = callback('system.runInterval(', 'Your quarry has found YOU.', 'quest boss');
   function readyRoom() {
     runtime.ensureGuildDoorPilot(dimension, source, true);
     const state = plain(runtime.guildDoorPilot.getState());
@@ -128,7 +129,7 @@ async function fixture() {
   function flush() { while (timers.length) timers.shift()(); }
   return { runtime, context, world, dimension, nether, source, player, face, entities, players, blocks, blockAt,
     properties, operations, placements, forms, payouts, errors, configuration, callbacks, pilotApi, timers, system,
-    readyRoom, flush, interact, portalTick, breakBlock, useBlock, itemUse, explosion, scriptEvent, scatter };
+    readyRoom, flush, interact, portalTick, breakBlock, useBlock, itemUse, explosion, scriptEvent, scatter, boss };
 }
 
 test('production singleton passes canonical data, aperture gate and literal destination placement', async () => {
@@ -570,4 +571,191 @@ test('actual recovery command uses an existing ticket when the main room record 
   assert.equal(p.moves.length, 1); assert.equal(p.location.x, f.source.x + 0.5);
   assert.equal(f.properties.get(f.pilotApi.DOOR_STATE_KEY), '{corrupt');
   assert.equal(p.props.has(f.pilotApi.DOOR_RETURN_KEY), false);
+});
+
+
+const protectionFailures = ['missing', 'corrupt', 'unreadable', 'recreated', 'replacement'];
+function rememberVisitor(f, cellId = 0, source = { ...f.source, x: f.source.x + 0.5, z: f.source.z - 3.5 }) {
+  const p = f.player(), origin = plain(f.pilotApi.realmOrigin(cellId));
+  p.location = add(origin, f.pilotApi.ARCANUM.arrival);
+  p.props.set(f.pilotApi.DOOR_RETURN_KEY, JSON.stringify({ schema: 1, doorId: 'guild', cell: cellId, source, phase: 'inside' }));
+  return p;
+}
+async function protectionFixture(failure) {
+  const f = await fixture(), origin = f.readyRoom(), visitor = rememberVisitor(f);
+  if (failure === 'missing' || failure === 'recreated') f.properties.delete(f.pilotApi.DOOR_STATE_KEY);
+  if (failure === 'corrupt') f.properties.set(f.pilotApi.DOOR_STATE_KEY, '{broken');
+  if (failure === 'unreadable') {
+    const read = f.world.getDynamicProperty;
+    f.world.getDynamicProperty = key => { if (key === f.pilotApi.DOOR_STATE_KEY) throw new Error('unreadable world history'); return read(key); };
+  }
+  if (failure === 'recreated') {
+    f.player(); f.system.currentTick = 40; f.portalTick();
+    assert.equal(f.runtime.guildDoorPilot.getState().room, null);
+  }
+  if (failure === 'replacement') {
+    const r = plain(f.runtime.guildDoorPilot.getState());
+    r.room = { ...r.room, cell: 8, origin: plain(f.pilotApi.realmOrigin(8)) };
+    r.rewards.claimed = [true, false, true, false];
+    f.properties.set(f.pilotApi.DOOR_STATE_KEY, JSON.stringify(r));
+  }
+  return { ...f, origin, visitor };
+}
+function assertProtected(f, origin, expected, dimension = f.dimension) {
+  const block = { location: add(origin, { x: 24, y: 2, z: 10 }), typeId: 'minecraft:cobblestone' };
+  const breaking = { player: f.visitor, dimension, block, cancel: false }; f.breakBlock(breaking);
+  assert.equal(breaking.cancel, expected);
+  assert.equal(f.runtime.guildDoorPilot.protectsBlock(dimension.id, block.location), expected);
+  assert.equal(f.runtime.guildDoorPilot.excludesWorldPosition(dimension.id, { ...block.location, y: 64 }), expected);
+  let impacted;
+  const outside = { location: { x: 30, y: 64, z: 30 } };
+  f.explosion({ dimension, getImpactedBlocks: () => [block, outside], setImpactedBlocks: value => impacted = value });
+  assert.deepEqual(impacted, expected ? [outside] : [block, outside]);
+}
+
+test('ticket-owned old rooms retain break, interaction, explosion and world guards across ledger failures', async () => {
+  for (const failure of protectionFailures) {
+    const f = await protectionFixture(failure), primary = f.properties.get(f.pilotApi.DOOR_STATE_KEY);
+    const savedTicket = f.visitor.props.get(f.pilotApi.DOOR_RETURN_KEY);
+    assertProtected(f, f.origin, true);
+    assertProtected(f, f.origin, false, f.nether);
+    const block = { location: add(f.origin, { x: 24, y: 2, z: 10 }), typeId: 'minecraft:cobblestone' };
+    const use = { player: f.visitor, block, cancel: false }; f.useBlock(use); assert.equal(use.cancel, true, failure);
+    const chest = { player: f.visitor, block: { ...block, typeId: 'minecraft:chest' }, cancel: false };
+    f.useBlock(chest); assert.equal(chest.cancel, false, 'ordinary native container access remains open');
+    f.visitor.isSneaking = true; f.useBlock(chest); assert.equal(chest.cancel, true); f.visitor.isSneaking = false;
+    const pearl = { source: f.visitor, itemStack: { typeId: 'minecraft:ender_pearl' }, cancel: false };
+    f.itemUse(pearl); assert.equal(pearl.cancel, true);
+    assert.equal(f.runtime.guildDoorPilot.protectsBlock(f.dimension.id, { x: 30, y: 64, z: 30 }), false);
+    assert.equal(f.properties.get(f.pilotApi.DOOR_STATE_KEY), primary);
+    assert.equal(f.visitor.props.get(f.pilotApi.DOOR_RETURN_KEY), savedTicket);
+    assert.equal(f.placements.length, 0);
+  }
+});
+
+test('actual scatter and quest-boss callbacks exclude ticket-owned old cells without rebuilding history', async () => {
+  for (const failure of protectionFailures) {
+    const f = await protectionFixture(failure), primary = f.properties.get(f.pilotApi.DOOR_STATE_KEY);
+    const calls = []; f.context.maybePlace = p => calls.push(p.id); f.scatter();
+    assert.equal(calls.includes(f.visitor.id), false, failure);
+    const families = ['fc_wasp_queen', 'fc_white_balverine', 'fc_jack', 'fc_jack_dragon', 'fc_troll', 'fc_banshee', 'fc_twinblade'];
+    const quest = f.context.DATA.quests.find(q => q.objectives.some(o => o.type === 'kill' && families.includes(o.family)));
+    assert.ok(quest);
+    f.context.activeQuest = p => p === f.visitor ? { id: quest.id, progress: quest.objectives.map(() => 0) } : null;
+    f.context.Math = Object.assign(Object.create(Math), { random: () => 0 });
+    const before = f.operations.length; f.boss();
+    assert.equal(f.operations.slice(before).filter(op => op.kind === 'spawn').length, 0, failure);
+    assert.equal(f.properties.get(f.pilotApi.DOOR_STATE_KEY), primary);
+    assert.equal(f.placements.length, 0);
+    // Outside all reserved cells the same ordinary-world callbacks still run.
+    f.visitor.location = { x: 20, y: 64, z: 20 }; f.scatter();
+    assert.equal(calls.filter(id => id === f.visitor.id).length, 9);
+    const outside = f.operations.length; f.boss();
+    assert.equal(f.operations.slice(outside).filter(op => op.kind === 'spawn').length, 1);
+  }
+});
+
+test('two old occupied cells and the current ledger room remain independently protected', async () => {
+  const f = await protectionFixture('replacement'), secondOrigin = plain(f.pilotApi.realmOrigin(16));
+  const second = rememberVisitor(f, 16);
+  const current = plain(f.pilotApi.realmOrigin(8));
+  const primary = f.properties.get(f.pilotApi.DOOR_STATE_KEY);
+  for (const origin of [f.origin, secondOrigin, current]) assertProtected(f, origin, true);
+  assertProtected(f, plain(f.pilotApi.realmOrigin(24)), false);
+  second.location = { ...f.source };
+  assertProtected(f, secondOrigin, false); assertProtected(f, f.origin, true); assertProtected(f, current, true);
+  f.players.splice(f.players.indexOf(f.visitor), 1);
+  assertProtected(f, f.origin, false); assertProtected(f, current, true);
+  assert.equal(f.properties.get(f.pilotApi.DOOR_STATE_KEY), primary);
+});
+
+test('one unreadable or invalid player cannot revoke another visitor or the current room protections', async () => {
+  const f = await protectionFixture('replacement'), healthy = rememberVisitor(f, 16);
+  f.visitor.getDynamicProperty = () => { throw new Error('one unloaded player ticket'); };
+  assertProtected(f, f.origin, false);
+  assertProtected(f, plain(f.pilotApi.realmOrigin(16)), true);
+  assertProtected(f, plain(f.pilotApi.realmOrigin(8)), true);
+  healthy.dimension = f.nether;
+  assertProtected(f, plain(f.pilotApi.realmOrigin(16)), false);
+  healthy.dimension = f.dimension;
+  healthy.props.set(f.pilotApi.DOOR_RETURN_KEY, '{broken');
+  assertProtected(f, plain(f.pilotApi.realmOrigin(16)), false);
+  assertProtected(f, plain(f.pilotApi.realmOrigin(8)), true);
+});
+
+test('protection reads retain current allocation on a failed player scan and discard invalid handles', async () => {
+  const f = await protectionFixture('replacement');
+  const current = plain(f.pilotApi.realmOrigin(8));
+  f.visitor.isValid = false;
+  assertProtected(f, f.origin, false); assertProtected(f, current, true);
+  f.visitor.isValid = true; assertProtected(f, f.origin, true);
+  const players = f.world.getPlayers;
+  f.world.getPlayers = () => { throw new Error('player scan unavailable'); };
+  assertProtected(f, current, true); assertProtected(f, f.origin, false);
+  f.world.getPlayers = players; assertProtected(f, f.origin, true);
+  const primary = f.properties.get(f.pilotApi.DOOR_STATE_KEY);
+  for (const phase of ['entering', 'inside', 'outside', 'returning']) {
+    const t = JSON.parse(f.visitor.props.get(f.pilotApi.DOOR_RETURN_KEY)); t.phase = phase;
+    f.visitor.props.set(f.pilotApi.DOOR_RETURN_KEY, JSON.stringify(t));
+    assertProtected(f, f.origin, true); // physical occupancy reconciles committed travel phases
+  }
+  assert.equal(f.properties.get(f.pilotApi.DOOR_STATE_KEY), primary);
+  assert.equal(f.placements.length, 0);
+});
+
+test('old room guards reject absent, corrupt, out-of-range, wrong-cell and misplaced ticket authority', async () => {
+  const f = await protectionFixture('missing'), original = JSON.parse(f.visitor.props.get(f.pilotApi.DOOR_RETURN_KEY));
+  const invalid = [undefined, '{broken', { ...original, schema: 2 }, { ...original, doorId: 'other' },
+    { ...original, cell: -1 }, { ...original, cell: 4096 }, { ...original, cell: 8 }, { ...original, phase: 'invalid' },
+    { ...original, source: { ...original.source, dimension: 'unknown:dimension' } },
+    { ...original, source: { ...original.source, x: 40000000 } }];
+  for (const value of invalid) {
+    f.visitor.props.set(f.pilotApi.DOOR_RETURN_KEY, typeof value === 'object' ? JSON.stringify(value) : value);
+    assertProtected(f, f.origin, false);
+  }
+  f.visitor.props.set(f.pilotApi.DOOR_RETURN_KEY, JSON.stringify(original));
+  assertProtected(f, f.origin, true);
+  f.visitor.dimension = f.nether; assertProtected(f, f.origin, false);
+  f.visitor.dimension = f.dimension;
+  f.visitor.location = add(f.origin, { x: 49, y: 3, z: 7.5 }); assertProtected(f, f.origin, false);
+  f.visitor.location = add(f.origin, { x: 24.5, y: -1, z: 7.5 }); assertProtected(f, f.origin, false);
+  f.visitor.location = add(f.origin, f.pilotApi.ARCANUM.arrival); assertProtected(f, f.origin, true);
+  f.visitor.props.delete(f.pilotApi.DOOR_RETURN_KEY); assertProtected(f, f.origin, false);
+});
+
+test('old room return-arch block clicks use the occupied ticket across ledger failures and keep failed returns', async () => {
+  for (const failure of protectionFailures) for (const archY of [2, 7]) {
+    const f = await protectionFixture(failure), primary = f.properties.get(f.pilotApi.DOOR_STATE_KEY);
+    const block = { location: add(f.origin, { x: 24, y: archY, z: 3 }), typeId: 'minecraft:stone' };
+    const teleport = f.visitor.tryTeleport;
+    f.visitor.tryTeleport = () => false;
+    const use = { player: f.visitor, block, cancel: false }; f.useBlock(use);
+    assert.equal(use.cancel, true, failure); assert.equal(f.timers.length, 1, failure);
+    f.flush(); assert.ok(f.visitor.props.get(f.pilotApi.DOOR_RETURN_KEY));
+    f.visitor.tryTeleport = teleport; f.useBlock(use); f.flush();
+    assert.equal(f.visitor.moves.length, 1, failure);
+    assert.deepEqual(f.visitor.location, { x: f.source.x + 0.5, y: f.source.y, z: f.source.z - 3.5 });
+    assert.equal(f.visitor.props.has(f.pilotApi.DOOR_RETURN_KEY), false);
+    assert.equal(f.properties.get(f.pilotApi.DOOR_STATE_KEY), primary);
+    assert.equal(f.placements.length, 0);
+  }
+});
+
+test('queued return-arch clicks recheck the original cell and never borrow a new cell or another visitor ticket', async () => {
+  for (const movement of ['outside', 'other_cell', 'wrong_dimension', 'lost_ticket']) {
+    const f = await protectionFixture('replacement');
+    const block = { location: add(f.origin, { x: 24, y: 2, z: 3 }), typeId: 'minecraft:stone' };
+    const use = { player: f.visitor, block, cancel: false }; f.useBlock(use); assert.equal(f.timers.length, 1);
+    if (movement === 'outside') f.visitor.location = { ...f.source };
+    if (movement === 'other_cell') f.visitor.location = add(f.pilotApi.realmOrigin(8), f.pilotApi.ARCANUM.arrival);
+    if (movement === 'wrong_dimension') f.visitor.dimension = f.nether;
+    if (movement === 'lost_ticket') f.visitor.props.delete(f.pilotApi.DOOR_RETURN_KEY);
+    f.flush(); assert.equal(f.visitor.moves.length, 0, movement);
+  }
+  const f = await protectionFixture('missing'), other = rememberVisitor(f);
+  f.visitor.props.delete(f.pilotApi.DOOR_RETURN_KEY);
+  const block = { location: add(f.origin, { x: 24, y: 2, z: 3 }), typeId: 'minecraft:stone' };
+  f.useBlock({ player: f.visitor, block, cancel: false }); assert.equal(f.timers.length, 0);
+  assert.ok(other.props.get(f.pilotApi.DOOR_RETURN_KEY));
+  assert.equal(f.visitor.moves.length, 0);
 });

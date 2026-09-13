@@ -13,10 +13,10 @@ into the original The Lost Chapters game.” Also explicitly find additional onl
 reference photos. Continue autonomously with separate reviewed milestone commits,
 validation/evidence, immediate pushes and fresh handoffs; no routine questions.
 
-Current checkpoint: GP16 — live Skill target/lane preflight and additional original-room references
-Last resolved prior commit: 17d1191e73d830ad4c809d2f6af62b724465eede (GP15 pushed; exact-head CI 34722859754 passed).
-Containing commit: TLC Conformance — GP16: validate live Skill practice targets and lanes.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP16: validate live Skill practice targets and lanes'.
+Current checkpoint: DP5 — occupied Library Arcanum recovery protections and return-arch authority
+Last resolved prior commit: e5cf6069d22b6bda767e2face677d4caf6db28ee (GP16 pushed; exact-head CI 34730475595 passed).
+Containing commit: TLC Conformance — DP5: protect occupied Arcanum recovery rooms.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — DP5: protect occupied Arcanum recovery rooms'.
 Never invent a self-hash. Every supplemental pass remains in-progress where native
 acceptance is unrun; this does not change the 45-leaf legacy C3 denominator.
 
@@ -111,16 +111,16 @@ One checked station placement and finite bow-pose completion remain adaptations.
 Native acceptance is unrun.
 
 Next three actions:
-1. DP5: fix the newly reproduced occupied reward-room protection loss after
-   ledger loss/recreation/replacement. The valid original-cell ticket still
-   returns the visitor, but block/explosion/scatter/boss guards only use the
-   current ledger. Use GP16/door-followup-audit.md and ignored
-   tmp/conformance/gp16-door-audit/probe.mjs. Preserve exact return, shared
-   rewards and no-rebuild history; include return-arch click ownership.
-2. Continue purposeful station arrival and requester-specific activity ownership,
-   preserving interruption, resident identity and defence.
+1. GP17: close the reproduced stale spouse/divorce responses and double-proposal
+   races. Revalidate current ownership/eligibility/handles/dimension/range/ring
+   before deferred actions. DP5/activity-followup-audit.md records actual-source
+   probes and preservation limits; full native requester Follow/Wait is separate.
+2. Implement a durable requester-specific activity owner, then purposeful station
+   arrival, preserving interruption, resident identity and defence. Pinned 2.1
+   lacks a script navigation command; the audit verifies native goal alternatives.
 3. Use the 26-view corpus for measured Maze/dormitory/bridge/archery comparisons,
-   plus three reactive Will dummies; survey routes before expanding fixtures.
+   plus three reactive Will dummies and further designed Demon Door worlds;
+   survey routes before expanding fixtures.
 Preserve source-vs-adaptation boundaries and all native acceptance gaps. Do not
 infer whole-facility fidelity from render grades.
 
@@ -144,18 +144,27 @@ shared-world container rewards, durable history and safe travel/return contracts
 DP3 preserves original-cell return across missing/recreated ledgers; unknown paid
 history defers. DP4 makes durable source authority own Guild face maintenance;
 stale hints cannot create unkeyed ordinary doors or reset room/payment history.
-All engine acceptance remains unrun. Existing occupied mouths get only the prior
-fingerprinted 108-cell migration; same-type player replacements are indistinguishable.
+DP5 restores break/build/explosion/scatter/boss guards for the current allocation
+plus every valid loaded visitor's physically occupied original-ticket cell after
+ledger loss/replacement. Return-arch clicks recheck the same player's original
+cell before the existing exact-source return. No rebuild/reseed/history write.
+Unreadable/invalid/outside tickets add no protection; all visitors leaving or a
+failed player scan cannot establish unknown historical rooms. See
+LIBRARY_ARCANUM_PROTECTIONS.md and DP5 evidence (33 adapter/13 runtime/4 aperture
+groups). Native acceptance remains unrun. Existing occupied mouths get only the
+prior fingerprinted 108-cell migration; same-type player replacements are indistinguishable.
 Ordinary scatter still uses eight legacy immediate-payout personas. More designed
 worlds, canon mapping and story exceptions remain open; never give Nostro a riddle.
 
 ## Validation, ownership and repository landmines
 
-GP16 baseline: 46 base gates, 62 ESM syntax checks, fresh 35-asset C2 and full renders
-(51 mobs/55 items/130 recipes/32 structures/13 galleries), Guild match/roof/numeric
-checks, 25 cave groups, 18 Chamber groups and 6 archery groups pass offline.
-See screenshots/validation/GP16/. Runtime-only Skill changes require no
-generated asset changes. GP15 retains the four useful backboard detail views. No engine acceptance is implied.
+DP5 baseline: 46 base gates, 62 ESM syntax checks, 33 door adapter/13 runtime/4
+aperture groups pass offline. Runtime-only changes require no generated asset
+changes; C2/Guild diagnostics are recorded in screenshots/validation/DP5/.
+The unchanged full visual assets retain GP16 evidence (51 mobs/55 items/130
+recipes/32 structures/13 galleries). GP16 initially lacked the renderer vanilla
+cache; its recorded recipe-only rerender with retained cache made all 281 PNGs
+match GP15. No engine acceptance is implied.
 No actual Bedrock engine has run: lighting, fluids, stairs/collision, native NPC
 movement/interruption, two-Hero behavior, portal travel, persistence and collection
 remain unrun, never passed. Existing 0.3/L3/spell manual checks stay pending.

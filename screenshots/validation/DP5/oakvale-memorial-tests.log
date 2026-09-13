@@ -1,0 +1,12 @@
+test_actual_scatter_population_cullis_and_saved_region (__main__.OakvaleMemorial.test_actual_scatter_population_cullis_and_saved_region) ... ok
+test_dimensions_palette_and_retained_runtime_contract (__main__.OakvaleMemorial.test_dimensions_palette_and_retained_runtime_contract) ... ok
+test_hero_separate_legs_head_and_raised_broad_axe (__main__.OakvaleMemorial.test_hero_separate_legs_head_and_raised_broad_axe) ... ok
+test_north_gate_to_garden_statue_graves_residents_and_cullis (__main__.OakvaleMemorial.test_north_gate_to_garden_statue_graves_residents_and_cullis) ... ok
+test_raised_garden_gate_stairs_and_grave_rows (__main__.OakvaleMemorial.test_raised_garden_gate_stairs_and_grave_rows) ... ok
+test_retained_oak_well_field_coast_and_chest_coordinates (__main__.OakvaleMemorial.test_retained_oak_well_field_coast_and_chest_coordinates) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.447s
+
+OK
+PASS: actual oakvale_village placement on grass/sand, clear translated spawns, loot bounds and saved-region idempotence

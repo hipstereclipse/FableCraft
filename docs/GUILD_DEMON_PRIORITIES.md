@@ -49,6 +49,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | GP14 | in-progress | Neutral-reference Chamber inset panels, colored window strips and grey/ochre paving; GP5/GP8 enrolled construction plans preserved; engine acceptance open |
 | GP15 | in-progress | Framed scenic archery backboard from two inspected original views; final-voxel firing lanes and adjoining door/gate routes preserved; engine acceptance open |
 | GP16 | in-progress | Live Skill target/support and complete firing-lane preflight before acquisition and delayed release; native acceptance open |
+| DP5 | in-progress | Occupied original-ticket rooms retain block/explosion and world-generation guards after lost/replaced ledger; own-cell return clicks revalidate; native acceptance open |
 
 Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
 defects and manual status here. These passes are not completed legacy leaves.
@@ -785,7 +786,7 @@ existing defects/adaptations; no new GP15 route blocker emerged.
 
 ## GP16 — live Skill target and firing-lane preflight (2026-09-12)
 
-Commit: SELF: TLC Conformance — GP16: validate live Skill practice targets and lanes.
+Commit: e5cf6069d22b6bda767e2face677d4caf6db28ee (pushed; exact-head CI 34730475595 passed).
 The GP15 production probe still drew six particles through a chest or toward a
 missing target. The Skill scheduler now checks the authored target, its hay
 support and complete ray before station acquisition. Each delayed release checks
@@ -824,3 +825,44 @@ world-generation guards consult only the current ledger. Prioritize DP5's bounde
 occupied-ticket protection before continuing station arrival/activity ownership,
 reactive Will dummies and the newly supported interior/bridge/rail comparisons.
 No screenshot or offline test closes the native or whole-facility fidelity gaps.
+
+
+## DP5 — retain occupied recovery-room protections (2026-09-12)
+
+Commit: SELF: TLC Conformance — DP5: protect occupied Arcanum recovery rooms.
+The GP16 audit reproduced an inconsistent recovery state: valid original-cell
+visitors could return after ledger loss/replacement, but break/build/explosion
+and ordinary-world generation guards no longer recognized their room. The actual
+boss callback requested a wasp queen inside it. The repaired owner now protects
+the union of the current ledger allocation and each loaded visitor's own valid,
+physically occupied ticket cell. Invalid, unreadable, outside or wrong-dimension
+visitors cannot contribute a room or revoke another visitor's authority.
+
+Return-arch clicks likewise recognize the requesting Hero's own occupied cell.
+The deferred callback rechecks its captured block/dimension before using the
+existing exact-source return. It refuses a changed cell, dimension, departed
+player or lost old-room authority. Native non-sneaking container access, current
+allocation protections, shared claims and failed-return tickets remain intact.
+No ledger reconstruction, room placement, block repair, reward seeding, geometry
+or generated asset changes occur. Missing history is not inferred from a ticket.
+Old-room guards last only while valid loaded occupancy remains detectable.
+
+See [LIBRARY_ARCANUM_PROTECTIONS.md](LIBRARY_ARCANUM_PROTECTIONS.md) and
+`screenshots/validation/DP5/`. The actual-callback before/after probe, 33 adapter
+groups, 13 generated-room runtime groups and four aperture groups pass. All 46
+base gates and 62 ESM syntax checks pass in the isolated reviewed-index snapshot;
+independent review found no blocker. Fresh 35-asset C2 and Guild diagnostics pass;
+all corresponding assets/images and rendering owners match GP16. Full-render
+evidence is retained from unchanged GP16 inputs, rather than claimed rerun.
+GP16 exact-head CI 34730475595 passed. Every native acceptance remains unrun.
+
+The [activity follow-up audit](../screenshots/validation/DP5/activity-followup-audit.md)
+reproduces stale spouse/divorce callbacks, simultaneous proposal ownership/ring
+loss and caller-independent Wait broadcasts. GP17 first closes deferred
+relationship authority races. A separate durable requester activity owner,
+proper native Wait/Follow and purposeful station arrival remain next; the pinned
+2.1 API has no script navigation command. The audit records a feasible native
+goal path and its missing engine evidence. Continue the 26-view interior/bridge/
+range comparison queue and further designed Demon Door worlds, preserving
+Nostro's distinct story passage and all legacy immediate-payout personas until
+their own verified integrations exist.

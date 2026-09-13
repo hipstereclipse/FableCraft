@@ -1,0 +1,167 @@
+✔ production singleton passes canonical data, aperture gate and literal destination placement (23.344674ms)
+✔ production maintenance preserves a paid survivor before removing duplicate mouth faces (24.035121ms)
+✔ new-world registration precedes missing chunks; replacement cannot lose new/legacy status (23.91828ms)
+✔ a transient surviving-face history read defers registration without reauthorizing paid rewards (23.530205ms)
+✔ periodic source re-registration cannot strand a committed visitor at the original return arch (18.305394ms)
+✔ a lone visitor can walk through the remembered exit while the primary ledger is missing, corrupt or unreadable (54.533738ms)
+✔ unavailable-ledger periodic dwell cannot invent return authority for an unticketed or invalid-ticket occupant (90.977429ms)
+✔ a ticket for an occupied old cell survives replacement-ledger return failures and uses its exact source (13.768766ms)
+✔ a lowered ceiling above a fractional source approach selects a clear same-door fallback (13.503043ms)
+✔ replacement-ledger recovery rejects invalid or misplaced tickets and never borrows its source (14.235479ms)
+✔ actual deferred face interaction captures light-use item before event expiry (27.924324ms)
+✔ corrupt Guild progress never falls through to invented legacy challenge/payout (13.435745ms)
+✔ ordinary scattered door retains the existing requirement and payout path (12.79896ms)
+✔ five-tick production schedule repairs after reload without duplicate spawns (14.714466ms)
+✔ conflicting persisted hints cannot spawn repeated unkeyed faces or reset durable progress (24.123869ms)
+✔ periodic maintenance uses the durable source when the old hint is absent, broken, throwing or distant (62.288699ms)
+✔ the all-door sweep cannot recreate a Guild hint as an ordinary door or copy it across dimensions (14.531049ms)
+✔ a stale Guild hint is quarantined from ordinary challenge and reward interactions (14.105023ms)
+✔ a durable source dimension overrides both a conflicting hint and a supplied founding anchor (30.821969ms)
+✔ invalid or unreadable primary progress permits no fallback registration, spawning or cleanup (38.365169ms)
+✔ production block protection permits native non-sneaking containers and both return landmarks (13.853265ms)
+✔ production explosion and dangerous-item protection preserves unrelated world behavior (13.332059ms)
+✔ production scatter and region retirement exclude realm storage including ground below it (13.149854ms)
+✔ actual recovery command requires a player source and returns the active room visitor (12.364567ms)
+✔ actual recovery command uses an existing ticket when the main room record is corrupt (13.720734ms)
+✖ ticket-owned old rooms retain break, interaction, explosion and world guards across ledger failures (15.177783ms)
+✖ actual scatter and quest-boss callbacks exclude ticket-owned old cells without rebuilding history (21.993135ms)
+✖ two old occupied cells and the current ledger room remain independently protected (12.862139ms)
+✖ one unreadable or invalid player cannot revoke another visitor or the current room protections (12.784723ms)
+✖ old room guards reject absent, corrupt, out-of-range, wrong-cell and misplaced ticket authority (12.821222ms)
+✖ old room return-arch block clicks use the occupied ticket across ledger failures and keep failed returns (12.49272ms)
+✖ queued return-arch clicks recheck the original cell and never borrow a new cell or another visitor ticket (13.245054ms)
+(node:8) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ℹ tests 32
+ℹ suites 0
+ℹ pass 25
+ℹ fail 7
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 808.603007
+
+✖ failing tests:
+
+test at scripts/tests/demon_door_integration.test.mjs:616:1
+✖ ticket-owned old rooms retain break, interaction, explosion and world guards across ledger failures (15.177783ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at assertProtected (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/demon_door_integration.test.mjs:607:10)
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/demon_door_integration.test.mjs:620:5)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/demon_door_integration.test.mjs:636:1
+✖ actual scatter and quest-boss callbacks exclude ticket-owned old cells without rebuilding history (21.993135ms)
+  AssertionError [ERR_ASSERTION]: missing
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/demon_door_integration.test.mjs:640:12)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/demon_door_integration.test.mjs:658:1
+✖ two old occupied cells and the current ledger room remain independently protected (12.862139ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at assertProtected (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/demon_door_integration.test.mjs:607:10)
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/demon_door_integration.test.mjs:663:59)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/demon_door_integration.test.mjs:672:1
+✖ one unreadable or invalid player cannot revoke another visitor or the current room protections (12.784723ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at assertProtected (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/demon_door_integration.test.mjs:607:10)
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/demon_door_integration.test.mjs:676:3)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/demon_door_integration.test.mjs:686:1
+✖ old room guards reject absent, corrupt, out-of-range, wrong-cell and misplaced ticket authority (12.821222ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at assertProtected (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/demon_door_integration.test.mjs:607:10)
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/demon_door_integration.test.mjs:697:3)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/demon_door_integration.test.mjs:706:1
+✖ old room return-arch block clicks use the occupied ticket across ledger failures and keep failed returns (12.49272ms)
+  AssertionError [ERR_ASSERTION]: missing
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/demon_door_integration.test.mjs:713:12)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/demon_door_integration.test.mjs:724:1
+✖ queued return-arch clicks recheck the original cell and never borrow a new cell or another visitor ticket (13.245054ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/demon_door_integration.test.mjs:728:86)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,93 @@
+{
+  "sources": {
+    "mainUtf8": "c712c39be4aee51bc65e15248e1bd1e27f3cf7a667f7ccae3be53db430521b20",
+    "portalUtf8": "288d6c601b1b1b9d3e574eb7a9eb5ee093825141b4acbe6fc52b55abf62d1dfd",
+    "apertureUtf8": "5db5993efaebf1787125cd2552379f1a9220d5e485fa7edd9c4b52603681fbb5",
+    "gamedataUtf8": "b649dacfc8960dcbff44534b8b553ccaecfb327aa28ce1096814393d259941eb",
+    "relevantMainScopeUtf8": "693751a870555185d289137cc42b7de6b171166b703c8d91f34356f987bc26e4"
+  },
+  "results": [
+    {
+      "failure": "intact",
+      "occupied": true,
+      "breakCancelled": true,
+      "placementInteractionCancelled": true,
+      "pearlCancelled": true,
+      "explosionBlocksRetained": 0,
+      "excluded": true,
+      "scatterCalls": 0,
+      "bossSpawnRequests": [],
+      "sourceReturnSucceeded": true
+    },
+    {
+      "failure": "missing",
+      "occupied": true,
+      "breakCancelled": false,
+      "placementInteractionCancelled": false,
+      "pearlCancelled": true,
+      "explosionBlocksRetained": 1,
+      "excluded": false,
+      "scatterCalls": 9,
+      "bossSpawnRequests": [
+        "fc:wasp_queen"
+      ],
+      "sourceReturnSucceeded": true
+    },
+    {
+      "failure": "corrupt",
+      "occupied": true,
+      "breakCancelled": false,
+      "placementInteractionCancelled": false,
+      "pearlCancelled": true,
+      "explosionBlocksRetained": 1,
+      "excluded": false,
+      "scatterCalls": 9,
+      "bossSpawnRequests": [
+        "fc:wasp_queen"
+      ],
+      "sourceReturnSucceeded": true
+    },
+    {
+      "failure": "unreadable",
+      "occupied": true,
+      "breakCancelled": false,
+      "placementInteractionCancelled": false,
+      "pearlCancelled": true,
+      "explosionBlocksRetained": 1,
+      "excluded": false,
+      "scatterCalls": 9,
+      "bossSpawnRequests": [
+        "fc:wasp_queen"
+      ],
+      "sourceReturnSucceeded": true
+    },
+    {
+      "failure": "recreated",
+      "occupied": true,
+      "breakCancelled": false,
+      "placementInteractionCancelled": false,
+      "pearlCancelled": true,
+      "explosionBlocksRetained": 1,
+      "excluded": false,
+      "scatterCalls": 18,
+      "bossSpawnRequests": [
+        "fc:wasp_queen"
+      ],
+      "sourceReturnSucceeded": true
+    },
+    {
+      "failure": "replacement",
+      "occupied": true,
+      "breakCancelled": false,
+      "placementInteractionCancelled": false,
+      "pearlCancelled": true,
+      "explosionBlocksRetained": 1,
+      "excluded": false,
+      "scatterCalls": 9,
+      "bossSpawnRequests": [
+        "fc:wasp_queen"
+      ],
+      "sourceReturnSucceeded": true
+    }
+  ]
+}

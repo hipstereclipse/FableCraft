@@ -79,10 +79,12 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
     } catch { return null; }
   }
   function rawTicket(p) {
-    const t = parse(p.getDynamicProperty(DOOR_RETURN_KEY));
-    return t?.schema === 1 && t.doorId === "guild" && validSource(t.source)
-      && Number.isInteger(t.cell) && t.cell >= 0 && t.cell < 4096
-      && ["entering", "inside", "outside", "returning"].includes(t.phase) ? t : null;
+    try {
+      const t = parse(p.getDynamicProperty(DOOR_RETURN_KEY));
+      return t?.schema === 1 && t.doorId === "guild" && validSource(t.source)
+        && Number.isInteger(t.cell) && t.cell >= 0 && t.cell < 4096
+        && ["entering", "inside", "outside", "returning"].includes(t.phase) ? t : null;
+    } catch { return null; }
   }
   function ticket(p) {
     const t = rawTicket(p), r = read();
@@ -90,12 +92,15 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
       && distance(t.source, r.source) < 16 ? t : null;
   }
   function occupiedTicket(p) {
-    const t = rawTicket(p);
-    // This committed ticket remains a return authority when a missing world
-    // ledger is later recreated for another/no room. Actual occupancy of its
-    // exact bounded Overworld cell is required; a stale outside ticket cannot
-    // teleport its owner or select someone else's destination.
-    return t && p.dimension.id === dimension().id && inRealm(p.location, realmOrigin(t.cell)) ? t : null;
+    try {
+      if (p?.isValid === false) return null;
+      const t = rawTicket(p);
+      // This committed ticket remains a return authority when a missing world
+      // ledger is later recreated for another/no room. Actual occupancy of its
+      // exact bounded Overworld cell is required; a stale outside ticket cannot
+      // teleport its owner or select someone else's destination.
+      return t && p.dimension.id === dimension().id && inRealm(p.location, realmOrigin(t.cell)) ? t : null;
+    } catch { return null; }
   }
   function saveTicket(p, t) { p.setDynamicProperty(DOOR_RETURN_KEY, t ? JSON.stringify(t) : undefined); }
   function notice(p, text) {
@@ -404,18 +409,43 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
     notice(p, "The crossing faltered. Your way home is remembered; try the light again.");
     return false;
   }
-  function occupiedRealm(p) {
-    const r = read();
-    return !!occupiedTicket(p) || (!!r?.room && p.dimension.id === dimension().id && inRealm(p.location, r.room.origin));
+  function occupiedOrigin(p) {
+    try {
+      if (p?.isValid === false) return null;
+      const remembered = occupiedTicket(p);
+      if (remembered) return realmOrigin(remembered.cell);
+      const r = read();
+      return r?.room && p.dimension.id === dimension().id && inRealm(p.location, r.room.origin) ? r.room.origin : null;
+    } catch { return null; }
+  }
+  function occupiedRealm(p) { return !!occupiedOrigin(p); }
+  function protectedOrigins() {
+    // Current allocation remains protected even when empty. Lost/replaced
+    // allocations can also be protected while a loaded visitor's own valid
+    // ticket and physical position identify them. Never reconstruct history.
+    const r = read(), origins = new Map();
+    if (r?.room) origins.set(r.room.cell, r.room.origin);
+    let players;
+    try { players = world.getPlayers(); } catch { return [...origins.values()]; }
+    for (const p of players) {
+      const t = occupiedTicket(p);
+      if (t) origins.set(t.cell, realmOrigin(t.cell));
+    }
+    return [...origins.values()];
   }
   function protectsBlock(dimId, position) {
-    const r = read();
-    return !!r?.room && dimId === dimension().id && inRealm(position, r.room.origin);
+    return dimId === "minecraft:overworld" && finitePosition(position)
+      && protectedOrigins().some(origin => inRealm(position, origin));
   }
   function excludesWorldPosition(dimId, position) {
-    const r = read();
-    return !!r?.room && dimId === dimension().id && finitePosition(position)
-      && inRealm({ ...position, y: r.room.origin.y }, r.room.origin, 160);
+    return dimId === "minecraft:overworld" && finitePosition(position)
+      && protectedOrigins().some(origin => inRealm({ ...position, y: origin.y }, origin, 160));
+  }
+  function isReturnBlock(p, dimId, position) {
+    const origin = occupiedOrigin(p);
+    return !!origin && dimId === "minecraft:overworld" && finitePosition(position)
+      && position.x === origin.x + 24 && position.z === origin.z + 3
+      && [origin.y + 2, origin.y + 7].includes(position.y);
   }
   function tick() {
     tickBuild();
@@ -494,6 +524,6 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
     for (const [id, started] of returnWait) if (now() - started > 200 || !active.has(id)) returnWait.delete(id);
     if (sourceLease && returnWait.size === 0) removeLease(SOURCE_LEASE);
   }
-  return { registerGuild, matchesFace, reconcileFace, interact, tick, requestReturn, occupiedRealm, protectsBlock, excludesWorldPosition,
+  return { registerGuild, matchesFace, reconcileFace, interact, tick, requestReturn, occupiedRealm, protectsBlock, excludesWorldPosition, isReturnBlock,
     getState: read, getSource, getReturnTicket: ticket };
 }

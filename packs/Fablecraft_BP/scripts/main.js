@@ -3253,11 +3253,15 @@ world.beforeEvents.playerBreakBlock.subscribe((ev) => {
 });
 world.beforeEvents.playerInteractWithBlock.subscribe((ev) => {
   if (!guildDoorPilot.protectsBlock(ev.player.dimension.id, ev.block.location)) return;
-  const o = guildDoorPilot.getState()?.room?.origin, b = ev.block.location;
-  if (o && b.x === o.x + 24 && b.z === o.z + 3 && [o.y + 2, o.y + 7].includes(b.y)) {
+  const b = { ...ev.block.location }, dimensionId = ev.player.dimension.id;
+  if (guildDoorPilot.isReturnBlock(ev.player, dimensionId, b)) {
     ev.cancel = true;
     const p = ev.player;
-    system.run(() => guildDoorPilot.requestReturn(p));
+    system.run(() => {
+      // Recheck this same player's occupancy at the clicked arch after deferral.
+      // Movement to another cell cannot turn an old click into a different exit.
+      if (guildDoorPilot.isReturnBlock(p, dimensionId, b)) guildDoorPilot.requestReturn(p);
+    });
     return;
   }
   // Ordinary container use preserves native inventory/claim semantics.

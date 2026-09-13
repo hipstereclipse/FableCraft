@@ -1,0 +1,86 @@
+{
+  "sourceRoot": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft",
+  "expectation": "after",
+  "engine_acceptance": "unrun",
+  "sources": {
+    "mainUtf8": "ce3ab2e866663102ce86e1e0cfe18b836983b394313d4e91e372e5369ac261c2",
+    "portalUtf8": "aee84404ebb7f8b5ebc63b7b584de2e1c08918e67094dc2d9e762044e6035b62",
+    "apertureUtf8": "5db5993efaebf1787125cd2552379f1a9220d5e485fa7edd9c4b52603681fbb5",
+    "gamedataUtf8": "b649dacfc8960dcbff44534b8b553ccaecfb327aa28ce1096814393d259941eb",
+    "relevantMainScopeUtf8": "0f3d21fdac7eff8d624c2bb4433e9d49ac613dd8bfe16fc5fe83946c4d0b7d97"
+  },
+  "results": [
+    {
+      "failure": "intact",
+      "occupied": true,
+      "breakCancelled": true,
+      "placementInteractionCancelled": true,
+      "pearlCancelled": true,
+      "explosionBlocksRetained": 0,
+      "excluded": true,
+      "scatterCalls": 0,
+      "bossSpawnRequests": [],
+      "sourceReturnSucceeded": true
+    },
+    {
+      "failure": "missing",
+      "occupied": true,
+      "breakCancelled": true,
+      "placementInteractionCancelled": true,
+      "pearlCancelled": true,
+      "explosionBlocksRetained": 0,
+      "excluded": true,
+      "scatterCalls": 0,
+      "bossSpawnRequests": [],
+      "sourceReturnSucceeded": true
+    },
+    {
+      "failure": "corrupt",
+      "occupied": true,
+      "breakCancelled": true,
+      "placementInteractionCancelled": true,
+      "pearlCancelled": true,
+      "explosionBlocksRetained": 0,
+      "excluded": true,
+      "scatterCalls": 0,
+      "bossSpawnRequests": [],
+      "sourceReturnSucceeded": true
+    },
+    {
+      "failure": "unreadable",
+      "occupied": true,
+      "breakCancelled": true,
+      "placementInteractionCancelled": true,
+      "pearlCancelled": true,
+      "explosionBlocksRetained": 0,
+      "excluded": true,
+      "scatterCalls": 0,
+      "bossSpawnRequests": [],
+      "sourceReturnSucceeded": true
+    },
+    {
+      "failure": "recreated",
+      "occupied": true,
+      "breakCancelled": true,
+      "placementInteractionCancelled": true,
+      "pearlCancelled": true,
+      "explosionBlocksRetained": 0,
+      "excluded": true,
+      "scatterCalls": 9,
+      "bossSpawnRequests": [],
+      "sourceReturnSucceeded": true
+    },
+    {
+      "failure": "replacement",
+      "occupied": true,
+      "breakCancelled": true,
+      "placementInteractionCancelled": true,
+      "pearlCancelled": true,
+      "explosionBlocksRetained": 0,
+      "excluded": true,
+      "scatterCalls": 0,
+      "bossSpawnRequests": [],
+      "sourceReturnSucceeded": true
+    }
+  ]
+}
