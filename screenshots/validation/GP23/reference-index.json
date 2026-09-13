@@ -1,0 +1,381 @@
+{
+  "purpose": "GP23 acceptance/indexing of seven original-TLC images found during DP10 and inspected in full by reference and root reviewers. External pixels remain ignored.",
+  "date_utc": "2026-09-13",
+  "prior_accepted_distinct_images": 30,
+  "new_accepted_distinct_images": 7,
+  "updated_accepted_distinct_images": 37,
+  "earlier_map_views_separate": 3,
+  "original_download_record": "screenshots/validation/DP10/reference-followup.json",
+  "original_download_record_sha256": "819a69278a81c67cc3aff4aba4afbeee5b8237e7bcbd199541d19d1e673c76d8",
+  "references": [
+    {
+      "id": "157535182",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/901001197169829824/71D6BFF6AE42364C610857E25BDEADBF4DFD5A88/",
+      "author": "Moon",
+      "source_listing": {
+        "term": "guild",
+        "page": 4,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=4",
+        "path": "tmp/conformance/next-guild-reference/steam-guild-4.html",
+        "bytes": 83738,
+        "sha256": "0f7eb16a30158aa0a370112a1e9092866c1aa6d404ec025975da2a172d582dae",
+        "retrieved_utc": "2026-09-13T16:53:39.333224+00:00"
+      },
+      "path": "tmp/conformance/next-guild-reference/reference-157535182.jpg",
+      "bytes": 209378,
+      "sha256": "bf505adab35fe794415e0355daeeda65a219f099dc2025de73fa3413cc6de836",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:23.024684+00:00",
+      "scene": "Guild map hall: stair, under-stair arch and upper balcony",
+      "visible_findings": [
+        "Stone stair treads, reddish runner surfaces, thick timber handrail and chunky square newel with circular raised detail are visible left of the Hero.",
+        "An open masonry arch passes beneath the upper balcony; its broad curved stone band continues around the upper room.",
+        "The upper opening has a curved dark timber rail with widely spaced thick posts; planked timber soffits and cross beams are visible above the stairs and arch.",
+        "A fragment of the low teal map relief and curved wood rim remains at lower right."
+      ],
+      "limits": [
+        "Hero, sword and Guildmaster obscure the central stair run and map; no complete floor plan, clearance, stair count or calibrated dimensions follow.",
+        "Warm game light and NPC selection glow prevent neutral palette/light calibration."
+      ],
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=157535182",
+      "posted_date": null,
+      "posted_date_note": "Detail download returned generic Steam Workshop shell; no posting date inferred from screenshot ID.",
+      "capture_date": null,
+      "patch_mod_status": "Unknown",
+      "edition_confidence": "High: exact ID and direct image URL matched a saved app-204030 card and original classic pixels were inspected. Does not establish patch/mod status.",
+      "actual_pixels_inspected": true,
+      "inspection": "Full source image displayed with view_image, plus contact-sheet review.",
+      "detail_page_proof": {
+        "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=157535182",
+        "bytes": 310393,
+        "sha256": "4e4f65c5ee454b6ec7005cd8d13cda4703a643e9584e7681748bd301f8ec7985",
+        "retrieved_utc": "2026-09-13T16:55:29.334465+00:00",
+        "path": "tmp/conformance/next-guild-reference/steam-157535182-detail.html",
+        "result": "Generic Steam Workshop shell; posting date unavailable"
+      },
+      "newly_accepted_in": "GP23",
+      "root_full_pixel_review_confirmed": true
+    },
+    {
+      "id": "157299346",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/1119425779091565620/380479A5A37656DB568FD701FC2A04A3E262E107/",
+      "author": "Wanaziba",
+      "source_listing": {
+        "term": "guild",
+        "page": 4,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=4",
+        "path": "tmp/conformance/next-guild-reference/steam-guild-4.html",
+        "bytes": 83738,
+        "sha256": "0f7eb16a30158aa0a370112a1e9092866c1aa6d404ec025975da2a172d582dae",
+        "retrieved_utc": "2026-09-13T16:53:39.333224+00:00"
+      },
+      "path": "tmp/conformance/next-guild-reference/reference-157299346.jpg",
+      "bytes": 204056,
+      "sha256": "94001dc66b11cb79b346d76bcd36f92d8be843842b210b2f7a0a628270d5b9bd",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:24.375224+00:00",
+      "scene": "Guild grounds: daylight view along decorated bridge deck",
+      "visible_findings": [
+        "Deck planks show transverse seams between broad continuous parapets.",
+        "Pale inset parapet faces carry dark curling motifs between dark timber upper/lower edges; the side members rise from the visible far ends toward the foreground viewpoint.",
+        "Guild masonry, narrow pointed windows and nearby courtyard vegetation are visible beyond the bridge."
+      ],
+      "limits": [
+        "No post lamp is clearly visible in this crop. This view cannot justify lamp position or height.",
+        "Hero obscures the deck center; the near ends, underside and full approaches are cropped. Deck width, rise, bracing, two-Hero clearance and full floor plan remain unknown."
+      ],
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=157299346",
+      "posted_date": null,
+      "posted_date_note": "Detail download returned generic Steam Workshop shell; no posting date inferred from screenshot ID.",
+      "capture_date": null,
+      "patch_mod_status": "Unknown",
+      "edition_confidence": "High: exact ID and direct image URL matched a saved app-204030 card and original classic pixels were inspected. Does not establish patch/mod status.",
+      "actual_pixels_inspected": true,
+      "inspection": "Full source image displayed with view_image, plus contact-sheet review.",
+      "detail_page_proof": {
+        "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=157299346",
+        "bytes": 310393,
+        "sha256": "f097a3ccfe6caf6c3b149755c48d048e3739c53709558decbd7965b36e213301",
+        "retrieved_utc": "2026-09-13T16:55:29.349878+00:00",
+        "path": "tmp/conformance/next-guild-reference/steam-157299346-detail.html",
+        "result": "Generic Steam Workshop shell; posting date unavailable"
+      },
+      "newly_accepted_in": "GP23",
+      "root_full_pixel_review_confirmed": true
+    },
+    {
+      "id": "343658414",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/31851510498053393/A5FD4BE287B0403EFFE623408B0F2742DE775150/",
+      "author": "Rhys Anderson Kinloch",
+      "source_listing": {
+        "term": "guild",
+        "page": 2,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=2",
+        "path": "tmp/conformance/next-guild-reference/steam-guild-2.html",
+        "bytes": 83284,
+        "sha256": "457bc2162d11f1da864282c5ebe326beeed5d9b2fc2456792abaee04dcd15198",
+        "retrieved_utc": "2026-09-13T16:53:39.516018+00:00"
+      },
+      "path": "tmp/conformance/next-guild-reference/reference-343658414.jpg",
+      "bytes": 140664,
+      "sha256": "bd626549861c1af627e085b1eb6a4a7a7c0f120c941e4876c2afba941088c78e",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:18.437756+00:00",
+      "scene": "Guild dining hall: ordinary gameplay, table end and stair doorway",
+      "visible_findings": [
+        "Long decorated timber table has a pale central strip bordered in teal, dark curling surface motifs and separate mugs on pale coasters.",
+        "Small round red-covered stools sit at the table; large timber casks are visible at left.",
+        "Red wall panels stand between heavy timber posts over dark circular-pattern lower panels; a pointed stone opening holds stairs leading toward daylight.",
+        "A narrow pointed blue/purple window is visible high on the left wall."
+      ],
+      "limits": [
+        "Maze and child Hero obscure the foreground, and table ends/room boundaries are cropped. Full furniture count, floor plan and lighting values are unestablished.",
+        "This is dining-hall evidence, not neutral Library or Maze-study evidence."
+      ],
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=343658414",
+      "posted_date": null,
+      "posted_date_note": "Detail download returned generic Steam Workshop shell; no posting date inferred from screenshot ID.",
+      "capture_date": null,
+      "patch_mod_status": "Unknown",
+      "edition_confidence": "High: exact ID and direct image URL matched a saved app-204030 card and original classic pixels were inspected. Does not establish patch/mod status.",
+      "actual_pixels_inspected": true,
+      "inspection": "Full source image displayed with view_image, plus contact-sheet review.",
+      "detail_page_proof": {
+        "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=343658414",
+        "bytes": 310393,
+        "sha256": "d8aefee5c773bcb42c7e6cb9603295e02647856832d1ae84a31c74df55a8bee0",
+        "retrieved_utc": "2026-09-13T16:55:29.590624+00:00",
+        "path": "tmp/conformance/next-guild-reference/steam-343658414-detail.html",
+        "result": "Generic Steam Workshop shell; posting date unavailable"
+      },
+      "newly_accepted_in": "GP23",
+      "root_full_pixel_review_confirmed": true
+    },
+    {
+      "id": "236178734",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/3318330593752315032/C758A7D35F011A544BAAABAA3D38A17EB2C5EC1C/",
+      "author": "Generic Name",
+      "source_listing": {
+        "term": "guild",
+        "page": 3,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=3",
+        "path": "tmp/conformance/next-guild-reference/steam-guild-3.html",
+        "bytes": 83872,
+        "sha256": "38aa6026293dff07600edeb4846aff9c00ae1650b49fbe2c0bdc88f759fd42c4",
+        "retrieved_utc": "2026-09-13T16:53:39.580439+00:00"
+      },
+      "path": "tmp/conformance/next-guild-reference/reference-236178734.jpg",
+      "bytes": 356114,
+      "sha256": "8ad4018a973a1d47007924aa9c05a901cda720380ace0d6ffe53c91fedb775e7",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "retrieved_utc": "2026-09-13T16:54:21.779794+00:00",
+      "scene": "Guild dining hall: wide ordinary view with two stair runs",
+      "visible_findings": [
+        "Long decorated dining-table surfaces are aligned end to end with pale teal-bordered runners, repeated curling motifs and separate mugs on pale squares.",
+        "Many separate short round red-covered stools line the table.",
+        "Two red-covered stair runs rise behind the dining area with a central masonry support and dark timber handrails.",
+        "Red wall fields, heavy decorated timber posts, continuous patterned lower panels and diagonal stone floor seams are visible."
+      ],
+      "limits": [
+        "Foreground Hero, apprentices and image edges occlude parts of the room and furniture; no exact table/stool total or full floor plan is asserted.",
+        "Character glows and unknown rendering settings preclude calibrated neutral lighting. This is dining-hall evidence, not Library evidence."
+      ],
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=236178734",
+      "posted_date": null,
+      "posted_date_note": "Detail download returned generic Steam Workshop shell; no posting date inferred from screenshot ID.",
+      "capture_date": null,
+      "patch_mod_status": "Unknown",
+      "edition_confidence": "High: exact ID and direct image URL matched a saved app-204030 card and original classic pixels were inspected. Does not establish patch/mod status.",
+      "actual_pixels_inspected": true,
+      "inspection": "Full source image displayed with view_image, plus contact-sheet review.",
+      "detail_page_proof": {
+        "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=236178734",
+        "bytes": 310393,
+        "sha256": "afe90dfaac064c84dbe02e0ec43ea9701569559c1b4d51dc5af8184d81c67861",
+        "retrieved_utc": "2026-09-13T16:55:30.131912+00:00",
+        "path": "tmp/conformance/next-guild-reference/steam-236178734-detail.html",
+        "result": "Generic Steam Workshop shell; posting date unavailable"
+      },
+      "newly_accepted_in": "GP23",
+      "root_full_pixel_review_confirmed": true
+    },
+    {
+      "id": "176290219",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/884118407890434063/F91EBB2892828FF643A5F1D94AAD4B36C99185D2/",
+      "author": "Rapiest Ape",
+      "source_listing": {
+        "term": "guild",
+        "page": 4,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=4",
+        "path": "tmp/conformance/next-guild-reference/steam-guild-4.html",
+        "bytes": 83738,
+        "sha256": "0f7eb16a30158aa0a370112a1e9092866c1aa6d404ec025975da2a172d582dae",
+        "retrieved_utc": "2026-09-13T16:53:39.333224+00:00"
+      },
+      "path": "tmp/conformance/next-guild-reference/reference-176290219.jpg",
+      "bytes": 254722,
+      "sha256": "7d10b50f27fdb67bcf04c99dd5ec456b2de0bb3e95a44c2eed5313bcd034e35c",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "retrieved_utc": "2026-09-13T16:54:22.576016+00:00",
+      "scene": "Guild adjoining hall: arches, candle ring and carved lower panels",
+      "visible_findings": [
+        "A suspended dark polygonal candle ring hangs below the timber ceiling; wax-like drips are visible on its rim.",
+        "Multiple open pointed masonry arches frame a red carpeted passage.",
+        "A tall narrow ornamental plaque and red upper wall panels are visible between heavy timber framing; lower wall panels carry large circular motifs."
+      ],
+      "limits": [
+        "The precise function/name of this adjoining Guild room is not independently established; do not label it Library.",
+        "NPCs, heart and face overlays obscure floor and walls. Full candle count, hanging height, complete room plan and light levels are unknown."
+      ],
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=176290219",
+      "posted_date": null,
+      "posted_date_note": "Detail download returned generic Steam Workshop shell; no posting date inferred from screenshot ID.",
+      "capture_date": null,
+      "patch_mod_status": "Unknown",
+      "edition_confidence": "High: exact ID and direct image URL matched a saved app-204030 card and original classic pixels were inspected. Does not establish patch/mod status.",
+      "actual_pixels_inspected": true,
+      "inspection": "Full source image displayed with view_image, plus contact-sheet review.",
+      "detail_page_proof": {
+        "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=176290219",
+        "bytes": 310393,
+        "sha256": "71718fdf6b5df5add50340bbbb9a9bdbff22b7a84393ed2790fb1ccc0cb28391",
+        "retrieved_utc": "2026-09-13T16:55:29.954314+00:00",
+        "path": "tmp/conformance/next-guild-reference/steam-176290219-detail.html",
+        "result": "Generic Steam Workshop shell; posting date unavailable"
+      },
+      "newly_accepted_in": "GP23",
+      "root_full_pixel_review_confirmed": true
+    },
+    {
+      "id": "27535382",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/468612506435857444/A8F19C3C856026C37958A4990D024C070F9E78C4/",
+      "author": "\u00af\\_(\u30c4)_/\u00af",
+      "source_listing": {
+        "term": "guild",
+        "page": 5,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=5",
+        "path": "tmp/conformance/next-guild-reference/steam-guild-5.html",
+        "bytes": 83302,
+        "sha256": "85ee05a96b51a0f21cbbae7fb044941f05ca47888909468f97b7818049202127",
+        "retrieved_utc": "2026-09-13T16:55:51.103135+00:00"
+      },
+      "path": "tmp/conformance/next-guild-reference/reference-27535382.jpg",
+      "bytes": 196110,
+      "sha256": "cba62d451fb9fb70d7b5473249c44b23d070344f79d5a099cc6908e87f6875e0",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:56:27.557931+00:00",
+      "scene": "Guild map hall: upper balcony and hanging candle ring",
+      "visible_findings": [
+        "The upper balcony has a curved dark timber top rail with three visible thick posts; broad stone sill/rim separates it from the open lower room.",
+        "A suspended dark candle ring hangs on sloping straps or chains from above, with several upright candles and wax-like drips.",
+        "A curved masonry wall has narrow horizontal stone bands and a red decorative frieze beneath repeated pale traceried upper windows.",
+        "Below the balcony, wall candle fixtures flank visible pointed masonry openings and red carpet routes."
+      ],
+      "limits": [
+        "Hero and foreground arch hide some rail/posts; full ring candle count, exact hanging height, balcony width and room dimensions are unknown.",
+        "This is ordinary warm game illumination, not a calibrated neutral light reference."
+      ],
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=27535382",
+      "posted_date": "Mar 11, 2012 @ 5:32am",
+      "posted_date_note": "Posting date as displayed by Steam; site time zone unspecified; not game capture time.",
+      "capture_date": null,
+      "patch_mod_status": "Unknown",
+      "edition_confidence": "High: exact ID and direct image URL matched a saved app-204030 card and original classic pixels were inspected. Does not establish patch/mod status.",
+      "actual_pixels_inspected": true,
+      "inspection": "Full source image displayed with view_image, plus contact-sheet review.",
+      "detail_page_proof": {
+        "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=27535382",
+        "bytes": 46715,
+        "sha256": "5617a4edac0d0ab047990cfb584171ed54e86fdb34c53e96f704b3826883eb2b",
+        "retrieved_utc": "2026-09-13T16:57:45.139897+00:00",
+        "path": "tmp/conformance/next-guild-reference/steam-27535382-detail.html",
+        "result": "App-204030 screenshot detail page with posting date"
+      },
+      "newly_accepted_in": "GP23",
+      "root_full_pixel_review_confirmed": true
+    },
+    {
+      "id": "279597457",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/774932115177380915/1F4BE32AADBD5557DA6B631DC641C261F9A737FD/",
+      "author": "Hawk",
+      "source_listing": {
+        "term": "guild",
+        "page": 5,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=5",
+        "path": "tmp/conformance/next-guild-reference/steam-guild-5.html",
+        "bytes": 83302,
+        "sha256": "85ee05a96b51a0f21cbbae7fb044941f05ca47888909468f97b7818049202127",
+        "retrieved_utc": "2026-09-13T16:55:51.103135+00:00"
+      },
+      "path": "tmp/conformance/next-guild-reference/reference-279597457.jpg",
+      "bytes": 304112,
+      "sha256": "d48d3fd8764b775ceffa8f05d68338117953fd098566d3fdbf8412c1bafb7286",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "retrieved_utc": "2026-09-13T16:56:27.207344+00:00",
+      "scene": "Guild dormitory: ordinary gameplay, beds, shelves and candle fixtures",
+      "visible_findings": [
+        "At least three separate red-covered bed forms are visible at the far/right side behind apprentices.",
+        "Tall continuous bookcase sections at left have carved curling base panels and alternating filled/open shelf spaces.",
+        "A suspended dark candle ring and a wall-mounted paired candle fixture are both clearly visible.",
+        "Narrow pointed blue/purple windows sit in red timber-framed wall panels above decorative lower panels; timber roof members and diagonal stone floor seams remain visible."
+      ],
+      "limits": [
+        "This is a dormitory with visible beds, not the Guild Library. Library lamp placement remains unestablished.",
+        "Characters and cropping obscure furniture; no full bed count, floor plan, calibrated brightness or game-light matching follows."
+      ],
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=279597457",
+      "posted_date": "Jul 1, 2014 @ 2:26pm",
+      "posted_date_note": "Posting date as displayed by Steam; site time zone unspecified; not game capture time.",
+      "capture_date": null,
+      "patch_mod_status": "Unknown",
+      "edition_confidence": "High: exact ID and direct image URL matched a saved app-204030 card and original classic pixels were inspected. Does not establish patch/mod status.",
+      "actual_pixels_inspected": true,
+      "inspection": "Full source image displayed with view_image, plus contact-sheet review.",
+      "detail_page_proof": {
+        "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=279597457",
+        "bytes": 51535,
+        "sha256": "34c595ed38e4f8eacfa9dae315cbb2f15afda2b06bfb2799b5e9ce76987287de",
+        "retrieved_utc": "2026-09-13T16:57:45.218592+00:00",
+        "path": "tmp/conformance/next-guild-reference/steam-279597457-detail.html",
+        "result": "App-204030 screenshot detail page with posting date"
+      },
+      "newly_accepted_in": "GP23",
+      "root_full_pixel_review_confirmed": true
+    }
+  ],
+  "source_edition": "Exact screenshot IDs and direct image URLs match original-TLC app 204030 cards in retained listing HTML; classic pixels were visually inspected. Capture dates, patch/mod status and display settings remain unknown.",
+  "date_semantics": "Posting dates are available for 27535382 (Mar 11, 2012 @ 5:32am) and 279597457 (Jul 1, 2014 @ 2:26pm), in an unspecified Steam display time zone. These are not capture dates. Five other detail pages returned generic Workshop shells.",
+  "bridge_limit": "157299346 corroborates broad opaque decorated bridge parapets and transverse deck plank seams. No clear lamp is visible. It does not establish post height, lamp placement, underside, full approaches, width, rise or two-Hero clearance.",
+  "library_limit": "No accepted ordinary neutral Guild Library view. 279597457 is dormitory with visible beds; unlocalized close bookcase 275562451 remains excluded as Library evidence. The adjoining hall 176290219 has no independently established specific room function.",
+  "layout_limit": "All full room layouts, complete furniture counts, dimensions and neutral light levels remain open. Visible source details do not authorize a floor-plan rewrite.",
+  "external_pixel_policy": "Only textual source records are committed. Source images, HTML and contact sheets remain ignored under tmp/conformance/next-guild-reference. No source pixels become pack assets.",
+  "native_acceptance": "Unrun: native lighting, collision, walking, two-Hero passing and saved-world acceptance are not established by these images."
+}

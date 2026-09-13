@@ -306,13 +306,13 @@
       "notes": []
     },
     "guild_hall": {
-      "asset_sha256": "030e6f42cf21a4c0f2b605c76672deb94dcdf7634756aa27155d8423eb6d8df6",
+      "asset_sha256": "843043e22060d948e49f691e459ae164c5f3a2eacda8b21d5c38105a02dab7c3",
       "size": [
         122,
         30,
         108
       ],
-      "image_sha256": "093ba8f2a87a55ede7c2042586e18d535ffbba8b01e7c649705beff4180cc637",
+      "image_sha256": "df09891b7f2c41b47a37a4753be30c8e29d0ccff84294baa31e24ea803c2878a",
       "grade": "S",
       "score": 100,
       "metrics": {

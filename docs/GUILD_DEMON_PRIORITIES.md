@@ -61,6 +61,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | DP9 | in-progress | Guarded Library preparation prevents ambiguous structure/seed replay, verifies exact reward readback and late containment; native acceptance open |
 | GP22 | in-progress | Separate shallow scenic mountain/tower cutouts add depth to the range while preserving targets, complete routes and actual Skill rays; native acceptance open |
 | DP10 | in-progress | Pinned Arboretum preparation history, successful placement/seed receipts and fresh live-chest verification prevent stale or ambiguous effects; native acceptance open |
+| GP23 | in-progress | Taller lamps on the eight existing bridge posts improve the reference-led silhouette while preserving decks, approaches and checked routes; native acceptance open |
 
 Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
 defects and manual status here. These passes are not completed legacy leaves.
@@ -1302,7 +1303,7 @@ changes production. See GP22/bridge-followup.* and next-door-audit.md.
 
 ## DP10 — guarded Arboretum preparation (2026-09-13)
 
-Commit: SELF: TLC Conformance — DP10: guard Arboretum preparation and live rewards.
+Commit: 5fcf08a23389760762438c86092a8d3450f96195. Pushed; exact-head CI34770576386 passed.
 Independent actual-GP22 probes reproduce late contents/occupants, discarded chest
 handles, wrong reward metadata, unreceipted placement recovery and changed active
 history. The active preparation job now pins its complete record. Optional
@@ -1332,3 +1333,50 @@ GP22 remains the asset/documentation baseline.
 The bridge audit supports a separately bounded taller-lamp candidate at the
 existing eight post positions; opaque parapets and native clearance remain open.
 Third-family source/room/challenge/guard integration remains proposed.
+
+
+## GP23 — taller Guild bridge lamps (2026-09-13)
+
+Commit: SELF: TLC Conformance — GP23: raise the Guild bridge lamps.
+Original TLC view131726186 shows a long dark lamp post beside the capped bridge
+end. The eight existing lamp heads rise one block on extended dark-oak posts:
+x58/68,z35/37/53/55,y2 lantern becomes fence and y3 gains the same lantern state.
+The sixteen-cell change preserves the fixture footprint and light count. Exact
+height, positions, stock materials and shape are explicit Minecraft adaptations.
+
+The broad decorated parapets remain unresolved; full-cube replacements leave
+a one-block opening without proving retained native clearance, while uniform
+widening affects bank routes and a bollard.
+No occupied Guild is rebuilt, and reanchor remains a coordinate refresh.
+See [GUILD_BRIDGE_LAMPS.md](GUILD_BRIDGE_LAMPS.md) and
+`screenshots/validation/GP23/`. All 56 base gates and 65 ESM checks pass in the isolated reviewed-index snapshot.
+Five focused bridge groups and ten independent negative fixtures pass. Actual
+DP10/current generators reproduce their respective serialized assets: exactly
+16 cells change; all other 395,264 cells, palette/state/metadata, RNG, layout,
+anchors, 678 Maze reservations and 981 water cells remain exact. All 13,806
+walking nodes, 10,597 reachable nodes and seven complete paths remain. Eight
+local routes, 19 protected body sweeps, ten lateral bridge sweeps, five actual
+Skill rays and 13 arrival samples/27 refusals retain their results. These are
+conservative offline bounds; native collision and passing remain unrun.
+
+Fresh C2, all 282 full-render PNGs, seven Guild documentation scenes and Guild
+diagnostics pass. Only Guild changes among the 36 assets/C2 images. Only its
+card and places gallery change among 282 full PNGs; only the two wide Guild
+views change among seven documentation scenes. Root inspected both cards, the
+gallery, both wide views and all eight focused before/after schematics. GP23 is
+the next asset/documentation baseline. Only Guild changed among 1,663 worktree
+pack files, and all nine protected unrelated files remain exact.
+
+Initial helper errors (inherited CRLF comparison, an untracked full-render PNG
+baseline) and focused-image caption spacing were corrected without production
+changes; original output remains. Exact raw lint output is retained in JSON;
+its readable log drops only the extra trailing blank line. No base gate failed.
+Native acceptance is unrun; legacy C3 remains 45 leaves and 7 done.
+Seven new original-TLC hall/bridge/dining/dormitory references are indexed, with
+all external pixels kept ignored. The supplementary corpus becomes37; neutral
+ordinary Library and complete measured interiors remain missing.
+
+Next bounded furniture comparison: GP23/dining-followup.* finds continuous seat
+rows beside the long table. An ignored twelve-seat removal prototype preserves
+all previous walk/reachable nodes and checked routes; original count, red round
+stool form and full twin dining stairs remain unresolved. No GP24 is authored.

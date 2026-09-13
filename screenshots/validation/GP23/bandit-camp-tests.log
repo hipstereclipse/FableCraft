@@ -1,0 +1,12 @@
+test_actual_runtime_population_and_saved_region (__main__.BanditCamp.test_actual_runtime_population_and_saved_region) ... ok
+test_all_interaction_routes_connected_from_outer_gate (__main__.BanditCamp.test_all_interaction_routes_connected_from_outer_gate) ... ok
+test_fighting_floor_and_external_fires (__main__.BanditCamp.test_fighting_floor_and_external_fires) ... ok
+test_registration_bounds_palette_and_loot (__main__.BanditCamp.test_registration_bounds_palette_and_loot) ... ok
+test_three_stalls_four_openable_chests_and_ladders (__main__.BanditCamp.test_three_stalls_four_openable_chests_and_ladders) ... ok
+test_two_checkpoints_and_command_tent_faces_south (__main__.BanditCamp.test_two_checkpoints_and_command_tent_faces_south) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.799s
+
+OK
+PASS: actual bandit_camp placement on grass/dark/rock, clear translated spawns, loot bounds and saved-region idempotence

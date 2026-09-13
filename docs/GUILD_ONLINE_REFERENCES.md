@@ -1,7 +1,7 @@
 # Additional original TLC Guild image references
 
-At the user's request, 30 additional distinct TLC gameplay images were found online,
-downloaded to ignored scratch and visually inspected during GP11–GP22. These
+At the user's request, 37 additional distinct TLC gameplay images were found online,
+downloaded to ignored scratch and visually inspected during GP11–GP23. These
 supplement the original 2005 Prima guide and earlier three map-hall references.
 They are reference observations, not calibrated floor plans or imported pack art.
 
@@ -29,6 +29,13 @@ They are reference observations, not calibrated floor plans or imported pack art
 | Guild grounds, daylight bridge and tower | [page](https://steamcommunity.com/sharedfiles/filedetails/?id=91147839) · [image](https://images.steamusercontent.com/ugc/920113049598722245/D6744214C1E7D3F662FEB496091384D859D43081/) | Plank deck, broad rising decorated parapets, capped bridge ends and an exterior post lamp beside a round-windowed stone tower. |
 | Guild main hall, stair and Cullis doorway | [page](https://steamcommunity.com/sharedfiles/filedetails/?id=350434796) · [image](https://images.steamusercontent.com/ugc/39734699865396745/EF6AD800E188178288FE55841E5F507EBAA8D57F/) | Stone stairs with a timber handrail above a pointed passage; the adjacent Cullis arch and red carpet routes remain visible. |
 | Guild courtyard, elevated panorama | [page](https://steamcommunity.com/sharedfiles/filedetails/?id=3243931107) · [image](https://images.steamusercontent.com/ugc/2464109208832061044/651335E0C0E130E8DA282B98638B1517AB1FC6CC/) | Two visible decorated bridge spans, the watercourse, clipped hedges and tiered fountains. The distorted wide view supports relationships only, not proportions. |
+| Guild map hall, stair and upper balcony | [page](https://steamcommunity.com/sharedfiles/filedetails/?id=157535182) · [image](https://images.steamusercontent.com/ugc/901001197169829824/71D6BFF6AE42364C610857E25BDEADBF4DFD5A88/) | Stone stair and open under-stair arch, thick timber rail/newel, curved upper balustrade and planked soffits. |
+| Guild grounds, daylight view along bridge deck | [page](https://steamcommunity.com/sharedfiles/filedetails/?id=157299346) · [image](https://images.steamusercontent.com/ugc/1119425779091565620/380479A5A37656DB568FD701FC2A04A3E262E107/) | Transverse plank seams between broad opaque parapets with pale decorated faces and dark timber borders. No clear lamp is visible. |
+| Guild dining hall, table end and stair doorway | [page](https://steamcommunity.com/sharedfiles/filedetails/?id=343658414) · [image](https://images.steamusercontent.com/ugc/31851510498053393/A5FD4BE287B0403EFFE623408B0F2742DE775150/) | Decorated table with pale teal-bordered strip, separate mugs, short red-covered stools, casks and a pointed opening containing stairs. |
+| Guild dining hall, wide ordinary gameplay | [page](https://steamcommunity.com/sharedfiles/filedetails/?id=236178734) · [image](https://images.steamusercontent.com/ugc/3318330593752315032/C758A7D35F011A544BAAABAA3D38A17EB2C5EC1C/) | Long aligned table surfaces, repeated mugs and separate stools; two red-covered stair runs rise behind them between red timber-framed walls. |
+| Guild adjoining hall, arches and candle ring | [page](https://steamcommunity.com/sharedfiles/filedetails/?id=176290219) · [image](https://images.steamusercontent.com/ugc/884118407890434063/F91EBB2892828FF643A5F1D94AAD4B36C99185D2/) | Hanging candle ring, pointed masonry openings, red carpet and carved lower panels. The room's exact function is unestablished. |
+| Guild map hall, upper balcony and chandelier | [page](https://steamcommunity.com/sharedfiles/filedetails/?id=27535382) · [image](https://images.steamusercontent.com/ugc/468612506435857444/A8F19C3C856026C37958A4990D024C070F9E78C4/) | Curved timber rail, hanging candle ring, upper traceried windows and red frieze; wall candle fixtures flank lower arches. |
+| Guild dormitory, ordinary gameplay and candle fixtures | [page](https://steamcommunity.com/sharedfiles/filedetails/?id=279597457) · [image](https://images.steamusercontent.com/ugc/774932115177380915/1F4BE32AADBD5557DA6B631DC641C261F9A737FD/) | At least three red-covered bed forms, tall carved bookcases, a hanging candle ring and paired wall candles among red wall panels and pointed windows. |
 
 Seven GP16 additions include a wide dormitory view, two bridge angles, melee and
 archery details, and hall ceiling/stair views. See the [GP16 reference audit](../screenshots/validation/GP16/reference-followup.md)
@@ -52,6 +59,19 @@ exclusions remain in the [DP9 reference record](../screenshots/validation/DP9/re
 [GP22 acceptance](../screenshots/validation/GP22/reference-index.json) records the
 27-to-30 corpus update. These photos add bridge and interior evidence. The
 archery cutout comparison still uses the already accepted view 141099874.
+
+GP23 indexes seven original-TLC views found during the DP10 follow-up: three
+map/adjoining-hall views, two dining views, one bridge view and one dormitory view.
+Each saved app 204030 card matches its screenshot ID and direct image URL; all
+seven source images were inspected in full. Their hashes do not match prior
+reference scratch images. The [DP10 reference record](../screenshots/validation/DP10/reference-followup.json)
+retains the 20 listing requests, 83 inspected candidates and 76 exclusions;
+[GP23 acceptance](../screenshots/validation/GP23/reference-index.json) records the
+30-to-37 supplemental corpus update. The earlier three map-hall references remain
+separate. Steam gives posting dates of March 11, 2012, 5:32am for upper-hall view
+27535382 and July 1, 2014, 2:26pm for dormitory view 279597457, with no stated time
+zone. The other five detail pages returned generic Workshop shells. Posting
+dates are not capture dates, and patch/mod status is unknown for all seven.
 
 ## Attribution and limits
 
@@ -91,13 +111,23 @@ Native lighting, matched camera views and physical walking are unrun. A second
 lower-resolution capture of the same Whisper wake-up angle is not counted as
 another useful reference.
 
-The new daylight bridge view strengthens the evidence for broad decorated rising
+The GP22 daylight bridge view strengthens the evidence for broad decorated rising
 side members and an exterior post lamp. It does not establish deck width, arch
 rise, bracing, approach dimensions or two-Hero clearance. The new hall view
 corroborates the stair/arch relationship without proving a full floor plan or
 neutral lighting. The 3840 × 1080 courtyard panorama has unknown camera, FOV,
 capture tooling and modification status; its distortion precludes proportion
 claims or a calibrated campus map. All three images have unknown patch/mod status.
+
+GP23 bridge view 157299346 corroborates broad opaque decorated parapets and deck
+plank seams. It provides no clear lamp, underside, full approach or calibrated
+width/height evidence. The new interior views show timber rails, candle fixtures,
+decorated table surfaces and separate stools, but characters and cropping leave
+full layouts, furniture counts, dimensions and neutral light levels unknown.
+The adjoining hall is not securely identified as a specific room. Dormitory view
+279597457 shows beds and cannot establish Library lamp placement. Close bookcase
+candidate 275562451 lacks enough location context to identify the Guild Library
+and remains excluded. Ordinary neutral Library references are still missing.
 
 Excluded results included Anniversary-only pages, Fable II/III and reboot images,
 Demon Door Arcanum scenes mislabeled as Guild Library, Bargate and Arena interiors.
@@ -111,9 +141,11 @@ Exact hashes, dimensions, confidence, exclusions and individual observations:
 - [Three supplementary Maze/dormitory views](../screenshots/validation/GP15/interior-reference-followup.json).
 - [Seven dormitory/training/bridge/hall views](../screenshots/validation/GP16/additional-online-references.json).
 - [Three bridge/hall/courtyard views accepted in GP22](../screenshots/validation/GP22/reference-index.json), with [DP9 download provenance and exclusions](../screenshots/validation/DP9/reference-followup.json).
+- [Seven hall/dining/bridge/dormitory views accepted in GP23](../screenshots/validation/GP23/reference-index.json), with [DP10 download provenance and exclusions](../screenshots/validation/DP10/reference-followup.json).
 
 External pixels remain under ignored `tmp/conformance/reference-guild-additional`
 and `tmp/conformance/gp21-reference`, with the GP22 additions under
-`tmp/conformance/dp9-reference`;
+`tmp/conformance/dp9-reference` and the GP23 additions under
+`tmp/conformance/next-guild-reference`;
 only these textual source records are committed. Later changes must preserve
 this distinction between observed features and chosen adaptations.

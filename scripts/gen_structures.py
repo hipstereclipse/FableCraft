@@ -1656,7 +1656,9 @@ def build_guild_hall():
     # A single half-slab tread on each bank breaks the 1-block rise into two 0.5
     # steps, so the whole crossing walks WITHOUT a jump (bank 1.0 -> slab 1.5 ->
     # deck 2.0 -> slab 1.5 -> bank 1.0). Mossy stone piers carry the deck over
-    # midstream; spruce-fence rails and lantern gateheads finish it.
+    # midstream; spruce-fence rails and tall bank lamps finish it. TLC close
+    # views show separate tall dark posts; the extra stock-fence height is a
+    # block adaptation retaining the existing fixtures and crossing width.
     def plank_bridge(zc):
         for x in range(50 + EAST, 57 + EAST):          # flat plank deck (surface y2)
             for z in (zc - 1, zc, zc + 1):
@@ -1672,7 +1674,8 @@ def build_guild_hall():
         for px in (48 + EAST, 58 + EAST):              # lantern gateheads on the banks
             for zr in (zc - 1, zc + 1):
                 v.set(px, 1, zr, DARKOAK_FENCE)
-                v.set(px, 2, zr, LANTERN, {"hanging": False})
+                v.set(px, 2, zr, DARKOAK_FENCE)
+                v.set(px, 3, zr, LANTERN, {"hanging": False})
     for bridge_z in BRIDGE_ZS:
         plank_bridge(bridge_z)
 

@@ -1,0 +1,116 @@
+{
+  "kind": "Author cross-check, not independent author review",
+  "passed": true,
+  "source_sha256": {
+    "screenshots/validation/GP23/independent-review.py": "efcbed636e7a7a7283d920e8d21ea8465ce495180b0007d7281c29d3fe8a9aa8",
+    "scripts/tests/test_guild_bridge_lamps.py": "e5b94b59c8fccd56171a1c8ada6a73ccb7e0f88b3a200756f1a19a2df80a85c7",
+    "scripts/tests/test_guild_routes.py": "e3323f7b944a03457a9dde9ac10c24256d828a52369497db76edd035691bd889",
+    "scripts/gen_structures.py": "203d2c02fc9198981a0e789b8ab04c5cbac1463950711ead35ea3a254fcfa031",
+    "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure": "843043e22060d948e49f691e459ae164c5f3a2eacda8b21d5c38105a02dab7c3"
+  },
+  "changed_column_paths_per_version": 29,
+  "full_final_bridge_paths_per_version": 10,
+  "both_directions": true,
+  "reports": {
+    "before": {
+      "linear_changed_column_hits": 0,
+      "explicit_step_changed_column_hits": 0,
+      "full_final_bridge_step_bodies": {
+        "bridge_36_lateral_-0.15": {
+          "forward_hits": 0,
+          "reverse_hits": 0
+        },
+        "bridge_36_lateral_-0.1": {
+          "forward_hits": 0,
+          "reverse_hits": 0
+        },
+        "bridge_36_lateral_0.0": {
+          "forward_hits": 0,
+          "reverse_hits": 0
+        },
+        "bridge_36_lateral_0.1": {
+          "forward_hits": 0,
+          "reverse_hits": 0
+        },
+        "bridge_36_lateral_0.15": {
+          "forward_hits": 0,
+          "reverse_hits": 0
+        },
+        "bridge_54_lateral_-0.15": {
+          "forward_hits": 0,
+          "reverse_hits": 0
+        },
+        "bridge_54_lateral_-0.1": {
+          "forward_hits": 0,
+          "reverse_hits": 0
+        },
+        "bridge_54_lateral_0.0": {
+          "forward_hits": 0,
+          "reverse_hits": 0
+        },
+        "bridge_54_lateral_0.1": {
+          "forward_hits": 0,
+          "reverse_hits": 0
+        },
+        "bridge_54_lateral_0.15": {
+          "forward_hits": 0,
+          "reverse_hits": 0
+        }
+      }
+    },
+    "after": {
+      "linear_changed_column_hits": 0,
+      "explicit_step_changed_column_hits": 0,
+      "full_final_bridge_step_bodies": {
+        "bridge_36_lateral_-0.15": {
+          "forward_hits": 0,
+          "reverse_hits": 0
+        },
+        "bridge_36_lateral_-0.1": {
+          "forward_hits": 0,
+          "reverse_hits": 0
+        },
+        "bridge_36_lateral_0.0": {
+          "forward_hits": 0,
+          "reverse_hits": 0
+        },
+        "bridge_36_lateral_0.1": {
+          "forward_hits": 0,
+          "reverse_hits": 0
+        },
+        "bridge_36_lateral_0.15": {
+          "forward_hits": 0,
+          "reverse_hits": 0
+        },
+        "bridge_54_lateral_-0.15": {
+          "forward_hits": 0,
+          "reverse_hits": 0
+        },
+        "bridge_54_lateral_-0.1": {
+          "forward_hits": 0,
+          "reverse_hits": 0
+        },
+        "bridge_54_lateral_0.0": {
+          "forward_hits": 0,
+          "reverse_hits": 0
+        },
+        "bridge_54_lateral_0.1": {
+          "forward_hits": 0,
+          "reverse_hits": 0
+        },
+        "bridge_54_lateral_0.15": {
+          "forward_hits": 0,
+          "reverse_hits": 0
+        }
+      }
+    }
+  },
+  "contact_probes_passed": 4,
+  "limits": [
+    "Step sweep raises at the source cell then translates and lowers; it checks a chosen corridor envelope, not native step-up dynamics.",
+    "Full horizontal fence/lantern columns overbound stock shapes; zero hits do not measure native passing width.",
+    "Exact-boundary touching is permitted; +/-0.15 lateral offsets consume the entire conservative margin and add no native tolerance guarantee.",
+    "Radius0.35,height1.9 covers the authored Skill collider width0.672,height1.824, not every possible player/NPC state.",
+    "Native movement, shapes, dynamic obstacles, lighting, world loading and saving remain unrun."
+  ]
+}

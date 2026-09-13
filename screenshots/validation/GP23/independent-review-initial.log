@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/screenshots/validation/GP23/independent-review.py", line 268, in <module>
+    main()
+    ~~~~^^
+  File "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/screenshots/validation/GP23/independent-review.py", line 128, in main
+    assert committed('scripts/fc_lib.py') == (ROOT / 'scripts/fc_lib.py').read_bytes()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

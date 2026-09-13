@@ -1,0 +1,7 @@
+# Guild dining comparison — GP23 scratch audit
+
+Original views 343658414 and 236178734 show decorated long wood table surfaces, pale teal-bordered strips, separate mugs and spaced short red-covered stools. Two red-covered stair runs rise behind the dining area. The current decoded dining room has a plain one-column tabletop at x40/y2/z36..47, 24 oak-stair seats in continuous x38/x42 rows, and three raised lanterns. Its upper dormitory is reached through the gallery bridge and external stairs; no twin internal dining stair pair is present.
+
+The smallest clear mismatch is continuous seating. A scratch fixture removes twelve alternating stair seats, leaving 12 separate chair-shaped blocks. All previous walking nodes and gate-reachable nodes survive, all seven gate destinations remain reachable, and eight local routes pass. Every non-seat voxel stays exact. This demonstrates spacing feasibility only: neither original seat count nor a round red stool shape is reproduced.
+
+A future furniture pass can refine spacing within the current rows before changing the tabletop, lighting or room layout. Full stool materials, decorated table surfaces and twin stair architecture need separate prototypes and circulation review. Native lighting, NPC collision and physical walking remain unrun. See audit.json for source URLs/hashes, final-voxel counts and exact removed cells; the PNGs are schematic plans, not matched game views. No production files changed.

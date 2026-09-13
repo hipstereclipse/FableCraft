@@ -1,0 +1,533 @@
+{
+  "status": "Scratch feasibility only; no dining production edit",
+  "source_directory": "tmp/conformance/gp23-dining-audit",
+  "source_sha256": {
+    "audit.json": "e5e67b97ddcdb67d7be1fdb5d7658b46977667913923e1128cabbc8ebfc33f8a",
+    "audit.py": "ef9cb7cdc8d9c7abdaf1479f560377f0b38e7b5e69d610ca30cd1770a918201e",
+    "baseline.png": "06199282f02d9fb14e690971957aceacc8c26f4ec065f0f9c2c0318c4f2d3042",
+    "final-furniture-voxels.json": "4705b3165ff5cb4ee23cb2b641a9c65f03a97f3f02242c54e3d58d24d178dfe9",
+    "README.md": "c83132dbfcceb05431651a47660c1dac0879c58dfc357bfea76c4ed76b4cadb5",
+    "spaced-seat-feasibility.png": "221bc8dc11c4c24ccfb5fae747cb101ea711413ee34882666432ebeb6c43c276"
+  },
+  "audit": {
+    "purpose": "GP23 bounded dining comparison and in-memory seat-spacing fixture; no production edits.",
+    "asset_path": "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure",
+    "asset_sha256": "843043e22060d948e49f691e459ae164c5f3a2eacda8b21d5c38105a02dab7c3",
+    "generator_sha256": "203d2c02fc9198981a0e789b8ab04c5cbac1463950711ead35ea3a254fcfa031",
+    "source_refs": [
+      {
+        "id": "343658414",
+        "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=343658414",
+        "direct_url": "https://images.steamusercontent.com/ugc/31851510498053393/A5FD4BE287B0403EFFE623408B0F2742DE775150/",
+        "sha256": "bd626549861c1af627e085b1eb6a4a7a7c0f120c941e4876c2afba941088c78e"
+      },
+      {
+        "id": "236178734",
+        "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=236178734",
+        "direct_url": "https://images.steamusercontent.com/ugc/3318330593752315032/C758A7D35F011A544BAAABAA3D38A17EB2C5EC1C/",
+        "sha256": "8ad4018a973a1d47007924aa9c05a901cda720380ace0d6ffe53c91fedb775e7"
+      }
+    ],
+    "observed_original": [
+      "Long decorated wood table surfaces with pale teal-bordered strip and separate mugs.",
+      "Separate short round red-covered stools, with visible spaces between seating.",
+      "Two red-covered stair runs behind the dining tables, in a large red timber-framed room."
+    ],
+    "current_final_voxels": {
+      "room_bounds": [
+        36,
+        45,
+        33,
+        51
+      ],
+      "furniture_box": {
+        "x": [
+          37,
+          44
+        ],
+        "y": [
+          1,
+          3
+        ],
+        "z": [
+          34,
+          50
+        ]
+      },
+      "block_counts_in_box": {
+        "minecraft:furnace": 2,
+        "minecraft:air": 346,
+        "minecraft:red_carpet": 15,
+        "minecraft:smoker": 1,
+        "minecraft:oak_stairs": 24,
+        "minecraft:oak_fence": 3,
+        "minecraft:cake": 1,
+        "minecraft:oak_planks": 11,
+        "minecraft:lantern": 3,
+        "minecraft:barrel": 1,
+        "minecraft:cauldron": 1
+      },
+      "table_center_x": 40,
+      "table_z_range": [
+        36,
+        47
+      ],
+      "table_top_y": 2,
+      "seat_x": [
+        38,
+        42
+      ],
+      "seat_z_range": [
+        36,
+        47
+      ],
+      "seat_type": "minecraft:oak_stairs",
+      "seat_count": 24,
+      "seat_rows_contiguous": true,
+      "tabletop_lanterns": [
+        [
+          40,
+          3,
+          37
+        ],
+        [
+          40,
+          3,
+          41
+        ],
+        [
+          40,
+          3,
+          45
+        ]
+      ],
+      "owner_lines": "scripts/gen_structures.py dining builder: 1240..1305 at audit time",
+      "upper_floor_y": 7,
+      "twin_internal_dining_stairs_present": false,
+      "stair_limit": "Current upper dormitory connects through gallery bridge and external riverside stairs. Original twin dining stair runs are an unresolved larger layout difference; no new in-hall stairs proposed."
+    },
+    "biggest_bounded_mismatch": "Continuous chair/bench rows do not show the distinct spaced stool rhythm visible in both original dining photos. Plain one-cell-wide table and raised lantern dressing also differ from decorated wood and mugs.",
+    "feasibility_fixture": {
+      "changes": [
+        {
+          "at": [
+            38,
+            1,
+            37
+          ],
+          "before": [
+            "minecraft:oak_stairs",
+            {
+              "weirdo_direction": 1,
+              "upside_down_bit": false
+            }
+          ],
+          "after": [
+            "minecraft:air",
+            {}
+          ]
+        },
+        {
+          "at": [
+            38,
+            1,
+            39
+          ],
+          "before": [
+            "minecraft:oak_stairs",
+            {
+              "weirdo_direction": 1,
+              "upside_down_bit": false
+            }
+          ],
+          "after": [
+            "minecraft:air",
+            {}
+          ]
+        },
+        {
+          "at": [
+            38,
+            1,
+            41
+          ],
+          "before": [
+            "minecraft:oak_stairs",
+            {
+              "weirdo_direction": 1,
+              "upside_down_bit": false
+            }
+          ],
+          "after": [
+            "minecraft:air",
+            {}
+          ]
+        },
+        {
+          "at": [
+            38,
+            1,
+            43
+          ],
+          "before": [
+            "minecraft:oak_stairs",
+            {
+              "weirdo_direction": 1,
+              "upside_down_bit": false
+            }
+          ],
+          "after": [
+            "minecraft:air",
+            {}
+          ]
+        },
+        {
+          "at": [
+            38,
+            1,
+            45
+          ],
+          "before": [
+            "minecraft:oak_stairs",
+            {
+              "weirdo_direction": 1,
+              "upside_down_bit": false
+            }
+          ],
+          "after": [
+            "minecraft:air",
+            {}
+          ]
+        },
+        {
+          "at": [
+            38,
+            1,
+            47
+          ],
+          "before": [
+            "minecraft:oak_stairs",
+            {
+              "weirdo_direction": 1,
+              "upside_down_bit": false
+            }
+          ],
+          "after": [
+            "minecraft:air",
+            {}
+          ]
+        },
+        {
+          "at": [
+            42,
+            1,
+            37
+          ],
+          "before": [
+            "minecraft:oak_stairs",
+            {
+              "weirdo_direction": 0,
+              "upside_down_bit": false
+            }
+          ],
+          "after": [
+            "minecraft:air",
+            {}
+          ]
+        },
+        {
+          "at": [
+            42,
+            1,
+            39
+          ],
+          "before": [
+            "minecraft:oak_stairs",
+            {
+              "weirdo_direction": 0,
+              "upside_down_bit": false
+            }
+          ],
+          "after": [
+            "minecraft:air",
+            {}
+          ]
+        },
+        {
+          "at": [
+            42,
+            1,
+            41
+          ],
+          "before": [
+            "minecraft:oak_stairs",
+            {
+              "weirdo_direction": 0,
+              "upside_down_bit": false
+            }
+          ],
+          "after": [
+            "minecraft:air",
+            {}
+          ]
+        },
+        {
+          "at": [
+            42,
+            1,
+            43
+          ],
+          "before": [
+            "minecraft:oak_stairs",
+            {
+              "weirdo_direction": 0,
+              "upside_down_bit": false
+            }
+          ],
+          "after": [
+            "minecraft:air",
+            {}
+          ]
+        },
+        {
+          "at": [
+            42,
+            1,
+            45
+          ],
+          "before": [
+            "minecraft:oak_stairs",
+            {
+              "weirdo_direction": 0,
+              "upside_down_bit": false
+            }
+          ],
+          "after": [
+            "minecraft:air",
+            {}
+          ]
+        },
+        {
+          "at": [
+            42,
+            1,
+            47
+          ],
+          "before": [
+            "minecraft:oak_stairs",
+            {
+              "weirdo_direction": 0,
+              "upside_down_bit": false
+            }
+          ],
+          "after": [
+            "minecraft:air",
+            {}
+          ]
+        }
+      ],
+      "removed_seat_cells": [
+        [
+          38,
+          1,
+          37
+        ],
+        [
+          38,
+          1,
+          39
+        ],
+        [
+          38,
+          1,
+          41
+        ],
+        [
+          38,
+          1,
+          43
+        ],
+        [
+          38,
+          1,
+          45
+        ],
+        [
+          38,
+          1,
+          47
+        ],
+        [
+          42,
+          1,
+          37
+        ],
+        [
+          42,
+          1,
+          39
+        ],
+        [
+          42,
+          1,
+          41
+        ],
+        [
+          42,
+          1,
+          43
+        ],
+        [
+          42,
+          1,
+          45
+        ],
+        [
+          42,
+          1,
+          47
+        ]
+      ],
+      "surviving_seat_count": 12,
+      "choice": "Remove six alternating seats on each side within the current rows. Exact positions/count are Minecraft adaptations, not measurements of original furniture.",
+      "current_shape_limit": "Surviving oak stairs remain chair-shaped rather than round red-covered stools; this fixture only evaluates spacing feasibility.",
+      "existing_walking_nodes": 13806,
+      "candidate_walking_nodes": 13818,
+      "existing_gate_reachable": 10597,
+      "candidate_gate_reachable": 10609,
+      "all_prior_nodes_preserved": true,
+      "all_prior_gate_reachable_nodes_preserved": true,
+      "new_nodes": [
+        [
+          38,
+          1,
+          37
+        ],
+        [
+          38,
+          1,
+          39
+        ],
+        [
+          38,
+          1,
+          41
+        ],
+        [
+          38,
+          1,
+          43
+        ],
+        [
+          38,
+          1,
+          45
+        ],
+        [
+          38,
+          1,
+          47
+        ],
+        [
+          42,
+          1,
+          37
+        ],
+        [
+          42,
+          1,
+          39
+        ],
+        [
+          42,
+          1,
+          41
+        ],
+        [
+          42,
+          1,
+          43
+        ],
+        [
+          42,
+          1,
+          45
+        ],
+        [
+          42,
+          1,
+          47
+        ]
+      ],
+      "new_gate_reachable_nodes": [
+        [
+          38,
+          1.0,
+          37
+        ],
+        [
+          38,
+          1.0,
+          39
+        ],
+        [
+          38,
+          1.0,
+          41
+        ],
+        [
+          38,
+          1.0,
+          43
+        ],
+        [
+          38,
+          1.0,
+          45
+        ],
+        [
+          38,
+          1.0,
+          47
+        ],
+        [
+          42,
+          1.0,
+          37
+        ],
+        [
+          42,
+          1.0,
+          39
+        ],
+        [
+          42,
+          1.0,
+          41
+        ],
+        [
+          42,
+          1.0,
+          43
+        ],
+        [
+          42,
+          1.0,
+          45
+        ],
+        [
+          42,
+          1.0,
+          47
+        ]
+      ],
+      "seven_gate_destinations_reachable": true,
+      "eight_local_routes_pass": true,
+      "protected": "All existing non-seat cells, table tops/legs/lanterns, kitchen appliances, floors/ceilings, walls/doors, gallery bridge, all other Guild anchors/geometry unchanged by in-memory fixture.",
+      "not_done": "No serialized candidate, native walking, lighting or NPC collider execution. Full actor-clearance analysis would be needed before authoring; removal cannot add an obstacle but canonical room design remains partial."
+    },
+    "recommendation": "Use a future bounded furniture pass to separate seats inside existing x38/x42 rows, preserve table footprint and kitchen/circulation, and retain lighting until native review. Any red round-stool material or decorated table runner needs a separately inspected prototype. Do not reconstruct twin dining stairs from these cropped images alone.",
+    "scope": "Only scratch notes/images created; production remains untouched by this audit."
+  },
+  "native_acceptance": "unrun"
+}

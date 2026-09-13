@@ -1,0 +1,16 @@
+{
+  "reviewer": "root",
+  "inspected": {
+    "independent-bridge-36-approach-after.png": "36dfccf9ce6d2eaa11e330b42d723a3c387fbfebbb0188d5ba61aa41a5609c95",
+    "independent-bridge-36-approach-before.png": "5e861121f2e2d7e05904afe63c9a2bb783125110c8f47ea9066b902d1b6da196",
+    "independent-bridge-36-side-after.png": "1d7d46afe789a82dd4d47eb5be50d4448edadfd9c50f370aac2db29be9af1963",
+    "independent-bridge-36-side-before.png": "3c51914b1776bcb4ed1876afbcc939c17a62efc15fe26282916b31aa6a638483",
+    "independent-bridge-54-approach-after.png": "c4c1afae605e4c16aa03eb1b4a46d10bcc35fc3c4b14e9d57093ddcfe0f4481b",
+    "independent-bridge-54-approach-before.png": "09af8c9f30144b2befdaa5e3496c77b6b2ebb497cf3685daf58f532b61588cf4",
+    "independent-bridge-54-side-after.png": "0192853c32e16b3dceced8a158a68d95be65865ecc777cea6934e521ab38f236",
+    "independent-bridge-54-side-before.png": "07ac3824cd3b98a5144eb9225a193989e8fba0fb3c982ba5649eec1d4e80aa73"
+  },
+  "conclusion": "All eight fixed-scale before/after schematics inspected. Taller separate heads are clear in both side and approach views; deck, rails, approach gap and nearby bollard remain visibly unchanged. Captions no longer overlap the ground plate. Figures simplify fence/lantern shapes and do not establish native lighting or collision.",
+  "original_lamp_reference": "Full original TLC screenshot131726186 inspected by root; separate tall dark shaft and lamp head visible beside capped bridge end.",
+  "native_acceptance": "unrun"
+}

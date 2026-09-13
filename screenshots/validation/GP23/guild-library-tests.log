@@ -1,0 +1,11 @@
+test_baseline_reproduces_disconnected_shelf_bands_and_missing_light (__main__.GuildLibrary.test_baseline_reproduces_disconnected_shelf_bands_and_missing_light) ... ok
+test_bookcases_are_continuous_and_grounded_with_broken_band_negative (__main__.GuildLibrary.test_bookcases_are_continuous_and_grounded_with_broken_band_negative) ... ok
+test_cave_entry_commons_north_wing_and_resident_routes_survive_with_local_negatives (__main__.GuildLibrary.test_cave_entry_commons_north_wing_and_resident_routes_survive_with_local_negatives) ... ok
+test_desk_has_supported_half_slab_top_with_both_sides_and_lecterns_accessible (__main__.GuildLibrary.test_desk_has_supported_half_slab_top_with_both_sides_and_lecterns_accessible) ... ok
+test_final_changes_are_only_furnishings_preserving_floor_shell_anchors_and_rng (__main__.GuildLibrary.test_final_changes_are_only_furnishings_preserving_floor_shell_anchors_and_rng) ... ok
+test_final_lamps_have_connected_solid_support_and_missing_support_fails (__main__.GuildLibrary.test_final_lamps_have_connected_solid_support_and_missing_support_fails) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 3.264s
+
+OK

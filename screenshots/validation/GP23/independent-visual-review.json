@@ -1,0 +1,52 @@
+{
+  "result": "No blocker in bounded independent actual-owner geometry review",
+  "native_acceptance": "unrun",
+  "references_reinspected": [
+    {
+      "id": "131726186",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=131726186",
+      "direct_image": "https://images.steamusercontent.com/ugc/576731339878081836/8054B097D3FF1063DD535AE066C2AE24F3D369EC/",
+      "path": "tmp/conformance/reference-guild-additional/gp16-reference-131726186.jpg",
+      "sha256": "24ca2ade67643281a89e65d05d9629530afcb98c9ad156d8eed6113f2663a77a",
+      "pixels_inspected_by_this_review": true,
+      "version_evidence": "Existing accepted original TLC Steam app204030 provenance; exact direct-image hash verified locally; patch/mod status remains unknown",
+      "capture_date": "Unknown; no new date claim"
+    },
+    {
+      "id": "91147839",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=91147839",
+      "direct_image": "https://images.steamusercontent.com/ugc/920113049598722245/D6744214C1E7D3F662FEB496091384D859D43081/",
+      "path": "tmp/conformance/dp9-reference/reference-91147839.jpg",
+      "sha256": "35acb2d3ba89ee83c1b474b19fe50b6cc88cb1c98fec8faef9a0744ae1ab358d",
+      "pixels_inspected_by_this_review": true,
+      "version_evidence": "Existing accepted original TLC Steam app204030 provenance; exact direct-image hash verified locally; patch/mod status remains unknown",
+      "capture_date": "Unknown; no new date claim"
+    }
+  ],
+  "final_images_inspected": [
+    "independent-bridge-36-side-before.png",
+    "independent-bridge-36-side-after.png",
+    "independent-bridge-36-approach-before.png",
+    "independent-bridge-36-approach-after.png",
+    "independent-bridge-54-side-before.png",
+    "independent-bridge-54-side-after.png",
+    "independent-bridge-54-approach-before.png",
+    "independent-bridge-54-approach-after.png"
+  ],
+  "final_full_size_views_inspected": [
+    "independent-bridge-36-approach-after.png",
+    "independent-bridge-54-approach-after.png"
+  ],
+  "image_sha256": {
+    "independent-bridge-36-side-before.png": "3c51914b1776bcb4ed1876afbcc939c17a62efc15fe26282916b31aa6a638483",
+    "independent-bridge-36-side-after.png": "1d7d46afe789a82dd4d47eb5be50d4448edadfd9c50f370aac2db29be9af1963",
+    "independent-bridge-36-approach-before.png": "5e861121f2e2d7e05904afe63c9a2bb783125110c8f47ea9066b902d1b6da196",
+    "independent-bridge-36-approach-after.png": "36dfccf9ce6d2eaa11e330b42d723a3c387fbfebbb0188d5ba61aa41a5609c95",
+    "independent-bridge-54-side-before.png": "07ac3824cd3b98a5144eb9225a193989e8fba0fb3c982ba5649eec1d4e80aa73",
+    "independent-bridge-54-side-after.png": "0192853c32e16b3dceced8a158a68d95be65865ecc777cea6934e521ab38f236",
+    "independent-bridge-54-approach-before.png": "09af8c9f30144b2befdaa5e3496c77b6b2ebb497cf3685daf58f532b61588cf4",
+    "independent-bridge-54-approach-after.png": "c4c1afae605e4c16aa03eb1b4a46d10bcc35fc3c4b14e9d57093ddcfe0f4481b"
+  },
+  "helper_sha256": "efcbed636e7a7a7283d920e8d21ea8465ce495180b0007d7281c29d3fe8a9aa8",
+  "visual_observation": "Raised lantern heads and longer dark shafts sit at the same eight lower posts; bridge decks, ground approaches, water and thin rail silhouettes remain. Fixed image camera bounds preserve the deck position. Captions have separated lower margins. Exact block count, height and materials are adaptations; native light and original opaque parapets remain open."
+}

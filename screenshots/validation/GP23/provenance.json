@@ -1,0 +1,42 @@
+{
+  "milestone": "GP23",
+  "baseline_head": "5fcf08a23389760762438c86092a8d3450f96195",
+  "reviewed_index_listing_sha256": "5a363d118785e66aff6372bac875363b3dbd18af21caa63e9c49880eea9ae53a",
+  "source": "git checkout-index --all; no working-tree source copied",
+  "snapshot": "tmp/conformance/GP23-reviewed-snapshot",
+  "untracked_dependency": "node_modules symlink; ignored vanilla item cache copied for deterministic offline rendering",
+  "c2_staged_index_sha256": "cc5fb63840876343826cd39852d593a14b143c63676676c5bbf0f68f984ba795",
+  "c2_provenance": "Fresh C2 generated in isolated source snapshot, reviewed/copied/staged before base validation. All generated C2 inputs match this updated index.",
+  "containing_commit": "SELF: TLC Conformance \u2014 GP23: raise the Guild bridge lamps",
+  "prior_ci": {
+    "id": 34770576386,
+    "commit": "5fcf08a23389760762438c86092a8d3450f96195",
+    "conclusion": "success"
+  },
+  "validated_source_contract_sha256": {
+    "scripts/gen_structures.py": "203d2c02fc9198981a0e789b8ab04c5cbac1463950711ead35ea3a254fcfa031",
+    "scripts/tests/test_guild_bridge_lamps.py": "e5b94b59c8fccd56171a1c8ada6a73ccb7e0f88b3a200756f1a19a2df80a85c7",
+    "scripts/validate.py": "cb84c5ce0a82f734ca0884621382d407b8613a3bee8ba4121041f44260f9cc3d",
+    "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure": "843043e22060d948e49f691e459ae164c5f3a2eacda8b21d5c38105a02dab7c3",
+    "screenshots/structures/contract/evidence.json": "1a5d2f104cd93aef45e68edb89ac4a49aa07b553e5e9239ae610ea5de607a148",
+    "screenshots/structures/contract/guild_hall.png": "df09891b7f2c41b47a37a4753be30c8e29d0ccff84294baa31e24ea803c2878a"
+  },
+  "protected_unrelated_sha256": {
+    "dist/Fablecraft_BP.mcpack": "9543bfd4cd22a67a2e3d063da3d2b23ed7a213679a322422f4b0fa9b937b3170",
+    "dist/Fablecraft_RP.mcpack": "48fb847212ac5fcde7873c102623e47c68e2272c7417d1c3bc8fe1c02639b2e7",
+    "dist/Fablecraft_Reforged.mcaddon": "6e8c1a1ee1c4ac1c0c972428c222b9438a94157e3a2fd734583c5d52fd037df8",
+    "scripts/_align/overlay_ground.png": "1e905d600576ce9eb3b612c3bd3d2e4c48492fe7906ba72833b2ffb77bd9c538",
+    "scripts/_align/overlay_ground_zoom.png": "e64756d886d5bf33cd8a2c19262f2296510f127aaf7b2cc349efb56100ebf8e4",
+    "scripts/_align/overlay_td.png": "1a0d57296b5f7ddb1f725d418aee5307319f59cd7d566ec06a1f04596dcdb4a9",
+    "scripts/_align/overlay_td_zoom.png": "a98c94fe9bf934658398bda742624d7456749dabce4a47199b8e463e7775d5a2",
+    ".eslintrc.json": "79742942e1401d824e46c2ac132c6e3a905a0a343413c5cd440bc3fc51bd9123",
+    "packs/Fablecraft_BP/scripts/package.json": "1bf0e53fc74b05f1aade7451fbac72f1944b067d4229d96bae7a225519a250e4"
+  },
+  "base_gates": 56,
+  "esm_scripts": 65,
+  "legacy_leaves": 45,
+  "legacy_done": 7,
+  "visual_baseline": "GP23; GP22 full-render outputs verified against their committed manifest and DP10 document/asset blobs used for comparisons.",
+  "final_docs": "Finalized after validation; named final docs staged separately; validated source hashes unchanged.",
+  "native_acceptance": "unrun"
+}

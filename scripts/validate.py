@@ -36,6 +36,7 @@ def main():
         'guild-activity-behavior-tests': [sys.executable, 'scripts/tests/test_guild_activity_behavior.py'],
         'guild-will-tests': [sys.executable, 'scripts/tests/test_guild_will.py'],
         'guild-archery-tests': [sys.executable, 'scripts/tests/test_guild_archery_backboard.py'],
+        'guild-bridge-lamps-tests': [sys.executable, 'scripts/tests/test_guild_bridge_lamps.py'],
         'guild-maintenance-tests': [sys.executable, 'scripts/tests/test_guild_maintenance.py'],
         'guild-defence-tests': ['node', '--experimental-vm-modules', 'scripts/tests/guild_defence.test.mjs'],
         'guild-resident-tests': ['node', '--experimental-vm-modules', 'scripts/tests/guild_residents.test.mjs'],

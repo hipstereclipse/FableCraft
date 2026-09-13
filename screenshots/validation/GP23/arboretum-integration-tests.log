@@ -1,0 +1,30 @@
+✔ actual scatter reserves new Gorge before placement, confirms after final geometry, then marks region (68.137497ms)
+✔ old region markers never enroll or replay saved Gorges; pending reservations survive marker loss and ambiguous placement (165.096211ms)
+✔ actual sourceReady accepts final Gorge floor/throat and refuses edited support/headroom without repair (37.075428ms)
+✔ canonical face dispatch preserves instance ownership and cannot pay a legacy persona after marker loss or corrupt state (45.846411ms)
+✔ actual completed-use counts one per event in one instance while preserving native consumption/morality ownership (56.62352ms)
+✔ completed food requires Survival/Adventure; unavailable alignment cannot shortcut pre-normalization full evil (289.795322ms)
+✔ same object/same tick replay and competing nearby instances never multiply one completed-use credit (39.569972ms)
+✔ full-evil interaction uses actual raw alignment authority, not old -500 or tier -950 or legacy fallback (183.078282ms)
+✔ shared block/item guards and queued return use the occupied ticket exact source across families (37.147135ms)
+✔ deferred return cannot transfer an old clicked arch into another cell or missing ticket authority (72.888032ms)
+✔ successful-placement receipt permits deferred confirmation; absent/uncertain receipt never replays source (117.384831ms)
+✔ two Heroes retain separate food counters and another family read failure cannot take over entry authority (92.551773ms)
+✔ actual room adapter accepts final authored geometry and seeds one physical chest after fresh bulk validation (1060.69589ms)
+✔ late edited block or unavailable final bulk query refuses room placement after sliced scan (1045.700159ms)
+✔ an unavailable other-family ticket blocks new entry without blocking a healthy own exact-source return (79.895449ms)
+✔ a shell hole edited after sliced verification refuses ready state and reward seeding (1123.667542ms)
+✔ actual periodic callback preserves Arboretum dwell return through before/after Guild claim write failures (194.265891ms)
+✔ actual periodic callback advances Arboretum preparation while Guild claim persistence remains unavailable (1170.478398ms)
+✔ each periodic face-maintenance failure preserves both runtime ticks and retries on the unchanged cadence (80.398113ms)
+✔ an Arboretum tick failure cannot revoke the preceding healthy Guild dwell return (41.120665ms)
+(node:276) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6018.599964

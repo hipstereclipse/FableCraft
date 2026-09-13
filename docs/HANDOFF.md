@@ -13,15 +13,67 @@ reference photos and make Demon Doors traversable into distinct original reward
 worlds. Continue autonomously with separate reviewed milestone commits, validation,
 immediate pushes and fresh handoffs; no routine questions.
 
-Current checkpoint: DP10 — guarded Arboretum preparation.
-Last resolved commit: 386afde0eab6e6ca1d60e549ba807f564140ef83 (GP22 pushed;
-exact-head CI 34757620731 passed).
-Containing commit: TLC Conformance — DP10: guard Arboretum preparation and live rewards.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — DP10: guard Arboretum preparation and live rewards'.
+Current checkpoint: GP23 — taller Guild bridge lamps.
+Last resolved commit: 5fcf08a23389760762438c86092a8d3450f96195 (DP10 pushed;
+exact-head CI 34770576386 passed).
+Containing commit: TLC Conformance — GP23: raise the Guild bridge lamps.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP23: raise the Guild bridge lamps'.
 Never invent a self-hash. Supplemental passes stay in-progress while native
 acceptance is unrun; the legacy scoreboard remains 45 leaves and 7 done.
 
-## DP10 current checkpoint
+## GP23 current checkpoint
+
+Original TLC view131726186 shows a long dark lamp post beside the capped bridge
+end. Eight existing Guild heads rise one block: x58/68,z35/37/53/55,y2 lantern
+becomes dark_oak_fence and y3 receives the same standing lantern. Exact height,
+positions/count, stock materials and shape are Minecraft adaptations. The
+plank_bridge owner changes no RNG call, fixture footprint, deck/slab/bank/water,
+rail, anchor or saved-world construction. See GUILD_BRIDGE_LAMPS.md and GP23.
+All 56 base gates and 65 ESM checks pass in the isolated reviewed-index snapshot.
+Five focused bridge groups and ten independent negative fixtures pass. Actual
+DP10/current generators reproduce their respective serialized assets: exactly
+16 cells change; all other 395,264 cells, palette/state/metadata, RNG, layout,
+anchors, 678 Maze reservations and 981 water cells remain exact. All 13,806
+walking nodes, 10,597 reachable nodes and seven complete paths remain. Eight
+local routes, 19 protected body sweeps, ten lateral bridge sweeps, five actual
+Skill rays and 13 arrival samples/27 refusals retain their results. These are
+conservative offline bounds; native collision and passing remain unrun.
+
+Fresh C2, all 282 full-render PNGs, seven Guild documentation scenes and Guild
+diagnostics pass. Only Guild changes among the 36 assets/C2 images. Only its
+card and places gallery change among 282 full PNGs; only the two wide Guild
+views change among seven documentation scenes. Root inspected both cards, the
+gallery, both wide views and all eight focused before/after schematics. GP23 is
+the next asset/documentation baseline. Only Guild changed among 1,663 worktree
+pack files, and all nine protected unrelated files remain exact.
+
+Initial helper errors (inherited CRLF comparison, an untracked full-render PNG
+baseline) and focused-image caption spacing were corrected without production
+changes; original output remains. Exact raw lint output is retained in JSON;
+its readable log drops only the extra trailing blank line. No base gate failed.
+Native acceptance is unrun; legacy C3 remains 45 leaves and 7 done.
+No occupied Guild is rebuilt; reanchor remains a coordinate refresh.
+
+Seven original TLC references found in DP10 are now indexed:157535182 (map-hall
+stair/arch),157299346 (daylight bridge deck),343658414/236178734 (dining hall),
+176290219 (adjoining hall/candle ring),27535382 (upper balcony/candle ring),
+279597457 (dormitory/candles). Both reference agent and root inspected full pixels.
+The supplementary corpus is37, plus the earlier three map images. Matching app
+204030 cards and exact direct URLs support original edition. Posting dates:
+27535382 March11 2012;279597457 July1 2014 (Steam timezone unknown). Other five
+detail pages returned generic Workshop shells. Capture dates, patch/mod/settings,
+full dimensions and neutral ordinary Library remain unknown. New bridge image
+shows decorated opaque parapets but no lamp and supplies no height/width measure.
+External pixels stay ignored in tmp/conformance/next-guild-reference; DP10 and
+GP23 textual manifests retain hashes, URLs and exclusions.
+
+DP10's final staged whitespace check reported one blank line at EOF in the raw
+lint.log. A shell sequence without fail-fast handling nevertheless committed and
+pushed. All functional validators and post-commit source/test/doc whitespace
+checks passed. Preserve the raw output/history; GP23/dp10-commit-check-correction.md
+records this procedural error. Dependent commit steps must stop on any failure.
+
+## Retained DP10 preparation contract
 
 Independent original-owner/native-effect probes reproduced overwritten late
 contents, a late occupant, stale pre/post-write chest handles, wrong item metadata,
@@ -46,15 +98,6 @@ A diagnostics helper launch used the wrong working directory; a second-review
 fixture initially mistook a source point for a ticket. Both corrections and a
 review-helper SHA-logging update are retained; no production fix was required.
 No native server or world has run. Legacy C3 remains 45 leaves and 7 done.
-
-The measured bridge lamp candidate changes sixteen cells at existing x58/68,
-z35/37/53/55: y2 lantern -> dark_oak_fence, y3 air -> standing lantern. Original
-131726186 supports separate tall dark lamp posts. All other cells, graphs,
-seven complete routes, eight local paths and nineteen body sweeps remain in
-scratch feasibility checks. No GP23 production change exists yet. Opaque
-parapets, deck proportions and native clearance remain unresolved. Scratch:
-tmp/conformance/gp23-bridge-audit-next. New references and the complete third-family
-integration audit are retained separately in DP10 follow-up evidence.
 
 ## Retained GP22 asset/documentation baseline
 
@@ -88,7 +131,7 @@ All 282 selected full-render PNGs are also identical to GP21 because the new pro
 are hidden at those angles. Only 26_archery_backboard changes among seven fresh documentation scenes. Root
 inspected it and both unchanged wide Guild views, both cards, the gallery and
 six focused decoded views.
-GP22 is the next asset/documentation baseline; GP21 shares the distant PNGs.
+GP22 supplied the previous asset/documentation baseline; GP21 shares the distant PNGs.
 
 An initial C2-copy helper incorrectly expected changed pixels, then the staging
 helper lacked its manifest. A first diagnostics launch used a missing relative
@@ -147,7 +190,7 @@ three-column firing gap. Its expanded Skill-line sweep accounts for lower-cell
 fence height; a continuous divider intersects it despite the block-cell harness.
 GP22 preserves the divider, both bridges, targets/hay, marks, doors and roofs.
 
-The supplementary original-TLC corpus is now 30. GP22 indexes three images found
+Before GP23, the supplementary original-TLC corpus was30. GP22 indexes three images found
 and inspected during DP9: 91147839 (daylight bridge/tower),350434796 (map hall stairs/
 arch/Cullis),3243931107 (elevated courtyard/two bridges). App204030 listings match
 the direct image URLs and inspected classic pixels. Detail pages return generic
@@ -160,23 +203,22 @@ Production GP22 scenery relies only on 141099874, not the newly indexed images.
 
 ## Next three actions
 
-1. Author the measured taller bridge lamps as a separate GP23 through
-   plank_bridge: eight existing columns x58/68,z35/37/53/55, y2 becomes
-   dark_oak_fence, y3 gains the same standing lantern. Reinspect 131726186;
-   exact count/height/material are adaptations. Scratch feasibility preserves
-   all routes and body bounds, but actual old/new generators, RNG, serialized
-   output, final sweeps and required renders still need validation. No GP23 is
-   authored yet. Retain all water, decks, slabs, fixtures and occupied-world
-   construction. Full-cube parapets remain rejected; uniform widening also
-   covers bank routes and collides with the z54 bollard. Stock trapdoors are
-   mutable and lack pinned collider evidence; do not raise engine target for
-   an unproven custom parapet. See DP10/bridge-followup.*.
-2. Index the seven newly inspected original TLC views in DP10/reference-followup.*
-   (corpus remains30 until indexed). Continue map-hall stair/arch, dining/dormitory
-   candle/table detail, range platform and adjoining interior comparisons.
-   Do not infer original dimensions from crops or the distorted panorama. Neutral
-   ordinary Library views, full dorm size/bed count and Maze gallery proportions
-   remain missing. Preserve saved construction/progress and generator ownership.
+1. Continue the dining comparison in GP23/dining-followup.*. Original343658414/
+   236178734 show separate short red stools; current x38/x42,y1,z36..47 has
+   24 contiguous oak-stair seats. A scratch removal of12 alternating seats
+   preserves every old walk/reachable node, adds12 and retains checked routes.
+   It does not establish original seat count or round stool shape. Author any
+   chosen seating/table/lighting change through its owner with final geometry,
+   circulation, body and source/RNG comparison; no GP24 is authored yet. Original
+   twin dining stairs remain a larger unresolved layout issue.
+2. Revisit bridges, map-hall stair/arch, range platform and adjoining interiors
+   against the37 indexed references. Full-cube parapets leave a one-block opening
+   without proving native passing clearance; uniform widening covers bank routes
+   and conflicts with the z54 bollard. Stock trapdoors are mutable and lack pinned
+   collider evidence. Do not raise the engine target for an unverified custom
+   parapet. Retain GP23 lamps, fixtures, water/RNG and saved builds. Neutral ordinary
+   Library, complete dormitory bed count/size and Maze gallery proportions remain
+   missing; crops, glow and the distorted panorama cannot supply dimensions.
 3. Purposeful Skill arrival needs native offset/search/event calibration;
    preserve the DP6 13-sample/27-refusal proposal and GP19 activity authority.
    Do not retry unchanged failed official pinned-server transport. The next-door

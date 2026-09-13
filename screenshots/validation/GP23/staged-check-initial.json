@@ -1,0 +1,7 @@
+{
+  "command": "git -c core.whitespace=cr-at-eol diff --cached --check",
+  "exit_code": 2,
+  "sha256": "edb43b23b262110cec3016a85acb45182b48406c1d29c4c01cdbc4b948871e6c",
+  "output_utf8": "screenshots/validation/GP23/owner-semantic.patch:25: trailing whitespace.\n+ \nscreenshots/validation/GP23/owner-semantic.patch:25: new blank line at EOF.\n",
+  "followup": "Encoding the raw unified diff fixed its format-only findings. A subsequent check also rejected the literal trailing space echoed in this raw log, so the exact initial check output is now retained as JSON data."
+}

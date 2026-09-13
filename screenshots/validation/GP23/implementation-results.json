@@ -1,0 +1,24 @@
+{
+  "baseline_head": "5fcf08a23389760762438c86092a8d3450f96195",
+  "behavior_before_regeneration": {
+    "passed": 8,
+    "failed": 0,
+    "log": "behavior-before-regeneration.log"
+  },
+  "focused_tests": {
+    "passed": 5,
+    "failed": 0,
+    "log": "bridge-lamps-tests-initial.log"
+  },
+  "pack_files_checked": 1663,
+  "changed_pack_files": [
+    "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure"
+  ],
+  "protected_files_exact": 9,
+  "before_asset_sha256": "030e6f42cf21a4c0f2b605c76672deb94dcdf7634756aa27155d8423eb6d8df6",
+  "after_asset_sha256": "843043e22060d948e49f691e459ae164c5f3a2eacda8b21d5c38105a02dab7c3",
+  "owner_sha256": "203d2c02fc9198981a0e789b8ab04c5cbac1463950711ead35ea3a254fcfa031",
+  "focused_test_sha256": "e5b94b59c8fccd56171a1c8ada6a73ccb7e0f88b3a200756f1a19a2df80a85c7",
+  "native_acceptance": "unrun",
+  "no_stage_or_commit": true
+}
