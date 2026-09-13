@@ -1,0 +1,48 @@
+✔ production singleton passes canonical data, aperture gate and literal destination placement (17.788012ms)
+✔ production maintenance preserves a paid survivor before removing duplicate mouth faces (13.525918ms)
+✔ new-world registration precedes missing chunks; replacement cannot lose new/legacy status (26.479878ms)
+✔ a transient surviving-face history read defers registration without reauthorizing paid rewards (19.874013ms)
+✔ periodic source re-registration cannot strand a committed visitor at the original return arch (13.649083ms)
+✔ a lone visitor can walk through the remembered exit while the primary ledger is missing, corrupt or unreadable (40.930177ms)
+✔ unavailable-ledger periodic dwell cannot invent return authority for an unticketed or invalid-ticket occupant (80.871911ms)
+✔ a ticket for an occupied old cell survives replacement-ledger return failures and uses its exact source (10.625828ms)
+✔ a lowered ceiling above a fractional source approach selects a clear same-door fallback (10.858721ms)
+✔ replacement-ledger recovery rejects invalid or misplaced tickets and never borrows its source (11.853124ms)
+✔ actual deferred face interaction captures light-use item before event expiry (21.42225ms)
+✔ corrupt Guild progress never falls through to invented legacy challenge/payout (11.370465ms)
+✔ ordinary scattered door retains the existing requirement and payout path (9.35589ms)
+✔ five-tick production schedule repairs after reload without duplicate spawns (12.445011ms)
+✔ conflicting persisted hints cannot spawn repeated unkeyed faces or reset durable progress (12.067592ms)
+✔ periodic maintenance uses the durable source when the old hint is absent, broken, throwing or distant (58.612928ms)
+✔ the all-door sweep cannot recreate a Guild hint as an ordinary door or copy it across dimensions (14.647263ms)
+✔ a stale Guild hint is quarantined from ordinary challenge and reward interactions (10.849654ms)
+✔ a durable source dimension overrides both a conflicting hint and a supplied founding anchor (12.72805ms)
+✔ invalid or unreadable primary progress permits no fallback registration, spawning or cleanup (41.148372ms)
+✔ production block protection permits native non-sneaking containers and both return landmarks (11.386877ms)
+✔ production explosion and dangerous-item protection preserves unrelated world behavior (11.141539ms)
+✔ production scatter and region retirement exclude realm storage including ground below it (9.677552ms)
+✔ actual recovery command requires a player source and returns the active room visitor (10.817292ms)
+✔ actual recovery command uses an existing ticket when the main room record is corrupt (9.277231ms)
+✔ ticket-owned old rooms retain break, interaction, explosion and world guards across ledger failures (63.868813ms)
+✔ actual scatter and quest-boss callbacks exclude ticket-owned old cells without rebuilding history (50.922407ms)
+✔ two old occupied cells and the current ledger room remain independently protected (11.616233ms)
+✔ one unreadable or invalid player cannot revoke another visitor or the current room protections (22.643886ms)
+✔ protection reads retain current allocation on a failed player scan and discard invalid handles (45.265328ms)
+✔ old room guards reject absent, corrupt, out-of-range, wrong-cell and misplaced ticket authority (12.936977ms)
+✔ old room return-arch block clicks use the occupied ticket across ledger failures and keep failed returns (104.823596ms)
+✔ queued return-arch clicks recheck the original cell and never borrow a new cell or another visitor ticket (55.198167ms)
+✔ unreadable periodic tickets preserve every committed phase and retry exact-source dwell after reads recover (62.037416ms)
+✔ diagnostic and deferred arch returns never write or teleport through unreadable player-ticket history (63.836271ms)
+✔ confirmed absent or invalid tickets retain primary-ledger orphan recovery (33.478411ms)
+✔ an unreadable old-cell visitor cannot block another visitor protection or exact return across primary-ledger loss (63.980195ms)
+✔ each periodic return uses one freshly read ticket snapshot without an inconsistent second read (8.894201ms)
+(node:3) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ℹ tests 38
+ℹ suites 0
+ℹ pass 38
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1125.132576

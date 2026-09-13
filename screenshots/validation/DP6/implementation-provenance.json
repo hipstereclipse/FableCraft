@@ -1,0 +1,76 @@
+{
+  "scope": "DP6 unreadable player-ticket history only; working-tree changes stay unstaged.",
+  "baseline_head_when_started": "c83246751b86aa489897efa3d0cadd49f303c588",
+  "baseline_controller_origin": "Already-pushed DP5 controller; independent GP19 frozen snapshot excluded from this work.",
+  "internal_contract": {
+    "available_false": "No authoritative read; affected periodic/return operation defers before any player-ticket write or teleport.",
+    "available_true_ticket_null": "Confirmed absent or invalid ticket; existing primary-ledger orphan recovery remains allowed.",
+    "available_true_ticket_object": "Validated ticket snapshot; reused within its synchronous operation only."
+  },
+  "checks": [
+    {
+      "command": "node --experimental-vm-modules scripts/tests/demon_door_integration.test.mjs",
+      "cwd": "tmp/conformance/DP6-baseline-fixture",
+      "exit": 1,
+      "result": "35 of 38 groups pass; 3 new groups fail against captured pre-DP6 controller",
+      "log": "adapter-baseline-final-red.log"
+    },
+    {
+      "command": "node --experimental-vm-modules scripts/tests/demon_door_integration.test.mjs",
+      "cwd": ".",
+      "exit": 0,
+      "result": "38 of 38 groups pass",
+      "log": "adapter-final.log"
+    },
+    {
+      "command": "python scripts/tests/test_demon_doors.py",
+      "cwd": ".",
+      "exit": 0,
+      "result": "13 actual generated-room runtime groups pass",
+      "log": "runtime-final.log"
+    },
+    {
+      "command": "node --experimental-vm-modules scripts/tests/guild_door_aperture.test.mjs",
+      "cwd": ".",
+      "exit": 0,
+      "result": "4 aperture groups pass",
+      "log": "aperture-final.log"
+    },
+    {
+      "command": "node_modules/.bin/eslint packs/Fablecraft_BP/scripts/fc_demon_doors.js",
+      "cwd": ".",
+      "exit": 0,
+      "log": "portal-lint.log"
+    },
+    {
+      "command": "node --check scripts/tests/demon_door_integration.test.mjs",
+      "cwd": ".",
+      "exit": 0
+    },
+    {
+      "command": "node --input-type=module --check < packs/Fablecraft_BP/scripts/fc_demon_doors.js",
+      "cwd": ".",
+      "exit": 0
+    }
+  ],
+  "source_sha256": {
+    "packs/Fablecraft_BP/scripts/fc_demon_doors.js": "843d0ce71425bd8969fff29a88504210358e5977ddf1f62a518f0a6a886c33d0",
+    "scripts/tests/demon_door_integration.test.mjs": "78a4b2fdd2983b43e0c3b2a1e49ea36999839b130a48b9adeb8a31107aa5ade9",
+    "packs/Fablecraft_BP/scripts/main.js": "2d158bedac0198480e359f10d93ea67710ab1a777a9e16117479ddbf11d32c8d",
+    "packs/Fablecraft_BP/scripts/guild_door_aperture.js": "5db5993efaebf1787125cd2552379f1a9220d5e485fa7edd9c4b52603681fbb5",
+    "packs/Fablecraft_BP/scripts/fc_gamedata.js": "b649dacfc8960dcbff44534b8b553ccaecfb327aa28ce1096814393d259941eb",
+    "scripts/tests/demon_doors.test.mjs": "b267d84a1ce3b396f821ea28836bc115af49eb3fe720c3659fe4bd7872185f84"
+  },
+  "evidence_sha256": {
+    "adapter-baseline-final-red.log": "79b25c7981406f06980340a6d374174a8a0c88fb5b43e23567ea84105e16a691",
+    "adapter-final.log": "a21f9442bf4edd414eecc6d8da9b15c4aa9593d73b06e443a6d8aa3a770140ae",
+    "adapter-first-green.log": "3a50b391654d7e8c4957f2816911007ff8c8bb690f62949878c7a51a3c3c506d",
+    "adapter-red.log": "28b9ccff1458e977fee275494adf02e4a15112c0fe22f358c71f82ff603214aa",
+    "aperture-final.log": "bad4a3f042da22a9d02a55eb06c67add0e4d58820d75e4bcfb7ef75996990585",
+    "baseline-controller.js.txt": "aee84404ebb7f8b5ebc63b7b584de2e1c08918e67094dc2d9e762044e6035b62",
+    "independent-adapter.log": "3c2b6fa7828f15d282795572421e3f99757fe3cbcf311beccec6310d980a9d0b",
+    "portal-lint.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "runtime-final.log": "52a8f01d2664705464e2399f4e25a6807b09ba7b910b0d5cc15218febbb07590"
+  },
+  "native_acceptance": "unrun"
+}

@@ -1,0 +1,23 @@
+{
+  "source": "reviewed Git index exported to isolated snapshot; unrelated work excluded",
+  "baseline_head": "6f490a7263226ce50e3ad72769ceaa3ad3fa2d24",
+  "tested_executable_sha256": {
+    "packs/Fablecraft_BP/scripts/fc_demon_doors.js": "843d0ce71425bd8969fff29a88504210358e5977ddf1f62a518f0a6a886c33d0",
+    "scripts/tests/demon_door_integration.test.mjs": "78a4b2fdd2983b43e0c3b2a1e49ea36999839b130a48b9adeb8a31107aa5ade9"
+  },
+  "final_documentation_sha256": {
+    "docs/CONFORMANCE_CHECKLIST.md": "5530236a56f9a5c1d5d4e23992ad70cd828df885da4050c797081b99af67dfe8",
+    "docs/GUILD_DEMON_PRIORITIES.md": "97cff180974b76abe51886233c3312d69529a64e4aaed3f92992bfbe1e778619",
+    "docs/LIBRARY_ARCANUM_TICKET_READS.md": "cde136798f5e794788d00421b80273ced76dfcaa8c79a94d8bc56ee2adb8fed1",
+    "docs/HANDOFF.md": "7df0514068aab00f9fc2df21c8464d069830c8416eaa922bb69dc937124e5e2f"
+  },
+  "documentation_timing": "Final documents refreshed after code validation; all staged executable source matches the tested snapshot",
+  "node_dependencies": "same locked installed dependencies via node_modules symlink",
+  "engine_acceptance": "unrun",
+  "artifact_code_sha256": {
+    "screenshots/validation/DP6/station-arrival-followup.mjs": "8307c6bc45e72b03e7120b4c47850afe40e1f9b801c657a7c1061eda1b033b57",
+    "screenshots/validation/DP6/station-arrival-followup.py": "69ecad215b9d971e00da1d2a867da686c3523cfd7bdcebae9674c2213f2f7e66",
+    "screenshots/validation/DP6/independent-write-fault-probe.mjs": "3c3098262f785b8c038cb9d951a41a9f62bdfbe392c5422085d9daf6087c52b4",
+    "screenshots/validation/DP6/baseline-controller.js.txt": "aee84404ebb7f8b5ebc63b7b584de2e1c08918e67094dc2d9e762044e6035b62"
+  }
+}

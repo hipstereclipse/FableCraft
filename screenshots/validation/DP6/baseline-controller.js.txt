@@ -78,26 +78,23 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
       return validSource(source) ? source : null;
     } catch { return null; }
   }
-  function readTicket(p) {
+  function rawTicket(p) {
     try {
       const t = parse(p.getDynamicProperty(DOOR_RETURN_KEY));
-      const valid = t?.schema === 1 && t.doorId === "guild" && validSource(t.source)
+      return t?.schema === 1 && t.doorId === "guild" && validSource(t.source)
         && Number.isInteger(t.cell) && t.cell >= 0 && t.cell < 4096
-        && ["entering", "inside", "outside", "returning"].includes(t.phase);
-      return { available: true, ticket: valid ? t : null };
-    } catch {
-      // A failed read is not evidence that the committed way home is absent.
-      // Read-only guards may ignore this player; recovery must defer all writes.
-      return { available: false, ticket: null };
-    }
+        && ["entering", "inside", "outside", "returning"].includes(t.phase) ? t : null;
+    } catch { return null; }
   }
-  function ticket(p, t = readTicket(p).ticket, r = read()) {
+  function ticket(p) {
+    const t = rawTicket(p), r = read();
     return t && t.cell === r?.room?.cell && t.source.dimension === r.source.dimension
       && distance(t.source, r.source) < 16 ? t : null;
   }
-  function occupiedTicket(p, t = readTicket(p).ticket) {
+  function occupiedTicket(p) {
     try {
       if (p?.isValid === false) return null;
+      const t = rawTicket(p);
       // This committed ticket remains a return authority when a missing world
       // ledger is later recreated for another/no room. Actual occupancy of its
       // exact bounded Overworld cell is required; a stale outside ticket cannot
@@ -341,14 +338,14 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
     return { x: position.x, y: position.y, z: position.z, dimension: r.source.dimension };
   }
   function sourceIsReady(r) { try { return sourceReady(r.source) === true; } catch { return false; } }
-  function attemptEntry(p, r, currentTicket) {
+  function attemptEntry(p, r) {
     if (!sourceIsReady(r)) { notice(p, "My passage is obstructed. Clear the doorway before entering."); return false; }
     ensureRoom(r);
     r = read();
     if (opening || job || r?.room?.phase !== "ready" || verifiedReadyCell !== r.room.cell || !roomVerified(r)) {
       notice(p, "The passage is taking shape. Wait in the light to cross."); return "pending";
     }
-    if (ticket(p, currentTicket, r)?.phase === "inside") return false;
+    if (ticket(p)?.phase === "inside") return false;
     const source = sourceReturn(r, p);
     if (!safe(dimension(source.dimension), source)) { notice(p, "Clear the path outside my doorway before entering."); return false; }
     const t = { schema: 1, doorId: r.id, cell: r.room.cell, source, phase: "entering" };
@@ -368,12 +365,10 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
     notice(p, "The crossing faltered. You are still safely at the Guild.");
     return false;
   }
-  function requestReturn(p) { return returnFromTicket(p, readTicket(p)); }
-  function returnFromTicket(p, current) {
-    if (!current.available) return false;
+  function requestReturn(p) {
     let r = read();
-    let t = ticket(p, current.ticket, r);
-    const remembered = occupiedTicket(p, current.ticket);
+    let t = ticket(p);
+    const remembered = occupiedTicket(p);
     if (remembered && (!r?.room || r.room.cell !== remembered.cell || !t)) {
       // A newer valid ledger must not revoke a committed way home. Recovery
       // uses only this ticket's exact source; it never reconstructs a room,
@@ -467,9 +462,7 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
     for (const p of world.getPlayers()) {
       active.add(p.id);
       try {
-        const current = readTicket(p);
-        if (!current.available) continue;
-        const remembered = occupiedTicket(p, current.ticket), t = remembered ?? ticket(p, current.ticket, r);
+        const remembered = occupiedTicket(p), t = remembered ?? ticket(p);
         if (!r && !remembered) continue;
         const roomOrigin = remembered ? realmOrigin(remembered.cell) : r.room?.origin;
         const inside = !!roomOrigin && p.dimension.id === dimension().id && inRealm(p.location, roomOrigin);
@@ -497,7 +490,7 @@ export function createDemonDoorPilot({ world, system, ItemStack, report = () => 
         if (disarmed.has(p.id) || now() < (cooldown.get(p.id) ?? 0)) continue;
         if (!dwell.has(p.id)) dwell.set(p.id, now());
         if (now() - dwell.get(p.id) < 20) continue;
-        const result = inside ? returnFromTicket(p, current) : attemptEntry(p, r, current.ticket);
+        const result = inside ? requestReturn(p) : attemptEntry(p, r);
         if (result === "pending") { dwell.set(p.id, now()); continue; }
         dwell.delete(p.id); cooldown.set(p.id, now() + 60); disarmed.add(p.id);
       } catch (e) { report(`Demon Door player reconciliation: ${String(e)}`); }

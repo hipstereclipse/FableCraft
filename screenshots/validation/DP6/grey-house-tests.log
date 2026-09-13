@@ -1,0 +1,13 @@
+test_actual_scatter_encounter_loot_and_saved_region (__main__.GreyHouse.test_actual_scatter_encounter_loot_and_saved_region) ... ok
+test_blocked_cellar_and_chest_lid_negative_fixtures (__main__.GreyHouse.test_blocked_cellar_and_chest_lid_negative_fixtures) ... ok
+test_dimensions_palette_and_registration (__main__.GreyHouse.test_dimensions_palette_and_registration) ... ok
+test_exact_chests_clear_lids_and_ordinary_loot (__main__.GreyHouse.test_exact_chests_clear_lids_and_ordinary_loot) ... ok
+test_manor_roof_windows_and_cellar_coffins (__main__.GreyHouse.test_manor_roof_windows_and_cellar_coffins) ... ok
+test_routes_to_manor_cellar_chests_and_spawns (__main__.GreyHouse.test_routes_to_manor_cellar_chests_and_spawns) ... ok
+test_stair_directions_and_headroom (__main__.GreyHouse.test_stair_directions_and_headroom) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.525s
+
+OK
+PASS: actual grey_house placement on grass/rock, clear translated spawns, loot bounds and saved-region idempotence

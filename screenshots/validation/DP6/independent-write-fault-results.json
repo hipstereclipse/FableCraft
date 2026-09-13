@@ -1,0 +1,188 @@
+{
+  "command": "node --experimental-vm-modules screenshots/validation/DP6/independent-write-fault-probe.mjs",
+  "hashes": {
+    "baseline": "aee84404ebb7f8b5ebc63b7b584de2e1c08918e67094dc2d9e762044e6035b62",
+    "current": "843d0ce71425bd8969fff29a88504210358e5977ddf1f62a518f0a6a886c33d0",
+    "adapter": "78a4b2fdd2983b43e0c3b2a1e49ea36999839b130a48b9adeb8a31107aa5ade9"
+  },
+  "scenariosPerOwner": 4,
+  "actualOwnerRuns": 8,
+  "observationsIdentical": true,
+  "observed": {
+    "before": [
+      {
+        "boundary": "returning",
+        "timing": "before",
+        "firstMoves": 0,
+        "retry": true,
+        "backingAfterFault": {
+          "schema": 1,
+          "doorId": "guild",
+          "cell": 0,
+          "source": {
+            "x": 102.1,
+            "y": 65,
+            "z": 195.5,
+            "dimension": "minecraft:overworld"
+          },
+          "phase": "inside"
+        },
+        "backingAfterRetry": null,
+        "moves": 1,
+        "sourceRetained": true,
+        "worldHistoryUnchanged": true,
+        "placements": 0,
+        "payouts": 0
+      },
+      {
+        "boundary": "returning",
+        "timing": "after",
+        "firstMoves": 0,
+        "retry": true,
+        "backingAfterFault": {
+          "schema": 1,
+          "doorId": "guild",
+          "cell": 0,
+          "source": {
+            "x": 102.1,
+            "y": 65,
+            "z": 195.5,
+            "dimension": "minecraft:overworld"
+          },
+          "phase": "returning"
+        },
+        "backingAfterRetry": null,
+        "moves": 1,
+        "sourceRetained": true,
+        "worldHistoryUnchanged": true,
+        "placements": 0,
+        "payouts": 0
+      },
+      {
+        "boundary": "clear",
+        "timing": "before",
+        "firstMoves": 1,
+        "retry": false,
+        "backingAfterFault": {
+          "schema": 1,
+          "doorId": "guild",
+          "cell": 0,
+          "source": {
+            "x": 102.1,
+            "y": 65,
+            "z": 195.5,
+            "dimension": "minecraft:overworld"
+          },
+          "phase": "returning"
+        },
+        "backingAfterRetry": "{\"schema\":1,\"doorId\":\"guild\",\"cell\":0,\"source\":{\"x\":102.1,\"y\":65,\"z\":195.5,\"dimension\":\"minecraft:overworld\"},\"phase\":\"returning\"}",
+        "moves": 1,
+        "sourceRetained": true,
+        "worldHistoryUnchanged": true,
+        "placements": 0,
+        "payouts": 0
+      },
+      {
+        "boundary": "clear",
+        "timing": "after",
+        "firstMoves": 1,
+        "retry": false,
+        "backingAfterFault": null,
+        "backingAfterRetry": null,
+        "moves": 1,
+        "sourceRetained": true,
+        "worldHistoryUnchanged": true,
+        "placements": 0,
+        "payouts": 0
+      }
+    ],
+    "after": [
+      {
+        "boundary": "returning",
+        "timing": "before",
+        "firstMoves": 0,
+        "retry": true,
+        "backingAfterFault": {
+          "schema": 1,
+          "doorId": "guild",
+          "cell": 0,
+          "source": {
+            "x": 102.1,
+            "y": 65,
+            "z": 195.5,
+            "dimension": "minecraft:overworld"
+          },
+          "phase": "inside"
+        },
+        "backingAfterRetry": null,
+        "moves": 1,
+        "sourceRetained": true,
+        "worldHistoryUnchanged": true,
+        "placements": 0,
+        "payouts": 0
+      },
+      {
+        "boundary": "returning",
+        "timing": "after",
+        "firstMoves": 0,
+        "retry": true,
+        "backingAfterFault": {
+          "schema": 1,
+          "doorId": "guild",
+          "cell": 0,
+          "source": {
+            "x": 102.1,
+            "y": 65,
+            "z": 195.5,
+            "dimension": "minecraft:overworld"
+          },
+          "phase": "returning"
+        },
+        "backingAfterRetry": null,
+        "moves": 1,
+        "sourceRetained": true,
+        "worldHistoryUnchanged": true,
+        "placements": 0,
+        "payouts": 0
+      },
+      {
+        "boundary": "clear",
+        "timing": "before",
+        "firstMoves": 1,
+        "retry": false,
+        "backingAfterFault": {
+          "schema": 1,
+          "doorId": "guild",
+          "cell": 0,
+          "source": {
+            "x": 102.1,
+            "y": 65,
+            "z": 195.5,
+            "dimension": "minecraft:overworld"
+          },
+          "phase": "returning"
+        },
+        "backingAfterRetry": "{\"schema\":1,\"doorId\":\"guild\",\"cell\":0,\"source\":{\"x\":102.1,\"y\":65,\"z\":195.5,\"dimension\":\"minecraft:overworld\"},\"phase\":\"returning\"}",
+        "moves": 1,
+        "sourceRetained": true,
+        "worldHistoryUnchanged": true,
+        "placements": 0,
+        "payouts": 0
+      },
+      {
+        "boundary": "clear",
+        "timing": "after",
+        "firstMoves": 1,
+        "retry": false,
+        "backingAfterFault": null,
+        "backingAfterRetry": null,
+        "moves": 1,
+        "sourceRetained": true,
+        "worldHistoryUnchanged": true,
+        "placements": 0,
+        "payouts": 0
+      }
+    ]
+  },
+  "limits": "Injected write-before/write-after failures, not native transaction or persistence acceptance."
+}

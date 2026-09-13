@@ -13,14 +13,34 @@ online reference photos and make Demon Doors traversable into distinct original
 reward worlds. Continue autonomously with separate reviewed milestone commits,
 validation/evidence, immediate pushes and fresh handoffs; no routine questions.
 
-Current checkpoint: GP19 — requester-owned Skill Follow/Wait
-Last resolved prior commit: c83246751b86aa489897efa3d0cadd49f303c588 (GP18 pushed; exact-head CI 34733425350 passed).
-Containing commit: TLC Conformance — GP19: own Skill Follow and Wait by requester.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP19: own Skill Follow and Wait by requester'.
+Current checkpoint: DP6 — preserve unavailable exact-source return tickets
+Last resolved prior commit: 6f490a7263226ce50e3ad72769ceaa3ad3fa2d24 (GP19 pushed; exact-head CI 34735910068 passed).
+Containing commit: TLC Conformance — DP6: preserve unreadable exact-source return tickets.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — DP6: preserve unreadable exact-source return tickets'.
 Never invent a self-hash. Supplemental passes stay in-progress while native
 acceptance is unrun; the legacy scoreboard remains 45 leaves and 7 done.
 
-## Current behavior checkpoint
+## Current return-history checkpoint
+
+DP6 passes all 51 base gates and 64 ESM syntax checks in its reviewed snapshot,
+with fresh 35-asset C2 and Guild diagnostics. All geometry/visual inputs match GP18;
+its full-render evidence is retained, not rerun. A player-ticket read exception is now
+unavailable authority, distinct from confirmed absent/corrupt data. The affected
+periodic/return operation defers before ticket writes, clears or teleport, keeping
+the saved exact source. A later readable retry still returns when every default
+candidate is blocked. The synchronous operation shares one fresh ticket snapshot;
+public and deferred arch returns read fresh authority. Existing absent/corrupt
+fallback and DP5 independent visitor protections remain intact.
+
+Only fc_demon_doors.js and actual adapter regressions change. Five new groups bring
+the adapter suite to 38 passing groups; the same suite fails three regressions against
+the preceding owner. Runtime 13 and aperture 4 groups pass. Independent review finds
+no blocker and confirms unchanged before/after failed-write behavior in eight cases.
+No main adapter, generation, geometry, rewards, schema, activity or identity changes.
+See LIBRARY_ARCANUM_TICKET_READS.md and screenshots/validation/DP6/. Native acceptance
+remains unrun; do not infer whole-facility or door-catalogue completion.
+
+## Retained Skill activity checkpoint
 
 GP19 passes 51 base gates and 64 ESM syntax checks in the isolated reviewed-index
 snapshot. Controller 16, integration 9, native-transition 8, relationship 24, training 33,
@@ -62,23 +82,23 @@ See docs/GUILD_ACTIVITY_OWNERSHIP.md and GP19 evidence.
 
 ## Next three actions
 
-1. Repair the reproduced unreadable-ticket return regression as a separate DP6 pass.
-   GP19/door-followup-audit.md and its portable actual-callback probe show a transient
-   player-ticket read exception becoming null, then orphan recovery overwriting a
-   still-valid exact return source. A blocked-default control remains stranded after
-   reads recover. Distinguish unavailable from absent/corrupt before any ticket write,
-   clear or teleport; preserve intended absent/corrupt fallback and DP5 per-player
-   protection isolation. No room regeneration, rewards or new schema needed.
-2. Advance purposeful training-station arrival only after requester ownership, using
-   version-pinned native goals and actual arrival/support/lane checks. The 2.1 Script
-   API has no script navigation command. Current training has one checked placement
-   per session; never add repeated or fallback teleports. Reactive targets and player
-   lessons remain open. Keep existing interruption and actual-offender defence.
-3. Continue reference-led Guild interior/bridge/range comparisons and individually
-   designed Demon Door worlds. Round lattice Maze windows, bordered rug, red wall
-   panels, bridge silhouettes and braced range rails remain open. Next ordinary door
-   needs stable canonical identity/challenge/reward mapping and its own destination,
-   shared collection and exact-source reusable return. Never turn Nostro into a riddle.
+1. Advance purposeful training-station arrival using the verified native-goal route
+   after GP19 requester ownership. The 2.1 Script API has no script navigation
+   command. Preserve exact resident/activity/defence/session authority and recheck
+   live station/support/lane on actual arrival. Refuse edited or alternate targets;
+   no fallback/repeated teleport. See screenshots/validation/DP6/station-arrival-followup.md:
+   native offset/search/event calibration is required before the approach phase can
+   ship. Its prototype verifies 13 corridor samples and 27 refusal cases, not native
+   movement. Offset centering and historical target provenance remain unresolved;
+   the existing one-placement session remains an adaptation. Advance independent
+   reference-led geometry while that engine gate is unavailable.
+2. Continue reference-led Guild interior/bridge/range comparisons. Round lattice
+   Maze windows, bordered rug, red wall panels, bridge silhouettes and braced range
+   rails remain open. Preserve all audited routes, anchors, RNG and saved geometry.
+3. Continue individually designed Demon Door worlds with stable canonical identity,
+   challenge/reward mapping, distinct destination, shared collection and exact-source
+   reusable return. Preserve Nostro's separate story passage and the existing legacy
+   personas until each verified integration exists. Native acceptance remains open.
 
 ## Facility and reference constraints
 
@@ -127,7 +147,7 @@ DP5 732670a83bcd7909858ca4480c31f5dc8aeeb8ad retains block/explosion/scatter/bos
 for the current allocation plus valid loaded visitors' occupied original-ticket cells,
 and revalidates own-cell deferred return clicks; CI 34730821095 passed. These guards
 last only while valid occupancy is detectable. Do not reconstruct ledgers or reseed
-rooms/rewards from tickets. The new ticket-read fault audit does not negate those fixes.
+rooms/rewards from tickets. DP6 adds the unavailable-ticket boundary while preserving those fixes.
 
 Existing mouths receive only the earlier fingerprinted 108-cell migration; same-type
 player replacements remain indistinguishable. Other scatter keeps eight legacy

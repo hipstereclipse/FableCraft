@@ -53,6 +53,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | GP17 | in-progress | Deferred relationship actions revalidate current requester/ownership/eligibility before mutations; competing proposals cannot steal ownership or consume twice; native acceptance open |
 | GP18 | in-progress | Supported Maze-study bookcase and red carpet accents from inspected original views; preserve surveyed routes, anchors and all unrelated campus cells; native acceptance open |
 | GP19 | in-progress | Requester-owned Follow/Wait for the two canonical Skill residents with durable cleanup and social/training/defence arbitration; native acceptance open |
+| DP6 | in-progress | Preserve exact return tickets during unavailable reads; retain confirmed absent/corrupt fallback and independent occupied-room guards; native acceptance open |
 
 Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
 defects and manual status here. These passes are not completed legacy leaves.
@@ -970,7 +971,7 @@ remain unrun; GP18 does not close facility fidelity or alter the 45-leaf score.
 
 ## GP19 — requester-owned Skill Follow and Wait (2026-09-12)
 
-Commit: SELF: TLC Conformance — GP19: own Skill Follow and Wait by requester.
+Commit: 6f490a7263226ce50e3ad72769ceaa3ad3fa2d24 (pushed; exact-head CI 34735910068 passed).
 The two canonical Skill residents now accept activity through fresh exact resident
 registry/marker/type/base/ID authority. A versioned world journal and write-ahead
 initialization witness preserve requester, revision and outstanding tag cleanup.
@@ -1019,3 +1020,40 @@ unavailable-ticket distinction before mutation, retaining DP5 per-player guards
 and intended absent/corrupt recovery. Then continue purposeful station arrival,
 reactive training, reference-led interiors/bridges/range and individual door worlds.
 This bounded pilot does not close whole-facility or native conformance.
+
+
+## DP6 — preserve unavailable exact-source return tickets (2026-09-12)
+
+Commit: SELF: TLC Conformance — DP6: preserve unreadable exact-source return tickets.
+The GP19 audit reproduced orphan recovery overwriting a valid exact return point
+when the player-ticket read temporarily threw. The ticket reader now distinguishes
+unavailable authority from confirmed missing/corrupt data. The affected periodic
+or return operation defers before ticket writes, clears or teleport. Read recovery
+retains the original safe source, including when every default approach is blocked.
+One fresh ticket snapshot serves a synchronous operation; public and deferred-click
+returns still read fresh authority. No snapshot persists across ticks.
+
+Confirmed absent/invalid tickets retain primary-ledger fallback. DP5 protection
+scans still isolate a failed reader while protecting the current allocation and
+other readable occupied old cells. World progress, shared claims, room generation,
+geometry, Guild activity and existing failed-write handling retain their owners.
+Only the handwritten door controller and its adapter tests change.
+
+See [LIBRARY_ARCANUM_TICKET_READS.md](LIBRARY_ARCANUM_TICKET_READS.md) and
+`screenshots/validation/DP6/`. All 51 base gates and 64 ESM syntax checks pass in
+the isolated reviewed-index snapshot. The 38 actual adapter groups include five
+new groups; the same final suite fails three regressions against the preceding
+controller. Thirteen room/runtime and four aperture groups pass. Independent
+review repeats all 38 adapter groups and compares eight prior/current failed-write
+cases without finding changed travel, primary history, placement or payout behavior.
+Fresh 35-asset C2 and Guild diagnostics pass. All 35 structure assets, 35 C2 images
+and six rendering/data/geometry owners match GP18; full-render evidence is retained
+from those unchanged inputs, not rerun. GP19 exact-head CI 34735910068 passed.
+All native travel, collision, collection, multiplayer and persistence checks remain
+unrun. This injected failure proves the handling, not its frequency in Bedrock.
+
+Continue purposeful Skill station arrival after GP19 ownership, reactive targets,
+reference-led interior/bridge/range comparison and individually designed door worlds.
+Preserve saved construction, exact-source returns, resident/relationship history,
+legacy persona compatibility and Nostro's distinct story passage. The first portal
+pilot and the facility still have open native and reference acceptance.

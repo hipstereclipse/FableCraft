@@ -759,3 +759,130 @@ test('queued return-arch clicks recheck the original cell and never borrow a new
   assert.ok(other.props.get(f.pilotApi.DOOR_RETURN_KEY));
   assert.equal(f.visitor.moves.length, 0);
 });
+
+
+function ticketReadFault(f, player) {
+  const get = player.getDynamicProperty, set = player.setDynamicProperty;
+  let unavailable = true;
+  const writes = [], reads = [];
+  player.getDynamicProperty = key => {
+    if (key === f.pilotApi.DOOR_RETURN_KEY) {
+      reads.push(unavailable);
+      if (unavailable) throw new Error('temporarily unavailable committed player ticket');
+    }
+    return get(key);
+  };
+  player.setDynamicProperty = (key, value) => {
+    if (key === f.pilotApi.DOOR_RETURN_KEY) writes.push(value);
+    return set(key, value);
+  };
+  return { writes, reads, recover() { unavailable = false; } };
+}
+function blockDefaultReturnCorridor(f) {
+  // The committed (102.1,65,195.5) approach stays clear. All default candidates
+  // at z196.5 are blocked, so a guessed orphan ticket cannot accidentally pass.
+  for (let x = 97; x <= 104; x++) f.blockAt({ x, y: 65, z: 196 }, 'minecraft:stone');
+}
+function exactReturnSource(f) {
+  return { x: f.source.x + 2.1, y: f.source.y, z: f.source.z - 4.5, dimension: f.dimension.id };
+}
+
+test('unreadable periodic tickets preserve every committed phase and retry exact-source dwell after reads recover', async () => {
+  for (const phase of ['entering', 'inside', 'outside', 'returning']) {
+    const f = await fixture(), origin = f.readyRoom(), source = exactReturnSource(f), p = rememberVisitor(f, 0, source);
+    const ticket = JSON.parse(p.props.get(f.pilotApi.DOOR_RETURN_KEY)); ticket.phase = phase;
+    p.props.set(f.pilotApi.DOOR_RETURN_KEY, JSON.stringify(ticket)); blockDefaultReturnCorridor(f);
+    const before = p.props.get(f.pilotApi.DOOR_RETURN_KEY), primary = f.properties.get(f.pilotApi.DOOR_STATE_KEY);
+    const fault = ticketReadFault(f, p);
+    for (const tick of [45, 50, 55, 60]) { f.system.currentTick = tick; f.portalTick(); }
+    assert.deepEqual(fault.writes, [], phase); assert.equal(p.props.get(f.pilotApi.DOOR_RETURN_KEY), before, phase);
+    assert.equal(p.moves.length, 0, phase); assert.equal(f.placements.length, 0, phase);
+    assert.equal(f.properties.get(f.pilotApi.DOOR_STATE_KEY), primary, phase);
+    fault.recover(); f.system.currentTick = 65; f.portalTick();
+    p.location = add(origin, f.pilotApi.ARCANUM.exit);
+    for (const tick of [70, 75, 80, 85, 90, 95]) { f.system.currentTick = tick; f.portalTick(); }
+    assert.equal(p.moves.length, 1, phase);
+    assert.deepEqual(p.location, { x: source.x, y: source.y, z: source.z });
+    assert.equal(p.props.has(f.pilotApi.DOOR_RETURN_KEY), false);
+    assert.equal(f.properties.get(f.pilotApi.DOOR_STATE_KEY), primary);
+  }
+});
+
+test('diagnostic and deferred arch returns never write or teleport through unreadable player-ticket history', async () => {
+  for (const path of ['command', 'arch_before_click', 'arch_after_click']) for (const archY of [2, 7]) {
+    const f = await fixture(), origin = f.readyRoom(), source = exactReturnSource(f), p = rememberVisitor(f, 0, source);
+    blockDefaultReturnCorridor(f);
+    const before = p.props.get(f.pilotApi.DOOR_RETURN_KEY), primary = f.properties.get(f.pilotApi.DOOR_STATE_KEY);
+    const click = () => f.useBlock({ player: p, block: { location: add(origin, { x: 24, y: archY, z: 3 }), typeId: 'minecraft:stone' }, cancel: false });
+    if (path === 'arch_after_click') { click(); assert.equal(f.timers.length, 1); }
+    const fault = ticketReadFault(f, p);
+    if (path === 'command') f.scriptEvent({ id: 'fc:door_return', sourceEntity: p });
+    else { if (path === 'arch_before_click') click(); f.flush(); }
+    assert.deepEqual(fault.writes, [], `${path}/${archY}`);
+    assert.equal(p.props.get(f.pilotApi.DOOR_RETURN_KEY), before);
+    assert.equal(p.moves.length, 0); assert.equal(f.placements.length, 0);
+    fault.recover();
+    if (path === 'command') f.scriptEvent({ id: 'fc:door_return', sourceEntity: p });
+    else { click(); f.flush(); }
+    assert.equal(p.moves.length, 1); assert.deepEqual(p.location, { x: source.x, y: source.y, z: source.z });
+    assert.equal(p.props.has(f.pilotApi.DOOR_RETURN_KEY), false);
+    assert.equal(f.properties.get(f.pilotApi.DOOR_STATE_KEY), primary);
+  }
+});
+
+test('confirmed absent or invalid tickets retain primary-ledger orphan recovery', async () => {
+  for (const ticketData of [undefined, '{broken', JSON.stringify({ schema: 1, doorId: 'guild', cell: -1 })]) {
+    const f = await fixture(), origin = f.readyRoom(), p = f.player();
+    p.location = add(origin, f.pilotApi.ARCANUM.arrival);
+    if (ticketData !== undefined) p.props.set(f.pilotApi.DOOR_RETURN_KEY, ticketData);
+    f.system.currentTick = 45; f.portalTick();
+    const recovered = JSON.parse(p.props.get(f.pilotApi.DOOR_RETURN_KEY));
+    assert.deepEqual(recovered.source, { x: f.source.x + 0.5, y: f.source.y, z: f.source.z - 3.5, dimension: f.dimension.id });
+    const primary = f.properties.get(f.pilotApi.DOOR_STATE_KEY);
+    f.scriptEvent({ id: 'fc:door_return', sourceEntity: p });
+    assert.equal(p.moves.length, 1); assert.equal(p.props.has(f.pilotApi.DOOR_RETURN_KEY), false);
+    assert.equal(f.properties.get(f.pilotApi.DOOR_STATE_KEY), primary); assert.equal(f.placements.length, 0);
+  }
+});
+
+test('an unreadable old-cell visitor cannot block another visitor protection or exact return across primary-ledger loss', async () => {
+  for (const failure of ['missing', 'corrupt', 'unreadable', 'recreated', 'replacement']) {
+    const f = await protectionFixture(failure), source = exactReturnSource(f);
+    const old = JSON.parse(f.visitor.props.get(f.pilotApi.DOOR_RETURN_KEY)); old.source = source;
+    f.visitor.props.set(f.pilotApi.DOOR_RETURN_KEY, JSON.stringify(old));
+    const healthySource = { ...source, x: source.x + 1, z: source.z - 1 }, healthy = rememberVisitor(f, 16, healthySource);
+    blockDefaultReturnCorridor(f);
+    const faultyBefore = f.visitor.props.get(f.pilotApi.DOOR_RETURN_KEY), primary = f.properties.get(f.pilotApi.DOOR_STATE_KEY);
+    const fault = ticketReadFault(f, f.visitor);
+    f.system.currentTick = 45; f.portalTick();
+    assertProtected(f, f.pilotApi.realmOrigin(16), true);
+    if (failure === 'replacement') assertProtected(f, f.pilotApi.realmOrigin(8), true);
+    f.scriptEvent({ id: 'fc:door_return', sourceEntity: f.visitor });
+    assert.deepEqual(fault.writes, []); assert.equal(f.visitor.props.get(f.pilotApi.DOOR_RETURN_KEY), faultyBefore);
+    f.scriptEvent({ id: 'fc:door_return', sourceEntity: healthy });
+    assert.deepEqual(healthy.location, { x: healthySource.x, y: healthySource.y, z: healthySource.z });
+    assert.equal(healthy.props.has(f.pilotApi.DOOR_RETURN_KEY), false);
+    assert.equal(f.visitor.moves.length, 0); assert.equal(f.properties.get(f.pilotApi.DOOR_STATE_KEY), primary);
+    fault.recover(); f.scriptEvent({ id: 'fc:door_return', sourceEntity: f.visitor });
+    assert.deepEqual(f.visitor.location, { x: source.x, y: source.y, z: source.z });
+    assert.equal(f.visitor.props.has(f.pilotApi.DOOR_RETURN_KEY), false);
+    assert.equal(f.properties.get(f.pilotApi.DOOR_STATE_KEY), primary); assert.equal(f.placements.length, 0);
+  }
+});
+
+
+test('each periodic return uses one freshly read ticket snapshot without an inconsistent second read', async () => {
+  const f = await fixture(), origin = f.readyRoom(), source = exactReturnSource(f), p = rememberVisitor(f, 0, source);
+  blockDefaultReturnCorridor(f);
+  const native = p.getDynamicProperty;
+  let reads = 0;
+  p.getDynamicProperty = key => {
+    if (key === f.pilotApi.DOOR_RETURN_KEY && ++reads > 1) throw new Error('a later read would be unavailable');
+    return native(key);
+  };
+  const step = tick => { reads = 0; f.system.currentTick = tick; f.portalTick(); assert.equal(reads, 1); };
+  step(45); p.location = add(origin, f.pilotApi.ARCANUM.exit);
+  for (const tick of [50, 55, 60, 65, 70]) step(tick);
+  assert.equal(p.moves.length, 1); assert.deepEqual(p.location, { x: source.x, y: source.y, z: source.z });
+  assert.equal(p.props.has(f.pilotApi.DOOR_RETURN_KEY), false); assert.equal(f.placements.length, 0);
+});

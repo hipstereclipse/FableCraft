@@ -1,0 +1,94 @@
+✔ production singleton passes canonical data, aperture gate and literal destination placement (26.022782ms)
+✔ production maintenance preserves a paid survivor before removing duplicate mouth faces (23.756581ms)
+✔ new-world registration precedes missing chunks; replacement cannot lose new/legacy status (27.841889ms)
+✔ a transient surviving-face history read defers registration without reauthorizing paid rewards (29.229032ms)
+✔ periodic source re-registration cannot strand a committed visitor at the original return arch (20.844391ms)
+✔ a lone visitor can walk through the remembered exit while the primary ledger is missing, corrupt or unreadable (56.847656ms)
+✔ unavailable-ledger periodic dwell cannot invent return authority for an unticketed or invalid-ticket occupant (100.727113ms)
+✔ a ticket for an occupied old cell survives replacement-ledger return failures and uses its exact source (14.194797ms)
+✔ a lowered ceiling above a fractional source approach selects a clear same-door fallback (15.473364ms)
+✔ replacement-ledger recovery rejects invalid or misplaced tickets and never borrows its source (19.198775ms)
+✔ actual deferred face interaction captures light-use item before event expiry (35.847438ms)
+✔ corrupt Guild progress never falls through to invented legacy challenge/payout (14.632601ms)
+✔ ordinary scattered door retains the existing requirement and payout path (14.565493ms)
+✔ five-tick production schedule repairs after reload without duplicate spawns (17.317248ms)
+✔ conflicting persisted hints cannot spawn repeated unkeyed faces or reset durable progress (17.301759ms)
+✔ periodic maintenance uses the durable source when the old hint is absent, broken, throwing or distant (86.95355ms)
+✔ the all-door sweep cannot recreate a Guild hint as an ordinary door or copy it across dimensions (16.889222ms)
+✔ a stale Guild hint is quarantined from ordinary challenge and reward interactions (16.497005ms)
+✔ a durable source dimension overrides both a conflicting hint and a supplied founding anchor (30.124309ms)
+✔ invalid or unreadable primary progress permits no fallback registration, spawning or cleanup (42.808246ms)
+✔ production block protection permits native non-sneaking containers and both return landmarks (17.305345ms)
+✔ production explosion and dangerous-item protection preserves unrelated world behavior (14.515227ms)
+✔ production scatter and region retirement exclude realm storage including ground below it (14.520307ms)
+✔ actual recovery command requires a player source and returns the active room visitor (16.293797ms)
+✔ actual recovery command uses an existing ticket when the main room record is corrupt (14.996254ms)
+✔ ticket-owned old rooms retain break, interaction, explosion and world guards across ledger failures (85.673118ms)
+✔ actual scatter and quest-boss callbacks exclude ticket-owned old cells without rebuilding history (119.630393ms)
+✔ two old occupied cells and the current ledger room remain independently protected (14.575952ms)
+✔ one unreadable or invalid player cannot revoke another visitor or the current room protections (17.193813ms)
+✔ protection reads retain current allocation on a failed player scan and discard invalid handles (15.15178ms)
+✔ old room guards reject absent, corrupt, out-of-range, wrong-cell and misplaced ticket authority (15.682151ms)
+✔ old room return-arch block clicks use the occupied ticket across ledger failures and keep failed returns (171.560234ms)
+✔ queued return-arch clicks recheck the original cell and never borrow a new cell or another visitor ticket (88.643379ms)
+✖ unreadable periodic tickets preserve every committed phase and retry exact-source dwell after reads recover (19.513855ms)
+✖ diagnostic and deferred arch returns never write or teleport through unreadable player-ticket history (15.687081ms)
+✔ confirmed absent or invalid tickets retain primary-ledger orphan recovery (49.017901ms)
+✔ an unreadable old-cell visitor cannot block another visitor protection or exact return across primary-ledger loss (99.302456ms)
+(node:6) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ℹ tests 37
+ℹ suites 0
+ℹ pass 35
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1436.261968
+
+✖ failing tests:
+
+test at scripts/tests/demon_door_integration.test.mjs:790:1
+✖ unreadable periodic tickets preserve every committed phase and retry exact-source dwell after reads recover (19.513855ms)
+  AssertionError [ERR_ASSERTION]: entering
+  + actual - expected
+  
+  + [
+  +   '{"schema":1,"doorId":"guild","cell":0,"source":{"x":100.5,"y":65,"z":196.5,"dimension":"minecraft:overworld"},"phase":"inside"}',
+  +   '{"schema":1,"doorId":"guild","cell":0,"source":{"x":100.5,"y":65,"z":196.5,"dimension":"minecraft:overworld"},"phase":"inside"}',
+  +   '{"schema":1,"doorId":"guild","cell":0,"source":{"x":100.5,"y":65,"z":196.5,"dimension":"minecraft:overworld"},"phase":"inside"}',
+  +   '{"schema":1,"doorId":"guild","cell":0,"source":{"x":100.5,"y":65,"z":196.5,"dimension":"minecraft:overworld"},"phase":"inside"}'
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/demon_door_integration.test.mjs:798:12)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [Array],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/demon_door_integration.test.mjs:811:1
+✖ diagnostic and deferred arch returns never write or teleport through unreadable player-ticket history (15.687081ms)
+  AssertionError [ERR_ASSERTION]: command/2
+  + actual - expected
+  
+  + [
+  +   '{"schema":1,"doorId":"guild","cell":0,"source":{"x":100.5,"y":65,"z":196.5,"dimension":"minecraft:overworld"},"phase":"inside"}'
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/demon_door_integration.test.mjs:821:12)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [Array],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
