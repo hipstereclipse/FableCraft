@@ -1,0 +1,413 @@
+{
+  "purpose": "GP16 bounded additional original-TLC Guild reference search and read-only furnishing/window comparison, 2026-09-12.",
+  "search_scope": {
+    "web_search_queries": [
+      "Fable the lost chapters guild dormitory bedroom screenshot",
+      "Fable the lost chapters Maze study room library screenshots",
+      "Fable the lost chapters guild library interior screenshot original 2005"
+    ],
+    "image_search_queries": [
+      "Fable Lost Chapters Heroes Guild library interior",
+      "Fable Lost Chapters dormitory bed guild"
+    ],
+    "steam_listing_queries": [
+      {
+        "term": "dormitory",
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=dormitory&browsefilter=toprated",
+        "path": "tmp/conformance/reference-guild-additional/gp16-steam-dormitory.html",
+        "sha256": "c9821af6f4a7be8c37179da22576e98f40df04dbc93dd788cc220c6929d823b5",
+        "bytes": 44553
+      },
+      {
+        "term": "library",
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=library&browsefilter=toprated",
+        "path": "tmp/conformance/reference-guild-additional/gp16-steam-library.html",
+        "sha256": "505a8ba3160f127b3a6afa910a849634d53dce392b2c89ce7f889dd489d64141",
+        "bytes": 53266
+      },
+      {
+        "term": "sleep",
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=sleep&browsefilter=toprated",
+        "path": "tmp/conformance/reference-guild-additional/gp16-steam-sleep.html",
+        "sha256": "638e5aa45a2d5ae484aa8ac877bd0efcd87e53a7b90867033d29fdc610f7c77d",
+        "bytes": 71927
+      },
+      {
+        "term": "training",
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=training&browsefilter=toprated",
+        "path": "tmp/conformance/reference-guild-additional/gp16-steam-training.html",
+        "sha256": "ba875cedfa10f1a33ae615318511d52f42a9c29e7cd6accf1df72f263e19dcc4",
+        "bytes": 83413
+      },
+      {
+        "term": "guild",
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated",
+        "path": "tmp/conformance/reference-guild-additional/gp16-steam-guild.html",
+        "sha256": "0d630004032eae1fce49fba08fc452c2b0a4f811d29cde01e6d9d194cb0283e8",
+        "bytes": 84534
+      }
+    ],
+    "candidate_downloads": 17,
+    "scope_limit": "Five Steam listing queries, seventeen downloaded candidate images and one fetched dormitory detail page. No exhaustive survey claim."
+  },
+  "accepted_new_unique_images": 7,
+  "prior_distinct_reference_count": 19,
+  "updated_distinct_reference_count": 26,
+  "references": [
+    {
+      "screenshot_id": "141296214",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=141296214",
+      "direct_url": "https://images.steamusercontent.com/ugc/578987645587124015/D3BB8A140BEE2B3A4804BCA0160C23FB17BA0604/",
+      "caption": "don't mind the people sleeping",
+      "local_path": "tmp/conformance/reference-guild-additional/gp16-reference-141296214.jpg",
+      "sha256": "4ca01ba79c85df67c6c644cdb7133403e4f6e90270432abd56403166632127cb",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "listing_url": "https://steamcommunity.com/app/204030/screenshots/?searchText=sleep&browsefilter=toprated",
+      "listing_html_path": "tmp/conformance/reference-guild-additional/gp16-steam-sleep.html",
+      "listing_html_sha256": "638e5aa45a2d5ae484aa8ac877bd0efcd87e53a7b90867033d29fdc610f7c77d",
+      "version": "Fable: The Lost Chapters, original classic PC",
+      "version_confidence": "High: saved original-TLC app 204030 listing card has exact screenshot ID and direct URL; classic pixels inspected. Patch/mod status remains unknown.",
+      "actual_pixels_inspected": true,
+      "scene": "Guild dormitory, wide ordinary gameplay view",
+      "visible_findings": [
+        "At least three separate red-covered wooden bed forms: one cropped at the left edge and two against the rear wall.",
+        "Red plaster-like upper wall panels between heavy timber uprights; continuous dark carved lower wall panels.",
+        "Tall narrow pointed blue windows, diagonal-pattern stone floor and several separate rectangular patterned rugs.",
+        "Stone pointed doorway at left and part of a suspended circular fixture at the top edge."
+      ],
+      "limits": [
+        "A useful wide non-burning room view, but not the entire room: the exact total bed count, hidden furniture and complete floor/roof plan remain unknown.",
+        "Purple NPC selection/social glow and unknown display settings prevent calibrated neutral-light or color claims.",
+        "Guild minimap, visible beds and original wall details support room identity; the image does not establish the present generator's two-floor dormitory layout."
+      ],
+      "detail_page": {
+        "path": "tmp/conformance/reference-guild-additional/gp16-dormitory-detail.html",
+        "sha256": "0e838ad61a4ec6c8e776e2f7148c40673851b9f7ab09af822bc5d96d653a2729",
+        "author": "Ovenmuffins",
+        "posted_as_displayed": "Apr 25, 2013 @ 6:35pm",
+        "note": "Saved detail HTML explicitly names Fable - The Lost Chapters and matches caption and 1024 x 768 size; posting date precedes Anniversary but is not a calibrated capture timestamp."
+      }
+    },
+    {
+      "screenshot_id": "689540321",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=689540321",
+      "direct_url": "https://images.steamusercontent.com/ugc/448484556142731331/C38756B14B2F6D92094B2AA182D8D18B0AE690CB/",
+      "caption": "A+: Archery Training - (Fable: The Lost Chapters)",
+      "local_path": "tmp/conformance/reference-guild-additional/gp16-reference-689540321.jpg",
+      "sha256": "4b262179527a08f84122cd09186e4fb2e31839a023f4c76906933171c3fa6a00",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "listing_url": "https://steamcommunity.com/app/204030/screenshots/?searchText=training&browsefilter=toprated",
+      "listing_html_path": "tmp/conformance/reference-guild-additional/gp16-steam-training.html",
+      "listing_html_sha256": "ba875cedfa10f1a33ae615318511d52f42a9c29e7cd6accf1df72f263e19dcc4",
+      "version": "Fable: The Lost Chapters, original classic PC",
+      "version_confidence": "High: saved original-TLC app 204030 listing card has exact screenshot ID and direct URL; classic pixels inspected. Patch/mod status remains unknown.",
+      "actual_pixels_inspected": true,
+      "scene": "Archery training grade cutscene, range backboard and rail",
+      "visible_findings": [
+        "Large painted purple mountain valley panel with a dark conifer silhouette behind separate low castle/turret scenic target forms.",
+        "Low green-brown wooden rail with horizontal members, upright posts and repeated diagonal triangular braces.",
+        "Curved wooden edging bounds the dirt firing area."
+      ],
+      "limits": [
+        "Two characters obscure rail ends and range boundaries; full perimeter, gate locations and target depth are not measurable.",
+        "The image supports a scenic panel and distinct low target forms; GP15's coarse voxel mosaic and current target blocks remain adaptations.",
+        "No movement, callback timing or ray/collision behavior can be inferred from this still."
+      ]
+    },
+    {
+      "screenshot_id": "689540613",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=689540613",
+      "direct_url": "https://images.steamusercontent.com/ugc/448484556142732798/264D9912AD5ACB99EDE90FE9A5C9F713B8580300/",
+      "caption": "A+: Will Training - (Fable: The Lost Chapters)",
+      "local_path": "tmp/conformance/reference-guild-additional/gp16-reference-689540613.jpg",
+      "sha256": "e5b08db41c68010570e6857b0a36bb4a4a817d624be6372be806860d7490eb26",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "listing_url": "https://steamcommunity.com/app/204030/screenshots/?searchText=training&browsefilter=toprated",
+      "listing_html_path": "tmp/conformance/reference-guild-additional/gp16-steam-training.html",
+      "listing_html_sha256": "ba875cedfa10f1a33ae615318511d52f42a9c29e7cd6accf1df72f263e19dcc4",
+      "version": "Fable: The Lost Chapters, original classic PC",
+      "version_confidence": "High: saved original-TLC app 204030 listing card has exact screenshot ID and direct URL; classic pixels inspected. Patch/mod status remains unknown.",
+      "actual_pixels_inspected": true,
+      "scene": "Will training grade cutscene, bridge beside training station",
+      "visible_findings": [
+        "Short timber-plank bridge with solid rising side parapets and capped end blocks.",
+        "Large round medallions and dark scroll motifs decorate warm red-brown parapets.",
+        "Rocky bank, large tree and freestanding post lantern beside the bridge."
+      ],
+      "limits": [
+        "Lightning silhouette dominates foreground; color and lighting are not neutral.",
+        "Bridge footprint, fluid depth, training dummy count and full station boundary are obscured.",
+        "This is visual bridge/station evidence only; it does not validate autonomous NPC behavior."
+      ]
+    },
+    {
+      "screenshot_id": "689538972",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=689538972",
+      "direct_url": "https://images.steamusercontent.com/ugc/448484556142724852/F5D702114DBB1E8C028081803AAD2C0B185DE5CF/",
+      "caption": "Guild Training with Whisper - (Fable: The Lost Chapters)",
+      "local_path": "tmp/conformance/reference-guild-additional/gp16-reference-689538972.jpg",
+      "sha256": "6e11f93a0ca38bc6d98c602a57219765634d085050d3226e8162569a245bd68d",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "listing_url": "https://steamcommunity.com/app/204030/screenshots/?searchText=training&browsefilter=toprated",
+      "listing_html_path": "tmp/conformance/reference-guild-additional/gp16-steam-training.html",
+      "listing_html_sha256": "ba875cedfa10f1a33ae615318511d52f42a9c29e7cd6accf1df72f263e19dcc4",
+      "version": "Fable: The Lost Chapters, original classic PC",
+      "version_confidence": "High: saved original-TLC app 204030 listing card has exact screenshot ID and direct URL; classic pixels inspected. Patch/mod status remains unknown.",
+      "actual_pixels_inspected": true,
+      "scene": "Melee training gameplay with Whisper, ring-side wall and surrounding grounds",
+      "visible_findings": [
+        "Continuous low curved masonry perimeter with regularly spaced capped masonry posts.",
+        "Broad dirt sparring surface, leafy tree shadows and tall trees/rock faces just outside the wall.",
+        "Distant decorated bridge and post lantern are visible beyond the ring."
+      ],
+      "limits": [
+        "Characters and action effects occlude part of the arena.",
+        "Gate and complete circumference are outside the view; exact width, wall height and post count cannot be recovered.",
+        "No combat ownership, timing or movement claims follow from the screenshot."
+      ]
+    },
+    {
+      "screenshot_id": "146791162",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=146791162",
+      "direct_url": "https://images.steamusercontent.com/ugc/1083392620682541452/7540A2EF5BB21752E2A36326F86B5BBF1C71CC98/",
+      "caption": "Heroes' Guild",
+      "local_path": "tmp/conformance/reference-guild-additional/gp16-reference-146791162.jpg",
+      "sha256": "46a120c739a164b2e3be881e47eac3d340806de6d3c81429745cee2827d1e58a",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "listing_url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated",
+      "listing_html_path": "tmp/conformance/reference-guild-additional/gp16-steam-guild.html",
+      "listing_html_sha256": "0d630004032eae1fce49fba08fc452c2b0a4f811d29cde01e6d9d194cb0283e8",
+      "version": "Fable: The Lost Chapters, original classic PC",
+      "version_confidence": "High: saved original-TLC app 204030 listing card has exact screenshot ID and direct URL; classic pixels inspected. Patch/mod status remains unknown.",
+      "actual_pixels_inspected": true,
+      "scene": "Main map hall, upward view of roof and chandelier",
+      "visible_findings": [
+        "Large suspended circular wooden candle chandelier below a dark timber radial roof.",
+        "Upper ring of decorative window panels with circular patterned centers; deep warm red patterned band beneath them.",
+        "Substantial stone arches and continuous upper masonry bands over the lower hall."
+      ],
+      "limits": [
+        "Upward perspective exaggerates proportions, character hides the center and full roof is cropped.",
+        "Warm native-looking illumination has unknown display settings; no light intensity or candle count calibration.",
+        "Image supports a bounded ceiling/window comparison, not a full reconstruction of hall dimensions."
+      ]
+    },
+    {
+      "screenshot_id": "147536650",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=147536650",
+      "direct_url": "https://images.steamusercontent.com/ugc/578990280183819646/25B983F21728D7C7CD98101A3D63EF0C746E2C6C/",
+      "caption": "GUILD HALL",
+      "local_path": "tmp/conformance/reference-guild-additional/gp16-reference-147536650.jpg",
+      "sha256": "23956ff31ef554640cea4328097b3f5920df5c4f27aa27b21865edbc794ee487",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "listing_url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated",
+      "listing_html_path": "tmp/conformance/reference-guild-additional/gp16-steam-guild.html",
+      "listing_html_sha256": "0d630004032eae1fce49fba08fc452c2b0a4f811d29cde01e6d9d194cb0283e8",
+      "version": "Fable: The Lost Chapters, original classic PC",
+      "version_confidence": "High: saved original-TLC app 204030 listing card has exact screenshot ID and direct URL; classic pixels inspected. Patch/mod status remains unknown.",
+      "actual_pixels_inspected": true,
+      "scene": "Main map hall, map rim and stone route under staircase",
+      "visible_findings": [
+        "Low relief map edge with irregular angular border and shallow curled decorative motifs.",
+        "Stone arches beneath a rising staircase with a heavy timber upper rail and red stair runner.",
+        "Red and muted blue floor rugs, diagonal stone paving and a hanging candle fixture in the adjoining arch."
+      ],
+      "limits": [
+        "Hero and sword obscure much of map/table and route width.",
+        "This corroborates previously accepted hall images; it does not prove exact scale, complete furniture counts or collision clearances."
+      ]
+    },
+    {
+      "screenshot_id": "131726186",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=131726186",
+      "direct_url": "https://images.steamusercontent.com/ugc/576731339878081836/8054B097D3FF1063DD535AE066C2AE24F3D369EC/",
+      "caption": "Guild apprentice",
+      "local_path": "tmp/conformance/reference-guild-additional/gp16-reference-131726186.jpg",
+      "sha256": "24ca2ade67643281a89e65d05d9629530afcb98c9ad156d8eed6113f2663a77a",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "listing_url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated",
+      "listing_html_path": "tmp/conformance/reference-guild-additional/gp16-steam-guild.html",
+      "listing_html_sha256": "0d630004032eae1fce49fba08fc452c2b0a4f811d29cde01e6d9d194cb0283e8",
+      "version": "Fable: The Lost Chapters, original classic PC",
+      "version_confidence": "High: saved original-TLC app 204030 listing card has exact screenshot ID and direct URL; classic pixels inspected. Patch/mod status remains unknown.",
+      "actual_pixels_inspected": true,
+      "scene": "Guild bridge and adjoining facades at night",
+      "visible_findings": [
+        "Timber deck between continuous rising decorated parapets with broad capped end blocks.",
+        "Bright lantern on a tall dark post directly beside the bridge approach.",
+        "Round window on left facade, narrow pointed windows and continuous low eave on rear facade."
+      ],
+      "limits": [
+        "Night conditions and bright lamp obscure material colors; not a neutral palette reference.",
+        "The bridge is a distinct camera angle, but its world orientation and exact dimensions are not calibrated.",
+        "No light-level, fluid or route acceptance is established."
+      ]
+    }
+  ],
+  "excluded_candidates": [
+    {
+      "screenshot_id": "242496650",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=242496650",
+      "direct_url": "https://images.steamusercontent.com/ugc/3318332036015369336/B14641CF3A0CB3C840EDA27928BC53DA5440A6B0/",
+      "local_path": "tmp/conformance/reference-guild-additional/gp16-reference-242496650.jpg",
+      "sha256": "0ad886251f00839f9e53247b4b1d9e18ca71104c83f5f31963f40f0a5d5c790d",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "inspection": "Contact sheet actual pixels inspected; not accepted for implementation evidence.",
+      "reason": "Inspected pixels show the overgrown Library Arcanum reward interior, not the ordinary Guild Library; excluded from Guild-neutral reference count."
+    },
+    {
+      "screenshot_id": "63555415",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=63555415",
+      "direct_url": "https://images.steamusercontent.com/ugc/651002589722329102/3439FE218B22BBFF5F9C2853E116EE7315774430/",
+      "local_path": "tmp/conformance/reference-guild-additional/gp16-reference-63555415.jpg",
+      "sha256": "5b54935d021c1c65f98d72e6150aa64898376ad90de7e399c8cbc12508ada0ee",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "inspection": "Contact sheet actual pixels inspected; not accepted for implementation evidence.",
+      "reason": "Outdoor camp/crates beside rough terrain, not a Guild dormitory interior."
+    },
+    {
+      "screenshot_id": "231107502",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=231107502",
+      "direct_url": "https://images.steamusercontent.com/ugc/3318329315295337017/451A4A4E501924F2B6C64930DB26CFDF76AD8FB7/",
+      "local_path": "tmp/conformance/reference-guild-additional/gp16-reference-231107502.jpg",
+      "sha256": "6f08c4b1d2b13cb3272e91a8e89f37dc5f067a4d623f5ccbe5bb0d27b57a876f",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "inspection": "Contact sheet actual pixels inspected; not accepted for implementation evidence.",
+      "reason": "Wooden domestic/tavern interior without Guild room identity, not useful dormitory evidence."
+    },
+    {
+      "screenshot_id": "85601278",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=85601278",
+      "direct_url": "https://images.steamusercontent.com/ugc/558696550956550612/F69364B01CDFB6FB3356C9B0E9B32B7AD6D295AD/",
+      "local_path": "tmp/conformance/reference-guild-additional/gp16-reference-85601278.jpg",
+      "sha256": "7af909d4d8a7c021c1c4168ec1127ba8944a6716d0cbd68dd953bced0dbad692",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "inspection": "Contact sheet actual pixels inspected; not accepted for implementation evidence.",
+      "reason": "Close view of a sleeper inside rough masonry, no dependable Guild identity or room layout."
+    },
+    {
+      "screenshot_id": "199654259",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=199654259",
+      "direct_url": "https://images.steamusercontent.com/ugc/703981943274586205/7826454E355C180D6E3993EE9939AF785DE94FC2/",
+      "local_path": "tmp/conformance/reference-guild-additional/gp16-reference-199654259.jpg",
+      "sha256": "0540b79b05903d1e8f4bfa3bbe42ff98ee9e1860401d46d5a444d58a52eaa16b",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "inspection": "Contact sheet actual pixels inspected; not accepted for implementation evidence.",
+      "reason": "Burning campsite scene, not Guild living quarters."
+    },
+    {
+      "screenshot_id": "87381540",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=87381540",
+      "direct_url": "https://images.steamusercontent.com/ugc/596977780293320569/594C895C1F981C9840E5A6013C3B76D573877352/",
+      "local_path": "tmp/conformance/reference-guild-additional/gp16-reference-87381540.jpg",
+      "sha256": "1483c27bd91b5a413fddef44c50d6a6314d551e0ef82c7b53691646ee0d951e0",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "inspection": "Contact sheet actual pixels inspected; not accepted for implementation evidence.",
+      "reason": "Village child cutscene, not Guild dormitory."
+    },
+    {
+      "screenshot_id": "285634542",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=285634542",
+      "direct_url": "https://images.steamusercontent.com/ugc/584656846198920812/CFA856D402D06131E7EF96D7D7E7A1D24F33D906/",
+      "local_path": "tmp/conformance/reference-guild-additional/gp16-reference-285634542.jpg",
+      "sha256": "f513a28433e2e0e1d1130e835c6cca00eada3a14dcc7e900e13d018e50303ffe",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "inspection": "Contact sheet actual pixels inspected; not accepted for implementation evidence.",
+      "reason": "Another tight graduation character shot; no useful additional architectural detail beyond accepted earlier Chamber references."
+    },
+    {
+      "screenshot_id": "689539994",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=689539994",
+      "direct_url": "https://images.steamusercontent.com/ugc/448484556142729858/7A85BB753AB1F3D3E6DE1278C8A9BF22FAA8610C/",
+      "local_path": "tmp/conformance/reference-guild-additional/gp16-reference-689539994.jpg",
+      "sha256": "d142c9f3abcbc821e77620c63b328757eb5d575dceacbe3138438705e3cce4ea",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "inspection": "Contact sheet actual pixels inspected; not accepted for implementation evidence.",
+      "reason": "Tight apprentice cutscene with distant exterior; less informative than the accepted wide melee view."
+    },
+    {
+      "screenshot_id": "242153649",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=242153649",
+      "direct_url": "https://images.steamusercontent.com/ugc/615046359655176216/C863DD8F7B1544BDFF4FE85F96CE190247C17AC0/",
+      "local_path": "tmp/conformance/reference-guild-additional/gp16-reference-242153649.jpg",
+      "sha256": "e51898caef42211b5b58e2a07cb4edd73e7c7e9864477b5b82ecfab503393ac6",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "inspection": "Contact sheet actual pixels inspected; not accepted for implementation evidence.",
+      "reason": "Dark letterboxed Guild approach establishing shot; not an interior reference and little new detail."
+    },
+    {
+      "screenshot_id": "131726146",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=131726146",
+      "direct_url": "https://images.steamusercontent.com/ugc/576731339878061610/FABC0F71F023EAF58E084FA0443100DC724C4318/",
+      "local_path": "tmp/conformance/reference-guild-additional/gp16-reference-131726146.jpg",
+      "sha256": "c211d339fe882cd4368e27b10b0574b87d956ba8181f61c0c25a9d8b33a42349",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "inspection": "Contact sheet actual pixels inspected; not accepted for implementation evidence.",
+      "reason": "Same dark Guild approach composition as 242153649; not counted again."
+    }
+  ],
+  "negative_search_evidence": [
+    "The dormitory query returned no screenshot cards; the useful wide dormitory was found under sleep instead.",
+    "The Library query returned only an Arcanum scene and previously accepted burning-Guild screenshot 171460395. No neutral ordinary Library view was found.",
+    "Broad search results included repeated map hall, Tavern and non-Fable-library hits. Search-generated captions were not used as evidence.",
+    "Steam guide 3029811023 was opened as a lead but supplied no accepted view in this bounded pass. MobyGames direct page returned 403; no new MobyGames image was counted."
+  ],
+  "remaining_gaps": [
+    "Neutral ordinary Guild Library furniture/lamps and complete room plan.",
+    "Full dormitory bed count and floor/roof geometry; the new wide view establishes several beds and visible finish details only.",
+    "Complete Maze-study floor plan, exact furniture count and gallery/stair dimensions.",
+    "Native Bedrock lighting, camera matching, movement, collision and physical room walk-through remain unrun."
+  ],
+  "use_limit": "External images and listing HTML remain under ignored tmp/conformance/reference-guild-additional. Only textual source records and observations are tracked. No external screenshot pixels were imported into packs or validation evidence; no geometry/code edits were made in this reference subtask."
+}

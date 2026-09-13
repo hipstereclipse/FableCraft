@@ -1,5 +1,10 @@
 # Guild training lifecycle — first GP3 pass
 
+Follow-up: [GP16 live Skill preflight](GUILD_SKILL_PREFLIGHT.md) adds target, hay
+and exact firing-lane checks before acquisition and each delayed release.
+[GP9](GUILD_WILL_TRAINING.md) supplies the separate Will-island drill. The text
+below records the original GP3 scope and remaining lifecycle acceptance.
+
 Implemented 2026-09-12 as a bounded response to
 [GP1's NPC audit](GUILD_NPC_AUDIT.md). Assigned apprentices now acquire a station
 once per background session, release reliably, and interrupt their drills for

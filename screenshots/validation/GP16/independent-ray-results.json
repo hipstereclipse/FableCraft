@@ -1,0 +1,9 @@
+{
+  "main_sha256": "cee13efcb444f0dc73c1c4b09eb7877df32a98ebc70f48d96b2fb75de728991d",
+  "cases": 2109,
+  "crossed_cell_obstructions": 11099,
+  "max_distinct_block_reads": 9,
+  "max_candidate_voxels": 24,
+  "oracle": "All positive-length intervals between exact integer-plane crossings; independent of AABB clipping.",
+  "result": "pass"
+}

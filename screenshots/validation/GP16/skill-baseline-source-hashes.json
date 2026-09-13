@@ -1,0 +1,5 @@
+{
+  "packs/Fablecraft_BP/scripts/main.js": "c712c39be4aee51bc65e15248e1bd1e27f3cf7a667f7ccae3be53db430521b20",
+  "packs/Fablecraft_BP/scripts/guild_training.js": "baf0ff28090d771fb94b4884090e8cf45ba387aa9a6c3cbe7148082e9a70db41",
+  "scripts/tests/guild_training.test.mjs": "4a582b4122c5e03140572466834333541609ba9da217f995bf9aefd4f2eba470"
+}

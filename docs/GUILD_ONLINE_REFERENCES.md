@@ -1,7 +1,7 @@
 # Additional original TLC Guild image references
 
-At the user's request, 19 additional distinct gameplay images were found online,
-downloaded to ignored scratch and visually inspected during GP11–GP15. These
+At the user's request, 26 additional distinct gameplay images were found online,
+downloaded to ignored scratch and visually inspected during GP11–GP16. These
 supplement the original 2005 Prima guide and earlier three map-hall references.
 They are reference observations, not calibrated floor plans or imported pack art.
 
@@ -26,6 +26,10 @@ They are reference observations, not calibrated floor plans or imported pack art
 | Maze study, ordinary gameplay interior | [page](https://steamcommunity.com/sharedfiles/filedetails/?id=273468136) · [image](https://images.steamusercontent.com/ugc/579025774227799030/B4A5434A004B97D610D7ED97AFDDEA3F62FF3D54/) | Tall bookcase, timber upper gallery, round lattice window, red bordered rug, ornate chair and partial pedestal table. |
 | Maze study, request cutscene | [page](https://steamcommunity.com/sharedfiles/filedetails/?id=247737302) · [image](https://images.steamusercontent.com/ugc/432651567436598631/839A2D2E3D342EE4B2E3238CE1B4C14E637B6BC0/) | Second angle on round window, red wall panels, timber rail and pointed doorway. |
 | Guild dormitory, partial wake-up background | [page](https://steamcommunity.com/sharedfiles/filedetails/?id=1509181409) · [image](https://images.steamusercontent.com/ugc/961971522308377432/BBB72AAB116DF42256C02F7CBB6E585EF79A9378/) | Continuous shelves with carved upper trim, red wall panels and heavy timber framing behind Whisper. |
+
+Seven GP16 additions include a wide dormitory view, two bridge angles, melee and
+archery details, and hall ceiling/stair views. See the [GP16 reference audit](../screenshots/validation/GP16/reference-followup.md)
+for their individual source links and the bounded Maze/dormitory comparison.
 
 ## Attribution and limits
 
@@ -53,9 +57,13 @@ affects the foreground of the Maze gameplay view, and characters obscure much
 of both study images; these establish visible furniture and wall details, not
 exact dimensions or a calibrated neutral light level.
 
-The dormitory close-up shows shelves and wall framing but no complete bed or
-room-wide layout. A neutral wide dormitory view is still missing, as are neutral
-Library views establishing ordinary lamps and exact reading furniture. The full
+The GP15 dormitory close-up shows shelves and wall framing but no complete bed.
+GP16 adds a wider ordinary-gameplay dormitory view posted in April 2013, showing
+at least three separate red-covered bed forms, red timber-framed walls, pointed
+blue windows, diagonal stone paving and separate patterned rugs. Its cropped
+boundaries, NPC glow and unknown display settings leave total bed count, full
+layout and calibrated lighting open. Neutral Library views establishing ordinary
+lamps and exact reading furniture are still missing. The full
 Maze-study floor plan, furniture count and gallery/stair dimensions remain open.
 Native lighting, matched camera views and physical walking are unrun. A second
 lower-resolution capture of the same Whisper wake-up angle is not counted as
@@ -71,6 +79,7 @@ Exact hashes, dimensions, confidence, exclusions and individual observations:
 - [Nine Library/Chamber/hall images](../screenshots/validation/GP12/library-chamber-online-provenance.json).
 - [Three exterior/graduation/archery images](../screenshots/validation/GP12/additional-online-exterior-references.json).
 - [Three supplementary Maze/dormitory views](../screenshots/validation/GP15/interior-reference-followup.json).
+- [Seven dormitory/training/bridge/hall views](../screenshots/validation/GP16/additional-online-references.json).
 
 External pixels remain under ignored `tmp/conformance/reference-guild-additional`;
 only these textual source records are committed. Later changes must preserve

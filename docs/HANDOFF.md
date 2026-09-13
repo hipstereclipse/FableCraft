@@ -6,17 +6,17 @@ Branch: phase3-will-destiny
 Remote: https://github.com/hipstereclipse/FableCraft.git
 
 Read docs/GUILD_DEMON_PRIORITIES.md first, then docs/CONFORMANCE_PLAN.md and
-CONFORMANCE_CHECKLIST.md. The priority ledger is the active execution queue.
+docs/CONFORMANCE_CHECKLIST.md. The priority ledger is the active execution queue.
 Source plan and six reference snapshots are under docs/. The latest user asks:
 “Recursively improve the entire guild facility until it feels like stepping back
 into the original The Lost Chapters game.” Also explicitly find additional online
 reference photos. Continue autonomously with separate reviewed milestone commits,
 validation/evidence, immediate pushes and fresh handoffs; no routine questions.
 
-Current checkpoint: GP15 — reference-led archery scenic backboard and retained training routes
-Last resolved prior commit: 569b3f2119390af2e19160ef52e2aa2072ff2cda (GP14 pushed; exact-head CI 34722255501 passed).
-Containing commit: TLC Conformance — GP15: restore the Guild archery scenic backboard.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP15: restore the Guild archery scenic backboard'.
+Current checkpoint: GP16 — live Skill target/lane preflight and additional original-room references
+Last resolved prior commit: 17d1191e73d830ad4c809d2f6af62b724465eede (GP15 pushed; exact-head CI 34722859754 passed).
+Containing commit: TLC Conformance — GP16: validate live Skill practice targets and lanes.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP16: validate live Skill practice targets and lanes'.
 Never invent a self-hash. Every supplemental pass remains in-progress where native
 acceptance is unrun; this does not change the 45-leaf legacy C3 denominator.
 
@@ -29,12 +29,15 @@ stay in ignored tmp/conformance/reference-guild and reference-guild-additional;
 never put their pixels into packs or committed evidence. The original 2005 Prima
 PDF remains ignored tmp/conformance/reference-arcanum/prima-tlc-guide.pdf.
 GP11 additional-online-references.json records four inspected pre-Anniversary
-training/hall shots. See docs/GUILD_ONLINE_REFERENCES.md for 19 additional inspected views.
+training/hall shots. See docs/GUILD_ONLINE_REFERENCES.md for 26 additional inspected views.
 Newly found original Chamber, Library cutscene, courtyard
 and archery views have further provenance under GP12. GP15 adds two Maze-study
 views and a partial dormitory wake-up view with URLs/hashes. Use these for a
-bounded study furnishing/window audit; neutral wide Library/dormitory views and
-complete Maze floor/gallery dimensions remain missing.
+bounded study furnishing/window audit. GP16 adds seven inspected original views,
+including a wide dormitory gameplay image posted in April 2013, two bridge angles,
+archery/melee and hall details. See GP16/reference-followup.md. Neutral ordinary
+Library views, complete dormitory dimensions/bed count and Maze gallery dimensions
+remain missing; patch/mod/display settings are not established.
 
 Repeat inspect → compare → fix → regenerate → test → re-inspect across entrance,
 map hall/quest/skill/Cullis interactions, Library/living spaces, Maze's tower,
@@ -92,21 +95,34 @@ routes, rear/side passages and the actual Skill particle ray, including broken
 support/frame/headroom/path/lane negatives. Existing Will/maintenance/training
 contracts remain green. See GUILD_ARCHERY_BACKBOARD.md and GP15 evidence.
 Continuous braced rails remain deferred until their footprint is surveyed.
-The production Skill callback has no runtime block-lane preflight; its line is
-preserved geometrically, not upgraded by this fixture pass. Native acceptance
+GP15 preserved the Skill line geometrically; GP16 adds the live preflight below. Native acceptance
 and original target detail remain open. No occupied-world geometry migration.
 
-Next: revisit adjoining grounds and requester-specific NPC activity ownership;
-use the newly verified Maze-study views for a furnishing/window comparison, and
-seek neutral wide dormitory/Library references before claiming interior fidelity.
-Preserve source-vs-adaptation boundaries, routes, saved history and all native
-acceptance gaps. Do not infer whole-facility fidelity from render grades.
+GP16 adds live Skill checks before acquisition and each delayed release. The
+actual prior callback emitted six harmless particles and a bow sound through a
+chest or toward a missing target. Now target/hay and every crossed ray cell must
+be readable and recognized/air. Exact segment/voxel clipping covers small actor
+displacements. Session/token/eligibility/station checks precede live effects;
+failure interrupts through existing cleanup/retry semantics. No damage, rewards,
+block repairs, geometry or generated outputs change. See GUILD_SKILL_PREFLIGHT.md.
+Thirty-three runtime groups and the six final-voxel archery groups pass; ten
+independent edited/unavailable cells and 29 crossed-cell negatives are covered.
+One checked station placement and finite bow-pose completion remain adaptations.
+Native acceptance is unrun.
 
-The final GP15/facility-followup-audit.md ranks live Skill target/lane preflight,
-purposeful station arrival and three reactive Will dummies. The actual Skill
-callback probe still emits six harmless particles through a chest-blocked lane
-or a missing target. Fix that bounded behavior before expanding range furniture;
-then tackle movement with interruption/identity ownership preserved.
+Next three actions:
+1. DP5: fix the newly reproduced occupied reward-room protection loss after
+   ledger loss/recreation/replacement. The valid original-cell ticket still
+   returns the visitor, but block/explosion/scatter/boss guards only use the
+   current ledger. Use GP16/door-followup-audit.md and ignored
+   tmp/conformance/gp16-door-audit/probe.mjs. Preserve exact return, shared
+   rewards and no-rebuild history; include return-arch click ownership.
+2. Continue purposeful station arrival and requester-specific activity ownership,
+   preserving interruption, resident identity and defence.
+3. Use the 26-view corpus for measured Maze/dormitory/bridge/archery comparisons,
+   plus three reactive Will dummies; survey routes before expanding fixtures.
+Preserve source-vs-adaptation boundaries and all native acceptance gaps. Do not
+infer whole-facility fidelity from render grades.
 
 NPC Follow/Wait remains a known source defect: generated Follow accepts any
 player, Wait leaves base strolling, and the functional Wait emote broadcasts
@@ -135,12 +151,11 @@ worlds, canon mapping and story exceptions remain open; never give Nostro a ridd
 
 ## Validation, ownership and repository landmines
 
-GP15 baseline: 46 base gates, 62 ESM syntax checks, fresh 35-asset C2 and full renders
+GP16 baseline: 46 base gates, 62 ESM syntax checks, fresh 35-asset C2 and full renders
 (51 mobs/55 items/130 recipes/32 structures/13 galleries), Guild match/roof/numeric
 checks, 25 cave groups, 18 Chamber groups and 6 archery groups pass offline.
-See screenshots/validation/GP15/. Only the Guild asset and its distant C2 image
-change; all other 34 assets/images remain exact. Four focused before/after
-views are the useful backboard detail evidence. No engine acceptance is implied.
+See screenshots/validation/GP16/. Runtime-only Skill changes require no
+generated asset changes. GP15 retains the four useful backboard detail views. No engine acceptance is implied.
 No actual Bedrock engine has run: lighting, fluids, stairs/collision, native NPC
 movement/interruption, two-Hero behavior, portal travel, persistence and collection
 remain unrun, never passed. Existing 0.3/L3/spell manual checks stay pending.

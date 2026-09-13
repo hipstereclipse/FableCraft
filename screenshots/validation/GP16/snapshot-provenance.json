@@ -1,0 +1,20 @@
+{
+  "source": "reviewed Git index; excludes unstaged parallel implementation and inherited dirtiness",
+  "baseline_head": "17d1191e73d830ad4c809d2f6af62b724465eede",
+  "entries": 4924,
+  "reviewed_source_sha256": {
+    "docs/CONFORMANCE_CHECKLIST.md": "e27338bd041b6d57b4bfff0a0c9541b3a9ece3ade9941d9bd6b06553ec2e980f",
+    "docs/GUILD_DEMON_PRIORITIES.md": "65e0dd572f95f1a759789e861166b4a6a1b6f242d6730b4cfce3132049df7c27",
+    "docs/GUILD_ONLINE_REFERENCES.md": "1dc95ce6fd1cb706f29da0393319059ea3f4732a69f6a36a563979e5a09e5fe3",
+    "docs/GUILD_SKILL_PREFLIGHT.md": "204a9370aabaee355f270eb94982db924f5c6f193095af4333ac8ba6dfc67760",
+    "docs/GUILD_TRAINING.md": "c1eadc9ce18ad0d1c9486b93b5eebd96858be9d739c32873cac0cfbf87aca122",
+    "docs/HANDOFF.md": "f7f5ca94473c372769848250f92e82aa1da205d952f616381daeb43c8d3679e1",
+    "packs/Fablecraft_BP/scripts/main.js": "cee13efcb444f0dc73c1c4b09eb7877df32a98ebc70f48d96b2fb75de728991d",
+    "scripts/tests/guild_archery_voxels.mjs": "6e070ca04716a6df889f6573ac68fdfbb8cf0746b1113375cfef744dd9fa87c6",
+    "scripts/tests/guild_training.test.mjs": "cbaba3586cce86c7a8842e92c1d88bc28e1a9533679e81d64838743472387197",
+    "screenshots/validation/GP16/render-recipes-with-cache.py": "0d912926b7d04b104752c77573c341b58fd89b68f4200d6a9d06649ad26b0636"
+  },
+  "node_dependencies": "same installed locked dependencies via node_modules symlink",
+  "engine_acceptance": "unrun",
+  "documentation_timing": "Final milestone documentation was refreshed after code validation; staged executable sources remain byte-identical to the tested snapshot."
+}

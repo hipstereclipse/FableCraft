@@ -1,0 +1,150 @@
+{
+  "main_path": "tmp/conformance/gp16/baseline/main.js",
+  "source_sha256": {
+    "main.js": "c712c39be4aee51bc65e15248e1bd1e27f3cf7a667f7ccae3be53db430521b20",
+    "guild_training.js": "baf0ff28090d771fb94b4884090e8cf45ba387aa9a6c3cbe7148082e9a70db41",
+    "fable_emotes.js": "4fad3f0db107b8d050c5a5e8965dc66bcf0926192c0494c36fd55be96700e366"
+  },
+  "kind": "actual production Skill scheduler and delayed callback at mocked Bedrock boundaries",
+  "engine_acceptance": "unrun",
+  "results": [
+    {
+      "case": "clear",
+      "particles": 6,
+      "bow_sounds": 1,
+      "spawned_entities": 0,
+      "placements": 1,
+      "training_active": true,
+      "delayed_reads": [
+        "83,0,39",
+        "83,1,39",
+        "83,2,39"
+      ],
+      "saved_blocks_unchanged": true
+    },
+    {
+      "case": "lane_chest",
+      "particles": 6,
+      "bow_sounds": 1,
+      "spawned_entities": 0,
+      "placements": 1,
+      "training_active": true,
+      "delayed_reads": [
+        "83,0,39",
+        "83,1,39",
+        "83,2,39"
+      ],
+      "saved_blocks_unchanged": true
+    },
+    {
+      "case": "missing_target",
+      "particles": 6,
+      "bow_sounds": 1,
+      "spawned_entities": 0,
+      "placements": 1,
+      "training_active": true,
+      "delayed_reads": [
+        "83,0,39",
+        "83,1,39",
+        "83,2,39"
+      ],
+      "saved_blocks_unchanged": true
+    },
+    {
+      "case": "replaced_target",
+      "particles": 6,
+      "bow_sounds": 1,
+      "spawned_entities": 0,
+      "placements": 1,
+      "training_active": true,
+      "delayed_reads": [
+        "83,0,39",
+        "83,1,39",
+        "83,2,39"
+      ],
+      "saved_blocks_unchanged": true
+    },
+    {
+      "case": "unavailable_target",
+      "particles": 6,
+      "bow_sounds": 1,
+      "spawned_entities": 0,
+      "placements": 1,
+      "training_active": true,
+      "delayed_reads": [
+        "83,0,39",
+        "83,1,39",
+        "83,2,39"
+      ],
+      "saved_blocks_unchanged": true
+    },
+    {
+      "case": "missing_hay",
+      "particles": 6,
+      "bow_sounds": 1,
+      "spawned_entities": 0,
+      "placements": 1,
+      "training_active": true,
+      "delayed_reads": [
+        "83,0,39",
+        "83,1,39",
+        "83,2,39"
+      ],
+      "saved_blocks_unchanged": true
+    },
+    {
+      "case": "replaced_hay",
+      "particles": 6,
+      "bow_sounds": 1,
+      "spawned_entities": 0,
+      "placements": 1,
+      "training_active": true,
+      "delayed_reads": [
+        "83,0,39",
+        "83,1,39",
+        "83,2,39"
+      ],
+      "saved_blocks_unchanged": true
+    },
+    {
+      "case": "unavailable_lane",
+      "particles": 6,
+      "bow_sounds": 1,
+      "spawned_entities": 0,
+      "placements": 1,
+      "training_active": true,
+      "delayed_reads": [
+        "83,0,39",
+        "83,1,39",
+        "83,2,39"
+      ],
+      "saved_blocks_unchanged": true
+    },
+    {
+      "case": "throw_lane",
+      "particles": 6,
+      "bow_sounds": 1,
+      "spawned_entities": 0,
+      "placements": 1,
+      "training_active": true,
+      "delayed_reads": [
+        "83,0,39",
+        "83,1,39",
+        "83,2,39"
+      ],
+      "saved_blocks_unchanged": true
+    },
+    {
+      "case": "missing_station_support",
+      "particles": 0,
+      "bow_sounds": 0,
+      "spawned_entities": 0,
+      "placements": 1,
+      "training_active": false,
+      "delayed_reads": [
+        "83,0,39"
+      ],
+      "saved_blocks_unchanged": true
+    }
+  ]
+}

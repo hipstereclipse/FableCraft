@@ -48,6 +48,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | GP13 | in-progress | Restore one erased NE dormitory top stair; complete bounded ascent/descent with all other campus cells preserved; engine acceptance open |
 | GP14 | in-progress | Neutral-reference Chamber inset panels, colored window strips and grey/ochre paving; GP5/GP8 enrolled construction plans preserved; engine acceptance open |
 | GP15 | in-progress | Framed scenic archery backboard from two inspected original views; final-voxel firing lanes and adjoining door/gate routes preserved; engine acceptance open |
+| GP16 | in-progress | Live Skill target/support and complete firing-lane preflight before acquisition and delayed release; native acceptance open |
 
 Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
 defects and manual status here. These passes are not completed legacy leaves.
@@ -735,7 +736,7 @@ then adjoining grounds/NPC behavior and unresolved original-view comparisons.
 
 ## GP15 — the archery range's painted landmark (2026-09-12)
 
-Commit: SELF: TLC Conformance — GP15: restore the Guild archery scenic backboard.
+Commit: 17d1191e73d830ad4c809d2f6af62b724465eede (pushed; exact-head CI 34722859754 passed).
 Two inspected original TLC training photos show a framed painting of purple
 mountains, a wooded valley and sky behind the targets. An original coarse block
 mosaic now restores that recognizable range prop. It is a Minecraft adaptation,
@@ -780,3 +781,46 @@ The final [facility follow-up audit](../screenshots/validation/GP15/facility-fol
 reproduces the Skill callback's missing live target/lane preflight and ranks
 purposeful station arrival and three reactive Will dummies next. These remain
 existing defects/adaptations; no new GP15 route blocker emerged.
+
+
+## GP16 — live Skill target and firing-lane preflight (2026-09-12)
+
+Commit: SELF: TLC Conformance — GP16: validate live Skill practice targets and lanes.
+The GP15 production probe still drew six particles through a chest or toward a
+missing target. The Skill scheduler now checks the authored target, its hay
+support and complete ray before station acquisition. Each delayed release checks
+its current session first, then rechecks the live target and every crossed cell.
+Exact segment/voxel clipping avoids gaps from fixed-distance samples when a
+trainee shifts slightly. Edited or unavailable cells cancel the drill through
+the existing interruption and cleanup owner; no saved block is repaired.
+
+The six harmless particles, bow sound, source/target coordinates and background
+cadence remain explicit adaptations. No geometry, generated asset, session
+controller, resident/social identity, reward or damage behavior changes. Existing
+Will checks and all anchors, including Maze (46,12,70), remain unchanged.
+See [GUILD_SKILL_PREFLIGHT.md](GUILD_SKILL_PREFLIGHT.md) and
+`screenshots/validation/GP16/` for before/after production probes, regressions,
+reference follow-up and independent review. Native acceptance remains unrun.
+
+Forty-six base gates, all 62 ESM syntax checks, fresh 35-asset C2/full renders
+and Guild diagnostics pass in the isolated reviewed-index snapshot. Thirty-three
+training groups and six archery groups cover actual callbacks/final voxels.
+Independent review found no blocker; its 2,109-displacement probe also passed
+11,099 crossed-cell negatives. All 35 structure assets, 35 C2 images and 281 full
+rendered PNGs match GP15 exactly. GP15 exact-head CI 34722859754 passed.
+
+Seven newly inspected original-TLC images bring the supplementary corpus to 26.
+A wide dormitory gameplay image posted in April 2013 shows red-covered beds,
+red timber-framed walls, pointed windows, diagonal paving and separate rugs;
+complete dimensions, bed count and calibrated light remain open. Further
+archery, bridge and hall views refine the next fixture comparisons. The bounded
+Maze-study audit identifies window/rug/bookcase/furniture differences without
+inferring the full gallery. Neutral ordinary Library views remain missing.
+
+The independent [door follow-up audit](../screenshots/validation/GP16/door-followup-audit.md)
+reproduces a separate DP3 recovery inconsistency: valid occupied old-cell tickets
+still permit return after ledger loss/replacement, but block/explosion and
+world-generation guards consult only the current ledger. Prioritize DP5's bounded
+occupied-ticket protection before continuing station arrival/activity ownership,
+reactive Will dummies and the newly supported interior/bridge/rail comparisons.
+No screenshot or offline test closes the native or whole-facility fidelity gaps.

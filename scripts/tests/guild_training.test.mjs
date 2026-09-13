@@ -21,15 +21,26 @@ async function fixture() {
   const api = module.namespace;
   let tick = 10, time = 1000;
   const entities = [], timers = [], particles = [], sounds = [], spawned = [], blocks = new Map();
+  const blockReads = [], mutations = [];
+  // The authored Skill bullseye and hay support; other props are explicit per test.
+  blocks.set('83,2,34',{typeId:'minecraft:target',isAir:false});
+  blocks.set('83,1,34',{typeId:'minecraft:hay_block',isAir:false});
   const dimension = {
     id: 'minecraft:overworld',
-    getBlock(p) { const key = `${p.x},${p.y},${p.z}`; return blocks.has(key) ? blocks.get(key) : {typeId:p.y===0?'minecraft:coarse_dirt':'minecraft:air',isAir:p.y>0}; },
+    getBlock(p) { const key = `${p.x},${p.y},${p.z}`; blockReads.push(key);
+      const block=blocks.has(key)?blocks.get(key):{typeId:p.y===0?'minecraft:coarse_dirt':'minecraft:air',isAir:p.y>0};
+      return block && {...block,setType:type=>mutations.push(['setType',key,type]),
+        setPermutation:value=>mutations.push(['setPermutation',key,value])}; },
     getEntities(query) { return entities.filter(e=>e.isValid && (!query.type || e.typeId===query.type)
       && (!query.tags || query.tags.every(t=>e.tags.has(t))))
       .filter(e=>!query.location || Math.hypot(e.location.x-query.location.x,e.location.y-query.location.y,e.location.z-query.location.z)<=query.maxDistance); },
     spawnParticle(id,p,variables) { particles.push({id,p,variables}); },
     playSound(id,p) { sounds.push({id,p}); },
     spawnEntity(id,p) { spawned.push({id,p}); throw new Error('Practice must never spawn a projectile'); },
+    spawnItem(...args) { mutations.push(['spawnItem',...args]); },
+    runCommand(command) { mutations.push(['runCommand',command]); },
+    setBlockType(...args) { mutations.push(['setBlockType',...args]); },
+    setBlockPermutation(...args) { mutations.push(['setBlockPermutation',...args]); },
   };
   function entity(type='fc:guild_apprentice_might') {
     const e = {
@@ -49,6 +60,9 @@ async function fixture() {
       tryTeleport(p,options) { this.placements.push({p,options});this.throwIf('tryTeleport');if(this.blocked) return false;this.location={...p};return true; },
       teleport(p) { this.teleports.push(p);this.location={...p}; },
       playAnimation(name) { this.animations.push(name); },
+      applyDamage(...args) { mutations.push(['applyDamage',...args]); },
+      setDynamicProperty(...args) { mutations.push(['setDynamicProperty',...args]); },
+      addExperience(...args) { mutations.push(['addExperience',...args]); },
     };
     entities.push(e);return e;
   }
@@ -65,7 +79,7 @@ async function fixture() {
   async function runtime() {
     const bindingNames = ['APPRENTICE_TYPES','GUILD','nextSparTick','nextArcheryTick','nextWillTick','sparTurn','guildTraining',
       'interruptGuildTraining','guildApprentices','localGuildPoint','distanceXZ','playSparExchange','showPracticeShot',
-      'guildWillLaneClear','showPracticeWill','playWillPractice','boastGatherCrowd'];
+      'guildSkillLaneClear','guildWillLaneClear','showPracticeWill','playWillPractice','boastGatherCrowd'];
     const declarations=bindingNames.map(name=> {
       const node=ast.body.find(n=>n.type==='FunctionDeclaration'&&n.id.name===name || n.type==='VariableDeclaration'&&n.declarations.some(d=>d.id.name===name));
       assert.ok(node,`Production declaration ${name}`);return mainSource.slice(...node.range);
@@ -98,7 +112,7 @@ async function fixture() {
     context.audit=()=>{};vm.runInContext(emoteSource.slice(...emoteNode.range),context);
     return {training,interact,dialogues,...vm.runInContext('({controller:guildTraining,emote:triggerNpcEvent,shot:showPracticeShot,boast:boastGatherCrowd,will:showPracticeWill,lane:guildWillLaneClear})',context)};
   }
-  return {api,context,ctl,controller,entity,entities,dimension,blocks,particles,sounds,spawned,timers,advance,runDue,acquire,pair,runtime};
+  return {api,context,ctl,controller,entity,entities,dimension,blocks,blockReads,mutations,particles,sounds,spawned,timers,advance,runDue,acquire,pair,runtime};
 }
 
 test('one checked station placement per active session; release does not teleport home',async()=>{
@@ -373,4 +387,139 @@ test('old Will callbacks cannot release a newly acquired later session',async()=
   assert.equal(will.placements.length,2);oldTimers.forEach(t=>t.fn());
   assert.equal(f.particles.length,0);assert.equal(will.frozen,true);assert.equal(will.hasTag('fc_train_will'),true);
   f.advance(3620);f.runDue();assert.equal(f.particles.length,40);
+});
+
+
+const skillEdits = [
+  ['missing_target','83,2,34','minecraft:air'],
+  ['replaced_target','83,2,34','minecraft:chest'],
+  ['unavailable_target','83,2,34',undefined],
+  ['missing_hay','83,1,34','minecraft:air'],
+  ['replaced_hay','83,1,34','minecraft:stone'],
+  ['unavailable_hay','83,1,34',undefined],
+  ['near_target_lane','83,2,35','minecraft:chest'],
+  ['middle_lane','83,2,37','minecraft:chest'],
+  ['near_archer_lane','83,2,38','minecraft:chest'],
+  ['unavailable_lane','83,2,37',undefined],
+  ['missing_station_support','83,0,39','minecraft:air'],
+  ['replaced_station_support','83,0,39','minecraft:diamond_block'],
+  ['unavailable_station_support','83,0,39',undefined],
+  ['blocked_station_head','83,2,39','minecraft:chest'],
+];
+function editSkillCell(f,key,typeId) {
+  f.blocks.set(key,typeId===undefined?undefined:{typeId,isAir:typeId==='minecraft:air'});
+}
+function assertSkillHarmless(f,before,label) {
+  assert.deepEqual([...f.blocks],before,label);
+  assert.deepEqual(f.mutations,[],label);
+  assert.equal(f.spawned.length,0,label);
+}
+
+test('Skill clear pulses retain their six-particle ray, checked placement and saved resident state',async()=>{
+  const f=await fixture(),skill=f.entity('fc:guild_apprentice_skill'),runtime=await f.runtime();
+  const properties={fc_guild_resident_slot:'skill_range',fc_love:72,fc_gift_tick:50};
+  skill.properties=properties;skill.nameTag='Saved Skill resident';const id=skill.id,before=[...f.blocks];
+  for(const tick of [10,26,70,86]){f.advance(tick);if(tick===10||tick===70)runtime.training();f.runDue();}
+  assert.equal(f.particles.length,12);assert.equal(f.sounds.filter(s=>s.id==='random.bow').length,2);
+  for(const batch of [0,6])for(let i=1;i<=6;i++){
+    const particle=f.particles[batch+i-1];assert.equal(particle.id,'minecraft:critical_hit_emitter');
+    assert.deepEqual({...particle.p},{x:83.5,y:2.35+(2.45-2.35)*i/6,z:39.5-5*i/6});
+  }
+  assert.equal(skill.placements.length,1);assert.equal(skill.placements[0].options.checkForBlocks,true);
+  assert.equal(skill.teleports.length,0);assert.equal(skill.id,id);assert.equal(skill.nameTag,'Saved Skill resident');
+  assert.strictEqual(skill.properties,properties);assert.deepEqual(skill.properties,{fc_guild_resident_slot:'skill_range',fc_love:72,fc_gift_tick:50});
+  assertSkillHarmless(f,before);
+});
+
+test('Skill refuses edited or unavailable target, hay, lane and standing cells before acquisition',async()=>{
+  for(const [cause,key,typeId] of skillEdits){
+    const f=await fixture(),skill=f.entity('fc:guild_apprentice_skill'),runtime=await f.runtime();
+    editSkillCell(f,key,typeId);const before=[...f.blocks];
+    for(const tick of [10,20,40]){f.advance(tick);runtime.training();f.runDue();}
+    assert.equal(skill.placements.length,0,cause);assert.equal(skill.frozen,false,cause);
+    assert.equal(skill.animations.length,0,cause);assert.equal(f.particles.length,0,cause);assert.equal(f.sounds.length,0,cause);
+    assertSkillHarmless(f,before,cause);
+  }
+});
+
+test('Skill delayed pulse rechecks each edited or unavailable cell and cannot resume the interrupted session',async()=>{
+  for(const [cause,key,typeId] of skillEdits){
+    const f=await fixture(),skill=f.entity('fc:guild_apprentice_skill'),runtime=await f.runtime();
+    runtime.training();assert.equal(skill.frozen,true,cause);const previous=f.blocks.get(key),present=f.blocks.has(key);
+    editSkillCell(f,key,typeId);const before=[...f.blocks];f.advance(26);f.runDue();
+    assert.equal(skill.frozen,false,cause);assert.equal(skill.hasTag('fc_train_range'),false,cause);
+    assert.equal(f.particles.length,0,cause);assert.equal(f.sounds.length,0,cause);assertSkillHarmless(f,before,cause);
+    if(present)f.blocks.set(key,previous);else f.blocks.delete(key);
+    f.advance(300);runtime.training();assert.equal(skill.placements.length,1,cause);assert.equal(skill.frozen,false,cause);
+    f.advance(3600);runtime.training();assert.equal(skill.placements.length,2,cause);assert.equal(skill.frozen,true,cause);
+  }
+});
+
+test('Skill missing-chunk exceptions refuse acquisition and cancel a queued pulse with retriable cleanup',async()=>{
+  for(const key of ['83,2,34','83,1,34','83,2,37','83,0,39'])for(const delayed of [false,true]){
+    const f=await fixture(),skill=f.entity('fc:guild_apprentice_skill'),runtime=await f.runtime();
+    if(delayed)runtime.training();const read=f.dimension.getBlock.bind(f.dimension);
+    f.dimension.getBlock=p=>{if(`${p.x},${p.y},${p.z}`===key)throw Error('Injected unavailable chunk');return read(p);};
+    if(delayed)skill.errors.set('fc:guild_training_stop',1);
+    const before=[...f.blocks];f.advance(26);if(!delayed)runtime.training();f.runDue();
+    assert.equal(f.particles.length,0,key);assert.equal(f.sounds.length,0,key);assertSkillHarmless(f,before,key);
+    assert.equal(skill.placements.length,delayed?1:0,key);
+    if(delayed){
+      assert.equal(skill.frozen,true,key);assert.equal(runtime.controller.eligible(skill),false,key);
+      runtime.training();assert.equal(skill.frozen,false,key);assert.equal(skill.hasTag('fc_train_range'),false,key);
+    }
+  }
+});
+
+test('Skill checks every later scheduled pulse after a previously successful shot',async()=>{
+  const f=await fixture(),skill=f.entity('fc:guild_apprentice_skill'),runtime=await f.runtime();
+  runtime.training();f.advance(26);f.runDue();assert.equal(f.particles.length,6);
+  f.advance(70);runtime.training();editSkillCell(f,'83,2,37','minecraft:chest');const before=[...f.blocks];
+  f.advance(86);f.runDue();assert.equal(f.particles.length,6);assert.equal(f.sounds.length,1);
+  assert.equal(skill.frozen,false);assert.equal(skill.placements.length,1);assert.equal(skill.teleports.length,0);
+  assertSkillHarmless(f,before);
+});
+
+test('Skill delayed pulse preserves conversation, Follow, Watch, spouse and defender precedence',async()=>{
+  for(const cause of ['conversation','follow','watch','married','aggravation','defence','rest','night','invalid','dimension','displaced']){
+    const f=await fixture(),skill=f.entity('fc:guild_apprentice_skill'),runtime=await f.runtime();
+    runtime.training();const properties={fc_guild_resident_slot:'skill_range',fc_spouse_player:'hero-a',fc_love:90};
+    skill.properties=properties;skill.nameTag='Saved resident';const id=skill.id,before=[...f.blocks];
+    if(cause==='conversation')runtime.interact({target:skill,player:{},cancel:false});
+    if(cause==='follow'||cause==='watch')runtime.emote(skill,`fc:react_${cause}`);
+    if(cause==='married')skill.married=true;
+    if(cause==='aggravation')skill.addTag('fc_aggravated');
+    if(cause==='defence'){skill.addTag('fc_guild_defending');skill.reaction='fc:react_attack';}
+    if(cause==='invalid')skill.isValid=false;
+    if(cause==='dimension')skill.dimension={...f.dimension,id:'minecraft:nether'};
+    if(cause==='displaced')skill.location={x:88,y:1,z:39};
+    f.advance(cause==='rest'?1200:26,cause==='night'?13000:1000);f.runDue();
+    assert.equal(f.particles.length,0,cause);assert.equal(f.sounds.length,0,cause);assertSkillHarmless(f,before,cause);
+    assert.equal(skill.placements.length,1,cause);assert.equal(skill.teleports.length,0,cause);
+    assert.equal(skill.id,id,cause);assert.equal(skill.nameTag,'Saved resident',cause);assert.strictEqual(skill.properties,properties,cause);
+    if(cause==='follow'){assert.equal(skill.hasTag('fc_guild_following'),true);assert.equal(skill.reaction,'fc:react_follow');}
+    if(cause==='watch')assert.equal(skill.reaction,'fc:react_watch');
+    if(cause==='aggravation')assert.equal(skill.hasTag('fc_aggravated'),true);
+    if(cause==='defence'){assert.equal(skill.hasTag('fc_guild_defending'),true);assert.equal(skill.reaction,'fc:react_attack');}
+  }
+});
+
+test('old Skill callbacks cannot inspect an edited lane or release a later assignment',async()=>{
+  const f=await fixture(),skill=f.entity('fc:guild_apprentice_skill'),runtime=await f.runtime();
+  runtime.training();const oldTimers=f.timers.splice(0);
+  f.advance(1200);runtime.training();f.advance(3600);runtime.training();assert.equal(skill.placements.length,2);
+  editSkillCell(f,'83,2,37','minecraft:chest');f.blockReads.length=0;oldTimers.forEach(t=>t.fn());
+  assert.deepEqual(f.blockReads,[]);assert.equal(f.particles.length,0);assert.equal(f.sounds.length,0);
+  assert.equal(skill.frozen,true);assert.equal(skill.hasTag('fc_train_range'),true);
+  f.blocks.delete('83,2,37');f.advance(3616);f.runDue();assert.equal(f.particles.length,6);assert.equal(f.sounds.length,1);
+});
+
+test('Skill engine placement failure keeps the existing one-attempt session limit',async()=>{
+  for(const failure of ['false','throw']){
+    const f=await fixture(),skill=f.entity('fc:guild_apprentice_skill'),runtime=await f.runtime();
+    if(failure==='false')skill.blocked=true;else skill.errors.set('tryTeleport',1);
+    const before=[...f.blocks];for(const tick of [10,20,40]){f.advance(tick);runtime.training();f.runDue();}
+    assert.equal(skill.placements.length,1,failure);assert.equal(skill.teleports.length,0,failure);assert.equal(skill.frozen,false,failure);
+    assert.equal(f.particles.length,0,failure);assert.equal(f.sounds.length,0,failure);assertSkillHarmless(f,before,failure);
+  }
 });

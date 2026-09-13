@@ -932,8 +932,56 @@ function playSparExchange(attacker, defender, attackerToken, defenderToken) {
   }, 8);
 }
 
+function guildSkillLaneClear(archer, target, station) {
+  try {
+    const dim = archer.dimension;
+    const end = { x: Math.floor(target.x), y: Math.floor(target.y), z: Math.floor(target.z) };
+    // Use the authored bullseye and its hay support. Missing or edited saved
+    // props refuse practice; this preflight never repairs a target or lane.
+    if (dim.getBlock(end)?.typeId !== "minecraft:target"
+      || dim.getBlock({ ...end, y: end.y - 1 })?.typeId !== "minecraft:hay_block") return false;
+    const standing = station ?? archer.location;
+    const origin = { x: standing.x, y: standing.y + 1.35, z: standing.z };
+    const axes = ["x", "y", "z"];
+    const min = {}, max = {};
+    for (const axis of axes) {
+      min[axis] = Math.ceil(Math.min(origin[axis], target[axis])) - 1;
+      max[axis] = Math.floor(Math.max(origin[axis], target[axis]));
+    }
+    // Clip this short segment to every bounding voxel. Fixed-distance samples
+    // can skip a briefly crossed cell when a trainee shifts within its station.
+    // A ray parallel to a block face conservatively checks both adjacent cells.
+    for (let x = min.x; x <= max.x; x++) {
+      for (let y = min.y; y <= max.y; y++) {
+        for (let z = min.z; z <= max.z; z++) {
+          if (x === end.x && y === end.y && z === end.z) continue;
+          const point = { x, y, z };
+          let entry = 0, exit = 1;
+          for (const axis of axes) {
+            const delta = target[axis] - origin[axis];
+            if (delta === 0) {
+              if (origin[axis] < point[axis] || origin[axis] > point[axis] + 1) entry = 2;
+            } else {
+              const a = (point[axis] - origin[axis]) / delta;
+              const b = (point[axis] + 1 - origin[axis]) / delta;
+              entry = Math.max(entry, Math.min(a, b));
+              exit = Math.min(exit, Math.max(a, b));
+            }
+          }
+          if (entry < exit && !dim.getBlock(point)?.isAir) return false;
+        }
+      }
+    }
+    return true;
+  } catch { return false; }
+}
+
 function showPracticeShot(archer, target, token) {
   if (!guildTraining.isActive(archer, token)) return;
+  if (!guildSkillLaneClear(archer, target)) {
+    guildTraining.interrupt(archer);
+    return;
+  }
   try {
     const origin = {
       x: archer.location.x,
@@ -1070,7 +1118,7 @@ system.runInterval(() => {
       nextSparTick = TICKS() + 36;
     }
   }
-  if (skill) {
+  if (skill && guildSkillLaneClear(skill, target, range)) {
     const token = guildTraining.acquire(skill, "fc_train_range", range, target);
     if (token !== null) selected.add(skill.id);
     if (token !== null && TICKS() >= nextArcheryTick) {
