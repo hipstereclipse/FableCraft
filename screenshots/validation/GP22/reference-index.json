@@ -1,0 +1,188 @@
+{
+  "purpose": "GP22 acceptance/indexing of the three original-TLC images found and visually inspected in DP9; external pixels remain ignored.",
+  "date_utc": "2026-09-13",
+  "prior_accepted_distinct_images": 27,
+  "new_accepted_distinct_images": 3,
+  "updated_accepted_distinct_images": 30,
+  "original_download_record": "screenshots/validation/DP9/reference-followup.json",
+  "original_download_record_sha256": "f2b1b2181ec47260a7eb2d06ab2bfbdec47c7b59cd3363011bc1dbe552336ae1",
+  "references": [
+    {
+      "source": "steam-guild.html",
+      "id": "91147839",
+      "appid": "204030",
+      "caption": "The Guild.",
+      "image": "https://images.steamusercontent.com/ugc/920113049598722245/D6744214C1E7D3F662FEB496091384D859D43081/?imw=1024&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
+      "direct_url": "https://images.steamusercontent.com/ugc/920113049598722245/D6744214C1E7D3F662FEB496091384D859D43081/",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "path": "tmp/conformance/dp9-reference/reference-91147839.jpg",
+      "bytes": 312415,
+      "sha256": "35acb2d3ba89ee83c1b474b19fe50b6cc88cb1c98fec8faef9a0744ae1ab358d",
+      "scene": "Guild grounds: daylight bridge and circular-windowed stone tower",
+      "visible_findings": [
+        "Right bridge has a timber-colored plank deck between broad continuous parapets that rise toward the middle, with curling dark motifs on pale inset faces and chunky capped end posts.",
+        "A tall post lantern stands immediately outside the near right bridge end.",
+        "Part of a second decorated bridge is visible at the far left edge beyond practice dummies.",
+        "The tower has large round inset/window features, pointed gables above them, heavy horizontal bands and an upper polygonal stage."
+      ],
+      "limits": [
+        "Hero, trees, rocks and image boundaries occlude the approach and left bridge.",
+        "No calibrated bridge width, slope, parapet thickness, coordinate orientation, lighting value or two-actor clearance follows from this view."
+      ],
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=91147839",
+      "source_listing": {
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated",
+        "path": "tmp/conformance/dp9-reference/steam-guild.html",
+        "bytes": 84536,
+        "sha256": "59bc41ffdcf7619bede3e32404289b3229fc7d9e8627322f947559ccffa9cbde",
+        "local_file_saved_utc": "2026-09-13T11:59:14.502312+00:00"
+      },
+      "detail_page_attempt": {
+        "id": "91147839",
+        "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=91147839",
+        "path": "tmp/conformance/dp9-reference/steam-91147839-detail.html",
+        "bytes": 310333,
+        "sha256": "ac4916d242d37bd93061892bc9091c0032b1f81dcf2282c057dd99e4ce26ca76",
+        "title": "Steam Workshop",
+        "detail_stats": [],
+        "description": [],
+        "breadcrumb": [],
+        "app_links": [],
+        "local_file_saved_utc": "2026-09-13T12:01:13.013140+00:00"
+      },
+      "retrieved_utc": "2026-09-13",
+      "posted_date": null,
+      "posted_date_note": "Not recoverable from accessible pages: saved detail response is a generic Steam Workshop JavaScript shell. No date was inferred from screenshot ID.",
+      "capture_date": null,
+      "author": "MikeyWhooster",
+      "edition_confidence": "High: exact screenshot ID and direct asset URL match saved original-TLC app 204030 listing card; actual classic game pixels visually inspected. Does not establish patch/mod status.",
+      "actual_pixels_inspected": true,
+      "inspection": "Full image using view_image; 3243931107 additionally displayed with original 3840 x 1080 detail.",
+      "new_for_this_reference_audit": true,
+      "local_file_saved_utc": "2026-09-13T12:00:02.427050+00:00"
+    },
+    {
+      "source": "steam-guild.html",
+      "id": "350434796",
+      "appid": "204030",
+      "caption": "The guild :3",
+      "image": "https://images.steamusercontent.com/ugc/39734699865396745/EF6AD800E188178288FE55841E5F507EBAA8D57F/?imw=1024&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
+      "direct_url": "https://images.steamusercontent.com/ugc/39734699865396745/EF6AD800E188178288FE55841E5F507EBAA8D57F/",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "path": "tmp/conformance/dp9-reference/reference-350434796.jpg",
+      "bytes": 193209,
+      "sha256": "674f796b0407cb39306bdc548fd6d5b92207b1ec5912e01d97431c0f5d431c5a",
+      "scene": "Guild main map hall: stair, under-stair arch and Cullis gate",
+      "visible_findings": [
+        "Stone stairs rise behind a thick timber handrail and broadly spaced timber posts; the stair base spans a pointed stone passage.",
+        "A separate pointed doorway behind the stair foot contains the blue Cullis effect.",
+        "Red carpet bands connect the doorways around a relief-map table above diagonal-pattern stone paving.",
+        "The upper hall has a continuous curved masonry band and a projecting dark timber floor/edge above the stair."
+      ],
+      "limits": [
+        "Hero and table occlude the foreground floor; Guildmaster glow and warm display/render settings prevent neutral color calibration.",
+        "No complete stair run, corridor width, route clearance, full furniture count or floor plan can be recovered from the still."
+      ],
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=350434796",
+      "source_listing": {
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated",
+        "path": "tmp/conformance/dp9-reference/steam-guild.html",
+        "bytes": 84536,
+        "sha256": "59bc41ffdcf7619bede3e32404289b3229fc7d9e8627322f947559ccffa9cbde",
+        "local_file_saved_utc": "2026-09-13T11:59:14.502312+00:00"
+      },
+      "detail_page_attempt": {
+        "id": "350434796",
+        "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=350434796",
+        "path": "tmp/conformance/dp9-reference/steam-350434796-detail.html",
+        "bytes": 310393,
+        "sha256": "b30ca7738558aaf1c6feb213f0e18fa54aa0827dcbac7cbaab864b7e82e04a96",
+        "title": "Steam Workshop",
+        "detail_stats": [],
+        "description": [],
+        "breadcrumb": [],
+        "app_links": [],
+        "local_file_saved_utc": "2026-09-13T12:01:12.855137+00:00"
+      },
+      "retrieved_utc": "2026-09-13",
+      "posted_date": null,
+      "posted_date_note": "Not recoverable from accessible pages: saved detail response is a generic Steam Workshop JavaScript shell. No date was inferred from screenshot ID.",
+      "capture_date": null,
+      "author": "Midnight Wolf",
+      "edition_confidence": "High: exact screenshot ID and direct asset URL match saved original-TLC app 204030 listing card; actual classic game pixels visually inspected. Does not establish patch/mod status.",
+      "actual_pixels_inspected": true,
+      "inspection": "Full image using view_image; 3243931107 additionally displayed with original 3840 x 1080 detail.",
+      "new_for_this_reference_audit": true,
+      "local_file_saved_utc": "2026-09-13T12:00:01.980043+00:00"
+    },
+    {
+      "source": "steam-guild.html",
+      "id": "3243931107",
+      "appid": "204030",
+      "caption": "HEROES GUILD",
+      "image": "https://images.steamusercontent.com/ugc/2464109208832061044/651335E0C0E130E8DA282B98638B1517AB1FC6CC/?imw=1024&&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
+      "direct_url": "https://images.steamusercontent.com/ugc/2464109208832061044/651335E0C0E130E8DA282B98638B1517AB1FC6CC/",
+      "dimensions": [
+        3840,
+        1080
+      ],
+      "path": "tmp/conformance/dp9-reference/reference-3243931107.jpg",
+      "bytes": 875656,
+      "sha256": "8d100af257cdea17c994bbc30ed0f1d2193e464ea8f345a8fad26475112764b5",
+      "scene": "Guild courtyard and watercourse: wide elevated panorama",
+      "visible_findings": [
+        "Two decorated timber bridge spans cross separate visible portions of the watercourse beyond the formal courtyard.",
+        "Low straight hedges divide clipped trees and two visible tiered fountain basins; a stone-paved route runs beside the watercourse.",
+        "Long Guild masonry walls have repeated buttress-like strips and slate-colored roofs; round windows sit beneath roof projections on the near right building.",
+        "The two bridge spans show deck planks and continuous rising decorated side members from above."
+      ],
+      "limits": [
+        "Unusual 3840 x 1080 panorama and elevated camera: camera/FOV, rendering settings, capture tooling and mod status are unknown; no inference of standard playable viewpoint is made.",
+        "Perspective and obscured endpoints prevent metric deck width, full approach geometry, exact world orientation or native route proof.",
+        "This is suitable for qualitative relationships only; no full campus plan or new bridge layout is authorized."
+      ],
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3243931107",
+      "source_listing": {
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated",
+        "path": "tmp/conformance/dp9-reference/steam-guild.html",
+        "bytes": 84536,
+        "sha256": "59bc41ffdcf7619bede3e32404289b3229fc7d9e8627322f947559ccffa9cbde",
+        "local_file_saved_utc": "2026-09-13T11:59:14.502312+00:00"
+      },
+      "detail_page_attempt": {
+        "id": "3243931107",
+        "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3243931107",
+        "path": "tmp/conformance/dp9-reference/steam-3243931107-detail.html",
+        "bytes": 310453,
+        "sha256": "7abc17560abedad1df48492dd290546c09c2050dbbc3d60ce8a72891c3d70763",
+        "title": "Steam Workshop",
+        "detail_stats": [],
+        "description": [],
+        "breadcrumb": [],
+        "app_links": [],
+        "local_file_saved_utc": "2026-09-13T12:01:13.079141+00:00"
+      },
+      "retrieved_utc": "2026-09-13",
+      "posted_date": null,
+      "posted_date_note": "Not recoverable from accessible pages: saved detail response is a generic Steam Workshop JavaScript shell. No date was inferred from screenshot ID.",
+      "capture_date": null,
+      "author": "Jack Of Blades",
+      "edition_confidence": "High: exact screenshot ID and direct asset URL match saved original-TLC app 204030 listing card; actual classic game pixels visually inspected. Does not establish patch/mod status.",
+      "actual_pixels_inspected": true,
+      "inspection": "Full image using view_image; 3243931107 additionally displayed with original 3840 x 1080 detail.",
+      "new_for_this_reference_audit": true,
+      "local_file_saved_utc": "2026-09-13T12:00:02.344049+00:00"
+    }
+  ],
+  "source_edition": "Exact screenshot IDs and direct image URLs match original-TLC app 204030 cards in retained listing HTML; classic pixels were visually inspected. Posting/capture dates are unknown because detail pages returned generic Workshop shells.",
+  "panorama_limit": "3243931107 is a distorted 3840 x 1080 elevated panorama with unknown camera/FOV/tooling/modification status. Accept qualitative courtyard/bridge relationships only; do not infer proportions, dimensions, standard player viewpoint or a calibrated plan.",
+  "archery_source": "The new photos add bridge/interior/courtyard evidence only. GP22 scenic cutouts rely on previously accepted 141099874 (SHA256 6661646bf5aff6570803136b666571fa2f5f98c638b17b65510b719c7862f392), not new range photography.",
+  "external_pixel_policy": "No HTML or external source pixels are committed. Downloads remain in ignored tmp/conformance/dp9-reference, with 141099874 in tmp/conformance/gp21-reference.",
+  "native_acceptance": "Unrun: lighting, collision, walking, two-Hero passing and saved-world acceptance are not established by these images."
+}

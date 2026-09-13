@@ -1,0 +1,1 @@
+{"passed": true, "baseline": "af73bfb42c3f742454c7cf88c17ad052c3f0cf41", "actual_changes": 12, "other_cells_exact": 395268, "nodes_before": 13812, "nodes_after": 13806, "gate_paths_exact": 7, "local_routes": 8, "swept_body_paths": 19, "actual_ray_offsets": 5, "arrival_samples": 13, "arrival_refusals": 27, "maze_cells": 678, "negative_fixtures": 9, "native": "unrun"}

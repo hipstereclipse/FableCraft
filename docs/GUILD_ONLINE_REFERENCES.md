@@ -1,7 +1,7 @@
 # Additional original TLC Guild image references
 
-At the user's request, 27 additional distinct TLC gameplay images were found online,
-downloaded to ignored scratch and visually inspected during GP11–GP21. These
+At the user's request, 30 additional distinct TLC gameplay images were found online,
+downloaded to ignored scratch and visually inspected during GP11–GP22. These
 supplement the original 2005 Prima guide and earlier three map-hall references.
 They are reference observations, not calibrated floor plans or imported pack art.
 
@@ -26,6 +26,9 @@ They are reference observations, not calibrated floor plans or imported pack art
 | Maze study, ordinary gameplay interior | [page](https://steamcommunity.com/sharedfiles/filedetails/?id=273468136) · [image](https://images.steamusercontent.com/ugc/579025774227799030/B4A5434A004B97D610D7ED97AFDDEA3F62FF3D54/) | Tall bookcase, timber upper gallery, round lattice window, red bordered rug, ornate chair and partial pedestal table. |
 | Maze study, request cutscene | [page](https://steamcommunity.com/sharedfiles/filedetails/?id=247737302) · [image](https://images.steamusercontent.com/ugc/432651567436598631/839A2D2E3D342EE4B2E3238CE1B4C14E637B6BC0/) | Second angle on round window, red wall panels, timber rail and pointed doorway. |
 | Guild dormitory, partial wake-up background | [page](https://steamcommunity.com/sharedfiles/filedetails/?id=1509181409) · [image](https://images.steamusercontent.com/ugc/961971522308377432/BBB72AAB116DF42256C02F7CBB6E585EF79A9378/) | Continuous shelves with carved upper trim, red wall panels and heavy timber framing behind Whisper. |
+| Guild grounds, daylight bridge and tower | [page](https://steamcommunity.com/sharedfiles/filedetails/?id=91147839) · [image](https://images.steamusercontent.com/ugc/920113049598722245/D6744214C1E7D3F662FEB496091384D859D43081/) | Plank deck, broad rising decorated parapets, capped bridge ends and an exterior post lamp beside a round-windowed stone tower. |
+| Guild main hall, stair and Cullis doorway | [page](https://steamcommunity.com/sharedfiles/filedetails/?id=350434796) · [image](https://images.steamusercontent.com/ugc/39734699865396745/EF6AD800E188178288FE55841E5F507EBAA8D57F/) | Stone stairs with a timber handrail above a pointed passage; the adjacent Cullis arch and red carpet routes remain visible. |
+| Guild courtyard, elevated panorama | [page](https://steamcommunity.com/sharedfiles/filedetails/?id=3243931107) · [image](https://images.steamusercontent.com/ugc/2464109208832061044/651335E0C0E130E8DA282B98638B1517AB1FC6CC/) | Two visible decorated bridge spans, the watercourse, clipped hedges and tiered fountains. The distorted wide view supports relationships only, not proportions. |
 
 Seven GP16 additions include a wide dormitory view, two bridge angles, melee and
 archery details, and hall ceiling/stair views. See the [GP16 reference audit](../screenshots/validation/GP16/reference-followup.md)
@@ -39,6 +42,16 @@ or calibrated dimensions. Six additional 2009 classic exterior images remain
 uncounted corroboration pending exact-edition confirmation. They do not independently
 support production changes. [GP21 provenance and exclusions](../screenshots/validation/GP21/reference-followup.json)
 retain every URL/hash and separate the accepted TLC image from those candidates.
+
+GP22 indexes three further original-TLC views inspected during the DP9 follow-up:
+the daylight bridge/tower, main-hall stair and elevated courtyard images above.
+Saved app 204030 cards match each screenshot ID and direct image URL; classic
+pixels were inspected. The three detail pages returned generic Workshop shells,
+so posting and game-capture dates are unavailable. Download times, hashes and
+exclusions remain in the [DP9 reference record](../screenshots/validation/DP9/reference-followup.json);
+[GP22 acceptance](../screenshots/validation/GP22/reference-index.json) records the
+27-to-30 corpus update. These photos add bridge and interior evidence. The
+archery cutout comparison still uses the already accepted view 141099874.
 
 ## Attribution and limits
 
@@ -78,6 +91,14 @@ Native lighting, matched camera views and physical walking are unrun. A second
 lower-resolution capture of the same Whisper wake-up angle is not counted as
 another useful reference.
 
+The new daylight bridge view strengthens the evidence for broad decorated rising
+side members and an exterior post lamp. It does not establish deck width, arch
+rise, bracing, approach dimensions or two-Hero clearance. The new hall view
+corroborates the stair/arch relationship without proving a full floor plan or
+neutral lighting. The 3840 × 1080 courtyard panorama has unknown camera, FOV,
+capture tooling and modification status; its distortion precludes proportion
+claims or a calibrated campus map. All three images have unknown patch/mod status.
+
 Excluded results included Anniversary-only pages, Fable II/III and reboot images,
 Demon Door Arcanum scenes mislabeled as Guild Library, Bargate and Arena interiors.
 Do not use image-search generated captions as visual evidence.
@@ -89,8 +110,10 @@ Exact hashes, dimensions, confidence, exclusions and individual observations:
 - [Three exterior/graduation/archery images](../screenshots/validation/GP12/additional-online-exterior-references.json).
 - [Three supplementary Maze/dormitory views](../screenshots/validation/GP15/interior-reference-followup.json).
 - [Seven dormitory/training/bridge/hall views](../screenshots/validation/GP16/additional-online-references.json).
+- [Three bridge/hall/courtyard views accepted in GP22](../screenshots/validation/GP22/reference-index.json), with [DP9 download provenance and exclusions](../screenshots/validation/DP9/reference-followup.json).
 
 External pixels remain under ignored `tmp/conformance/reference-guild-additional`
-and `tmp/conformance/gp21-reference`;
+and `tmp/conformance/gp21-reference`, with the GP22 additions under
+`tmp/conformance/dp9-reference`;
 only these textual source records are committed. Later changes must preserve
 this distinction between observed features and chosen adaptations.

@@ -1,0 +1,17 @@
+{
+  "command": "python scripts/gen_doc_screenshots.py 01_hero_guild_gate 12_guild_wide_lake_view 23_guild_map_room 24_guild_library 26_archery_backboard 27_maze_study 28_guild_dormitory",
+  "exit_code": 0,
+  "scene_ids": [
+    "01_hero_guild_gate",
+    "12_guild_wide_lake_view",
+    "23_guild_map_room",
+    "24_guild_library",
+    "26_archery_backboard",
+    "27_maze_study",
+    "28_guild_dormitory"
+  ],
+  "changed": [
+    "26_archery_backboard"
+  ],
+  "native_acceptance": "unrun"
+}

@@ -1,0 +1,14 @@
+{
+  "files_compared": 1663,
+  "changed": [
+    "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure"
+  ],
+  "changed_hashes": {
+    "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure": {
+      "before": "717960af9318ef30c8110da54f736a3c8cc590bce098f2094a70eaf9440a4366",
+      "after": "030e6f42cf21a4c0f2b605c76672deb94dcdf7634756aa27155d8423eb6d8df6"
+    }
+  },
+  "behavior_regression": "behavior-before-regeneration.log passed before generation",
+  "all_other_files": "exact SHA256 equality"
+}

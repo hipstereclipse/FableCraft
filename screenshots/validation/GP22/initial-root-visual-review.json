@@ -1,0 +1,25 @@
+{
+  "reviewer": "root",
+  "inspected_images": {
+    "screenshots/validation/GP22/range-north-after.png": "24d1f06de3b39a93402c860d0e18f2e43cb010b61ebe75303201aa9dbdf9cbfc",
+    "screenshots/validation/GP22/range-north-before.png": "d60996b567cf497bba0a0fafdf3411e041fa866905b713f99e5c52a7ff17ee7e",
+    "screenshots/validation/GP22/range-plan-after.png": "5b9e4ce6c51edf574f36665553c1b25ed200cdbc4961dd55ffd7dcd8698e6718",
+    "screenshots/validation/GP22/range-plan-before.png": "1b47ae6c2ca6fc618b11615753e680d2964cb8179d161e52c49bbff026161a0b",
+    "screenshots/validation/GP22/range-south-after.png": "e6621e149e154b22ed4d4e629807f9759770efd7ef43adbf90ad4f3f36ab3372",
+    "screenshots/validation/GP22/range-south-before.png": "ddd8dd141895d37c690af0e8cb013db88e7902dab157e541c0edc14884d4bf99",
+    "screenshots/validation/GP22/full-guild-hall.png": "93291f03c21b5bf63500ac790f39866aa06a76ed6b949b50bcf3b7a3d0c1f313",
+    "screenshots/validation/GP22/full-places-gallery.png": "01b354948361bb4c57df0b1ecc6b8cf3bc40bd3cdb5ec703bd8ceac3376a2ded",
+    "screenshots/validation/GP22/contract-guild-hall.png": "093ba8f2a87a55ede7c2042586e18d535ffbba8b01e7c649705beff4180cc637",
+    "screenshots/docs/01_hero_guild_gate.png": "a86cf327e5320b8553a66c6daec55e6f9e877f85a58ba0b332e0da4dc459b899",
+    "screenshots/docs/12_guild_wide_lake_view.png": "8d5d980ca2ab4376150884ca556db88a13e585662b6e467a5f15a2c0c09277dc",
+    "screenshots/docs/26_archery_backboard.png": "c02cc13a7c0ffce2ca86e7298675d1929d9ef97b78df6399ce14b83010ffc2c2"
+  },
+  "observations": [
+    "The six decoded detail views show separate low mountain and tower profiles at different depths; the board bypass, floor, target spacing and timber firing gap remain visible.",
+    "The three changed documentation views show the authored scenery. The original TLC reference supports low scenic layering; positions, proportions, materials, block steps and painted slit are adaptations.",
+    "The fresh distant C2 card, full Guild card and places gallery remain identical to GP21; these angles hide the twelve changed cells. Hash equality is retained, not treated as an absent generator change.",
+    "Root also inspected original reference141099874 and the three newly indexed classic bridge/hall/courtyard images; the panorama cannot establish proportions."
+  ],
+  "native_acceptance": "unrun",
+  "limits": "Colors and fence shapes in offline schematics approximate materials; no native lighting, movement, collision or saved-world acceptance."
+}

@@ -1,0 +1,20 @@
+{
+  "source": "Original retained tool output text transcribed after execution; these initial helpers were not redirected to files. Reported shell codes for first two reflect following successful diff/check commands, not successful Python helpers. All observed failures are explicitly retained.",
+  "steps": [
+    {
+      "step": "C2 copy",
+      "reported_shell_exit_code": 0,
+      "output": "Traceback (most recent call last):\n  File \"<stdin>\", line 8, in <module>\nAssertionError: ['screenshots/structures/contract/evidence.json']\n"
+    },
+    {
+      "step": "C2 stage/synchronize",
+      "reported_shell_exit_code": 0,
+      "output": "Traceback (most recent call last):\n  File \"<stdin>\", line 3, in <module>\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 787, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 771, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/gp22/c2-paths.json'\n"
+    },
+    {
+      "step": "diagnostic launch",
+      "reported_shell_exit_code": 2,
+      "output": "Traceback (most recent call last):\n  File \"<stdin>\", line 2, in <module>\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 787, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:\n         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/pathlib/__init__.py\", line 771, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'tmp/conformance/dp8/diagnostics.py'\npython: can't open file '/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/gp22/diagnostics.py': [Errno 2] No such file or directory\n"
+    }
+  ]
+}

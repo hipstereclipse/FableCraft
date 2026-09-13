@@ -1,0 +1,39 @@
+{
+  "before": "GP21",
+  "count": 7,
+  "changed": [
+    "01_hero_guild_gate",
+    "12_guild_wide_lake_view",
+    "26_archery_backboard"
+  ],
+  "images": {
+    "01_hero_guild_gate": {
+      "before": "66bbb36ad8519706ab5c7c9ce30d82db2514e20d6a7f9fe8fc86b94e01a4ad2f",
+      "after": "a86cf327e5320b8553a66c6daec55e6f9e877f85a58ba0b332e0da4dc459b899"
+    },
+    "12_guild_wide_lake_view": {
+      "before": "b32a8ef29d5dee4adef33697f47bf0ace069947e34f3c3eac2da01c0a07e0742",
+      "after": "8d5d980ca2ab4376150884ca556db88a13e585662b6e467a5f15a2c0c09277dc"
+    },
+    "23_guild_map_room": {
+      "before": "1ecafee2ff4012b74cd18b97883c181227fceea714c8dc0ad1bac408b9302c20",
+      "after": "1ecafee2ff4012b74cd18b97883c181227fceea714c8dc0ad1bac408b9302c20"
+    },
+    "24_guild_library": {
+      "before": "925c6d6495ee45423905567aace292e707cb03f139b99ea0a6777a87bb97629d",
+      "after": "925c6d6495ee45423905567aace292e707cb03f139b99ea0a6777a87bb97629d"
+    },
+    "26_archery_backboard": {
+      "before": "e94dbf0f63f2c6f817b6dad7d2e5fcfa5cd93f4274ef5fc2ed93b49cdb7a09fa",
+      "after": "c02cc13a7c0ffce2ca86e7298675d1929d9ef97b78df6399ce14b83010ffc2c2"
+    },
+    "27_maze_study": {
+      "before": "cad3a0f038c6792ffdbf0fc1257b678f89ef333aca2379258bf679c2e1fbcc96",
+      "after": "cad3a0f038c6792ffdbf0fc1257b678f89ef333aca2379258bf679c2e1fbcc96"
+    },
+    "28_guild_dormitory": {
+      "before": "978a2cd6be72bc3f0a2a4425e972ba87bcb3b758061453bca6a2d410c8fe7026",
+      "after": "978a2cd6be72bc3f0a2a4425e972ba87bcb3b758061453bca6a2d410c8fe7026"
+    }
+  }
+}

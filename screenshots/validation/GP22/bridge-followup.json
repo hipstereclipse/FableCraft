@@ -1,0 +1,107 @@
+{
+  "status": "Next-pass audit only; no production edits",
+  "source_directory": "tmp/conformance/gp23-bridge-audit",
+  "source_sha256": {
+    "README.md": "df7f3d16c9115f283efee77e2a2713521dcb3c0da2ac89e636189abaab3c0f87",
+    "bridge-36-approach-baseline.png": "053ee20c689bcbe67a7c3ae5c14360654f539c31bacb99d1856003bccec63ef5",
+    "bridge-36-approach-stepped_caps.png": "17ee9758d8dbce9016cc3d5cfc1d85475f71a56ba6bb4859cca64a8788ef4b76",
+    "bridge-36-side-baseline.png": "855583b737b1fb7a57befb6f85d0ea5204151e77b4910fe01c6b650815c172f0",
+    "bridge-36-side-flat_panels.png": "7d4848002736d2b5eaa1d9c4bffe54bbc39bc4a03843d9d9a30a6322a44fc812",
+    "bridge-36-side-stepped_caps.png": "2f1f7c73a7274126db87ffd4ee210b25d89ea10edb79f6f814c5a629e5fa1d1b",
+    "bridge-54-side-baseline.png": "de4927b82201bcf0f7d728e432bdf9b021bbe19479a397d61f4c0daf7b2edb77",
+    "bridge-54-side-flat_panels.png": "ffcc7d877b2f679d7e5ac7a08c5552c2ffef5fb696e3757fc97bf8a5a393ae85",
+    "bridge-54-side-stepped_caps.png": "ce955a132c7198b8ca500c93ad812804b63d188e1a8e0af1ac6de6f289d62add",
+    "feasibility.json": "3722b64097e7d4e0d952dca0cd00e4332cbc840ccaf48ec5cf7c8f877596cf1d",
+    "horizontal-collider-comparison.json": "7e24e63325599f576dba9c9c5280e7da00ccb7c49509eb43638d1f78aaa1a5b7",
+    "outside-row-survey.json": "e34e8cfc20796f13f307bc632d5d3544b7f90d4900658ee4e1c198b4c6adb152",
+    "probe.log": "18fc05c904857fcd60f14632051b1b65815af0702adda395e95a1c77f780b5e4",
+    "probe.py": "7e97dca5500990c228685b2d7ff9b1e728a14eece1802d113d3473a1476718b0",
+    "reference-provenance.json": "3afde6caffbf6e52c6f7bf587b2732aac5f7f0dc5c38c2d8fed96064ba5e638e"
+  },
+  "reference_provenance": [
+    {
+      "id": "689540613",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=689540613",
+      "direct_image": "https://images.steamusercontent.com/ugc/448484556142732798/264D9912AD5ACB99EDE90FE9A5C9F713B8580300/",
+      "path": "tmp/conformance/reference-guild-additional/gp16-reference-689540613.jpg",
+      "sha256": "e5b08db41c68010570e6857b0a36bb4a4a817d624be6372be806860d7490eb26",
+      "pixels_inspected_by_this_review": true,
+      "version_evidence": "Existing accepted original TLC Steam app204030 provenance; exact direct-image hash verified locally; patch/mod status remains unknown",
+      "capture_date": "Unknown; no new date claim"
+    },
+    {
+      "id": "131726186",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=131726186",
+      "direct_image": "https://images.steamusercontent.com/ugc/576731339878081836/8054B097D3FF1063DD535AE066C2AE24F3D369EC/",
+      "path": "tmp/conformance/reference-guild-additional/gp16-reference-131726186.jpg",
+      "sha256": "24ca2ade67643281a89e65d05d9629530afcb98c9ad156d8eed6113f2663a77a",
+      "pixels_inspected_by_this_review": true,
+      "version_evidence": "Existing accepted original TLC Steam app204030 provenance; exact direct-image hash verified locally; patch/mod status remains unknown",
+      "capture_date": "Unknown; no new date claim"
+    },
+    {
+      "id": "91147839",
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=91147839",
+      "direct_image": "https://images.steamusercontent.com/ugc/920113049598722245/D6744214C1E7D3F662FEB496091384D859D43081/",
+      "path": "tmp/conformance/dp9-reference/reference-91147839.jpg",
+      "sha256": "35acb2d3ba89ee83c1b474b19fe50b6cc88cb1c98fec8faef9a0744ae1ab358d",
+      "pixels_inspected_by_this_review": true,
+      "version_evidence": "Existing accepted original TLC Steam app204030 provenance; exact direct-image hash verified locally; patch/mod status remains unknown",
+      "capture_date": "Unknown; no new date claim"
+    }
+  ],
+  "collision_comparison": {
+    "geometry_source": "Actual final guild_hall.mcstructure decoded during probe; rows x60..66 at z35/37 and z53/55 carry spruce_fence at y2",
+    "entity_collision_component": {
+      "width": 0.6719999999999999,
+      "height": 1.8239999999999998
+    },
+    "full_cube_candidate_horizontal_clearance": [
+      {
+        "bridge_z": 36,
+        "north_inner_boundary": 36,
+        "south_inner_boundary": 37,
+        "open_interval": [
+          36,
+          37
+        ],
+        "clear_width": 1.0,
+        "centerline": 36.5,
+        "single_authored_skill_body_width": 0.6719999999999999,
+        "single_centered_body_side_margin": 0.16400000000000003,
+        "two_authored_skill_bodies_fit_side_by_side_in_same_cross_section": false
+      },
+      {
+        "bridge_z": 54,
+        "north_inner_boundary": 54,
+        "south_inner_boundary": 55,
+        "open_interval": [
+          54,
+          55
+        ],
+        "clear_width": 1.0,
+        "centerline": 54.5,
+        "single_authored_skill_body_width": 0.6719999999999999,
+        "single_centered_body_side_margin": 0.16400000000000003,
+        "two_authored_skill_bodies_fit_side_by_side_in_same_cross_section": false
+      }
+    ],
+    "old_fence_nominal_illustrative_comparison": {
+      "status": "Schematic model only; native Bedrock fence horizontal collider not available offline and NOT certified by this audit",
+      "model_source": "Ignored probe renderer explicit post box x/z .375..625; retained graph instead overbounds each entire fence cell",
+      "post_width": 0.25,
+      "post_centers_separation": 2.0,
+      "nominal_between_posts_width": 1.75,
+      "full_cube_width_reduction_against_this_model": 0.75,
+      "conclusion": "A graph which treated both old fence and proposed block as full columns hides this possible narrowing. Passing that graph is insufficient authority to replace native thin fences with solid full cubes."
+    },
+    "existing_conservative_graph_clearance": {
+      "old": 1.0,
+      "full_cube_candidate": 1.0,
+      "caveat": "Same conservative bound does not prove the actual native occupied sets are equal."
+    },
+    "native_status": "unrun",
+    "required_future_evidence": "Inspect calibrated native fence/candidate horizontal shapes and approach widths, or use a thin opaque treatment with an explicit reviewed collision footprint. No widening, changed approaches or new native block implementation is implemented by this audit."
+  },
+  "native_acceptance": "unrun"
+}

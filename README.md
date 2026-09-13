@@ -160,7 +160,7 @@ Eight ancient doors are scattered across the world, each a living stone face car
 
 Beyond the doors, **9 structures** dot Albion — the walled Heroes' Guild (Cullis Gate + training grounds), the Arena, Temple of Avo, Chapel of Skorm, Twinblade's palisaded war-camp, Lychfield graveyard, focus sites, silver-chest ruins and Demon Door crags — all stocked with **lootable chests** and blended into the terrain.
 
-**The doors are becoming walk-through.** The Guild lamp door now opens into a designed reward world of its own — the Library Arcanum — with per-visitor rooms, durable paid history and an exact-source return arch. Details and current limits are in [TLC Conformance](#-tlc-conformance--rebuilding-the-guild) below.
+**The doors are becoming walk-through.** The Guild lamp door now opens into a designed reward world of its own — the Library Arcanum — with one shared Guild room, durable reward history and an exact-source return arch. Details and current limits are in [TLC Conformance](#-tlc-conformance--rebuilding-the-guild) below.
 
 ### The Heroes' Guild
 
@@ -181,7 +181,7 @@ reboot. Each pass inspects period screenshots and the original Prima guide, land
 reviewed milestone commit, and records its exact scope, evidence and remaining defects in
 [the priority ledger](docs/GUILD_DEMON_PRIORITIES.md).
 
-**Guild passes (GP1–GP21)**
+**Guild passes (GP1–GP22)**
 
 - **Halls & circulation.** The lobby, upper gallery, dining hall and Maze's tower stairs are
   joined by continuous half-step routes, and the broad Library and Store archways stand open
@@ -209,10 +209,10 @@ reviewed milestone commit, and records its exact scope, evidence and remaining d
 
 - **Training grounds.** Training sessions are single-acquisition with real interruption
   handling; Will apprentices practise harmless island lightning while Might alone fills the
-  sparring ring; the archery range regained its painted valley backboard and low timber firing
-  divider; Skill practice now preflights the live target, its support and every crossed cell of the firing lane
+  sparring ring; the archery range regained its painted valley backboard, separate mountain/tower
+  scenery and low timber firing divider; Skill practice now preflights the live target, its support and every crossed cell of the firing lane
   before it fires.
-  ([training](docs/GUILD_TRAINING.md), [Will training](docs/GUILD_WILL_TRAINING.md), [archery backboard](docs/GUILD_ARCHERY_BACKBOARD.md), [firing divider](docs/GUILD_ARCHERY_FIRING_DIVIDER.md), [Skill preflight](docs/GUILD_SKILL_PREFLIGHT.md))
+  ([training](docs/GUILD_TRAINING.md), [Will training](docs/GUILD_WILL_TRAINING.md), [archery backboard](docs/GUILD_ARCHERY_BACKBOARD.md), [firing divider](docs/GUILD_ARCHERY_FIRING_DIVIDER.md), [range scenery](docs/GUILD_ARCHERY_SCENERY.md), [Skill preflight](docs/GUILD_SKILL_PREFLIGHT.md))
 
 ![The Archery Range](screenshots/docs/26_archery_backboard.png)
 
@@ -239,7 +239,7 @@ reviewed milestone commit, and records its exact scope, evidence and remaining d
   requester, ownership and eligibility before they mutate anything, so a competing proposal
   cannot quietly steal a partner or spend a second wedding ring.
 
-**Demon Door passes (DP1–DP8)**
+**Demon Door passes (DP1–DP9)**
 
 The first walk-through Demon Door reward world is in place. The Guild lamp door opens into the
 **Library Arcanum** — an isolated, individually designed room with its own collectibles and an
@@ -247,7 +247,7 @@ exact-source return arch. Rooms and physical rewards are shared per source door;
 survives lost or recreated ledgers, a single durable source owns the Guild-side door face so stale hints cannot
 mint unkeyed doors, and occupied rooms keep their break, build, explosion and world-generation
 guards even after ledger loss or replacement.
-([Library Arcanum](docs/LIBRARY_ARCANUM.md), [door design](docs/DEMON_DOOR_DESIGN.md), [room protections](docs/LIBRARY_ARCANUM_PROTECTIONS.md), [ticket reads](docs/LIBRARY_ARCANUM_TICKET_READS.md))
+([Library Arcanum](docs/LIBRARY_ARCANUM.md), [door design](docs/DEMON_DOOR_DESIGN.md), [room protections](docs/LIBRARY_ARCANUM_PROTECTIONS.md), [ticket reads](docs/LIBRARY_ARCANUM_TICKET_READS.md), [preparation receipts](docs/LIBRARY_ARCANUM_PREPARATION.md))
 
 ![Demon Door — The Library Arcanum](screenshots/docs/29_library_arcanum.png)
 

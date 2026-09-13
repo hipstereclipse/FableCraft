@@ -1,0 +1,1479 @@
+{
+  "structure_assets": {
+    "baseline": "GP21; DP9 same geometry",
+    "compared": 36,
+    "changed": [
+      "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure"
+    ],
+    "sha256": {
+      "packs/Fablecraft_BP/structures/fc/arboretum.mcstructure": {
+        "before": "678c15573abf29e17f52c4edfb09cdc58b89f138d3172ba2d4667eb9827fd23c",
+        "after": "678c15573abf29e17f52c4edfb09cdc58b89f138d3172ba2d4667eb9827fd23c"
+      },
+      "packs/Fablecraft_BP/structures/fc/archon_folly.mcstructure": {
+        "before": "fa86d4053c26c77303155f32e572e9009a9bce7085ca0353db93505b9748c590",
+        "after": "fa86d4053c26c77303155f32e572e9009a9bce7085ca0353db93505b9748c590"
+      },
+      "packs/Fablecraft_BP/structures/fc/archon_shrine.mcstructure": {
+        "before": "55e2965047821ac61698abba4d17f12eddd1afd411a44cd517ec0107f78ada45",
+        "after": "55e2965047821ac61698abba4d17f12eddd1afd411a44cd517ec0107f78ada45"
+      },
+      "packs/Fablecraft_BP/structures/fc/arena_ring.mcstructure": {
+        "before": "ce2684b1a46a8ff01cca93f5ce9a82b1b70d8d4a017aaa66a6ae464f25dc1bb3",
+        "after": "ce2684b1a46a8ff01cca93f5ce9a82b1b70d8d4a017aaa66a6ae464f25dc1bb3"
+      },
+      "packs/Fablecraft_BP/structures/fc/bandit_camp.mcstructure": {
+        "before": "a884bd51e1a09ea33760d05cc90a13b94a76fd00feb072190a09b14a6fa1a7d6",
+        "after": "a884bd51e1a09ea33760d05cc90a13b94a76fd00feb072190a09b14a6fa1a7d6"
+      },
+      "packs/Fablecraft_BP/structures/fc/bargate_prison.mcstructure": {
+        "before": "14d32ef09675b0ef639e423d37df66712271ec536d789716ba465644ab4397af",
+        "after": "14d32ef09675b0ef639e423d37df66712271ec536d789716ba465644ab4397af"
+      },
+      "packs/Fablecraft_BP/structures/fc/bowerstone_market.mcstructure": {
+        "before": "7eb8edbe16937982773f888ccff1955ba7d9ae16ebf7b9a859120483b55f66de",
+        "after": "7eb8edbe16937982773f888ccff1955ba7d9ae16ebf7b9a859120483b55f66de"
+      },
+      "packs/Fablecraft_BP/structures/fc/chamber_of_fate.mcstructure": {
+        "before": "c7bd8a6e69d57ae08ec8a59ff26444f5330a1c1611cd944399785eb68cb7e3c8",
+        "after": "c7bd8a6e69d57ae08ec8a59ff26444f5330a1c1611cd944399785eb68cb7e3c8"
+      },
+      "packs/Fablecraft_BP/structures/fc/chapel_skorm.mcstructure": {
+        "before": "ac0ff70b4aecf385bf2e3754ac3926e7d1dbab74155340d53bb468cf4edf6032",
+        "after": "ac0ff70b4aecf385bf2e3754ac3926e7d1dbab74155340d53bb468cf4edf6032"
+      },
+      "packs/Fablecraft_BP/structures/fc/darkwood_camp.mcstructure": {
+        "before": "1cd62c860a4c8d4dfb4f084f5f9f65680c61b36a25b962e72e2cc7c2cdf0b6ff",
+        "after": "1cd62c860a4c8d4dfb4f084f5f9f65680c61b36a25b962e72e2cc7c2cdf0b6ff"
+      },
+      "packs/Fablecraft_BP/structures/fc/demon_door_arch.mcstructure": {
+        "before": "230cbc69316642cc946b77c56c65b103ead973f8ef1a16b4d99ee4a0c231cbbc",
+        "after": "230cbc69316642cc946b77c56c65b103ead973f8ef1a16b4d99ee4a0c231cbbc"
+      },
+      "packs/Fablecraft_BP/structures/fc/fisher_creek.mcstructure": {
+        "before": "e864613b204bcf48f93839c079fa670eb720e38675e8087238b767e76633fc8d",
+        "after": "e864613b204bcf48f93839c079fa670eb720e38675e8087238b767e76633fc8d"
+      },
+      "packs/Fablecraft_BP/structures/fc/focus_site.mcstructure": {
+        "before": "5bfc25f0b6144da8cab0c6d5a52c34eef15b6d5254c34f5e723a8336adfcbeba",
+        "after": "5bfc25f0b6144da8cab0c6d5a52c34eef15b6d5254c34f5e723a8336adfcbeba"
+      },
+      "packs/Fablecraft_BP/structures/fc/graveyard.mcstructure": {
+        "before": "e69852c56d3327fec728bda007bde44b10d04dddd333988a7bc164bcc52ec69a",
+        "after": "e69852c56d3327fec728bda007bde44b10d04dddd333988a7bc164bcc52ec69a"
+      },
+      "packs/Fablecraft_BP/structures/fc/greatwood_gorge.mcstructure": {
+        "before": "77f2f37c610a5d7618a53c8785ef29aebe7e8cb866c4f56376d6ba973f69e7d5",
+        "after": "77f2f37c610a5d7618a53c8785ef29aebe7e8cb866c4f56376d6ba973f69e7d5"
+      },
+      "packs/Fablecraft_BP/structures/fc/grey_house.mcstructure": {
+        "before": "3f01c46dc6b6ed8c43874ef52bf46139d26991384999740025c39f31b577dcca",
+        "after": "3f01c46dc6b6ed8c43874ef52bf46139d26991384999740025c39f31b577dcca"
+      },
+      "packs/Fablecraft_BP/structures/fc/guild_armoury.mcstructure": {
+        "before": "0c3e2dd6c86090a21e1ae0ac63b522b65525d892cfed06f38dcf89beb7be4376",
+        "after": "0c3e2dd6c86090a21e1ae0ac63b522b65525d892cfed06f38dcf89beb7be4376"
+      },
+      "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure": {
+        "before": "717960af9318ef30c8110da54f736a3c8cc590bce098f2094a70eaf9440a4366",
+        "after": "030e6f42cf21a4c0f2b605c76672deb94dcdf7634756aa27155d8423eb6d8df6"
+      },
+      "packs/Fablecraft_BP/structures/fc/guild_scriptorium.mcstructure": {
+        "before": "5691c45ba6ef372472b5246d5586e2eb81ebe702273e4a869ca103ad8a8066e9",
+        "after": "5691c45ba6ef372472b5246d5586e2eb81ebe702273e4a869ca103ad8a8066e9"
+      },
+      "packs/Fablecraft_BP/structures/fc/guild_sentinel_gate.mcstructure": {
+        "before": "733d9142b185196770659483ccb827cf4041d1e84a492891a8a99bc16cf6fe94",
+        "after": "733d9142b185196770659483ccb827cf4041d1e84a492891a8a99bc16cf6fe94"
+      },
+      "packs/Fablecraft_BP/structures/fc/hobbe_cave.mcstructure": {
+        "before": "60f0125ba76977533d6c38a99ea655985673ce38d530d8dd3e5a25e53114a7a6",
+        "after": "60f0125ba76977533d6c38a99ea655985673ce38d530d8dd3e5a25e53114a7a6"
+      },
+      "packs/Fablecraft_BP/structures/fc/hook_coast.mcstructure": {
+        "before": "dc2580ce7dcd6e3696f9bbf27db41af47fed6605c261551bc3d27b01ceca52d3",
+        "after": "dc2580ce7dcd6e3696f9bbf27db41af47fed6605c261551bc3d27b01ceca52d3"
+      },
+      "packs/Fablecraft_BP/structures/fc/knothole_glade.mcstructure": {
+        "before": "0eba1cd00d86beeb9f4124ba89ca6809029ae83543a9a9f15bb288de4c4febf6",
+        "after": "0eba1cd00d86beeb9f4124ba89ca6809029ae83543a9a9f15bb288de4c4febf6"
+      },
+      "packs/Fablecraft_BP/structures/fc/library_arcanum.mcstructure": {
+        "before": "5e296dd3f30916a064181beb32f5e59692f830611449b7c920031caede9ab7c7",
+        "after": "5e296dd3f30916a064181beb32f5e59692f830611449b7c920031caede9ab7c7"
+      },
+      "packs/Fablecraft_BP/structures/fc/lookout_point.mcstructure": {
+        "before": "04ee0fd51cdac437aca5ff8b5d1337eed3ba3842c1200007476ee33f1d1c59f2",
+        "after": "04ee0fd51cdac437aca5ff8b5d1337eed3ba3842c1200007476ee33f1d1c59f2"
+      },
+      "packs/Fablecraft_BP/structures/fc/oakvale_village.mcstructure": {
+        "before": "346a40d7f1d789a4affd23d738e55fa0e2ee593d7da173a25842c1521d24239a",
+        "after": "346a40d7f1d789a4affd23d738e55fa0e2ee593d7da173a25842c1521d24239a"
+      },
+      "packs/Fablecraft_BP/structures/fc/orchard_farm.mcstructure": {
+        "before": "27b0c5125712e2dd0659b78322c0de48c75bde74c451a9e4eb49dd48bac26ff2",
+        "after": "27b0c5125712e2dd0659b78322c0de48c75bde74c451a9e4eb49dd48bac26ff2"
+      },
+      "packs/Fablecraft_BP/structures/fc/power_guild_courtyard.mcstructure": {
+        "before": "92871a243b0d9b60a0746d3489748e0650dfe2cf9be28b40399dcb844d420126",
+        "after": "92871a243b0d9b60a0746d3489748e0650dfe2cf9be28b40399dcb844d420126"
+      },
+      "packs/Fablecraft_BP/structures/fc/power_necropolis.mcstructure": {
+        "before": "aebe368777253fb9bce925d8170b0e1140a6c83288eb02597a3a47f306c2c667",
+        "after": "aebe368777253fb9bce925d8170b0e1140a6c83288eb02597a3a47f306c2c667"
+      },
+      "packs/Fablecraft_BP/structures/fc/power_oakvale_quay.mcstructure": {
+        "before": "073fa26a219a9623a3c54d7521a07921470bf49fa14888032a19f2fa36c58615",
+        "after": "073fa26a219a9623a3c54d7521a07921470bf49fa14888032a19f2fa36c58615"
+      },
+      "packs/Fablecraft_BP/structures/fc/power_snowspire_oracle.mcstructure": {
+        "before": "efbfd6e12be0d461c4da83f989e79220be6b50ffb0f74491ebbc11e4e7d6dfa8",
+        "after": "efbfd6e12be0d461c4da83f989e79220be6b50ffb0f74491ebbc11e4e7d6dfa8"
+      },
+      "packs/Fablecraft_BP/structures/fc/rose_cottage.mcstructure": {
+        "before": "4022a8aea3cd93efd7cd742ad80b3deb65a70f5c117d22d05273071a00ccbc20",
+        "after": "4022a8aea3cd93efd7cd742ad80b3deb65a70f5c117d22d05273071a00ccbc20"
+      },
+      "packs/Fablecraft_BP/structures/fc/silver_chest_ruin.mcstructure": {
+        "before": "0f18b74c5a4749298196e39e901d9823ccdbad8d4178a5bba33cda6d5dafacd7",
+        "after": "0f18b74c5a4749298196e39e901d9823ccdbad8d4178a5bba33cda6d5dafacd7"
+      },
+      "packs/Fablecraft_BP/structures/fc/temple_avo.mcstructure": {
+        "before": "a3fc0b6cbd4afe660ed3fb89a95f093e57517ef7affb11e6cb83b355d436c58d",
+        "after": "a3fc0b6cbd4afe660ed3fb89a95f093e57517ef7affb11e6cb83b355d436c58d"
+      },
+      "packs/Fablecraft_BP/structures/fc/windmill_hill.mcstructure": {
+        "before": "9d84ec681d7546343f80bf16487547a49bd62178afbc0dacc1524ac4676cf24b",
+        "after": "9d84ec681d7546343f80bf16487547a49bd62178afbc0dacc1524ac4676cf24b"
+      },
+      "packs/Fablecraft_BP/structures/fc/witchwood_stones.mcstructure": {
+        "before": "35603d6df26cef5c041f6ae6e0bb7d2ddb4c832456d53d6cf890ddbb2a3f8f57",
+        "after": "35603d6df26cef5c041f6ae6e0bb7d2ddb4c832456d53d6cf890ddbb2a3f8f57"
+      }
+    }
+  },
+  "C2_images": {
+    "baseline": "GP21; DP9 same geometry",
+    "compared": 36,
+    "changed": [],
+    "sha256": {
+      "screenshots/structures/contract/arboretum.png": {
+        "before": "b29cd332807d7dd16c5543c1d64a3bc47890f5f2665e8970423f7e9cca98c69f",
+        "after": "b29cd332807d7dd16c5543c1d64a3bc47890f5f2665e8970423f7e9cca98c69f"
+      },
+      "screenshots/structures/contract/archon_folly.png": {
+        "before": "b786c83db31b81bd6db4555540889da6c0fc124c98bcf97eebb9f1721ca82b48",
+        "after": "b786c83db31b81bd6db4555540889da6c0fc124c98bcf97eebb9f1721ca82b48"
+      },
+      "screenshots/structures/contract/archon_shrine.png": {
+        "before": "5af64a7d0d3dd72e0ea39e33d42fd31a57475743b18908094a2646309b5bc031",
+        "after": "5af64a7d0d3dd72e0ea39e33d42fd31a57475743b18908094a2646309b5bc031"
+      },
+      "screenshots/structures/contract/arena_ring.png": {
+        "before": "c1fceb4cea2b8a772c0cb0c7f35f6cfa70edb266c1651033a19c9c890ff2ac3b",
+        "after": "c1fceb4cea2b8a772c0cb0c7f35f6cfa70edb266c1651033a19c9c890ff2ac3b"
+      },
+      "screenshots/structures/contract/bandit_camp.png": {
+        "before": "58b544a5fa72643f466d40539ca3ed7fca30a8512decdc97d7c0efc42cc8f957",
+        "after": "58b544a5fa72643f466d40539ca3ed7fca30a8512decdc97d7c0efc42cc8f957"
+      },
+      "screenshots/structures/contract/bargate_prison.png": {
+        "before": "07c594d378dec7a74db6a20a200edef62eb7b7e625776d2427b841eb47f26ca7",
+        "after": "07c594d378dec7a74db6a20a200edef62eb7b7e625776d2427b841eb47f26ca7"
+      },
+      "screenshots/structures/contract/bowerstone_market.png": {
+        "before": "109454e8fa6b7c12194d582c943ac007af8baa494ea773867436a47c877fc22e",
+        "after": "109454e8fa6b7c12194d582c943ac007af8baa494ea773867436a47c877fc22e"
+      },
+      "screenshots/structures/contract/chamber_of_fate.png": {
+        "before": "22e8d9f80c4b325bf52ae829928285f32f80b1cae4499ab21a0d01447e1dc814",
+        "after": "22e8d9f80c4b325bf52ae829928285f32f80b1cae4499ab21a0d01447e1dc814"
+      },
+      "screenshots/structures/contract/chapel_skorm.png": {
+        "before": "2abf86a55c542fe4133e5e3336734997383087243ca79e82578e70b08eaefb04",
+        "after": "2abf86a55c542fe4133e5e3336734997383087243ca79e82578e70b08eaefb04"
+      },
+      "screenshots/structures/contract/darkwood_camp.png": {
+        "before": "565b436222a43378edfbfd7cab15872ac1ec29a77b30ab4a973fbdc24e8ac11b",
+        "after": "565b436222a43378edfbfd7cab15872ac1ec29a77b30ab4a973fbdc24e8ac11b"
+      },
+      "screenshots/structures/contract/demon_door_arch.png": {
+        "before": "6b4e6c6cba2e02dbd838deebce3524272b693e7735810b537d62274e69d09ee7",
+        "after": "6b4e6c6cba2e02dbd838deebce3524272b693e7735810b537d62274e69d09ee7"
+      },
+      "screenshots/structures/contract/fisher_creek.png": {
+        "before": "68de4ee8da14b6d6ec3e76908dc60cd39d8f89ab889f8c926be72a053696adb0",
+        "after": "68de4ee8da14b6d6ec3e76908dc60cd39d8f89ab889f8c926be72a053696adb0"
+      },
+      "screenshots/structures/contract/focus_site.png": {
+        "before": "a4dc576af4a9a013420448a1d7410bce4a510e47b90c84f18caaedba22c36d05",
+        "after": "a4dc576af4a9a013420448a1d7410bce4a510e47b90c84f18caaedba22c36d05"
+      },
+      "screenshots/structures/contract/graveyard.png": {
+        "before": "784d36bcd9dba8ace7b7c856a0cc3e9057ea6ab66c98a59b1981cc89c52dd91b",
+        "after": "784d36bcd9dba8ace7b7c856a0cc3e9057ea6ab66c98a59b1981cc89c52dd91b"
+      },
+      "screenshots/structures/contract/greatwood_gorge.png": {
+        "before": "e9e959193aa472f6e92aa1573c08a5eee86af4909afcf771f54a84bffe87dd7e",
+        "after": "e9e959193aa472f6e92aa1573c08a5eee86af4909afcf771f54a84bffe87dd7e"
+      },
+      "screenshots/structures/contract/grey_house.png": {
+        "before": "1cebf37972720e403fa915457712c5bd7a26320bbbef2e08ba38746d70e37423",
+        "after": "1cebf37972720e403fa915457712c5bd7a26320bbbef2e08ba38746d70e37423"
+      },
+      "screenshots/structures/contract/guild_armoury.png": {
+        "before": "334f247e03d378c50996509c8fa3e62e94f5ba01e467eef3026db8b50c3bb1ba",
+        "after": "334f247e03d378c50996509c8fa3e62e94f5ba01e467eef3026db8b50c3bb1ba"
+      },
+      "screenshots/structures/contract/guild_hall.png": {
+        "before": "093ba8f2a87a55ede7c2042586e18d535ffbba8b01e7c649705beff4180cc637",
+        "after": "093ba8f2a87a55ede7c2042586e18d535ffbba8b01e7c649705beff4180cc637"
+      },
+      "screenshots/structures/contract/guild_scriptorium.png": {
+        "before": "ad734506d74a83afe8e662cf2b073f734409657849b98d222347451e2fc2dd8d",
+        "after": "ad734506d74a83afe8e662cf2b073f734409657849b98d222347451e2fc2dd8d"
+      },
+      "screenshots/structures/contract/guild_sentinel_gate.png": {
+        "before": "d0686d69de31b8b8f8fd9ef4df32fb979e0cd3b4a7f4870bcbe11de2c51cb4cc",
+        "after": "d0686d69de31b8b8f8fd9ef4df32fb979e0cd3b4a7f4870bcbe11de2c51cb4cc"
+      },
+      "screenshots/structures/contract/hobbe_cave.png": {
+        "before": "5ce845b9e9aaa967551521dc27f999571fc703a4c5366e5ef841b3d722c16454",
+        "after": "5ce845b9e9aaa967551521dc27f999571fc703a4c5366e5ef841b3d722c16454"
+      },
+      "screenshots/structures/contract/hook_coast.png": {
+        "before": "ecd69b8eedec198fad17d097ccfef3216691a1013244e2a1b4e0d83da3b98987",
+        "after": "ecd69b8eedec198fad17d097ccfef3216691a1013244e2a1b4e0d83da3b98987"
+      },
+      "screenshots/structures/contract/knothole_glade.png": {
+        "before": "85e2179fd157a024cd8ed30f49be6af4a882d5e9b72c3cd0121bb19bce17f3fe",
+        "after": "85e2179fd157a024cd8ed30f49be6af4a882d5e9b72c3cd0121bb19bce17f3fe"
+      },
+      "screenshots/structures/contract/library_arcanum.png": {
+        "before": "d641ac219ab3cb45affd6e00e9e89854cee35a6dd7c46c25ff7fede74eba2161",
+        "after": "d641ac219ab3cb45affd6e00e9e89854cee35a6dd7c46c25ff7fede74eba2161"
+      },
+      "screenshots/structures/contract/lookout_point.png": {
+        "before": "2ff605a9eba7019817b1ebc6abbe137d34bae81ad8fe693247c07313a54c6f0e",
+        "after": "2ff605a9eba7019817b1ebc6abbe137d34bae81ad8fe693247c07313a54c6f0e"
+      },
+      "screenshots/structures/contract/oakvale_village.png": {
+        "before": "661e458bebe68b7d1aa63974f0ed824e1f8442ed0d866dd86d200718da398f39",
+        "after": "661e458bebe68b7d1aa63974f0ed824e1f8442ed0d866dd86d200718da398f39"
+      },
+      "screenshots/structures/contract/orchard_farm.png": {
+        "before": "7a3af2fd6a0aad70e89629a42a2f17121b9bca7943b88c6c3a7f6577e3d0629c",
+        "after": "7a3af2fd6a0aad70e89629a42a2f17121b9bca7943b88c6c3a7f6577e3d0629c"
+      },
+      "screenshots/structures/contract/power_guild_courtyard.png": {
+        "before": "0dc04d370548e2c6dafe4d6634b08af42fbfaf7b0500d7447b4e3d2e4f7d95d0",
+        "after": "0dc04d370548e2c6dafe4d6634b08af42fbfaf7b0500d7447b4e3d2e4f7d95d0"
+      },
+      "screenshots/structures/contract/power_necropolis.png": {
+        "before": "b0cc3c8bfee6a37f64823c9cb5c50e07bb8e2616413ef4c09046ed9e467af89f",
+        "after": "b0cc3c8bfee6a37f64823c9cb5c50e07bb8e2616413ef4c09046ed9e467af89f"
+      },
+      "screenshots/structures/contract/power_oakvale_quay.png": {
+        "before": "12965b50c65937f8ec6fbbea491b7d24264056ad1fced9818351dadf96b4ae3d",
+        "after": "12965b50c65937f8ec6fbbea491b7d24264056ad1fced9818351dadf96b4ae3d"
+      },
+      "screenshots/structures/contract/power_snowspire_oracle.png": {
+        "before": "14e83b397fe331d46dc2949afd5f750f8a8819f32be8e5def48c579a75d9d905",
+        "after": "14e83b397fe331d46dc2949afd5f750f8a8819f32be8e5def48c579a75d9d905"
+      },
+      "screenshots/structures/contract/rose_cottage.png": {
+        "before": "00863c637ceedef6afc2d0678a2aa3934d9082a131a1c1582c78fac59791f69f",
+        "after": "00863c637ceedef6afc2d0678a2aa3934d9082a131a1c1582c78fac59791f69f"
+      },
+      "screenshots/structures/contract/silver_chest_ruin.png": {
+        "before": "88411e78153ff47411de5c10d25c905a9068d17d2154f12cdd1df8d2c9d333f9",
+        "after": "88411e78153ff47411de5c10d25c905a9068d17d2154f12cdd1df8d2c9d333f9"
+      },
+      "screenshots/structures/contract/temple_avo.png": {
+        "before": "67bcc1e5d6eadfbeb81f9e116e80d36ee84b665aec6d4b57e3a6ea0d9c09e26c",
+        "after": "67bcc1e5d6eadfbeb81f9e116e80d36ee84b665aec6d4b57e3a6ea0d9c09e26c"
+      },
+      "screenshots/structures/contract/windmill_hill.png": {
+        "before": "8033e5632f54edaa5778ddc4a888912fed4fc39d043b4fe4360f3d44995d69d9",
+        "after": "8033e5632f54edaa5778ddc4a888912fed4fc39d043b4fe4360f3d44995d69d9"
+      },
+      "screenshots/structures/contract/witchwood_stones.png": {
+        "before": "e3fb291e9223623ea11a1ecc110eb8622b4ad03a0807231efffc038d08f1637c",
+        "after": "e3fb291e9223623ea11a1ecc110eb8622b4ad03a0807231efffc038d08f1637c"
+      }
+    }
+  },
+  "full_render": {
+    "baseline": "GP21 same Linux renderer/font/item cache",
+    "compared": 282,
+    "changed": [],
+    "sha256": {
+      "gallery/armoury.png": {
+        "before": "bc3c3831d94b25a0ad40472caa7256d2576a1ae007105c0a636bbec9dbbdc254",
+        "after": "bc3c3831d94b25a0ad40472caa7256d2576a1ae007105c0a636bbec9dbbdc254"
+      },
+      "gallery/bestiary.png": {
+        "before": "9c1f3b85f7965a4424cd9568e2272320588420f1cb1972df80dc60fad583d864",
+        "after": "9c1f3b85f7965a4424cd9568e2272320588420f1cb1972df80dc60fad583d864"
+      },
+      "gallery/bosses.png": {
+        "before": "1f8a527e40ae9c14ffa7cc56dcbe364824b6fc398554edd6f4a8535e42e3353f",
+        "after": "1f8a527e40ae9c14ffa7cc56dcbe364824b6fc398554edd6f4a8535e42e3353f"
+      },
+      "gallery/forge.png": {
+        "before": "91bb6d89fdfb86906fc74db676626b6320a8ca14dc5de72d2bec860ed1a4ea70",
+        "after": "91bb6d89fdfb86906fc74db676626b6320a8ca14dc5de72d2bec860ed1a4ea70"
+      },
+      "gallery/forge_armor.png": {
+        "before": "b7dc9e9f74fc30835136f961b64cd5b91a1431abb79834a8dc3433d7149a60fd",
+        "after": "b7dc9e9f74fc30835136f961b64cd5b91a1431abb79834a8dc3433d7149a60fd"
+      },
+      "gallery/forge_systems.png": {
+        "before": "aabdd21baa4f972279d244b7e1d2ac329f1ad60962e3309c0a49416a96389b07",
+        "after": "aabdd21baa4f972279d244b7e1d2ac329f1ad60962e3309c0a49416a96389b07"
+      },
+      "gallery/forge_weapons.png": {
+        "before": "9002eb0293eb57fc8a35936e04208f410ef7f27a5a225e17c942d97fd7166691",
+        "after": "9002eb0293eb57fc8a35936e04208f410ef7f27a5a225e17c942d97fd7166691"
+      },
+      "gallery/mobs_hostile.png": {
+        "before": "a78ed4e10b5d2559952f6a8becf0bfd9343de0858c958cf76360c50663dfbed8",
+        "after": "a78ed4e10b5d2559952f6a8becf0bfd9343de0858c958cf76360c50663dfbed8"
+      },
+      "gallery/npcs_features.png": {
+        "before": "b46a9cce1917f80ab22429213c7e3c6e73189a50867f4b84d3afa7dece9d823c",
+        "after": "b46a9cce1917f80ab22429213c7e3c6e73189a50867f4b84d3afa7dece9d823c"
+      },
+      "gallery/places.png": {
+        "before": "01b354948361bb4c57df0b1ecc6b8cf3bc40bd3cdb5ec703bd8ceac3376a2ded",
+        "after": "01b354948361bb4c57df0b1ecc6b8cf3bc40bd3cdb5ec703bd8ceac3376a2ded"
+      },
+      "gallery/progression_armor.png": {
+        "before": "9ee75fd2e88cb85853ead416d50893d36008130c5ec712a68225d7f5297eaf1b",
+        "after": "9ee75fd2e88cb85853ead416d50893d36008130c5ec712a68225d7f5297eaf1b"
+      },
+      "gallery/progression_weapons.png": {
+        "before": "0953eaed577809401d36ad13357c5071a33f4d022ea4efc7d179199c87cf90bf",
+        "after": "0953eaed577809401d36ad13357c5071a33f4d022ea4efc7d179199c87cf90bf"
+      },
+      "gallery/reliquary.png": {
+        "before": "7b21d091d205b3efe850248e16ef2b9bedfdf8e322165429a3d0ab34baf0a62b",
+        "after": "7b21d091d205b3efe850248e16ef2b9bedfdf8e322165429a3d0ab34baf0a62b"
+      },
+      "items/archon_torso.png": {
+        "before": "a42498a3a2fb016f9042d1e4c96a8207749ce1b95183687a94aa7b7bf447adcb",
+        "after": "a42498a3a2fb016f9042d1e4c96a8207749ce1b95183687a94aa7b7bf447adcb"
+      },
+      "items/arkens_crossbow.png": {
+        "before": "6e2f367fb14dc13ac98f5c15ec38a63edd73176cf15a4b46387108892a1dd5ac",
+        "after": "6e2f367fb14dc13ac98f5c15ec38a63edd73176cf15a4b46387108892a1dd5ac"
+      },
+      "items/assassin_torso.png": {
+        "before": "084079ba7b6cfb41d17ecd3902fd305bc0528490cb73d9cbe8aee21432c13182",
+        "after": "084079ba7b6cfb41d17ecd3902fd305bc0528490cb73d9cbe8aee21432c13182"
+      },
+      "items/augment_remover.png": {
+        "before": "7979f59223ccff0f9b428a0c5f4ea46677cf204ca3d6bc9a6ce5febfe70d4cca",
+        "after": "7979f59223ccff0f9b428a0c5f4ea46677cf204ca3d6bc9a6ce5febfe70d4cca"
+      },
+      "items/avenger.png": {
+        "before": "2acf08826328996636b5b7dce0188ea984d520be0d10e9656362f3790342ebf0",
+        "after": "2acf08826328996636b5b7dce0188ea984d520be0d10e9656362f3790342ebf0"
+      },
+      "items/avos_tear.png": {
+        "before": "f75a9db4d386fbe86430c2f7c47e0f978dfb182f1d9042931c637131ebe2b2e0",
+        "after": "f75a9db4d386fbe86430c2f7c47e0f978dfb182f1d9042931c637131ebe2b2e0"
+      },
+      "items/demon_helm.png": {
+        "before": "13ed8feaaa0fe55641631b1df9f98385ea7e7aa686fb3eb97e9973cb7be915d2",
+        "after": "13ed8feaaa0fe55641631b1df9f98385ea7e7aa686fb3eb97e9973cb7be915d2"
+      },
+      "items/dollmasters_mace.png": {
+        "before": "4669cd01ff808d5adb8c0e59dee8b91b76353e6552d88ccc51a6a279d2ea4ea9",
+        "after": "4669cd01ff808d5adb8c0e59dee8b91b76353e6552d88ccc51a6a279d2ea4ea9"
+      },
+      "items/experience_augment.png": {
+        "before": "2ed52526de05bb5d1c4216e872d586b3e8f4343ebc7e5484ad989213d9a9438c",
+        "after": "2ed52526de05bb5d1c4216e872d586b3e8f4343ebc7e5484ad989213d9a9438c"
+      },
+      "items/flame_augment.png": {
+        "before": "c3c18e143f7543da2ffcf7ab1cfdc2423a28051f4218af6a8eb944e213d4360a",
+        "after": "c3c18e143f7543da2ffcf7ab1cfdc2423a28051f4218af6a8eb944e213d4360a"
+      },
+      "items/gold_coin.png": {
+        "before": "6ae364cae738a81e0e5ca0872ba637854a58cd685424e712a020fc2b18e40b5a",
+        "after": "6ae364cae738a81e0e5ca0872ba637854a58cd685424e712a020fc2b18e40b5a"
+      },
+      "items/guild_seal.png": {
+        "before": "ca0ad470c23a89f6c80421e2f89b1536fb29ac9ec5933513421ee2ec53c131de",
+        "after": "ca0ad470c23a89f6c80421e2f89b1536fb29ac9ec5933513421ee2ec53c131de"
+      },
+      "items/health_augment.png": {
+        "before": "5d9864898692ce98b3dedd61aca6e558f8c7413552ceae255b086f115500bb4e",
+        "after": "5d9864898692ce98b3dedd61aca6e558f8c7413552ceae255b086f115500bb4e"
+      },
+      "items/health_potion.png": {
+        "before": "82116bbaa2d0824d998ae677651bb46653d05eee203e150258b03870d4d0d134",
+        "after": "82116bbaa2d0824d998ae677651bb46653d05eee203e150258b03870d4d0d134"
+      },
+      "items/jack_of_blades_mask.png": {
+        "before": "b06b42426e38f029c7695fdfcb345f7969beb49206a853ba05c4d513f257318e",
+        "after": "b06b42426e38f029c7695fdfcb345f7969beb49206a853ba05c4d513f257318e"
+      },
+      "items/katana_hiryu.png": {
+        "before": "a18a820199f1a536a58e545c9761dce94c12ca65cf845fe5838c886ca920ed7e",
+        "after": "a18a820199f1a536a58e545c9761dce94c12ca65cf845fe5838c886ca920ed7e"
+      },
+      "items/lightning_augment.png": {
+        "before": "38231c8e64ffee4cd4ba5d42d642fa5dcd25890c765837b67fe64c74adfb1cb6",
+        "after": "38231c8e64ffee4cd4ba5d42d642fa5dcd25890c765837b67fe64c74adfb1cb6"
+      },
+      "items/mana_augment.png": {
+        "before": "f5288340ec1de3c329095a1d301553dcb8658c109d428bcca2e61a1ed59e5cac",
+        "after": "f5288340ec1de3c329095a1d301553dcb8658c109d428bcca2e61a1ed59e5cac"
+      },
+      "items/orkons_club.png": {
+        "before": "2c2930341463ac12c12a65bbaa2906ea12d3a47db9aca51190981d59182bf68c",
+        "after": "2c2930341463ac12c12a65bbaa2906ea12d3a47db9aca51190981d59182bf68c"
+      },
+      "items/piercing_augment.png": {
+        "before": "ae4d3103dfcf3c26934826207b26fc403deccd9917b0e3fea305cac0d3ee4291",
+        "after": "ae4d3103dfcf3c26934826207b26fc403deccd9917b0e3fea305cac0d3ee4291"
+      },
+      "items/platemail_torso.png": {
+        "before": "3869319731d7f7880ada10e265cf637f69a3b09e6b37cdadf293c67e1a52475a",
+        "after": "3869319731d7f7880ada10e265cf637f69a3b09e6b37cdadf293c67e1a52475a"
+      },
+      "items/quest_card.png": {
+        "before": "1d6fb85b37f85a0782b54603310cb6ad079822f71e0090d6483bbac555f8407d",
+        "after": "1d6fb85b37f85a0782b54603310cb6ad079822f71e0090d6483bbac555f8407d"
+      },
+      "items/resurrection_phial.png": {
+        "before": "fe461d38c72baa4f3b0405f27abf57c4731efb7747c00c676b8ed3fa33d9975d",
+        "after": "fe461d38c72baa4f3b0405f27abf57c4731efb7747c00c676b8ed3fa33d9975d"
+      },
+      "items/scimitar.png": {
+        "before": "8b82f0184aa05a37562577e089d798e925e14796fff725dc49a42c6140b9fc63",
+        "after": "8b82f0184aa05a37562577e089d798e925e14796fff725dc49a42c6140b9fc63"
+      },
+      "items/septimal_key.png": {
+        "before": "1103becb07ce10a1d547e60e0d109b4e794cbdcdf53c819043e5973590e54609",
+        "after": "1103becb07ce10a1d547e60e0d109b4e794cbdcdf53c819043e5973590e54609"
+      },
+      "items/sharpening_augment.png": {
+        "before": "35a7f283688d30eb599742684cb7ecaaa612c66bf409b55103eb3fb92d5067c6",
+        "after": "35a7f283688d30eb599742684cb7ecaaa612c66bf409b55103eb3fb92d5067c6"
+      },
+      "items/silver_augment.png": {
+        "before": "a4ae49e7e0fcdd9395f0e0e7ef13ae059b025096280a9b12bb9263d49ea6cf0a",
+        "after": "a4ae49e7e0fcdd9395f0e0e7ef13ae059b025096280a9b12bb9263d49ea6cf0a"
+      },
+      "items/silver_key.png": {
+        "before": "76373298ca50f60d226200a121a19822a88f6e543f9c8802961106d134399fff",
+        "after": "76373298ca50f60d226200a121a19822a88f6e543f9c8802961106d134399fff"
+      },
+      "items/solus_greatsword.png": {
+        "before": "085d720468dd7980633b87f0619510f5edcffafc818e3d708416a101ba78bee4",
+        "after": "085d720468dd7980633b87f0619510f5edcffafc818e3d708416a101ba78bee4"
+      },
+      "items/spell_assassin_rush.png": {
+        "before": "13c5d6435740d4856f0c33200453c295449be1647e367e2fbb99a3f3f3080eb9",
+        "after": "13c5d6435740d4856f0c33200453c295449be1647e367e2fbb99a3f3f3080eb9"
+      },
+      "items/spell_battle_charge.png": {
+        "before": "b51273bd8c3ab5933fd03cdfdb1d9caa294d75672cd8e5464fb09f4181d8cb42",
+        "after": "b51273bd8c3ab5933fd03cdfdb1d9caa294d75672cd8e5464fb09f4181d8cb42"
+      },
+      "items/spell_berserk.png": {
+        "before": "8c361f7fc875702b8caccbd61c01694201da8345507c3b6d21bc155f36cf61e0",
+        "after": "8c361f7fc875702b8caccbd61c01694201da8345507c3b6d21bc155f36cf61e0"
+      },
+      "items/spell_divine_fury.png": {
+        "before": "0f5e634777ec04df9abd6893625c40aace70aa85c8141a1a366aabbee1ec43d1",
+        "after": "0f5e634777ec04df9abd6893625c40aace70aa85c8141a1a366aabbee1ec43d1"
+      },
+      "items/spell_drain_life.png": {
+        "before": "3aab48727724d3bbbf0d97fe6e84ed068b8a2e09482c730d01ecfbecdfd12782",
+        "after": "3aab48727724d3bbbf0d97fe6e84ed068b8a2e09482c730d01ecfbecdfd12782"
+      },
+      "items/spell_enflame.png": {
+        "before": "bf171b6a4b73910941f6f7557ba095d7ae0fee5190ce4754d4d287d2fc8d117c",
+        "after": "bf171b6a4b73910941f6f7557ba095d7ae0fee5190ce4754d4d287d2fc8d117c"
+      },
+      "items/spell_fireball.png": {
+        "before": "42112317a6dac60a73912d207c820624c543fce046cc239a67c5d252288809df",
+        "after": "42112317a6dac60a73912d207c820624c543fce046cc239a67c5d252288809df"
+      },
+      "items/spell_force_push.png": {
+        "before": "93f9ee2d26fd0013e70b6b38210c5b95e8a00d389255651f9e7de909d0048b12",
+        "after": "93f9ee2d26fd0013e70b6b38210c5b95e8a00d389255651f9e7de909d0048b12"
+      },
+      "items/spell_ghost_sword.png": {
+        "before": "ea6e14a4a12b1e07f76c4f0fa122467e287a0278035955948e10654a0f7f9600",
+        "after": "ea6e14a4a12b1e07f76c4f0fa122467e287a0278035955948e10654a0f7f9600"
+      },
+      "items/spell_heal_life.png": {
+        "before": "0bb3f416a3256303aafc537ced52ab9ef15e06358383ee50b6a72d57262e6278",
+        "after": "0bb3f416a3256303aafc537ced52ab9ef15e06358383ee50b6a72d57262e6278"
+      },
+      "items/spell_infernal_wrath.png": {
+        "before": "98902dee6e578478c5e351d22b792d5c3d4b1fb35387da8ec85cfd3a9f79a4e7",
+        "after": "98902dee6e578478c5e351d22b792d5c3d4b1fb35387da8ec85cfd3a9f79a4e7"
+      },
+      "items/spell_lightning.png": {
+        "before": "3f6ef0d82014331909110d2226a2a94fca7d7da85662e81258869ee45ea1ea1d",
+        "after": "3f6ef0d82014331909110d2226a2a94fca7d7da85662e81258869ee45ea1ea1d"
+      },
+      "items/spell_multi_arrow.png": {
+        "before": "ab66baeed67ef3b45c90873f70b898e7dd5ac06436a4dddc6ffe3edb0d809e10",
+        "after": "ab66baeed67ef3b45c90873f70b898e7dd5ac06436a4dddc6ffe3edb0d809e10"
+      },
+      "items/spell_multi_strike.png": {
+        "before": "1a14e3927a1607c6e13763c511fb93b4abdd64baaf81896d8ddeb9665d820ca7",
+        "after": "1a14e3927a1607c6e13763c511fb93b4abdd64baaf81896d8ddeb9665d820ca7"
+      },
+      "items/spell_physical_shield.png": {
+        "before": "3e373c002c7f751fc7e8b108e88d5a8459ed52573737ccbc69089d97dd12434e",
+        "after": "3e373c002c7f751fc7e8b108e88d5a8459ed52573737ccbc69089d97dd12434e"
+      },
+      "items/spell_slow_time.png": {
+        "before": "c09264e3bca89a841e7d33782f516d9edc2c898c9169ae9d609990605ca515b7",
+        "after": "c09264e3bca89a841e7d33782f516d9edc2c898c9169ae9d609990605ca515b7"
+      },
+      "items/spell_summon.png": {
+        "before": "5ab37ea0b1899f19e4760687d372f5dcd8ee443a6284ab0fc16f215b7b3581ca",
+        "after": "5ab37ea0b1899f19e4760687d372f5dcd8ee443a6284ab0fc16f215b7b3581ca"
+      },
+      "items/spell_turncoat.png": {
+        "before": "26ae5f8d4e56a19b2a507e966c2fb65610e6a2ee39cd3a327693cc7accaf3029",
+        "after": "26ae5f8d4e56a19b2a507e966c2fb65610e6a2ee39cd3a327693cc7accaf3029"
+      },
+      "items/stick.png": {
+        "before": "ada4dce6e1d7c8b547573c01f602e28c1a2352fc1885ed934a9ce42647a9d381",
+        "after": "ada4dce6e1d7c8b547573c01f602e28c1a2352fc1885ed934a9ce42647a9d381"
+      },
+      "items/sword_of_aeons.png": {
+        "before": "37ac82f633233a00c9a086a7ad0140e1fbb3203cbd1ddf75eb0857b4d78ceb30",
+        "after": "37ac82f633233a00c9a086a7ad0140e1fbb3203cbd1ddf75eb0857b4d78ceb30"
+      },
+      "items/the_avenger_bow.png": {
+        "before": "b874b767ae8020fab6608e5a210421f198b2e50898f2b034c1bbc9b780d0be67",
+        "after": "b874b767ae8020fab6608e5a210421f198b2e50898f2b034c1bbc9b780d0be67"
+      },
+      "items/the_bereaver.png": {
+        "before": "25bdcce4f65a9148819dbaab7bb53056ed94e0b40b1f4e52e393783eb0b6a3a1",
+        "after": "25bdcce4f65a9148819dbaab7bb53056ed94e0b40b1f4e52e393783eb0b6a3a1"
+      },
+      "items/the_harbinger.png": {
+        "before": "94216faaa0f567a926995ed4f89317779cbc8eb28a8a38ccfacb87613f360ae3",
+        "after": "94216faaa0f567a926995ed4f89317779cbc8eb28a8a38ccfacb87613f360ae3"
+      },
+      "items/wellows_pickhammer.png": {
+        "before": "e8a8c53b4fab2e35af57aff8d14d885a556decd72c7fede3ece6b44f4bc4de50",
+        "after": "e8a8c53b4fab2e35af57aff8d14d885a556decd72c7fede3ece6b44f4bc4de50"
+      },
+      "items/will_potion.png": {
+        "before": "5b422350ba2b875069806a8746eccd3f4da0b1e9ad30a5ca926daab961c17e7c",
+        "after": "5b422350ba2b875069806a8746eccd3f4da0b1e9ad30a5ca926daab961c17e7c"
+      },
+      "items/wizard_hat.png": {
+        "before": "facb3bfa3ec3686eba5dc2b20f42b34f3bf26feafefa7f19ca71212de9f0de6b",
+        "after": "facb3bfa3ec3686eba5dc2b20f42b34f3bf26feafefa7f19ca71212de9f0de6b"
+      },
+      "mobs/arachanox.png": {
+        "before": "0f3d2f4949473735a92683a3bd04f4cd12da8aed9afa61669c1b8b6e514799b4",
+        "after": "0f3d2f4949473735a92683a3bd04f4cd12da8aed9afa61669c1b8b6e514799b4"
+      },
+      "mobs/assassin.png": {
+        "before": "5df813c97a5d87c042c4196fce235979859f0534100a5493c7a98c7b44c2813a",
+        "after": "5df813c97a5d87c042c4196fce235979859f0534100a5493c7a98c7b44c2813a"
+      },
+      "mobs/balverine.png": {
+        "before": "a155ba7eaea3a0abeb7dc223a2e8a3bcfa8426c1d8a1d94a26c480cba055d555",
+        "after": "a155ba7eaea3a0abeb7dc223a2e8a3bcfa8426c1d8a1d94a26c480cba055d555"
+      },
+      "mobs/bandit.png": {
+        "before": "012d049ee6460e0bbd8f09d5bb1ae9af1468e318c5bc824570caf355754a1f0a",
+        "after": "012d049ee6460e0bbd8f09d5bb1ae9af1468e318c5bc824570caf355754a1f0a"
+      },
+      "mobs/bandit_archer.png": {
+        "before": "f89dc34ce3431a75943d2b14d1983053decde3e9b790558440f945ca2f9483c5",
+        "after": "f89dc34ce3431a75943d2b14d1983053decde3e9b790558440f945ca2f9483c5"
+      },
+      "mobs/banshee.png": {
+        "before": "c7c96c6ed29c4379c5b843cbcad637bb91582e4067175d12cf5e41b0a738823e",
+        "after": "c7c96c6ed29c4379c5b843cbcad637bb91582e4067175d12cf5e41b0a738823e"
+      },
+      "mobs/barkeep.png": {
+        "before": "c5b75a42073ee16c5c043eceb5ed762821f5a281424390f5eaad432631a76e50",
+        "after": "c5b75a42073ee16c5c043eceb5ed762821f5a281424390f5eaad432631a76e50"
+      },
+      "mobs/beetle.png": {
+        "before": "1a9fedc648d35672ed2aa407b62bd6ed1841a444b446cccfdd00c9fcb5d05d48",
+        "after": "1a9fedc648d35672ed2aa407b62bd6ed1841a444b446cccfdd00c9fcb5d05d48"
+      },
+      "mobs/briar_rose.png": {
+        "before": "617f40f479f481a2157c11192fa2d7167bed06778b03f314a01980e6038bf2ec",
+        "after": "617f40f479f481a2157c11192fa2d7167bed06778b03f314a01980e6038bf2ec"
+      },
+      "mobs/demon_door.png": {
+        "before": "5ca995a59eb8c48618251ed377302a4a7b93c9adc83e4f7e27b1add5923a0083",
+        "after": "5ca995a59eb8c48618251ed377302a4a7b93c9adc83e4f7e27b1add5923a0083"
+      },
+      "mobs/earth_troll.png": {
+        "before": "a2b521585239ffdab577d41c68f10f01e5fb59ba67459f35cc1046de71e7684f",
+        "after": "a2b521585239ffdab577d41c68f10f01e5fb59ba67459f35cc1046de71e7684f"
+      },
+      "mobs/frost_balverine.png": {
+        "before": "e1f59bc4a18b28df6843cbbc5e3ce67554eba12bb684f56902656ff77ba4e396",
+        "after": "e1f59bc4a18b28df6843cbbc5e3ce67554eba12bb684f56902656ff77ba4e396"
+      },
+      "mobs/guard_bowerstone.png": {
+        "before": "5044d508553e7743dd1d831df40087fb4123e996f7f2f4b9070f9cf220fff669",
+        "after": "5044d508553e7743dd1d831df40087fb4123e996f7f2f4b9070f9cf220fff669"
+      },
+      "mobs/guard_oakvale.png": {
+        "before": "859b2558f4d17a3669c36e36148b9a8c7b598c3274404b9124ec2600d4c029a2",
+        "after": "859b2558f4d17a3669c36e36148b9a8c7b598c3274404b9124ec2600d4c029a2"
+      },
+      "mobs/guard_snowspire.png": {
+        "before": "4f7a7420dcd38e0a00316dc202ed9081e44f981008ae7ec54d619310e19b98de",
+        "after": "4f7a7420dcd38e0a00316dc202ed9081e44f981008ae7ec54d619310e19b98de"
+      },
+      "mobs/guild_apprentice_might.png": {
+        "before": "292446090aceb657a380b8ad49521eac2bc8b8725e5b5964a77114c5f830e74b",
+        "after": "292446090aceb657a380b8ad49521eac2bc8b8725e5b5964a77114c5f830e74b"
+      },
+      "mobs/guild_apprentice_skill.png": {
+        "before": "0512398114ef7595aa2aaec7a2e8cc1e5b1fac701191b15db5b3f3128a960909",
+        "after": "0512398114ef7595aa2aaec7a2e8cc1e5b1fac701191b15db5b3f3128a960909"
+      },
+      "mobs/guild_apprentice_will.png": {
+        "before": "e8a3ffce047b22f3ab468f9ed0b951e4cae006477f3a0306e25e3c95d77c455d",
+        "after": "e8a3ffce047b22f3ab468f9ed0b951e4cae006477f3a0306e25e3c95d77c455d"
+      },
+      "mobs/guildmaster.png": {
+        "before": "4312f1eacb9afd8f114207f673cf59c63a7e177f5063d50ce3760de3b61a49fd",
+        "after": "4312f1eacb9afd8f114207f673cf59c63a7e177f5063d50ce3760de3b61a49fd"
+      },
+      "mobs/hobbe.png": {
+        "before": "9f546378ca0543e81634540a724614e236d487dc00155f0bfae922cc4cc3f1ed",
+        "after": "9f546378ca0543e81634540a724614e236d487dc00155f0bfae922cc4cc3f1ed"
+      },
+      "mobs/hobbe_scout.png": {
+        "before": "fbca2fe6daf70cf96ff81d84d67633ec9b6687f3924bb9bef9b53035d7f5b472",
+        "after": "fbca2fe6daf70cf96ff81d84d67633ec9b6687f3924bb9bef9b53035d7f5b472"
+      },
+      "mobs/ice_troll.png": {
+        "before": "e196017755f5164d0fcd6c4046041da4310a9fe5475407201169e1afb5ad72ec",
+        "after": "e196017755f5164d0fcd6c4046041da4310a9fe5475407201169e1afb5ad72ec"
+      },
+      "mobs/jack_dragon.png": {
+        "before": "92a7890fb86d90ee796746446e8bc5bf28985b74349219a9f4b5912a524e7d98",
+        "after": "92a7890fb86d90ee796746446e8bc5bf28985b74349219a9f4b5912a524e7d98"
+      },
+      "mobs/jack_of_blades.png": {
+        "before": "f9b11367d671c348a8ac6a8d6785a119787cb9ab45e0dc4d9183b650e6a51538",
+        "after": "f9b11367d671c348a8ac6a8d6785a119787cb9ab45e0dc4d9183b650e6a51538"
+      },
+      "mobs/lady_grey.png": {
+        "before": "6bd6b95ec84e44f72a2cf791786c9c41f0a5c2ca724d5db76ccee5ea01e0060e",
+        "after": "6bd6b95ec84e44f72a2cf791786c9c41f0a5c2ca724d5db76ccee5ea01e0060e"
+      },
+      "mobs/maze.png": {
+        "before": "1d21a7ccce53e6c42010d4373ae1f24875da1fd117a9d0e63e4558cf0aac9d2a",
+        "after": "1d21a7ccce53e6c42010d4373ae1f24875da1fd117a9d0e63e4558cf0aac9d2a"
+      },
+      "mobs/mercenary.png": {
+        "before": "2295a32a4f015899aa210e44ecbe740c8f66004512b7d2a3db6691734ab2ca31",
+        "after": "2295a32a4f015899aa210e44ecbe740c8f66004512b7d2a3db6691734ab2ca31"
+      },
+      "mobs/minion.png": {
+        "before": "afabb1d1760b5ea8f9c81c9bd6f63a92cef0aa52b30652e038e81aaac0534981",
+        "after": "afabb1d1760b5ea8f9c81c9bd6f63a92cef0aa52b30652e038e81aaac0534981"
+      },
+      "mobs/nymph.png": {
+        "before": "dc191d23d3df0aadfbb075d0108c780ad795c7acc929d2943071c9e3132973c7",
+        "after": "dc191d23d3df0aadfbb075d0108c780ad795c7acc929d2943071c9e3132973c7"
+      },
+      "mobs/oracle.png": {
+        "before": "6a3a6462604dc9e17e2e92a0a6edf35ac37e40113bb446fc643322b6abd4bfa3",
+        "after": "6a3a6462604dc9e17e2e92a0a6edf35ac37e40113bb446fc643322b6abd4bfa3"
+      },
+      "mobs/rock_giant.png": {
+        "before": "6a899a581bfa3803404aa5de86c0ec4b7fd442f7e493123f68ee086e5beba260",
+        "after": "6a899a581bfa3803404aa5de86c0ec4b7fd442f7e493123f68ee086e5beba260"
+      },
+      "mobs/summoned_balverine.png": {
+        "before": "393b0c5cf018d204b75ee5d66a57354d8cfc14c1b14d78ba39ebe0f05ee03df9",
+        "after": "393b0c5cf018d204b75ee5d66a57354d8cfc14c1b14d78ba39ebe0f05ee03df9"
+      },
+      "mobs/summoned_hobbe.png": {
+        "before": "ea748feb37c1f2a0eb9d1541070a48bc63cb4f7ffaf4bc9fa5884c8a2ffaf0f3",
+        "after": "ea748feb37c1f2a0eb9d1541070a48bc63cb4f7ffaf4bc9fa5884c8a2ffaf0f3"
+      },
+      "mobs/summoned_wasp.png": {
+        "before": "34db4ad6d312b842d2e930768b15d3c7433e8d3effe6b04deba48bcf3d0f4c03",
+        "after": "34db4ad6d312b842d2e930768b15d3c7433e8d3effe6b04deba48bcf3d0f4c03"
+      },
+      "mobs/summoner.png": {
+        "before": "c19b0c6211272a404890688f6fe3b6413da88e5d80b7fe5f264a7304468f01ee",
+        "after": "c19b0c6211272a404890688f6fe3b6413da88e5d80b7fe5f264a7304468f01ee"
+      },
+      "mobs/theresa.png": {
+        "before": "88a3cb85e8857a0e30e92609bed14165e3b16527b4bafbea19f6f35a980f206f",
+        "after": "88a3cb85e8857a0e30e92609bed14165e3b16527b4bafbea19f6f35a980f206f"
+      },
+      "mobs/trader.png": {
+        "before": "4e640a37870fd8355ad76342c802499dae1b7046e2870fd3974ffc16917799f5",
+        "after": "4e640a37870fd8355ad76342c802499dae1b7046e2870fd3974ffc16917799f5"
+      },
+      "mobs/twinblade.png": {
+        "before": "cc36d365c3f6086fe8451c1b7cc833e665c182390fe42929b0743c2e9efbdc13",
+        "after": "cc36d365c3f6086fe8451c1b7cc833e665c182390fe42929b0743c2e9efbdc13"
+      },
+      "mobs/undead.png": {
+        "before": "08592089a5c19c8d9a78699da951f5e0890f82378061e1310d1230480ab0b274",
+        "after": "08592089a5c19c8d9a78699da951f5e0890f82378061e1310d1230480ab0b274"
+      },
+      "mobs/undead_knight.png": {
+        "before": "cf33d1016de80ed06c7c9366a9ea3958fe82ca10c2b878aa5f2953500e6abb07",
+        "after": "cf33d1016de80ed06c7c9366a9ea3958fe82ca10c2b878aa5f2953500e6abb07"
+      },
+      "mobs/undead_soldier.png": {
+        "before": "8ff9ab0318ea69c9a668b2c8cd0635d7edf4b9e04027a7fe5b9b88c9f6e46dc7",
+        "after": "8ff9ab0318ea69c9a668b2c8cd0635d7edf4b9e04027a7fe5b9b88c9f6e46dc7"
+      },
+      "mobs/villager_albion.png": {
+        "before": "fba8c3eb817f26f6a9be07109b333a8dd9aca3f7ce6db398a8088e46ffd4bf18",
+        "after": "fba8c3eb817f26f6a9be07109b333a8dd9aca3f7ce6db398a8088e46ffd4bf18"
+      },
+      "mobs/villager_blacksmith.png": {
+        "before": "5908e04c5acfb3d732810c357deadf8df34e8530594031df71864a2ec988521e",
+        "after": "5908e04c5acfb3d732810c357deadf8df34e8530594031df71864a2ec988521e"
+      },
+      "mobs/villager_farmer.png": {
+        "before": "82e6f011a52222dd7d14134b1d8b9cc8824ca1074d289312bdcd95611aa6837d",
+        "after": "82e6f011a52222dd7d14134b1d8b9cc8824ca1074d289312bdcd95611aa6837d"
+      },
+      "mobs/villager_fisher.png": {
+        "before": "5aa78fd120b6ca86e6ac88cf3d1b8036fafac946e36836e8515c7524d75808b6",
+        "after": "5aa78fd120b6ca86e6ac88cf3d1b8036fafac946e36836e8515c7524d75808b6"
+      },
+      "mobs/villager_tailor.png": {
+        "before": "7968e7770d67795de0a7d2385df10cb798c3b4a11fad41bcfe80555bcbb023c1",
+        "after": "7968e7770d67795de0a7d2385df10cb798c3b4a11fad41bcfe80555bcbb023c1"
+      },
+      "mobs/villager_woman.png": {
+        "before": "21b8a16279bc87aeff80bfef3ff82350d57225daa7ff0e44c32472669246ee1b",
+        "after": "21b8a16279bc87aeff80bfef3ff82350d57225daa7ff0e44c32472669246ee1b"
+      },
+      "mobs/wasp.png": {
+        "before": "72191af9deba7c03217746655021b179d9e9afdd99488805fb6bf1d9a0d5e7e4",
+        "after": "72191af9deba7c03217746655021b179d9e9afdd99488805fb6bf1d9a0d5e7e4"
+      },
+      "mobs/wasp_queen.png": {
+        "before": "680dc840f42ab1fa003e20cf8bafeb026fbf727151d04a81452aa4c9479e26af",
+        "after": "680dc840f42ab1fa003e20cf8bafeb026fbf727151d04a81452aa4c9479e26af"
+      },
+      "mobs/white_balverine.png": {
+        "before": "5447e066a3fe2deeb1b976ab53fe9476f40919fe4a51e7d8d2d074ba1d41d4bb",
+        "after": "5447e066a3fe2deeb1b976ab53fe9476f40919fe4a51e7d8d2d074ba1d41d4bb"
+      },
+      "mobs/wraith.png": {
+        "before": "5b53dd8842f4963e0e28f73e096fa4fba6ece73d5bb96306ebfb2ce1f3e838aa",
+        "after": "5b53dd8842f4963e0e28f73e096fa4fba6ece73d5bb96306ebfb2ce1f3e838aa"
+      },
+      "recipes/apple_pie.png": {
+        "before": "b880ff369efdbbb48ffe9b768a431a55b3ef8151d8013ebf01b720f1d4fde684",
+        "after": "b880ff369efdbbb48ffe9b768a431a55b3ef8151d8013ebf01b720f1d4fde684"
+      },
+      "recipes/apprentice_boots.png": {
+        "before": "f6cdd3cd8becc30e41927181dafb5ee608d5930b86fc74e78b91497a305fe250",
+        "after": "f6cdd3cd8becc30e41927181dafb5ee608d5930b86fc74e78b91497a305fe250"
+      },
+      "recipes/apprentice_helm.png": {
+        "before": "6063c78c463fc0ec4d7794f3a7c67f7f16268718465c9589924aeba0f3f0be1e",
+        "after": "6063c78c463fc0ec4d7794f3a7c67f7f16268718465c9589924aeba0f3f0be1e"
+      },
+      "recipes/apprentice_legs.png": {
+        "before": "a9dc589e6d5686528a2bdb1228c62846e288074fdff09839a1102153f94761ec",
+        "after": "a9dc589e6d5686528a2bdb1228c62846e288074fdff09839a1102153f94761ec"
+      },
+      "recipes/apprentice_torso.png": {
+        "before": "53047fcaaefdf56d289116b9912470f40dc6bf73541195f0a5bf036e4aef3029",
+        "after": "53047fcaaefdf56d289116b9912470f40dc6bf73541195f0a5bf036e4aef3029"
+      },
+      "recipes/archon_boots.png": {
+        "before": "8e5dbfdaa790daa9313cc74d9ebc07a6e9b282333a8e0afc13c2b0a06340db89",
+        "after": "8e5dbfdaa790daa9313cc74d9ebc07a6e9b282333a8e0afc13c2b0a06340db89"
+      },
+      "recipes/archon_helm.png": {
+        "before": "f6c5eb687b13f39e25a3fb9ee811117591dc3791e66832c7cc6419857c80f1c5",
+        "after": "f6c5eb687b13f39e25a3fb9ee811117591dc3791e66832c7cc6419857c80f1c5"
+      },
+      "recipes/archon_legs.png": {
+        "before": "11558d42ee17de9cb430cd92bac81c2af5d84cf124e2c2b42851fde3d75c5a5e",
+        "after": "11558d42ee17de9cb430cd92bac81c2af5d84cf124e2c2b42851fde3d75c5a5e"
+      },
+      "recipes/archon_torso.png": {
+        "before": "8fe0735216b1c96c2115e6e5c9221fc8442637bcdd3a9a1feed69e7afa49aa43",
+        "after": "8fe0735216b1c96c2115e6e5c9221fc8442637bcdd3a9a1feed69e7afa49aa43"
+      },
+      "recipes/assassin_boots.png": {
+        "before": "8db9c86f578b64197f7f85a32786c35cbd0bc545d8d1490cf36afd088ea77f53",
+        "after": "8db9c86f578b64197f7f85a32786c35cbd0bc545d8d1490cf36afd088ea77f53"
+      },
+      "recipes/assassin_helm.png": {
+        "before": "88e73870c06a7818ec86f2c87a1fd4124c4635a514bf5fceaeae58bc935aba88",
+        "after": "88e73870c06a7818ec86f2c87a1fd4124c4635a514bf5fceaeae58bc935aba88"
+      },
+      "recipes/assassin_legs.png": {
+        "before": "c401475a46c81133a860d4db9ef127f96cc82a1874fde0f1548363e6a83f0aa7",
+        "after": "c401475a46c81133a860d4db9ef127f96cc82a1874fde0f1548363e6a83f0aa7"
+      },
+      "recipes/assassin_torso.png": {
+        "before": "28fb720f32a36f54f77e41677c669aaa378a0ed2f3ab8fe0f2b22e7f93e43e0e",
+        "after": "28fb720f32a36f54f77e41677c669aaa378a0ed2f3ab8fe0f2b22e7f93e43e0e"
+      },
+      "recipes/augment_remover.png": {
+        "before": "8d3022b3e54fd0e820fa2e3d7745ebe886da2bb8c7a90ff909d6f05c9a1e946b",
+        "after": "8d3022b3e54fd0e820fa2e3d7745ebe886da2bb8c7a90ff909d6f05c9a1e946b"
+      },
+      "recipes/bow_stave.png": {
+        "before": "486a214768d8362804e9a21a3486833cc90751d2265e8d513b17d41df4aa79fa",
+        "after": "486a214768d8362804e9a21a3486833cc90751d2265e8d513b17d41df4aa79fa"
+      },
+      "recipes/bright_wizard_hat.png": {
+        "before": "20282b97f88e803a0b02cc7c67debe14045bf96d794d8664178215463a6118e3",
+        "after": "20282b97f88e803a0b02cc7c67debe14045bf96d794d8664178215463a6118e3"
+      },
+      "recipes/chain_links.png": {
+        "before": "c9a4f2b41f20f845ab4a72593a76a75f26449ac27df21f560f7686a5f081bb5d",
+        "after": "c9a4f2b41f20f845ab4a72593a76a75f26449ac27df21f560f7686a5f081bb5d"
+      },
+      "recipes/chainmail_bright_boots.png": {
+        "before": "47e897d5ce64133e805675c2854a951930e8cd31f86226b7fb869126c58a3f0c",
+        "after": "47e897d5ce64133e805675c2854a951930e8cd31f86226b7fb869126c58a3f0c"
+      },
+      "recipes/chainmail_bright_helm.png": {
+        "before": "e0e33b34154686859d46e84d35c62b3c32d9411613d1d1f4762531fdd41e374b",
+        "after": "e0e33b34154686859d46e84d35c62b3c32d9411613d1d1f4762531fdd41e374b"
+      },
+      "recipes/chainmail_bright_legs.png": {
+        "before": "ed3e040053cc21141c4892c019e3fef4c85ef0d9794faf569f0416c930f5a116",
+        "after": "ed3e040053cc21141c4892c019e3fef4c85ef0d9794faf569f0416c930f5a116"
+      },
+      "recipes/chainmail_bright_torso.png": {
+        "before": "0ba45d30753dfcdc4998779ba8cd7695cdd6deda66f17fdb280ac288fbcb9164",
+        "after": "0ba45d30753dfcdc4998779ba8cd7695cdd6deda66f17fdb280ac288fbcb9164"
+      },
+      "recipes/chainmail_dark_boots.png": {
+        "before": "c05cc4439943d495413c952281d8cbfea611818df5788f0b292bd6558fda979e",
+        "after": "c05cc4439943d495413c952281d8cbfea611818df5788f0b292bd6558fda979e"
+      },
+      "recipes/chainmail_dark_helm.png": {
+        "before": "325939b9e35e2291b6f0b1eed5b910a3dbaa4d9bbf649f8c0eb93299b6147359",
+        "after": "325939b9e35e2291b6f0b1eed5b910a3dbaa4d9bbf649f8c0eb93299b6147359"
+      },
+      "recipes/chainmail_dark_legs.png": {
+        "before": "570b9fda6a720df5deeee032a91e521a4415af9d40c240b0826159e01eb5e36a",
+        "after": "570b9fda6a720df5deeee032a91e521a4415af9d40c240b0826159e01eb5e36a"
+      },
+      "recipes/chainmail_dark_torso.png": {
+        "before": "a2b03ebc4843cdd36c05f4cae443baef4f15d9df584605db51f49f675942fe7f",
+        "after": "a2b03ebc4843cdd36c05f4cae443baef4f15d9df584605db51f49f675942fe7f"
+      },
+      "recipes/cured_leather.png": {
+        "before": "c25af41ce0b962e3dc7ad1a203d7e38cc0fa7d4d710bccd65c65cc08c385cb27",
+        "after": "c25af41ce0b962e3dc7ad1a203d7e38cc0fa7d4d710bccd65c65cc08c385cb27"
+      },
+      "recipes/dark_wizard_hat.png": {
+        "before": "b16d24270cf62ce1bf9c560732dc3987cefdc56eb31b561499825199c17a28b0",
+        "after": "b16d24270cf62ce1bf9c560732dc3987cefdc56eb31b561499825199c17a28b0"
+      },
+      "recipes/demon_helm.png": {
+        "before": "e79699247f63499609d58691fdee10d0f6efcd5ffd7c3ec7e48ddd542fdeb00e",
+        "after": "e79699247f63499609d58691fdee10d0f6efcd5ffd7c3ec7e48ddd542fdeb00e"
+      },
+      "recipes/ebony_crossbow.png": {
+        "before": "31b8c4aac4f11a952cb75c25d440d02f3f8e83c0278e4e11f8945512abe4c18e",
+        "after": "31b8c4aac4f11a952cb75c25d440d02f3f8e83c0278e4e11f8945512abe4c18e"
+      },
+      "recipes/ebony_longbow.png": {
+        "before": "247e30693340b827d3d45ee8a012ca3f01607a1d28f18d28b107350057d6a4c8",
+        "after": "247e30693340b827d3d45ee8a012ca3f01607a1d28f18d28b107350057d6a4c8"
+      },
+      "recipes/experience_augment.png": {
+        "before": "ccdb95b063e5295f5cbbddf636c39d3a78375324d0db6547b5dfa3f79dfab6b5",
+        "after": "ccdb95b063e5295f5cbbddf636c39d3a78375324d0db6547b5dfa3f79dfab6b5"
+      },
+      "recipes/fc_stick.png": {
+        "before": "f842f567f1ce30b6ad752805ea1d9d5d9da926f1736c02dc843ddf34401dce73",
+        "after": "f842f567f1ce30b6ad752805ea1d9d5d9da926f1736c02dc843ddf34401dce73"
+      },
+      "recipes/fire_assassin_boots.png": {
+        "before": "e6708a726d46bc1d6259c1fed3d6e11344b1a32f50353452af2c1aa237dcbd7a",
+        "after": "e6708a726d46bc1d6259c1fed3d6e11344b1a32f50353452af2c1aa237dcbd7a"
+      },
+      "recipes/fire_assassin_helm.png": {
+        "before": "f21fc136603196a794ec440fd42c6e597631196b24aeabd03faed1ec7620ca65",
+        "after": "f21fc136603196a794ec440fd42c6e597631196b24aeabd03faed1ec7620ca65"
+      },
+      "recipes/fire_assassin_legs.png": {
+        "before": "ffd23be11a53f9604aa5a4751efb7916cbd7298182790fdde530af1b4dea52b5",
+        "after": "ffd23be11a53f9604aa5a4751efb7916cbd7298182790fdde530af1b4dea52b5"
+      },
+      "recipes/fire_assassin_torso.png": {
+        "before": "003faf93b51da7bddc5d8b4d6c8f4b0f279a23f93042bde99a9fa30beca87f53",
+        "after": "003faf93b51da7bddc5d8b4d6c8f4b0f279a23f93042bde99a9fa30beca87f53"
+      },
+      "recipes/flame_augment.png": {
+        "before": "0d9c9173c39554feac49e35a3c113919694656930971ceee8ee86ebcd831f0c1",
+        "after": "0d9c9173c39554feac49e35a3c113919694656930971ceee8ee86ebcd831f0c1"
+      },
+      "recipes/great_health_potion.png": {
+        "before": "953f05bc16461426dd87dc9ef8fc86cc000beac7d98e58bd1d9b1532eb87c8a0",
+        "after": "953f05bc16461426dd87dc9ef8fc86cc000beac7d98e58bd1d9b1532eb87c8a0"
+      },
+      "recipes/great_will_potion.png": {
+        "before": "0042a8f7485c8ac50f3fc03861f8cc7e9930731fa8b19f872a59157bcb48f14e",
+        "after": "0042a8f7485c8ac50f3fc03861f8cc7e9930731fa8b19f872a59157bcb48f14e"
+      },
+      "recipes/guard_bowerstone_boots.png": {
+        "before": "7d7781a05dbdba15e9c2d91753778e3741a695e16eba2bbfc547393a28529da8",
+        "after": "7d7781a05dbdba15e9c2d91753778e3741a695e16eba2bbfc547393a28529da8"
+      },
+      "recipes/guard_bowerstone_helm.png": {
+        "before": "53a7a1fd3df891741ac4db83d866f7bd16d07548fcbf9a3b76a509e869a89195",
+        "after": "53a7a1fd3df891741ac4db83d866f7bd16d07548fcbf9a3b76a509e869a89195"
+      },
+      "recipes/guard_bowerstone_legs.png": {
+        "before": "391d13b36e47f00ed207bfd7a03ea239d88079637c7250c2fdfd331f9e74b094",
+        "after": "391d13b36e47f00ed207bfd7a03ea239d88079637c7250c2fdfd331f9e74b094"
+      },
+      "recipes/guard_bowerstone_torso.png": {
+        "before": "3aaa87a26eff3526d8e9239b504f776fad16e9cb81c79ea0f9e81751d5c959e3",
+        "after": "3aaa87a26eff3526d8e9239b504f776fad16e9cb81c79ea0f9e81751d5c959e3"
+      },
+      "recipes/guard_oakvale_boots.png": {
+        "before": "90558d261d67b993c7de847779e8ecfc54873c3d561382094d35e3b674265b89",
+        "after": "90558d261d67b993c7de847779e8ecfc54873c3d561382094d35e3b674265b89"
+      },
+      "recipes/guard_oakvale_helm.png": {
+        "before": "0b27be74cecc810bc5743ccdd2608f0ad601332f498580d18d0da240be966452",
+        "after": "0b27be74cecc810bc5743ccdd2608f0ad601332f498580d18d0da240be966452"
+      },
+      "recipes/guard_oakvale_legs.png": {
+        "before": "ecb28c1bc749f217c8081051bdcac6538949a9f5a18b7e64448e7f3a6473659a",
+        "after": "ecb28c1bc749f217c8081051bdcac6538949a9f5a18b7e64448e7f3a6473659a"
+      },
+      "recipes/guard_oakvale_torso.png": {
+        "before": "05b5f5f921a8c21cc494b38447d0ddb996ccdbad8d877f2001104945bd74966d",
+        "after": "05b5f5f921a8c21cc494b38447d0ddb996ccdbad8d877f2001104945bd74966d"
+      },
+      "recipes/guard_snowspire_boots.png": {
+        "before": "f9374359a6e5c419bf594e0f86670f609b704c0b4390dd5c124c9f45e76c73bd",
+        "after": "f9374359a6e5c419bf594e0f86670f609b704c0b4390dd5c124c9f45e76c73bd"
+      },
+      "recipes/guard_snowspire_helm.png": {
+        "before": "c6f39dc5b015e375319e07ac57e0387c426ea70c45a4f3843d5ff3bab21d0e5a",
+        "after": "c6f39dc5b015e375319e07ac57e0387c426ea70c45a4f3843d5ff3bab21d0e5a"
+      },
+      "recipes/guard_snowspire_legs.png": {
+        "before": "a33bba87c4616b63f2ee50fec859990a9336682936b98b96b6089bd965a5fcf2",
+        "after": "a33bba87c4616b63f2ee50fec859990a9336682936b98b96b6089bd965a5fcf2"
+      },
+      "recipes/guard_snowspire_torso.png": {
+        "before": "735a91386978ed5a66417e86d4195af13b860a95e9b91c68b05c5a6fea724d85",
+        "after": "735a91386978ed5a66417e86d4195af13b860a95e9b91c68b05c5a6fea724d85"
+      },
+      "recipes/guild_cloth.png": {
+        "before": "5ef0b96625c6cd92bdc2dad6293e53c9680bc2893fcf4322b5e3f3227d316ae7",
+        "after": "5ef0b96625c6cd92bdc2dad6293e53c9680bc2893fcf4322b5e3f3227d316ae7"
+      },
+      "recipes/health_augment.png": {
+        "before": "a062e8a81e8fb8ed212628ad9fad95118897baadb61bb07519ce355562ea886f",
+        "after": "a062e8a81e8fb8ed212628ad9fad95118897baadb61bb07519ce355562ea886f"
+      },
+      "recipes/health_potion.png": {
+        "before": "124b0becc8662e50ea4854b746cc770676fb91e05769fe268d3714d3158a8323",
+        "after": "124b0becc8662e50ea4854b746cc770676fb91e05769fe268d3714d3158a8323"
+      },
+      "recipes/holy_warrior_helm.png": {
+        "before": "3a363d09b48734975508ad79ac263da21a4abbaa67763496ac395bdf21ef629f",
+        "after": "3a363d09b48734975508ad79ac263da21a4abbaa67763496ac395bdf21ef629f"
+      },
+      "recipes/iron_axe.png": {
+        "before": "a881e0889a3cd0b4b03b57b14aa2afc6b9b5929b8a4a42bd1930b7c5e1877eb3",
+        "after": "a881e0889a3cd0b4b03b57b14aa2afc6b9b5929b8a4a42bd1930b7c5e1877eb3"
+      },
+      "recipes/iron_cleaver.png": {
+        "before": "43994a961c7914ce6741d7421dcb78b2ab5aee1b16e046bb4e25a910704c2b0c",
+        "after": "43994a961c7914ce6741d7421dcb78b2ab5aee1b16e046bb4e25a910704c2b0c"
+      },
+      "recipes/iron_greataxe.png": {
+        "before": "efccf16d1ada9594314f21a6e3dabcde44153c40e0db2235f7ef4d1452514a9a",
+        "after": "efccf16d1ada9594314f21a6e3dabcde44153c40e0db2235f7ef4d1452514a9a"
+      },
+      "recipes/iron_greathammer.png": {
+        "before": "7ef0a0d2e88cfdd062a90eb4c522bdf5443db7fbfcc8f4ad788b53bde5777238",
+        "after": "7ef0a0d2e88cfdd062a90eb4c522bdf5443db7fbfcc8f4ad788b53bde5777238"
+      },
+      "recipes/iron_greatsword.png": {
+        "before": "fc8e0a1325190258bfd0fc8291cf1adf1938d7e62c1b10bead7e338254705fb8",
+        "after": "fc8e0a1325190258bfd0fc8291cf1adf1938d7e62c1b10bead7e338254705fb8"
+      },
+      "recipes/iron_katana.png": {
+        "before": "9c4507ccc40cb47cdf9e84332f9ef8431cebacade4b96bd5423fb7abd9df782c",
+        "after": "9c4507ccc40cb47cdf9e84332f9ef8431cebacade4b96bd5423fb7abd9df782c"
+      },
+      "recipes/iron_longsword.png": {
+        "before": "6c3d066de237a1bd4dc23a4fab22e5d65cdb3dd8044d9b2cdc116d5e5b797574",
+        "after": "6c3d066de237a1bd4dc23a4fab22e5d65cdb3dd8044d9b2cdc116d5e5b797574"
+      },
+      "recipes/iron_mace.png": {
+        "before": "323fa98f91116314df03cad2684055337747f7998f7cb973f899575be26efb7f",
+        "after": "323fa98f91116314df03cad2684055337747f7998f7cb973f899575be26efb7f"
+      },
+      "recipes/iron_pickhammer.png": {
+        "before": "bf2246bc346614829cce490fb09da2567532b0a0863f66a1b84f722b781b896d",
+        "after": "bf2246bc346614829cce490fb09da2567532b0a0863f66a1b84f722b781b896d"
+      },
+      "recipes/leather_bright_boots.png": {
+        "before": "c64dd47e5f0af78602f93b227812a01ca0a3a15025c22fc3a341172001aff855",
+        "after": "c64dd47e5f0af78602f93b227812a01ca0a3a15025c22fc3a341172001aff855"
+      },
+      "recipes/leather_bright_helm.png": {
+        "before": "6ab0ae4579032de79c3a237f0d1349d5438891a88445e99633efcb8aac75a79f",
+        "after": "6ab0ae4579032de79c3a237f0d1349d5438891a88445e99633efcb8aac75a79f"
+      },
+      "recipes/leather_bright_legs.png": {
+        "before": "4d26fb79055fbee4acfc6386d879ebf15874f8abd2262222e64512a15dd851d9",
+        "after": "4d26fb79055fbee4acfc6386d879ebf15874f8abd2262222e64512a15dd851d9"
+      },
+      "recipes/leather_bright_torso.png": {
+        "before": "8098967ee69c5b8668fc29a9aed030eed4a1909ac0e6b15e7a0e2a2bc0b5e159",
+        "after": "8098967ee69c5b8668fc29a9aed030eed4a1909ac0e6b15e7a0e2a2bc0b5e159"
+      },
+      "recipes/leather_dark_boots.png": {
+        "before": "ab277bccc7e5aa7d697254bd0bea9cdcb4e5d5243186648f1879077ba697b531",
+        "after": "ab277bccc7e5aa7d697254bd0bea9cdcb4e5d5243186648f1879077ba697b531"
+      },
+      "recipes/leather_dark_helm.png": {
+        "before": "e168a426005618774e453a780730b1b8bbcd72e583b596b55b886a29f0ecd077",
+        "after": "e168a426005618774e453a780730b1b8bbcd72e583b596b55b886a29f0ecd077"
+      },
+      "recipes/leather_dark_legs.png": {
+        "before": "68fbf37f1acb898396059f83e2235d65aa98052c08db17cfb144909277adb9f6",
+        "after": "68fbf37f1acb898396059f83e2235d65aa98052c08db17cfb144909277adb9f6"
+      },
+      "recipes/leather_dark_torso.png": {
+        "before": "44e663c581680e114f05835f0161ae7d78bcd09a7306dbe46735310e7494a3af",
+        "after": "44e663c581680e114f05835f0161ae7d78bcd09a7306dbe46735310e7494a3af"
+      },
+      "recipes/leather_straps.png": {
+        "before": "33202c3b442593d56f065f715cc9e2e20f825128bf4a2c6ae1fff3b7ff454b97",
+        "after": "33202c3b442593d56f065f715cc9e2e20f825128bf4a2c6ae1fff3b7ff454b97"
+      },
+      "recipes/lightning_augment.png": {
+        "before": "eda03c047ba0670b41880404002c2948eb0e42dc2dce4c8aca03d6f728a38c70",
+        "after": "eda03c047ba0670b41880404002c2948eb0e42dc2dce4c8aca03d6f728a38c70"
+      },
+      "recipes/mana_augment.png": {
+        "before": "cf1907298bd8060dd9a3f9bdaa6fbc735e4ee81e120d6a29c4ab142f01164a3a",
+        "after": "cf1907298bd8060dd9a3f9bdaa6fbc735e4ee81e120d6a29c4ab142f01164a3a"
+      },
+      "recipes/master_axe.png": {
+        "before": "d247cffae2eec2f3047f08a619ee984d93840d81847393f039016aa8b49e15f2",
+        "after": "d247cffae2eec2f3047f08a619ee984d93840d81847393f039016aa8b49e15f2"
+      },
+      "recipes/master_cleaver.png": {
+        "before": "bea9b18a52599fb3a3117c57af643b66b37d4e356b0f61ec50e24d3f4a2c918b",
+        "after": "bea9b18a52599fb3a3117c57af643b66b37d4e356b0f61ec50e24d3f4a2c918b"
+      },
+      "recipes/master_crossbow.png": {
+        "before": "c7e0856870f8c427547f156d05b69d2cd643434064172e12524b2fe583b3fc91",
+        "after": "c7e0856870f8c427547f156d05b69d2cd643434064172e12524b2fe583b3fc91"
+      },
+      "recipes/master_greataxe.png": {
+        "before": "796048f46f47f8d951343e4db7a1e56d6b89d10c5223a21f6df78b6cf4d94727",
+        "after": "796048f46f47f8d951343e4db7a1e56d6b89d10c5223a21f6df78b6cf4d94727"
+      },
+      "recipes/master_greathammer.png": {
+        "before": "e36fa0d035119dbfb144fdcc6f074eb065d9dd8bccd9d96c9332b8253d6d36ed",
+        "after": "e36fa0d035119dbfb144fdcc6f074eb065d9dd8bccd9d96c9332b8253d6d36ed"
+      },
+      "recipes/master_greatsword.png": {
+        "before": "d333ae5731a680927cf7f1d525475fea4900249a1a35f964101571b088d6f9ef",
+        "after": "d333ae5731a680927cf7f1d525475fea4900249a1a35f964101571b088d6f9ef"
+      },
+      "recipes/master_ingot.png": {
+        "before": "f370051d5ba8580f798a9bd7abadb5c5c807062a94281764eb7706cac175e44a",
+        "after": "f370051d5ba8580f798a9bd7abadb5c5c807062a94281764eb7706cac175e44a"
+      },
+      "recipes/master_katana.png": {
+        "before": "1af0a7860b85b1740800a6ab0961a64d6099d27e6a775cec3e470ee3ecb1ca55",
+        "after": "1af0a7860b85b1740800a6ab0961a64d6099d27e6a775cec3e470ee3ecb1ca55"
+      },
+      "recipes/master_longbow.png": {
+        "before": "0ae3c0c8775a0fc80d60fed6ee1b862a4abd444fec781ce027b5d6f8a55f8861",
+        "after": "0ae3c0c8775a0fc80d60fed6ee1b862a4abd444fec781ce027b5d6f8a55f8861"
+      },
+      "recipes/master_longsword.png": {
+        "before": "93fdf430c3c000cf2e392cff36009f77ddd832bd73ab0540632dcd3fd3c79997",
+        "after": "93fdf430c3c000cf2e392cff36009f77ddd832bd73ab0540632dcd3fd3c79997"
+      },
+      "recipes/master_mace.png": {
+        "before": "16dc2589d01946ca33255f0d5d6e07b98a9d1ab41c8a8e1339ec015203db7c0e",
+        "after": "16dc2589d01946ca33255f0d5d6e07b98a9d1ab41c8a8e1339ec015203db7c0e"
+      },
+      "recipes/master_pickhammer.png": {
+        "before": "c03dd3e477549f112fed4fecd6b9f9fa39ef9a147bf82641ce657a6ce515760d",
+        "after": "c03dd3e477549f112fed4fecd6b9f9fa39ef9a147bf82641ce657a6ce515760d"
+      },
+      "recipes/oak_crossbow.png": {
+        "before": "c9f39836c39d1e35580eac1b9176931d093ab17d1ab22642a45876aa83554be8",
+        "after": "c9f39836c39d1e35580eac1b9176931d093ab17d1ab22642a45876aa83554be8"
+      },
+      "recipes/oak_longbow.png": {
+        "before": "6ca7f741809a316d049ae5c5cd02cf848ceadd84bc2fa54835fd9947ac18b1a5",
+        "after": "6ca7f741809a316d049ae5c5cd02cf848ceadd84bc2fa54835fd9947ac18b1a5"
+      },
+      "recipes/obsidian_axe.png": {
+        "before": "4385208c8d1e61b73f3aff8b8fd56dd9364a995860f7944c9d09c33a6772d0c8",
+        "after": "4385208c8d1e61b73f3aff8b8fd56dd9364a995860f7944c9d09c33a6772d0c8"
+      },
+      "recipes/obsidian_cleaver.png": {
+        "before": "7bac2c1042e8bf10856d468c386a7d7be7ac46d9a801e04d948652538ba46aa6",
+        "after": "7bac2c1042e8bf10856d468c386a7d7be7ac46d9a801e04d948652538ba46aa6"
+      },
+      "recipes/obsidian_greataxe.png": {
+        "before": "552be412ca8fe36c0936987c656fe046cc8911cb38ccb7ee7aa8fb8c494c2ed6",
+        "after": "552be412ca8fe36c0936987c656fe046cc8911cb38ccb7ee7aa8fb8c494c2ed6"
+      },
+      "recipes/obsidian_greathammer.png": {
+        "before": "87801b331a14492148f02b4772621fff69db47bc3371b5e253d2bfd7f0d2f9d2",
+        "after": "87801b331a14492148f02b4772621fff69db47bc3371b5e253d2bfd7f0d2f9d2"
+      },
+      "recipes/obsidian_greatsword.png": {
+        "before": "1496bc4cc52b509e55d36a1417e7e21d887946f6d151a661685a1d284ea88dc8",
+        "after": "1496bc4cc52b509e55d36a1417e7e21d887946f6d151a661685a1d284ea88dc8"
+      },
+      "recipes/obsidian_ingot.png": {
+        "before": "8af1a59b4ee09f122cb5e9fdf142d9091816995606f08c439e9f4c3fc3ae41a0",
+        "after": "8af1a59b4ee09f122cb5e9fdf142d9091816995606f08c439e9f4c3fc3ae41a0"
+      },
+      "recipes/obsidian_katana.png": {
+        "before": "2ea27a8700b1c88c2a29898cc585e3810ff347a250b7c31a0daf85dd0a74bc14",
+        "after": "2ea27a8700b1c88c2a29898cc585e3810ff347a250b7c31a0daf85dd0a74bc14"
+      },
+      "recipes/obsidian_longsword.png": {
+        "before": "27c27c2a68349e381c9176c666a1904cfb3f4a921e014bb3b44eaddeebe968ca",
+        "after": "27c27c2a68349e381c9176c666a1904cfb3f4a921e014bb3b44eaddeebe968ca"
+      },
+      "recipes/obsidian_mace.png": {
+        "before": "1f3e13d6f3f872284abcab8f203fbe72f2e31dfe0959c4aa84bcf1b3a9fb1fb2",
+        "after": "1f3e13d6f3f872284abcab8f203fbe72f2e31dfe0959c4aa84bcf1b3a9fb1fb2"
+      },
+      "recipes/obsidian_pickhammer.png": {
+        "before": "5ca08c6a2b9fa959560b76e02f3c4c60a5a352350a17e7983596fa54773d2b7a",
+        "after": "5ca08c6a2b9fa959560b76e02f3c4c60a5a352350a17e7983596fa54773d2b7a"
+      },
+      "recipes/piercing_augment.png": {
+        "before": "76e783bcd1214896d9b53a50635245ced7e9994d16b6c0ff7e805bdc1261e94b",
+        "after": "76e783bcd1214896d9b53a50635245ced7e9994d16b6c0ff7e805bdc1261e94b"
+      },
+      "recipes/pimp_hat.png": {
+        "before": "d93fa03f46606f396bf8a50c0577ae00d9a750f13a191f55091df8e099ada8ee",
+        "after": "d93fa03f46606f396bf8a50c0577ae00d9a750f13a191f55091df8e099ada8ee"
+      },
+      "recipes/platemail_boots.png": {
+        "before": "899541899b75459cc958be739ed8c7a8f11c63e0c59ddff4edd659ef2466b2ab",
+        "after": "899541899b75459cc958be739ed8c7a8f11c63e0c59ddff4edd659ef2466b2ab"
+      },
+      "recipes/platemail_helm.png": {
+        "before": "f3aacbe769f937c4b9a61304f419a1bf19b37999d68672582cb401c5dc41b7d4",
+        "after": "f3aacbe769f937c4b9a61304f419a1bf19b37999d68672582cb401c5dc41b7d4"
+      },
+      "recipes/platemail_legs.png": {
+        "before": "bf61915eb4b392decc00cc57998bd0974ea3e428703465321dc27ed5165976d8",
+        "after": "bf61915eb4b392decc00cc57998bd0974ea3e428703465321dc27ed5165976d8"
+      },
+      "recipes/platemail_torso.png": {
+        "before": "3fa3e1ad896321320f9f8e895194167585487509239f0b892213cb9e97da5b9f",
+        "after": "3fa3e1ad896321320f9f8e895194167585487509239f0b892213cb9e97da5b9f"
+      },
+      "recipes/resurrection_phial.png": {
+        "before": "4a16ad635042e1710fddd85a78618ca7e2a6fff968277b439f2f7cf476d849c9",
+        "after": "4a16ad635042e1710fddd85a78618ca7e2a6fff968277b439f2f7cf476d849c9"
+      },
+      "recipes/runed_hilt.png": {
+        "before": "e63d533cbae63e73708a77c17d2f0ede9e615285b4a5caed7d46d27dfbc8a33f",
+        "after": "e63d533cbae63e73708a77c17d2f0ede9e615285b4a5caed7d46d27dfbc8a33f"
+      },
+      "recipes/scimitar.png": {
+        "before": "db9e1f4831438c22e098d47a6434869c10e5b0eb01b0fa02d7b784a2be967ac4",
+        "after": "db9e1f4831438c22e098d47a6434869c10e5b0eb01b0fa02d7b784a2be967ac4"
+      },
+      "recipes/sharpening_augment.png": {
+        "before": "3ced4d094fdbc5675cea760de6a0970a58433707e6ef18515f6031fb05db7553",
+        "after": "3ced4d094fdbc5675cea760de6a0970a58433707e6ef18515f6031fb05db7553"
+      },
+      "recipes/silver_augment.png": {
+        "before": "bac65d0f4229f64342bf11033ebb5c943142ae5663357dd363485d4f1e37527e",
+        "after": "bac65d0f4229f64342bf11033ebb5c943142ae5663357dd363485d4f1e37527e"
+      },
+      "recipes/steel_axe.png": {
+        "before": "9df71e8b51ae95da9ace0fef783fa8d735c97b3f4e587a5dfcb18fc9ec380266",
+        "after": "9df71e8b51ae95da9ace0fef783fa8d735c97b3f4e587a5dfcb18fc9ec380266"
+      },
+      "recipes/steel_cleaver.png": {
+        "before": "93ae1e931348e05b32a4918c329ccbf972dbb46c474bcb9e0ec40e652e10a828",
+        "after": "93ae1e931348e05b32a4918c329ccbf972dbb46c474bcb9e0ec40e652e10a828"
+      },
+      "recipes/steel_greataxe.png": {
+        "before": "c17fe454aad98f9eec0b5acef3a1d22bfcb3e1707cbeb5c0930f18c463d6f60a",
+        "after": "c17fe454aad98f9eec0b5acef3a1d22bfcb3e1707cbeb5c0930f18c463d6f60a"
+      },
+      "recipes/steel_greathammer.png": {
+        "before": "0419e80adb09d656c3def83811ca765b8ccd964c9ab3c6ecba9a19005d51797a",
+        "after": "0419e80adb09d656c3def83811ca765b8ccd964c9ab3c6ecba9a19005d51797a"
+      },
+      "recipes/steel_greatsword.png": {
+        "before": "1e6cd8b494c8ae8b14c975637703cdd06cef8dc3601e999276024532431aaef1",
+        "after": "1e6cd8b494c8ae8b14c975637703cdd06cef8dc3601e999276024532431aaef1"
+      },
+      "recipes/steel_ingot.png": {
+        "before": "c03c81ef1d6f63e335be49ffcd3fa8b0323c5616098c3aa33c3e3d5e4ab0e9e1",
+        "after": "c03c81ef1d6f63e335be49ffcd3fa8b0323c5616098c3aa33c3e3d5e4ab0e9e1"
+      },
+      "recipes/steel_katana.png": {
+        "before": "e87a3b55e023b60695fdf982cc5827688f0a410335c3d3dae342ca242f9b27d7",
+        "after": "e87a3b55e023b60695fdf982cc5827688f0a410335c3d3dae342ca242f9b27d7"
+      },
+      "recipes/steel_longsword.png": {
+        "before": "380890c9995641e2d8df8377130f3726bd5381c1b228efbfc45bb04e3f542cdf",
+        "after": "380890c9995641e2d8df8377130f3726bd5381c1b228efbfc45bb04e3f542cdf"
+      },
+      "recipes/steel_mace.png": {
+        "before": "2a40f99325c82fd9038549b00d6023e28a935a7a320c2c79ae0b253c80577df5",
+        "after": "2a40f99325c82fd9038549b00d6023e28a935a7a320c2c79ae0b253c80577df5"
+      },
+      "recipes/steel_pickhammer.png": {
+        "before": "a04c7bb681c40377a9561bfefb12461efe85c281753dd870164a8e580dbf631c",
+        "after": "a04c7bb681c40377a9561bfefb12461efe85c281753dd870164a8e580dbf631c"
+      },
+      "recipes/tempered_plate.png": {
+        "before": "90c3ed527e18712614d2393413c8f4cfce3e773812e642657d2cb0a662d68aad",
+        "after": "90c3ed527e18712614d2393413c8f4cfce3e773812e642657d2cb0a662d68aad"
+      },
+      "recipes/villager_boots.png": {
+        "before": "7946760662371bdf809478aae05bba43ed18c01abea4933d5ccaf6d3efdc1efd",
+        "after": "7946760662371bdf809478aae05bba43ed18c01abea4933d5ccaf6d3efdc1efd"
+      },
+      "recipes/villager_helm.png": {
+        "before": "07d5a6a251233768a95c8e1906c30b74d347c35a223f4ab8ea10b834d639a370",
+        "after": "07d5a6a251233768a95c8e1906c30b74d347c35a223f4ab8ea10b834d639a370"
+      },
+      "recipes/villager_legs.png": {
+        "before": "c72992ff78026b0794f664a6d691004c8a4d56a5a40b722433e5973d23dd7ee0",
+        "after": "c72992ff78026b0794f664a6d691004c8a4d56a5a40b722433e5973d23dd7ee0"
+      },
+      "recipes/villager_torso.png": {
+        "before": "84eebb3681fe9f637deb43bfdbf370fb4988da8d2df66922c0555ae49ca360c9",
+        "after": "84eebb3681fe9f637deb43bfdbf370fb4988da8d2df66922c0555ae49ca360c9"
+      },
+      "recipes/waxed_bowstring.png": {
+        "before": "e7c92828d900c93c9c3e2738db62ec545c538a3de715791e4263c3f5ec6e6fab",
+        "after": "e7c92828d900c93c9c3e2738db62ec545c538a3de715791e4263c3f5ec6e6fab"
+      },
+      "recipes/will_potion.png": {
+        "before": "428a21eda4274da108950b711dbee99c9e06a4fa3213915478dddd1c79ccdd70",
+        "after": "428a21eda4274da108950b711dbee99c9e06a4fa3213915478dddd1c79ccdd70"
+      },
+      "recipes/wizard_hat.png": {
+        "before": "5e3cea8c5b789c99a8cf5ebdb640f42f6ad733f26c9d00c45eff9618bb237e0c",
+        "after": "5e3cea8c5b789c99a8cf5ebdb640f42f6ad733f26c9d00c45eff9618bb237e0c"
+      },
+      "recipes/yew_crossbow.png": {
+        "before": "f753eed2d0e5a6917804df3825e1f3a8207987f64a4e0f478d493d5c4f112b9d",
+        "after": "f753eed2d0e5a6917804df3825e1f3a8207987f64a4e0f478d493d5c4f112b9d"
+      },
+      "recipes/yew_longbow.png": {
+        "before": "666a87be269146cb42b881f68036d90aea25062b5874b12d61bb61dc5a717c04",
+        "after": "666a87be269146cb42b881f68036d90aea25062b5874b12d61bb61dc5a717c04"
+      },
+      "structures/arboretum.png": {
+        "before": "dd91aa2f10018ceb6ef39437a888d6c68622dfadb91be59fd332ee88eaea60b5",
+        "after": "dd91aa2f10018ceb6ef39437a888d6c68622dfadb91be59fd332ee88eaea60b5"
+      },
+      "structures/archon_folly.png": {
+        "before": "d768c1ddef7259d388e269dd8cd083c57af7a3e76bcf53c09e5feac3c4312135",
+        "after": "d768c1ddef7259d388e269dd8cd083c57af7a3e76bcf53c09e5feac3c4312135"
+      },
+      "structures/archon_shrine.png": {
+        "before": "62beb1a321cedff39c3f0a1b9619a09fe118a600e0d73e9eed87dad2d5ced72a",
+        "after": "62beb1a321cedff39c3f0a1b9619a09fe118a600e0d73e9eed87dad2d5ced72a"
+      },
+      "structures/arena_ring.png": {
+        "before": "084508bc298cfbee7fe17955c007fcd192e6213f8e14cfe38ca4bafdba9b1e06",
+        "after": "084508bc298cfbee7fe17955c007fcd192e6213f8e14cfe38ca4bafdba9b1e06"
+      },
+      "structures/bandit_camp.png": {
+        "before": "4dbac5a938f86d4ce4a06056a217a255cc540361cc429c28667b167650f7bf23",
+        "after": "4dbac5a938f86d4ce4a06056a217a255cc540361cc429c28667b167650f7bf23"
+      },
+      "structures/bargate_prison.png": {
+        "before": "45c18d7ad59af21b903990a4d83c1b9e795a6a615a2b74adde7b695f27590663",
+        "after": "45c18d7ad59af21b903990a4d83c1b9e795a6a615a2b74adde7b695f27590663"
+      },
+      "structures/bowerstone_market.png": {
+        "before": "f87933d13fa22ea3d1848de1fb7090982e67712feecc06f8b4085a5a0f40fa85",
+        "after": "f87933d13fa22ea3d1848de1fb7090982e67712feecc06f8b4085a5a0f40fa85"
+      },
+      "structures/chamber_of_fate.png": {
+        "before": "cdf702f7aa856a638e3baf1826ec04ccd9dbac03d8bb8de368523a092ed47a6f",
+        "after": "cdf702f7aa856a638e3baf1826ec04ccd9dbac03d8bb8de368523a092ed47a6f"
+      },
+      "structures/chapel_skorm.png": {
+        "before": "7eb582b8b399f487ca37c9846b4cad258b4f24efeafd108011269254d883a7e6",
+        "after": "7eb582b8b399f487ca37c9846b4cad258b4f24efeafd108011269254d883a7e6"
+      },
+      "structures/darkwood_camp.png": {
+        "before": "f9092d0e18a2837fb1284cd756533616ac4329aa7fc047f3e8da69216410b392",
+        "after": "f9092d0e18a2837fb1284cd756533616ac4329aa7fc047f3e8da69216410b392"
+      },
+      "structures/demon_door_arch.png": {
+        "before": "9a4e8a0f8f1b761da48fe19a5e55ae2f0b78bd996153cd96cffc4af665e086de",
+        "after": "9a4e8a0f8f1b761da48fe19a5e55ae2f0b78bd996153cd96cffc4af665e086de"
+      },
+      "structures/fisher_creek.png": {
+        "before": "4f50760f590f2c9bbe5fe73b9f68eca44ee6355276570e3c5b44c0c05e0d9634",
+        "after": "4f50760f590f2c9bbe5fe73b9f68eca44ee6355276570e3c5b44c0c05e0d9634"
+      },
+      "structures/focus_site.png": {
+        "before": "58599aecd524fa57e5e0727f3ef67130913f34089f579b5da379360dfec95658",
+        "after": "58599aecd524fa57e5e0727f3ef67130913f34089f579b5da379360dfec95658"
+      },
+      "structures/graveyard.png": {
+        "before": "932309b84069167dff9bf4931558550088317d41d96a0f37a388bfa1047bcd3e",
+        "after": "932309b84069167dff9bf4931558550088317d41d96a0f37a388bfa1047bcd3e"
+      },
+      "structures/greatwood_gorge.png": {
+        "before": "5ca7ac4fd1dfa582339a855c0f91326e19aba36480784d1d6749d6d09964448e",
+        "after": "5ca7ac4fd1dfa582339a855c0f91326e19aba36480784d1d6749d6d09964448e"
+      },
+      "structures/grey_house.png": {
+        "before": "e75e57f87e6aca68fe28eed16f9524350f2ce001a6e047a145216060388e5793",
+        "after": "e75e57f87e6aca68fe28eed16f9524350f2ce001a6e047a145216060388e5793"
+      },
+      "structures/guild_hall.png": {
+        "before": "93291f03c21b5bf63500ac790f39866aa06a76ed6b949b50bcf3b7a3d0c1f313",
+        "after": "93291f03c21b5bf63500ac790f39866aa06a76ed6b949b50bcf3b7a3d0c1f313"
+      },
+      "structures/hobbe_cave.png": {
+        "before": "fd5bf8fc1e8bd43e8f429d1a5e77fd0a73e71e775a234164cda4da733da6a737",
+        "after": "fd5bf8fc1e8bd43e8f429d1a5e77fd0a73e71e775a234164cda4da733da6a737"
+      },
+      "structures/hook_coast.png": {
+        "before": "aa002466eb605dcbf03cad9eb0d2966471823ec9b0a03d8d6df1f307cbde743e",
+        "after": "aa002466eb605dcbf03cad9eb0d2966471823ec9b0a03d8d6df1f307cbde743e"
+      },
+      "structures/knothole_glade.png": {
+        "before": "99b51b7ec9d6aa7165d34d9c0dd8a728bb5f75f14f91b6b91c6387cbddc8c745",
+        "after": "99b51b7ec9d6aa7165d34d9c0dd8a728bb5f75f14f91b6b91c6387cbddc8c745"
+      },
+      "structures/library_arcanum.png": {
+        "before": "8c21d69c78cbba290b5818b5912b656b7203fc9ac98dfd70c08f3c7395b28da2",
+        "after": "8c21d69c78cbba290b5818b5912b656b7203fc9ac98dfd70c08f3c7395b28da2"
+      },
+      "structures/lookout_point.png": {
+        "before": "a2f458db6043d12ca3a19fbc521e0c6b5b3b99595d46d4c5e9f4a310a1581931",
+        "after": "a2f458db6043d12ca3a19fbc521e0c6b5b3b99595d46d4c5e9f4a310a1581931"
+      },
+      "structures/oakvale_village.png": {
+        "before": "3ab05d1649eff9bc0afa3625abaa119cd723bd22c6d05b9abee77d38f603490b",
+        "after": "3ab05d1649eff9bc0afa3625abaa119cd723bd22c6d05b9abee77d38f603490b"
+      },
+      "structures/orchard_farm.png": {
+        "before": "4ff639d0c3253e42d32e3894ad1c211f99628702600b386f91767213281b3d21",
+        "after": "4ff639d0c3253e42d32e3894ad1c211f99628702600b386f91767213281b3d21"
+      },
+      "structures/power_guild_courtyard.png": {
+        "before": "9f00d44fd240a0ad258b4511504001376226eb59438c967b06e0184da762127e",
+        "after": "9f00d44fd240a0ad258b4511504001376226eb59438c967b06e0184da762127e"
+      },
+      "structures/power_necropolis.png": {
+        "before": "948bd7cc0b540076379e891a94a94c007956d3cdfc1d56c4c439760c4ac1406e",
+        "after": "948bd7cc0b540076379e891a94a94c007956d3cdfc1d56c4c439760c4ac1406e"
+      },
+      "structures/power_oakvale_quay.png": {
+        "before": "b40af67141286dc5a73290d49c635a41ff0438e7d3b422bd1bc9fa7a9b5d1aa9",
+        "after": "b40af67141286dc5a73290d49c635a41ff0438e7d3b422bd1bc9fa7a9b5d1aa9"
+      },
+      "structures/power_snowspire_oracle.png": {
+        "before": "e40809dd5ca0c6b9ae0d915a1d0711314b1f273dd9515f750eb754e841c79eee",
+        "after": "e40809dd5ca0c6b9ae0d915a1d0711314b1f273dd9515f750eb754e841c79eee"
+      },
+      "structures/rose_cottage.png": {
+        "before": "baddc21c406a856c04c47fa8e45231fd2048fd4680dd759baa1e50d84d9bd214",
+        "after": "baddc21c406a856c04c47fa8e45231fd2048fd4680dd759baa1e50d84d9bd214"
+      },
+      "structures/silver_chest_ruin.png": {
+        "before": "4aece62e5f91dfa5d93a628acb337f1ede0c1e3e9222528e6cf32aa8f84c0794",
+        "after": "4aece62e5f91dfa5d93a628acb337f1ede0c1e3e9222528e6cf32aa8f84c0794"
+      },
+      "structures/temple_avo.png": {
+        "before": "6be2bc53695ccee957be54e0f2f614a590f4fb0b77b57ce83dcb41d2047da669",
+        "after": "6be2bc53695ccee957be54e0f2f614a590f4fb0b77b57ce83dcb41d2047da669"
+      },
+      "structures/windmill_hill.png": {
+        "before": "04108e20b43dd082e23cc83896020bd969914d593fbad967e7b35a62d16d23ff",
+        "after": "04108e20b43dd082e23cc83896020bd969914d593fbad967e7b35a62d16d23ff"
+      },
+      "structures/witchwood_stones.png": {
+        "before": "b787a47b1b7c5d00277679c5c899bca97e521000c9b5dedb3cbbcdd58dd9dd14",
+        "after": "b787a47b1b7c5d00277679c5c899bca97e521000c9b5dedb3cbbcdd58dd9dd14"
+      }
+    }
+  },
+  "documentation_render": {
+    "baseline": "GP21 committed blobs, independently equal its tmp/GP21-doc-screenshots outputs",
+    "compared": 7,
+    "changed": [
+      "screenshots/docs/26_archery_backboard.png"
+    ],
+    "sha256": {
+      "screenshots/docs/01_hero_guild_gate.png": {
+        "before": "a86cf327e5320b8553a66c6daec55e6f9e877f85a58ba0b332e0da4dc459b899",
+        "after": "a86cf327e5320b8553a66c6daec55e6f9e877f85a58ba0b332e0da4dc459b899"
+      },
+      "screenshots/docs/12_guild_wide_lake_view.png": {
+        "before": "8d5d980ca2ab4376150884ca556db88a13e585662b6e467a5f15a2c0c09277dc",
+        "after": "8d5d980ca2ab4376150884ca556db88a13e585662b6e467a5f15a2c0c09277dc"
+      },
+      "screenshots/docs/23_guild_map_room.png": {
+        "before": "1ecafee2ff4012b74cd18b97883c181227fceea714c8dc0ad1bac408b9302c20",
+        "after": "1ecafee2ff4012b74cd18b97883c181227fceea714c8dc0ad1bac408b9302c20"
+      },
+      "screenshots/docs/24_guild_library.png": {
+        "before": "925c6d6495ee45423905567aace292e707cb03f139b99ea0a6777a87bb97629d",
+        "after": "925c6d6495ee45423905567aace292e707cb03f139b99ea0a6777a87bb97629d"
+      },
+      "screenshots/docs/26_archery_backboard.png": {
+        "before": "936c6bbb2f714f3b0c33e38ca2e9e30d0888676a646f3b6abc546bc6e6750396",
+        "after": "c02cc13a7c0ffce2ca86e7298675d1929d9ef97b78df6399ce14b83010ffc2c2"
+      },
+      "screenshots/docs/27_maze_study.png": {
+        "before": "cad3a0f038c6792ffdbf0fc1257b678f89ef333aca2379258bf679c2e1fbcc96",
+        "after": "cad3a0f038c6792ffdbf0fc1257b678f89ef333aca2379258bf679c2e1fbcc96"
+      },
+      "screenshots/docs/28_guild_dormitory.png": {
+        "before": "978a2cd6be72bc3f0a2a4425e972ba87bcb3b758061453bca6a2d410c8fe7026",
+        "after": "978a2cd6be72bc3f0a2a4425e972ba87bcb3b758061453bca6a2d410c8fe7026"
+      }
+    },
+    "renderer_sha256": "9cf1c390301b7251d26a63eabebbf017bffd14311d72c6527d71d6f208f31e10"
+  }
+}

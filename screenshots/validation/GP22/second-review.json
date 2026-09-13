@@ -1,0 +1,30 @@
+{
+  "review": "Independent read-only GP22 source/tests/helper review",
+  "blocking_findings": [],
+  "production_source_sha256": "f16ab7adbe1b0391b1c04354f1ab75cd3dd56ab0d3ff444923aeea7c259fac08",
+  "authored_test_sha256": "e17b08ad8abcd3c4054f05851a8e23ac00bb36a41552b265ade9902fbd8d35b6",
+  "helper_sha256": "b7d2064e87a262dafebaf695a508fdcd891e22648574d5262d5ed81046a829c1",
+  "focused_test_result": "12 passed",
+  "actual_predecessor_commit": "af73bfb42c3f742454c7cf88c17ad052c3f0cf41",
+  "actual_serialized_asset_match": true,
+  "changes": 12,
+  "other_cells_exact": 395268,
+  "palette_states_metadata_secondary_layers_exact": true,
+  "rng_instances": 1,
+  "rng_and_layout_exact": true,
+  "walking_nodes": [
+    13812,
+    13806
+  ],
+  "complete_gate_paths_exact": true,
+  "maze_cells_exact": 678,
+  "native_acceptance": "unrun",
+  "assumptions_reviewed": [
+    "The final helper contains no RNG use and its twelve positions resolve to six former-air columns only; all four materials already exist in the serialized palette.",
+    "The disabled-helper fixture alone would be an incomplete historical proof; the review helper independently runs actual af73bfb/current owners and requires each output to match its corresponding shipped NBT.",
+    "Cardinal walking graph deliberately excludes decorative terracotta/wool as certified floors; six removed ground-column nodes do not describe native standing atop scenery. Documentation states this limit.",
+    "The nineteen analytic body sweeps conservatively expand only the added full cubes; radius0.35/height1.9 encloses the checked Skill entity. Existing geometry relies on retained floor/slab/fence model.",
+    "All new cubes terminate by z34, while all retained actual Skill rays terminate at z34.5 and approach from greater z; scenery cannot intersect those bounded segments. Actual script callbacks and lower-fence overhang negatives are retained.",
+    "Nine independent helper mutations fail, including the rejected forward tower that preserves destination reachability but changes an exact east-door route."
+  ]
+}

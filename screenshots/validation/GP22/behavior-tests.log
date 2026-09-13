@@ -1,0 +1,13 @@
+test_alignment_cosmetics (__main__.BehaviorRegression.test_alignment_cosmetics) ... ok
+test_all_item_formats (__main__.BehaviorRegression.test_all_item_formats) ... ok
+test_door_stays_anchored_and_open_state_releases_collision (__main__.BehaviorRegression.test_door_stays_anchored_and_open_state_releases_collision) ... ok
+test_guild_defence_filters_only_offenders_and_preserves_other_npcs (__main__.BehaviorRegression.test_guild_defence_filters_only_offenders_and_preserves_other_npcs) ... ok
+test_guild_defence_transitions_restore_base_and_keep_follow_and_watch (__main__.BehaviorRegression.test_guild_defence_transitions_restore_base_and_keep_follow_and_watch) ... ok
+test_guild_training_restores_overridden_components (__main__.BehaviorRegression.test_guild_training_restores_overridden_components) ... ok
+test_social_contracts (__main__.BehaviorRegression.test_social_contracts) ... ok
+test_theresa_matches_existing_entity (__main__.BehaviorRegression.test_theresa_matches_existing_entity) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.162s
+
+OK

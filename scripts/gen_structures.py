@@ -724,6 +724,26 @@ def build_guild_archery_firing_rails(v):
         v.set(cx + dx, 1, cz - 1, SPRUCE_FENCE)
 
 
+def build_guild_archery_scenery(v):
+    """Separate shallow mountain/tower props from original TLC view 141099874.
+
+    Stepped silhouettes, colors and dimensions are block adaptations. Keep the
+    board bypass, every existing target and both south-door approaches intact.
+    These twelve former-air cells lie beyond the live Skill target endpoint;
+    the helper consumes no RNG and never changes the supporting ground.
+    """
+    cx, cz, _ = GUILD_LAYOUT["archery"]
+    for dx, height in ((-6, 1), (-5, 2), (-4, 1)):
+        for y in range(1, height + 1):
+            v.set(cx + dx, y, cz - 7, "minecraft:white_terracotta" if y == 2
+                  else "minecraft:purple_terracotta")
+    for dx, height in ((1, 3), (2, 2), (3, 3)):
+        for y in range(1, height + 1):
+            # The dark painted slit is a solid cell, not a usable opening.
+            v.set(cx + dx, y, cz - 6, "minecraft:black_wool" if (dx, y) == (2, 1)
+                  else "minecraft:light_blue_terracotta")
+
+
 def build_guild_library_interior(v):
     """Tall framed shelves and a reading desk inside the existing Library.
 
@@ -2594,6 +2614,7 @@ def build_guild_hall():
     fix_floating_decor(v)                # re-seat every lantern; no floaters
     build_guild_archery_backboard(v)     # after every RNG-dependent landscape pass
     build_guild_archery_firing_rails(v)  # preserve the open Skill lane and approaches
+    build_guild_archery_scenery(v)       # shallow props in independently surveyed pockets
     build_guild_maze_study(v)            # surveyed fixtures beside final circulation
     build_guild_dorm_wall_bay(v)         # material-only bay in the existing partition
     return v

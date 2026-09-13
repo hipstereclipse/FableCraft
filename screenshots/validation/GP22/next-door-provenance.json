@@ -1,0 +1,42 @@
+{
+  "audit": "next canonical door, read-only",
+  "head_at_audit": "af73bfb42c3f742454c7cf88c17ad052c3f0cf41",
+  "recommended_pairing": [
+    "Greatwood Caves",
+    "The Butterfly House",
+    "Cutlass Bluetane"
+  ],
+  "guide_display_name": "The Butterflyhouse",
+  "guide_url": "https://www.ogxbox.co.uk/media/com_eshop/attachments/Fable_The_Lost_Chapters_Strategy_Guide_Book.pdf",
+  "pdf_pages_inspected_visually": [
+    47,
+    174
+  ],
+  "pdf_pages_text_inspected": [
+    47,
+    110,
+    174,
+    176
+  ],
+  "network_requests": 0,
+  "engine_acceptance": "unrun",
+  "files": {
+    "tmp/conformance/reference-arcanum/prima-tlc-guide.pdf": "0872726adb299a10c94b31d482aecb540d740bf61fab1f22cb08cdcf81ae1a2b",
+    "tmp/conformance/reference-arcanum/prima-tlc-guide.txt": "820ed22a4a920335f078d726fe547848522e72bb2da0483f5ea9e9dbcf9ae81d",
+    "tmp/conformance/dp10-door-audit/prima-p47.png": "2d5b716b27eecaec4f055b0275188e07f77c2724711033382700a2590d3d6645",
+    "tmp/conformance/dp10-door-audit/prima-p174.png": "4266b19fbfc18178ed8e6ab41e85f9c987a70ec5dbc7e7bff047fce4f0ded600",
+    "docs/DEMON_DOOR_DESIGN.md": "7715b8fb57bc9ef94edebb2e628729122c1694f82fe2a10b415ea609bc340950",
+    "scripts/fc_data.py": "46bc9c597aa98e0faaeb8497a1a6e918423112a208fc873d876231ad33c1bbd0",
+    "scripts/gen_structures.py": "f16ab7adbe1b0391b1c04354f1ab75cd3dd56ab0d3ff444923aeea7c259fac08",
+    "packs/Fablecraft_BP/scripts/main.js": "c18b286d79bc16d6b3ea08985d5882f7a2411ae2aeb61de3bd83594d6ffb103e"
+  },
+  "source_image_metadata": {
+    "pdf_page": 174,
+    "greatwood_source_object": 1967,
+    "butterflyhouse_interior_object": 1968,
+    "dimensions": [
+      214,
+      123
+    ]
+  }
+}

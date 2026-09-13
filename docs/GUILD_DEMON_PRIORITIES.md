@@ -59,6 +59,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | DP8 | in-progress | Independent realm maintenance/tick boundaries preserve healthy Arboretum dwell returns through failed Guild claim writes; native acceptance open |
 | GP21 | in-progress | Reference-led timber firing divider adds ten cells with a clear three-column Skill bay, preserving complete checked routes and all other campus cells; native acceptance open |
 | DP9 | in-progress | Guarded Library preparation prevents ambiguous structure/seed replay, verifies exact reward readback and late containment; native acceptance open |
+| GP22 | in-progress | Separate shallow scenic mountain/tower cutouts add depth to the range while preserving targets, complete routes and actual Skill rays; native acceptance open |
 
 Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
 defects and manual status here. These passes are not completed legacy leaves.
@@ -1229,7 +1230,7 @@ and both existing portal pilots; no unchanged failed pinned download was retried
 
 ## DP9 — guarded Library preparation (2026-09-13)
 
-Commit: SELF: TLC Conformance — DP9: guard Library preparation and reward receipts.
+Commit: af73bfb42c3f742454c7cf88c17ad052c3f0cf41. Pushed; exact-head CI 34756528223 passed.
 Eleven actual-predecessor probes reproduced destructive placing replay, late
 volume/shell changes, silent/wrong reward writes, unexpected existing contents
 and a late occupant at seeding. An optional preparation journal in the existing
@@ -1256,3 +1257,43 @@ scripts change among 1,662 snapshot pack files. No native server or world has
 run. GP21 remains the visual baseline. Native
 crash durability, loading cost, multiplayer, collection and collision remain
 unrun; the legacy scoreboard stays 45 leaves and 7 done.
+
+
+## GP22 — layered archery scenery (2026-09-13)
+
+Commit: SELF: TLC Conformance — GP22: layer the Guild archery scenery.
+Reinspection of original TLC view 141099874 supports separate mountain and
+crenellated tower cutouts ahead of the painted scenic panel. Twelve new cells
+form two shallow silhouettes: mountain x80..82,z32 with heights 1/2/1; tower
+x87..89,z33 with heights 3/2/3, both based at y1. The exact cells, proportions,
+materials, block steps and painted slit are explicit Minecraft adaptations.
+The z31 board bypass and the existing firing bay remain clear. A forward tower
+proposal intersected a retained door path and was rejected despite reachability.
+
+See [GUILD_ARCHERY_SCENERY.md](GUILD_ARCHERY_SCENERY.md) and
+`screenshots/validation/GP22/`. All 55 base gates, 65 ESM checks, 12 focused groups
+and Guild diagnostics pass in the isolated reviewed-index snapshot. Independent
+actual-owner comparison proves all other 395,268 cells, RNG, anchors, 678 Maze
+reservations and seven complete gate paths exact. Only six occupied columns
+leave the walking graph; eight local routes, nineteen body sweeps, five actual
+Skill rays and thirteen arrival samples remain. A second review finds no blocker.
+Fresh C2 records only the changed Guild asset hash; all 36 C2 PNGs and all 282
+full-render PNGs remain exact because the scenery is hidden at those angles.
+Only the archery scene changes among seven fresh Guild documentation scenes;
+root inspected it and both wide Guild views, both cards, the gallery and six
+focused before/after views. Initial evidence-helper/path errors and an incorrect
+older-documentation baseline are retained and explained; no base gate failed.
+GP22 is the next asset/documentation baseline. Legacy C3 remains 45 leaves/7 done.
+No occupied Guild is rebuilt; anchors, RNG, targets/rewards and both portal
+controllers are unchanged. Native acceptance remains unrun. The three additional
+TLC bridge/hall/courtyard views found during DP9 are indexed with provenance and
+limits; the supplementary corpus becomes 30. External pixels remain ignored.
+
+The adjoining bridge audit rejects full-cube rail replacements that preserve
+sampled routes while narrowing lateral clearance. Investigate a thin opaque
+parapet or a separately surveyed widening; no GP23 is authored. The next-door
+reference audit recommends Greatwood Caves → Butterfly House → Cutlass Bluetane,
+with an active multiplier of at least 14. Its source and Legendary item are absent;
+strict authority and complete third-family integration remain work. The original
+214×123 source/interior pictures do not establish full geometry. Neither audit
+changes production. See GP22/bridge-followup.* and next-door-audit.md.

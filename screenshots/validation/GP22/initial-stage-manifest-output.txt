@@ -1,0 +1,5 @@
+Verbatim Python failure from the final staging audit; transcribed after the tool call. Exit code 1.
+
+Traceback (most recent call last):
+  File "<stdin>", line 6, in <module>
+AssertionError: (set(), {'screenshots/docs/01_hero_guild_gate.png', 'screenshots/docs/12_guild_wide_lake_view.png'})

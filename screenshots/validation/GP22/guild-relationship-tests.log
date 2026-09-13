@@ -1,0 +1,34 @@
+✔ normal proposal commits one ring and preserves unrelated spouse/resident history (13.347939ms)
+✔ two Heroes resolving pending proposals cannot replace the first accepted spouse or pay twice (13.257858ms)
+✔ newer forms invalidate earlier requests and every response is consumed once (10.968541ms)
+✔ proposal callbacks revalidate handles, captured dimension, proximity, opinion, ring and readable history (92.853279ms)
+✔ unavailable relationship, spouse-list and inventory reads defer before proposal mutations (76.399736ms)
+✔ direct marriage calls cannot bypass current eligibility (44.824915ms)
+✔ stale spouse selections cannot affect a different owner or open nested divorce (66.6793ms)
+✔ spouse and nested divorce responses retain live identity, proximity and original dimension (81.925725ms)
+✔ divorce confirms fresh ownership, preserves other spouses and cannot apply its penalty twice (18.725117ms)
+✔ an old menu stays invalid after divorce and remarriage to the same Hero (6.875035ms)
+✔ legitimate spouse Follow and Wait still invoke the actual training interruption hook (14.42502ms)
+✔ normal sweet words and gift still update only the authorized relationship (5.359233ms)
+✔ failed required marriage writes roll back before consuming a ring or presenting success (36.790703ms)
+✔ failed divorce writes restore authorized history and never apply a penalty or neutral reaction (38.746399ms)
+✔ inventory failure before payment restores history; ambiguous consumed payment cannot permit a second marriage (9.254404ms)
+✔ optional presentation failures cannot reopen a successful marriage or consume another ring (18.613475ms)
+✔ stable IDs reject older forms through distinct native wrappers and after divorce/remarriage (14.776526ms)
+✔ settled/rejected/cancelled forms clean only their own token; idle registry is bounded and expires (21.569004ms)
+(node:73) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ real nonstackable rings debit one exact slot and legacy remainder clones retain metadata (24.725234ms)
+✔ next-tick synced properties cannot admit a second marriage or divorce before their writes apply (6.383805ms)
+✔ next-tick attempted synced writes are explicitly restored on required-write and unpaid-ring failures (78.099236ms)
+✔ unreadable rollback retains reserved ownership and cannot reopen marriage or erase unrelated history (4.878683ms)
+✔ changed payment slots and unconfirmed inventory writes suppress success with bounded authority restoration (18.672486ms)
+✔ a successful proposal keeps the production training interruption owner and preserved resident identity (7.433073ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 24
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 736.625644
