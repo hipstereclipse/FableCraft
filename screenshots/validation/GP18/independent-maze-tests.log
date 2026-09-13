@@ -1,0 +1,12 @@
+test_case_is_continuous_supported_and_reachable_at_both_fronts (__main__.GuildMazeStudy.test_case_is_continuous_supported_and_reachable_at_both_fronts) ... ok
+test_existing_two_way_tower_and_all_upper_door_routes_remain_connected (__main__.GuildMazeStudy.test_existing_two_way_tower_and_all_upper_door_routes_remain_connected) ... ok
+test_fixture_uses_no_randomness_and_preserves_all_shared_rng_states (__main__.GuildMazeStudy.test_fixture_uses_no_randomness_and_preserves_all_shared_rng_states) ... ok
+test_full_campus_delta_contains_only_eleven_surveyed_fixture_cells (__main__.GuildMazeStudy.test_full_campus_delta_contains_only_eleven_surveyed_fixture_cells) ... ok
+test_independent_support_frame_headroom_window_route_and_rng_failures_are_detected (__main__.GuildMazeStudy.test_independent_support_frame_headroom_window_route_and_rng_failures_are_detected) ... ok
+test_protected_stairs_deck_doors_anchor_windows_and_other_fixtures_remain_exact (__main__.GuildMazeStudy.test_protected_stairs_deck_doors_anchor_windows_and_other_fixtures_remain_exact) ... ok
+test_red_carpet_retains_existing_support_and_landing_air (__main__.GuildMazeStudy.test_red_carpet_retains_existing_support_and_landing_air) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 1.634s
+
+OK

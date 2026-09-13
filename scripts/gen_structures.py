@@ -742,6 +742,21 @@ def build_guild_library_interior(v):
             v.set(x, 5, z, LANTERN, {"hanging": True})
 
 
+def build_guild_maze_study(v):
+    """Restore red carpet and a supported timber bookcase in the fixed study.
+
+    Two inspected classic TLC views support a red rug and continuous framed
+    cases. This two-column southwest case and the retained carpet footprint are
+    Minecraft adaptations. Only eleven surveyed fixture cells change; the final
+    stair/landing volumes and Maze's (46,12,70) anchor stay exact. No RNG is used.
+    """
+    for x, z in ((45, 71), (45, 73), (47, 73)):
+        v.set(x, 12, z, "minecraft:red_carpet")
+    for x in (43, 44):
+        for y in range(12, 16):
+            v.set(x, y, 75, DARKOAK if y in (12, 15) else "minecraft:bookshelf")
+
+
 def build_guild_hall():
     """The Heroes' Guild of Albion — laid out to match the canonical ground plan.
 
@@ -2550,6 +2565,7 @@ def build_guild_hall():
     build_guild_circulation(v)           # final owner of stair, landing and doorway volumes
     fix_floating_decor(v)                # re-seat every lantern; no floaters
     build_guild_archery_backboard(v)     # after every RNG-dependent landscape pass
+    build_guild_maze_study(v)            # surveyed fixtures beside final circulation
     return v
 
 

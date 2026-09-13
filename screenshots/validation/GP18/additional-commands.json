@@ -1,0 +1,19 @@
+{
+  "predecessor-font-render": {
+    "command": "python screenshots/validation/GP18/render-predecessor-with-current-font.py",
+    "working_directory": "isolated GP18 reviewed-index snapshot",
+    "exit_code": 0,
+    "output": "predecessor-font-render.log",
+    "baseline_owner_export": "git show f7e875564d7aa61885ba5324e0a2a743f6751363:scripts/gen_structures.py > tmp/GP18-predecessor-gen_structures.py",
+    "result": "281 exact PNG matches at current font; no source mutations"
+  },
+  "documentation_refresh": {
+    "note": "Final staged documents and evidence scripts refreshed into snapshot after code validation; every staged production/test/contract blob verified identical to tested snapshot."
+  },
+  "initial_snapshot": {
+    "source": "reviewed Git index; excludes unstaged parallel implementation and inherited dirtiness",
+    "baseline_head": "f7e875564d7aa61885ba5324e0a2a743f6751363",
+    "entries": 5067,
+    "node_dependencies": "same installed locked dependencies via node_modules symlink"
+  }
+}

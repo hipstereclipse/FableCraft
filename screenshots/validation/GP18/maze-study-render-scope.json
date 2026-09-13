@@ -1,0 +1,165 @@
+{
+  "baseline_scope": "Current complete builder with only build_guild_maze_study disabled; independent review compares actual prior committed owner.",
+  "views": {
+    "study-cutaway": {
+      "bounds": [
+        40,
+        53,
+        11,
+        16,
+        66,
+        78
+      ],
+      "yaw": 3.491592653589793,
+      "pitch": 0.57,
+      "omit_north_wall": true,
+      "description": "North wall and roof omitted; retained study floor, approach and fixtures"
+    },
+    "study-case": {
+      "bounds": [
+        42,
+        46,
+        11,
+        15,
+        73,
+        76
+      ],
+      "yaw": 3.3215926535897933,
+      "pitch": 0.22,
+      "omit_north_wall": false,
+      "description": "Southwest case pocket; four bookshelf cells between timber base and cap",
+      "before_description": "Empty supported southwest pocket before furnishing"
+    },
+    "study-plan": {
+      "bounds": [
+        40,
+        53,
+        11,
+        16,
+        66,
+        78
+      ],
+      "yaw": 0.0,
+      "pitch": 1.5697963267948967,
+      "omit_north_wall": false,
+      "description": "Upper deck from above; roof omitted; existing approach openings retained"
+    }
+  },
+  "changed_final_voxels": 11,
+  "changed_coordinates": [
+    [
+      43,
+      12,
+      75
+    ],
+    [
+      43,
+      13,
+      75
+    ],
+    [
+      43,
+      14,
+      75
+    ],
+    [
+      43,
+      15,
+      75
+    ],
+    [
+      44,
+      12,
+      75
+    ],
+    [
+      44,
+      13,
+      75
+    ],
+    [
+      44,
+      14,
+      75
+    ],
+    [
+      44,
+      15,
+      75
+    ],
+    [
+      45,
+      12,
+      71
+    ],
+    [
+      45,
+      12,
+      73
+    ],
+    [
+      47,
+      12,
+      73
+    ]
+  ],
+  "protected_cells_exact": 678,
+  "outside_fixture_sha256_before": "6d8b1f85cda2a762cd47ca5387ffe939522dbb30026af9983441dd8f274b41dc",
+  "outside_fixture_sha256_after": "6d8b1f85cda2a762cd47ca5387ffe939522dbb30026af9983441dd8f274b41dc",
+  "normalization": "Local coordinate, block identifier and sorted state properties; palette indices ignored.",
+  "only_removed_reachable_nodes": [
+    [
+      43,
+      12.0,
+      75
+    ],
+    [
+      44,
+      12.0,
+      75
+    ]
+  ],
+  "routes": "Existing full tower route plus both bookcase fronts, gate, middle landing, Maze ground and all 28 upper-door approach points remain reachable in the offline model.",
+  "render_limits": "Clipped geometry per view. North wall explicitly omitted only in study-cutaway. Flat approximate colors; bookshelf blocks are plain color proxies, not native book textures. Carpets are 1/16 high, slabs half-height; other furniture, panes, walls and lamps simplified to full cubes. Blue carpet uses a local approximate blue because the shared renderer lacks that entry. No source pixels, native lighting, physical collision or NPC navigation.",
+  "reference_images": [
+    {
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=273468136",
+      "direct_url": "https://images.steamusercontent.com/ugc/579025774227799030/B4A5434A004B97D610D7ED97AFDDEA3F62FF3D54/",
+      "local_path": "tmp/conformance/reference-guild-additional/interior-followup-273468136.jpg",
+      "sha256": "eea4f9658b8544f8bc20073b7b47ab79179aeeb89d769d85c38be9db97b64086",
+      "dimensions": [
+        1680,
+        1050
+      ],
+      "version_confidence": "High: exact matching screenshot ID and image URL in original TLC app204030 listing; classic models, UI/cutscene presentation and textures inspected. Patch/mod status is unknown.",
+      "actual_pixels_inspected": true
+    },
+    {
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=247737302",
+      "direct_url": "https://images.steamusercontent.com/ugc/432651567436598631/839A2D2E3D342EE4B2E3238CE1B4C14E637B6BC0/",
+      "local_path": "tmp/conformance/reference-guild-additional/interior-followup-247737302.jpg",
+      "sha256": "ec941730afa691fa98eac678dc83f47502e7541f4dfa9a056a0773d42251bae8",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "version_confidence": "High: exact matching screenshot ID and image URL in original TLC app204030 listing; classic models, UI/cutscene presentation and textures inspected. Patch/mod status is unknown.",
+      "actual_pixels_inspected": true
+    }
+  ],
+  "source_hashes": {
+    "scripts/gen_structures.py": "0f7183e1e394ccd00faf3b509493a949b35f54ad62ba1373cf4860bc328b0108",
+    "scripts/gen_screenshots.py": "29a0e4ac2520a966632468824a78fd2d7f6269924bd3c9bbe5afab0356b05e45",
+    "scripts/tests/test_guild_maze_study.py": "9728375324b0f8e34b0c75a9bbc1f763f4fbdb104fb222e5e1cc3e370cc94b4a",
+    "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure": "a92f2c2ac76f1923b87f8c673a586d6427bb9a32a01dc5c83b7ab9f2091180e8"
+  },
+  "image_hashes": {
+    "study-case-after.png": "369256680b0480a058c0dd61a28f3bc73fc5d37d5faaa2b73cc2528ecd086136",
+    "study-case-before.png": "af8d17edf1b85a6ead65035677f7c4dfdcaa342f79b4b1850840328d0e5ef49e",
+    "study-cutaway-after.png": "b3fae5596b3c537868305d7ac5f4bdfc84de6a51781c3ad8b0dcac9148736de9",
+    "study-cutaway-before.png": "0d95e73c067ade447ae6b629d35435bd4413456a04900cf6bd502fd4fccaa55d",
+    "study-plan-after.png": "85bcb58ebde8c84b346bd6fd897f2bc5c31ebc067f088d02211c58ae1a56db89",
+    "study-plan-before.png": "13b2ece876e8ca29516e0c70c9af7a39ff9231384acd0241016f42401d862d28"
+  },
+  "engine_acceptance": "unrun"
+}

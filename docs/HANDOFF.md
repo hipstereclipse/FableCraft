@@ -13,10 +13,11 @@ into the original The Lost Chapters game.” Also explicitly find additional onl
 reference photos. Continue autonomously with separate reviewed milestone commits,
 validation/evidence, immediate pushes and fresh handoffs; no routine questions.
 
-Current checkpoint: GP17 — deferred relationship authority and conservative payment recovery
-Last resolved prior commit: 732670a83bcd7909858ca4480c31f5dc8aeeb8ad (DP5 pushed; exact-head CI 34730821095 passed).
-Containing commit: TLC Conformance — GP17: revalidate deferred relationship authority.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP17: revalidate deferred relationship authority'.
+Current checkpoint: GP18 — supported Maze study bookcase and red carpet accents
+Last resolved prior commit: f7e875564d7aa61885ba5324e0a2a743f6751363 (concurrent README/font refresh; exact-head CI 34731885346 passed).
+Prior conformance checkpoint: 10ffdd0578ae4327fb0c1c0a733d9b233d0d53f0 (GP17 pushed; exact-head CI 34731719396 passed).
+Containing commit: TLC Conformance — GP18: restore supported Maze study furnishings.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP18: restore supported Maze study furnishings'.
 Never invent a self-hash. Every supplemental pass remains in-progress where native
 acceptance is unrun; this does not change the 45-leaf legacy C3 denominator.
 
@@ -143,24 +144,29 @@ GUILD_RELATIONSHIP_AUTHORITY.md and GP17 evidence (24 relationship groups, 33
 existing training groups and 17 independent review negatives pass).
 Requester-specific movement ownership remains the next behavior priority.
 
-GP17's final-voxel Maze survey corrects the source-only GP16 comparison: the final
-study has three blue carpet cells, no bookshelf and no bed. Lectern/enchanting
-table survive. A copied-only 11-cell red-carpet/bookcase candidate preserved
-678 protected cells and all inspected adjacent routes; no production geometry
-changed. See GP17/maze-study-followup-audit.md. Exact round lattice window,
-bordered rug and full original gallery reconstruction remain open.
+GP18 implements the surveyed 11-cell Maze fixture: a supported two-column case
+at x43..44,y12..15,z75 and three red carpet recolors. Exactly those cells change;
+all other campus cells/states, shared RNG, anchors, windows, lights and 678
+surveyed protected cells remain exact. The complete tower/upper-door routes and
+both case fronts remain connected. Final circulation still owns the bed's former
+stair-opening location; no bed is restored there. Two inspected original views
+support red carpet and continuous shelves, while case dimensions/placement and
+sparse carpet patches remain adaptations. No runtime migration or occupied-Guild
+reload. See GUILD_MAZE_STUDY.md and GP18 detail/route evidence. All 48 base gates
+and seven focused groups pass; native acceptance remains unrun.
 
 Next three actions:
 
-1. Complete the surveyed 11-cell Maze furnishing candidate as separate GP18,
-   through the owner with final-voxel route/scope negatives and inspected detail
-   views. Preserve every other campus cell and RNG draw; no occupied-world rebuild.
-2. Resume durable requester-specific activity ownership/native Follow/Wait and
-   purposeful arrival using the pinned-API design in DP5/activity-followup-audit.md.
-   GP17 guards form authority only; full movement behavior remains open.
+1. Implement durable requester-specific activity ownership/native Follow/Wait,
+   initially bounded to identified Skill residents. Use DP5/activity-followup-audit.md
+   for the existing ownership/navigation audit. Preserve relationship history,
+   training interruption, actual-offender defence and offline/reconnect cleanup.
+2. Progress purposeful station arrival only after ownership, using verified native
+   goals and actual arrival/lane checks; no repeated or fallback teleports. Continue
+   round lattice window, bordered rug, red wall-panel and bridge/range comparisons.
 3. Continue individual Demon Door destination/challenge mapping and designs, plus
-   bridge/range and neutral ordinary Library reference comparisons. Preserve all
-   native acceptance gaps and the distinction between canon and adaptations.
+   neutral ordinary Library reference comparisons. Preserve all native acceptance
+   gaps and the distinction between canon and adaptations.
 
 ## Demon Door priority retained
 
@@ -188,16 +194,21 @@ worlds, canon mapping and story exceptions remain open; never give Nostro a ridd
 
 ## Validation, ownership and repository landmines
 
-GP17 baseline: 47 base gates, 62 ESM syntax checks and 24 relationship groups
-pass offline in an isolated reviewed-index snapshot. Existing training (33) and door
-adapter/runtime/aperture groups (33/13/4) remain green. Independent review found no
-blocker. Fresh 35-asset C2/Guild diagnostics are recorded in GP17; all 35 assets,
-35 C2 images and six rendering/geometry/data owners match GP16. Runtime-only
-changes require no generated asset changes.
-The unchanged full visual assets retain GP16 evidence (51 mobs/55 items/130
-recipes/32 structures/13 galleries). GP16 initially lacked the renderer vanilla
-cache; its recorded recipe-only rerender with retained cache made all 281 PNGs
-match GP15. No engine acceptance is implied.
+GP18 baseline: 48 base gates, 62 ESM syntax checks and seven new Maze fixture
+groups pass in an isolated reviewed-index snapshot. Existing relationship (24),
+training (33), cave (25), Chamber (18) and door adapter/runtime/aperture groups
+(33/13/4) remain green. Independent review checks all 395,280 serialized voxels
+and finds no blocker. Fresh 35-asset C2, full renders (51 mobs/55 items/130 recipes/
+32 structures/13 galleries) and Guild diagnostics pass. Only the Guild asset
+changes; all other 34 assets and all 35 C2 images remain exact.
+
+Concurrent committed README/font refresh f7e8755 landed before the GP18 snapshot
+and is preserved. It changes all 281 full-card images versus GP16 through Linux
+font fallback. The actual predecessor geometry rendered with the same current
+font/cache matches all 281 GP18 images; distant views hide this interior fixture.
+Use the six inspected detail images for the furnishing comparison. Evidence and
+separate font/geometry provenance are under screenshots/validation/GP18/.
+The original vanilla cache remains ignored; no external source pixels enter packs.
 No actual Bedrock engine has run: lighting, fluids, stairs/collision, native NPC
 movement/interruption, two-Hero behavior, portal travel, persistence and collection
 remain unrun, never passed. Existing 0.3/L3/spell manual checks stay pending.

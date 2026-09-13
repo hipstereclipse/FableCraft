@@ -1,0 +1,11 @@
+{
+  "command": "python screenshots/validation/GP18/regenerate-guild.py",
+  "changes": [
+    {
+      "path": "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure",
+      "before_sha256": "4e1ea06bf19378fc391085b3db7d51d9e33e0205aa2086b5739612963bf52fde",
+      "after_sha256": "a92f2c2ac76f1923b87f8c673a586d6427bb9a32a01dc5c83b7ab9f2091180e8"
+    }
+  ],
+  "scope": "GP17 committed baseline plus reviewed GP18 eleven-cell Maze study fixture"
+}

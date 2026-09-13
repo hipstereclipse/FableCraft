@@ -51,6 +51,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | GP16 | in-progress | Live Skill target/support and complete firing-lane preflight before acquisition and delayed release; native acceptance open |
 | DP5 | in-progress | Occupied original-ticket rooms retain block/explosion and world-generation guards after lost/replaced ledger; own-cell return clicks revalidate; native acceptance open |
 | GP17 | in-progress | Deferred relationship actions revalidate current requester/ownership/eligibility before mutations; competing proposals cannot steal ownership or consume twice; native acceptance open |
+| GP18 | in-progress | Supported Maze-study bookcase and red carpet accents from inspected original views; preserve surveyed routes, anchors and all unrelated campus cells; native acceptance open |
 
 Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
 defects and manual status here. These passes are not completed legacy leaves.
@@ -871,7 +872,7 @@ their own verified integrations exist.
 
 ## GP17 — deferred relationship authority (2026-09-12)
 
-Commit: SELF: TLC Conformance — GP17: revalidate deferred relationship authority.
+Commit: 10ffdd0578ae4327fb0c1c0a733d9b233d0d53f0 (pushed; exact-head CI 34731719396 passed).
 The DP5 production probe reproduced ownership theft and two ring payments from
 competing proposals, plus stale spouse and divorce actions affecting a later
 partner. Relationship responses now require the original requester/NPC identities,
@@ -916,3 +917,51 @@ In parallel, implement the surveyed 11-cell Maze fixture as a separate GP18 pass
 with final-voxel regression and inspected detail renders. Continue bridge/range
 comparisons and individually designed Demon Door worlds. GP17 form authority alone does not fix caller-independent Wait broadcasts,
 generic native Follow targeting, roaming after Wait or station teleports.
+
+
+## GP18 — supported Maze-study furnishings (2026-09-12)
+
+Commit: SELF: TLC Conformance — GP18: restore supported Maze study furnishings.
+The final GP17 survey found that the source-authored study bookcase was skipped
+and the bed erased by circulation clearance. A final generator fixture now adds
+a supported two-column timber bookcase in the surveyed southwest pocket and
+changes the three surviving blue carpet cells to red. Two inspected original-TLC
+views support continuous framed shelves and a red rug. The 2-by-4 case, southwest
+placement and retained sparse carpet patches are explicit block adaptations;
+carved trim, full rug/border and original room proportions remain open.
+
+Exactly eleven cells change: eight former-air case cells at x43..44,y12..15,z75
+and the three existing carpet cells. Every other campus block/state, shared RNG
+stream, interaction anchor, window and light remains exact. The complete tower
+stair/deck/door routes and all 678 surveyed protected cells stay unchanged. Both
+case fronts remain accessible. No bed is restored over the reserved stair opening.
+Maze remains at (46,12,70). Existing occupied Guilds are never rebuilt; reanchor
+continues to refresh coordinates only. No runtime or generated behavior change.
+
+See [GUILD_MAZE_STUDY.md](GUILD_MAZE_STUDY.md) and
+`screenshots/validation/GP18/`. Seven focused final-voxel groups pass, including
+independent broken-support/frame/headroom/window/route/RNG negatives. The behavior
+regression passed before targeted Guild-only regeneration. All 48 base gates,
+62 ESM syntax checks, fresh 35-asset C2/full renders and Guild diagnostics pass
+in the isolated reviewed-index snapshot. Independent review compares all 395,280
+serialized voxels against the actual preceding owner and finds only eleven
+changes; seven focused groups pass independently. Six inspected before/after
+detail images show the supported case and retained openings. The other 34 assets
+and all 35 C2 images stay exact.
+
+The snapshot baseline includes concurrent commit
+f7e875564d7aa61885ba5324e0a2a743f6751363, the README/documentation/Linux-font
+refresh, whose CI 34731885346 passed. Its font fallback changes all 281 full
+card PNGs relative to GP16. A separate render of that actual predecessor geometry
+using the same current font/cache matches GP18 in all 281 images. The unchanged
+distant views hide the interior fixture; the six focused detail images supply
+its visual evidence. The font change is retained from the preceding commit and
+is not part of GP18. See visual-delta.json and predecessor-font-comparison.json.
+GP17 exact-head CI 34731719396 passed. Every native check remains unrun.
+
+Next behavior priority remains durable requester-specific Follow/Wait and
+purposeful station arrival, preserving training, relationship and defence
+authority. Continue round lattice window, bordered rug, red wall-panel and
+bridge/range comparisons, plus individual Demon Door worlds. Native lighting,
+carpet collision, turning, navigation, multiplayer and saved-world acceptance
+remain unrun; GP18 does not close facility fidelity or alter the 45-leaf score.

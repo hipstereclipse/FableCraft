@@ -1,0 +1,9 @@
+{
+  "command": [
+    "python",
+    "scripts/tests/test_gen_behavior.py"
+  ],
+  "exit_code": 0,
+  "passed_groups": 8,
+  "timing": "Executed before the targeted GP18 guild_hall regeneration."
+}

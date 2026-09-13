@@ -1,0 +1,211 @@
+{
+  "baseline_commit": "732670a83bcd7909858ca4480c31f5dc8aeeb8ad",
+  "source_sha256": {
+    "before": "e6362334bc8d97715ac92c379a4db718032fcdaaa5d64241acfcf810c4793ae6",
+    "after": "0f7183e1e394ccd00faf3b509493a949b35f54ad62ba1373cf4860bc328b0108"
+  },
+  "serialized_sha256": {
+    "before": "4e1ea06bf19378fc391085b3db7d51d9e33e0205aa2086b5739612963bf52fde",
+    "after": "a92f2c2ac76f1923b87f8c673a586d6427bb9a32a01dc5c83b7ab9f2091180e8",
+    "shipped": "a92f2c2ac76f1923b87f8c673a586d6427bb9a32a01dc5c83b7ab9f2091180e8"
+  },
+  "shipped_matches_current_owner": true,
+  "decoded_compared_cells": 395280,
+  "exact_changes": [
+    {
+      "at": [
+        43,
+        12,
+        75
+      ],
+      "before": [
+        "minecraft:air",
+        {}
+      ],
+      "after": [
+        "minecraft:dark_oak_planks",
+        {}
+      ]
+    },
+    {
+      "at": [
+        43,
+        13,
+        75
+      ],
+      "before": [
+        "minecraft:air",
+        {}
+      ],
+      "after": [
+        "minecraft:bookshelf",
+        {}
+      ]
+    },
+    {
+      "at": [
+        43,
+        14,
+        75
+      ],
+      "before": [
+        "minecraft:air",
+        {}
+      ],
+      "after": [
+        "minecraft:bookshelf",
+        {}
+      ]
+    },
+    {
+      "at": [
+        43,
+        15,
+        75
+      ],
+      "before": [
+        "minecraft:air",
+        {}
+      ],
+      "after": [
+        "minecraft:dark_oak_planks",
+        {}
+      ]
+    },
+    {
+      "at": [
+        44,
+        12,
+        75
+      ],
+      "before": [
+        "minecraft:air",
+        {}
+      ],
+      "after": [
+        "minecraft:dark_oak_planks",
+        {}
+      ]
+    },
+    {
+      "at": [
+        44,
+        13,
+        75
+      ],
+      "before": [
+        "minecraft:air",
+        {}
+      ],
+      "after": [
+        "minecraft:bookshelf",
+        {}
+      ]
+    },
+    {
+      "at": [
+        44,
+        14,
+        75
+      ],
+      "before": [
+        "minecraft:air",
+        {}
+      ],
+      "after": [
+        "minecraft:bookshelf",
+        {}
+      ]
+    },
+    {
+      "at": [
+        44,
+        15,
+        75
+      ],
+      "before": [
+        "minecraft:air",
+        {}
+      ],
+      "after": [
+        "minecraft:dark_oak_planks",
+        {}
+      ]
+    },
+    {
+      "at": [
+        45,
+        12,
+        71
+      ],
+      "before": [
+        "minecraft:blue_carpet",
+        {}
+      ],
+      "after": [
+        "minecraft:red_carpet",
+        {}
+      ]
+    },
+    {
+      "at": [
+        45,
+        12,
+        73
+      ],
+      "before": [
+        "minecraft:blue_carpet",
+        {}
+      ],
+      "after": [
+        "minecraft:red_carpet",
+        {}
+      ]
+    },
+    {
+      "at": [
+        47,
+        12,
+        73
+      ],
+      "before": [
+        "minecraft:blue_carpet",
+        {}
+      ],
+      "after": [
+        "minecraft:red_carpet",
+        {}
+      ]
+    }
+  ],
+  "protected_exact_cells": 678,
+  "unchanged_window_glass_cells": 35,
+  "layout_and_all_anchors_unchanged": true,
+  "serialized_palette_secondary_layer_entities_origin_unchanged": true,
+  "seeded_rng_calls_and_final_state_unchanged": true,
+  "rng_instances_observed": 1,
+  "complete_tower_and_study_connector_routes_both_directions": "pass",
+  "only_removed_reachable_nodes": [
+    [
+      43,
+      12.0,
+      75
+    ],
+    [
+      44,
+      12.0,
+      75
+    ]
+  ],
+  "reference_images": [
+    {
+      "path": "tmp/conformance/reference-guild-additional/interior-followup-273468136.jpg",
+      "sha256": "eea4f9658b8544f8bc20073b7b47ab79179aeeb89d769d85c38be9db97b64086"
+    },
+    {
+      "path": "tmp/conformance/reference-guild-additional/interior-followup-247737302.jpg",
+      "sha256": "ec941730afa691fa98eac678dc83f47502e7541f4dfa9a056a0773d42251bae8"
+    }
+  ],
+  "native_acceptance": "unrun"
+}

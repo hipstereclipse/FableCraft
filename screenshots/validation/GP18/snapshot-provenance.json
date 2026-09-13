@@ -1,0 +1,22 @@
+{
+  "source": "reviewed Git index; excludes unstaged parallel implementation and inherited dirtiness",
+  "baseline_head": "f7e875564d7aa61885ba5324e0a2a743f6751363",
+  "entries": 5091,
+  "reviewed_source_sha256": {
+    "docs/CONFORMANCE_CHECKLIST.md": "eec40d0eba7d81e722f3ea71c676534ce41608f55789cdd8db5bb5a3257d25da",
+    "docs/GUILD_DEMON_PRIORITIES.md": "e35d46bc9ae05f3f6d9d2675bc15a41510167a0b59734a9b4dd6fd3e8287b5c1",
+    "docs/GUILD_MAZE_STUDY.md": "bfaa50efbaaacb1bf51913cd553b9243e1b4e822f42aed3cb0f7816b830f23b7",
+    "docs/HANDOFF.md": "a0b38494bdb474cd486b41198c34260add0c0dd92d1467506ea22349e0d5951a",
+    "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure": "a92f2c2ac76f1923b87f8c673a586d6427bb9a32a01dc5c83b7ab9f2091180e8",
+    "screenshots/structures/contract/evidence.json": "1eb26cf9796ac3b0d7d8856c1b96898d7aadafa792d8d56d1fcd08821c4179dc",
+    "scripts/gen_structures.py": "0f7183e1e394ccd00faf3b509493a949b35f54ad62ba1373cf4860bc328b0108",
+    "scripts/tests/test_guild_maze_study.py": "9728375324b0f8e34b0c75a9bbc1f763f4fbdb104fb222e5e1cc3e370cc94b4a",
+    "scripts/validate.py": "bb70e6a0ba098ddc12927ea39501857390c5ba00c50796b0a045c667d97169e5",
+    "screenshots/validation/GP18/independent_review_probe.py": "90bbeceafb22a6dbd1e092015fd1f9f3fa00eb6036587b79724b160eb6dee5c1",
+    "screenshots/validation/GP18/regenerate-guild.py": "0fb23274899cec3dbaacc1c699febf01977aed638550171c674944375fc54bfa",
+    "screenshots/validation/GP18/render-maze-study.py": "726045bb489f3132e51b2b2bbe16a066f1e7f4d61d367abf6d9c882b8e87a942",
+    "screenshots/validation/GP18/render-predecessor-with-current-font.py": "f2c84a4ca28d343502ae79f7d3fe9a28e82a2b5712a73ba13be8bb02acfab24b"
+  },
+  "node_dependencies": "same installed locked dependencies via node_modules symlink",
+  "engine_acceptance": "unrun"
+}

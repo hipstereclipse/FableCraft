@@ -37,6 +37,7 @@ def main():
         'guild-defence-tests': ['node', '--experimental-vm-modules', 'scripts/tests/guild_defence.test.mjs'],
         'guild-resident-tests': ['node', '--experimental-vm-modules', 'scripts/tests/guild_residents.test.mjs'],
         'guild-dorm-route-tests': [sys.executable, 'scripts/tests/test_guild_dorm_routes.py'],
+        'guild-maze-study-tests': [sys.executable, 'scripts/tests/test_guild_maze_study.py'],
         'guild-library-tests': [sys.executable, 'scripts/tests/test_guild_library.py'],
         'guild-hall-link-tests': [sys.executable, 'scripts/tests/test_guild_hall_links.py'],
         'guild-map-tests': [sys.executable, 'scripts/tests/test_guild_map_table.py'],
