@@ -215,7 +215,14 @@ def compose_structure_scene(struct_name, mobs=(), effects=(), mood=None, veil=No
 # ---------------------------------------------------------------------------
 
 def load_font(size, bold=False):
-    names = ["seguisb.ttf", "segoeuib.ttf", "arialbd.ttf"] if bold else ["segoeui.ttf", "arial.ttf"]
+    # Windows faces first so renders stay identical to previously published sets.
+    # Liberation/DejaVu are the metric-compatible Linux fallbacks: without them a
+    # Linux render silently drops to PIL's tiny default bitmap font, which loses
+    # both the title scale and word spacing.
+    names = (["seguisb.ttf", "segoeuib.ttf", "arialbd.ttf",
+              "LiberationSans-Bold.ttf", "DejaVuSans-Bold.ttf"] if bold else
+             ["segoeui.ttf", "arial.ttf",
+              "LiberationSans-Regular.ttf", "DejaVuSans.ttf"])
     for name in names:
         try:
             return ImageFont.truetype(name, size)

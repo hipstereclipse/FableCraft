@@ -333,7 +333,10 @@ def backdrop(size, mood):
 
 
 def load_font(sz):
-    for name in ("seguisb.ttf", "segoeuib.ttf", "arialbd.ttf", "arial.ttf"):
+    # Trailing Liberation/DejaVu entries keep Linux renders on a real
+    # proportional face instead of PIL's default bitmap font.
+    for name in ("seguisb.ttf", "segoeuib.ttf", "arialbd.ttf", "arial.ttf",
+                 "LiberationSans-Bold.ttf", "DejaVuSans-Bold.ttf"):
         try:
             return ImageFont.truetype(name, sz)
         except OSError:

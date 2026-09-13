@@ -160,12 +160,79 @@ Eight ancient doors are scattered across the world, each a living stone face car
 
 Beyond the doors, **9 structures** dot Albion — the walled Heroes' Guild (Cullis Gate + training grounds), the Arena, Temple of Avo, Chapel of Skorm, Twinblade's palisaded war-camp, Lychfield graveyard, focus sites, silver-chest ruins and Demon Door crags — all stocked with **lootable chests** and blended into the terrain.
 
+**The doors are becoming walk-through.** The Guild lamp door now opens into a designed reward world of its own — the Library Arcanum — with per-visitor rooms, durable paid history and an exact-source return arch. Details and current limits are in [TLC Conformance](#-tlc-conformance--rebuilding-the-guild) below.
+
 ### The Heroes' Guild
 
 The Guild is a single connected campus on a curved river. You wake in the domed **Map Room** — the Cullis Gate and Skill Shrine glow in its western nooks — and a single open-arched grand stair climbs to the upper gallery without blocking the four arched doorways that join the Library, Dining Hall and Store. The **Dining Hall** seats two long banquet tables down its length; a grand riverside **stone staircase** with railings and a landing descends from the upper terrace to a gravel **promenade that wraps the whole complex**, knitting every bridge and the **Four Graves** memorial garden (laid out as a `+` around an eternal flame). **Maze's Tower** is now three floors: a wall-hugging spiral past book-lined walls, candles, lecterns and framed art up to Maze's study, with suits of armour standing guard at its two entrances and a north archway opening onto monuments and flower beds. Across the river the **Archery Range** (targets now correctly outside the kitchen wall), **Dueling Ring** and a richly-stocked **Kitchen / Dormitory** sit beside the water. Outside the west gate a **Trader** works a covered cart (random wares *and* vanity titles), and a red carpet leads up the **Boasting Platform** — step onto the stage and, depending on your Renown, the Guild's folk gather to watch you declare your title (an unknown draws a handful; the truly renowned draw the whole campus, cheering). Far beneath, a fixed spiral stair winds down to the **Chamber of Fate** and its flat warded Cullis dais.
 
+Much of this campus has since been rebuilt against original 2005 references — see [TLC Conformance](#-tlc-conformance--rebuilding-the-guild) below for what changed in the Map Room, Library, Chamber of Fate, training grounds and dormitory, and for what remains unverified in-game.
+
 ![Temple of Avo](screenshots/docs/13_temple_avo_donation.png)
 ![Places of Power](screenshots/gallery/places.png)
+
+---
+
+## 🏛 TLC Conformance — Rebuilding the Guild
+
+Work since v2.4.0 runs through a **conformance queue** that measures the addon against the
+original 2005 *Fable: The Lost Chapters* — not the Anniversary remake, the sequels or the
+reboot. Each pass inspects period screenshots and the original Prima guide, lands as its own
+reviewed milestone commit, and records its exact scope, evidence and remaining defects in
+[the priority ledger](docs/GUILD_DEMON_PRIORITIES.md).
+
+**Guild passes (GP1–GP17)**
+
+- **Halls & circulation.** The lobby, upper gallery, dining hall and Maze's tower stairs are
+  joined by continuous half-step routes, and the broad Library and Store archways stand open
+  again after redundant indoor tunnel shells were removed.
+  ([circulation](docs/GUILD_CIRCULATION.md), [hall links](docs/GUILD_HALL_LINKS.md))
+- **The map table.** The Map Room's random jewel mosaic and beacon are replaced by a low
+  wood-framed land-and-sea relief, with every adjacent interaction preserved.
+  ([map table](docs/GUILD_MAP_TABLE.md))
+- **The Library.** Continuous framed bookcases, an accessible reading desk and properly
+  supported lamps furnish the room without disturbing the spine, cave or commons routes.
+  ([library interior](docs/GUILD_LIBRARY_INTERIOR.md))
+- **The Chamber of Fate.** New cave and Chamber construction is journalled and resumable.
+  Bright placeholder posts gave way to attached pointed wall bays, dark masonry and high
+  lamps, then to nested inset panels, carved marks, colored window strips and muted
+  grey/ochre paving drawn from neutral reference views.
+  ([chamber interior](docs/GUILD_CHAMBER_INTERIOR.md), [neutral details](docs/GUILD_CHAMBER_NEUTRAL_DETAILS.md), [cave lifecycle](docs/GUILD_CAVE_LIFECYCLE.md))
+- **Training grounds.** Training sessions are single-acquisition with real interruption
+  handling; Will apprentices practise harmless island lightning while Might alone fills the
+  sparring ring; the archery range regained its painted valley backboard; and Skill practice
+  now preflights the live target, its support and every crossed cell of the firing lane
+  before it fires.
+  ([training](docs/GUILD_TRAINING.md), [Will training](docs/GUILD_WILL_TRAINING.md), [archery backboard](docs/GUILD_ARCHERY_BACKBOARD.md), [Skill preflight](docs/GUILD_SKILL_PREFLIGHT.md))
+- **Residents & upkeep.** Twelve Guild residents keep durable identities across reloads
+  instead of respawning by proximity, Guild defence targets the actual offender rather than
+  every Hero present, and the old destructive repair sweeps that bulldozed saved
+  construction are retired.
+  ([residents](docs/GUILD_RESIDENTS.md), [defence](docs/GUILD_DEFENCE.md), [maintenance](docs/GUILD_MAINTENANCE.md))
+- **Dormitory.** The erased final northeast stair tread is restored, completing the ascent to
+  the upper deck. ([dormitory stairs](docs/GUILD_DORM_STAIRS.md))
+- **Romance & marriage.** Deferred proposal and divorce responses revalidate the current
+  requester, ownership and eligibility before they mutate anything, so a competing proposal
+  cannot quietly steal a partner or spend a second wedding ring.
+
+**Demon Door passes (DP1–DP5)**
+
+The first walk-through Demon Door reward world is in place. The Guild lamp door opens into the
+**Library Arcanum** — an isolated, individually designed room with its own collectibles and an
+exact-source return arch. Rooms are allocated per visitor, paid history survives lost or
+recreated ledgers, a single durable source owns the Guild-side door face so stale hints cannot
+mint unkeyed doors, and occupied rooms keep their break, build, explosion and world-generation
+guards even after ledger loss or replacement.
+([Library Arcanum](docs/LIBRARY_ARCANUM.md), [door design](docs/DEMON_DOOR_DESIGN.md), [room protections](docs/LIBRARY_ARCANUM_PROTECTIONS.md))
+
+> **Verification status — read this before believing the list above.** These passes are
+> validated **offline only**: generator, structure and runtime test groups plus rendered
+> checkpoints. **No Minecraft Bedrock engine has run against them.** Lighting, fluids, stair
+> collision, native NPC movement and interruption, portal travel, persistence and collection
+> are therefore **unverified in-game** — they have never passed, not merely gone unrecorded.
+> Reference photography is used to study the original; chosen block adaptations are recorded
+> separately from what those screenshots actually show, and a passing structural hash does
+> not close a fidelity gap.
 
 ---
 
@@ -258,6 +325,7 @@ Fablecraft is content-complete on its **core systems** and actively growing its 
 **In progress**
 
 - 🏗 **Finishing the locations.** The Heroes' Guild is a complete, hand-built campus; **Bowerstone, Oakvale and Snowspire** so far exist as factions, guards and dialogue rather than fully walkable towns. Next: build the three settlements out as explorable hubs, then flesh out the Arena, Lychfield graveyard, and the interiors of the Temple of Avo and Chapel of Skorm.
+- 🏛 **TLC conformance queue.** A running series of reviewed passes rebuilding the Heroes' Guild and the Demon Door reward worlds against original 2005 references, tracked in [the priority ledger](docs/GUILD_DEMON_PRIORITIES.md). Offline validation is in place; engine acceptance for every pass is still outstanding.
 - 🧠 **Updating behaviours.** Deeper NPC daily routines (day/night schedules, shop hours, crowd gathering), smarter guard pathing and arrest logic, and continued multiplayer-sync hardening so every per-player system reads correctly in co-op.
 - 🔮 **Will & Destiny Phases 2–3.** Migrate the remaining classic spells onto the new modular Will engine and add the outstanding physique/appearance morphs. Current state, schema and test plan: [WILL_AND_DESTINY_PHASE1.md](WILL_AND_DESTINY_PHASE1.md).
 
@@ -336,4 +404,5 @@ use original names and pass the planned branding validator. Existing `dist/`
 archives are legacy development builds and are not approved for public release.
 
 Conformance work is tracked in [the plan](docs/CONFORMANCE_PLAN.md),
-[the checklist](docs/CONFORMANCE_CHECKLIST.md) and [the continuation handoff](docs/HANDOFF.md).
+[the checklist](docs/CONFORMANCE_CHECKLIST.md), [the Guild/Demon Door priority ledger](docs/GUILD_DEMON_PRIORITIES.md)
+and [the continuation handoff](docs/HANDOFF.md).
