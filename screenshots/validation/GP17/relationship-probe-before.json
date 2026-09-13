@@ -1,0 +1,124 @@
+{
+  "mainSourceSha256": "ce3ab2e866663102ce86e1e0cfe18b836983b394313d4e91e372e5369ac261c2",
+  "trainingSourceSha256": "baf0ff28090d771fb94b4884090e8cf45ba387aa9a6c3cbe7148082e9a70db41",
+  "observations": [
+    {
+      "case": "two_pending_proposals",
+      "deferredProperties": false,
+      "owner": "hero-b",
+      "rings": [
+        1,
+        1
+      ],
+      "spouses": [
+        "[\"resident\"]",
+        "[\"resident\"]"
+      ],
+      "marriageRewards": 2
+    },
+    {
+      "case": "two_pending_proposals",
+      "deferredProperties": true,
+      "owner": "hero-b",
+      "rings": [
+        1,
+        1
+      ],
+      "spouses": [
+        "[\"resident\"]",
+        "[\"resident\"]"
+      ],
+      "marriageRewards": 2
+    },
+    {
+      "case": "nested_divorce_owner_changed",
+      "owner": "",
+      "married": 0,
+      "spouses": "[\"saved-other\"]",
+      "mutations": [
+        [
+          "synced",
+          "resident",
+          "fc:married",
+          0
+        ],
+        [
+          "synced",
+          "resident",
+          "fc:love_hate",
+          20
+        ],
+        [
+          "property",
+          "resident",
+          "fc_spouse_player",
+          ""
+        ],
+        [
+          "property",
+          "hero-a",
+          "fc_spouses",
+          "[\"saved-other\"]"
+        ],
+        [
+          "event",
+          "resident",
+          "fc:react_neutral"
+        ],
+        [
+          "event",
+          "resident",
+          "fc:guild_training_stop"
+        ],
+        [
+          "morality",
+          "hero-a",
+          -30
+        ],
+        [
+          "message",
+          "hero-a",
+          "§7You and fc:guild_apprentice_skill have parted ways."
+        ]
+      ]
+    },
+    {
+      "case": "stale_spouse_follow",
+      "trainingStillActive": false,
+      "following": true,
+      "mutations": [
+        [
+          "event",
+          "resident",
+          "fc:react_follow"
+        ],
+        [
+          "event",
+          "resident",
+          "fc:guild_training_stop"
+        ],
+        [
+          "message",
+          "hero-a",
+          "§dfc:guild_apprentice_skill: §o\"Lead on, my love.\""
+        ]
+      ]
+    },
+    {
+      "case": "failed_list_write_after_mutation_next_tick",
+      "failure": "Injected after hero-a:setDynamicProperty:fc_spouses",
+      "owner": "hero-a",
+      "married": 1,
+      "love": 100,
+      "spouses": "[\"saved-other\",\"resident\"]",
+      "rings": 1,
+      "marriageRewards": 0
+    },
+    {
+      "case": "normal_single_nonstackable_ring",
+      "owner": "hero-a",
+      "rings": 0,
+      "marriageRewards": 1
+    }
+  ]
+}

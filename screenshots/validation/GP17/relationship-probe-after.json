@@ -1,0 +1,63 @@
+{
+  "mainSourceSha256": "3de202b284cde2acb20f22361b007570fb8154368d6d03fc3c22ea80d01122f8",
+  "trainingSourceSha256": "baf0ff28090d771fb94b4884090e8cf45ba387aa9a6c3cbe7148082e9a70db41",
+  "observations": [
+    {
+      "case": "two_pending_proposals",
+      "deferredProperties": false,
+      "owner": "hero-a",
+      "rings": [
+        1,
+        2
+      ],
+      "spouses": [
+        "[\"resident\"]",
+        null
+      ],
+      "marriageRewards": 1
+    },
+    {
+      "case": "two_pending_proposals",
+      "deferredProperties": true,
+      "owner": "hero-a",
+      "rings": [
+        1,
+        2
+      ],
+      "spouses": [
+        "[\"resident\"]",
+        null
+      ],
+      "marriageRewards": 1
+    },
+    {
+      "case": "nested_divorce_owner_changed",
+      "owner": "hero-b",
+      "married": 1,
+      "spouses": "[\"saved-other\",\"resident\"]",
+      "mutations": []
+    },
+    {
+      "case": "stale_spouse_follow",
+      "trainingStillActive": true,
+      "following": false,
+      "mutations": []
+    },
+    {
+      "case": "failed_list_write_after_mutation_next_tick",
+      "failure": null,
+      "owner": "",
+      "married": 0,
+      "love": 80,
+      "spouses": "[\"saved-other\"]",
+      "rings": 2,
+      "marriageRewards": 0
+    },
+    {
+      "case": "normal_single_nonstackable_ring",
+      "owner": "hero-a",
+      "rings": 0,
+      "marriageRewards": 1
+    }
+  ]
+}

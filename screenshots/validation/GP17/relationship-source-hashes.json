@@ -1,0 +1,7 @@
+{
+  "packs/Fablecraft_BP/scripts/main.js": "3de202b284cde2acb20f22361b007570fb8154368d6d03fc3c22ea80d01122f8",
+  "packs/Fablecraft_BP/scripts/guild_training.js": "baf0ff28090d771fb94b4884090e8cf45ba387aa9a6c3cbe7148082e9a70db41",
+  "scripts/tests/guild_relationships.test.mjs": "ef1bafd464b907e5a3b6be12cf60a161a92aad8571a33a8c181465e86b3d6d17",
+  "scripts/validate.py": "d381f0351d6a62a8dfff15f7c7e3ddada155161dce6e176f50c525c8803c44d2",
+  "screenshots/validation/GP17/probe_relationship_authority.py": "0c449c2c57f3e25414b57d2b690349d60105a3beec57f75fffcc0e50c330b16a"
+}

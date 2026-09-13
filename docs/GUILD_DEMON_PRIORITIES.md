@@ -50,6 +50,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | GP15 | in-progress | Framed scenic archery backboard from two inspected original views; final-voxel firing lanes and adjoining door/gate routes preserved; engine acceptance open |
 | GP16 | in-progress | Live Skill target/support and complete firing-lane preflight before acquisition and delayed release; native acceptance open |
 | DP5 | in-progress | Occupied original-ticket rooms retain block/explosion and world-generation guards after lost/replaced ledger; own-cell return clicks revalidate; native acceptance open |
+| GP17 | in-progress | Deferred relationship actions revalidate current requester/ownership/eligibility before mutations; competing proposals cannot steal ownership or consume twice; native acceptance open |
 
 Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
 defects and manual status here. These passes are not completed legacy leaves.
@@ -829,7 +830,7 @@ No screenshot or offline test closes the native or whole-facility fidelity gaps.
 
 ## DP5 — retain occupied recovery-room protections (2026-09-12)
 
-Commit: SELF: TLC Conformance — DP5: protect occupied Arcanum recovery rooms.
+Commit: 732670a83bcd7909858ca4480c31f5dc8aeeb8ad (pushed; exact-head CI 34730821095 passed).
 The GP16 audit reproduced an inconsistent recovery state: valid original-cell
 visitors could return after ledger loss/replacement, but break/build/explosion
 and ordinary-world generation guards no longer recognized their room. The actual
@@ -866,3 +867,52 @@ goal path and its missing engine evidence. Continue the 26-view interior/bridge/
 range comparison queue and further designed Demon Door worlds, preserving
 Nostro's distinct story passage and all legacy immediate-payout personas until
 their own verified integrations exist.
+
+
+## GP17 — deferred relationship authority (2026-09-12)
+
+Commit: SELF: TLC Conformance — GP17: revalidate deferred relationship authority.
+The DP5 production probe reproduced ownership theft and two ring payments from
+competing proposals, plus stale spouse and divorce actions affecting a later
+partner. Relationship responses now require the original requester/NPC identities,
+current same-dimension proximity and readable relationship history. Proposal
+acceptance rechecks unmarried status, opinion and available ring; spouse actions
+and nested divorce recheck the current spouse owner. Unknown or inconsistent
+history defers without inventing an empty spouse list.
+
+Form supersession and mutation invalidation share stable entity IDs. Requests
+settle once and release their tracking; stale forms cannot revive after the same
+Hero divorces and remarries. Required writes reserve ownership before payment.
+Bounded rollback accounts for next-tick entity properties and setters that throw
+after writing. Single-item wedding rings use their actual non-stackable inventory
+definition. Ambiguous payment readback retains committed relationship authority
+and suppresses success extras; there is no blind refund or atomic crash guarantee.
+
+See [GUILD_RELATIONSHIP_AUTHORITY.md](GUILD_RELATIONSHIP_AUTHORITY.md) and
+`screenshots/validation/GP17/` for actual-source regression, review findings and
+version-pinned API provenance. All 47 base gates, 62 ESM syntax checks and 24
+relationship groups pass in the isolated reviewed-index snapshot. The same final
+suite reproduces 19 failures against DP5; 33 existing training groups and 17
+independent review negatives pass. Independent review found no blocker. Fresh
+35-asset C2 and Guild diagnostics pass; all 35 structure assets, 35 C2 images and
+six rendering/geometry/data owners match GP16 exactly. Full-render evidence is
+retained from GP16 unchanged inputs; no fresh full render is claimed.
+No generator, geometry, resident identity, training controller or morality
+authority changes.
+Native multiplayer, persistence and navigation acceptance remain unrun.
+
+The [final-voxel Maze survey](../screenshots/validation/GP17/maze-study-followup-audit.md)
+corrects GP16's source-only furnishing comparison: three blue carpet cells remain,
+but no study bookcase or bed survives final generation. The lectern and enchanting
+table survive. An unshipped 11-cell fixture trial (three red carpet recolors and
+eight supported bookcase cells) preserves 678 protected cells and all inspected
+adjoining routes. This is preparatory evidence, not a changed Guild asset or a
+complete original study reconstruction. Round lattice windows, bordered rug,
+wall panels and full gallery dimensions remain open.
+
+Next behavior priority: durable requester-specific activity ownership and native
+Follow/Wait, then purposeful station arrival with interruption/defence preserved.
+In parallel, implement the surveyed 11-cell Maze fixture as a separate GP18 pass,
+with final-voxel regression and inspected detail renders. Continue bridge/range
+comparisons and individually designed Demon Door worlds. GP17 form authority alone does not fix caller-independent Wait broadcasts,
+generic native Follow targeting, roaming after Wait or station teleports.

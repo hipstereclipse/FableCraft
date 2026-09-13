@@ -1,0 +1,12180 @@
+{
+  "purpose": "GP17 read-only final-voxel Maze study survey and copied-only 11-cell fixture feasibility experiment; no production/generated edits or staging.",
+  "source_hashes": {
+    "scripts/gen_structures.py": "e6362334bc8d97715ac92c379a4db718032fcdaaa5d64241acfcf810c4793ae6",
+    "scripts/tests/test_guild_routes.py": "e3323f7b944a03457a9dde9ac10c24256d828a52369497db76edd035691bd889",
+    "packs/Fablecraft_BP/structures/fc/guild_hall.mcstructure": "4e1ea06bf19378fc391085b3db7d51d9e33e0205aa2086b5739612963bf52fde",
+    "/tmp/gp17-maze-study-survey.py": "66fa88807e40d0f9e3bb41ff1c58eee059ec75ab7e117d9e6a7f3bf3a2915142"
+  },
+  "serialized_owner_output_sha256": "4e1ea06bf19378fc391085b3db7d51d9e33e0205aa2086b5739612963bf52fde",
+  "serialized_owner_matches_shipped_asset": true,
+  "tower_center": [
+    46,
+    72
+  ],
+  "maze_anchor": [
+    46,
+    12,
+    70
+  ],
+  "survey_bounds_inclusive": {
+    "x": [
+      39,
+      53
+    ],
+    "y": [
+      11,
+      17
+    ],
+    "z": [
+      65,
+      79
+    ]
+  },
+  "surveyed_cell_count": 1575,
+  "surveyed_volume_canonical_sha256": "4745bea22129b483a0341ba8742b14766ab4bad4be46487142f57eb18bf77c62",
+  "final_material_fixtures": {
+    "minecraft:blue_carpet": [
+      {
+        "at": [
+          45,
+          12,
+          71
+        ],
+        "name": "minecraft:blue_carpet",
+        "states": {}
+      },
+      {
+        "at": [
+          45,
+          12,
+          73
+        ],
+        "name": "minecraft:blue_carpet",
+        "states": {}
+      },
+      {
+        "at": [
+          47,
+          12,
+          73
+        ],
+        "name": "minecraft:blue_carpet",
+        "states": {}
+      }
+    ],
+    "minecraft:bookshelf": [],
+    "minecraft:red_bed": [],
+    "minecraft:lectern": [
+      {
+        "at": [
+          44,
+          12,
+          73
+        ],
+        "name": "minecraft:lectern",
+        "states": {
+          "minecraft:cardinal_direction": "east"
+        }
+      }
+    ],
+    "minecraft:enchanting_table": [
+      {
+        "at": [
+          48,
+          12,
+          72
+        ],
+        "name": "minecraft:enchanting_table",
+        "states": {}
+      }
+    ],
+    "minecraft:sea_lantern": [
+      {
+        "at": [
+          41,
+          16,
+          72
+        ],
+        "name": "minecraft:sea_lantern",
+        "states": {}
+      },
+      {
+        "at": [
+          42,
+          16,
+          68
+        ],
+        "name": "minecraft:sea_lantern",
+        "states": {}
+      },
+      {
+        "at": [
+          42,
+          16,
+          76
+        ],
+        "name": "minecraft:sea_lantern",
+        "states": {}
+      },
+      {
+        "at": [
+          46,
+          12,
+          72
+        ],
+        "name": "minecraft:sea_lantern",
+        "states": {}
+      },
+      {
+        "at": [
+          46,
+          14,
+          72
+        ],
+        "name": "minecraft:sea_lantern",
+        "states": {}
+      },
+      {
+        "at": [
+          46,
+          16,
+          67
+        ],
+        "name": "minecraft:sea_lantern",
+        "states": {}
+      },
+      {
+        "at": [
+          47,
+          12,
+          74
+        ],
+        "name": "minecraft:sea_lantern",
+        "states": {}
+      },
+      {
+        "at": [
+          50,
+          16,
+          76
+        ],
+        "name": "minecraft:sea_lantern",
+        "states": {}
+      }
+    ],
+    "minecraft:lantern": [
+      {
+        "at": [
+          46,
+          15,
+          72
+        ],
+        "name": "minecraft:lantern",
+        "states": {
+          "hanging": false
+        }
+      }
+    ],
+    "minecraft:glass_pane": [
+      {
+        "at": [
+          41,
+          13,
+          69
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          13,
+          71
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          13,
+          72
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          13,
+          73
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          13,
+          75
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          14,
+          69
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          14,
+          71
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          14,
+          72
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          14,
+          73
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          14,
+          75
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          15,
+          72
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          42,
+          13,
+          68
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          42,
+          13,
+          76
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          42,
+          14,
+          68
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          42,
+          14,
+          76
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          42,
+          15,
+          68
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          42,
+          15,
+          76
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          43,
+          13,
+          67
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          43,
+          13,
+          77
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          43,
+          14,
+          67
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          43,
+          14,
+          77
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          45,
+          13,
+          67
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          45,
+          14,
+          67
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          46,
+          13,
+          67
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          46,
+          14,
+          67
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          46,
+          15,
+          67
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          47,
+          13,
+          67
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          47,
+          14,
+          67
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          49,
+          13,
+          77
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          49,
+          14,
+          77
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          50,
+          13,
+          76
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          50,
+          14,
+          76
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          50,
+          15,
+          76
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          51,
+          13,
+          75
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          51,
+          14,
+          75
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      }
+    ]
+  },
+  "nominal_erased_bed_cells": [
+    {
+      "at": [
+        45,
+        12,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        12,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    }
+  ],
+  "nominal_skipped_study_bookshelf_cells": [
+    {
+      "at": [
+        49,
+        12,
+        73
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        13,
+        73
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    }
+  ],
+  "free_supported_four_block_fixture_columns_outside_protected_volumes": [
+    {
+      "xz": [
+        42,
+        71
+      ],
+      "support": {
+        "at": [
+          42,
+          11,
+          71
+        ],
+        "name": "minecraft:dark_oak_planks",
+        "states": {}
+      },
+      "free_y_inclusive": [
+        12,
+        15
+      ]
+    },
+    {
+      "xz": [
+        42,
+        72
+      ],
+      "support": {
+        "at": [
+          42,
+          11,
+          72
+        ],
+        "name": "minecraft:dark_oak_planks",
+        "states": {}
+      },
+      "free_y_inclusive": [
+        12,
+        15
+      ]
+    },
+    {
+      "xz": [
+        42,
+        73
+      ],
+      "support": {
+        "at": [
+          42,
+          11,
+          73
+        ],
+        "name": "minecraft:dark_oak_planks",
+        "states": {}
+      },
+      "free_y_inclusive": [
+        12,
+        15
+      ]
+    },
+    {
+      "xz": [
+        43,
+        75
+      ],
+      "support": {
+        "at": [
+          43,
+          11,
+          75
+        ],
+        "name": "minecraft:dark_oak_planks",
+        "states": {}
+      },
+      "free_y_inclusive": [
+        12,
+        15
+      ]
+    },
+    {
+      "xz": [
+        44,
+        72
+      ],
+      "support": {
+        "at": [
+          44,
+          11,
+          72
+        ],
+        "name": "minecraft:dark_oak_planks",
+        "states": {}
+      },
+      "free_y_inclusive": [
+        12,
+        15
+      ]
+    },
+    {
+      "xz": [
+        44,
+        75
+      ],
+      "support": {
+        "at": [
+          44,
+          11,
+          75
+        ],
+        "name": "minecraft:dark_oak_planks",
+        "states": {}
+      },
+      "free_y_inclusive": [
+        12,
+        15
+      ]
+    },
+    {
+      "xz": [
+        45,
+        72
+      ],
+      "support": {
+        "at": [
+          45,
+          11,
+          72
+        ],
+        "name": "minecraft:dark_oak_planks",
+        "states": {}
+      },
+      "free_y_inclusive": [
+        12,
+        15
+      ]
+    },
+    {
+      "xz": [
+        46,
+        73
+      ],
+      "support": {
+        "at": [
+          46,
+          11,
+          73
+        ],
+        "name": "minecraft:dark_oak_planks",
+        "states": {}
+      },
+      "free_y_inclusive": [
+        12,
+        15
+      ]
+    },
+    {
+      "xz": [
+        47,
+        72
+      ],
+      "support": {
+        "at": [
+          47,
+          11,
+          72
+        ],
+        "name": "minecraft:dark_oak_planks",
+        "states": {}
+      },
+      "free_y_inclusive": [
+        12,
+        15
+      ]
+    },
+    {
+      "xz": [
+        48,
+        73
+      ],
+      "support": {
+        "at": [
+          48,
+          11,
+          73
+        ],
+        "name": "minecraft:dark_oak_planks",
+        "states": {}
+      },
+      "free_y_inclusive": [
+        12,
+        15
+      ]
+    },
+    {
+      "xz": [
+        48,
+        74
+      ],
+      "support": {
+        "at": [
+          48,
+          11,
+          74
+        ],
+        "name": "minecraft:dark_oak_planks",
+        "states": {}
+      },
+      "free_y_inclusive": [
+        12,
+        15
+      ]
+    },
+    {
+      "xz": [
+        48,
+        75
+      ],
+      "support": {
+        "at": [
+          48,
+          11,
+          75
+        ],
+        "name": "minecraft:dark_oak_planks",
+        "states": {}
+      },
+      "free_y_inclusive": [
+        12,
+        15
+      ]
+    },
+    {
+      "xz": [
+        49,
+        72
+      ],
+      "support": {
+        "at": [
+          49,
+          11,
+          72
+        ],
+        "name": "minecraft:dark_oak_planks",
+        "states": {}
+      },
+      "free_y_inclusive": [
+        12,
+        15
+      ]
+    },
+    {
+      "xz": [
+        49,
+        73
+      ],
+      "support": {
+        "at": [
+          49,
+          11,
+          73
+        ],
+        "name": "minecraft:dark_oak_planks",
+        "states": {}
+      },
+      "free_y_inclusive": [
+        12,
+        15
+      ]
+    },
+    {
+      "xz": [
+        49,
+        74
+      ],
+      "support": {
+        "at": [
+          49,
+          11,
+          74
+        ],
+        "name": "minecraft:dark_oak_planks",
+        "states": {}
+      },
+      "free_y_inclusive": [
+        12,
+        15
+      ]
+    },
+    {
+      "xz": [
+        49,
+        75
+      ],
+      "support": {
+        "at": [
+          49,
+          11,
+          75
+        ],
+        "name": "minecraft:dark_oak_planks",
+        "states": {}
+      },
+      "free_y_inclusive": [
+        12,
+        15
+      ]
+    }
+  ],
+  "window_planes": {
+    "west_existing_lancet_plane": [
+      {
+        "at": [
+          41,
+          12,
+          70
+        ],
+        "name": "minecraft:chiseled_stone_bricks",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          12,
+          71
+        ],
+        "name": "minecraft:chiseled_stone_bricks",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          12,
+          72
+        ],
+        "name": "minecraft:chiseled_stone_bricks",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          12,
+          73
+        ],
+        "name": "minecraft:chiseled_stone_bricks",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          12,
+          74
+        ],
+        "name": "minecraft:chiseled_stone_bricks",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          13,
+          70
+        ],
+        "name": "minecraft:chiseled_stone_bricks",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          13,
+          71
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          13,
+          72
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          13,
+          73
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          13,
+          74
+        ],
+        "name": "minecraft:chiseled_stone_bricks",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          14,
+          70
+        ],
+        "name": "minecraft:chiseled_stone_bricks",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          14,
+          71
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          14,
+          72
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          14,
+          73
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          14,
+          74
+        ],
+        "name": "minecraft:chiseled_stone_bricks",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          15,
+          70
+        ],
+        "name": "minecraft:chiseled_stone_bricks",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          15,
+          71
+        ],
+        "name": "minecraft:smooth_stone",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          15,
+          72
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          15,
+          73
+        ],
+        "name": "minecraft:smooth_stone",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          15,
+          74
+        ],
+        "name": "minecraft:chiseled_stone_bricks",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          16,
+          70
+        ],
+        "name": "minecraft:smooth_stone",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          16,
+          71
+        ],
+        "name": "minecraft:smooth_stone",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          16,
+          72
+        ],
+        "name": "minecraft:sea_lantern",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          16,
+          73
+        ],
+        "name": "minecraft:smooth_stone",
+        "states": {}
+      },
+      {
+        "at": [
+          41,
+          16,
+          74
+        ],
+        "name": "minecraft:stone_bricks",
+        "states": {}
+      }
+    ],
+    "north_existing_lancet_plane": [
+      {
+        "at": [
+          44,
+          12,
+          67
+        ],
+        "name": "minecraft:chiseled_stone_bricks",
+        "states": {}
+      },
+      {
+        "at": [
+          45,
+          12,
+          67
+        ],
+        "name": "minecraft:chiseled_stone_bricks",
+        "states": {}
+      },
+      {
+        "at": [
+          46,
+          12,
+          67
+        ],
+        "name": "minecraft:chiseled_stone_bricks",
+        "states": {}
+      },
+      {
+        "at": [
+          47,
+          12,
+          67
+        ],
+        "name": "minecraft:chiseled_stone_bricks",
+        "states": {}
+      },
+      {
+        "at": [
+          48,
+          12,
+          67
+        ],
+        "name": "minecraft:chiseled_stone_bricks",
+        "states": {}
+      },
+      {
+        "at": [
+          44,
+          13,
+          67
+        ],
+        "name": "minecraft:chiseled_stone_bricks",
+        "states": {}
+      },
+      {
+        "at": [
+          45,
+          13,
+          67
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          46,
+          13,
+          67
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          47,
+          13,
+          67
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          48,
+          13,
+          67
+        ],
+        "name": "minecraft:chiseled_stone_bricks",
+        "states": {}
+      },
+      {
+        "at": [
+          44,
+          14,
+          67
+        ],
+        "name": "minecraft:chiseled_stone_bricks",
+        "states": {}
+      },
+      {
+        "at": [
+          45,
+          14,
+          67
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          46,
+          14,
+          67
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          47,
+          14,
+          67
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          48,
+          14,
+          67
+        ],
+        "name": "minecraft:chiseled_stone_bricks",
+        "states": {}
+      },
+      {
+        "at": [
+          44,
+          15,
+          67
+        ],
+        "name": "minecraft:chiseled_stone_bricks",
+        "states": {}
+      },
+      {
+        "at": [
+          45,
+          15,
+          67
+        ],
+        "name": "minecraft:stone_bricks",
+        "states": {}
+      },
+      {
+        "at": [
+          46,
+          15,
+          67
+        ],
+        "name": "minecraft:glass_pane",
+        "states": {}
+      },
+      {
+        "at": [
+          47,
+          15,
+          67
+        ],
+        "name": "minecraft:smooth_stone",
+        "states": {}
+      },
+      {
+        "at": [
+          48,
+          15,
+          67
+        ],
+        "name": "minecraft:chiseled_stone_bricks",
+        "states": {}
+      },
+      {
+        "at": [
+          44,
+          16,
+          67
+        ],
+        "name": "minecraft:smooth_stone",
+        "states": {}
+      },
+      {
+        "at": [
+          45,
+          16,
+          67
+        ],
+        "name": "minecraft:smooth_stone",
+        "states": {}
+      },
+      {
+        "at": [
+          46,
+          16,
+          67
+        ],
+        "name": "minecraft:sea_lantern",
+        "states": {}
+      },
+      {
+        "at": [
+          47,
+          16,
+          67
+        ],
+        "name": "minecraft:smooth_stone",
+        "states": {}
+      },
+      {
+        "at": [
+          48,
+          16,
+          67
+        ],
+        "name": "minecraft:smooth_stone",
+        "states": {}
+      }
+    ]
+  },
+  "recommendation": {
+    "smallest_color_only_change_count": 3,
+    "coherent_fixture_prototype_total_change_count": 11,
+    "case_footprint_xz": [
+      [
+        43,
+        75
+      ],
+      [
+        44,
+        75
+      ]
+    ],
+    "case_y_inclusive": [
+      12,
+      15
+    ],
+    "adaptation_limits": "Two-block width, four-block height, southwest placement and plain timber framing are chosen Minecraft dimensions; no full original room/gallery plan or exact carved ornament is inferred. Carpet recolors retain three sparse patches and do not reconstruct a bordered rug."
+  },
+  "proposed_cells": [
+    {
+      "at": [
+        45,
+        12,
+        71
+      ],
+      "before": {
+        "name": "minecraft:blue_carpet",
+        "states": {}
+      },
+      "after": {
+        "name": "minecraft:red_carpet",
+        "states": {}
+      },
+      "reason": "Existing carpet color only; original study rug is red."
+    },
+    {
+      "at": [
+        45,
+        12,
+        73
+      ],
+      "before": {
+        "name": "minecraft:blue_carpet",
+        "states": {}
+      },
+      "after": {
+        "name": "minecraft:red_carpet",
+        "states": {}
+      },
+      "reason": "Existing carpet color only; original study rug is red."
+    },
+    {
+      "at": [
+        47,
+        12,
+        73
+      ],
+      "before": {
+        "name": "minecraft:blue_carpet",
+        "states": {}
+      },
+      "after": {
+        "name": "minecraft:red_carpet",
+        "states": {}
+      },
+      "reason": "Existing carpet color only; original study rug is red."
+    },
+    {
+      "at": [
+        43,
+        12,
+        75
+      ],
+      "before": {
+        "name": "minecraft:air",
+        "states": {}
+      },
+      "after": {
+        "name": "minecraft:dark_oak_planks",
+        "states": {}
+      },
+      "reason": "Chosen two-column case with continuous timber base/cap; exact dimensions and placement are adaptations."
+    },
+    {
+      "at": [
+        43,
+        13,
+        75
+      ],
+      "before": {
+        "name": "minecraft:air",
+        "states": {}
+      },
+      "after": {
+        "name": "minecraft:bookshelf",
+        "states": {}
+      },
+      "reason": "Chosen two-column case with continuous timber base/cap; exact dimensions and placement are adaptations."
+    },
+    {
+      "at": [
+        43,
+        14,
+        75
+      ],
+      "before": {
+        "name": "minecraft:air",
+        "states": {}
+      },
+      "after": {
+        "name": "minecraft:bookshelf",
+        "states": {}
+      },
+      "reason": "Chosen two-column case with continuous timber base/cap; exact dimensions and placement are adaptations."
+    },
+    {
+      "at": [
+        43,
+        15,
+        75
+      ],
+      "before": {
+        "name": "minecraft:air",
+        "states": {}
+      },
+      "after": {
+        "name": "minecraft:dark_oak_planks",
+        "states": {}
+      },
+      "reason": "Chosen two-column case with continuous timber base/cap; exact dimensions and placement are adaptations."
+    },
+    {
+      "at": [
+        44,
+        12,
+        75
+      ],
+      "before": {
+        "name": "minecraft:air",
+        "states": {}
+      },
+      "after": {
+        "name": "minecraft:dark_oak_planks",
+        "states": {}
+      },
+      "reason": "Chosen two-column case with continuous timber base/cap; exact dimensions and placement are adaptations."
+    },
+    {
+      "at": [
+        44,
+        13,
+        75
+      ],
+      "before": {
+        "name": "minecraft:air",
+        "states": {}
+      },
+      "after": {
+        "name": "minecraft:bookshelf",
+        "states": {}
+      },
+      "reason": "Chosen two-column case with continuous timber base/cap; exact dimensions and placement are adaptations."
+    },
+    {
+      "at": [
+        44,
+        14,
+        75
+      ],
+      "before": {
+        "name": "minecraft:air",
+        "states": {}
+      },
+      "after": {
+        "name": "minecraft:bookshelf",
+        "states": {}
+      },
+      "reason": "Chosen two-column case with continuous timber base/cap; exact dimensions and placement are adaptations."
+    },
+    {
+      "at": [
+        44,
+        15,
+        75
+      ],
+      "before": {
+        "name": "minecraft:air",
+        "states": {}
+      },
+      "after": {
+        "name": "minecraft:dark_oak_planks",
+        "states": {}
+      },
+      "reason": "Chosen two-column case with continuous timber base/cap; exact dimensions and placement are adaptations."
+    }
+  ],
+  "protected_group_coordinates": {
+    "tower_tread_carriage_and_reserved_headroom": [
+      [
+        42,
+        4,
+        75
+      ],
+      [
+        42,
+        5,
+        73
+      ],
+      [
+        42,
+        5,
+        74
+      ],
+      [
+        42,
+        5,
+        75
+      ],
+      [
+        42,
+        6,
+        71
+      ],
+      [
+        42,
+        6,
+        72
+      ],
+      [
+        42,
+        6,
+        73
+      ],
+      [
+        42,
+        6,
+        74
+      ],
+      [
+        42,
+        6,
+        75
+      ],
+      [
+        42,
+        7,
+        69
+      ],
+      [
+        42,
+        7,
+        70
+      ],
+      [
+        42,
+        7,
+        71
+      ],
+      [
+        42,
+        7,
+        72
+      ],
+      [
+        42,
+        7,
+        73
+      ],
+      [
+        42,
+        7,
+        74
+      ],
+      [
+        42,
+        7,
+        75
+      ],
+      [
+        42,
+        8,
+        69
+      ],
+      [
+        42,
+        8,
+        70
+      ],
+      [
+        42,
+        8,
+        71
+      ],
+      [
+        42,
+        8,
+        72
+      ],
+      [
+        42,
+        8,
+        73
+      ],
+      [
+        42,
+        8,
+        74
+      ],
+      [
+        42,
+        8,
+        75
+      ],
+      [
+        42,
+        9,
+        69
+      ],
+      [
+        42,
+        9,
+        70
+      ],
+      [
+        42,
+        9,
+        71
+      ],
+      [
+        42,
+        9,
+        72
+      ],
+      [
+        42,
+        9,
+        73
+      ],
+      [
+        42,
+        9,
+        74
+      ],
+      [
+        42,
+        10,
+        69
+      ],
+      [
+        42,
+        10,
+        70
+      ],
+      [
+        42,
+        10,
+        71
+      ],
+      [
+        42,
+        10,
+        72
+      ],
+      [
+        42,
+        11,
+        69
+      ],
+      [
+        42,
+        11,
+        70
+      ],
+      [
+        43,
+        4,
+        75
+      ],
+      [
+        43,
+        4,
+        76
+      ],
+      [
+        43,
+        5,
+        73
+      ],
+      [
+        43,
+        5,
+        74
+      ],
+      [
+        43,
+        5,
+        75
+      ],
+      [
+        43,
+        5,
+        76
+      ],
+      [
+        43,
+        6,
+        71
+      ],
+      [
+        43,
+        6,
+        72
+      ],
+      [
+        43,
+        6,
+        73
+      ],
+      [
+        43,
+        6,
+        74
+      ],
+      [
+        43,
+        6,
+        75
+      ],
+      [
+        43,
+        6,
+        76
+      ],
+      [
+        43,
+        7,
+        68
+      ],
+      [
+        43,
+        7,
+        69
+      ],
+      [
+        43,
+        7,
+        70
+      ],
+      [
+        43,
+        7,
+        71
+      ],
+      [
+        43,
+        7,
+        72
+      ],
+      [
+        43,
+        7,
+        73
+      ],
+      [
+        43,
+        7,
+        74
+      ],
+      [
+        43,
+        7,
+        75
+      ],
+      [
+        43,
+        7,
+        76
+      ],
+      [
+        43,
+        8,
+        68
+      ],
+      [
+        43,
+        8,
+        69
+      ],
+      [
+        43,
+        8,
+        70
+      ],
+      [
+        43,
+        8,
+        71
+      ],
+      [
+        43,
+        8,
+        72
+      ],
+      [
+        43,
+        8,
+        73
+      ],
+      [
+        43,
+        8,
+        74
+      ],
+      [
+        43,
+        8,
+        75
+      ],
+      [
+        43,
+        8,
+        76
+      ],
+      [
+        43,
+        9,
+        68
+      ],
+      [
+        43,
+        9,
+        69
+      ],
+      [
+        43,
+        9,
+        70
+      ],
+      [
+        43,
+        9,
+        71
+      ],
+      [
+        43,
+        9,
+        72
+      ],
+      [
+        43,
+        9,
+        73
+      ],
+      [
+        43,
+        9,
+        74
+      ],
+      [
+        43,
+        10,
+        68
+      ],
+      [
+        43,
+        10,
+        69
+      ],
+      [
+        43,
+        10,
+        70
+      ],
+      [
+        43,
+        10,
+        71
+      ],
+      [
+        43,
+        10,
+        72
+      ],
+      [
+        43,
+        11,
+        68
+      ],
+      [
+        43,
+        11,
+        69
+      ],
+      [
+        43,
+        11,
+        70
+      ],
+      [
+        44,
+        4,
+        75
+      ],
+      [
+        44,
+        4,
+        76
+      ],
+      [
+        44,
+        5,
+        75
+      ],
+      [
+        44,
+        5,
+        76
+      ],
+      [
+        44,
+        6,
+        75
+      ],
+      [
+        44,
+        6,
+        76
+      ],
+      [
+        44,
+        7,
+        68
+      ],
+      [
+        44,
+        7,
+        69
+      ],
+      [
+        44,
+        7,
+        75
+      ],
+      [
+        44,
+        7,
+        76
+      ],
+      [
+        44,
+        8,
+        68
+      ],
+      [
+        44,
+        8,
+        69
+      ],
+      [
+        44,
+        8,
+        75
+      ],
+      [
+        44,
+        8,
+        76
+      ],
+      [
+        44,
+        9,
+        68
+      ],
+      [
+        44,
+        9,
+        69
+      ],
+      [
+        44,
+        10,
+        68
+      ],
+      [
+        44,
+        10,
+        69
+      ],
+      [
+        44,
+        11,
+        68
+      ],
+      [
+        44,
+        11,
+        69
+      ],
+      [
+        45,
+        4,
+        75
+      ],
+      [
+        45,
+        4,
+        76
+      ],
+      [
+        45,
+        5,
+        75
+      ],
+      [
+        45,
+        5,
+        76
+      ],
+      [
+        45,
+        6,
+        75
+      ],
+      [
+        45,
+        6,
+        76
+      ],
+      [
+        45,
+        7,
+        75
+      ],
+      [
+        45,
+        7,
+        76
+      ],
+      [
+        45,
+        8,
+        68
+      ],
+      [
+        45,
+        8,
+        69
+      ],
+      [
+        45,
+        8,
+        75
+      ],
+      [
+        45,
+        8,
+        76
+      ],
+      [
+        45,
+        9,
+        68
+      ],
+      [
+        45,
+        9,
+        69
+      ],
+      [
+        45,
+        10,
+        68
+      ],
+      [
+        45,
+        10,
+        69
+      ],
+      [
+        45,
+        11,
+        68
+      ],
+      [
+        45,
+        11,
+        69
+      ],
+      [
+        45,
+        12,
+        68
+      ],
+      [
+        45,
+        12,
+        69
+      ],
+      [
+        46,
+        3,
+        75
+      ],
+      [
+        46,
+        3,
+        76
+      ],
+      [
+        46,
+        4,
+        75
+      ],
+      [
+        46,
+        4,
+        76
+      ],
+      [
+        46,
+        5,
+        75
+      ],
+      [
+        46,
+        5,
+        76
+      ],
+      [
+        46,
+        6,
+        75
+      ],
+      [
+        46,
+        6,
+        76
+      ],
+      [
+        46,
+        7,
+        75
+      ],
+      [
+        46,
+        7,
+        76
+      ],
+      [
+        46,
+        8,
+        68
+      ],
+      [
+        46,
+        8,
+        69
+      ],
+      [
+        46,
+        9,
+        68
+      ],
+      [
+        46,
+        9,
+        69
+      ],
+      [
+        46,
+        10,
+        68
+      ],
+      [
+        46,
+        10,
+        69
+      ],
+      [
+        46,
+        11,
+        68
+      ],
+      [
+        46,
+        11,
+        69
+      ],
+      [
+        46,
+        12,
+        68
+      ],
+      [
+        46,
+        12,
+        69
+      ],
+      [
+        47,
+        3,
+        75
+      ],
+      [
+        47,
+        3,
+        76
+      ],
+      [
+        47,
+        4,
+        75
+      ],
+      [
+        47,
+        4,
+        76
+      ],
+      [
+        47,
+        5,
+        75
+      ],
+      [
+        47,
+        5,
+        76
+      ],
+      [
+        47,
+        6,
+        75
+      ],
+      [
+        47,
+        6,
+        76
+      ],
+      [
+        47,
+        7,
+        75
+      ],
+      [
+        47,
+        7,
+        76
+      ],
+      [
+        47,
+        9,
+        68
+      ],
+      [
+        47,
+        9,
+        69
+      ],
+      [
+        47,
+        10,
+        68
+      ],
+      [
+        47,
+        10,
+        69
+      ],
+      [
+        47,
+        11,
+        68
+      ],
+      [
+        47,
+        11,
+        69
+      ],
+      [
+        47,
+        12,
+        68
+      ],
+      [
+        47,
+        12,
+        69
+      ],
+      [
+        47,
+        13,
+        68
+      ],
+      [
+        47,
+        13,
+        69
+      ],
+      [
+        48,
+        2,
+        75
+      ],
+      [
+        48,
+        2,
+        76
+      ],
+      [
+        48,
+        3,
+        75
+      ],
+      [
+        48,
+        3,
+        76
+      ],
+      [
+        48,
+        4,
+        75
+      ],
+      [
+        48,
+        4,
+        76
+      ],
+      [
+        48,
+        5,
+        75
+      ],
+      [
+        48,
+        5,
+        76
+      ],
+      [
+        48,
+        6,
+        75
+      ],
+      [
+        48,
+        6,
+        76
+      ],
+      [
+        48,
+        9,
+        68
+      ],
+      [
+        48,
+        9,
+        69
+      ],
+      [
+        48,
+        10,
+        68
+      ],
+      [
+        48,
+        10,
+        69
+      ],
+      [
+        48,
+        11,
+        68
+      ],
+      [
+        48,
+        11,
+        69
+      ],
+      [
+        48,
+        12,
+        68
+      ],
+      [
+        48,
+        12,
+        69
+      ],
+      [
+        48,
+        13,
+        68
+      ],
+      [
+        48,
+        13,
+        69
+      ],
+      [
+        49,
+        0,
+        70
+      ],
+      [
+        49,
+        0,
+        71
+      ],
+      [
+        49,
+        1,
+        70
+      ],
+      [
+        49,
+        1,
+        71
+      ],
+      [
+        49,
+        1,
+        72
+      ],
+      [
+        49,
+        1,
+        73
+      ],
+      [
+        49,
+        2,
+        70
+      ],
+      [
+        49,
+        2,
+        71
+      ],
+      [
+        49,
+        2,
+        72
+      ],
+      [
+        49,
+        2,
+        73
+      ],
+      [
+        49,
+        2,
+        74
+      ],
+      [
+        49,
+        2,
+        75
+      ],
+      [
+        49,
+        2,
+        76
+      ],
+      [
+        49,
+        3,
+        70
+      ],
+      [
+        49,
+        3,
+        71
+      ],
+      [
+        49,
+        3,
+        72
+      ],
+      [
+        49,
+        3,
+        73
+      ],
+      [
+        49,
+        3,
+        74
+      ],
+      [
+        49,
+        3,
+        75
+      ],
+      [
+        49,
+        3,
+        76
+      ],
+      [
+        49,
+        4,
+        70
+      ],
+      [
+        49,
+        4,
+        71
+      ],
+      [
+        49,
+        4,
+        72
+      ],
+      [
+        49,
+        4,
+        73
+      ],
+      [
+        49,
+        4,
+        74
+      ],
+      [
+        49,
+        4,
+        75
+      ],
+      [
+        49,
+        4,
+        76
+      ],
+      [
+        49,
+        5,
+        72
+      ],
+      [
+        49,
+        5,
+        73
+      ],
+      [
+        49,
+        5,
+        74
+      ],
+      [
+        49,
+        5,
+        75
+      ],
+      [
+        49,
+        5,
+        76
+      ],
+      [
+        49,
+        6,
+        74
+      ],
+      [
+        49,
+        6,
+        75
+      ],
+      [
+        49,
+        6,
+        76
+      ],
+      [
+        49,
+        9,
+        68
+      ],
+      [
+        49,
+        9,
+        69
+      ],
+      [
+        49,
+        10,
+        68
+      ],
+      [
+        49,
+        10,
+        69
+      ],
+      [
+        49,
+        10,
+        70
+      ],
+      [
+        49,
+        10,
+        71
+      ],
+      [
+        49,
+        11,
+        68
+      ],
+      [
+        49,
+        11,
+        69
+      ],
+      [
+        49,
+        11,
+        70
+      ],
+      [
+        49,
+        11,
+        71
+      ],
+      [
+        49,
+        12,
+        68
+      ],
+      [
+        49,
+        12,
+        69
+      ],
+      [
+        49,
+        12,
+        70
+      ],
+      [
+        49,
+        12,
+        71
+      ],
+      [
+        49,
+        13,
+        68
+      ],
+      [
+        49,
+        13,
+        69
+      ],
+      [
+        49,
+        13,
+        70
+      ],
+      [
+        49,
+        13,
+        71
+      ],
+      [
+        49,
+        14,
+        70
+      ],
+      [
+        49,
+        14,
+        71
+      ],
+      [
+        50,
+        0,
+        70
+      ],
+      [
+        50,
+        0,
+        71
+      ],
+      [
+        50,
+        1,
+        70
+      ],
+      [
+        50,
+        1,
+        71
+      ],
+      [
+        50,
+        1,
+        72
+      ],
+      [
+        50,
+        1,
+        73
+      ],
+      [
+        50,
+        2,
+        70
+      ],
+      [
+        50,
+        2,
+        71
+      ],
+      [
+        50,
+        2,
+        72
+      ],
+      [
+        50,
+        2,
+        73
+      ],
+      [
+        50,
+        2,
+        74
+      ],
+      [
+        50,
+        2,
+        75
+      ],
+      [
+        50,
+        3,
+        70
+      ],
+      [
+        50,
+        3,
+        71
+      ],
+      [
+        50,
+        3,
+        72
+      ],
+      [
+        50,
+        3,
+        73
+      ],
+      [
+        50,
+        3,
+        74
+      ],
+      [
+        50,
+        3,
+        75
+      ],
+      [
+        50,
+        4,
+        70
+      ],
+      [
+        50,
+        4,
+        71
+      ],
+      [
+        50,
+        4,
+        72
+      ],
+      [
+        50,
+        4,
+        73
+      ],
+      [
+        50,
+        4,
+        74
+      ],
+      [
+        50,
+        4,
+        75
+      ],
+      [
+        50,
+        5,
+        72
+      ],
+      [
+        50,
+        5,
+        73
+      ],
+      [
+        50,
+        5,
+        74
+      ],
+      [
+        50,
+        5,
+        75
+      ],
+      [
+        50,
+        6,
+        74
+      ],
+      [
+        50,
+        6,
+        75
+      ],
+      [
+        50,
+        9,
+        69
+      ],
+      [
+        50,
+        10,
+        69
+      ],
+      [
+        50,
+        10,
+        70
+      ],
+      [
+        50,
+        10,
+        71
+      ],
+      [
+        50,
+        11,
+        69
+      ],
+      [
+        50,
+        11,
+        70
+      ],
+      [
+        50,
+        11,
+        71
+      ],
+      [
+        50,
+        12,
+        69
+      ],
+      [
+        50,
+        12,
+        70
+      ],
+      [
+        50,
+        12,
+        71
+      ],
+      [
+        50,
+        13,
+        69
+      ],
+      [
+        50,
+        13,
+        70
+      ],
+      [
+        50,
+        13,
+        71
+      ],
+      [
+        50,
+        14,
+        70
+      ],
+      [
+        50,
+        14,
+        71
+      ]
+    ],
+    "middle_and_study_landing_support_and_clearance": [
+      [
+        44,
+        6,
+        72
+      ],
+      [
+        44,
+        6,
+        73
+      ],
+      [
+        44,
+        7,
+        72
+      ],
+      [
+        44,
+        7,
+        73
+      ],
+      [
+        44,
+        8,
+        72
+      ],
+      [
+        44,
+        8,
+        73
+      ],
+      [
+        44,
+        9,
+        72
+      ],
+      [
+        44,
+        9,
+        73
+      ],
+      [
+        46,
+        11,
+        70
+      ],
+      [
+        46,
+        11,
+        71
+      ],
+      [
+        46,
+        12,
+        70
+      ],
+      [
+        46,
+        12,
+        71
+      ],
+      [
+        46,
+        13,
+        70
+      ],
+      [
+        46,
+        13,
+        71
+      ],
+      [
+        46,
+        14,
+        70
+      ],
+      [
+        46,
+        14,
+        71
+      ],
+      [
+        47,
+        11,
+        71
+      ],
+      [
+        47,
+        12,
+        71
+      ],
+      [
+        47,
+        13,
+        71
+      ],
+      [
+        47,
+        14,
+        71
+      ],
+      [
+        48,
+        11,
+        71
+      ],
+      [
+        48,
+        12,
+        71
+      ],
+      [
+        48,
+        13,
+        71
+      ],
+      [
+        48,
+        14,
+        71
+      ]
+    ],
+    "entire_surveyed_deck_y11": [
+      [
+        39,
+        11,
+        65
+      ],
+      [
+        39,
+        11,
+        66
+      ],
+      [
+        39,
+        11,
+        67
+      ],
+      [
+        39,
+        11,
+        68
+      ],
+      [
+        39,
+        11,
+        69
+      ],
+      [
+        39,
+        11,
+        70
+      ],
+      [
+        39,
+        11,
+        71
+      ],
+      [
+        39,
+        11,
+        72
+      ],
+      [
+        39,
+        11,
+        73
+      ],
+      [
+        39,
+        11,
+        74
+      ],
+      [
+        39,
+        11,
+        75
+      ],
+      [
+        39,
+        11,
+        76
+      ],
+      [
+        39,
+        11,
+        77
+      ],
+      [
+        39,
+        11,
+        78
+      ],
+      [
+        39,
+        11,
+        79
+      ],
+      [
+        40,
+        11,
+        65
+      ],
+      [
+        40,
+        11,
+        66
+      ],
+      [
+        40,
+        11,
+        67
+      ],
+      [
+        40,
+        11,
+        68
+      ],
+      [
+        40,
+        11,
+        69
+      ],
+      [
+        40,
+        11,
+        70
+      ],
+      [
+        40,
+        11,
+        71
+      ],
+      [
+        40,
+        11,
+        72
+      ],
+      [
+        40,
+        11,
+        73
+      ],
+      [
+        40,
+        11,
+        74
+      ],
+      [
+        40,
+        11,
+        75
+      ],
+      [
+        40,
+        11,
+        76
+      ],
+      [
+        40,
+        11,
+        77
+      ],
+      [
+        40,
+        11,
+        78
+      ],
+      [
+        40,
+        11,
+        79
+      ],
+      [
+        41,
+        11,
+        65
+      ],
+      [
+        41,
+        11,
+        66
+      ],
+      [
+        41,
+        11,
+        67
+      ],
+      [
+        41,
+        11,
+        68
+      ],
+      [
+        41,
+        11,
+        69
+      ],
+      [
+        41,
+        11,
+        70
+      ],
+      [
+        41,
+        11,
+        71
+      ],
+      [
+        41,
+        11,
+        72
+      ],
+      [
+        41,
+        11,
+        73
+      ],
+      [
+        41,
+        11,
+        74
+      ],
+      [
+        41,
+        11,
+        75
+      ],
+      [
+        41,
+        11,
+        76
+      ],
+      [
+        41,
+        11,
+        77
+      ],
+      [
+        41,
+        11,
+        78
+      ],
+      [
+        41,
+        11,
+        79
+      ],
+      [
+        42,
+        11,
+        65
+      ],
+      [
+        42,
+        11,
+        66
+      ],
+      [
+        42,
+        11,
+        67
+      ],
+      [
+        42,
+        11,
+        68
+      ],
+      [
+        42,
+        11,
+        69
+      ],
+      [
+        42,
+        11,
+        70
+      ],
+      [
+        42,
+        11,
+        71
+      ],
+      [
+        42,
+        11,
+        72
+      ],
+      [
+        42,
+        11,
+        73
+      ],
+      [
+        42,
+        11,
+        74
+      ],
+      [
+        42,
+        11,
+        75
+      ],
+      [
+        42,
+        11,
+        76
+      ],
+      [
+        42,
+        11,
+        77
+      ],
+      [
+        42,
+        11,
+        78
+      ],
+      [
+        42,
+        11,
+        79
+      ],
+      [
+        43,
+        11,
+        65
+      ],
+      [
+        43,
+        11,
+        66
+      ],
+      [
+        43,
+        11,
+        67
+      ],
+      [
+        43,
+        11,
+        68
+      ],
+      [
+        43,
+        11,
+        69
+      ],
+      [
+        43,
+        11,
+        70
+      ],
+      [
+        43,
+        11,
+        71
+      ],
+      [
+        43,
+        11,
+        72
+      ],
+      [
+        43,
+        11,
+        73
+      ],
+      [
+        43,
+        11,
+        74
+      ],
+      [
+        43,
+        11,
+        75
+      ],
+      [
+        43,
+        11,
+        76
+      ],
+      [
+        43,
+        11,
+        77
+      ],
+      [
+        43,
+        11,
+        78
+      ],
+      [
+        43,
+        11,
+        79
+      ],
+      [
+        44,
+        11,
+        65
+      ],
+      [
+        44,
+        11,
+        66
+      ],
+      [
+        44,
+        11,
+        67
+      ],
+      [
+        44,
+        11,
+        68
+      ],
+      [
+        44,
+        11,
+        69
+      ],
+      [
+        44,
+        11,
+        70
+      ],
+      [
+        44,
+        11,
+        71
+      ],
+      [
+        44,
+        11,
+        72
+      ],
+      [
+        44,
+        11,
+        73
+      ],
+      [
+        44,
+        11,
+        74
+      ],
+      [
+        44,
+        11,
+        75
+      ],
+      [
+        44,
+        11,
+        76
+      ],
+      [
+        44,
+        11,
+        77
+      ],
+      [
+        44,
+        11,
+        78
+      ],
+      [
+        44,
+        11,
+        79
+      ],
+      [
+        45,
+        11,
+        65
+      ],
+      [
+        45,
+        11,
+        66
+      ],
+      [
+        45,
+        11,
+        67
+      ],
+      [
+        45,
+        11,
+        68
+      ],
+      [
+        45,
+        11,
+        69
+      ],
+      [
+        45,
+        11,
+        70
+      ],
+      [
+        45,
+        11,
+        71
+      ],
+      [
+        45,
+        11,
+        72
+      ],
+      [
+        45,
+        11,
+        73
+      ],
+      [
+        45,
+        11,
+        74
+      ],
+      [
+        45,
+        11,
+        75
+      ],
+      [
+        45,
+        11,
+        76
+      ],
+      [
+        45,
+        11,
+        77
+      ],
+      [
+        45,
+        11,
+        78
+      ],
+      [
+        45,
+        11,
+        79
+      ],
+      [
+        46,
+        11,
+        65
+      ],
+      [
+        46,
+        11,
+        66
+      ],
+      [
+        46,
+        11,
+        67
+      ],
+      [
+        46,
+        11,
+        68
+      ],
+      [
+        46,
+        11,
+        69
+      ],
+      [
+        46,
+        11,
+        70
+      ],
+      [
+        46,
+        11,
+        71
+      ],
+      [
+        46,
+        11,
+        72
+      ],
+      [
+        46,
+        11,
+        73
+      ],
+      [
+        46,
+        11,
+        74
+      ],
+      [
+        46,
+        11,
+        75
+      ],
+      [
+        46,
+        11,
+        76
+      ],
+      [
+        46,
+        11,
+        77
+      ],
+      [
+        46,
+        11,
+        78
+      ],
+      [
+        46,
+        11,
+        79
+      ],
+      [
+        47,
+        11,
+        65
+      ],
+      [
+        47,
+        11,
+        66
+      ],
+      [
+        47,
+        11,
+        67
+      ],
+      [
+        47,
+        11,
+        68
+      ],
+      [
+        47,
+        11,
+        69
+      ],
+      [
+        47,
+        11,
+        70
+      ],
+      [
+        47,
+        11,
+        71
+      ],
+      [
+        47,
+        11,
+        72
+      ],
+      [
+        47,
+        11,
+        73
+      ],
+      [
+        47,
+        11,
+        74
+      ],
+      [
+        47,
+        11,
+        75
+      ],
+      [
+        47,
+        11,
+        76
+      ],
+      [
+        47,
+        11,
+        77
+      ],
+      [
+        47,
+        11,
+        78
+      ],
+      [
+        47,
+        11,
+        79
+      ],
+      [
+        48,
+        11,
+        65
+      ],
+      [
+        48,
+        11,
+        66
+      ],
+      [
+        48,
+        11,
+        67
+      ],
+      [
+        48,
+        11,
+        68
+      ],
+      [
+        48,
+        11,
+        69
+      ],
+      [
+        48,
+        11,
+        70
+      ],
+      [
+        48,
+        11,
+        71
+      ],
+      [
+        48,
+        11,
+        72
+      ],
+      [
+        48,
+        11,
+        73
+      ],
+      [
+        48,
+        11,
+        74
+      ],
+      [
+        48,
+        11,
+        75
+      ],
+      [
+        48,
+        11,
+        76
+      ],
+      [
+        48,
+        11,
+        77
+      ],
+      [
+        48,
+        11,
+        78
+      ],
+      [
+        48,
+        11,
+        79
+      ],
+      [
+        49,
+        11,
+        65
+      ],
+      [
+        49,
+        11,
+        66
+      ],
+      [
+        49,
+        11,
+        67
+      ],
+      [
+        49,
+        11,
+        68
+      ],
+      [
+        49,
+        11,
+        69
+      ],
+      [
+        49,
+        11,
+        70
+      ],
+      [
+        49,
+        11,
+        71
+      ],
+      [
+        49,
+        11,
+        72
+      ],
+      [
+        49,
+        11,
+        73
+      ],
+      [
+        49,
+        11,
+        74
+      ],
+      [
+        49,
+        11,
+        75
+      ],
+      [
+        49,
+        11,
+        76
+      ],
+      [
+        49,
+        11,
+        77
+      ],
+      [
+        49,
+        11,
+        78
+      ],
+      [
+        49,
+        11,
+        79
+      ],
+      [
+        50,
+        11,
+        65
+      ],
+      [
+        50,
+        11,
+        66
+      ],
+      [
+        50,
+        11,
+        67
+      ],
+      [
+        50,
+        11,
+        68
+      ],
+      [
+        50,
+        11,
+        69
+      ],
+      [
+        50,
+        11,
+        70
+      ],
+      [
+        50,
+        11,
+        71
+      ],
+      [
+        50,
+        11,
+        72
+      ],
+      [
+        50,
+        11,
+        73
+      ],
+      [
+        50,
+        11,
+        74
+      ],
+      [
+        50,
+        11,
+        75
+      ],
+      [
+        50,
+        11,
+        76
+      ],
+      [
+        50,
+        11,
+        77
+      ],
+      [
+        50,
+        11,
+        78
+      ],
+      [
+        50,
+        11,
+        79
+      ],
+      [
+        51,
+        11,
+        65
+      ],
+      [
+        51,
+        11,
+        66
+      ],
+      [
+        51,
+        11,
+        67
+      ],
+      [
+        51,
+        11,
+        68
+      ],
+      [
+        51,
+        11,
+        69
+      ],
+      [
+        51,
+        11,
+        70
+      ],
+      [
+        51,
+        11,
+        71
+      ],
+      [
+        51,
+        11,
+        72
+      ],
+      [
+        51,
+        11,
+        73
+      ],
+      [
+        51,
+        11,
+        74
+      ],
+      [
+        51,
+        11,
+        75
+      ],
+      [
+        51,
+        11,
+        76
+      ],
+      [
+        51,
+        11,
+        77
+      ],
+      [
+        51,
+        11,
+        78
+      ],
+      [
+        51,
+        11,
+        79
+      ],
+      [
+        52,
+        11,
+        65
+      ],
+      [
+        52,
+        11,
+        66
+      ],
+      [
+        52,
+        11,
+        67
+      ],
+      [
+        52,
+        11,
+        68
+      ],
+      [
+        52,
+        11,
+        69
+      ],
+      [
+        52,
+        11,
+        70
+      ],
+      [
+        52,
+        11,
+        71
+      ],
+      [
+        52,
+        11,
+        72
+      ],
+      [
+        52,
+        11,
+        73
+      ],
+      [
+        52,
+        11,
+        74
+      ],
+      [
+        52,
+        11,
+        75
+      ],
+      [
+        52,
+        11,
+        76
+      ],
+      [
+        52,
+        11,
+        77
+      ],
+      [
+        52,
+        11,
+        78
+      ],
+      [
+        52,
+        11,
+        79
+      ],
+      [
+        53,
+        11,
+        65
+      ],
+      [
+        53,
+        11,
+        66
+      ],
+      [
+        53,
+        11,
+        67
+      ],
+      [
+        53,
+        11,
+        68
+      ],
+      [
+        53,
+        11,
+        69
+      ],
+      [
+        53,
+        11,
+        70
+      ],
+      [
+        53,
+        11,
+        71
+      ],
+      [
+        53,
+        11,
+        72
+      ],
+      [
+        53,
+        11,
+        73
+      ],
+      [
+        53,
+        11,
+        74
+      ],
+      [
+        53,
+        11,
+        75
+      ],
+      [
+        53,
+        11,
+        76
+      ],
+      [
+        53,
+        11,
+        77
+      ],
+      [
+        53,
+        11,
+        78
+      ],
+      [
+        53,
+        11,
+        79
+      ]
+    ],
+    "maze_anchor_support_and_headroom": [
+      [
+        46,
+        11,
+        70
+      ],
+      [
+        46,
+        12,
+        70
+      ],
+      [
+        46,
+        13,
+        70
+      ],
+      [
+        46,
+        14,
+        70
+      ]
+    ],
+    "east_balcony_door": [
+      [
+        50,
+        11,
+        71
+      ],
+      [
+        50,
+        11,
+        72
+      ],
+      [
+        50,
+        11,
+        73
+      ],
+      [
+        50,
+        12,
+        71
+      ],
+      [
+        50,
+        12,
+        72
+      ],
+      [
+        50,
+        12,
+        73
+      ],
+      [
+        50,
+        13,
+        71
+      ],
+      [
+        50,
+        13,
+        72
+      ],
+      [
+        50,
+        13,
+        73
+      ],
+      [
+        50,
+        14,
+        71
+      ],
+      [
+        50,
+        14,
+        72
+      ],
+      [
+        50,
+        14,
+        73
+      ],
+      [
+        51,
+        11,
+        71
+      ],
+      [
+        51,
+        11,
+        72
+      ],
+      [
+        51,
+        11,
+        73
+      ],
+      [
+        51,
+        12,
+        71
+      ],
+      [
+        51,
+        12,
+        72
+      ],
+      [
+        51,
+        12,
+        73
+      ],
+      [
+        51,
+        13,
+        71
+      ],
+      [
+        51,
+        13,
+        72
+      ],
+      [
+        51,
+        13,
+        73
+      ],
+      [
+        51,
+        14,
+        71
+      ],
+      [
+        51,
+        14,
+        72
+      ],
+      [
+        51,
+        14,
+        73
+      ],
+      [
+        52,
+        11,
+        71
+      ],
+      [
+        52,
+        11,
+        72
+      ],
+      [
+        52,
+        11,
+        73
+      ],
+      [
+        52,
+        12,
+        71
+      ],
+      [
+        52,
+        12,
+        72
+      ],
+      [
+        52,
+        12,
+        73
+      ],
+      [
+        52,
+        13,
+        71
+      ],
+      [
+        52,
+        13,
+        72
+      ],
+      [
+        52,
+        13,
+        73
+      ],
+      [
+        52,
+        14,
+        71
+      ],
+      [
+        52,
+        14,
+        72
+      ],
+      [
+        52,
+        14,
+        73
+      ]
+    ],
+    "south_balcony_door": [
+      [
+        45,
+        11,
+        75
+      ],
+      [
+        45,
+        11,
+        76
+      ],
+      [
+        45,
+        11,
+        77
+      ],
+      [
+        45,
+        11,
+        78
+      ],
+      [
+        45,
+        12,
+        75
+      ],
+      [
+        45,
+        12,
+        76
+      ],
+      [
+        45,
+        12,
+        77
+      ],
+      [
+        45,
+        12,
+        78
+      ],
+      [
+        45,
+        13,
+        75
+      ],
+      [
+        45,
+        13,
+        76
+      ],
+      [
+        45,
+        13,
+        77
+      ],
+      [
+        45,
+        13,
+        78
+      ],
+      [
+        45,
+        14,
+        75
+      ],
+      [
+        45,
+        14,
+        76
+      ],
+      [
+        45,
+        14,
+        77
+      ],
+      [
+        45,
+        14,
+        78
+      ],
+      [
+        46,
+        11,
+        75
+      ],
+      [
+        46,
+        11,
+        76
+      ],
+      [
+        46,
+        11,
+        77
+      ],
+      [
+        46,
+        11,
+        78
+      ],
+      [
+        46,
+        12,
+        75
+      ],
+      [
+        46,
+        12,
+        76
+      ],
+      [
+        46,
+        12,
+        77
+      ],
+      [
+        46,
+        12,
+        78
+      ],
+      [
+        46,
+        13,
+        75
+      ],
+      [
+        46,
+        13,
+        76
+      ],
+      [
+        46,
+        13,
+        77
+      ],
+      [
+        46,
+        13,
+        78
+      ],
+      [
+        46,
+        14,
+        75
+      ],
+      [
+        46,
+        14,
+        76
+      ],
+      [
+        46,
+        14,
+        77
+      ],
+      [
+        46,
+        14,
+        78
+      ],
+      [
+        47,
+        11,
+        75
+      ],
+      [
+        47,
+        11,
+        76
+      ],
+      [
+        47,
+        11,
+        77
+      ],
+      [
+        47,
+        11,
+        78
+      ],
+      [
+        47,
+        12,
+        75
+      ],
+      [
+        47,
+        12,
+        76
+      ],
+      [
+        47,
+        12,
+        77
+      ],
+      [
+        47,
+        12,
+        78
+      ],
+      [
+        47,
+        13,
+        75
+      ],
+      [
+        47,
+        13,
+        76
+      ],
+      [
+        47,
+        13,
+        77
+      ],
+      [
+        47,
+        13,
+        78
+      ],
+      [
+        47,
+        14,
+        75
+      ],
+      [
+        47,
+        14,
+        76
+      ],
+      [
+        47,
+        14,
+        77
+      ],
+      [
+        47,
+        14,
+        78
+      ]
+    ],
+    "northeast_balcony_return_strip": [
+      [
+        49,
+        11,
+        67
+      ],
+      [
+        49,
+        12,
+        67
+      ],
+      [
+        49,
+        13,
+        67
+      ],
+      [
+        49,
+        14,
+        67
+      ],
+      [
+        50,
+        11,
+        67
+      ],
+      [
+        50,
+        11,
+        68
+      ],
+      [
+        50,
+        12,
+        67
+      ],
+      [
+        50,
+        12,
+        68
+      ],
+      [
+        50,
+        13,
+        67
+      ],
+      [
+        50,
+        13,
+        68
+      ],
+      [
+        50,
+        14,
+        67
+      ],
+      [
+        50,
+        14,
+        68
+      ],
+      [
+        51,
+        11,
+        68
+      ],
+      [
+        51,
+        11,
+        69
+      ],
+      [
+        51,
+        12,
+        68
+      ],
+      [
+        51,
+        12,
+        69
+      ],
+      [
+        51,
+        13,
+        68
+      ],
+      [
+        51,
+        13,
+        69
+      ],
+      [
+        51,
+        14,
+        68
+      ],
+      [
+        51,
+        14,
+        69
+      ],
+      [
+        52,
+        11,
+        69
+      ],
+      [
+        52,
+        11,
+        70
+      ],
+      [
+        52,
+        12,
+        69
+      ],
+      [
+        52,
+        12,
+        70
+      ],
+      [
+        52,
+        13,
+        69
+      ],
+      [
+        52,
+        13,
+        70
+      ],
+      [
+        52,
+        14,
+        69
+      ],
+      [
+        52,
+        14,
+        70
+      ]
+    ],
+    "study_connector_to_east": [
+      [
+        46,
+        11,
+        70
+      ],
+      [
+        46,
+        12,
+        70
+      ],
+      [
+        46,
+        13,
+        70
+      ],
+      [
+        46,
+        14,
+        70
+      ],
+      [
+        47,
+        11,
+        70
+      ],
+      [
+        47,
+        12,
+        70
+      ],
+      [
+        47,
+        13,
+        70
+      ],
+      [
+        47,
+        14,
+        70
+      ],
+      [
+        48,
+        11,
+        70
+      ],
+      [
+        48,
+        11,
+        71
+      ],
+      [
+        48,
+        12,
+        70
+      ],
+      [
+        48,
+        12,
+        71
+      ],
+      [
+        48,
+        13,
+        70
+      ],
+      [
+        48,
+        13,
+        71
+      ],
+      [
+        48,
+        14,
+        70
+      ],
+      [
+        48,
+        14,
+        71
+      ],
+      [
+        49,
+        11,
+        71
+      ],
+      [
+        49,
+        12,
+        71
+      ],
+      [
+        49,
+        13,
+        71
+      ],
+      [
+        49,
+        14,
+        71
+      ],
+      [
+        50,
+        11,
+        71
+      ],
+      [
+        50,
+        12,
+        71
+      ],
+      [
+        50,
+        13,
+        71
+      ],
+      [
+        50,
+        14,
+        71
+      ],
+      [
+        51,
+        11,
+        71
+      ],
+      [
+        51,
+        12,
+        71
+      ],
+      [
+        51,
+        13,
+        71
+      ],
+      [
+        51,
+        14,
+        71
+      ],
+      [
+        52,
+        11,
+        71
+      ],
+      [
+        52,
+        11,
+        72
+      ],
+      [
+        52,
+        12,
+        71
+      ],
+      [
+        52,
+        12,
+        72
+      ],
+      [
+        52,
+        13,
+        71
+      ],
+      [
+        52,
+        13,
+        72
+      ],
+      [
+        52,
+        14,
+        71
+      ],
+      [
+        52,
+        14,
+        72
+      ]
+    ],
+    "study_connector_to_south": [
+      [
+        43,
+        11,
+        71
+      ],
+      [
+        43,
+        11,
+        72
+      ],
+      [
+        43,
+        11,
+        73
+      ],
+      [
+        43,
+        11,
+        74
+      ],
+      [
+        43,
+        12,
+        71
+      ],
+      [
+        43,
+        12,
+        72
+      ],
+      [
+        43,
+        12,
+        73
+      ],
+      [
+        43,
+        12,
+        74
+      ],
+      [
+        43,
+        13,
+        71
+      ],
+      [
+        43,
+        13,
+        72
+      ],
+      [
+        43,
+        13,
+        73
+      ],
+      [
+        43,
+        13,
+        74
+      ],
+      [
+        43,
+        14,
+        71
+      ],
+      [
+        43,
+        14,
+        72
+      ],
+      [
+        43,
+        14,
+        73
+      ],
+      [
+        43,
+        14,
+        74
+      ],
+      [
+        44,
+        11,
+        70
+      ],
+      [
+        44,
+        11,
+        71
+      ],
+      [
+        44,
+        11,
+        74
+      ],
+      [
+        44,
+        12,
+        70
+      ],
+      [
+        44,
+        12,
+        71
+      ],
+      [
+        44,
+        12,
+        74
+      ],
+      [
+        44,
+        13,
+        70
+      ],
+      [
+        44,
+        13,
+        71
+      ],
+      [
+        44,
+        13,
+        74
+      ],
+      [
+        44,
+        14,
+        70
+      ],
+      [
+        44,
+        14,
+        71
+      ],
+      [
+        44,
+        14,
+        74
+      ],
+      [
+        45,
+        11,
+        70
+      ],
+      [
+        45,
+        11,
+        74
+      ],
+      [
+        45,
+        12,
+        70
+      ],
+      [
+        45,
+        12,
+        74
+      ],
+      [
+        45,
+        13,
+        70
+      ],
+      [
+        45,
+        13,
+        74
+      ],
+      [
+        45,
+        14,
+        70
+      ],
+      [
+        45,
+        14,
+        74
+      ],
+      [
+        46,
+        11,
+        70
+      ],
+      [
+        46,
+        11,
+        74
+      ],
+      [
+        46,
+        11,
+        75
+      ],
+      [
+        46,
+        11,
+        76
+      ],
+      [
+        46,
+        11,
+        77
+      ],
+      [
+        46,
+        11,
+        78
+      ],
+      [
+        46,
+        12,
+        70
+      ],
+      [
+        46,
+        12,
+        74
+      ],
+      [
+        46,
+        12,
+        75
+      ],
+      [
+        46,
+        12,
+        76
+      ],
+      [
+        46,
+        12,
+        77
+      ],
+      [
+        46,
+        12,
+        78
+      ],
+      [
+        46,
+        13,
+        70
+      ],
+      [
+        46,
+        13,
+        74
+      ],
+      [
+        46,
+        13,
+        75
+      ],
+      [
+        46,
+        13,
+        76
+      ],
+      [
+        46,
+        13,
+        77
+      ],
+      [
+        46,
+        13,
+        78
+      ],
+      [
+        46,
+        14,
+        70
+      ],
+      [
+        46,
+        14,
+        74
+      ],
+      [
+        46,
+        14,
+        75
+      ],
+      [
+        46,
+        14,
+        76
+      ],
+      [
+        46,
+        14,
+        77
+      ],
+      [
+        46,
+        14,
+        78
+      ]
+    ],
+    "study_connector_to_northeast": [
+      [
+        46,
+        11,
+        70
+      ],
+      [
+        46,
+        12,
+        70
+      ],
+      [
+        46,
+        13,
+        70
+      ],
+      [
+        46,
+        14,
+        70
+      ],
+      [
+        47,
+        11,
+        70
+      ],
+      [
+        47,
+        12,
+        70
+      ],
+      [
+        47,
+        13,
+        70
+      ],
+      [
+        47,
+        14,
+        70
+      ],
+      [
+        48,
+        11,
+        70
+      ],
+      [
+        48,
+        11,
+        71
+      ],
+      [
+        48,
+        12,
+        70
+      ],
+      [
+        48,
+        12,
+        71
+      ],
+      [
+        48,
+        13,
+        70
+      ],
+      [
+        48,
+        13,
+        71
+      ],
+      [
+        48,
+        14,
+        70
+      ],
+      [
+        48,
+        14,
+        71
+      ],
+      [
+        49,
+        11,
+        67
+      ],
+      [
+        49,
+        11,
+        71
+      ],
+      [
+        49,
+        12,
+        67
+      ],
+      [
+        49,
+        12,
+        71
+      ],
+      [
+        49,
+        13,
+        67
+      ],
+      [
+        49,
+        13,
+        71
+      ],
+      [
+        49,
+        14,
+        67
+      ],
+      [
+        49,
+        14,
+        71
+      ],
+      [
+        50,
+        11,
+        67
+      ],
+      [
+        50,
+        11,
+        68
+      ],
+      [
+        50,
+        11,
+        71
+      ],
+      [
+        50,
+        12,
+        67
+      ],
+      [
+        50,
+        12,
+        68
+      ],
+      [
+        50,
+        12,
+        71
+      ],
+      [
+        50,
+        13,
+        67
+      ],
+      [
+        50,
+        13,
+        68
+      ],
+      [
+        50,
+        13,
+        71
+      ],
+      [
+        50,
+        14,
+        67
+      ],
+      [
+        50,
+        14,
+        68
+      ],
+      [
+        50,
+        14,
+        71
+      ],
+      [
+        51,
+        11,
+        68
+      ],
+      [
+        51,
+        11,
+        69
+      ],
+      [
+        51,
+        11,
+        71
+      ],
+      [
+        51,
+        12,
+        68
+      ],
+      [
+        51,
+        12,
+        69
+      ],
+      [
+        51,
+        12,
+        71
+      ],
+      [
+        51,
+        13,
+        68
+      ],
+      [
+        51,
+        13,
+        69
+      ],
+      [
+        51,
+        13,
+        71
+      ],
+      [
+        51,
+        14,
+        68
+      ],
+      [
+        51,
+        14,
+        69
+      ],
+      [
+        51,
+        14,
+        71
+      ],
+      [
+        52,
+        11,
+        69
+      ],
+      [
+        52,
+        11,
+        70
+      ],
+      [
+        52,
+        11,
+        71
+      ],
+      [
+        52,
+        12,
+        69
+      ],
+      [
+        52,
+        12,
+        70
+      ],
+      [
+        52,
+        12,
+        71
+      ],
+      [
+        52,
+        13,
+        69
+      ],
+      [
+        52,
+        13,
+        70
+      ],
+      [
+        52,
+        13,
+        71
+      ],
+      [
+        52,
+        14,
+        69
+      ],
+      [
+        52,
+        14,
+        70
+      ],
+      [
+        52,
+        14,
+        71
+      ]
+    ],
+    "ground_north_and_west_door_strips": [
+      [
+        40,
+        0,
+        72
+      ],
+      [
+        40,
+        1,
+        72
+      ],
+      [
+        40,
+        2,
+        72
+      ],
+      [
+        40,
+        3,
+        72
+      ],
+      [
+        41,
+        0,
+        72
+      ],
+      [
+        41,
+        1,
+        72
+      ],
+      [
+        41,
+        2,
+        72
+      ],
+      [
+        41,
+        3,
+        72
+      ],
+      [
+        42,
+        0,
+        72
+      ],
+      [
+        42,
+        1,
+        72
+      ],
+      [
+        42,
+        2,
+        72
+      ],
+      [
+        42,
+        3,
+        72
+      ],
+      [
+        43,
+        0,
+        72
+      ],
+      [
+        43,
+        1,
+        72
+      ],
+      [
+        43,
+        2,
+        72
+      ],
+      [
+        43,
+        3,
+        72
+      ],
+      [
+        44,
+        0,
+        72
+      ],
+      [
+        44,
+        1,
+        72
+      ],
+      [
+        44,
+        2,
+        72
+      ],
+      [
+        44,
+        3,
+        72
+      ],
+      [
+        45,
+        0,
+        72
+      ],
+      [
+        45,
+        1,
+        72
+      ],
+      [
+        45,
+        2,
+        72
+      ],
+      [
+        45,
+        3,
+        72
+      ],
+      [
+        46,
+        0,
+        66
+      ],
+      [
+        46,
+        0,
+        67
+      ],
+      [
+        46,
+        0,
+        68
+      ],
+      [
+        46,
+        0,
+        69
+      ],
+      [
+        46,
+        0,
+        70
+      ],
+      [
+        46,
+        1,
+        66
+      ],
+      [
+        46,
+        1,
+        67
+      ],
+      [
+        46,
+        1,
+        68
+      ],
+      [
+        46,
+        1,
+        69
+      ],
+      [
+        46,
+        1,
+        70
+      ],
+      [
+        46,
+        2,
+        66
+      ],
+      [
+        46,
+        2,
+        67
+      ],
+      [
+        46,
+        2,
+        68
+      ],
+      [
+        46,
+        2,
+        69
+      ],
+      [
+        46,
+        2,
+        70
+      ],
+      [
+        46,
+        3,
+        66
+      ],
+      [
+        46,
+        3,
+        67
+      ],
+      [
+        46,
+        3,
+        68
+      ],
+      [
+        46,
+        3,
+        69
+      ],
+      [
+        46,
+        3,
+        70
+      ]
+    ],
+    "fixed_newel_and_central_lights": [
+      [
+        46,
+        1,
+        72
+      ],
+      [
+        46,
+        2,
+        72
+      ],
+      [
+        46,
+        3,
+        72
+      ],
+      [
+        46,
+        4,
+        72
+      ],
+      [
+        46,
+        5,
+        72
+      ],
+      [
+        46,
+        6,
+        72
+      ],
+      [
+        46,
+        7,
+        72
+      ],
+      [
+        46,
+        8,
+        72
+      ],
+      [
+        46,
+        9,
+        72
+      ],
+      [
+        46,
+        10,
+        72
+      ],
+      [
+        46,
+        11,
+        72
+      ],
+      [
+        46,
+        12,
+        72
+      ],
+      [
+        46,
+        13,
+        72
+      ],
+      [
+        46,
+        14,
+        72
+      ],
+      [
+        46,
+        15,
+        72
+      ]
+    ]
+  },
+  "protected_unique_cell_count": 678,
+  "protected_cells": [
+    {
+      "at": [
+        39,
+        11,
+        65
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        39,
+        11,
+        66
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        39,
+        11,
+        67
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        39,
+        11,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        39,
+        11,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        39,
+        11,
+        70
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        39,
+        11,
+        71
+      ],
+      "name": "minecraft:deepslate_tiles",
+      "states": {}
+    },
+    {
+      "at": [
+        39,
+        11,
+        72
+      ],
+      "name": "minecraft:deepslate_tiles",
+      "states": {}
+    },
+    {
+      "at": [
+        39,
+        11,
+        73
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        39,
+        11,
+        74
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        39,
+        11,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        39,
+        11,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        39,
+        11,
+        77
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        39,
+        11,
+        78
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        39,
+        11,
+        79
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        40,
+        0,
+        72
+      ],
+      "name": "minecraft:deepslate_tiles",
+      "states": {}
+    },
+    {
+      "at": [
+        40,
+        1,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        40,
+        2,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        40,
+        3,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        40,
+        11,
+        65
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        40,
+        11,
+        66
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        40,
+        11,
+        67
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        40,
+        11,
+        68
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        40,
+        11,
+        69
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        40,
+        11,
+        70
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        40,
+        11,
+        71
+      ],
+      "name": "minecraft:deepslate_tiles",
+      "states": {}
+    },
+    {
+      "at": [
+        40,
+        11,
+        72
+      ],
+      "name": "minecraft:deepslate_tiles",
+      "states": {}
+    },
+    {
+      "at": [
+        40,
+        11,
+        73
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        40,
+        11,
+        74
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        40,
+        11,
+        75
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        40,
+        11,
+        76
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        40,
+        11,
+        77
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        40,
+        11,
+        78
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        40,
+        11,
+        79
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        41,
+        0,
+        72
+      ],
+      "name": "minecraft:deepslate_tiles",
+      "states": {}
+    },
+    {
+      "at": [
+        41,
+        1,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        41,
+        2,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        41,
+        3,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        41,
+        11,
+        65
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        41,
+        11,
+        66
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        41,
+        11,
+        67
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        41,
+        11,
+        68
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        41,
+        11,
+        69
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        41,
+        11,
+        70
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        41,
+        11,
+        71
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        41,
+        11,
+        72
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        41,
+        11,
+        73
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        41,
+        11,
+        74
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        41,
+        11,
+        75
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        41,
+        11,
+        76
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        41,
+        11,
+        77
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        41,
+        11,
+        78
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        41,
+        11,
+        79
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        0,
+        72
+      ],
+      "name": "minecraft:deepslate_tiles",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        1,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        2,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        3,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        4,
+        75
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        5,
+        73
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        5,
+        74
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        5,
+        75
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        6,
+        71
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        6,
+        72
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        6,
+        73
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        6,
+        74
+      ],
+      "name": "minecraft:stone_brick_slab",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        6,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        7,
+        69
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        7,
+        70
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        7,
+        71
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        7,
+        72
+      ],
+      "name": "minecraft:stone_brick_slab",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        7,
+        73
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        7,
+        74
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        7,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        8,
+        69
+      ],
+      "name": "minecraft:stone_brick_slab",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        8,
+        70
+      ],
+      "name": "minecraft:stone_brick_slab",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        8,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        8,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        8,
+        73
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        8,
+        74
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        8,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        9,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        9,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        9,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        9,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        9,
+        73
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        9,
+        74
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        10,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        10,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        10,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        10,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        11,
+        65
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        11,
+        66
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        11,
+        67
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        11,
+        68
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        11,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        11,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        11,
+        71
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        11,
+        72
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        11,
+        73
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        11,
+        74
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        11,
+        75
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        11,
+        76
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        11,
+        77
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        11,
+        78
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        42,
+        11,
+        79
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        0,
+        72
+      ],
+      "name": "minecraft:deepslate_tiles",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        1,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        2,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        3,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        4,
+        75
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        4,
+        76
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        5,
+        73
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        5,
+        74
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        5,
+        75
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        5,
+        76
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        6,
+        71
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        6,
+        72
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        6,
+        73
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        6,
+        74
+      ],
+      "name": "minecraft:stone_brick_slab",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        6,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        6,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        7,
+        68
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        7,
+        69
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        7,
+        70
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        7,
+        71
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        7,
+        72
+      ],
+      "name": "minecraft:stone_brick_slab",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        7,
+        73
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        7,
+        74
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        7,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        7,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        8,
+        68
+      ],
+      "name": "minecraft:stone_brick_slab",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        8,
+        69
+      ],
+      "name": "minecraft:stone_brick_slab",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        8,
+        70
+      ],
+      "name": "minecraft:stone_brick_slab",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        8,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        8,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        8,
+        73
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        8,
+        74
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        8,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        8,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        9,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        9,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        9,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        9,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        9,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        9,
+        73
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        9,
+        74
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        10,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        10,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        10,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        10,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        10,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        11,
+        65
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        11,
+        66
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        11,
+        67
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        11,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        11,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        11,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        11,
+        71
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        11,
+        72
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        11,
+        73
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        11,
+        74
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        11,
+        75
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        11,
+        76
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        11,
+        77
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        11,
+        78
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        11,
+        79
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        12,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        12,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        12,
+        73
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        12,
+        74
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        13,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        13,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        13,
+        73
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        13,
+        74
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        14,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        14,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        14,
+        73
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        43,
+        14,
+        74
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        0,
+        72
+      ],
+      "name": "minecraft:deepslate_tiles",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        1,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        2,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        3,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        4,
+        75
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        4,
+        76
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        5,
+        75
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        5,
+        76
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        6,
+        72
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        6,
+        73
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        6,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        6,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        7,
+        68
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        7,
+        69
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        7,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        7,
+        73
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        7,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        7,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        8,
+        68
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        8,
+        69
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        8,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        8,
+        73
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        8,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        8,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        9,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        9,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        9,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        9,
+        73
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        10,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        10,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        11,
+        65
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        11,
+        66
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        11,
+        67
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        11,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        11,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        11,
+        70
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        11,
+        71
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        11,
+        72
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        11,
+        73
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        11,
+        74
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        11,
+        75
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        11,
+        76
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        11,
+        77
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        11,
+        78
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        11,
+        79
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        12,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        12,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        12,
+        74
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        13,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        13,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        13,
+        74
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        14,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        14,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        44,
+        14,
+        74
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        0,
+        72
+      ],
+      "name": "minecraft:deepslate_tiles",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        1,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        2,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        3,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        4,
+        75
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        4,
+        76
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        5,
+        75
+      ],
+      "name": "minecraft:stone_brick_slab",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        5,
+        76
+      ],
+      "name": "minecraft:stone_brick_slab",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        6,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        6,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        7,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        7,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        8,
+        68
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        8,
+        69
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        8,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        8,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        9,
+        68
+      ],
+      "name": "minecraft:stone_brick_slab",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        9,
+        69
+      ],
+      "name": "minecraft:stone_brick_slab",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        10,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        10,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        11,
+        65
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        11,
+        66
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        11,
+        67
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        11,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        11,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        11,
+        70
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        11,
+        71
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        11,
+        72
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        11,
+        73
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        11,
+        74
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        11,
+        75
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        11,
+        76
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        11,
+        77
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        11,
+        78
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        11,
+        79
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        12,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        12,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        12,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        12,
+        74
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        12,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        12,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        12,
+        77
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        12,
+        78
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        13,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        13,
+        74
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        13,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        13,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        13,
+        77
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        13,
+        78
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        14,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        14,
+        74
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        14,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        14,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        14,
+        77
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        45,
+        14,
+        78
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        0,
+        66
+      ],
+      "name": "minecraft:deepslate_tiles",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        0,
+        67
+      ],
+      "name": "minecraft:deepslate_tiles",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        0,
+        68
+      ],
+      "name": "minecraft:deepslate_tiles",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        0,
+        69
+      ],
+      "name": "minecraft:deepslate_tiles",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        0,
+        70
+      ],
+      "name": "minecraft:deepslate_tiles",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        1,
+        66
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        1,
+        67
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        1,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        1,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        1,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        1,
+        72
+      ],
+      "name": "minecraft:chiseled_deepslate",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        2,
+        66
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        2,
+        67
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        2,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        2,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        2,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        2,
+        72
+      ],
+      "name": "minecraft:chiseled_deepslate",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        3,
+        66
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        3,
+        67
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        3,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        3,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        3,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        3,
+        72
+      ],
+      "name": "minecraft:sea_lantern",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        3,
+        75
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        3,
+        76
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        4,
+        72
+      ],
+      "name": "minecraft:chiseled_deepslate",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        4,
+        75
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        4,
+        76
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        5,
+        72
+      ],
+      "name": "minecraft:chiseled_deepslate",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        5,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        5,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        6,
+        72
+      ],
+      "name": "minecraft:sea_lantern",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        6,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        6,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        7,
+        72
+      ],
+      "name": "minecraft:chiseled_deepslate",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        7,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        7,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        8,
+        68
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        8,
+        69
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        8,
+        72
+      ],
+      "name": "minecraft:chiseled_deepslate",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        9,
+        68
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        9,
+        69
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        9,
+        72
+      ],
+      "name": "minecraft:sea_lantern",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        10,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        10,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        10,
+        72
+      ],
+      "name": "minecraft:chiseled_deepslate",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        11,
+        65
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        11,
+        66
+      ],
+      "name": "minecraft:chiseled_stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        11,
+        67
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        11,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        11,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        11,
+        70
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        11,
+        71
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        11,
+        72
+      ],
+      "name": "minecraft:chiseled_deepslate",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        11,
+        73
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        11,
+        74
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        11,
+        75
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        11,
+        76
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        11,
+        77
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        11,
+        78
+      ],
+      "name": "minecraft:chiseled_stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        11,
+        79
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        12,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        12,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        12,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        12,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        12,
+        72
+      ],
+      "name": "minecraft:sea_lantern",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        12,
+        74
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        12,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        12,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        12,
+        77
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        12,
+        78
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        13,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        13,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        13,
+        72
+      ],
+      "name": "minecraft:chiseled_deepslate",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        13,
+        74
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        13,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        13,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        13,
+        77
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        13,
+        78
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        14,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        14,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        14,
+        72
+      ],
+      "name": "minecraft:sea_lantern",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        14,
+        74
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        14,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        14,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        14,
+        77
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        14,
+        78
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        46,
+        15,
+        72
+      ],
+      "name": "minecraft:lantern",
+      "states": {
+        "hanging": false
+      }
+    },
+    {
+      "at": [
+        47,
+        3,
+        75
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        3,
+        76
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        4,
+        75
+      ],
+      "name": "minecraft:stone_brick_slab",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        4,
+        76
+      ],
+      "name": "minecraft:stone_brick_slab",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        5,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        5,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        6,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        6,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        7,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        7,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        9,
+        68
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        9,
+        69
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        10,
+        68
+      ],
+      "name": "minecraft:stone_brick_slab",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        10,
+        69
+      ],
+      "name": "minecraft:stone_brick_slab",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        11,
+        65
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        11,
+        66
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        11,
+        67
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        11,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        11,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        11,
+        70
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        11,
+        71
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        11,
+        72
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        11,
+        73
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        11,
+        74
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        11,
+        75
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        11,
+        76
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        11,
+        77
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        11,
+        78
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        11,
+        79
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        12,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        12,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        12,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        12,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        12,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        12,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        12,
+        77
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        12,
+        78
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        13,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        13,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        13,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        13,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        13,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        13,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        13,
+        77
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        13,
+        78
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        14,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        14,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        14,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        14,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        14,
+        77
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        47,
+        14,
+        78
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        2,
+        75
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        2,
+        76
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        3,
+        75
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        3,
+        76
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        4,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        4,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        5,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        5,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        6,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        6,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        9,
+        68
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        9,
+        69
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        10,
+        68
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        10,
+        69
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        11,
+        65
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        11,
+        66
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        11,
+        67
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        11,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        11,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        11,
+        70
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        11,
+        71
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        11,
+        72
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        11,
+        73
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        11,
+        74
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        11,
+        75
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        11,
+        76
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        11,
+        77
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        11,
+        78
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        11,
+        79
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        12,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        12,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        12,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        12,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        13,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        13,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        13,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        13,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        14,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        48,
+        14,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        0,
+        70
+      ],
+      "name": "minecraft:deepslate_tiles",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        0,
+        71
+      ],
+      "name": "minecraft:deepslate_tiles",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        1,
+        70
+      ],
+      "name": "minecraft:stone_brick_slab",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        1,
+        71
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        1,
+        72
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        1,
+        73
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        2,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        2,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        2,
+        72
+      ],
+      "name": "minecraft:stone_brick_slab",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        2,
+        73
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        2,
+        74
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        2,
+        75
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        2,
+        76
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        3,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        3,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        3,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        3,
+        73
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        3,
+        74
+      ],
+      "name": "minecraft:stone_brick_slab",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        3,
+        75
+      ],
+      "name": "minecraft:stone_brick_slab",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        3,
+        76
+      ],
+      "name": "minecraft:stone_brick_slab",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        4,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        4,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        4,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        4,
+        73
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        4,
+        74
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        4,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        4,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        5,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        5,
+        73
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        5,
+        74
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        5,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        5,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        6,
+        74
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        6,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        6,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        9,
+        68
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        9,
+        69
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        10,
+        68
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        10,
+        69
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        10,
+        70
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        10,
+        71
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        11,
+        65
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        11,
+        66
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        11,
+        67
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        11,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        11,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        11,
+        70
+      ],
+      "name": "minecraft:stone_brick_slab",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        11,
+        71
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        11,
+        72
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        11,
+        73
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        11,
+        74
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        11,
+        75
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        11,
+        76
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        11,
+        77
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        11,
+        78
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        11,
+        79
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        12,
+        67
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        12,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        12,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        12,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        12,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        13,
+        67
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        13,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        13,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        13,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        13,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        14,
+        67
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        14,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        49,
+        14,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        0,
+        70
+      ],
+      "name": "minecraft:deepslate_tiles",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        0,
+        71
+      ],
+      "name": "minecraft:deepslate_tiles",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        1,
+        70
+      ],
+      "name": "minecraft:stone_brick_slab",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        1,
+        71
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        1,
+        72
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        1,
+        73
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        2,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        2,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        2,
+        72
+      ],
+      "name": "minecraft:stone_brick_slab",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        2,
+        73
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        2,
+        74
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        2,
+        75
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        3,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        3,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        3,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        3,
+        73
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        3,
+        74
+      ],
+      "name": "minecraft:stone_brick_slab",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        3,
+        75
+      ],
+      "name": "minecraft:stone_brick_slab",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        4,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        4,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        4,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        4,
+        73
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        4,
+        74
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        4,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        5,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        5,
+        73
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        5,
+        74
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        5,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        6,
+        74
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        6,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        9,
+        69
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        10,
+        69
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        10,
+        70
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        10,
+        71
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        11,
+        65
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        11,
+        66
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        11,
+        67
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        11,
+        68
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        11,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        11,
+        70
+      ],
+      "name": "minecraft:stone_brick_slab",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        11,
+        71
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        11,
+        72
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        11,
+        73
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        11,
+        74
+      ],
+      "name": "minecraft:dark_oak_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        11,
+        75
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        11,
+        76
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        11,
+        77
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        11,
+        78
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        11,
+        79
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        12,
+        67
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        12,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        12,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        12,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        12,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        12,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        12,
+        73
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        13,
+        67
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        13,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        13,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        13,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        13,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        13,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        13,
+        73
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        14,
+        67
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        14,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        14,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        14,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        14,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        50,
+        14,
+        73
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        51,
+        11,
+        65
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        51,
+        11,
+        66
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        51,
+        11,
+        67
+      ],
+      "name": "minecraft:stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        51,
+        11,
+        68
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        51,
+        11,
+        69
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        51,
+        11,
+        70
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        51,
+        11,
+        71
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        51,
+        11,
+        72
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        51,
+        11,
+        73
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        51,
+        11,
+        74
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        51,
+        11,
+        75
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        51,
+        11,
+        76
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        51,
+        11,
+        77
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        51,
+        11,
+        78
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        51,
+        11,
+        79
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        51,
+        12,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        51,
+        12,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        51,
+        12,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        51,
+        12,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        51,
+        12,
+        73
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        51,
+        13,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        51,
+        13,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        51,
+        13,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        51,
+        13,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        51,
+        13,
+        73
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        51,
+        14,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        51,
+        14,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        51,
+        14,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        51,
+        14,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        51,
+        14,
+        73
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        52,
+        11,
+        65
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        52,
+        11,
+        66
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        52,
+        11,
+        67
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        52,
+        11,
+        68
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        52,
+        11,
+        69
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        52,
+        11,
+        70
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        52,
+        11,
+        71
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        52,
+        11,
+        72
+      ],
+      "name": "minecraft:chiseled_stone_bricks",
+      "states": {}
+    },
+    {
+      "at": [
+        52,
+        11,
+        73
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        52,
+        11,
+        74
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        52,
+        11,
+        75
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        52,
+        11,
+        76
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        52,
+        11,
+        77
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        52,
+        11,
+        78
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        52,
+        11,
+        79
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        52,
+        12,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        52,
+        12,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        52,
+        12,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        52,
+        12,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        52,
+        12,
+        73
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        52,
+        13,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        52,
+        13,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        52,
+        13,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        52,
+        13,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        52,
+        13,
+        73
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        52,
+        14,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        52,
+        14,
+        70
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        52,
+        14,
+        71
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        52,
+        14,
+        72
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        52,
+        14,
+        73
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        53,
+        11,
+        65
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        53,
+        11,
+        66
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        53,
+        11,
+        67
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        53,
+        11,
+        68
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        53,
+        11,
+        69
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        53,
+        11,
+        70
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        53,
+        11,
+        71
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        53,
+        11,
+        72
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        53,
+        11,
+        73
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        53,
+        11,
+        74
+      ],
+      "name": "minecraft:spruce_planks",
+      "states": {}
+    },
+    {
+      "at": [
+        53,
+        11,
+        75
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        53,
+        11,
+        76
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        53,
+        11,
+        77
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        53,
+        11,
+        78
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    },
+    {
+      "at": [
+        53,
+        11,
+        79
+      ],
+      "name": "minecraft:air",
+      "states": {}
+    }
+  ],
+  "protected_cells_canonical_sha256": "1751980e27275ce53e7768f88b9b5d98392b4e1787c25d77f4f1972ddb7ca895",
+  "study_connector_routes": {
+    "east": [
+      [
+        46,
+        12.0,
+        70
+      ],
+      [
+        47,
+        12.0,
+        70
+      ],
+      [
+        48,
+        12.0,
+        70
+      ],
+      [
+        48,
+        12.0,
+        71
+      ],
+      [
+        49,
+        12.0,
+        71
+      ],
+      [
+        50,
+        12.0,
+        71
+      ],
+      [
+        51,
+        12.0,
+        71
+      ],
+      [
+        52,
+        12.0,
+        71
+      ],
+      [
+        52,
+        12.0,
+        72
+      ]
+    ],
+    "south": [
+      [
+        46,
+        12.0,
+        70
+      ],
+      [
+        45,
+        12.0,
+        70
+      ],
+      [
+        44,
+        12.0,
+        70
+      ],
+      [
+        44,
+        12.0,
+        71
+      ],
+      [
+        43,
+        12.0,
+        71
+      ],
+      [
+        43,
+        12.0,
+        72
+      ],
+      [
+        43,
+        12.0,
+        73
+      ],
+      [
+        43,
+        12.0,
+        74
+      ],
+      [
+        44,
+        12.0,
+        74
+      ],
+      [
+        45,
+        12.0,
+        74
+      ],
+      [
+        46,
+        12.0,
+        74
+      ],
+      [
+        46,
+        12.0,
+        75
+      ],
+      [
+        46,
+        12.0,
+        76
+      ],
+      [
+        46,
+        12.0,
+        77
+      ],
+      [
+        46,
+        12.0,
+        78
+      ]
+    ],
+    "northeast": [
+      [
+        46,
+        12.0,
+        70
+      ],
+      [
+        47,
+        12.0,
+        70
+      ],
+      [
+        48,
+        12.0,
+        70
+      ],
+      [
+        48,
+        12.0,
+        71
+      ],
+      [
+        49,
+        12.0,
+        71
+      ],
+      [
+        50,
+        12.0,
+        71
+      ],
+      [
+        51,
+        12.0,
+        71
+      ],
+      [
+        52,
+        12.0,
+        71
+      ],
+      [
+        52,
+        12.0,
+        70
+      ],
+      [
+        52,
+        12.0,
+        69
+      ],
+      [
+        51,
+        12.0,
+        69
+      ],
+      [
+        51,
+        12.0,
+        68
+      ],
+      [
+        50,
+        12.0,
+        68
+      ],
+      [
+        50,
+        12.0,
+        67
+      ],
+      [
+        49,
+        12.0,
+        67
+      ]
+    ]
+  },
+  "copied_only_feasibility_results": {
+    "changes": 11,
+    "protected_cells_unchanged": 678,
+    "complete_existing_tower_route_both_directions": "pass",
+    "gate_middle_landing_maze_ground_and_three_upper_door_strips_reachable": "pass",
+    "only_removed_reachable_nodes": [
+      [
+        43,
+        12.0,
+        75
+      ],
+      [
+        44,
+        12.0,
+        75
+      ]
+    ],
+    "new_fixed_anchor_or_runtime_changes": false
+  },
+  "native_acceptance": "Unrun: carpet collision, bookshelf furniture interaction, window/lamp lighting, NPC navigation and physical turning/door width.",
+  "scope_limit": "This is queued preparation behind requester-specific activity ownership. The copied prototype was discarded after inspection. No occupied-world rebuild or migration.",
+  "known_reference_images": [
+    {
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=273468136",
+      "direct_url": "https://images.steamusercontent.com/ugc/579025774227799030/B4A5434A004B97D610D7ED97AFDDEA3F62FF3D54/",
+      "local_path": "tmp/conformance/reference-guild-additional/interior-followup-273468136.jpg",
+      "sha256": "eea4f9658b8544f8bc20073b7b47ab79179aeeb89d769d85c38be9db97b64086",
+      "dimensions": [
+        1680,
+        1050
+      ],
+      "version_confidence": "High: exact matching screenshot ID and image URL in original TLC app204030 listing; classic models, UI/cutscene presentation and textures inspected. Patch/mod status is unknown.",
+      "actual_pixels_inspected": true
+    },
+    {
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=247737302",
+      "direct_url": "https://images.steamusercontent.com/ugc/432651567436598631/839A2D2E3D342EE4B2E3238CE1B4C14E637B6BC0/",
+      "local_path": "tmp/conformance/reference-guild-additional/interior-followup-247737302.jpg",
+      "sha256": "ec941730afa691fa98eac678dc83f47502e7541f4dfa9a056a0773d42251bae8",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "version_confidence": "High: exact matching screenshot ID and image URL in original TLC app204030 listing; classic models, UI/cutscene presentation and textures inspected. Patch/mod status is unknown.",
+      "actual_pixels_inspected": true
+    }
+  ]
+}

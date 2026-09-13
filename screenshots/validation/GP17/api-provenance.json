@@ -1,0 +1,17 @@
+{
+  "api": "@minecraft/server 2.1.0",
+  "primary_package": "https://registry.npmjs.org/@minecraft/server/2.1.0",
+  "current_corroboration": "https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/server/entity?view=minecraft-bedrock-stable",
+  "files": {
+    "tmp/conformance/gp17-activity-audit/index.d.ts": "38e989f3f0371967c1df82a12d5f37a3832cbff3944e38be8bb51638ed0e771d",
+    "tmp/conformance/gp17-activity-audit/minecraft-server-2.1.0-metadata.json": "a3cf8669996ca0320dd0b8a0b32f05a763807e8bb3fb89f9b0efd12391820c2d",
+    "packs/Fablecraft_BP/items/wedding_ring.json": "28091c23f15d724310d86c727012c648ef32e34ab2c70441f2ec19f52646a420"
+  },
+  "compatibility_findings": [
+    "Entity.id is persistent across world loads; no native JavaScript wrapper-object identity guarantee is assumed.",
+    "Entity.setProperty updates are applied next tick. Same-tick getProperty reads do not prove attempted writes failed.",
+    "ItemStack.isStackableWith always returns false for non-stackable items.",
+    "The generated wedding_ring item is non-stackable with max_stack_size 1."
+  ],
+  "native_checks": "unrun"
+}

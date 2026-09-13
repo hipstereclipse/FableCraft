@@ -1,0 +1,12 @@
+{
+  "command": "node --experimental-vm-modules --input-type=module < /tmp/gp17-relationship-independent-probe.mjs",
+  "exit_code": 0,
+  "result": {
+    "independent_extra_cases": 17,
+    "unreadable_spouse_choice_cases": 15,
+    "silent_inventory_refusal_rollback": "pass",
+    "unreadable_post_debit_confirmation_keeps_authority": "pass",
+    "native": "unrun"
+  },
+  "capture_note": "Result persisted from the independently executed tool output. Original stdout was returned to the conversation; no raw log file was created at execution time. Probe bytes are preserved beside this record."
+}

@@ -1,0 +1,34 @@
+{
+  "relationship-regression-before": {
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "scripts/tests/guild_relationships.test.mjs"
+    ],
+    "environment": {
+      "FC_RELATIONSHIP_SOURCE": "tmp/conformance/gp17/baseline/main.js"
+    },
+    "exit_code": 1,
+    "log": "relationship-regression-before.log"
+  },
+  "relationship-regression-after": {
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "scripts/tests/guild_relationships.test.mjs"
+    ],
+    "environment": {},
+    "exit_code": 0,
+    "log": "relationship-regression-after.log"
+  },
+  "training-regression-after": {
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "scripts/tests/guild_training.test.mjs"
+    ],
+    "environment": {},
+    "exit_code": 0,
+    "log": "training-regression-after.log"
+  }
+}

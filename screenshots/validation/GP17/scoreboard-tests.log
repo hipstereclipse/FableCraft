@@ -1,0 +1,15 @@
+test_actual_repository_and_all_leaf_ids (__main__.Scoreboard.test_actual_repository_and_all_leaf_ids) ... ok
+test_automated_pass_does_not_count_as_done (__main__.Scoreboard.test_automated_pass_does_not_count_as_done) ... ok
+test_bad_or_duplicate_appearance_grade (__main__.Scoreboard.test_bad_or_duplicate_appearance_grade) ... ok
+test_done_cannot_hide_pending_manual_checks (__main__.Scoreboard.test_done_cannot_hide_pending_manual_checks) ... ok
+test_duplicate_id (__main__.Scoreboard.test_duplicate_id) ... ok
+test_invalid_status (__main__.Scoreboard.test_invalid_status) ... ok
+test_manual_prose_is_preserved (__main__.Scoreboard.test_manual_prose_is_preserved) ... ok
+test_missing_evidence_and_path (__main__.Scoreboard.test_missing_evidence_and_path) ... ok
+test_missing_row (__main__.Scoreboard.test_missing_row) ... ok
+test_stale_output_and_marker_integrity (__main__.Scoreboard.test_stale_output_and_marker_integrity) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.051s
+
+OK

@@ -13,10 +13,10 @@ into the original The Lost Chapters game.” Also explicitly find additional onl
 reference photos. Continue autonomously with separate reviewed milestone commits,
 validation/evidence, immediate pushes and fresh handoffs; no routine questions.
 
-Current checkpoint: DP5 — occupied Library Arcanum recovery protections and return-arch authority
-Last resolved prior commit: e5cf6069d22b6bda767e2face677d4caf6db28ee (GP16 pushed; exact-head CI 34730475595 passed).
-Containing commit: TLC Conformance — DP5: protect occupied Arcanum recovery rooms.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — DP5: protect occupied Arcanum recovery rooms'.
+Current checkpoint: GP17 — deferred relationship authority and conservative payment recovery
+Last resolved prior commit: 732670a83bcd7909858ca4480c31f5dc8aeeb8ad (DP5 pushed; exact-head CI 34730821095 passed).
+Containing commit: TLC Conformance — GP17: revalidate deferred relationship authority.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP17: revalidate deferred relationship authority'.
 Never invent a self-hash. Every supplemental pass remains in-progress where native
 acceptance is unrun; this does not change the 45-leaf legacy C3 denominator.
 
@@ -132,6 +132,36 @@ defence, preserving resident/spouse/social identity without repeated teleports
 or permanent taming. Canonical staffing, reactive targets and player lessons
 remain open; invented dialogue/schedules must stay labeled adaptations.
 
+GP17 requires fresh live requester/ownership/eligibility for proposal, spouse
+and nested divorce callbacks. Current single-item ring payment follows required
+ownership/history writes; next-tick synced properties are included in bounded
+rollback. Unknown/ambiguous history or payment defers safely without inventing
+spouse history or refunding a possibly consumed ring. Stable-ID form authority
+rejects stale and duplicate responses even across distinct native handles. No
+atomic multi-property/inventory crash guarantee is claimed. See
+GUILD_RELATIONSHIP_AUTHORITY.md and GP17 evidence (24 relationship groups, 33
+existing training groups and 17 independent review negatives pass).
+Requester-specific movement ownership remains the next behavior priority.
+
+GP17's final-voxel Maze survey corrects the source-only GP16 comparison: the final
+study has three blue carpet cells, no bookshelf and no bed. Lectern/enchanting
+table survive. A copied-only 11-cell red-carpet/bookcase candidate preserved
+678 protected cells and all inspected adjacent routes; no production geometry
+changed. See GP17/maze-study-followup-audit.md. Exact round lattice window,
+bordered rug and full original gallery reconstruction remain open.
+
+Next three actions:
+
+1. Complete the surveyed 11-cell Maze furnishing candidate as separate GP18,
+   through the owner with final-voxel route/scope negatives and inspected detail
+   views. Preserve every other campus cell and RNG draw; no occupied-world rebuild.
+2. Resume durable requester-specific activity ownership/native Follow/Wait and
+   purposeful arrival using the pinned-API design in DP5/activity-followup-audit.md.
+   GP17 guards form authority only; full movement behavior remains open.
+3. Continue individual Demon Door destination/challenge mapping and designs, plus
+   bridge/range and neutral ordinary Library reference comparisons. Preserve all
+   native acceptance gaps and the distinction between canon and adaptations.
+
 ## Demon Door priority retained
 
 The prior user also requests walk-through portals into each door's individually
@@ -158,9 +188,12 @@ worlds, canon mapping and story exceptions remain open; never give Nostro a ridd
 
 ## Validation, ownership and repository landmines
 
-DP5 baseline: 46 base gates, 62 ESM syntax checks, 33 door adapter/13 runtime/4
-aperture groups pass offline. Runtime-only changes require no generated asset
-changes; C2/Guild diagnostics are recorded in screenshots/validation/DP5/.
+GP17 baseline: 47 base gates, 62 ESM syntax checks and 24 relationship groups
+pass offline in an isolated reviewed-index snapshot. Existing training (33) and door
+adapter/runtime/aperture groups (33/13/4) remain green. Independent review found no
+blocker. Fresh 35-asset C2/Guild diagnostics are recorded in GP17; all 35 assets,
+35 C2 images and six rendering/geometry/data owners match GP16. Runtime-only
+changes require no generated asset changes.
 The unchanged full visual assets retain GP16 evidence (51 mobs/55 items/130
 recipes/32 structures/13 galleries). GP16 initially lacked the renderer vanilla
 cache; its recorded recipe-only rerender with retained cache made all 281 PNGs

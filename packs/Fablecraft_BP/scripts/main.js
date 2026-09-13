@@ -3483,6 +3483,131 @@ const HELD_GIFTS = {
   "minecraft:white_tulip": 7, "minecraft:wither_rose": 4,
 };
 const PET_NAMES = ["Beloved", "Sweetheart", "Darling", "My Heart", "Treasure", "Dearest"];
+const RELATIONSHIP_DISTANCE = 6;
+const RELATIONSHIP_FORM_TICKS = 2400;
+const RELATIONSHIP_FORM_LIMIT = 128;
+// Stable IDs survive replacement Bedrock wrappers. Entries contain no entities;
+// expiry and the cap also bound requests whose UI promise never settles.
+const relationshipForms = new Map();
+
+function readRelationship(p, npc) {
+  try {
+    if (!p || !npc || p.isValid !== true || npc.isValid !== true
+      || p.typeId !== "minecraft:player" || typeof p.id !== "string" || !p.id
+      || typeof npc.id !== "string" || !npc.id || p.dimension.id !== npc.dimension.id) return null;
+    const a = p.location, b = npc.location;
+    if (![a.x, a.y, a.z, b.x, b.y, b.z].every(Number.isFinite)
+      || Math.hypot(a.x - b.x, a.y - b.y, a.z - b.z) > RELATIONSHIP_DISTANCE) return null;
+    const married = npc.getProperty("fc:married"), love = npc.getProperty("fc:love_hate");
+    const owner = npc.getDynamicProperty("fc_spouse_player");
+    // Missing/unreadable eligibility and inconsistent partial ownership defer;
+    // they must never become an invitation to replace an existing relationship.
+    if ((married !== 0 && married !== 1) || !Number.isFinite(love) || love < -100 || love > 100
+      || (married === 0 && owner !== undefined && owner !== "")
+      || (married === 1 && (typeof owner !== "string" || !owner))) return null;
+    const rawSpouses = p.getDynamicProperty("fc_spouses");
+    if (rawSpouses !== undefined && typeof rawSpouses !== "string") return null;
+    const spouses = rawSpouses === undefined ? [] : JSON.parse(rawSpouses);
+    if (!Array.isArray(spouses) || !spouses.every(id => typeof id === "string" && id.length > 0)) return null;
+    return { married, owner, love, spouses, rawSpouses, dimension: p.dimension.id };
+  } catch { return null; }
+}
+
+function relationshipResponse(p, npc, initial) {
+  const playerId = p.id, npcId = npc.id, key = JSON.stringify([playerId, npcId]);
+  const token = { npcId, expires: system.currentTick + RELATIONSHIP_FORM_TICKS };
+  for (const [id, request] of relationshipForms) {
+    if (system.currentTick >= request.expires) relationshipForms.delete(id);
+  }
+  relationshipForms.delete(key);
+  relationshipForms.set(key, token);
+  if (relationshipForms.size > RELATIONSHIP_FORM_LIMIT) relationshipForms.delete(relationshipForms.keys().next().value);
+  let settled = false;
+  const dismiss = () => {
+    settled = true;
+    if (relationshipForms.get(key) === token) relationshipForms.delete(key);
+  };
+  const respond = () => {
+    if (settled) return null;
+    const active = relationshipForms.get(key) === token;
+    dismiss();
+    try {
+      if (!active || system.currentTick >= token.expires || p.id !== playerId || npc.id !== npcId) return null;
+      const current = readRelationship(p, npc);
+      return current?.dimension === initial.dimension ? current : null;
+    } catch { return null; }
+  };
+  respond.dismiss = dismiss;
+  return respond;
+}
+
+function invalidateRelationshipForms(npc) {
+  for (const [key, request] of relationshipForms) {
+    if (request.npcId === npc.id) relationshipForms.delete(key);
+  }
+}
+
+function applyRelationshipWrites(changes, finish = null, canRollback = () => true) {
+  const attempted = [];
+  let finishing = false;
+  function rollback() {
+    // Restore only this attempt's values. Stop on ambiguous/failed restoration
+    // so an earlier owner reservation is not cleared over incomplete history.
+    for (const change of attempted.reverse()) {
+      try {
+        const current = change.read();
+        // Synced entity properties are applied next tick: an old read does
+        // not prove that an attempted setProperty has no pending write.
+        if (current === change.after || (change.deferred && current === change.before)) change.write(change.before);
+        else if (current !== change.before) break;
+      } catch { break; }
+    }
+  }
+  try {
+    for (const change of changes) {
+      if (change.before === change.after) continue;
+      attempted.push(change); // Includes a setter that throws after changing its value.
+      change.write(change.after);
+    }
+    if (finish) {
+      finishing = true;
+      if (!finish()) { rollback(); return false; }
+    }
+    return true;
+  } catch {
+    let safe = !finishing;
+    if (finishing) { try { safe = canRollback(); } catch { safe = false; } }
+    if (safe) rollback();
+    return false;
+  }
+}
+
+// The ring is nonstackable: isStackableWith is always false for it. This
+// exact-slot type/count check proves the debit, not opaque ItemStack identity.
+function relationshipRingMatches(item, expected) {
+  return expected === undefined ? item === undefined : !!item
+    && item.typeId === expected.typeId && item.amount === expected.amount;
+}
+
+function findRelationshipRing(p) {
+  try {
+    const container = inv(p);
+    if (!container) return null;
+    for (let slot = 0; slot < container.size; slot++) {
+      const item = container.getItem(slot);
+      if (item?.typeId !== "fc:wedding_ring" || !Number.isInteger(item.amount) || item.amount < 1) continue;
+      const before = item.clone(), after = item.amount === 1 ? undefined : item.clone();
+      if (after) after.amount--;
+      return { consume: () => {
+        if (!relationshipRingMatches(container.getItem(slot), before)) return false;
+        container.setItem(slot, after);
+        if (!relationshipRingMatches(container.getItem(slot), after)) throw new Error("Wedding ring write was not confirmed");
+        return true;
+      }, unchanged: () => relationshipRingMatches(container.getItem(slot), before) };
+    }
+  } catch { }
+  return null;
+}
 
 function isRomanceable(e) {
   try { return typeof e.getProperty("fc:married") === "number"; } catch { return false; }
@@ -3505,15 +3630,23 @@ function isMySpouse(npc, p) {
 function npcName(npc) { return displayName(npc.typeId); }
 
 function marryNpc(p, npc) {
-  if (!removeItem(p, "fc:wedding_ring", 1)) { p.sendMessage("§7You no longer have a wedding ring."); return; }
-  setNpcLove(npc, 100);
-  try { npc.setProperty("fc:married", 1); } catch { }
-  npc.setDynamicProperty("fc_spouse_player", p.id);
+  const state = readRelationship(p, npc);
+  if (!state || state.married !== 0 || state.love < LOVE_HEART) return false;
+  const ring = findRelationshipRing(p);
+  if (!ring) return false;
+  const spouses = state.spouses.includes(npc.id) ? state.spouses : [...state.spouses, npc.id];
+  invalidateRelationshipForms(npc);
+  // Reserve ownership first and consume one exact-slot ring only after required
+  // relationship writes succeed. A failed rollback keeps ambiguous history inert.
+  if (!applyRelationshipWrites([
+    { before: state.owner, after: p.id, read: () => npc.getDynamicProperty("fc_spouse_player"), write: value => npc.setDynamicProperty("fc_spouse_player", value) },
+    { deferred: true, before: state.married, after: 1, read: () => npc.getProperty("fc:married"), write: value => npc.setProperty("fc:married", value) },
+    { before: state.rawSpouses, after: JSON.stringify(spouses), read: () => p.getDynamicProperty("fc_spouses"), write: value => p.setDynamicProperty("fc_spouses", value) },
+    { deferred: true, before: state.love, after: 100, read: () => npc.getProperty("fc:love_hate"), write: value => npc.setProperty("fc:love_hate", value) },
+  ], ring.consume, ring.unchanged)) return false;
   const base = npcName(npc);
   const pet = PET_NAMES[Math.floor(Math.random() * PET_NAMES.length)];
   try { npc.nameTag = `§d${pet} ♥ §r§7(${base})`; } catch { }
-  const list = P.getJ(p, "fc_spouses", []);
-  if (!list.includes(npc.id)) { list.push(npc.id); P.setJ(p, "fc_spouses", list); }
   addMorality(p, 40);
   try { npc.triggerEvent("fc:react_follow"); notifyGuildTrainingReaction(npc, "fc:react_follow"); } catch { }
   try { npc.playAnimation("animation.npc.cheer", { blendOutTime: 0.3 }); } catch { }
@@ -3526,27 +3659,32 @@ function marryNpc(p, npc) {
     }
   } catch { }
   p.sendMessage(`§d♥ You and ${base} are wed! They will follow your heart now.`);
+  return true;
 }
 
 function proposeMenu(p, npc) {
+  const state = readRelationship(p, npc);
+  if (!state) return;
   const base = npcName(npc);
-  if (isMarried(npc)) {
-    p.sendMessage(npc.getDynamicProperty("fc_spouse_player") === p.id
+  if (state.married === 1) {
+    p.sendMessage(state.owner === p.id
       ? `§d${base} is already your beloved.` : `§7${base} is already wed to another.`);
     return;
   }
-  if (npcLove(npc) < LOVE_HEART) {
+  if (state.love < LOVE_HEART) {
     new MessageFormData().title("§dToo soon...")
       .body(`§f§o"${base} eyes the ring and steps back. 'We barely know one another, Hero. Win my heart first — a kind word, a thoughtful gift...'"§r`)
       .button1("§7Of course").button2("§8Back").show(p).catch(() => { });
     return;
   }
+  const respond = relationshipResponse(p, npc, state);
   new MessageFormData().title("§d♥ A Proposal")
     .body(`§f§o"${base} sees the ring glinting in your hand, and their breath catches..."§r`)
     .button1("§dOffer the ring").button2("§8Not yet").show(p).then((r) => {
-      if (r.canceled || r.selection !== 0) return;
+      const current = respond();
+      if (!current || r.canceled || r.selection !== 0 || current.married !== 0 || current.love < LOVE_HEART) return;
       marryNpc(p, npc);
-    }).catch(() => { });
+    }).catch(() => respond.dismiss());
 }
 
 function offerGift(p, npc, itemId) {
@@ -3580,24 +3718,32 @@ function bestGiftInBag(p) {
 }
 
 function divorceConfirm(p, npc) {
-  const base = npcName(npc);
+  const state = readRelationship(p, npc);
+  if (!state || state.married !== 1 || state.owner !== p.id) return;
+  const base = npcName(npc), respond = relationshipResponse(p, npc, state);
   new MessageFormData().title("§cPart Ways")
     .body(`§f§o"You wish to end your marriage to ${base}? They will be heartbroken."§r`)
     .button1("§cYes, part ways").button2("§8No, stay wed").show(p).then((r) => {
-      if (r.canceled || r.selection !== 0) return;
-      try { npc.setProperty("fc:married", 0); } catch { }
-      setNpcLove(npc, 20);
-      npc.setDynamicProperty("fc_spouse_player", "");
+      const current = respond();
+      if (!current || r.canceled || r.selection !== 0 || current.married !== 1 || current.owner !== p.id) return;
+      invalidateRelationshipForms(npc);
+      if (!applyRelationshipWrites([
+        { deferred: true, before: current.married, after: 0, read: () => npc.getProperty("fc:married"), write: value => npc.setProperty("fc:married", value) },
+        { before: current.rawSpouses, after: JSON.stringify(current.spouses.filter(id => id !== npc.id)), read: () => p.getDynamicProperty("fc_spouses"), write: value => p.setDynamicProperty("fc_spouses", value) },
+        { deferred: true, before: current.love, after: 20, read: () => npc.getProperty("fc:love_hate"), write: value => npc.setProperty("fc:love_hate", value) },
+        { before: current.owner, after: "", read: () => npc.getDynamicProperty("fc_spouse_player"), write: value => npc.setDynamicProperty("fc_spouse_player", value) },
+      ])) return;
       try { npc.nameTag = ""; } catch { }
-      P.setJ(p, "fc_spouses", P.getJ(p, "fc_spouses", []).filter((id) => id !== npc.id));
       try { npc.triggerEvent("fc:react_neutral"); notifyGuildTrainingReaction(npc, "fc:react_neutral"); } catch { }
       addMorality(p, -30);
       p.sendMessage(`§7You and ${base} have parted ways.`);
-    }).catch(() => { });
+    }).catch(() => respond.dismiss());
 }
 
 function spouseMenu(p, npc) {
-  const base = npcName(npc);
+  const state = readRelationship(p, npc);
+  if (!state || state.married !== 1 || state.owner !== p.id) return;
+  const base = npcName(npc), respond = relationshipResponse(p, npc, state);
   const m = morality(p);
   const greet = m > 200 ? "My love! The whole village glows when you visit."
     : m < -200 ? "You're back. They whisper such things about you... I don't believe a word. Mostly."
@@ -3611,7 +3757,8 @@ function spouseMenu(p, npc) {
     .button("§cPart ways")
     .button("§8Farewell")
     .show(p).then((r) => {
-      if (r.canceled) return;
+      const current = respond();
+      if (!current || r.canceled || current.married !== 1 || current.owner !== p.id) return;
       if (r.selection === 0) {
         const lines = [
           "You make a hard world soft, Hero.",
@@ -3619,7 +3766,7 @@ function spouseMenu(p, npc) {
           msg("legacy.spouse_menu_01"),
           "I keep your trophies dusted. Mostly the less grisly ones.",
         ];
-        setNpcLove(npc, Math.min(100, npcLove(npc) + 1));
+        npc.setProperty("fc:love_hate", Math.min(100, current.love + 1));
         try { npc.playAnimation("animation.npc.cheer", { blendOutTime: 0.3 }); } catch { }
         p.sendMessage(`§d${base}: §o"${lines[Math.floor(Math.random() * lines.length)]}"`);
       } else if (r.selection === 1) {
@@ -3636,7 +3783,7 @@ function spouseMenu(p, npc) {
       } else if (r.selection === 4) {
         divorceConfirm(p, npc);
       }
-    }).catch(() => { });
+    }).catch(() => respond.dismiss());
 }
 
 // Float a heart over smitten NPCs and a gold ring over wedded ones. Driven from

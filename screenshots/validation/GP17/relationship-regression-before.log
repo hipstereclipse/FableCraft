@@ -1,0 +1,377 @@
+✔ normal proposal commits one ring and preserves unrelated spouse/resident history (6.357926ms)
+✖ two Heroes resolving pending proposals cannot replace the first accepted spouse or pay twice (3.202793ms)
+✖ newer forms invalidate earlier requests and every response is consumed once (2.467697ms)
+✖ proposal callbacks revalidate handles, captured dimension, proximity, opinion, ring and readable history (2.622942ms)
+✖ unavailable relationship, spouse-list and inventory reads defer before proposal mutations (10.981718ms)
+✖ direct marriage calls cannot bypass current eligibility (2.319496ms)
+✖ stale spouse selections cannot affect a different owner or open nested divorce (1.874971ms)
+✖ spouse and nested divorce responses retain live identity, proximity and original dimension (2.417472ms)
+✖ divorce confirms fresh ownership, preserves other spouses and cannot apply its penalty twice (2.123042ms)
+✖ an old menu stays invalid after divorce and remarriage to the same Hero (2.061516ms)
+✔ legitimate spouse Follow and Wait still invoke the actual training interruption hook (4.008974ms)
+✔ normal sweet words and gift still update only the authorized relationship (1.813254ms)
+✖ failed required marriage writes roll back before consuming a ring or presenting success (1.764632ms)
+✖ failed divorce writes restore authorized history and never apply a penalty or neutral reaction (1.625898ms)
+✖ inventory failure before payment restores history; ambiguous consumed payment cannot permit a second marriage (6.384357ms)
+✖ optional presentation failures cannot reopen a successful marriage or consume another ring (1.936108ms)
+✖ stable IDs reject older forms through distinct native wrappers and after divorce/remarriage (1.889749ms)
+✖ settled/rejected/cancelled forms clean only their own token; idle registry is bounded and expires (1.759522ms)
+(node:4) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ real nonstackable rings debit one exact slot and legacy remainder clones retain metadata (13.485003ms)
+✖ next-tick synced properties cannot admit a second marriage or divorce before their writes apply (2.34822ms)
+✖ next-tick attempted synced writes are explicitly restored on required-write and unpaid-ring failures (1.578178ms)
+✖ unreadable rollback retains reserved ownership and cannot reopen marriage or erase unrelated history (1.563269ms)
+✖ changed payment slots and unconfirmed inventory writes suppress success with bounded authority restoration (2.087636ms)
+✔ a successful proposal keeps the production training interruption owner and preserved resident identity (1.952879ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 5
+ℹ fail 19
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 88.763267
+
+✖ failing tests:
+
+test at scripts/tests/guild_relationships.test.mjs:87:1
+✖ two Heroes resolving pending proposals cannot replace the first accepted spouse or pay twice (3.202793ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_relationships.test.mjs:91:79)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/guild_relationships.test.mjs:97:1
+✖ newer forms invalidate earlier requests and every response is consumed once (2.467697ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  7 !== 3
+  
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_relationships.test.mjs:99:109)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 7,
+    expected: 3,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/guild_relationships.test.mjs:120:1
+✖ proposal callbacks revalidate handles, captured dimension, proximity, opinion, ring and readable history (2.622942ms)
+  AssertionError [ERR_ASSERTION]: owner
+  + actual - expected
+  
+  + '{"player":[["fc_spouses","[\\"resident-9\\"]"]],"npc":[["fc_spouse_player","hero-8"],["fc_guild_resident_slot","skill_range"],["fc_social_history","retained"]],"sync":[["fc:married",1],["fc:love_hate",100]],"items":[[2,{"typeId":"fc:wedding_ring","amount":1}]],"name":"§dDearest ♥ §r§7(fc:guild_apprentice_skill)"}'
+  - '{"player":[],"npc":[["fc_spouse_player","another-hero"],["fc_guild_resident_slot","skill_range"],["fc_social_history","retained"]],"sync":[["fc:married",0],["fc:love_hate",80]],"items":[[0,{"typeId":"fc:wedding_ring","amount":1}],[2,{"typeId":"fc:wedding_ring","amount":1}]],"name":"Saved name"}'
+  
+      at noAction (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_relationships.test.mjs:73:46)
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_relationships.test.mjs:123:27)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"player":[["fc_spouses","[\\"resident-9\\"]"]],"npc":[["fc_spouse_player","hero-8"],["fc_guild_resident_slot","skill_range"],["fc_social_history","retained"]],"sync":[["fc:married",1],["fc:love_hate",100]],"items":[[2,{"typeId":"fc:wedding_ring","amount":1}]],"name":"§dDearest ♥ §r§7(fc:guild_apprentice_skill)"}',
+    expected: '{"player":[],"npc":[["fc_spouse_player","another-hero"],["fc_guild_resident_slot","skill_range"],["fc_social_history","retained"]],"sync":[["fc:married",0],["fc:love_hate",80]],"items":[[0,{"typeId":"fc:wedding_ring","amount":1}],[2,{"typeId":"fc:wedding_ring","amount":1}]],"name":"Saved name"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/guild_relationships.test.mjs:127:1
+✖ unavailable relationship, spouse-list and inventory reads defer before proposal mutations (10.981718ms)
+  AssertionError [ERR_ASSERTION]: accept/married
+  + actual - expected
+  
+  + '{"player":[["fc_spouses","[\\"resident-23\\"]"]],"npc":[["fc_spouse_player","hero-22"],["fc_guild_resident_slot","skill_range"],["fc_social_history","retained"]],"sync":[["fc:married",1],["fc:love_hate",100]],"items":[[2,{"typeId":"fc:wedding_ring","amount":1}]],"name":"§dDearest ♥ §r§7(fc:guild_apprentice_skill)"}'
+  - '{"player":[],"npc":[["fc_spouse_player",""],["fc_guild_resident_slot","skill_range"],["fc_social_history","retained"]],"sync":[["fc:married",0],["fc:love_hate",80]],"items":[[0,{"typeId":"fc:wedding_ring","amount":1}],[2,{"typeId":"fc:wedding_ring","amount":1}]],"name":"Saved name"}'
+  
+      at noAction (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_relationships.test.mjs:73:46)
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_relationships.test.mjs:135:5)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"player":[["fc_spouses","[\\"resident-23\\"]"]],"npc":[["fc_spouse_player","hero-22"],["fc_guild_resident_slot","skill_range"],["fc_social_history","retained"]],"sync":[["fc:married",1],["fc:love_hate",100]],"items":[[2,{"typeId":"fc:wedding_ring","amount":1}]],"name":"§dDearest ♥ §r§7(fc:guild_apprentice_skill)"}',
+    expected: '{"player":[],"npc":[["fc_spouse_player",""],["fc_guild_resident_slot","skill_range"],["fc_social_history","retained"]],"sync":[["fc:married",0],["fc:love_hate",80]],"items":[[0,{"typeId":"fc:wedding_ring","amount":1}],[2,{"typeId":"fc:wedding_ring","amount":1}]],"name":"Saved name"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/guild_relationships.test.mjs:139:1
+✖ direct marriage calls cannot bypass current eligibility (2.319496ms)
+  AssertionError [ERR_ASSERTION]: owner
+  + actual - expected
+  
+  + '{"player":[["fc_spouses","[\\"resident-25\\"]"]],"npc":[["fc_spouse_player","hero-24"],["fc_guild_resident_slot","skill_range"],["fc_social_history","retained"]],"sync":[["fc:married",1],["fc:love_hate",100]],"items":[[2,{"typeId":"fc:wedding_ring","amount":1}]],"name":"§dBeloved ♥ §r§7(fc:guild_apprentice_skill)"}'
+  - '{"player":[],"npc":[["fc_spouse_player","another-hero"],["fc_guild_resident_slot","skill_range"],["fc_social_history","retained"]],"sync":[["fc:married",0],["fc:love_hate",80]],"items":[[0,{"typeId":"fc:wedding_ring","amount":1}],[2,{"typeId":"fc:wedding_ring","amount":1}]],"name":"Saved name"}'
+  
+      at noAction (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_relationships.test.mjs:73:46)
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_relationships.test.mjs:141:135)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"player":[["fc_spouses","[\\"resident-25\\"]"]],"npc":[["fc_spouse_player","hero-24"],["fc_guild_resident_slot","skill_range"],["fc_social_history","retained"]],"sync":[["fc:married",1],["fc:love_hate",100]],"items":[[2,{"typeId":"fc:wedding_ring","amount":1}]],"name":"§dBeloved ♥ §r§7(fc:guild_apprentice_skill)"}',
+    expected: '{"player":[],"npc":[["fc_spouse_player","another-hero"],["fc_guild_resident_slot","skill_range"],["fc_social_history","retained"]],"sync":[["fc:married",0],["fc:love_hate",80]],"items":[[0,{"typeId":"fc:wedding_ring","amount":1}],[2,{"typeId":"fc:wedding_ring","amount":1}]],"name":"Saved name"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/guild_relationships.test.mjs:145:1
+✖ stale spouse selections cannot affect a different owner or open nested divorce (1.874971ms)
+  AssertionError [ERR_ASSERTION]: different_owner/0
+  + actual - expected
+  
+  + '{"player":[["fc_spouses","[\\"resident-27\\"]"]],"npc":[["fc_spouse_player","new-owner"],["fc_guild_resident_slot","skill_range"],["fc_social_history","retained"]],"sync":[["fc:married",1],["fc:love_hate",81]],"items":[[0,{"typeId":"fc:wedding_ring","amount":1}],[2,{"typeId":"fc:wedding_ring","amount":1}],[1,{"typeId":"minecraft:poppy","amount":1}]],"name":"Saved name"}'
+  - '{"player":[["fc_spouses","[\\"resident-27\\"]"]],"npc":[["fc_spouse_player","new-owner"],["fc_guild_resident_slot","skill_range"],["fc_social_history","retained"]],"sync":[["fc:married",1],["fc:love_hate",80]],"items":[[0,{"typeId":"fc:wedding_ring","amount":1}],[2,{"typeId":"fc:wedding_ring","amount":1}],[1,{"typeId":"minecraft:poppy","amount":1}]],"name":"Saved name"}'
+  
+      at noAction (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_relationships.test.mjs:73:46)
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_relationships.test.mjs:152:5)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"player":[["fc_spouses","[\\"resident-27\\"]"]],"npc":[["fc_spouse_player","new-owner"],["fc_guild_resident_slot","skill_range"],["fc_social_history","retained"]],"sync":[["fc:married",1],["fc:love_hate",81]],"items":[[0,{"typeId":"fc:wedding_ring","amount":1}],[2,{"typeId":"fc:wedding_ring","amount":1}],[1,{"typeId":"minecraft:poppy","amount":1}]],"name":"Saved name"}',
+    expected: '{"player":[["fc_spouses","[\\"resident-27\\"]"]],"npc":[["fc_spouse_player","new-owner"],["fc_guild_resident_slot","skill_range"],["fc_social_history","retained"]],"sync":[["fc:married",1],["fc:love_hate",80]],"items":[[0,{"typeId":"fc:wedding_ring","amount":1}],[2,{"typeId":"fc:wedding_ring","amount":1}],[1,{"typeId":"minecraft:poppy","amount":1}]],"name":"Saved name"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/guild_relationships.test.mjs:156:1
+✖ spouse and nested divorce responses retain live identity, proximity and original dimension (2.417472ms)
+  AssertionError [ERR_ASSERTION]: player_invalid/false
+  + actual - expected
+  
+  + [
+  +   [
+  +     'event',
+  +     'resident-29',
+  +     'fc:react_follow'
+  +   ],
+  +   [
+  +     'event',
+  +     'resident-29',
+  +     'fc:guild_training_stop'
+  +   ],
+  +   [
+  +     'message',
+  +     'hero-28',
+  +     '§dfc:guild_apprentice_skill: §o"Lead on, my love."'
+  +   ]
+  + ]
+  - []
+  
+      at noAction (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_relationships.test.mjs:73:89)
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_relationships.test.mjs:160:45)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [Array],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/guild_relationships.test.mjs:164:1
+✖ divorce confirms fresh ownership, preserves other spouses and cannot apply its penalty twice (2.123042ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  2 !== 1
+  
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_relationships.test.mjs:169:10)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 2,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/guild_relationships.test.mjs:179:1
+✖ an old menu stays invalid after divorce and remarriage to the same Hero (2.061516ms)
+  TypeError [ERR_INVALID_ARG_TYPE]: The "message" argument must be one of type string or function. Received undefined
+      at innerFail (node:internal/assert/utils:135:11)
+      at strict.deepStrictEqual (node:assert:311:5)
+      at noAction (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_relationships.test.mjs:73:89)
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_relationships.test.mjs:182:76)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    code: 'ERR_INVALID_ARG_TYPE'
+  }
+
+test at scripts/tests/guild_relationships.test.mjs:201:1
+✖ failed required marriage writes roll back before consuming a ring or presenting success (1.764632ms)
+  AssertionError [ERR_ASSERTION]: owner/before
+  + actual - expected
+  
+  + '{"player":[["fc_spouses","[\\"existing\\"]"]],"npc":[["fc_spouse_player",""],["fc_guild_resident_slot","skill_range"],["fc_social_history","retained"]],"sync":[["fc:married",1],["fc:love_hate",100]],"items":[[2,{"typeId":"fc:wedding_ring","amount":1}]],"name":"Saved name"}'
+  - '{"player":[["fc_spouses","[\\"existing\\"]"]],"npc":[["fc_spouse_player",""],["fc_guild_resident_slot","skill_range"],["fc_social_history","retained"]],"sync":[["fc:married",0],["fc:love_hate",80]],"items":[[0,{"typeId":"fc:wedding_ring","amount":1}],[2,{"typeId":"fc:wedding_ring","amount":1}]],"name":"Saved name"}'
+  
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_relationships.test.mjs:206:56)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"player":[["fc_spouses","[\\"existing\\"]"]],"npc":[["fc_spouse_player",""],["fc_guild_resident_slot","skill_range"],["fc_social_history","retained"]],"sync":[["fc:married",1],["fc:love_hate",100]],"items":[[2,{"typeId":"fc:wedding_ring","amount":1}]],"name":"Saved name"}',
+    expected: '{"player":[["fc_spouses","[\\"existing\\"]"]],"npc":[["fc_spouse_player",""],["fc_guild_resident_slot","skill_range"],["fc_social_history","retained"]],"sync":[["fc:married",0],["fc:love_hate",80]],"items":[[0,{"typeId":"fc:wedding_ring","amount":1}],[2,{"typeId":"fc:wedding_ring","amount":1}]],"name":"Saved name"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/guild_relationships.test.mjs:211:1
+✖ failed divorce writes restore authorized history and never apply a penalty or neutral reaction (1.625898ms)
+  AssertionError [ERR_ASSERTION]: owner/before
+  + actual - expected
+  
+  + '{"player":[["fc_spouses","[\\"existing\\",\\"resident-43\\"]"]],"npc":[["fc_spouse_player","hero-42"],["fc_guild_resident_slot","skill_range"],["fc_social_history","retained"]],"sync":[["fc:married",0],["fc:love_hate",20]],"items":[[0,{"typeId":"fc:wedding_ring","amount":1}],[2,{"typeId":"fc:wedding_ring","amount":1}]],"name":"Saved name"}'
+  - '{"player":[["fc_spouses","[\\"existing\\",\\"resident-43\\"]"]],"npc":[["fc_spouse_player","hero-42"],["fc_guild_resident_slot","skill_range"],["fc_social_history","retained"]],"sync":[["fc:married",1],["fc:love_hate",80]],"items":[[0,{"typeId":"fc:wedding_ring","amount":1}],[2,{"typeId":"fc:wedding_ring","amount":1}]],"name":"Saved name"}'
+  
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_relationships.test.mjs:216:56)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"player":[["fc_spouses","[\\"existing\\",\\"resident-43\\"]"]],"npc":[["fc_spouse_player","hero-42"],["fc_guild_resident_slot","skill_range"],["fc_social_history","retained"]],"sync":[["fc:married",0],["fc:love_hate",20]],"items":[[0,{"typeId":"fc:wedding_ring","amount":1}],[2,{"typeId":"fc:wedding_ring","amount":1}]],"name":"Saved name"}',
+    expected: '{"player":[["fc_spouses","[\\"existing\\",\\"resident-43\\"]"]],"npc":[["fc_spouse_player","hero-42"],["fc_guild_resident_slot","skill_range"],["fc_social_history","retained"]],"sync":[["fc:married",1],["fc:love_hate",80]],"items":[[0,{"typeId":"fc:wedding_ring","amount":1}],[2,{"typeId":"fc:wedding_ring","amount":1}]],"name":"Saved name"}',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/guild_relationships.test.mjs:221:1
+✖ inventory failure before payment restores history; ambiguous consumed payment cannot permit a second marriage (6.384357ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  '' !== 'hero-46'
+  
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_relationships.test.mjs:226:45)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: 'hero-46',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/guild_relationships.test.mjs:231:1
+✖ optional presentation failures cannot reopen a successful marriage or consume another ring (1.936108ms)
+  AssertionError [ERR_ASSERTION]: animation
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_relationships.test.mjs:237:12)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/guild_relationships.test.mjs:241:1
+✖ stable IDs reject older forms through distinct native wrappers and after divorce/remarriage (1.889749ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  3 !== 0
+  
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_relationships.test.mjs:244:10)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 3,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/guild_relationships.test.mjs:252:1
+✖ settled/rejected/cancelled forms clean only their own token; idle registry is bounded and expires (1.759522ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  -1 !== 1
+  
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_relationships.test.mjs:254:54)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: -1,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/guild_relationships.test.mjs:279:1
+✖ next-tick synced properties cannot admit a second marriage or divorce before their writes apply (2.34822ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  4 !== 1
+  
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_relationships.test.mjs:282:74)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 4,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts/tests/guild_relationships.test.mjs:289:1
+✖ next-tick attempted synced writes are explicitly restored on required-write and unpaid-ring failures (1.578178ms)
+  Error: Injected before resident-62:setDynamicProperty:fc_spouse_player
+      at fail (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_relationships.test.mjs:34:103)
+      at Object.setDynamicProperty (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_relationships.test.mjs:39:31)
+      at Object.marryNpc [as marry] (evalmachine.<anonymous>:63:7)
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_relationships.test.mjs:296:35)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7)
+
+test at scripts/tests/guild_relationships.test.mjs:302:1
+✖ unreadable rollback retains reserved ownership and cannot reopen marriage or erase unrelated history (1.563269ms)
+  Error: Injected after hero-63:setDynamicProperty:fc_spouses
+      at fail (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_relationships.test.mjs:34:103)
+      at setDynamicProperty (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_relationships.test.mjs:39:168)
+      at p.setDynamicProperty (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_relationships.test.mjs:305:85)
+      at Object.setJ (evalmachine.<anonymous>:6:21)
+      at Object.marryNpc [as marry] (evalmachine.<anonymous>:68:54)
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_relationships.test.mjs:306:13)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7)
+
+test at scripts/tests/guild_relationships.test.mjs:310:1
+✖ changed payment slots and unconfirmed inventory writes suppress success with bounded authority restoration (2.087636ms)
+  AssertionError [ERR_ASSERTION]: changed_before
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/scripts/tests/guild_relationships.test.mjs:320:53)
+      at async Test.run (node:internal/test_runner/test:1404:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:969:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

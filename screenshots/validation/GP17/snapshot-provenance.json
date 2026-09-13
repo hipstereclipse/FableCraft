@@ -1,0 +1,18 @@
+{
+  "source": "reviewed Git index exported to isolated snapshot; unrelated work excluded",
+  "baseline_head": "732670a83bcd7909858ca4480c31f5dc8aeeb8ad",
+  "tested_executable_sha256": {
+    "packs/Fablecraft_BP/scripts/main.js": "3de202b284cde2acb20f22361b007570fb8154368d6d03fc3c22ea80d01122f8",
+    "scripts/tests/guild_relationships.test.mjs": "ef1bafd464b907e5a3b6be12cf60a161a92aad8571a33a8c181465e86b3d6d17",
+    "scripts/validate.py": "d381f0351d6a62a8dfff15f7c7e3ddada155161dce6e176f50c525c8803c44d2"
+  },
+  "final_documentation_sha256": {
+    "docs/CONFORMANCE_CHECKLIST.md": "4d324e355a1b9975c1a862a2b843e597dc8fbca4082ccbce13a635f06390b550",
+    "docs/GUILD_DEMON_PRIORITIES.md": "d21d1b5a6c799c486c061d22597b41c1d201b93c2920048da0f1f0a9d56d7e45",
+    "docs/GUILD_RELATIONSHIP_AUTHORITY.md": "91c8c2ed990adcdc7495b7372884099d95ba9fe4887a9191e1be3c4f14fb0af7",
+    "docs/HANDOFF.md": "25ff2ad9c404b42203268463b19bc346d597c49e23f109049df7ceb11c0c9309"
+  },
+  "documentation_timing": "Final documents refreshed after code validation; all staged executable source matches the tested snapshot",
+  "node_dependencies": "same locked installed dependencies via node_modules symlink",
+  "engine_acceptance": "unrun"
+}
