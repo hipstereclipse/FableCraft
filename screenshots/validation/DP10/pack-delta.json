@@ -1,0 +1,8 @@
+{
+  "baseline": "GP22 reviewed-index snapshot",
+  "files_compared": 1662,
+  "changed": [
+    "packs/Fablecraft_BP/scripts/arboretum_doors.js"
+  ],
+  "regeneration": "No pack regeneration; handwritten controller only."
+}

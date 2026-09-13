@@ -1,0 +1,13 @@
+bridge audit river z36: OK, worst step 0.5, missing 0
+bridge audit river z54: OK, worst step 0.5, missing 0
+bridge audit island: OK, worst step 0.5, missing 0
+bridge endpoint island start: OK, dry under 4, dry adjacent 7
+bridge endpoint island end: OK, dry under 4, dry adjacent 5
+island bridge channel: OK, water under span 17, dry under span 0
+tower tread/headroom audit: OK, missing 0, blocked 0; connected routes: scripts/tests/test_guild_routes.py
+tower entrance west: OK, blocked 0
+tower entrance north: OK, blocked 0
+ground hole audit: OK, holes 0
+training archery: OK, holes 0, gravity 0, cells 101
+training dueling: OK, holes 0, gravity 0, cells 101
+rendered topdown / iso / iso_se / crop_iso / crop_top / crop_noroof(+top) / ground_top

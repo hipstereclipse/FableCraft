@@ -1,0 +1,25 @@
+{
+  "audit": "Current multiplier authority and complete third-family integration inventory",
+  "baseline_head": "386afde0eab6e6ca1d60e549ba807f564140ef83",
+  "main_sha256": "c18b286d79bc16d6b3ea08985d5882f7a2411ae2aeb61de3bd83594d6ffb103e",
+  "reference_provenance": "screenshots/validation/GP22/next-door-provenance.json",
+  "pairing": [
+    "Greatwood Caves",
+    "The Butterfly House",
+    "Cutlass Bluetane"
+  ],
+  "production_implemented": false,
+  "raw_threshold_probes": 6,
+  "additional_probes": [
+    "numeric nonhostile hit increments",
+    "string hit concatenates",
+    "unavailable legacy read throws"
+  ],
+  "native_acceptance": "unrun",
+  "artifacts": {
+    "next-door-audit.md": "d57be1232d56e241a29711ebd55100b51cd0a66aeccca74594214f125f29c05f",
+    "multiplier-audit.mjs": "d45be34bee5b586c70a08e63878009fc2f9e07a68b82dd30d543cb5172b2635c",
+    "multiplier-audit-original.log": "784cb084d7be32ce7673e74eddac50c4470a7461af2b6d3cc25b1ffbbf03366d",
+    "multiplier-audit-portable.log": "be0611e4f83e3c35098f5b9016e0539764aad03ca4013e4e0e0b2e326f09c49d"
+  }
+}

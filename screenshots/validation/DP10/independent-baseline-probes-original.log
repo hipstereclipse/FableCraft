@@ -1,0 +1,94 @@
+REPRODUCED control: normal first build has one native placement and one physical reward: {"phase":"ready","placements":1,"seeds":1}
+REPRODUCED seed intent late slot-zero contents are overwritten: {"phase":"ready","injected":{"typeId":"minecraft:diamond","amount":7},"actual":{"typeId":"fc:wellows_pickhammer","amount":1},"seeds":1}
+REPRODUCED seed intent late occupant does not prevent native reward write: {"phase":"ready","seeds":1,"occupants":1}
+REPRODUCED seed intent replaced native chest is not reacquired: {"phase":"ready","live":{"typeId":"minecraft:diamond","amount":7},"detached":{"typeId":"fc:wellows_pickhammer","amount":1},"seeds":1}
+REPRODUCED native reward write replaces chest and same stale handle readback accepts missing reward: {"phase":"ready","claimed":true,"liveReward":null,"detached":{"typeId":"fc:wellows_pickhammer","amount":1},"seeds":1}
+REPRODUCED reward readback ignores changed custom name and lore: {"phase":"ready","name":"Wrong reward name","lore":["Wrong reward lore"]}
+REPRODUCED full native placement then throw admits after reload without saved successful receipt: {"phase":"ready","placements":1,"seeds":1,"teleports":1,"receipt":null}
+REPRODUCED control: collected ready room is never reseeded after reload: {"phase":"ready","claimed":true,"placements":1,"seeds":1}
+{
+  "nativeAcceptance": "unrun",
+  "outcomes": [
+    {
+      "name": "control: normal first build has one native placement and one physical reward",
+      "reproduced": true,
+      "phase": "ready",
+      "placements": 1,
+      "seeds": 1
+    },
+    {
+      "name": "seed intent late slot-zero contents are overwritten",
+      "reproduced": true,
+      "phase": "ready",
+      "injected": {
+        "typeId": "minecraft:diamond",
+        "amount": 7
+      },
+      "actual": {
+        "typeId": "fc:wellows_pickhammer",
+        "amount": 1
+      },
+      "seeds": 1
+    },
+    {
+      "name": "seed intent late occupant does not prevent native reward write",
+      "reproduced": true,
+      "phase": "ready",
+      "seeds": 1,
+      "occupants": 1
+    },
+    {
+      "name": "seed intent replaced native chest is not reacquired",
+      "reproduced": true,
+      "phase": "ready",
+      "live": {
+        "typeId": "minecraft:diamond",
+        "amount": 7
+      },
+      "detached": {
+        "typeId": "fc:wellows_pickhammer",
+        "amount": 1
+      },
+      "seeds": 1
+    },
+    {
+      "name": "native reward write replaces chest and same stale handle readback accepts missing reward",
+      "reproduced": true,
+      "phase": "ready",
+      "claimed": true,
+      "liveReward": null,
+      "detached": {
+        "typeId": "fc:wellows_pickhammer",
+        "amount": 1
+      },
+      "seeds": 1
+    },
+    {
+      "name": "Wrong reward name",
+      "reproduced": true,
+      "phase": "ready",
+      "lore": [
+        "Wrong reward lore"
+      ]
+    },
+    {
+      "name": "full native placement then throw admits after reload without saved successful receipt",
+      "reproduced": true,
+      "phase": "ready",
+      "placements": 1,
+      "seeds": 1,
+      "teleports": 1,
+      "receipt": null
+    },
+    {
+      "name": "control: collected ready room is never reseeded after reload",
+      "reproduced": true,
+      "phase": "ready",
+      "claimed": true,
+      "placements": 1,
+      "seeds": 1
+    }
+  ]
+}
+(node:4) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)

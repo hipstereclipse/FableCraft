@@ -1,0 +1,42 @@
+{
+  "audit": "Independent actual-owner Arboretum preparation reproduction and DP10 review",
+  "baseline": {
+    "head": "386afde0eab6e6ca1d60e549ba807f564140ef83",
+    "sources": {
+      "packs/Fablecraft_BP/scripts/arboretum_doors.js": "d2ea54066b594d57a3b9432c2a3b11edc85b41d08f2305caf96122c7ce9e7557",
+      "packs/Fablecraft_BP/scripts/main.js": "c18b286d79bc16d6b3ea08985d5882f7a2411ae2aeb61de3bd83594d6ffb103e",
+      "scripts/tests/arboretum_doors.test.mjs": "e705334b08800f31040d04dbfef91feb48a14018b977b6f7ace19d4b8b61ebcd",
+      "scripts/door_realms.py": "809431f12cd647ca9c65b3718cd2ffb92eab44061655dbb6f696be67fe3dea42",
+      "scripts/gen_structures.py": "f16ab7adbe1b0391b1c04354f1ab75cd3dd56ab0d3ff444923aeea7c259fac08"
+    },
+    "native_acceptance": "unrun"
+  },
+  "reviewed_owner_sha256": "d66d184a9a8a87587dab054209fab8a69c658a663edec0e1f119eb2531c25125",
+  "actual_generated_geometry_sha256": "40122e38230fa2581102a0fdbe6f72b6d291b1c9d664ac038936af783357c38f",
+  "independent_review": {
+    "cases": 22,
+    "failures": 0,
+    "log": "independent-review-final.log"
+  },
+  "original_reproductions": {
+    "native_unsafe": 6,
+    "authority_unsafe": 2,
+    "normal_depletion_controls": 2,
+    "meaning": "successful baseline exit confirms the unsafe observations, not acceptable behavior"
+  },
+  "helper_changes": "Curated JS receives explicit owner and actual generated geometry paths. Python invokes the actual builder and Node, never Git. The ignored original review helper gained SHA logging after its first run; the initial helper is preserved as review-draft1.mjs and final portable review reran all assertions.",
+  "native_acceptance": "unrun",
+  "artifacts": {
+    "independent-review.py": "5d15a2b92d6cc1570be2556e86f4c06b93c100fa171b25a71806b6766ec33ac3",
+    "independent-review.mjs": "cfd1a3b6affbeb22a0d4aeef200365072c88fb98d3c80507be2e73d1d3d87eac",
+    "independent-baseline-probes.mjs": "a319ec63afd6137d4ba73bd34094bc45b404a99aaa6d910437b10402bea78dcc",
+    "independent-baseline-authority.mjs": "7b97fd36911fc0e888a9abc84f1a3dabdd440d8fe581b8af98de6c82a5bf0bd3",
+    "independent-baseline-probes-original.log": "070c8914dfb41c9ee64e80a1a68f4659849d388e12da5125052bc5034185274a",
+    "independent-baseline-authority-original.log": "f49bf9e53e5879dfb80048962987b1156ddd87a549c9445d153bce7b3c155ca5",
+    "independent-review-initial.log": "12a3d96d4d94805ac5c902081ce9abe0ac4884c4f9d960dac02609c84c6a8c14",
+    "independent-review-final.log": "6a4f171c5abe01948c896b58dd4c3a72079f19d6dffc690a527dbedb86c93477",
+    "independent-baseline-probes-portable.log": "ddfbcc0471d13d82c8087c61218cb4b67d86851bae732b9ad4a2cc22448ff30b",
+    "independent-baseline-authority-portable.log": "792a1acb8cb87f2f3a070d32bb892b208d4e26a2bb26cec722eef1c6d4c03723",
+    "independent-preparation-audit.md": "1e3c222a8452e986115fba71f8f82c4ea490904ddb14bb626564aa0b6c16121d"
+  }
+}

@@ -150,15 +150,19 @@ export function createArboretumDoors({ world, system, ItemStack, definition = nu
         || !same(room.origin, arboretumOrigin(room.cell)) || room.version !== 1 || typeof room.visited !== "boolean"
         || !["allocated", "placing", "seeding", "ready"].includes(room.phase)
         || room.visited && room.phase !== "ready" || (room.phase === "ready") !== r.reward.seeded) return null;
+      const preparation = room.preparation;
+      if (preparation !== undefined && (!preparation || preparation.schema !== 1
+        || !({ placing: ["placing", "placed"], seeding: ["seeding", "seeded"], ready: ["seeded"] })[room.phase]?.includes(preparation.phase))) return null;
       const reservation = property(world, arboretumCellKey(room.cell));
       if (!reservation.available || parsed(reservation.raw) !== id) return null;
     } else if (r.reward.seeded || r.reward.claimed) return null;
     if (r.reward.claimed && !r.reward.seeded) return null;
     return r;
   }
-  function save(r) {
+  function save(r, expected = null) {
     const current = getState(r.id);
-    if (!current || current.revision !== r.revision || r.revision >= Number.MAX_SAFE_INTEGER) return false;
+    if (!current || current.revision !== r.revision || r.revision >= Number.MAX_SAFE_INTEGER
+      || expected && !same(current, expected)) return false;
     const next = { ...r, revision: r.revision + 1 };
     if (!write(world, arboretumStateKey(r.id), next)) return false;
     r.revision = next.revision;
@@ -311,6 +315,26 @@ export function createArboretumDoors({ world, system, ItemStack, definition = nu
     try { return blockAt(dim(), add(r.room.origin, ARBORETUM.chest))?.getComponent("minecraft:inventory")?.container ?? null; }
     catch { return null; }
   }
+  function emptyInventory(c) {
+    try { return c?.size === 27 && Array.from({ length: c.size }, (_, i) => c.getItem(i)).every(item => !item); }
+    catch { return false; }
+  }
+  function rewardVerified(r) {
+    try {
+      const c = inventory(r);
+      if (c?.size !== 27) return false;
+      const item = c.getItem(0);
+      return item?.typeId === ARBORETUM.item && item.amount === 1
+        && (item.nameTag ?? "") === "" && same(item.getLore(), [])
+        && Array.from({ length: c.size - 1 }, (_, i) => c.getItem(i + 1)).every(slot => !slot);
+    } catch { return false; }
+  }
+  function jobCurrent() { return !!job && same(getState(job.id), job.authority); }
+  function savePreparation(r) {
+    if (!job || !save(r, job.authority)) return false;
+    job.authority = copy(r);
+    return jobCurrent();
+  }
   function roomVerified(r) {
     if (!r.room) return false;
     const d = dim(), o = r.room.origin;
@@ -345,7 +369,8 @@ export function createArboretumDoors({ world, system, ItemStack, definition = nu
     } catch { log("Arboretum loading authority is unavailable; travel deferred."); return null; }
   }
   function allocate(r) {
-    if (r.revision >= Number.MAX_SAFE_INTEGER) return false;
+    const expected = copy(r);
+    if (r.revision >= Number.MAX_SAFE_INTEGER || !same(getState(r.id), expected)) return false;
     const registry = index();
     if (!registry || registry.nextCell >= 4096) return false;
     const cell = registry.nextCell++;
@@ -353,18 +378,21 @@ export function createArboretumDoors({ world, system, ItemStack, definition = nu
     const reserved = property(world, arboretumCellKey(cell));
     if (!reserved.available || reserved.raw !== undefined || !write(world, arboretumCellKey(cell), r.id)) return false;
     r.room = { cell, origin: arboretumOrigin(cell), version: 1, phase: "allocated", visited: false };
-    return save(r); // A failed write burns the reservation; it is never recycled.
+    return save(r, expected); // A failed write burns the reservation; it is never recycled.
   }
   const verifiedKey = r => `${r.id}/${r.room.cell}`;
   function ensureRoom(r) {
     if (!r?.unlocked || r.placement !== "confirmed" || job || now() < (retryAt.get(r.id) ?? 0)) return;
-    if (r.room?.phase === "seeding") { retryAt.set(r.id, now() + 200); log("Arboretum reward preparation is ambiguous; no reseeding or admission."); return; }
+    if (r.room?.phase === "placing" && r.room.preparation?.phase !== "placed"
+      || r.room?.phase === "seeding" && r.room.preparation?.phase !== "seeded") {
+      retryAt.set(r.id, now() + 200); log("Arboretum preparation is ambiguous; no placement replay, reseeding or admission."); return;
+    }
     if (r.room?.phase === "ready" && verified.has(verifiedKey(r)) && roomVerified(r)) return;
     if (!r.room && !allocate(r)) return;
     removeLease(ROOM_LEASE, roomLease);
     roomLease = lease(ROOM_LEASE, "minecraft:overworld", r.room.origin, ARBORETUM.size);
     if (!roomLease) { retryAt.set(r.id, now() + 200); return; }
-    job = { id: r.id, cell: r.room.cell, start: now(), phase: r.room.phase === "allocated" ? "scan" : "verify", scan: 0, verify: 0, skips: 0 };
+    job = { id: r.id, cell: r.room.cell, authority: copy(r), start: now(), phase: r.room.phase === "allocated" ? "scan" : "verify", scan: 0, verify: 0, skips: 0 };
   }
   function failJob(message) {
     if (job) { verified.delete(`${job.id}/${job.cell}`); retryAt.set(job.id, now() + 200); }
@@ -385,7 +413,7 @@ export function createArboretumDoors({ world, system, ItemStack, definition = nu
   function tickBuild() {
     if (!job) return;
     const r = getState(job.id);
-    if (!r?.room || r.room.cell !== job.cell || !r.unlocked) { failJob("Arboretum room history became unavailable; no reconstruction."); return; }
+    if (!r?.room || r.room.cell !== job.cell || !r.unlocked || !same(r, job.authority)) { failJob("Arboretum room history changed or became unavailable; no reconstruction."); return; }
     if (now() - job.start > 1600) { failJob("Arboretum room loading timed out; source admission remains closed."); return; }
     roomLease.used = now();
     const o = r.room.origin, d = dim();
@@ -395,11 +423,11 @@ export function createArboretumDoors({ world, system, ItemStack, definition = nu
         const b = blockAt(d, p);
         if (!b) return;
         if (!air(b)) {
-          if (++job.skips >= 8 || !allocate(r)) { failJob("Arboretum candidate cells are occupied; nothing was cleared."); return; }
+          if (++job.skips >= 8 || !jobCurrent() || !allocate(r)) { failJob("Arboretum candidate cells are occupied; nothing was cleared."); return; }
           removeLease(ROOM_LEASE, roomLease);
           roomLease = lease(ROOM_LEASE, "minecraft:overworld", r.room.origin, ARBORETUM.size);
           if (!roomLease) { failJob("Arboretum next candidate could not be loaded."); return; }
-          job.cell = r.room.cell; job.scan = 0; job.start = now(); return;
+          job.cell = r.room.cell; job.authority = copy(r); job.scan = 0; job.start = now(); return;
         }
       }
       if (job.scan < 49 * 28 * 49) return;
@@ -411,13 +439,19 @@ export function createArboretumDoors({ world, system, ItemStack, definition = nu
       if (!empty) { failJob("Arboretum volume changed during its survey or is unavailable; no blocks were placed."); return; }
       if (!unoccupied(o)) { failJob("Arboretum destination contains entities or cannot be inspected."); return; }
       r.room.phase = "placing";
-      if (!save(r)) { failJob("Arboretum placement journal could not commit."); return; }
-      // Once placing is durable, an ambiguous API failure never authorizes a
-      // second structure placement. Recovery only verifies what actually exists.
+      r.room.preparation = { schema: 1, phase: "placing" };
+      if (!savePreparation(r)) { failJob("Arboretum placement journal could not commit."); return; }
+      // Recheck native effects after the journal write. Intent alone never
+      // authorizes recovery, even when an ambiguous call left a complete shell.
       try {
+        if (volumeIsEmpty(d, o, ARBORETUM.size) !== true || !unoccupied(o) || !jobCurrent()) {
+          failJob("Arboretum placement preconditions changed after its intent; no blocks were placed."); return;
+        }
         if (placeRoom) placeRoom(d, o);
         else world.structureManager.place(ARBORETUM.id, d, o, { includeEntities: false });
       } catch { failJob("Arboretum placement is ambiguous; no structure replay."); return; }
+      r.room.preparation.phase = "placed";
+      if (!savePreparation(r)) { failJob("Arboretum placed receipt could not commit; no replay or reward writes."); return; }
       job.phase = "verify"; return;
     }
     if (job.phase === "verify") {
@@ -428,22 +462,36 @@ export function createArboretumDoors({ world, system, ItemStack, definition = nu
       }
       if (job.verify < shell.length || !roomVerified(r)) return;
       if (!shellIntact(o)) { failJob("Arboretum containment changed during verification; no admission."); return; }
+      if (!jobCurrent()) { failJob("Arboretum verification history changed; no admission."); return; }
       if (r.room.phase === "ready") { verified.add(verifiedKey(r)); job = null; return; }
-      if (r.room.phase !== "placing" || r.room.visited || r.reward.seeded || !unoccupied(o)) { failJob("Arboretum preparation authority is unavailable."); return; }
-      const c = inventory(r);
-      try { for (let i = 0; i < c.size; i++) if (c.getItem(i)) { failJob("Arboretum reward chest is not empty; refusing to replace its contents."); return; } }
-      catch { failJob("Arboretum reward chest is unreadable."); return; }
-      r.room.phase = "seeding";
-      if (!save(r)) { failJob("Arboretum seed journal could not commit."); return; }
-      try { c.setItem(0, new ItemStack(ARBORETUM.item, 1)); }
-      catch { failJob("Arboretum reward transfer is ambiguous; no reseeding."); return; }
-      try {
-        const item = c.getItem(0);
-        if (item?.typeId !== ARBORETUM.item || item.amount !== 1) throw new Error("reward mismatch");
-        for (let i = 1; i < c.size; i++) if (c.getItem(i)) throw new Error("unexpected reward content");
-      } catch { failJob("Arboretum reward could not be verified exactly; no admission or reseeding."); return; }
+      if (r.room.visited || r.reward.seeded || !unoccupied(o)) { failJob("Arboretum preparation authority is unavailable."); return; }
+      if (r.room.phase === "placing" && r.room.preparation?.phase === "placed") {
+        if (!emptyInventory(inventory(r))) { failJob("Arboretum reward chest is not empty or readable; refusing to replace its contents."); return; }
+        r.room.phase = "seeding"; r.room.preparation.phase = "seeding";
+        if (!savePreparation(r)) { failJob("Arboretum seed journal could not commit."); return; }
+        try {
+          const item = new ItemStack(ARBORETUM.item, 1), c = inventory(r);
+          if (!roomVerified(r) || !shellIntact(o) || !unoccupied(o) || !emptyInventory(c) || !jobCurrent()) {
+            failJob("Arboretum seed preconditions changed after its intent; no reward was written."); return;
+          }
+          c.setItem(0, item);
+        } catch { failJob("Arboretum reward transfer is ambiguous; no reseeding."); return; }
+        // Reacquire the live chest; the handle used for setItem cannot prove
+        // that the current destination contains the intended shared reward.
+        if (!rewardVerified(r) || !roomVerified(r) || !shellIntact(o) || !unoccupied(o) || !jobCurrent()) {
+          failJob("Arboretum reward could not be verified exactly; no admission or reseeding."); return;
+        }
+        r.room.preparation.phase = "seeded";
+        if (!savePreparation(r)) { failJob("Arboretum seeded receipt could not commit; no reseeding."); return; }
+      }
+      // A durable seeded receipt permits only read-only verification and a
+      // ready retry. Depleted visited rooms never pass through this branch.
+      if (r.room.phase !== "seeding" || r.room.preparation?.phase !== "seeded"
+        || !rewardVerified(r) || !roomVerified(r) || !shellIntact(o) || !unoccupied(o) || !jobCurrent()) {
+        failJob("Arboretum final preparation changed; no admission or reseeding."); return;
+      }
       r.reward.seeded = true; r.room.phase = "ready";
-      if (!save(r)) { failJob("Arboretum ready journal could not commit; no reseeding."); return; }
+      if (!savePreparation(r)) { failJob("Arboretum ready journal could not commit; no reseeding."); return; }
       verified.add(verifiedKey(r)); job = null;
     }
   }

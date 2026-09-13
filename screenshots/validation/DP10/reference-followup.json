@@ -1,0 +1,2820 @@
+{
+  "purpose": "Independent reference-only follow-up; no production, generated assets or tracked documentation changes.",
+  "completed_utc": "2026-09-13T17:00:04.966713+00:00",
+  "external_pixel_policy": "All downloaded HTML, source images, contact sheets, scripts and these notes remain ignored under tmp/conformance/next-guild-reference. External pixels are not pack assets.",
+  "prior_corpus": {
+    "supplementary": 30,
+    "earlier_map_views": 3,
+    "read_exclusions": [
+      "docs/GUILD_ONLINE_REFERENCES.md",
+      "docs/GUILD_MAP_TABLE.md",
+      "screenshots/validation/DP9/reference-followup.json"
+    ],
+    "accepted_pixels_have_no_exact_hash_match_in_prior_reference_scratch": true
+  },
+  "search_scope": {
+    "listing_requests": 20,
+    "listings": [
+      {
+        "term": "guild",
+        "page": 2,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=2",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-2.html",
+        "bytes": 83284,
+        "sha256": "457bc2162d11f1da864282c5ebe326beeed5d9b2fc2456792abaee04dcd15198",
+        "retrieved_utc": "2026-09-13T16:53:39.516018+00:00"
+      },
+      {
+        "term": "guild",
+        "page": 3,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=3",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-3.html",
+        "bytes": 83872,
+        "sha256": "38aa6026293dff07600edeb4846aff9c00ae1650b49fbe2c0bdc88f759fd42c4",
+        "retrieved_utc": "2026-09-13T16:53:39.580439+00:00"
+      },
+      {
+        "term": "guild",
+        "page": 4,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=4",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-4.html",
+        "bytes": 83738,
+        "sha256": "0f7eb16a30158aa0a370112a1e9092866c1aa6d404ec025975da2a172d582dae",
+        "retrieved_utc": "2026-09-13T16:53:39.333224+00:00"
+      },
+      {
+        "term": "library",
+        "page": 2,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=library&browsefilter=toprated&p=2",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-library-2.html",
+        "bytes": 44607,
+        "sha256": "7ef2eeba559ff6e681c48ab324650f3ab63ce050348b5d9b4d675d2ff05b107f",
+        "retrieved_utc": "2026-09-13T16:53:38.819655+00:00"
+      },
+      {
+        "term": "books",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=books&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-books-1.html",
+        "bytes": 72854,
+        "sha256": "8305536670dcea23feb2b742e35af5847e4768389b49024b783b7fc93b045a44",
+        "retrieved_utc": "2026-09-13T16:53:39.440321+00:00"
+      },
+      {
+        "term": "book",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=book&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-book-1.html",
+        "bytes": 72814,
+        "sha256": "392b9297d4cc25dae24b31e64ff08633e183902c27e9ae6d99ce2a4eb8b71fbf",
+        "retrieved_utc": "2026-09-13T16:53:39.890194+00:00"
+      },
+      {
+        "term": "hall",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=hall&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-hall-1.html",
+        "bytes": 60985,
+        "sha256": "bfb10898f78063972e1f46c70a89f1a5334ddad6fbeea4c1594cf56cc5bfb839",
+        "retrieved_utc": "2026-09-13T16:53:40.116558+00:00"
+      },
+      {
+        "term": "stairs",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=stairs&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-stairs-1.html",
+        "bytes": 49897,
+        "sha256": "38d6d9b9a8b7979a5649ef18c9cdbae233b9df7b26db3a4e96fc1f5ce4bd45f2",
+        "retrieved_utc": "2026-09-13T16:53:40.069930+00:00"
+      },
+      {
+        "term": "Библиотека",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=%D0%91%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA%D0%B0&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-Библиотека-1.html",
+        "bytes": 52140,
+        "sha256": "9c93a253d19eb3e5a414ab2f686f42b3651b6cb78d5a65f7de50213008159a88",
+        "retrieved_utc": "2026-09-13T16:53:40.148347+00:00"
+      },
+      {
+        "term": "Гильдия",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=%D0%93%D0%B8%D0%BB%D1%8C%D0%B4%D0%B8%D1%8F&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-Гильдия-1.html",
+        "bytes": 58748,
+        "sha256": "b8a091815308f2686497fb7faff30aa64070e566843ab03a0bc315b49fcadac9",
+        "retrieved_utc": "2026-09-13T16:53:41.197153+00:00"
+      },
+      {
+        "term": "Heroes",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=Heroes&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-Heroes-1.html",
+        "bytes": 83983,
+        "sha256": "6fde3d80d0e517ee363984f4bcc61478075f4b129e7df510a080ff71b44a884d",
+        "retrieved_utc": "2026-09-13T16:53:41.746337+00:00"
+      },
+      {
+        "term": "guild",
+        "page": 5,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=5",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-5.html",
+        "bytes": 83302,
+        "sha256": "85ee05a96b51a0f21cbbae7fb044941f05ca47888909468f97b7818049202127",
+        "retrieved_utc": "2026-09-13T16:55:51.103135+00:00"
+      },
+      {
+        "term": "guild",
+        "page": 6,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=6",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-6.html",
+        "bytes": 83598,
+        "sha256": "29d626cfc784948b5f3649df437f2b2b56724f142add1eca10cb9f97824b4663",
+        "retrieved_utc": "2026-09-13T16:55:51.184914+00:00"
+      },
+      {
+        "term": "guild",
+        "page": 7,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=7",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-7.html",
+        "bytes": 53983,
+        "sha256": "b652447becad479c2bf48e1717ed85397b10997f47b59c1fdce6e9924ed383f1",
+        "retrieved_utc": "2026-09-13T16:55:50.861776+00:00"
+      },
+      {
+        "term": "read",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=read&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-read-1.html",
+        "bytes": 84541,
+        "sha256": "bfe23fe45c0050b47c6ca8f2428a68a53048ab5f2aefd212976056300c520db9",
+        "retrieved_utc": "2026-09-13T16:55:51.291286+00:00"
+      },
+      {
+        "term": "reading",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=reading&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-reading-1.html",
+        "bytes": 84661,
+        "sha256": "e1703f14fc37a9e7d5b0b3535d5a85f28d5135b9bf27605535b36b7a8fbc5d5b",
+        "retrieved_utc": "2026-09-13T16:55:52.377893+00:00"
+      },
+      {
+        "term": "bookshelf",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=bookshelf&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-bookshelf-1.html",
+        "bytes": 44685,
+        "sha256": "511042ebef3f8b9a2cdd19524b52b235549adfcd51b7c3a4ad754fe53fac35f0",
+        "retrieved_utc": "2026-09-13T16:55:52.329775+00:00"
+      },
+      {
+        "term": "library",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=library&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-library-1.html",
+        "bytes": 53398,
+        "sha256": "cdf9070c3f04a23054c77d8c67ac307b997492e74132d7e1ef360a8156657245",
+        "retrieved_utc": "2026-09-13T16:55:52.963327+00:00"
+      },
+      {
+        "term": "bibliotheque",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=bibliotheque&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-bibliotheque-1.html",
+        "bytes": 44802,
+        "sha256": "fb5826d9031f534c904616fdff68afaaabe8159c2986e484ad2e384d882dc17c",
+        "retrieved_utc": "2026-09-13T16:55:52.744046+00:00"
+      },
+      {
+        "term": "biblioteca",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=biblioteca&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-biblioteca-1.html",
+        "bytes": 44724,
+        "sha256": "c9bfe0637b8b06316aff67733241427dfdaffad86d2606d46069391f196c50bb",
+        "retrieved_utc": "2026-09-13T16:55:53.378686+00:00"
+      }
+    ],
+    "images_downloaded": 83,
+    "accepted_new_references": 7,
+    "excluded_images": 76,
+    "limits": "Bounded later Steam Guild pages 2..7 plus book/reading/hall and multilingual library terms. Not exhaustive. A web image-query retry hit HTTP 429 and was not repeated. Public downloads initially failed sandbox DNS; authorized read-only retrieval succeeded through approved command execution.",
+    "web_queries": [
+      "\"Fable The Lost Chapters\" \"guild library\" screenshot",
+      "\"Fable TLC\" library interior",
+      "Fable lost chapters heroes guild stairs",
+      "site:steamcommunity.com/sharedfiles/filedetails \"Fable - The Lost Chapters\" \"library\" -Guide"
+    ],
+    "web_exclusions": [
+      "Previously indexed Andy Zhang, MobyGames and uvejuegos map images were not counted again.",
+      "Fable II library, Anniversary-only material, Fandom Arcanum, other-game interiors and recreated battlemap results are not ordinary original TLC Guild Library photos.",
+      "Old-Games.ru screenshot page returned HTTP 403; not accepted.",
+      "ModDB sunset exterior result added no targeted interior/bridge evidence and was not accepted."
+    ]
+  },
+  "new_references": [
+    {
+      "id": "157535182",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/901001197169829824/71D6BFF6AE42364C610857E25BDEADBF4DFD5A88/",
+      "caption": "What the hell is the guild master looking at...",
+      "author": "Moon",
+      "source_listing": {
+        "term": "guild",
+        "page": 4,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=4",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-4.html",
+        "bytes": 83738,
+        "sha256": "0f7eb16a30158aa0a370112a1e9092866c1aa6d404ec025975da2a172d582dae",
+        "retrieved_utc": "2026-09-13T16:53:39.333224+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-157535182.jpg",
+      "bytes": 209378,
+      "sha256": "bf505adab35fe794415e0355daeeda65a219f099dc2025de73fa3413cc6de836",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:23.024684+00:00",
+      "scene": "Guild map hall: stair, under-stair arch and upper balcony",
+      "visible_findings": [
+        "Stone stair treads, reddish runner surfaces, thick timber handrail and chunky square newel with circular raised detail are visible left of the Hero.",
+        "An open masonry arch passes beneath the upper balcony; its broad curved stone band continues around the upper room.",
+        "The upper opening has a curved dark timber rail with widely spaced thick posts; planked timber soffits and cross beams are visible above the stairs and arch.",
+        "A fragment of the low teal map relief and curved wood rim remains at lower right."
+      ],
+      "limits": [
+        "Hero, sword and Guildmaster obscure the central stair run and map; no complete floor plan, clearance, stair count or calibrated dimensions follow.",
+        "Warm game light and NPC selection glow prevent neutral palette/light calibration."
+      ],
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=157535182",
+      "detail_page_attempt": {
+        "id": "157535182",
+        "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=157535182",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-157535182-detail.html",
+        "bytes": 310393,
+        "sha256": "4e4f65c5ee454b6ec7005cd8d13cda4703a643e9584e7681748bd301f8ec7985",
+        "retrieved_utc": "2026-09-13T16:55:29.334465+00:00",
+        "title": "Steam Workshop",
+        "detail_stats": [],
+        "app_links": [],
+        "description": []
+      },
+      "posted_date": null,
+      "posted_date_note": "Detail download returned generic Steam Workshop shell; no posting date inferred from screenshot ID.",
+      "capture_date": null,
+      "patch_mod_status": "Unknown",
+      "edition_confidence": "High: exact ID and direct image URL matched a saved app-204030 card and original classic pixels were inspected. Does not establish patch/mod status.",
+      "actual_pixels_inspected": true,
+      "inspection": "Full source image displayed with view_image, plus contact-sheet review.",
+      "new_to_prior_30_supplementary_plus_3_map_corpus": true
+    },
+    {
+      "id": "157299346",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/1119425779091565620/380479A5A37656DB568FD701FC2A04A3E262E107/",
+      "caption": "Me, the Guild Hall, the Moon and the Sun.",
+      "author": "Wanaziba",
+      "source_listing": {
+        "term": "guild",
+        "page": 4,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=4",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-4.html",
+        "bytes": 83738,
+        "sha256": "0f7eb16a30158aa0a370112a1e9092866c1aa6d404ec025975da2a172d582dae",
+        "retrieved_utc": "2026-09-13T16:53:39.333224+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-157299346.jpg",
+      "bytes": 204056,
+      "sha256": "94001dc66b11cb79b346d76bcd36f92d8be843842b210b2f7a0a628270d5b9bd",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:24.375224+00:00",
+      "scene": "Guild grounds: daylight view along decorated bridge deck",
+      "visible_findings": [
+        "Deck planks show transverse seams between broad continuous parapets.",
+        "Pale inset parapet faces carry dark curling motifs between dark timber upper/lower edges; the side members rise from the visible far ends toward the foreground viewpoint.",
+        "Guild masonry, narrow pointed windows and nearby courtyard vegetation are visible beyond the bridge."
+      ],
+      "limits": [
+        "No post lamp is clearly visible in this crop. This view cannot justify lamp position or height.",
+        "Hero obscures the deck center; the near ends, underside and full approaches are cropped. Deck width, rise, bracing, two-Hero clearance and full floor plan remain unknown."
+      ],
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=157299346",
+      "detail_page_attempt": {
+        "id": "157299346",
+        "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=157299346",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-157299346-detail.html",
+        "bytes": 310393,
+        "sha256": "f097a3ccfe6caf6c3b149755c48d048e3739c53709558decbd7965b36e213301",
+        "retrieved_utc": "2026-09-13T16:55:29.349878+00:00",
+        "title": "Steam Workshop",
+        "detail_stats": [],
+        "app_links": [],
+        "description": []
+      },
+      "posted_date": null,
+      "posted_date_note": "Detail download returned generic Steam Workshop shell; no posting date inferred from screenshot ID.",
+      "capture_date": null,
+      "patch_mod_status": "Unknown",
+      "edition_confidence": "High: exact ID and direct image URL matched a saved app-204030 card and original classic pixels were inspected. Does not establish patch/mod status.",
+      "actual_pixels_inspected": true,
+      "inspection": "Full source image displayed with view_image, plus contact-sheet review.",
+      "new_to_prior_30_supplementary_plus_3_map_corpus": true
+    },
+    {
+      "id": "343658414",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/31851510498053393/A5FD4BE287B0403EFFE623408B0F2742DE775150/",
+      "caption": "Maze? In the Guild tavern?",
+      "author": "Rhys Anderson Kinloch",
+      "source_listing": {
+        "term": "guild",
+        "page": 2,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=2",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-2.html",
+        "bytes": 83284,
+        "sha256": "457bc2162d11f1da864282c5ebe326beeed5d9b2fc2456792abaee04dcd15198",
+        "retrieved_utc": "2026-09-13T16:53:39.516018+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-343658414.jpg",
+      "bytes": 140664,
+      "sha256": "bd626549861c1af627e085b1eb6a4a7a7c0f120c941e4876c2afba941088c78e",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:18.437756+00:00",
+      "scene": "Guild dining hall: ordinary gameplay, table end and stair doorway",
+      "visible_findings": [
+        "Long decorated timber table has a pale central strip bordered in teal, dark curling surface motifs and separate mugs on pale coasters.",
+        "Small round red-covered stools sit at the table; large timber casks are visible at left.",
+        "Red wall panels stand between heavy timber posts over dark circular-pattern lower panels; a pointed stone opening holds stairs leading toward daylight.",
+        "A narrow pointed blue/purple window is visible high on the left wall."
+      ],
+      "limits": [
+        "Maze and child Hero obscure the foreground, and table ends/room boundaries are cropped. Full furniture count, floor plan and lighting values are unestablished.",
+        "This is dining-hall evidence, not neutral Library or Maze-study evidence."
+      ],
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=343658414",
+      "detail_page_attempt": {
+        "id": "343658414",
+        "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=343658414",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-343658414-detail.html",
+        "bytes": 310393,
+        "sha256": "d8aefee5c773bcb42c7e6cb9603295e02647856832d1ae84a31c74df55a8bee0",
+        "retrieved_utc": "2026-09-13T16:55:29.590624+00:00",
+        "title": "Steam Workshop",
+        "detail_stats": [],
+        "app_links": [],
+        "description": []
+      },
+      "posted_date": null,
+      "posted_date_note": "Detail download returned generic Steam Workshop shell; no posting date inferred from screenshot ID.",
+      "capture_date": null,
+      "patch_mod_status": "Unknown",
+      "edition_confidence": "High: exact ID and direct image URL matched a saved app-204030 card and original classic pixels were inspected. Does not establish patch/mod status.",
+      "actual_pixels_inspected": true,
+      "inspection": "Full source image displayed with view_image, plus contact-sheet review.",
+      "new_to_prior_30_supplementary_plus_3_map_corpus": true
+    },
+    {
+      "id": "236178734",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/3318330593752315032/C758A7D35F011A544BAAABAA3D38A17EB2C5EC1C/",
+      "caption": "Underage Drinking problem at the Guild.",
+      "author": "Generic Name",
+      "source_listing": {
+        "term": "guild",
+        "page": 3,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=3",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-3.html",
+        "bytes": 83872,
+        "sha256": "38aa6026293dff07600edeb4846aff9c00ae1650b49fbe2c0bdc88f759fd42c4",
+        "retrieved_utc": "2026-09-13T16:53:39.580439+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-236178734.jpg",
+      "bytes": 356114,
+      "sha256": "8ad4018a973a1d47007924aa9c05a901cda720380ace0d6ffe53c91fedb775e7",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "retrieved_utc": "2026-09-13T16:54:21.779794+00:00",
+      "scene": "Guild dining hall: wide ordinary view with two stair runs",
+      "visible_findings": [
+        "Long decorated dining-table surfaces are aligned end to end with pale teal-bordered runners, repeated curling motifs and separate mugs on pale squares.",
+        "Many separate short round red-covered stools line the table.",
+        "Two red-covered stair runs rise behind the dining area with a central masonry support and dark timber handrails.",
+        "Red wall fields, heavy decorated timber posts, continuous patterned lower panels and diagonal stone floor seams are visible."
+      ],
+      "limits": [
+        "Foreground Hero, apprentices and image edges occlude parts of the room and furniture; no exact table/stool total or full floor plan is asserted.",
+        "Character glows and unknown rendering settings preclude calibrated neutral lighting. This is dining-hall evidence, not Library evidence."
+      ],
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=236178734",
+      "detail_page_attempt": {
+        "id": "236178734",
+        "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=236178734",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-236178734-detail.html",
+        "bytes": 310393,
+        "sha256": "afe90dfaac064c84dbe02e0ec43ea9701569559c1b4d51dc5af8184d81c67861",
+        "retrieved_utc": "2026-09-13T16:55:30.131912+00:00",
+        "title": "Steam Workshop",
+        "detail_stats": [],
+        "app_links": [],
+        "description": []
+      },
+      "posted_date": null,
+      "posted_date_note": "Detail download returned generic Steam Workshop shell; no posting date inferred from screenshot ID.",
+      "capture_date": null,
+      "patch_mod_status": "Unknown",
+      "edition_confidence": "High: exact ID and direct image URL matched a saved app-204030 card and original classic pixels were inspected. Does not establish patch/mod status.",
+      "actual_pixels_inspected": true,
+      "inspection": "Full source image displayed with view_image, plus contact-sheet review.",
+      "new_to_prior_30_supplementary_plus_3_map_corpus": true
+    },
+    {
+      "id": "176290219",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/884118407890434063/F91EBB2892828FF643A5F1D94AAD4B36C99185D2/",
+      "caption": "Guild wife with nowhere to go.... :( lol.",
+      "author": "Rapiest Ape",
+      "source_listing": {
+        "term": "guild",
+        "page": 4,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=4",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-4.html",
+        "bytes": 83738,
+        "sha256": "0f7eb16a30158aa0a370112a1e9092866c1aa6d404ec025975da2a172d582dae",
+        "retrieved_utc": "2026-09-13T16:53:39.333224+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-176290219.jpg",
+      "bytes": 254722,
+      "sha256": "7d10b50f27fdb67bcf04c99dd5ec456b2de0bb3e95a44c2eed5313bcd034e35c",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "retrieved_utc": "2026-09-13T16:54:22.576016+00:00",
+      "scene": "Guild adjoining hall: arches, candle ring and carved lower panels",
+      "visible_findings": [
+        "A suspended dark polygonal candle ring hangs below the timber ceiling; wax-like drips are visible on its rim.",
+        "Multiple open pointed masonry arches frame a red carpeted passage.",
+        "A tall narrow ornamental plaque and red upper wall panels are visible between heavy timber framing; lower wall panels carry large circular motifs."
+      ],
+      "limits": [
+        "The precise function/name of this adjoining Guild room is not independently established; do not label it Library.",
+        "NPCs, heart and face overlays obscure floor and walls. Full candle count, hanging height, complete room plan and light levels are unknown."
+      ],
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=176290219",
+      "detail_page_attempt": {
+        "id": "176290219",
+        "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=176290219",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-176290219-detail.html",
+        "bytes": 310393,
+        "sha256": "71718fdf6b5df5add50340bbbb9a9bdbff22b7a84393ed2790fb1ccc0cb28391",
+        "retrieved_utc": "2026-09-13T16:55:29.954314+00:00",
+        "title": "Steam Workshop",
+        "detail_stats": [],
+        "app_links": [],
+        "description": []
+      },
+      "posted_date": null,
+      "posted_date_note": "Detail download returned generic Steam Workshop shell; no posting date inferred from screenshot ID.",
+      "capture_date": null,
+      "patch_mod_status": "Unknown",
+      "edition_confidence": "High: exact ID and direct image URL matched a saved app-204030 card and original classic pixels were inspected. Does not establish patch/mod status.",
+      "actual_pixels_inspected": true,
+      "inspection": "Full source image displayed with view_image, plus contact-sheet review.",
+      "new_to_prior_30_supplementary_plus_3_map_corpus": true
+    },
+    {
+      "id": "27535382",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/468612506435857444/A8F19C3C856026C37958A4990D024C070F9E78C4/",
+      "caption": "Ik als een aprantice van de Heroes guild",
+      "author": "¯\\_(ツ)_/¯",
+      "source_listing": {
+        "term": "guild",
+        "page": 5,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=5",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-5.html",
+        "bytes": 83302,
+        "sha256": "85ee05a96b51a0f21cbbae7fb044941f05ca47888909468f97b7818049202127",
+        "retrieved_utc": "2026-09-13T16:55:51.103135+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-27535382.jpg",
+      "bytes": 196110,
+      "sha256": "cba62d451fb9fb70d7b5473249c44b23d070344f79d5a099cc6908e87f6875e0",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:56:27.557931+00:00",
+      "scene": "Guild map hall: upper balcony and hanging candle ring",
+      "visible_findings": [
+        "The upper balcony has a curved dark timber top rail with three visible thick posts; broad stone sill/rim separates it from the open lower room.",
+        "A suspended dark candle ring hangs on sloping straps or chains from above, with several upright candles and wax-like drips.",
+        "A curved masonry wall has narrow horizontal stone bands and a red decorative frieze beneath repeated pale traceried upper windows.",
+        "Below the balcony, wall candle fixtures flank visible pointed masonry openings and red carpet routes."
+      ],
+      "limits": [
+        "Hero and foreground arch hide some rail/posts; full ring candle count, exact hanging height, balcony width and room dimensions are unknown.",
+        "This is ordinary warm game illumination, not a calibrated neutral light reference."
+      ],
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=27535382",
+      "detail_page_attempt": {
+        "id": "27535382",
+        "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=27535382",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-27535382-detail.html",
+        "bytes": 46715,
+        "sha256": "5617a4edac0d0ab047990cfb584171ed54e86fdb34c53e96f704b3826883eb2b",
+        "retrieved_utc": "2026-09-13T16:57:45.139897+00:00",
+        "title": "Steam Community :: Screenshot :: Ik als een aprantice van de Heroes guild",
+        "detail_stats": [
+          "File Size",
+          "Posted",
+          "Size",
+          "0.187 MB",
+          "Mar 11, 2012 @ 5:32am",
+          "1024 x 768"
+        ],
+        "app_links": [
+          "https://store.steampowered.com/app/204030?snr=2_100100_100101_100102_apphubheader",
+          "https://steamcommunity.com/app/204030",
+          "https://steamcommunity.com/app/204030/discussions/",
+          "https://steamcommunity.com/app/204030/screenshots/",
+          "https://steamcommunity.com/app/204030/images/",
+          "https://steamcommunity.com/app/204030/broadcasts/",
+          "https://steamcommunity.com/app/204030/videos/",
+          "https://steamcommunity.com/app/204030/allnews/",
+          "https://steamcommunity.com/app/204030/guides/",
+          "https://steamcommunity.com/app/204030/reviews/",
+          "https://store.steampowered.com/app/204030",
+          "https://steamcommunity.com/app/204030",
+          "https://steamcommunity.com/app/204030/screenshots/",
+          "https://steamcommunity.com/app/204030/screenshots/",
+          "https://steamcommunity.com/app/204030/screenshots/",
+          "https://steamcommunity.com/app/204030/screenshots/"
+        ],
+        "description": []
+      },
+      "posted_date": "Mar 11, 2012 @ 5:32am",
+      "posted_date_note": "Posting date as displayed by Steam; site time zone unspecified; not game capture time.",
+      "capture_date": null,
+      "patch_mod_status": "Unknown",
+      "edition_confidence": "High: exact ID and direct image URL matched a saved app-204030 card and original classic pixels were inspected. Does not establish patch/mod status.",
+      "actual_pixels_inspected": true,
+      "inspection": "Full source image displayed with view_image, plus contact-sheet review.",
+      "new_to_prior_30_supplementary_plus_3_map_corpus": true
+    },
+    {
+      "id": "279597457",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/774932115177380915/1F4BE32AADBD5557DA6B631DC641C261F9A737FD/",
+      "caption": "Heros guild my ass, more like Assassins fortress..",
+      "author": "Hawk",
+      "source_listing": {
+        "term": "guild",
+        "page": 5,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=5",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-5.html",
+        "bytes": 83302,
+        "sha256": "85ee05a96b51a0f21cbbae7fb044941f05ca47888909468f97b7818049202127",
+        "retrieved_utc": "2026-09-13T16:55:51.103135+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-279597457.jpg",
+      "bytes": 304112,
+      "sha256": "d48d3fd8764b775ceffa8f05d68338117953fd098566d3fdbf8412c1bafb7286",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "retrieved_utc": "2026-09-13T16:56:27.207344+00:00",
+      "scene": "Guild dormitory: ordinary gameplay, beds, shelves and candle fixtures",
+      "visible_findings": [
+        "At least three separate red-covered bed forms are visible at the far/right side behind apprentices.",
+        "Tall continuous bookcase sections at left have carved curling base panels and alternating filled/open shelf spaces.",
+        "A suspended dark candle ring and a wall-mounted paired candle fixture are both clearly visible.",
+        "Narrow pointed blue/purple windows sit in red timber-framed wall panels above decorative lower panels; timber roof members and diagonal stone floor seams remain visible."
+      ],
+      "limits": [
+        "This is a dormitory with visible beds, not the Guild Library. Library lamp placement remains unestablished.",
+        "Characters and cropping obscure furniture; no full bed count, floor plan, calibrated brightness or game-light matching follows."
+      ],
+      "page_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=279597457",
+      "detail_page_attempt": {
+        "id": "279597457",
+        "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=279597457",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-279597457-detail.html",
+        "bytes": 51535,
+        "sha256": "34c595ed38e4f8eacfa9dae315cbb2f15afda2b06bfb2799b5e9ce76987287de",
+        "retrieved_utc": "2026-09-13T16:57:45.218592+00:00",
+        "title": "Steam Community :: Screenshot :: Heros guild my ass, more like Assassins fortress..",
+        "detail_stats": [
+          "File Size",
+          "Posted",
+          "Size",
+          "0.290 MB",
+          "Jul 1, 2014 @ 2:26pm",
+          "1920 x 1080"
+        ],
+        "app_links": [
+          "https://store.steampowered.com/app/204030?snr=2_100100_100101_100102_apphubheader",
+          "https://steamcommunity.com/app/204030",
+          "https://steamcommunity.com/app/204030/discussions/",
+          "https://steamcommunity.com/app/204030/screenshots/",
+          "https://steamcommunity.com/app/204030/images/",
+          "https://steamcommunity.com/app/204030/broadcasts/",
+          "https://steamcommunity.com/app/204030/videos/",
+          "https://steamcommunity.com/app/204030/allnews/",
+          "https://steamcommunity.com/app/204030/guides/",
+          "https://steamcommunity.com/app/204030/reviews/",
+          "https://store.steampowered.com/app/204030",
+          "https://steamcommunity.com/app/204030",
+          "https://steamcommunity.com/app/204030/screenshots/",
+          "https://steamcommunity.com/app/204030/screenshots/",
+          "https://steamcommunity.com/app/204030/screenshots/",
+          "https://steamcommunity.com/app/204030/screenshots/"
+        ],
+        "description": []
+      },
+      "posted_date": "Jul 1, 2014 @ 2:26pm",
+      "posted_date_note": "Posting date as displayed by Steam; site time zone unspecified; not game capture time.",
+      "capture_date": null,
+      "patch_mod_status": "Unknown",
+      "edition_confidence": "High: exact ID and direct image URL matched a saved app-204030 card and original classic pixels were inspected. Does not establish patch/mod status.",
+      "actual_pixels_inspected": true,
+      "inspection": "Full source image displayed with view_image, plus contact-sheet review.",
+      "new_to_prior_30_supplementary_plus_3_map_corpus": true
+    }
+  ],
+  "excluded_candidates": [
+    {
+      "id": "91147782",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/920113049598719859/FF7E537A3F9DA989D97F0A0054E983B132E79972/",
+      "caption": "Sunset at the Guild.",
+      "author": "MikeyWhooster",
+      "source_listing": {
+        "term": "guild",
+        "page": 2,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=2",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-2.html",
+        "bytes": 83284,
+        "sha256": "457bc2162d11f1da864282c5ebe326beeed5d9b2fc2456792abaee04dcd15198",
+        "retrieved_utc": "2026-09-13T16:53:39.516018+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-91147782.jpg",
+      "bytes": 229174,
+      "sha256": "57146a128ede67e9d9286d56df96ac63a3b86725a2c4478ab7485d08dc54476b",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:18.437169+00:00",
+      "reason": "Guild exterior or introductory scene: does not add a clear bounded Library, stair or bridge detail beyond the accepted angles; not counted.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "51032709",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/649876689843913895/66BD227A31A3F62E8D45BEE7EF83BEE7EBAFC85C/",
+      "caption": "The Hero's Guild",
+      "author": "Countojo",
+      "source_listing": {
+        "term": "guild",
+        "page": 2,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=2",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-2.html",
+        "bytes": 83284,
+        "sha256": "457bc2162d11f1da864282c5ebe326beeed5d9b2fc2456792abaee04dcd15198",
+        "retrieved_utc": "2026-09-13T16:53:39.516018+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-51032709.jpg",
+      "bytes": 219790,
+      "sha256": "8407c7ed2f214fc6f923a905204af33bec7e3a5c9102f2d59ef57197ebf01c15",
+      "dimensions": [
+        1280,
+        800
+      ],
+      "retrieved_utc": "2026-09-13T16:54:18.771496+00:00",
+      "reason": "Guild exterior or introductory scene: does not add a clear bounded Library, stair or bridge detail beyond the accepted angles; not counted.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "1509181231",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/961971522308376127/3BAF857B978B5F271871D029BACBCA5286CA2349/",
+      "caption": "Meet Guild Master",
+      "author": "Count Dooky",
+      "source_listing": {
+        "term": "guild",
+        "page": 2,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=2",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-2.html",
+        "bytes": 83284,
+        "sha256": "457bc2162d11f1da864282c5ebe326beeed5d9b2fc2456792abaee04dcd15198",
+        "retrieved_utc": "2026-09-13T16:53:39.516018+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-1509181231.jpg",
+      "bytes": 246686,
+      "sha256": "5a1c611bfd210a77ca1a4f5d2563e238f752400efb5c4e8efd3eb8cac3f715e5",
+      "dimensions": [
+        1680,
+        1050
+      ],
+      "retrieved_utc": "2026-09-13T16:54:18.445188+00:00",
+      "reason": "Character/introductory/training view; architecture is partial and less useful than accepted bounded references.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "306705939",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/65621516046562721/D351DC5108108A530CC3DAF152CD9C80D22257ED/",
+      "caption": "Finally back at the guild.",
+      "author": "Legion",
+      "source_listing": {
+        "term": "guild",
+        "page": 2,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=2",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-2.html",
+        "bytes": 83284,
+        "sha256": "457bc2162d11f1da864282c5ebe326beeed5d9b2fc2456792abaee04dcd15198",
+        "retrieved_utc": "2026-09-13T16:53:39.516018+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-306705939.jpg",
+      "bytes": 167430,
+      "sha256": "24384fbf72f2d12bc72d3df2fd359df58b6cdd628969e70e016d81736b9b0b1e",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "retrieved_utc": "2026-09-13T16:54:19.211772+00:00",
+      "reason": "Guild exterior or introductory scene: does not add a clear bounded Library, stair or bridge detail beyond the accepted angles; not counted.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "276420509",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/3296947906317625025/FAD43AAEDA161E4A4AF38315F218707766184E7B/",
+      "caption": "Enter the Guild of Heroes!",
+      "author": "stygian_wanderer",
+      "source_listing": {
+        "term": "guild",
+        "page": 2,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=2",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-2.html",
+        "bytes": 83284,
+        "sha256": "457bc2162d11f1da864282c5ebe326beeed5d9b2fc2456792abaee04dcd15198",
+        "retrieved_utc": "2026-09-13T16:53:39.516018+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-276420509.jpg",
+      "bytes": 87170,
+      "sha256": "20e8dcab2e9c48d37108201ffa4de4aa12d15c82371144b8c49a4ec90ad7959d",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:18.994187+00:00",
+      "reason": "Guild exterior or introductory scene: does not add a clear bounded Library, stair or bridge detail beyond the accepted angles; not counted.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "251930059",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/597034629128566406/AAE9B11B43EAF8DC77EA3F157FFBA21CFC339DB2/",
+      "caption": "At a Cullis Gate in the Guild!",
+      "author": "pbracket",
+      "source_listing": {
+        "term": "guild",
+        "page": 2,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=2",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-2.html",
+        "bytes": 83284,
+        "sha256": "457bc2162d11f1da864282c5ebe326beeed5d9b2fc2456792abaee04dcd15198",
+        "retrieved_utc": "2026-09-13T16:53:39.516018+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-251930059.jpg",
+      "bytes": 159933,
+      "sha256": "54e50443a4a31dd146ec6011c6d714b33efc5365d5bfa690c0f88bc39a25715f",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:19.016448+00:00",
+      "reason": "Close Cullis gate effects and masonry: useful corroboration but no new bounded stair, ordinary Library or bridge feature selected.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "248140357",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/433778373588265242/49B4177B85C356C7CE9CFFDCDB1839F7AC346162/",
+      "caption": "Fish caught in the guild",
+      "author": "Lucky",
+      "source_listing": {
+        "term": "guild",
+        "page": 2,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=2",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-2.html",
+        "bytes": 83284,
+        "sha256": "457bc2162d11f1da864282c5ebe326beeed5d9b2fc2456792abaee04dcd15198",
+        "retrieved_utc": "2026-09-13T16:53:39.516018+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-248140357.jpg",
+      "bytes": 83174,
+      "sha256": "fbf2be07bf84e5928b8dcd9869d771454b5e72dd9e550e6cc98ddeda67563d86",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:19.580802+00:00",
+      "reason": "Fishing close-up or result overlay; Guild interior is too dark/obscured for useful new architecture evidence.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "248140339",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/433778373588263655/693211986FEEF9232AEE7EEC1DAA3EA51472308C/",
+      "caption": "Fishing inside the guild",
+      "author": "Lucky",
+      "source_listing": {
+        "term": "guild",
+        "page": 2,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=2",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-2.html",
+        "bytes": 83284,
+        "sha256": "457bc2162d11f1da864282c5ebe326beeed5d9b2fc2456792abaee04dcd15198",
+        "retrieved_utc": "2026-09-13T16:53:39.516018+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-248140339.jpg",
+      "bytes": 52585,
+      "sha256": "b5a05d60197b4e94802a239aea06b86360c99096ae895f56b33bd777dba714bc",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:19.518286+00:00",
+      "reason": "Fishing close-up or result overlay; Guild interior is too dark/obscured for useful new architecture evidence.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "248140316",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/433778373588261653/299A761CA832358E9BECEF31CF5D2CECEE6F6F9F/",
+      "caption": "Fishing inside the Guild",
+      "author": "Lucky",
+      "source_listing": {
+        "term": "guild",
+        "page": 2,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=2",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-2.html",
+        "bytes": 83284,
+        "sha256": "457bc2162d11f1da864282c5ebe326beeed5d9b2fc2456792abaee04dcd15198",
+        "retrieved_utc": "2026-09-13T16:53:39.516018+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-248140316.jpg",
+      "bytes": 64716,
+      "sha256": "ea1eb9812200d14ea5c639e8c9899cbd0a7296131cf2e30743a6d997bed8ef99",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:19.610180+00:00",
+      "reason": "Fishing close-up or result overlay; Guild interior is too dark/obscured for useful new architecture evidence.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "194763358",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/723121151220904841/1FF1000920A476D21E759D42784175787410B9A3/",
+      "caption": "selfie with the guild master",
+      "author": "Kadz",
+      "source_listing": {
+        "term": "guild",
+        "page": 3,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=3",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-3.html",
+        "bytes": 83872,
+        "sha256": "38aa6026293dff07600edeb4846aff9c00ae1650b49fbe2c0bdc88f759fd42c4",
+        "retrieved_utc": "2026-09-13T16:53:39.580439+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-194763358.jpg",
+      "bytes": 182655,
+      "sha256": "a9e8ccfe4fe23594b5e0e093a20fe7d01dd802f2a02ef927f65a3b280d2b7be6",
+      "dimensions": [
+        1360,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:19.577958+00:00",
+      "reason": "Character/introductory/training view; architecture is partial and less useful than accepted bounded references.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "172764166",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/919020225090593516/9729700B8CC64C88BF2CF5865FE681F6E1AC3426/",
+      "caption": "Out of the Heroes Guild!",
+      "author": "TheHarminator",
+      "source_listing": {
+        "term": "guild",
+        "page": 3,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=3",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-3.html",
+        "bytes": 83872,
+        "sha256": "38aa6026293dff07600edeb4846aff9c00ae1650b49fbe2c0bdc88f759fd42c4",
+        "retrieved_utc": "2026-09-13T16:53:39.580439+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-172764166.jpg",
+      "bytes": 561373,
+      "sha256": "1c9a2d2c6e6991bade1646b7ad0c1fdf0edb35f98fc17d775206da00fa9cfa2b",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "retrieved_utc": "2026-09-13T16:54:20.111679+00:00",
+      "reason": "Guild exterior or introductory scene: does not add a clear bounded Library, stair or bridge detail beyond the accepted angles; not counted.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "118467120",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/558711133908933570/13D73B3D28C312D55B8BE5CDE150C970063EAFD1/",
+      "caption": "Holy Archer of Guild",
+      "author": "SekCambaz",
+      "source_listing": {
+        "term": "guild",
+        "page": 3,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=3",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-3.html",
+        "bytes": 83872,
+        "sha256": "38aa6026293dff07600edeb4846aff9c00ae1650b49fbe2c0bdc88f759fd42c4",
+        "retrieved_utc": "2026-09-13T16:53:39.580439+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-118467120.jpg",
+      "bytes": 212308,
+      "sha256": "055250de58f75c9fbd86a2f25b6c20d6ab59f1f3127c3f58c37b75dae18cbc11",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:20.143180+00:00",
+      "reason": "Non-target location or character/effects dominate; no usable new Guild Library/hall/bridge feature established.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "223054684",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/3334090015967062333/43AD0AE0C095116196F833CC640F59F34C0D657C/",
+      "caption": "It was truly a proud day for the Guild",
+      "author": "Hemlet",
+      "source_listing": {
+        "term": "guild",
+        "page": 3,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=3",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-3.html",
+        "bytes": 83872,
+        "sha256": "38aa6026293dff07600edeb4846aff9c00ae1650b49fbe2c0bdc88f759fd42c4",
+        "retrieved_utc": "2026-09-13T16:53:39.580439+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-223054684.jpg",
+      "bytes": 132536,
+      "sha256": "f22aac150a069075077b29c561a8afc194ee35a0ed0a6aed12b11c648d0666d8",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:20.118057+00:00",
+      "reason": "Chamber graduation/fight scene, outside this Library/hall/bridge pass and weaker than established Chamber references.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "158122147",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/597008222400724082/20FE37268BCDE3A14B710BEB7B01EFCBCDC69D83/",
+      "caption": "Gimme dat guild seal.",
+      "author": "Morse",
+      "source_listing": {
+        "term": "guild",
+        "page": 3,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=3",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-3.html",
+        "bytes": 83872,
+        "sha256": "38aa6026293dff07600edeb4846aff9c00ae1650b49fbe2c0bdc88f759fd42c4",
+        "retrieved_utc": "2026-09-13T16:53:39.580439+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-158122147.jpg",
+      "bytes": 301934,
+      "sha256": "8e0defcd4117290eb3a33a0780c7c5ae086a4114d87b2dcc49640aaeef8cf308",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "retrieved_utc": "2026-09-13T16:54:20.837180+00:00",
+      "reason": "Chamber graduation/fight scene, outside this Library/hall/bridge pass and weaker than established Chamber references.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "117412407",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/885222107587630848/71919CC9D2B543C561FFC3056DF0F086FE4204D5/",
+      "caption": "the Guild hires Space Marines?",
+      "author": "Just a Jazzy Girl",
+      "source_listing": {
+        "term": "guild",
+        "page": 3,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=3",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-3.html",
+        "bytes": 83872,
+        "sha256": "38aa6026293dff07600edeb4846aff9c00ae1650b49fbe2c0bdc88f759fd42c4",
+        "retrieved_utc": "2026-09-13T16:53:39.580439+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-117412407.jpg",
+      "bytes": 196696,
+      "sha256": "b2f5f81f1354c4ec416c7312c43db3f69b648a58be48554c1046dc6bc610db19",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:21.767204+00:00",
+      "reason": "Character/introductory/training view; architecture is partial and less useful than accepted bounded references.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "51032708",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/649876689846386668/6238B500F88CEDF70E7786D82D36E9464277BD14/",
+      "caption": "Finally left the Hero's guild",
+      "author": "Countojo",
+      "source_listing": {
+        "term": "guild",
+        "page": 3,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=3",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-3.html",
+        "bytes": 83872,
+        "sha256": "38aa6026293dff07600edeb4846aff9c00ae1650b49fbe2c0bdc88f759fd42c4",
+        "retrieved_utc": "2026-09-13T16:53:39.580439+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-51032708.jpg",
+      "bytes": 237480,
+      "sha256": "ec2eb7bf0f568466ea1cf400e5ecd096bdf0db76e7180cf76bf39f52775c92df",
+      "dimensions": [
+        1280,
+        800
+      ],
+      "retrieved_utc": "2026-09-13T16:54:21.018151+00:00",
+      "reason": "Guild exterior or introductory scene: does not add a clear bounded Library, stair or bridge detail beyond the accepted angles; not counted.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "32553644",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/612720018403308017/8ADBA6BC091832395D46004D567038A00BEAA795/",
+      "caption": "Saying goodbye to the guild... for now...",
+      "author": "Rescued",
+      "source_listing": {
+        "term": "guild",
+        "page": 3,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=3",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-3.html",
+        "bytes": 83872,
+        "sha256": "38aa6026293dff07600edeb4846aff9c00ae1650b49fbe2c0bdc88f759fd42c4",
+        "retrieved_utc": "2026-09-13T16:53:39.580439+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-32553644.jpg",
+      "bytes": 273670,
+      "sha256": "ee45fd271d65ca4f0ab1bd73652f45819f97e39e96b7fe0499262e748aea77f4",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:23.286578+00:00",
+      "reason": "Guild exterior or introductory scene: does not add a clear bounded Library, stair or bridge detail beyond the accepted angles; not counted.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "20772937",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/651001246761182248/24DC590748D71AA5B30BD0ADB6F43285AECF6690/",
+      "caption": "Fable - Morning at the Heroes Guild.",
+      "author": "nocturneROBIN",
+      "source_listing": {
+        "term": "guild",
+        "page": 3,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=3",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-3.html",
+        "bytes": 83872,
+        "sha256": "38aa6026293dff07600edeb4846aff9c00ae1650b49fbe2c0bdc88f759fd42c4",
+        "retrieved_utc": "2026-09-13T16:53:39.580439+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-20772937.jpg",
+      "bytes": 92903,
+      "sha256": "4ea13114991e977b5d0085738a96be69d4f736ff58b6077eeb56f6f8da6bc957",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:21.781961+00:00",
+      "reason": "Guild exterior or introductory scene: does not add a clear bounded Library, stair or bridge detail beyond the accepted angles; not counted.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "689545962",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/448484556142754932/654FA909E55BF1D0067FE1C56AB3B1554D8CDFFF/",
+      "caption": "The Guild of Heroes - (Fable: The Lost Chapters)",
+      "author": "Avarice",
+      "source_listing": {
+        "term": "guild",
+        "page": 4,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=4",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-4.html",
+        "bytes": 83738,
+        "sha256": "0f7eb16a30158aa0a370112a1e9092866c1aa6d404ec025975da2a172d582dae",
+        "retrieved_utc": "2026-09-13T16:53:39.333224+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-689545962.jpg",
+      "bytes": 261121,
+      "sha256": "a58643aea5712ed7a456dca88fb58e0da40b6f2fb7ab00c746905784db43a8f1",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:22.199333+00:00",
+      "reason": "Guild exterior or introductory scene: does not add a clear bounded Library, stair or bridge detail beyond the accepted angles; not counted.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "689541659",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/448484556142737535/4F55DA04015AA108685FB844EF925639995A6EF8/",
+      "caption": "Guild of Graduation - (Fable: The Lost Chapters)",
+      "author": "Avarice",
+      "source_listing": {
+        "term": "guild",
+        "page": 4,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=4",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-4.html",
+        "bytes": 83738,
+        "sha256": "0f7eb16a30158aa0a370112a1e9092866c1aa6d404ec025975da2a172d582dae",
+        "retrieved_utc": "2026-09-13T16:53:39.333224+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-689541659.jpg",
+      "bytes": 108492,
+      "sha256": "e0080e6a32e17ae1fa6837ac6b55f59b91ca1b83e12d9f921f964aed7a379875",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:22.321164+00:00",
+      "reason": "Chamber graduation/fight scene, outside this Library/hall/bridge pass and weaker than established Chamber references.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "310683021",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/49859729987150075/013F77DD2E33BCF90F90A631E6FAC91939D807CA/",
+      "caption": "I am the lord of the Heroes guild.",
+      "author": "Davy Pockett",
+      "source_listing": {
+        "term": "guild",
+        "page": 4,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=4",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-4.html",
+        "bytes": 83738,
+        "sha256": "0f7eb16a30158aa0a370112a1e9092866c1aa6d404ec025975da2a172d582dae",
+        "retrieved_utc": "2026-09-13T16:53:39.333224+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-310683021.jpg",
+      "bytes": 282611,
+      "sha256": "33d6f2ac05e20ae4a5214684768ef1446bd05f404f9ae37c9ad44f76f60efec5",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:22.779231+00:00",
+      "reason": "Training/grounds character view; no clear new bounded platform/bridge/Library architectural feature.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "158404119",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/1118299879287765177/D1993940235B468C0E6D7541419862CF733A7822/",
+      "caption": "Haha melee lesson with the guild master.",
+      "author": "Little Metal Weirdo",
+      "source_listing": {
+        "term": "guild",
+        "page": 4,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=4",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-4.html",
+        "bytes": 83738,
+        "sha256": "0f7eb16a30158aa0a370112a1e9092866c1aa6d404ec025975da2a172d582dae",
+        "retrieved_utc": "2026-09-13T16:53:39.333224+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-158404119.jpg",
+      "bytes": 355594,
+      "sha256": "9b9272c5b7d00eec6f99735bf98d19c1697155b3d5e29135c8fc4dd7ee08ae5c",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "retrieved_utc": "2026-09-13T16:54:23.141138+00:00",
+      "reason": "Character/introductory/training view; architecture is partial and less useful than accepted bounded references.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "141789169",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/540706983167162184/1FC4C70FC4EBE462F755CC97318B161A156F8AE5/",
+      "caption": "Le début de la guilde",
+      "author": "okashira2006",
+      "source_listing": {
+        "term": "guild",
+        "page": 4,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=4",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-4.html",
+        "bytes": 83738,
+        "sha256": "0f7eb16a30158aa0a370112a1e9092866c1aa6d404ec025975da2a172d582dae",
+        "retrieved_utc": "2026-09-13T16:53:39.333224+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-141789169.jpg",
+      "bytes": 235414,
+      "sha256": "60e688e7ac3ebb561ecd6c6e596e7741273ea18234470e0d986e04fc03a5bc15",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:24.379371+00:00",
+      "reason": "Character/introductory/training view; architecture is partial and less useful than accepted bounded references.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "114397076",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/595864569103885007/89B8068573C2BEBA11F740A980355A483F27889D/",
+      "caption": "Wise old Hero Guild trainee.",
+      "author": "SHI",
+      "source_listing": {
+        "term": "guild",
+        "page": 4,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=4",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-4.html",
+        "bytes": 83738,
+        "sha256": "0f7eb16a30158aa0a370112a1e9092866c1aa6d404ec025975da2a172d582dae",
+        "retrieved_utc": "2026-09-13T16:53:39.333224+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-114397076.jpg",
+      "bytes": 188176,
+      "sha256": "caafca2afca80a67acae9dc2467459bc1415bbc927ff91af7c267d7d1e41f692",
+      "dimensions": [
+        1360,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:24.229524+00:00",
+      "reason": "Character/introductory/training view; architecture is partial and less useful than accepted bounded references.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "158712297",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/920141911090501794/FDA00DE138770E4622E5D61035A45EAAF8FC6AD1/",
+      "caption": "I mastered that book",
+      "author": "Izyalin",
+      "source_listing": {
+        "term": "books",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=books&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-books-1.html",
+        "bytes": 72854,
+        "sha256": "8305536670dcea23feb2b742e35af5847e4768389b49024b783b7fc93b045a44",
+        "retrieved_utc": "2026-09-13T16:53:39.440321+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-158712297.jpg",
+      "bytes": 114621,
+      "sha256": "35e02883b6dfe673a19ab15456b2e622731896052de267fce7289ed68fbbe49f",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:23.433743+00:00",
+      "reason": "Bowerstone school book-donation scene, not Guild Library.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": {
+        "id": "158712297",
+        "prior_path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/reference-guild-additional/library-search-books-01.jpg",
+        "sha256": "35e02883b6dfe673a19ab15456b2e622731896052de267fce7289ed68fbbe49f"
+      }
+    },
+    {
+      "id": "157545692",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/921267395524381382/D0CC4DC98B0599A479F882DD23B440F90F19555A/",
+      "caption": "♥♥♥♥ THE BOOK OF SPELLS! I WNT TO GIVE YOU MY OTHER BOOKS",
+      "author": "Gordon The Otter",
+      "source_listing": {
+        "term": "books",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=books&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-books-1.html",
+        "bytes": 72854,
+        "sha256": "8305536670dcea23feb2b742e35af5847e4768389b49024b783b7fc93b045a44",
+        "retrieved_utc": "2026-09-13T16:53:39.440321+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-157545692.jpg",
+      "bytes": 166395,
+      "sha256": "ecff0814d07abd2e150cd3e38f3c4036b891b4dbe7f4565ddde30795448694c0",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "retrieved_utc": "2026-09-13T16:54:24.473726+00:00",
+      "reason": "Bowerstone school book-donation scene, not Guild Library.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": {
+        "id": "157545692",
+        "prior_path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/reference-guild-additional/library-search-books-02.jpg",
+        "sha256": "ecff0814d07abd2e150cd3e38f3c4036b891b4dbe7f4565ddde30795448694c0"
+      }
+    },
+    {
+      "id": "316504439",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/36350021166552684/777B03F2AC6B20D8F15216B8DCFC22746F3C2833/",
+      "caption": "One book for evil and one book for good. Should I buy this evil book I wonder... Hitting people for no reason sounds like a fun thing to do.",
+      "author": "Amt",
+      "source_listing": {
+        "term": "books",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=books&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-books-1.html",
+        "bytes": 72854,
+        "sha256": "8305536670dcea23feb2b742e35af5847e4768389b49024b783b7fc93b045a44",
+        "retrieved_utc": "2026-09-13T16:53:39.440321+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-316504439.jpg",
+      "bytes": 212306,
+      "sha256": "6b3a8c3bd708c08624c4d5d64eb0c5ba36d374ebfca5f0100e16db02b859e872",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:24.495878+00:00",
+      "reason": "Inventory/shop/stat overlay, not inspectable Guild architecture.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": {
+        "id": "316504439",
+        "prior_path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/reference-guild-additional/library-search-books-03.jpg",
+        "sha256": "6b3a8c3bd708c08624c4d5d64eb0c5ba36d374ebfca5f0100e16db02b859e872"
+      }
+    },
+    {
+      "id": "232391778",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/3332966560845062763/2FC97D92AA0E7F4BF17AB35D9259F23EB792DE05/",
+      "caption": "Got this nifty Wizard's cap for donating enough good books for the kids. Literacy Rocks!",
+      "author": "Mizter Wilzon",
+      "source_listing": {
+        "term": "books",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=books&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-books-1.html",
+        "bytes": 72854,
+        "sha256": "8305536670dcea23feb2b742e35af5847e4768389b49024b783b7fc93b045a44",
+        "retrieved_utc": "2026-09-13T16:53:39.440321+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-232391778.jpg",
+      "bytes": 427344,
+      "sha256": "3732f1edaaa6f5a009e06d0aa8c058ea303c057081b9fd85e2431d9b190d0782",
+      "dimensions": [
+        1440,
+        900
+      ],
+      "retrieved_utc": "2026-09-13T16:54:24.542389+00:00",
+      "reason": "Non-target location or character/effects dominate; no usable new Guild Library/hall/bridge feature established.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": {
+        "id": "232391778",
+        "prior_path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/reference-guild-additional/library-search-books-05.jpg",
+        "sha256": "3732f1edaaa6f5a009e06d0aa8c058ea303c057081b9fd85e2431d9b190d0782"
+      }
+    },
+    {
+      "id": "158404542",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/1118299879287793984/B04E414ED479905173563388617EC8E567562A3F/",
+      "caption": "ROFLMAO yes... trust a guy looking like that to know what book is good to read to a class room...",
+      "author": "Little Metal Weirdo",
+      "source_listing": {
+        "term": "books",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=books&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-books-1.html",
+        "bytes": 72854,
+        "sha256": "8305536670dcea23feb2b742e35af5847e4768389b49024b783b7fc93b045a44",
+        "retrieved_utc": "2026-09-13T16:53:39.440321+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-158404542.jpg",
+      "bytes": 201609,
+      "sha256": "4cecd3cdf134250b6c8b4ea908e0bce4db6a1fb14ff7a4e82119817b22c6a077",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "retrieved_utc": "2026-09-13T16:54:24.516225+00:00",
+      "reason": "Bowerstone school book-donation scene, not Guild Library.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": {
+        "id": "158404542",
+        "prior_path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/reference-guild-additional/library-search-books-06.jpg",
+        "sha256": "4cecd3cdf134250b6c8b4ea908e0bce4db6a1fb14ff7a4e82119817b22c6a077"
+      }
+    },
+    {
+      "id": "288012722",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/582406022279514404/761C95A0B5FAD39CFC13A6E183DD2AD7693502DA/",
+      "caption": "100% Game finished. 100% Good 0% evil (Unless me stealing stuff just to find one stupid book counts)",
+      "author": "mkSolas",
+      "source_listing": {
+        "term": "books",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=books&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-books-1.html",
+        "bytes": 72854,
+        "sha256": "8305536670dcea23feb2b742e35af5847e4768389b49024b783b7fc93b045a44",
+        "retrieved_utc": "2026-09-13T16:53:39.440321+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-288012722.jpg",
+      "bytes": 298986,
+      "sha256": "d3bd4e929b78a4db27c28e2ae27db1718b05321897e63cc36a8b9e4b0539a68c",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "retrieved_utc": "2026-09-13T16:54:24.781616+00:00",
+      "reason": "Non-target location or character/effects dominate; no usable new Guild Library/hall/bridge feature established.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": {
+        "id": "288012722",
+        "prior_path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/reference-guild-additional/library-search-books-07.jpg",
+        "sha256": "d3bd4e929b78a4db27c28e2ae27db1718b05321897e63cc36a8b9e4b0539a68c"
+      }
+    },
+    {
+      "id": "246636057",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/3281178331639418552/841640E87A155CC54207AA7FBC41DF7747D97C58/",
+      "caption": "The hero and his sister in the Hall of Heros",
+      "author": "Chief LLR",
+      "source_listing": {
+        "term": "hall",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=hall&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-hall-1.html",
+        "bytes": 60985,
+        "sha256": "bfb10898f78063972e1f46c70a89f1a5334ddad6fbeea4c1594cf56cc5bfb839",
+        "retrieved_utc": "2026-09-13T16:53:40.116558+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-246636057.jpg",
+      "bytes": 285482,
+      "sha256": "98f9d2720237b88d13173aeb367f6c56ae99e9871b7fcff3fac1069578668691",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:25.761220+00:00",
+      "reason": "Chamber graduation/fight scene, outside this Library/hall/bridge pass and weaker than established Chamber references.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "246636228",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/3281178331639429601/BDC25073A268831BF78C8B62DD6C36BB488A2DAA/",
+      "caption": "The Hero vs Jack of Blades in the Hall of Heros",
+      "author": "Chief LLR",
+      "source_listing": {
+        "term": "hall",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=hall&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-hall-1.html",
+        "bytes": 60985,
+        "sha256": "bfb10898f78063972e1f46c70a89f1a5334ddad6fbeea4c1594cf56cc5bfb839",
+        "retrieved_utc": "2026-09-13T16:53:40.116558+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-246636228.jpg",
+      "bytes": 212108,
+      "sha256": "0bd4974686b5d1ee0171120f24ab89acd238d63595628e08688939b5e4c2691e",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:25.754962+00:00",
+      "reason": "Chamber graduation/fight scene, outside this Library/hall/bridge pass and weaker than established Chamber references.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "186311254",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/577876801564045267/72E2F14F2B14DE076CE27468ECC5EAD20C69E3D7/",
+      "caption": "Oh wow, they trapped me on the stairs.",
+      "author": "Reman",
+      "source_listing": {
+        "term": "stairs",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=stairs&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-stairs-1.html",
+        "bytes": 49897,
+        "sha256": "38d6d9b9a8b7979a5649ef18c9cdbae233b9df7b26db3a4e96fc1f5ce4bd45f2",
+        "retrieved_utc": "2026-09-13T16:53:40.069930+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-186311254.jpg",
+      "bytes": 196870,
+      "sha256": "4756a06244c1e43e9d82608c05b56d9a9b1970a653f2d12355cd64dc84fcb631",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "retrieved_utc": "2026-09-13T16:54:25.800313+00:00",
+      "reason": "NPC-crowded staircase close-up; setting is not securely established as the Guild by these pixels.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "278721956",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/594788130031653065/3FACBF66C9041519C79002CDD1B8F2B841C90C19/",
+      "caption": "Та же секретная библиотека, за зачарованной дверью в Гильдии.",
+      "author": "trying to win",
+      "source_listing": {
+        "term": "Библиотека",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=%D0%91%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA%D0%B0&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-Библиотека-1.html",
+        "bytes": 52140,
+        "sha256": "9c93a253d19eb3e5a414ab2f686f42b3651b6cb78d5a65f7de50213008159a88",
+        "retrieved_utc": "2026-09-13T16:53:40.148347+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-278721956.jpg",
+      "bytes": 361952,
+      "sha256": "bb99cddc4ef841662a14fb9d4f49bf5589e1a6d6236754c68361feafc075980e",
+      "dimensions": [
+        1680,
+        1050
+      ],
+      "retrieved_utc": "2026-09-13T16:54:25.810818+00:00",
+      "reason": "Library Arcanum/Demon Door scene; explicitly excluded as ordinary Guild Library evidence.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "302582542",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/564393990364202424/A79DA0CA521E18CB384418796ABB40FFBCB42DA3/",
+      "caption": "Гильдия героев",
+      "author": "Tvirus",
+      "source_listing": {
+        "term": "Гильдия",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=%D0%93%D0%B8%D0%BB%D1%8C%D0%B4%D0%B8%D1%8F&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-Гильдия-1.html",
+        "bytes": 58748,
+        "sha256": "b8a091815308f2686497fb7faff30aa64070e566843ab03a0bc315b49fcadac9",
+        "retrieved_utc": "2026-09-13T16:53:41.197153+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-302582542.jpg",
+      "bytes": 76802,
+      "sha256": "e099b90261e4d7f684f257c93d80b6845a60b768d46cc03c11b58f09ae73304f",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:27.127333+00:00",
+      "reason": "Guild exterior or introductory scene: does not add a clear bounded Library, stair or bridge detail beyond the accepted angles; not counted.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "141640075",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/595876249160859170/4084487A15170756CEBA892B46363CEA33C63617/",
+      "caption": "Та самая Гильдия Героев",
+      "author": "PrivateCatharsis",
+      "source_listing": {
+        "term": "Гильдия",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=%D0%93%D0%B8%D0%BB%D1%8C%D0%B4%D0%B8%D1%8F&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-Гильдия-1.html",
+        "bytes": 58748,
+        "sha256": "b8a091815308f2686497fb7faff30aa64070e566843ab03a0bc315b49fcadac9",
+        "retrieved_utc": "2026-09-13T16:53:41.197153+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-141640075.jpg",
+      "bytes": 116318,
+      "sha256": "e03365eee2ee9c7489ed3a1c0fe90fdbbc8b75e04e64ba34b60f80fbb5a36dba",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:26.330751+00:00",
+      "reason": "Guild exterior or introductory scene: does not add a clear bounded Library, stair or bridge detail beyond the accepted angles; not counted.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "1189415500",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/853856723065462214/9781FA87DCE95409F7A37D2C4D58440364C9CFA5/",
+      "caption": "вот вы говорите, ведьмак. А шо ведьмак?) когда гильдия героев давным давно тащила)",
+      "author": "YukevicH",
+      "source_listing": {
+        "term": "Гильдия",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=%D0%93%D0%B8%D0%BB%D1%8C%D0%B4%D0%B8%D1%8F&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-Гильдия-1.html",
+        "bytes": 58748,
+        "sha256": "b8a091815308f2686497fb7faff30aa64070e566843ab03a0bc315b49fcadac9",
+        "retrieved_utc": "2026-09-13T16:53:41.197153+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-1189415500.jpg",
+      "bytes": 236119,
+      "sha256": "dddb13e161aceca38cd8530d36d0334c0bebdf8f7a2c29b3d4e3c8cef0ba5bb4",
+      "dimensions": [
+        1280,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:26.337271+00:00",
+      "reason": "Non-target location or character/effects dominate; no usable new Guild Library/hall/bridge feature established.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "3462292052",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/53588031916894624/E4AAF5F095A45F2A8F381E497FD899430DFAD060/",
+      "caption": "The Hero's journey begins",
+      "author": "Razziano",
+      "source_listing": {
+        "term": "Heroes",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=Heroes&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-Heroes-1.html",
+        "bytes": 83983,
+        "sha256": "6fde3d80d0e517ee363984f4bcc61478075f4b129e7df510a080ff71b44a884d",
+        "retrieved_utc": "2026-09-13T16:53:41.746337+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-3462292052.jpg",
+      "bytes": 467014,
+      "sha256": "aca92cd3706c4dab792f33e424efabee5d79b6b4652c1d16a1751f63409bf1ce",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "retrieved_utc": "2026-09-13T16:54:26.352445+00:00",
+      "reason": "Character/introductory/training view; architecture is partial and less useful than accepted bounded references.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "88037631",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/595851880433490749/91DCDBA4784BB31462E576E8F9AA9A2A8DE7E203/",
+      "caption": "Down on your knees you weeny hero",
+      "author": "ChrisG",
+      "source_listing": {
+        "term": "Heroes",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=Heroes&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-Heroes-1.html",
+        "bytes": 83983,
+        "sha256": "6fde3d80d0e517ee363984f4bcc61478075f4b129e7df510a080ff71b44a884d",
+        "retrieved_utc": "2026-09-13T16:53:41.746337+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-88037631.jpg",
+      "bytes": 282273,
+      "sha256": "7977c49a4f96bf82ff75e929111fcfbbba28b76764f05cf9fd467b12f1cff020",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "retrieved_utc": "2026-09-13T16:54:28.285770+00:00",
+      "reason": "Non-target location or character/effects dominate; no usable new Guild Library/hall/bridge feature established.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "118262003",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/558711133891782140/93546AB5D15BE3BB5FD2453B8F8E0F8981790191/",
+      "caption": "The Hero of heroes! -Ozan",
+      "author": "SekCambaz",
+      "source_listing": {
+        "term": "Heroes",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=Heroes&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-Heroes-1.html",
+        "bytes": 83983,
+        "sha256": "6fde3d80d0e517ee363984f4bcc61478075f4b129e7df510a080ff71b44a884d",
+        "retrieved_utc": "2026-09-13T16:53:41.746337+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-118262003.jpg",
+      "bytes": 338918,
+      "sha256": "d54e8992cbf5fcb01081b3d0ba38fd6cde899a3e5451f26e2c83db1c9c3d5b4e",
+      "dimensions": [
+        1366,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:27.163180+00:00",
+      "reason": "Non-target location or character/effects dominate; no usable new Guild Library/hall/bridge feature established.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "2077470985",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/998054242235640490/1A023325437236BA3513B111E38A8BD3F96457FE/",
+      "caption": "A HEROE...",
+      "author": "zDarkinhoo",
+      "source_listing": {
+        "term": "Heroes",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=Heroes&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-Heroes-1.html",
+        "bytes": 83983,
+        "sha256": "6fde3d80d0e517ee363984f4bcc61478075f4b129e7df510a080ff71b44a884d",
+        "retrieved_utc": "2026-09-13T16:53:41.746337+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-2077470985.jpg",
+      "bytes": 76210,
+      "sha256": "df3b7017368ff94c101dd1e07913d687c7b6865fb7756e4661ae933ce1f55033",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:26.763827+00:00",
+      "reason": "Non-target location or character/effects dominate; no usable new Guild Library/hall/bridge feature established.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "226787049",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/3280047613962794440/89FC52688BCD1512DF5C63A8FD19E68B669277E5/",
+      "caption": "will of hero",
+      "author": "SoHectic *Propane Nightmare*",
+      "source_listing": {
+        "term": "Heroes",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=Heroes&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-Heroes-1.html",
+        "bytes": 83983,
+        "sha256": "6fde3d80d0e517ee363984f4bcc61478075f4b129e7df510a080ff71b44a884d",
+        "retrieved_utc": "2026-09-13T16:53:41.746337+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-226787049.jpg",
+      "bytes": 215426,
+      "sha256": "94b49268b11b4a0e6c7c27add1d65f4cbb8bb9b6e2f1dae2ac3f0a534be094f6",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "retrieved_utc": "2026-09-13T16:54:28.049785+00:00",
+      "reason": "Non-target location or character/effects dominate; no usable new Guild Library/hall/bridge feature established.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "208484886",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/468671662619056980/87DA0AD944D0CA40388E830B962C63D0C33EAA92/",
+      "caption": "Hero",
+      "author": "Kuba",
+      "source_listing": {
+        "term": "Heroes",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=Heroes&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-Heroes-1.html",
+        "bytes": 83983,
+        "sha256": "6fde3d80d0e517ee363984f4bcc61478075f4b129e7df510a080ff71b44a884d",
+        "retrieved_utc": "2026-09-13T16:53:41.746337+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-208484886.jpg",
+      "bytes": 240766,
+      "sha256": "b33c4ebb90152309d924f5b1b5fb62a6899c0e8d07e4a2125c36ba248804ddad",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:27.884222+00:00",
+      "reason": "Non-target location or character/effects dominate; no usable new Guild Library/hall/bridge feature established.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "194476104",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/720868802653151921/DD321B604B301582E2D56A514BFAE317C77AB4F0/",
+      "caption": "A hero...",
+      "author": "Dallon Avery",
+      "source_listing": {
+        "term": "Heroes",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=Heroes&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-Heroes-1.html",
+        "bytes": 83983,
+        "sha256": "6fde3d80d0e517ee363984f4bcc61478075f4b129e7df510a080ff71b44a884d",
+        "retrieved_utc": "2026-09-13T16:53:41.746337+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-194476104.jpg",
+      "bytes": 255403,
+      "sha256": "a9dbde02ab2c42eb0875ebc0f2e211718ea01fb1fe2449992322d8146d21d4a6",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "retrieved_utc": "2026-09-13T16:54:28.009543+00:00",
+      "reason": "Non-target location or character/effects dominate; no usable new Guild Library/hall/bridge feature established.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "184662270",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/867233077363383336/C2984875A5FD1A9C54A58C4FD5A5DCF8B9952680/",
+      "caption": "Hero...",
+      "author": "Wrench",
+      "source_listing": {
+        "term": "Heroes",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=Heroes&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-Heroes-1.html",
+        "bytes": 83983,
+        "sha256": "6fde3d80d0e517ee363984f4bcc61478075f4b129e7df510a080ff71b44a884d",
+        "retrieved_utc": "2026-09-13T16:53:41.746337+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-184662270.jpg",
+      "bytes": 229587,
+      "sha256": "fb654a371cc5260d14a51f93ee5568a8ac37028a23ae536d0a4c9f8bce49a3ab",
+      "dimensions": [
+        1440,
+        900
+      ],
+      "retrieved_utc": "2026-09-13T16:54:28.295085+00:00",
+      "reason": "Non-target location or character/effects dominate; no usable new Guild Library/hall/bridge feature established.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "151048366",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/577865572891197899/A075A257BF9650E48E0959E12BC21E9551A866BE/",
+      "caption": "The Hero",
+      "author": "Jacko",
+      "source_listing": {
+        "term": "Heroes",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=Heroes&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-Heroes-1.html",
+        "bytes": 83983,
+        "sha256": "6fde3d80d0e517ee363984f4bcc61478075f4b129e7df510a080ff71b44a884d",
+        "retrieved_utc": "2026-09-13T16:53:41.746337+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-151048366.jpg",
+      "bytes": 165948,
+      "sha256": "5af61de6c456d180067d068949312084038544ac6fbf11190c5a1b397a689818",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:54:28.349202+00:00",
+      "reason": "Non-target location or character/effects dominate; no usable new Guild Library/hall/bridge feature established.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "87914899",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/560948983314319476/1DD31662A60469E5082576449D6C27095B9DA75C/",
+      "caption": "HERO",
+      "author": "Snowy",
+      "source_listing": {
+        "term": "Heroes",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=Heroes&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-Heroes-1.html",
+        "bytes": 83983,
+        "sha256": "6fde3d80d0e517ee363984f4bcc61478075f4b129e7df510a080ff71b44a884d",
+        "retrieved_utc": "2026-09-13T16:53:41.746337+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-87914899.jpg",
+      "bytes": 362995,
+      "sha256": "a61fa4d42fb795e0ebec92f34110a404235ede3ae48dd046f2a08e646774fd74",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "retrieved_utc": "2026-09-13T16:54:28.863570+00:00",
+      "reason": "Non-target location or character/effects dominate; no usable new Guild Library/hall/bridge feature established.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "46663924",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/487751204022793729/64336B03E57F1D622AFCDBDF597D37BCD8D7BB43/",
+      "caption": "GuildMaster: IMMA LOOK AT THE SKY!!!1",
+      "author": "jimmy jimmyson",
+      "source_listing": {
+        "term": "guild",
+        "page": 5,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=5",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-5.html",
+        "bytes": 83302,
+        "sha256": "85ee05a96b51a0f21cbbae7fb044941f05ca47888909468f97b7818049202127",
+        "retrieved_utc": "2026-09-13T16:55:51.103135+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-46663924.jpg",
+      "bytes": 220353,
+      "sha256": "e700890ddcaab0132fb72ed6dc13cf24409d6abaa73aa372d211834236416db5",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:56:24.444329+00:00",
+      "reason": "Character/introductory/training view; architecture is partial and less useful than accepted bounded references.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "27825852",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/651002022644364292/401ADD7052AC4DAAA66D0E35FB852CD0942D5FFD/",
+      "caption": "Oh my, who is that next to the guild master",
+      "author": "BBK8",
+      "source_listing": {
+        "term": "guild",
+        "page": 5,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=5",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-5.html",
+        "bytes": 83302,
+        "sha256": "85ee05a96b51a0f21cbbae7fb044941f05ca47888909468f97b7818049202127",
+        "retrieved_utc": "2026-09-13T16:55:51.103135+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-27825852.jpg",
+      "bytes": 423087,
+      "sha256": "ef090590171b3a5950391c61b0789d42b69fd80b787bf1dbb9c01e8ca69f02ae",
+      "dimensions": [
+        1680,
+        1050
+      ],
+      "retrieved_utc": "2026-09-13T16:56:24.453961+00:00",
+      "reason": "Character/introductory/training view; architecture is partial and less useful than accepted bounded references.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "125422699",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/560966114359659454/583FEB965CBD840BC36BBBCB088BEF20B8E1B7D3/",
+      "caption": "Straight out from the guild and off to the tavern. :D",
+      "author": "Smeagol",
+      "source_listing": {
+        "term": "guild",
+        "page": 5,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=5",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-5.html",
+        "bytes": 83302,
+        "sha256": "85ee05a96b51a0f21cbbae7fb044941f05ca47888909468f97b7818049202127",
+        "retrieved_utc": "2026-09-13T16:55:51.103135+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-125422699.jpg",
+      "bytes": 242666,
+      "sha256": "45d1b7d5b1fd1acd2e64234dc8189feec30aef043e8f3a3094f4c5cbe9ad6207",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:56:24.443630+00:00",
+      "reason": "Non-target location or character/effects dominate; no usable new Guild Library/hall/bridge feature established.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "77477886",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/559818847184507946/E46D6A8D2E030878098A75AB743D448BE0E8505B/",
+      "caption": "Fable",
+      "author": "hatsune mike",
+      "source_listing": {
+        "term": "guild",
+        "page": 5,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=5",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-5.html",
+        "bytes": 83302,
+        "sha256": "85ee05a96b51a0f21cbbae7fb044941f05ca47888909468f97b7818049202127",
+        "retrieved_utc": "2026-09-13T16:55:51.103135+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-77477886.jpg",
+      "bytes": 311009,
+      "sha256": "28746edb1f2820f94a11fa47e1050023e566b7fb1d7a75a5674d960c819dfb1f",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "retrieved_utc": "2026-09-13T16:56:24.457823+00:00",
+      "reason": "Guild exterior or introductory scene: does not add a clear bounded Library, stair or bridge detail beyond the accepted angles; not counted.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "32553647",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/612720018403309803/4A473FDC564E5D81399E01D4B88097A020480544/",
+      "caption": "The guild trained me, and gave me starting weapons.",
+      "author": "Rescued",
+      "source_listing": {
+        "term": "guild",
+        "page": 5,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=5",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-5.html",
+        "bytes": 83302,
+        "sha256": "85ee05a96b51a0f21cbbae7fb044941f05ca47888909468f97b7818049202127",
+        "retrieved_utc": "2026-09-13T16:55:51.103135+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-32553647.jpg",
+      "bytes": 296472,
+      "sha256": "2a283e1254c48165c41b9e55f23b0e112601a91c0edb4faa716824f8eab598f2",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:56:27.207843+00:00",
+      "reason": "Training/grounds character view; no clear new bounded platform/bridge/Library architectural feature.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": {
+        "id": "32553647",
+        "prior_path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/dp9-reference/reference-32553647.jpg",
+        "sha256": "2a283e1254c48165c41b9e55f23b0e112601a91c0edb4faa716824f8eab598f2"
+      }
+    },
+    {
+      "id": "689542176",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/448484556142739924/28795AB9DDA59BF63E76DD7A7DB336ED102E09AE/",
+      "caption": "Leaving the Guild of Heroes: Adventure begins... - (Fable: The Lost Chapters)",
+      "author": "Avarice",
+      "source_listing": {
+        "term": "guild",
+        "page": 5,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=5",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-5.html",
+        "bytes": 83302,
+        "sha256": "85ee05a96b51a0f21cbbae7fb044941f05ca47888909468f97b7818049202127",
+        "retrieved_utc": "2026-09-13T16:55:51.103135+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-689542176.jpg",
+      "bytes": 106124,
+      "sha256": "59adc53729b2fce7e6e9dec950c32ce39a7c1b56e2159cb90ec6d58bc9476faf",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:56:26.085739+00:00",
+      "reason": "Close Cullis gate effects and masonry: useful corroboration but no new bounded stair, ordinary Library or bridge feature selected.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "131362615",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/596997538165458751/8BC602222FC9A2E53510A05AD7A8EC637DB310FF/",
+      "caption": "Look at what is in that Guild chest! Ain't he awesome? =]",
+      "author": "Terra Beh",
+      "source_listing": {
+        "term": "guild",
+        "page": 5,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=5",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-5.html",
+        "bytes": 83302,
+        "sha256": "85ee05a96b51a0f21cbbae7fb044941f05ca47888909468f97b7818049202127",
+        "retrieved_utc": "2026-09-13T16:55:51.103135+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-131362615.jpg",
+      "bytes": 269656,
+      "sha256": "d1dec6f7390733f7a6a877e7ee22a03f9289e270e4a887d5b6478cd9571abad1",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:56:26.999150+00:00",
+      "reason": "Training/grounds character view; no clear new bounded platform/bridge/Library architectural feature.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "32553648",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/612720018403308919/339ADFF2B5C346ACF0E12C4608BB84A2A8219986/",
+      "caption": "The start of my journey. Oakvale was soon destroyed, and I was sent to the guild...",
+      "author": "Rescued",
+      "source_listing": {
+        "term": "guild",
+        "page": 5,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=5",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-5.html",
+        "bytes": 83302,
+        "sha256": "85ee05a96b51a0f21cbbae7fb044941f05ca47888909468f97b7818049202127",
+        "retrieved_utc": "2026-09-13T16:55:51.103135+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-32553648.jpg",
+      "bytes": 252500,
+      "sha256": "e78c123dd1fbc01b6e38042abd2e2526b54f8444afec863581af2a0a39181cac",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:56:28.996769+00:00",
+      "reason": "Non-target location or character/effects dominate; no usable new Guild Library/hall/bridge feature established.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "20772934",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/651001246769921600/2E7258A1F225823569B02140751D5B2107BACAED/",
+      "caption": "Fable - Introducing the Hero known as \"Hood\" fresh graduate of the Heroes Guild.",
+      "author": "nocturneROBIN",
+      "source_listing": {
+        "term": "guild",
+        "page": 6,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=6",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-6.html",
+        "bytes": 83598,
+        "sha256": "29d626cfc784948b5f3649df437f2b2b56724f142add1eca10cb9f97824b4663",
+        "retrieved_utc": "2026-09-13T16:55:51.184914+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-20772934.jpg",
+      "bytes": 244251,
+      "sha256": "c0b1107c168778999b166a5baea70f833bc059c944f6f37e7ee4da7f32a5beb9",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:56:28.166088+00:00",
+      "reason": "Character/introductory/training view; architecture is partial and less useful than accepted bounded references.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "1260845829",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/922542583004213231/336E369484DF9B7C1324E9CE011846498789623D/",
+      "caption": "They clearly didn't finish the back of the Guild's exterior - (Fable: The Lost Chapters)",
+      "author": "Avarice",
+      "source_listing": {
+        "term": "guild",
+        "page": 6,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=6",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-6.html",
+        "bytes": 83598,
+        "sha256": "29d626cfc784948b5f3649df437f2b2b56724f142add1eca10cb9f97824b4663",
+        "retrieved_utc": "2026-09-13T16:55:51.184914+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-1260845829.jpg",
+      "bytes": 509130,
+      "sha256": "b7637b39506193fa495b9420b92302bd05beff2e93c8f22c6e3fd3b8d49059d2",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "retrieved_utc": "2026-09-13T16:56:28.163331+00:00",
+      "reason": "Outside-map view showing absent/incomplete building back faces; unsuitable as ordinary original playable architecture evidence.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "945746394",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/853843929542150002/87D4D268E00FA0609938A40CDEFA5B25EF3EDCC1/",
+      "caption": "Guild Puppet, I came all the way from Skyrim to kill you!",
+      "author": "PlutiePie",
+      "source_listing": {
+        "term": "guild",
+        "page": 6,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=6",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-6.html",
+        "bytes": 83598,
+        "sha256": "29d626cfc784948b5f3649df437f2b2b56724f142add1eca10cb9f97824b4663",
+        "retrieved_utc": "2026-09-13T16:55:51.184914+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-945746394.jpg",
+      "bytes": 116591,
+      "sha256": "15c236723da89fa68c7e58a8b5f677a74fded265f7c25514e278711906f8d687",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:56:28.164932+00:00",
+      "reason": "Non-target location or character/effects dominate; no usable new Guild Library/hall/bridge feature established.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "146416739",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/1083392620653326138/9FE9065C3A6CF949A7567D099EDFE623A8F4FE59/",
+      "caption": "I find myself in the Guild of Heroes, where a world of oppertunity and excitement awaits!",
+      "author": "Beastman",
+      "source_listing": {
+        "term": "guild",
+        "page": 6,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=6",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-6.html",
+        "bytes": 83598,
+        "sha256": "29d626cfc784948b5f3649df437f2b2b56724f142add1eca10cb9f97824b4663",
+        "retrieved_utc": "2026-09-13T16:55:51.184914+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-146416739.jpg",
+      "bytes": 268451,
+      "sha256": "cebf6f0731514eee631b7a0a698edf52eb94c78857988ccf54fc6237b3036c93",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "retrieved_utc": "2026-09-13T16:56:33.996213+00:00",
+      "reason": "Dormitory wake-up close-up; shelf/bed/background partially visible but less useful than accepted ordinary wide dormitory view.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "322397252",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/532873149663945388/BAECE78597CF0C1A1A55160FF9CB2B7313382623/",
+      "caption": "Demon Door #1 Opened, use the lantern in front of the Demon Door at the Heroes Guild.",
+      "author": "Telemnar",
+      "source_listing": {
+        "term": "guild",
+        "page": 6,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=6",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-6.html",
+        "bytes": 83598,
+        "sha256": "29d626cfc784948b5f3649df437f2b2b56724f142add1eca10cb9f97824b4663",
+        "retrieved_utc": "2026-09-13T16:55:51.184914+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-322397252.jpg",
+      "bytes": 275427,
+      "sha256": "d1efecb03afef001850351c453c928820cf31ce5d77bf0b300ebd07dafd74302",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:56:32.593661+00:00",
+      "reason": "Library Arcanum/Demon Door scene; explicitly excluded as ordinary Guild Library evidence.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "121595596",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/560964212071695246/DA9A9E58C35498696893DF850A8A4ACFD17565D6/",
+      "caption": "The creep. Also the head of heroes guild. He looks like secondary villain material to me.",
+      "author": "Rinabin",
+      "source_listing": {
+        "term": "guild",
+        "page": 6,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=6",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-6.html",
+        "bytes": 83598,
+        "sha256": "29d626cfc784948b5f3649df437f2b2b56724f142add1eca10cb9f97824b4663",
+        "retrieved_utc": "2026-09-13T16:55:51.184914+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-121595596.jpg",
+      "bytes": 125295,
+      "sha256": "b9f1b8202145a2025be01ae7e62194f1576ac5d101ccdd1e2ac390f42dcf4a4f",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:56:32.171248+00:00",
+      "reason": "Non-target location or character/effects dominate; no usable new Guild Library/hall/bridge feature established.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "3028665184",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/2027237213330856522/6A5496486C44FA56C2D95F3864C8D9A681416578/",
+      "caption": "this guild i join after bandit tourch first town next thing go to train as hero",
+      "author": "robbie_dine",
+      "source_listing": {
+        "term": "guild",
+        "page": 6,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=6",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-6.html",
+        "bytes": 83598,
+        "sha256": "29d626cfc784948b5f3649df437f2b2b56724f142add1eca10cb9f97824b4663",
+        "retrieved_utc": "2026-09-13T16:55:51.184914+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-3028665184.jpg",
+      "bytes": 221300,
+      "sha256": "94bf47eb44664e84cd4570d6303d4174a6b519c2e52224589c62a2d02984448a",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:56:32.592076+00:00",
+      "reason": "Courtyard paving, masonry and clipped trees are visible, but no new bounded Library/stair/bridge detail selected in this pass.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "3007763822",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/2029485208068429403/28B996ECA54F3E824FDDDAF4258813809478964F/",
+      "caption": "Plan to kill Whisper and beat her brother or whatever his name is Thunder he is next to the guild master",
+      "author": "Catfish Billy Man",
+      "source_listing": {
+        "term": "guild",
+        "page": 6,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=6",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-6.html",
+        "bytes": 83598,
+        "sha256": "29d626cfc784948b5f3649df437f2b2b56724f142add1eca10cb9f97824b4663",
+        "retrieved_utc": "2026-09-13T16:55:51.184914+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-3007763822.jpg",
+      "bytes": 417693,
+      "sha256": "3be709253c5e3cdc42afa5dae18b761e7fbea23971b6b558ab6f5ecbfb652c0f",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "retrieved_utc": "2026-09-13T16:56:37.645013+00:00",
+      "reason": "Character/introductory/training view; architecture is partial and less useful than accepted bounded references.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "194310530",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/703980304032743689/1232C2865D3558A3740B91A3B2CFE51BA676FA0A/",
+      "caption": "Spent a good 30-45 mins. trying to get myself kicked out of the Guild :/ plus, that arrow is not aimed at her head -_-",
+      "author": "Vhin",
+      "source_listing": {
+        "term": "guild",
+        "page": 6,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=6",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-6.html",
+        "bytes": 83598,
+        "sha256": "29d626cfc784948b5f3649df437f2b2b56724f142add1eca10cb9f97824b4663",
+        "retrieved_utc": "2026-09-13T16:55:51.184914+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-194310530.jpg",
+      "bytes": 72228,
+      "sha256": "3399e308fa21fc2589b3cdc4a22f2823df4f09b2134af2e014d669cd3b1c6561",
+      "dimensions": [
+        640,
+        480
+      ],
+      "retrieved_utc": "2026-09-13T16:56:37.628668+00:00",
+      "reason": "Training/grounds character view; no clear new bounded platform/bridge/Library architectural feature.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "27535386",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/470863759215755756/183A6A812531D9D12BA6A0CA8AD4453327CC19FF/",
+      "caption": "the signs are too strong to ignore and the northern wastes have been too long isolated from the guild. There is much I may learn there",
+      "author": "¯\\_(ツ)_/¯",
+      "source_listing": {
+        "term": "guild",
+        "page": 6,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=6",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-6.html",
+        "bytes": 83598,
+        "sha256": "29d626cfc784948b5f3649df437f2b2b56724f142add1eca10cb9f97824b4663",
+        "retrieved_utc": "2026-09-13T16:55:51.184914+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-27535386.jpg",
+      "bytes": 109028,
+      "sha256": "16c0fa85b6b50ab5e1bf91f646ca74e73466dfef5e476119c5b37f2855e3dbf8",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:56:37.736507+00:00",
+      "reason": "Maze-study story dialogue angle; partial interior outside current bounded pass, not Guild Library.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "535327835",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/396673505669028331/4FE1D8634EF9D9D71B3B624F41FCD0CF29FE5AA8/",
+      "caption": "And so his time had come to leave the guild and go forth........but would he be remembered as saint or sinner.........only time would tell??",
+      "author": "The-Skull-Will-Conquer",
+      "source_listing": {
+        "term": "guild",
+        "page": 7,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=7",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-7.html",
+        "bytes": 53983,
+        "sha256": "b652447becad479c2bf48e1717ed85397b10997f47b59c1fdce6e9924ed383f1",
+        "retrieved_utc": "2026-09-13T16:55:50.861776+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-535327835.jpg",
+      "bytes": 199701,
+      "sha256": "a3cbcc209fed017f6093145ae50fb651e5c41874f4f4bd6677b8745a368982a2",
+      "dimensions": [
+        1280,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:56:37.663085+00:00",
+      "reason": "Chamber graduation/fight scene, outside this Library/hall/bridge pass and weaker than established Chamber references.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "242786537",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/792938993318083427/40A23F0E43EAEA14F7A94F9BDF4A3487785DB113/",
+      "caption": "Je sais qu'il ya des mages à la guilde, mais là, il y a un petit problème, non?",
+      "author": "Veryan Anduren",
+      "source_listing": {
+        "term": "guild",
+        "page": 7,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=guild&browsefilter=toprated&p=7",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-guild-7.html",
+        "bytes": 53983,
+        "sha256": "b652447becad479c2bf48e1717ed85397b10997f47b59c1fdce6e9924ed383f1",
+        "retrieved_utc": "2026-09-13T16:55:50.861776+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-242786537.jpg",
+      "bytes": 339323,
+      "sha256": "9ba27a8449167385a9f432c4dd5f17cd8ec4d65cc0d1a5e17c337bb67fb05071",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "retrieved_utc": "2026-09-13T16:56:40.786769+00:00",
+      "reason": "Additional dining-hall angle; useful room context but overlaps the clearer accepted 236178734 wide view, so uncounted corroboration.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "275562451",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/774932114959256247/7703A6335170C89562D9E34218C60F65A7D136E6/",
+      "caption": "reading is for ♥♥♥♥",
+      "author": "David",
+      "source_listing": {
+        "term": "read",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=read&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-read-1.html",
+        "bytes": 84541,
+        "sha256": "bfe23fe45c0050b47c6ca8f2428a68a53048ab5f2aefd212976056300c520db9",
+        "retrieved_utc": "2026-09-13T16:55:51.291286+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-275562451.jpg",
+      "bytes": 116829,
+      "sha256": "36444d0f4873dfeb3e56255ee799c7fb6f8c694563469f4992c53763e6d0feea",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:56:39.041852+00:00",
+      "reason": "Full image shows a close carved bookcase and chair but lacks enough location context to establish the ordinary Guild Library. Excluded from Library acceptance; no lamp/floor-plan evidence.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "141554520",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/1082264898491530505/66751AD25A576F24F3CC9751549BD71AA7D4BA86/",
+      "caption": "Read the text",
+      "author": "McThuggitz",
+      "source_listing": {
+        "term": "read",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=read&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-read-1.html",
+        "bytes": 84541,
+        "sha256": "bfe23fe45c0050b47c6ca8f2428a68a53048ab5f2aefd212976056300c520db9",
+        "retrieved_utc": "2026-09-13T16:55:51.291286+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-141554520.jpg",
+      "bytes": 217060,
+      "sha256": "132b0ac4b8e6ef248ff7ccb9dcc3a32156a14ccf58133bbf20a5befdd8d80428",
+      "dimensions": [
+        1680,
+        1050
+      ],
+      "retrieved_utc": "2026-09-13T16:56:40.356648+00:00",
+      "reason": "Bowerstone school book-donation scene, not Guild Library.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "141554514",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/1082264898491528286/A316834E6EE13BC9C5577F283FDC79DCAC1EAE75/",
+      "caption": "Read the text",
+      "author": "McThuggitz",
+      "source_listing": {
+        "term": "read",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=read&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-read-1.html",
+        "bytes": 84541,
+        "sha256": "bfe23fe45c0050b47c6ca8f2428a68a53048ab5f2aefd212976056300c520db9",
+        "retrieved_utc": "2026-09-13T16:55:51.291286+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-141554514.jpg",
+      "bytes": 218622,
+      "sha256": "24ce678c104d51fec539147c92480bc1f58802e3c36f13b2fe46fb38822db806",
+      "dimensions": [
+        1680,
+        1050
+      ],
+      "retrieved_utc": "2026-09-13T16:56:40.456584+00:00",
+      "reason": "Bowerstone school book-donation scene, not Guild Library.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "2361835535",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/1770445255785309468/5104382C8F328A070D141CF840D117DD1FD5C9BC/",
+      "caption": "Read 'em and weep boyz!",
+      "author": "SagAntics",
+      "source_listing": {
+        "term": "read",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=read&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-read-1.html",
+        "bytes": 84541,
+        "sha256": "bfe23fe45c0050b47c6ca8f2428a68a53048ab5f2aefd212976056300c520db9",
+        "retrieved_utc": "2026-09-13T16:55:51.291286+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-2361835535.jpg",
+      "bytes": 297570,
+      "sha256": "3543fc5b275ed7af092a78ea0ece7f026cae49c855840cb0897c4fd65438d3bf",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "retrieved_utc": "2026-09-13T16:56:40.921571+00:00",
+      "reason": "Inventory/shop/stat overlay, not inspectable Guild architecture.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "221919547",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/3336341088225979612/7C3CD845D514818A5A21C60D9014EC348B27C2DE/",
+      "caption": "He can read your mind....",
+      "author": "Insomniac",
+      "source_listing": {
+        "term": "read",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=read&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-read-1.html",
+        "bytes": 84541,
+        "sha256": "bfe23fe45c0050b47c6ca8f2428a68a53048ab5f2aefd212976056300c520db9",
+        "retrieved_utc": "2026-09-13T16:55:51.291286+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-221919547.jpg",
+      "bytes": 295563,
+      "sha256": "75bea4506a2824b03a663964b02cd84202040fa3b5141a00ca1411d9ad49aa24",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "retrieved_utc": "2026-09-13T16:56:41.488900+00:00",
+      "reason": "Non-target location or character/effects dominate; no usable new Guild Library/hall/bridge feature established.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "242993318",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/594780675289716710/92BD67996E09E2BD791AAB8479089D128A06F855/",
+      "caption": "What A Crappy Way To Die (Read Bottom)",
+      "author": "Captain J",
+      "source_listing": {
+        "term": "read",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=read&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-read-1.html",
+        "bytes": 84541,
+        "sha256": "bfe23fe45c0050b47c6ca8f2428a68a53048ab5f2aefd212976056300c520db9",
+        "retrieved_utc": "2026-09-13T16:55:51.291286+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-242993318.jpg",
+      "bytes": 348335,
+      "sha256": "567577755cf0bbba15d30d615c7087e97046c9226810f744dff9661f014ec008",
+      "dimensions": [
+        1600,
+        900
+      ],
+      "retrieved_utc": "2026-09-13T16:56:41.551965+00:00",
+      "reason": "Non-target location or character/effects dominate; no usable new Guild Library/hall/bridge feature established.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "248653140",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/795192243700736543/C0476C1E2C92E9B963E9513253ADD58719EDC04D/",
+      "caption": "\"Thank you for reading this grave. Now bugger off\"",
+      "author": "Badger",
+      "source_listing": {
+        "term": "read",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=read&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-read-1.html",
+        "bytes": 84541,
+        "sha256": "bfe23fe45c0050b47c6ca8f2428a68a53048ab5f2aefd212976056300c520db9",
+        "retrieved_utc": "2026-09-13T16:55:51.291286+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-248653140.jpg",
+      "bytes": 225638,
+      "sha256": "5219916d4164d1275a28dd93ccd0aad534dd17c4f459c3a4d658ecdb957331a8",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "retrieved_utc": "2026-09-13T16:56:41.251536+00:00",
+      "reason": "Non-target location or character/effects dominate; no usable new Guild Library/hall/bridge feature established.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "534633513",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/386539771691532175/1D0BB9D4C20DFF965F9D6F84D362795DB29A6BB9/",
+      "caption": "dafuq read that ♥♥♥♥ lol <3 my favorite game ;DDD completed it like 5+ times :D",
+      "author": "Sad",
+      "source_listing": {
+        "term": "read",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=read&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-read-1.html",
+        "bytes": 84541,
+        "sha256": "bfe23fe45c0050b47c6ca8f2428a68a53048ab5f2aefd212976056300c520db9",
+        "retrieved_utc": "2026-09-13T16:55:51.291286+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-534633513.jpg",
+      "bytes": 184466,
+      "sha256": "5ee058425412fc00ffb6b994900f5f3728d8a6418c517b19c9fe8d3862d73d53",
+      "dimensions": [
+        1280,
+        800
+      ],
+      "retrieved_utc": "2026-09-13T16:56:41.306678+00:00",
+      "reason": "Credits/scrolling text views, not ordinary Guild architecture.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    },
+    {
+      "id": "163457482",
+      "appid": "204030",
+      "direct_url": "https://images.steamusercontent.com/ugc/882987975234804701/2CCA09235E3F98AB2CF454A4998373BC305F3CF4/",
+      "caption": "if you where somehow able to read that writing there is a count on how many take aways where bought during the development of the game xD",
+      "author": "Tartle117",
+      "source_listing": {
+        "term": "read",
+        "page": 1,
+        "url": "https://steamcommunity.com/app/204030/screenshots/?searchText=read&browsefilter=toprated&p=1",
+        "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/steam-read-1.html",
+        "bytes": 84541,
+        "sha256": "bfe23fe45c0050b47c6ca8f2428a68a53048ab5f2aefd212976056300c520db9",
+        "retrieved_utc": "2026-09-13T16:55:51.291286+00:00"
+      },
+      "path": "/run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/next-guild-reference/reference-163457482.jpg",
+      "bytes": 256990,
+      "sha256": "55a8889da4765fec3811cd93b2b69217cf7af141fd3fec0cff84ecfa7e18d3c5",
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "retrieved_utc": "2026-09-13T16:56:41.743214+00:00",
+      "reason": "Credits/scrolling text views, not ordinary Guild architecture.",
+      "actual_pixels_inspected": true,
+      "inspection": "Contact-sheet pixels reviewed; 275562451 additionally inspected full source image.",
+      "prior_exact_byte_match": null
+    }
+  ],
+  "open_gaps": [
+    "No accepted ordinary neutral Guild Library interior establishing Library lamps or exact reading furniture. New ordinary bookshelf-and-bed scene is dormitory.",
+    "No calibrated bridge width, arch rise, underside bracing, new post-lamp height or two-Hero clearance.",
+    "No full hall/dining/dormitory floor plan or calibrated native lighting.",
+    "All geometry changes would require separate bounded final-voxel/collision work; reference imagery alone does not authorize footprint changes."
+  ]
+}

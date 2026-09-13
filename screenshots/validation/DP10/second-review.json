@@ -1,0 +1,52 @@
+{
+  "verdict": "No production blocker found",
+  "production_edits_by_this_review": false,
+  "native_acceptance": "unrun",
+  "passed": {
+    "runtime_groups": 35,
+    "actual_main_integration_tests": 20,
+    "independent_probes": 22,
+    "second_review_extra_probes": 6
+  },
+  "initial_extra_failure": "Fixture expected inside() source point to be a ticket; fixed helper assertion only, original log preserved",
+  "input_followup": {
+    "initial_source_guard": "Detected changed shared independent helper; retained original source hashes. Production owner, main and tests still match their reviewed hashes.",
+    "changed_inputs": [
+      {
+        "path": "tmp/conformance/dp10-integration-audit/review.mjs",
+        "before": "6780ea5499bcab64df0adbb904329fcecd4c0bc37140adeda0e0188678f89136",
+        "after": "87cd9a5fdec99f1d473e4f5e4a8ea9b68529e20e52ea229b2a34e36f001849b0"
+      }
+    ],
+    "exact_change_verified": "Only crypto import and owner SHA256 logging; removing exactly those two lines reproduces initial reviewed hash."
+  },
+  "sources": {
+    "packs/Fablecraft_BP/scripts/arboretum_doors.js": "d66d184a9a8a87587dab054209fab8a69c658a663edec0e1f119eb2531c25125",
+    "packs/Fablecraft_BP/scripts/main.js": "c18b286d79bc16d6b3ea08985d5882f7a2411ae2aeb61de3bd83594d6ffb103e",
+    "scripts/tests/arboretum_doors.test.mjs": "0a044edec85eadfa1e0f37b7b1bcdb22b71f52d2960f41f20604102ad19b070f",
+    "scripts/tests/arboretum_integration.test.mjs": "2562e19f94efb64cfb206bcc3bb2f360336eee619e00f949b6c6c24d830e797a",
+    "tmp/conformance/dp10-integration-audit/arboretum-owner-before.js": "d2ea54066b594d57a3b9432c2a3b11edc85b41d08f2305caf96122c7ce9e7557",
+    "tmp/conformance/dp10-integration-audit/review.mjs": "6780ea5499bcab64df0adbb904329fcecd4c0bc37140adeda0e0188678f89136"
+  },
+  "evidence_sha256": {
+    "README.md": "22ce94730490556eca3ce0477050a11786a18631c35f2e1446c3fc3785de1a57",
+    "extra-final.log": "cfd370e2d624c3f70f588c4c78da608264c16e6c9453866671a2e53d43e9dfaa",
+    "extra-initial.log": "0497ca450d2810c960763593689542965bfb0a005ad614ec0748e4c30b50255a",
+    "extra-tail.mjs": "da5330a2c85e827576fc8abfa133404ddfa4186c9f34682c62e45b97ab7cc30b",
+    "extra.mjs": "f7e4131159ced338ff1117a0baaf2a4e2e291cb53ed47b5c55e69cbe6ddcd91a",
+    "independent-helper-followup.mjs": "87cd9a5fdec99f1d473e4f5e4a8ea9b68529e20e52ea229b2a34e36f001849b0",
+    "independent-helper-initial.mjs": "6780ea5499bcab64df0adbb904329fcecd4c0bc37140adeda0e0188678f89136",
+    "independent.log": "41c0a6e9b6693edfcca045b6d0756203465a17d328640e3c7a902bb4d9e6889c",
+    "input-followup.json": "dea58fee0c112ee54513f91a25ad38460006c4d9e6be62fa433d92f19f643435",
+    "integration.log": "d696f489ba5a30ed19dd475c685954b667817115b7c9e12f504f22dd0c8b396c",
+    "owner-reviewed.js": "d66d184a9a8a87587dab054209fab8a69c658a663edec0e1f119eb2531c25125",
+    "runtime.log": "58b60ecaba90ae086a2a823d0f06790b28b252b85c0e805b7b9a593626ac44e2",
+    "source-hashes.json": "27d47016902bc10925fe1b87c19c31cf1d2deaac12d7f4f49d38ebbd8fd0e273"
+  },
+  "curated_extra_helper": {
+    "file": "second-review-extra.mjs",
+    "sha256": "0aa674e732035ea54fc0a16f0f837d5913f9f9bee654dc659a92d0dbec51b88f",
+    "portable_result": "6 pass; second-review-extra-portable.log",
+    "inputs": "Explicit ARBORETUM_OWNER and ARBORETUM_GEOMETRY, like independent-review.mjs; prefix uses curated portable fixture and unchanged reviewed extra-tail assertions."
+  }
+}

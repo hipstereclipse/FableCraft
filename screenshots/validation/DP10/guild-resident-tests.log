@@ -1,0 +1,34 @@
+✔ fresh 12-slot population persists intent before each single birth and survives reload (9.338915ms)
+✔ two-player departure, dimension change, unavailable lookup and return retain exact resident IDs (5.64585ms)
+✔ loaded ID outside every candidate scan still restores only identity metadata (5.094898ms)
+✔ confirmed death leaves a durable tombstone, including failed save and a late removal (5.808247ms)
+✔ legacy empty or partially observed worlds never synthesize missing historical residents (8.559111ms)
+✔ foreign generic trader and town guard cannot suppress or occupy a fresh or legacy slot (7.531126ms)
+✔ legacy Guild tags enroll departed generic spouses without touching relationship or Follow state (4.437454ms)
+✔ unique unmarked named/apprentice campus candidates migrate; excess cohorts remain untouched (3.838371ms)
+✔ definitive slot markers take precedence and duplicate claims never remove or reassign an entity (7.207965ms)
+✔ fresh duplicate slot claims persist a conflict and never create a third resident after reload (5.689763ms)
+✔ one entity cannot use inconsistent metadata to occupy a second fresh slot (5.018944ms)
+✔ initialization and pre-spawn persistence failures perform no native spawn until saved (4.998395ms)
+✔ native spawn exception or missing return handle permanently reserves its intent (15.084825ms)
+✔ a write that persists intent then throws cannot authorize a birth after reload (4.513628ms)
+✔ post-spawn marker and registry failures retain the original ID without another birth (5.041977ms)
+✔ reload after native birth recovers its marker or keeps an unmarked intent reserved (8.910776ms)
+✔ identity-tag failure retries bookkeeping and never emits activity events (4.189435ms)
+✔ corrupt registries, duplicate IDs, unsupported schema and base mismatch fail closed (21.688126ms)
+✔ unloaded/blocked spawn preflight remains retryable before native spawn only (4.277641ms)
+(node:168) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+Offline generated-voxel resident birth centres: {"guildmaster":{"x":22.5,"y":1,"z":41.5},"maze":{"x":46.5,"y":12,"z":70.5},"theresa":{"x":26.5,"y":1,"z":23.5},"trader":{"x":5.5,"y":1,"z":46.5},"guard_north":{"x":11.5,"y":1,"z":39.5},"guard_south":{"x":11.5,"y":1,"z":45.5},"might_hall":{"x":12.5,"y":1,"z":42.5},"might_ring":{"x":101.5,"y":1,"z":61.5},"skill_range":{"x":86.5,"y":1,"z":39.5},"skill_hall":{"x":41.5,"y":1,"z":40.5},"will_library":{"x":26.5,"y":1,"z":24.5},"will_hall":{"x":16.5,"y":1,"z":35.5}}
+Offline sequential occupied-voxel resident birth centres: {"guildmaster":{"x":22.5,"y":1,"z":41.5},"maze":{"x":46.5,"y":12,"z":70.5},"theresa":{"x":26.5,"y":1,"z":23.5},"trader":{"x":5.5,"y":1,"z":46.5},"guard_north":{"x":11.5,"y":1,"z":39.5},"guard_south":{"x":11.5,"y":1,"z":45.5},"might_hall":{"x":12.5,"y":1,"z":42.5},"might_ring":{"x":101.5,"y":1,"z":61.5},"skill_range":{"x":86.5,"y":1,"z":39.5},"skill_hall":{"x":41.5,"y":1,"z":40.5},"will_library":{"x":25.5,"y":1,"z":25.5},"will_hall":{"x":16.5,"y":1,"z":35.5}}
+✔ generated Guild gives all 12 homes bounded supported birth centres covering emitted colliders (570.740355ms)
+✔ production preflight refuses missing floors, unknown blocks, headroom, entities and failed scans (3.996499ms)
+✔ actual population enrollment precedes decoration; maintenance and death/load/remove callbacks preserve identity (11.708678ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 735.317649

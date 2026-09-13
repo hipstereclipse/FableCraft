@@ -1,0 +1,41 @@
+{
+  "scope": "Actual main P helper, hit callback and legacy requirement expression; no native events ran.",
+  "cases": [
+    {
+      "raw": null,
+      "type": "undefined",
+      "legacyAccepted": false
+    },
+    {
+      "raw": 13,
+      "type": "number",
+      "legacyAccepted": false
+    },
+    {
+      "raw": 14,
+      "type": "number",
+      "legacyAccepted": true
+    },
+    {
+      "raw": 14.5,
+      "type": "number",
+      "legacyAccepted": true
+    },
+    {
+      "raw": "14",
+      "type": "string",
+      "legacyAccepted": true
+    },
+    {
+      "raw": "not-a-number",
+      "type": "string",
+      "legacyAccepted": false
+    }
+  ],
+  "hitOnNonhostile": {
+    "numeric": 14,
+    "string": "141"
+  },
+  "unavailable": "throws; no canonical strict reader exists",
+  "legacyContract": "preserved; proposed canonical family must use a separate strict raw reader"
+}

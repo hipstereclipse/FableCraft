@@ -1,0 +1,15 @@
+test_actual_scatter_bandits_loot_and_saved_region (__main__.GreatwoodGorge.test_actual_scatter_bandits_loot_and_saved_region) ... ok
+test_broken_bridge_closed_shack_and_blocked_stairs_negative_fixtures (__main__.GreatwoodGorge.test_broken_bridge_closed_shack_and_blocked_stairs_negative_fixtures) ... ok
+test_continuous_bridge_deck_and_guardrails (__main__.GreatwoodGorge.test_continuous_bridge_deck_and_guardrails) ... ok
+test_dimensions_palette_and_runtime_contract (__main__.GreatwoodGorge.test_dimensions_palette_and_runtime_contract) ... ok
+test_new_canonical_source_full_throat_and_both_approaches (__main__.GreatwoodGorge.test_new_canonical_source_full_throat_and_both_approaches) ... ok
+test_routes_to_checkpoint_chest_face_and_lower_ravine (__main__.GreatwoodGorge.test_routes_to_checkpoint_chest_face_and_lower_ravine) ... ok
+test_source_obstruction_and_missing_support_are_rejected (__main__.GreatwoodGorge.test_source_obstruction_and_missing_support_are_rejected) ... ok
+test_source_only_changes_43_existing_cells_without_shared_rng_drift (__main__.GreatwoodGorge.test_source_only_changes_43_existing_cells_without_shared_rng_drift) ... ok
+test_stairs_face_and_exact_chest (__main__.GreatwoodGorge.test_stairs_face_and_exact_chest) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 1.048s
+
+OK
+PASS: actual greatwood_gorge placement on grass/rock, clear translated spawns, loot bounds and saved-region idempotence

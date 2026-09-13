@@ -1,0 +1,28 @@
+REPRODUCED active scan replaces later valid ready/visited/claimed history and places structure: {"priorPhase":"ready","priorVisited":true,"priorClaimed":true,"placements":1,"resultPhase":"placing","resultVisited":true,"resultNowUnreadable":true}
+REPRODUCED same revision changed whole-record progress is silently lost at seed intent: {"phase":"ready","injectedProgress":7,"retainedProgress":[],"seeds":1}
+{
+  "nativeAcceptance": "unrun",
+  "observations": [
+    {
+      "name": "active scan replaces later valid ready/visited/claimed history and places structure",
+      "reproduced": true,
+      "priorPhase": "ready",
+      "priorVisited": true,
+      "priorClaimed": true,
+      "placements": 1,
+      "resultPhase": "placing",
+      "resultVisited": true,
+      "resultNowUnreadable": true
+    },
+    {
+      "name": "same revision changed whole-record progress is silently lost at seed intent",
+      "reproduced": true,
+      "phase": "ready",
+      "injectedProgress": 7,
+      "retainedProgress": [],
+      "seeds": 1
+    }
+  ]
+}
+(node:4) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)

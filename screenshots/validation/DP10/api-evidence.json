@@ -1,0 +1,15 @@
+{
+  "package": "@minecraft/server 2.1.0",
+  "retained_declarations": "tmp/conformance/gp17-activity-audit/index.d.ts",
+  "sha256": "38e989f3f0371967c1df82a12d5f37a3832cbff3944e38be8bb51638ed0e771d",
+  "verified_methods": [
+    "ItemStack.getLore(): string[]",
+    "ItemStack.nameTag?: string",
+    "Container.size",
+    "Container.getItem",
+    "Container.setItem"
+  ],
+  "official_corroboration": "https://github.com/MicrosoftDocs/minecraft-creator/blob/main/creator/ScriptAPI/minecraft/server/ItemStack.md",
+  "new_api_requirement": false,
+  "native_acceptance": "unrun"
+}

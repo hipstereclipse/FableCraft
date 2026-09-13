@@ -1,0 +1,19 @@
+✔ actual functional Wait changes only its requester-owned follower and preserves the other Hero and unrelated trainee (84.959277ms)
+✔ actual high-love implicit Follow carries the acting Hero through hooks and refuses takeover (21.316409ms)
+✔ functional Wait on idle admirers cannot manufacture Follow or interrupt unrelated training (20.198454ms)
+✔ delayed fear and idle reactions cannot replace newer Follow, Wait, training or defence (63.603593ms)
+✔ same-generation fear callback still executes when no activity supersedes it (13.350922ms)
+✔ actual spouse menu rejects an old activity revision and accepts a fresh owner Wait (15.827537ms)
+✔ queued interactions reject departed or changed actors before touching training and preserve another Hero activity (59.793066ms)
+✔ actual boasting excludes owned Wait and actual defence preempts it before combat without reviving Follow (16.560664ms)
+✔ spouse activity callbacks cannot mutate movement after departure, invalidation or changed ownership (91.185965ms)
+(node:93) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 403.636071

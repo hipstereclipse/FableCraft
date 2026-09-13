@@ -60,6 +60,7 @@ Supplemental queue (newly authorized work, outside the legacy 45-leaf scoreboard
 | GP21 | in-progress | Reference-led timber firing divider adds ten cells with a clear three-column Skill bay, preserving complete checked routes and all other campus cells; native acceptance open |
 | DP9 | in-progress | Guarded Library preparation prevents ambiguous structure/seed replay, verifies exact reward readback and late containment; native acceptance open |
 | GP22 | in-progress | Separate shallow scenic mountain/tower cutouts add depth to the range while preserving targets, complete routes and actual Skill rays; native acceptance open |
+| DP10 | in-progress | Pinned Arboretum preparation history, successful placement/seed receipts and fresh live-chest verification prevent stale or ambiguous effects; native acceptance open |
 
 Record each pass's exact scope, evidence, real commit or SELF resolver, remaining
 defects and manual status here. These passes are not completed legacy leaves.
@@ -1261,7 +1262,7 @@ unrun; the legacy scoreboard stays 45 leaves and 7 done.
 
 ## GP22 — layered archery scenery (2026-09-13)
 
-Commit: SELF: TLC Conformance — GP22: layer the Guild archery scenery.
+Commit: 386afde0eab6e6ca1d60e549ba807f564140ef83. Pushed; exact-head CI 34757620731 passed.
 Reinspection of original TLC view 141099874 supports separate mountain and
 crenellated tower cutouts ahead of the painted scenic panel. Twelve new cells
 form two shallow silhouettes: mountain x80..82,z32 with heights 1/2/1; tower
@@ -1297,3 +1298,37 @@ with an active multiplier of at least 14. Its source and Legendary item are abse
 strict authority and complete third-family integration remain work. The original
 214×123 source/interior pictures do not establish full geometry. Neither audit
 changes production. See GP22/bridge-followup.* and next-door-audit.md.
+
+
+## DP10 — guarded Arboretum preparation (2026-09-13)
+
+Commit: SELF: TLC Conformance — DP10: guard Arboretum preparation and live rewards.
+Independent actual-GP22 probes reproduce late contents/occupants, discarded chest
+handles, wrong reward metadata, unreceipted placement recovery and changed active
+history. The active preparation job now pins its complete record. Optional
+placement and seed success receipts in the existing per-instance record permit
+only verified next phases; intent-only unfinished rooms remain closed.
+
+Fresh complete-volume/occupant checks follow placement intent. Fresh live chest,
+all-slot, metadata, containment and authority checks surround the item write.
+A seeded receipt permits a read-only ready retry; no ambiguous effect repeats.
+Legacy ready/visited/depleted rooms, source enrollment, challenges, exact tickets,
+guards, callback isolation and both families' geometry retain their owners.
+Only the handwritten Arboretum controller changes among pack inputs.
+
+See [ARBORETUM_PREPARATION.md](ARBORETUM_PREPARATION.md) and
+`screenshots/validation/DP10/`. All 55 base gates and 65 ESM checks pass in the isolated reviewed-index
+snapshot. Runtime 35, actual main integration 20, independent review 22 and
+six additional second-review probes pass. Fresh C2 and Guild diagnostics pass;
+all 36 structure assets/C2 images and seven visual owners match GP22. Its 282
+full PNGs and seven Guild documentation scenes are retained from unchanged
+inputs, not rerun. Only the Arboretum controller differs among 1,662 snapshot
+pack files. All nine protected unrelated files remain exact. No base gate failed.
+A diagnostics helper launch used the wrong working directory; a second-review
+fixture initially mistook a source point for a ticket. Both corrections and a
+review-helper SHA-logging update are retained; no production fix was required.
+No native server or world has run. Legacy C3 remains 45 leaves and 7 done.
+GP22 remains the asset/documentation baseline.
+The bridge audit supports a separately bounded taller-lamp candidate at the
+existing eight post positions; opaque parapets and native clearance remain open.
+Third-family source/room/challenge/guard integration remains proposed.

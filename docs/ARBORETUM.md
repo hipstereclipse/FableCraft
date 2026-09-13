@@ -88,9 +88,12 @@ Only one Arboretum room job and one rotating return-loading lease operate at onc
 Room preparation checks the entire candidate volume for air, rechecks entities
 and late changes before placement, then verifies the full barrier shell, standing
 routes, arrival, exit and empty chest. Native scan cost remains unprofiled.
-Placement, seeding and ready state are journaled separately. Ambiguous placement
-can only be inspected; it cannot authorize a second structure write. Ambiguous
-seeding defers without another Pickhammer. No visited room is rebuilt or reseeded.
+DP10 adds successful placement and seed receipts alongside their intents, pins
+complete active-job history and checks fresh live chest contents before/after
+the reward write. Unknown legacy or intent-only preparation stays closed even
+when geometry appears complete. A saved seeded receipt permits read-only ready
+retry; no ambiguous effect repeats. No visited room is rebuilt or reseeded.
+See [the current preparation contract](ARBORETUM_PREPARATION.md).
 The shared native chest provides collection: entering, interacting with the face
 or reopening grants no item or XP. Deleting a collected item does not restock it.
 

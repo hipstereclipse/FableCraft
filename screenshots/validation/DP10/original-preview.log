@@ -1,0 +1,8 @@
+Local original staging tree: /run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/DP10-reviewed-snapshot/tmp/builds/original-8rp4sgje
+validated: {'json': 684, 'png': 341, 'wav': 535, 'mcstructure': 36, 'js': 65}
+Fable expression audit passed: 31 expressions, 21 social NPCs, 11 NPC clips
+registry: packs/Fablecraft_BP/config/fable_emotes.json
+Fable HUD audit: 112/112 checks passed
+structure contract OK (including numeric Guild anchors; in-world checks remain manual)
+all cross-references OK
+Known display-name debt: 9 files; see /run/media/eclipse/8E025A94025A80DF/Users/Eclipse/Fablecraft/tmp/conformance/DP10-reviewed-snapshot/tmp/builds/original-8rp4sgje/branding-debt.json

@@ -45,7 +45,7 @@ async function fixture(){
  function player(location={x:0,y:65,z:0}){const p=actor('minecraft:player','hero-'+players.length,location);p.props.set('wd:state',JSON.stringify({schemaVersion:3,alignment:0}));p.props.set('fc_morality',0);players.push(p);return p;}
  function face(location,old={}){const e=actor('fc:demon_door','face-'+entities.length,location);for(const [k,v]of Object.entries(old))e.props.set(k,v);entities.push(e);return e;}
  const data=api['fc_gamedata.js'].DATA;
- Object.assign(context,{world,system,DATA:data,BlockVolume:class{constructor(from,to){this.from={...from};this.to={...to};}},ItemStack:class{constructor(typeId,amount){this.typeId=typeId;this.amount=amount;}},
+ Object.assign(context,{world,system,DATA:data,BlockVolume:class{constructor(from,to){this.from={...from};this.to={...to};}},ItemStack:class{constructor(typeId,amount){this.typeId=typeId;this.amount=amount;}getLore(){return [];}},
   GameMode:{Survival:'Survival',Adventure:'Adventure',Creative:'Creative',Spectator:'Spectator'},readAlignmentAuthority:api['wd/alignment.js'].readAlignmentAuthority,
   createGuildDoorAperture:api['guild_door_aperture.js'].createGuildDoorAperture,
   createDemonDoorPilot:o=>{configs.guild=o;return api['fc_demon_doors.js'].createDemonDoorPilot(o);},

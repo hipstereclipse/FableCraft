@@ -1,0 +1,11 @@
+{
+  "initial_source_guard": "Detected changed shared independent helper; retained original source hashes. Production owner, main and tests still match their reviewed hashes.",
+  "changed_inputs": [
+    {
+      "path": "tmp/conformance/dp10-integration-audit/review.mjs",
+      "before": "6780ea5499bcab64df0adbb904329fcecd4c0bc37140adeda0e0188678f89136",
+      "after": "87cd9a5fdec99f1d473e4f5e4a8ea9b68529e20e52ea229b2a34e36f001849b0"
+    }
+  ],
+  "exact_change_verified": "Only crypto import and owner SHA256 logging; removing exactly those two lines reproduces initial reviewed hash."
+}

@@ -1,0 +1,25 @@
+PASS normal first build and depleted ready reload retain one placement and reward
+PASS late slot-zero contents survive saved seed intent without reward overwrite
+PASS late occupant after saved seed intent prevents native reward write
+PASS fresh chest after seed intent rejects replacement contents
+PASS fresh native post-write chest detects missing reward on detached handle
+PASS exact reward readback rejects changed name
+PASS exact reward readback rejects changed lore
+PASS complete native placement followed by throw stays intent-only through reload
+PASS pinned active job preserves later valid ready/visited/claimed history
+PASS whole-record seed compare preserves same-revision changed progress
+PASS placed receipt before-write failure retries only when completion persisted
+PASS placed receipt after-write failure retries only when completion persisted
+PASS seeded receipt before-write failure retries only when completion persisted
+PASS seeded receipt after-write failure retries only when completion persisted
+PASS ready receipt before-write failure retries only when completion persisted
+PASS ready receipt after-write failure retries only when completion persisted
+PASS native before seed effect never replays or commits ready
+PASS native after seed effect never replays or commits ready
+PASS native ignore seed effect never replays or commits ready
+PASS native wrong seed effect never replays or commits ready
+PASS native count seed effect never replays or commits ready
+PASS unmarked legacy placing remains readable and closed
+Independent DP10 review: 22 passed, 0 failed; native acceptance unrun.
+(node:4) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)

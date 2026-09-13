@@ -1,0 +1,37 @@
+{
+  "milestone": "DP10",
+  "baseline_head": "386afde0eab6e6ca1d60e549ba807f564140ef83",
+  "reviewed_index_listing_sha256": "8f08f627186f16ba38bbadb8f06395eeadcd639786df4a8f97c89f0be04333c9",
+  "source": "git checkout-index --all; no working-tree source copied",
+  "snapshot": "tmp/conformance/DP10-reviewed-snapshot",
+  "untracked_dependency": "node_modules symlink; ignored vanilla item cache copied for deterministic offline rendering",
+  "containing_commit": "SELF: TLC Conformance \u2014 DP10: guard Arboretum preparation and live rewards",
+  "prior_ci": {
+    "id": 34757620731,
+    "conclusion": "success"
+  },
+  "validated_source_sha256": {
+    "packs/Fablecraft_BP/scripts/arboretum_doors.js": "d66d184a9a8a87587dab054209fab8a69c658a663edec0e1f119eb2531c25125",
+    "scripts/tests/arboretum_doors.test.mjs": "0a044edec85eadfa1e0f37b7b1bcdb22b71f52d2960f41f20604102ad19b070f",
+    "scripts/tests/arboretum_integration.test.mjs": "2562e19f94efb64cfb206bcc3bb2f360336eee619e00f949b6c6c24d830e797a"
+  },
+  "protected_unrelated_sha256": {
+    "dist/Fablecraft_BP.mcpack": "9543bfd4cd22a67a2e3d063da3d2b23ed7a213679a322422f4b0fa9b937b3170",
+    "dist/Fablecraft_RP.mcpack": "48fb847212ac5fcde7873c102623e47c68e2272c7417d1c3bc8fe1c02639b2e7",
+    "dist/Fablecraft_Reforged.mcaddon": "6e8c1a1ee1c4ac1c0c972428c222b9438a94157e3a2fd734583c5d52fd037df8",
+    "scripts/_align/overlay_ground.png": "1e905d600576ce9eb3b612c3bd3d2e4c48492fe7906ba72833b2ffb77bd9c538",
+    "scripts/_align/overlay_ground_zoom.png": "e64756d886d5bf33cd8a2c19262f2296510f127aaf7b2cc349efb56100ebf8e4",
+    "scripts/_align/overlay_td.png": "1a0d57296b5f7ddb1f725d418aee5307319f59cd7d566ec06a1f04596dcdb4a9",
+    "scripts/_align/overlay_td_zoom.png": "a98c94fe9bf934658398bda742624d7456749dabce4a47199b8e463e7775d5a2",
+    ".eslintrc.json": "79742942e1401d824e46c2ac132c6e3a905a0a343413c5cd440bc3fc51bd9123",
+    "packs/Fablecraft_BP/scripts/package.json": "1bf0e53fc74b05f1aade7451fbac72f1944b067d4229d96bae7a225519a250e4"
+  },
+  "base_gates": 55,
+  "esm_scripts": 65,
+  "runtime_groups": 35,
+  "actual_main_integration_groups": 20,
+  "independent_review_cases": 22,
+  "second_review_extra_cases": 6,
+  "final_docs": "Finalized after validation; exact validated source hashes retained; final named documentation staged separately.",
+  "native_acceptance": "unrun"
+}

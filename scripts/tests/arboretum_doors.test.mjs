@@ -38,7 +38,7 @@ function fixture(){
    const c=type==='minecraft:chest'?container():null;if(c&&flags.prefill)c.slots.set(8,{typeId:'minecraft:diamond',amount:1});blocks.set(d.id+'/'+key(p),block(type,c));}
   if(flags.damage)blocks.set(d.id+'/'+key(add(o,flags.damage.at)),block(flags.damage.type));
   if(flags.place==='after')throw Error('place after');}
- class ItemStack{constructor(typeId,amount){this.typeId=typeId;this.amount=amount;}}
+ class ItemStack{constructor(typeId,amount){this.typeId=typeId;this.amount=amount;}getLore(){return [];}}
  function player(id=`hero${players.length}`,at={x:132.5,y:70,z:206.5},dimension='minecraft:overworld'){
   const properties=new Map(),moves=[],playerWrites=[];
   const p={id,typeId:'minecraft:player',isValid:true,dimension:dims[dimension],location:plain(at),alignment:null,properties,moves,playerWrites,unreadable:false,writeFault:null,
@@ -142,10 +142,10 @@ await group('entities, unavailable blocks and missing loading authority leave th
  for(const failure of ['loaded','lease','entities']){const f=fixture(),r=f.register();if(failure==='entities')f.flags.entities=[{location:add(origin(0),{x:10,y:3,z:10})}];else f.flags[failure]=false;
   const {p}=f.open(r);f.step(340);assert.equal(f.places.length,0);assert.equal(p.moves.length,0);assert.equal(f.state(r.id).unlocked,true);}
 });
-await group('ambiguous structure placement never replays; a fully placed receipt can finish verification after reload',()=>{
+await group('intent-only structure placement never replays or seeds, even when a thrown call left complete geometry',()=>{
  for(const failure of ['before','after']){const f=fixture(),r=f.register();f.flags.place=failure;const {p}=f.open(r);f.step(150);assert.equal(f.state(r.id).room.phase,'placing');const n=f.places.length;
   f.reload();f.flags.place='ok';p.location=offset(r.source,0,0,-1);f.step(2);p.location=plain(r.source);f.step(220);
-  assert.equal(f.places.length,n);if(failure==='after'){assert.equal(f.state(r.id).room.phase,'ready');assert.equal(f.seeds.length,1);}else assert.equal(f.seeds.length,0);
+  assert.equal(f.places.length,n);assert.equal(f.state(r.id).room.phase,'placing');assert.equal(f.seeds.length,0);assert.equal(p.moves.length,0);
  }
 });
 await group('seed failure before or after item transfer never authorizes reseeding or admission',()=>{
@@ -237,6 +237,93 @@ await group('revision exhaustion remains readable and refuses mutations before a
  f.props.set(stateKey(r.id),JSON.stringify(exhausted));const before=JSON.stringify([...f.props]);p.alignment=-1000;f.ctl.interact(p,f.face(r));f.ctl.completeUse(p,'fc:crunchy_chick');f.step();
  assert.equal(f.ctl.getState(r.id).revision,Number.MAX_SAFE_INTEGER);assert.equal(JSON.stringify([...f.props]),before);assert.equal(f.places.length,0);
  const g=fixture();assert.equal(g.ctl.beginPlacement({regionKey:'outside',origin:{x:29999990,y:64,z:200,dimension:'minecraft:overworld'}}),null);assert.equal(g.props.size,0);
+});
+await group('late seed-intent contents and occupants refuse the native item write',()=>{
+ for(const fault of ['slot0','slot8','entity','player','unavailable']){
+  const f=fixture(),r=f.register();let injected=false;
+  f.flags.worldWrite=(k,v)=>{
+   if(k!==stateKey(r.id)||JSON.parse(v)?.room?.preparation?.phase!=='seeding'||injected)return;
+   injected=true;
+   if(fault.startsWith('slot'))f.chest(r).slots.set(Number(fault.slice(4)),{typeId:'minecraft:diamond',amount:1});
+   if(fault==='entity')f.flags.entities=[{location:add(origin(0),ARBORETUM.arrival)}];
+   if(fault==='player')f.player('late',add(origin(0),ARBORETUM.arrival));
+   if(fault==='unavailable')f.flags.reads.add(stateKey(r.id));
+  };
+  const {p}=f.open(r);f.step(180);assert.ok(injected,fault);assert.equal(f.seeds.length,0,fault);assert.equal(p.moves.length,0,fault);
+  if(fault.startsWith('slot'))assert.equal(f.chest(r).getItem(Number(fault.slice(4))).typeId,'minecraft:diamond');
+  f.flags.reads.clear();f.flags.worldWrite=null;f.flags.entities=[];f.reload();f.step(200);assert.equal(f.seeds.length,0,fault+' reload');
+ }
+});
+function replaceChest(f,r){
+ const slots=new Map(),c={size:27,getItem:i=>slots.get(i),setItem:(i,v)=>slots.set(i,v)};
+ f.blocks.set('minecraft:overworld/'+key(add(origin(f.state(r.id).room.cell),ARBORETUM.chest)),
+  {typeId:'minecraft:chest',isAir:false,getComponent:id=>id==='minecraft:inventory'?{container:c}:undefined});return c;
+}
+await group('seed intent reacquires a replaced live chest instead of writing a stale handle',()=>{
+ const f=fixture(),r=f.register();let replacement,old;
+ f.flags.worldWrite=(k,v)=>{if(k===stateKey(r.id)&&JSON.parse(v)?.room?.preparation?.phase==='seeding'&&!replacement){old=f.chest(r);replacement=replaceChest(f,r);}};
+ f.build(r);assert.ok(replacement);assert.equal(old.getItem(0),undefined);assert.equal(replacement.getItem(0).typeId,ARBORETUM.item);
+ assert.equal(f.state(r.id).room.preparation.phase,'seeded');
+});
+await group('post-write replacement and altered metadata cannot certify a reward from the old handle',()=>{
+ for(const fault of ['replace','name','lore','extra-slot']){
+  const f=fixture(),r=f.register();let installed=false;
+  f.flags.worldWrite=(k,v)=>{
+   if(k!==stateKey(r.id)||JSON.parse(v)?.room?.preparation?.phase!=='seeding'||installed)return;
+   installed=true;const c=f.chest(r),set=c.setItem.bind(c);
+   c.setItem=(i,item)=>{set(i,item);if(fault==='replace')replaceChest(f,r);
+    if(fault==='name')item.nameTag='Unexpected';if(fault==='lore')item.getLore=()=>['Unexpected'];
+    if(fault==='extra-slot')c.slots.set(26,{typeId:'minecraft:diamond',amount:1});};
+  };
+  const {p}=f.open(r);f.step(180);assert.ok(installed);assert.equal(f.seeds.length,1);assert.equal(f.state(r.id).room.phase,'seeding');
+  assert.equal(f.state(r.id).room.preparation.phase,'seeding');assert.equal(p.moves.length,0);
+  f.flags.worldWrite=null;f.reload();f.step(200);assert.equal(f.seeds.length,1,fault+' no reseeding');
+ }
+});
+await group('active surveys reject changed whole-record history before placement',()=>{
+ for(const fault of ['progress','ready-visited','unavailable']){
+  const f=fixture(),r=f.register();const {p}=f.open(r);f.step();let expected;
+  if(fault==='unavailable')f.flags.reads.add(stateKey(r.id));
+  else {const next=f.state(r.id);if(fault==='progress')next.progress=[{heroId:'independent',count:3,lastTick:0}];
+   else {next.revision++;next.room.phase='ready';next.room.visited=true;next.reward={seeded:true,claimed:true};}
+   expected=JSON.stringify(next);f.props.set(stateKey(r.id),expected);}
+  f.step(180);assert.equal(f.places.length,0,fault);assert.equal(f.seeds.length,0,fault);assert.equal(p.moves.length,0,fault);
+  if(expected)assert.equal(f.props.get(stateKey(r.id)),expected,fault+' preserves replacement record');
+ }
+});
+await group('same-revision history changed during empty-slot inspection is preserved without seeding',()=>{
+ const f=fixture(),r=f.register();f.open(r);while(!f.places.length)f.step();const c=f.chest(r),get=c.getItem.bind(c);let expected;
+ c.getItem=i=>{if(i===26&&!expected){const next=f.state(r.id);next.progress=[{heroId:'new-progress',count:4,lastTick:1}];expected=JSON.stringify(next);f.props.set(stateKey(r.id),expected);}return get(i);};
+ f.step(35);assert.ok(expected);assert.equal(f.seeds.length,0);assert.equal(f.props.get(stateKey(r.id)),expected);
+});
+await group('placement intent rechecks late blocks, occupants and history before native placement',()=>{
+ for(const fault of ['block','occupant','history']){
+  const f=fixture(),r=f.register();let injected=false;
+  f.flags.worldWrite=(k,v)=>{if(k!==stateKey(r.id)||JSON.parse(v)?.room?.preparation?.phase!=='placing'||injected)return;
+   injected=true;if(fault==='block')f.setBlock(add(origin(0),{x:3,y:3,z:3}),'minecraft:diamond_block');
+   if(fault==='occupant')f.flags.entities=[{location:add(origin(0),ARBORETUM.arrival)}];
+   if(fault==='history')f.flags.reads.add(stateKey(r.id));};
+  f.open(r);f.step(180);assert.ok(injected);assert.equal(f.places.length,0,fault);assert.equal(f.seeds.length,0,fault);
+ }
+});
+await group('successful receipts recover read-only while intent-only receipt failures stay closed',()=>{
+ for(const phase of ['placed','seeded','ready'])for(const mode of ['before','after']){
+  const f=fixture(),r=f.register();let armed=true;
+  f.flags.worldWrite=(k,v)=>{const s=k===stateKey(r.id)?JSON.parse(v):null;
+   if(armed&&s?.room&&(phase==='ready'?s.room.phase==='ready':s.room.preparation?.phase===phase)){armed=false;return mode;}};
+  const {p}=f.open(r);f.step(180);assert.equal(armed,false,phase+'/'+mode);const placements=f.places.length,seeds=f.seeds.length;
+  f.flags.worldWrite=null;f.reload();p.location=offset(r.source,0,0,-1);f.step(15);p.location=plain(r.source);f.step(220);
+  assert.equal(f.places.length,placements,phase+'/'+mode+' placement cannot repeat');
+  if(phase==='placed'&&mode==='before'||phase==='seeded'&&mode==='before'){
+   assert.notEqual(f.state(r.id).room.phase,'ready');assert.equal(f.seeds.length,seeds);assert.equal(p.moves.length,0);
+  }else {assert.equal(f.state(r.id).room.phase,'ready',phase+'/'+mode);assert.equal(f.seeds.length,1);}
+ }
+});
+await group('legacy ready depletion survives absent preparation; unfinished legacy states never seed',()=>{
+ const f=fixture(),r=f.register();f.build(r);f.chest(r).slots.clear();f.step();const saved=f.state(r.id);delete saved.room.preparation;
+ f.props.set(stateKey(r.id),JSON.stringify(saved));f.reload();f.step(180);assert.equal(f.state(r.id).reward.claimed,true);assert.equal(f.chest(r).getItem(0),undefined);assert.equal(f.seeds.length,1);
+ for(const phase of ['placing','seeding']){const g=fixture(),s=g.register();g.open(s);while(!g.places.length)g.step();const legacy=g.state(s.id);delete legacy.room.preparation;legacy.room.phase=phase;
+  g.props.set(stateKey(s.id),JSON.stringify(legacy));g.reload();g.step(220);assert.equal(g.seeds.length,0);assert.equal(g.state(s.id).room.phase,phase);}
 });
 console.log(`Arboretum runtime: ${passed} groups passed, ${failed} failed; actual generated room cells ${geometry.grid.length}; native acceptance unrun.`);
 if(failed)process.exitCode=1;

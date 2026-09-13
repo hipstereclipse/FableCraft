@@ -1,0 +1,36 @@
+(node:186) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ actual annex records completion only after every assembled Chamber/cave cell is verified (550.50327ms)
+ℹ 25946 final cells; 406 journal pages; largest page 450 bytes; total 111116 bytes
+✔ startup enrolls before earlier decoration exception and actual maintenance still builds (457.73554ms)
+✔ failed enrollment persistence prevents initial Guild placement and the actual build retry recovers (430.459445ms)
+✔ failed surface placement resumes the original enrolled anchor after reload and player movement (430.922801ms)
+✔ overlapping saved build tick schedules founding retry at the original anchor without duplicate placement (432.353081ms)
+✔ fresh founding and delayed callbacks refuse other dimensions; later Overworld founding can recover (361.093421ms)
+✔ permutation resolution and scheduler failures after enrollment retry without losing original ownership (831.679463ms)
+✔ terrain jobs must finish before any Chamber placement; manifest replaces delayed scrubbing (414.198443ms)
+✔ canceled jobs retry through production maintenance; stale generator cannot resume writing (427.327036ms)
+✔ snapshot, partially placed Chamber and verification reloads resume without reseeding (1725.39165ms)
+✔ an enrolled old Chamber plan finishes its exact original geometry across a visual revision (1955.557526ms)
+✔ the shipped Chamber revision resumes real GP5 snapshot, applying and verification journals (3454.571846ms)
+✔ GP5 unknown hashes, edited cells and damaged original journals defer across the shipped revision (2188.235023ms)
+✔ the shipped Chamber revision resumes real GP8 snapshot, applying and verification journals (3983.586226ms)
+✔ GP8 unknown hashes, edited cells and damaged original journals defer across the shipped revision (2268.609709ms)
+✔ unloaded and throwing getBlock during snapshot or Chamber placement are retryable (1807.336663ms)
+✔ the audited unavailable bridge head cell prevents completion and maintenance opens it on retry (441.085079ms)
+✔ failed, silently dropped and throwing-after-mutation Chamber writes remain incomplete until retry (1132.37849ms)
+✔ journal failure after successful write recognizes the target without writing it twice (528.127363ms)
+✔ foreign underground inventory or masonry refuses the entire snapshot without block writes (333.989772ms)
+✔ player edits to recorded unfinished or completed cells are preserved after reload (542.199506ms)
+✔ same block type with changed permutation is preserved; ready rooms perform no repair (558.228799ms)
+✔ derived wall connections are accepted; lantern supports and skylight containment precede placement (430.893125ms)
+✔ legacy flags, unknown records and changed anchors never authorize occupied-world construction (63.886133ms)
+✔ missing or corrupt saved originals fail closed instead of resnapshotting occupied cells (376.59166ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 26163.951327

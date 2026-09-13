@@ -1,0 +1,9 @@
+PASS native seed effect followed by late history cannot commit seeded receipt or ready
+PASS native seed effect followed by late player cannot commit seeded receipt or ready
+PASS native seed effect followed by late shell cannot commit seeded receipt or ready
+PASS depletion during seeded-receipt persistence keeps read-only retry closed without reseeding
+PASS history changed by successful native placement is preserved before placed receipt
+PASS unknown optional preparation cannot revoke the occupied exact-ticket return
+DP10 second-review extra probes: 6 passed, 0 failed; native acceptance unrun.
+(node:4) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)

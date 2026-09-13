@@ -13,15 +13,50 @@ reference photos and make Demon Doors traversable into distinct original reward
 worlds. Continue autonomously with separate reviewed milestone commits, validation,
 immediate pushes and fresh handoffs; no routine questions.
 
-Current checkpoint: GP22 — layered archery scenery.
-Last resolved commit: af73bfb42c3f742454c7cf88c17ad052c3f0cf41 (DP9 pushed;
-exact-head CI 34756528223 passed).
-Containing commit: TLC Conformance — GP22: layer the Guild archery scenery.
-Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — GP22: layer the Guild archery scenery'.
+Current checkpoint: DP10 — guarded Arboretum preparation.
+Last resolved commit: 386afde0eab6e6ca1d60e549ba807f564140ef83 (GP22 pushed;
+exact-head CI 34757620731 passed).
+Containing commit: TLC Conformance — DP10: guard Arboretum preparation and live rewards.
+Resolve current hash: git log -1 --format=%H --grep='TLC Conformance — DP10: guard Arboretum preparation and live rewards'.
 Never invent a self-hash. Supplemental passes stay in-progress while native
 acceptance is unrun; the legacy scoreboard remains 45 leaves and 7 done.
 
-## GP22 current checkpoint
+## DP10 current checkpoint
+
+Independent original-owner/native-effect probes reproduced overwritten late
+contents, a late occupant, stale pre/post-write chest handles, wrong item metadata,
+intent-only placing recovery, adopted ready/visited history and same-revision
+progress replacement. DP10 pins complete job history and adds optional schema1
+placing/placed/seeding/seeded preparation receipts in existing Arboretum records.
+Fresh volume/occupancy checks follow placement intent; only saved successful
+placement permits verification. Seed intent precedes fresh all-slot and history
+checks; the live chest is reacquired for exact item/count/name/lore readback.
+A seeded receipt permits read-only ready retry; ambiguous intents never replay.
+Ready/visited/depleted rooms, exact tickets and source/grid/guards remain.
+Only arboretum_doors.js changes among pack inputs; both actual test doubles now
+model default empty item lore. See ARBORETUM_PREPARATION.md and DP10 evidence.
+All 55 base gates and 65 ESM checks pass in the isolated reviewed-index
+snapshot. Runtime 35, actual main integration 20, independent review 22 and
+six additional second-review probes pass. Fresh C2 and Guild diagnostics pass;
+all 36 structure assets/C2 images and seven visual owners match GP22. Its 282
+full PNGs and seven Guild documentation scenes are retained from unchanged
+inputs, not rerun. Only the Arboretum controller differs among 1,662 snapshot
+pack files. All nine protected unrelated files remain exact. No base gate failed.
+A diagnostics helper launch used the wrong working directory; a second-review
+fixture initially mistook a source point for a ticket. Both corrections and a
+review-helper SHA-logging update are retained; no production fix was required.
+No native server or world has run. Legacy C3 remains 45 leaves and 7 done.
+
+The measured bridge lamp candidate changes sixteen cells at existing x58/68,
+z35/37/53/55: y2 lantern -> dark_oak_fence, y3 air -> standing lantern. Original
+131726186 supports separate tall dark lamp posts. All other cells, graphs,
+seven complete routes, eight local paths and nineteen body sweeps remain in
+scratch feasibility checks. No GP23 production change exists yet. Opaque
+parapets, deck proportions and native clearance remain unresolved. Scratch:
+tmp/conformance/gp23-bridge-audit-next. New references and the complete third-family
+integration audit are retained separately in DP10 follow-up evidence.
+
+## Retained GP22 asset/documentation baseline
 
 Original TLC screenshot 141099874 (Steam app 204030, posted April 24 2013) shows
 separate scenic mountain and crenellated tower cutouts ahead of the painted
@@ -125,18 +160,20 @@ Production GP22 scenery relies only on 141099874, not the newly indexed images.
 
 ## Next three actions
 
-1. Continue the bridge comparison against 91147839 and the GP16 close views.
-   Original pixels show broad solid parapets, rising profiles, pale inset/round
-   decoration, capped end blocks and separate tall lamps. Current rails are thin
-   spruce fences with lantern gateheads. The bounded next audit found that full-cube rail
-   replacements preserve sampled routes but narrow physical lateral clearance;
-   do not author those scratch variants. Survey measured deck/approach width or
-   a thin opaque treatment that preserves collision, with original pixels and
-   final body sweeps. Retain anchors, water and RNG. Its ignored workspace is
-   tmp/conformance/gp23-bridge-audit/. This is feasibility work, not an authored
-   GP23. Recheck actual voxels/body clearance and original pixels before changing
-   profiles; the old fence collision envelope is only a conservative bound.
-2. Continue map-hall stair/arch, range platform and adjoining interior comparisons.
+1. Author the measured taller bridge lamps as a separate GP23 through
+   plank_bridge: eight existing columns x58/68,z35/37/53/55, y2 becomes
+   dark_oak_fence, y3 gains the same standing lantern. Reinspect 131726186;
+   exact count/height/material are adaptations. Scratch feasibility preserves
+   all routes and body bounds, but actual old/new generators, RNG, serialized
+   output, final sweeps and required renders still need validation. No GP23 is
+   authored yet. Retain all water, decks, slabs, fixtures and occupied-world
+   construction. Full-cube parapets remain rejected; uniform widening also
+   covers bank routes and collides with the z54 bollard. Stock trapdoors are
+   mutable and lack pinned collider evidence; do not raise engine target for
+   an unproven custom parapet. See DP10/bridge-followup.*.
+2. Index the seven newly inspected original TLC views in DP10/reference-followup.*
+   (corpus remains30 until indexed). Continue map-hall stair/arch, dining/dormitory
+   candle/table detail, range platform and adjoining interior comparisons.
    Do not infer original dimensions from crops or the distorted panorama. Neutral
    ordinary Library views, full dorm size/bed count and Maze gallery proportions
    remain missing. Preserve saved construction/progress and generator ownership.
@@ -146,9 +183,11 @@ Production GP22 scenery relies only on 141099874, not the newly indexed images.
    audit recommends Greatwood Caves → The Butterfly House → Cutlass Bluetane:
    retained 2005 guide pages 47/174 verify active multiplier ≥14, pairing and reward.
    The source and Legendary item are both absent. Never relabel Hobbe Cave or
-   replace the legacy Warrior/Harbinger contract. Before implementation, audit
-   strict current multiplier authority, distinct source/room construction and
-   every third-family guard/ticket/return integration. Source/interior images
+   replace the legacy Warrior/Harbinger contract. DP10/next-door-audit.md inventories
+   strict current multiplier authority and every third-family integration; raw
+   string/fractional values and nonhostile hits pass legacy checks. New canonical
+   admission needs its own strict reader; source/room/item construction and full
+   cross-family guard/ticket/return tests remain unimplemented. Source/interior images
    are only 214×123 and do not establish full geometry. See GP22/next-door-audit.md
    and next-door-provenance.json; primary pixels stay ignored. This is proposed,
    not an implemented third world. Native acceptance remains open for both pilots.

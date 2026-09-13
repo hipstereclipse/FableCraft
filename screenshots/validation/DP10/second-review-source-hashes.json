@@ -1,0 +1,11 @@
+{
+  "native_acceptance": "unrun",
+  "source_sha256": {
+    "packs/Fablecraft_BP/scripts/arboretum_doors.js": "d66d184a9a8a87587dab054209fab8a69c658a663edec0e1f119eb2531c25125",
+    "packs/Fablecraft_BP/scripts/main.js": "c18b286d79bc16d6b3ea08985d5882f7a2411ae2aeb61de3bd83594d6ffb103e",
+    "scripts/tests/arboretum_doors.test.mjs": "0a044edec85eadfa1e0f37b7b1bcdb22b71f52d2960f41f20604102ad19b070f",
+    "scripts/tests/arboretum_integration.test.mjs": "2562e19f94efb64cfb206bcc3bb2f360336eee619e00f949b6c6c24d830e797a",
+    "tmp/conformance/dp10-integration-audit/arboretum-owner-before.js": "d2ea54066b594d57a3b9432c2a3b11edc85b41d08f2305caf96122c7ce9e7557",
+    "tmp/conformance/dp10-integration-audit/review.mjs": "6780ea5499bcab64df0adbb904329fcecd4c0bc37140adeda0e0188678f89136"
+  }
+}

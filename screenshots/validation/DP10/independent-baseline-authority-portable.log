@@ -1,0 +1,30 @@
+Arboretum owner SHA256 d2ea54066b594d57a3b9432c2a3b11edc85b41d08f2305caf96122c7ce9e7557
+Generated geometry SHA256 40122e38230fa2581102a0fdbe6f72b6d291b1c9d664ac038936af783357c38f
+REPRODUCED active scan replaces later valid ready/visited/claimed history and places structure: {"priorPhase":"ready","priorVisited":true,"priorClaimed":true,"placements":1,"resultPhase":"placing","resultVisited":true,"resultNowUnreadable":true}
+REPRODUCED same revision changed whole-record progress is silently lost at seed intent: {"phase":"ready","injectedProgress":7,"retainedProgress":[],"seeds":1}
+{
+  "nativeAcceptance": "unrun",
+  "observations": [
+    {
+      "name": "active scan replaces later valid ready/visited/claimed history and places structure",
+      "reproduced": true,
+      "priorPhase": "ready",
+      "priorVisited": true,
+      "priorClaimed": true,
+      "placements": 1,
+      "resultPhase": "placing",
+      "resultVisited": true,
+      "resultNowUnreadable": true
+    },
+    {
+      "name": "same revision changed whole-record progress is silently lost at seed intent",
+      "reproduced": true,
+      "phase": "ready",
+      "injectedProgress": 7,
+      "retainedProgress": [],
+      "seeds": 1
+    }
+  ]
+}
+(node:5) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
