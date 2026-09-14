@@ -99,8 +99,10 @@ SHOTS = [
         "struct": "guild_hall",
         "eye": (33.4, 2.62, 47.0), "look": (25, 1.9, 40),
         "sky": "INDOORS", "reach": 44,
-        "mobs": [("guildmaster", (23, 1, 44), {"yaw": 1.1}),
-                 ("guild_apprentice_might", (31, 1, 45), {"yaw": 2.4})],
+        # The map table fills x22-29 / z36-48 at y1, so the cast stands clear of
+        # it — and far enough back that neither one blocks the lens.
+        "mobs": [("guildmaster", (22, 1, 43), {"yaw": 1.4}),
+                 ("guild_apprentice_might", (28, 1, 37), {"yaw": 3.0})],
         "hud": dict(place="Map Room", heading="NW", distance=6, hour=11,
                     notice="§7The Guildmaster has work for you."),
         "caption": "The Map Room: the land-and-sea relief and the Guildmaster.",
@@ -158,9 +160,12 @@ SHOTS = [
     {
         "id": "08_archery_range",
         "struct": "guild_hall",
-        "eye": (86.5, 2.62, 31.0), "look": (86.5, 3.4, 43),
+        # GP15 puts the scenic backboard at x80-88, y1-6, z30 with the active
+        # target at (83,2,34); the firing line is south of both, so the camera
+        # stands down-range and looks -Z at the board rather than away from it.
+        "eye": (84.6, 2.62, 44.0), "look": (83.6, 3.6, 30),
         "sky": "DAY", "reach": 54,
-        "mobs": [("guild_apprentice_skill", (84, 1, 36), {"yaw": 0.1})],
+        "mobs": [("guild_apprentice_skill", (87.6, 1, 41), {"yaw": 3.14})],
         "hud": dict(place="Training Grounds", heading="S", distance=18, hour=10,
                     selected=2, notice="§b+12 Skill XP"),
         "caption": "The archery range, down the firing lanes to the backboard.",
@@ -444,6 +449,14 @@ def stage(shot):
     return w, P.Camera(pos=eye, yaw=yaw, pitch=pitch, fov=shot.get("fov", 70), size=SIZE)
 
 
+def hand_brightness(world, cam, sky):
+    """How lit the player's own hand is, from the light where they stand."""
+    lit = P.LightField(world.lights).at(cam.pos)
+    daylight = sky.ambient * world.sky_factor(int(cam.pos[0]), int(cam.pos[1]),
+                                              int(cam.pos[2]), sky.indoor)
+    return max(0.42, min(1.15, max(lit, daylight)))
+
+
 def render_world(shot):
     w, cam = stage(shot)
     entities = []
@@ -458,19 +471,21 @@ def render_world(shot):
     scene = P.Scene(world=w, cam=cam, sky=sky,
                     reach=shot.get("reach", 56), entities=entities)
     frame = P.render(scene)
-    return w, cam, P.vignette(frame, shot.get("vignette", 0.36))
+    return (w, cam, P.vignette(frame, shot.get("vignette", 0.36)),
+            hand_brightness(w, cam, sky))
 
 
 def render_shot(shot):
-    w, cam, frame = render_world(shot)
+    w, cam, frame, brightness = render_world(shot)
     options = dict(shot.get("hud", {}))
     options.pop("hour_override", None)
-    return HUD.compose(frame, hud(**options), world=w, cam=cam)
+    return HUD.compose(frame, hud(**options), world=w, cam=cam,
+                       brightness=brightness)
 
 
 def render_form(spec, bases):
     base_shot = next(s for s in SHOTS if s["id"] == spec["base"])
-    w, cam, frame = bases[spec["base"]]
+    w, cam, frame, brightness = bases[spec["base"]]
     options = dict(base_shot.get("hud", {}))
     options.pop("hour_override", None)
     options.update(spec.get("hud", {}))
@@ -478,7 +493,7 @@ def render_form(spec, bases):
     options["show_hand"] = False    # an open form puts the item away
     state = hud(**options)
     check_items(state)
-    plate = HUD.compose(frame, state, world=w, cam=cam)
+    plate = HUD.compose(frame, state, world=w, cam=cam, brightness=brightness)
     if spec["kind"] == "message":
         return FM.message_form(plate, spec["title"], spec["body"], spec["buttons"],
                                hovered=spec.get("hovered"),
@@ -532,15 +547,16 @@ def main(only=None):
         if not run and shot["id"] not in needed_bases:
             continue
         start = time.time()
-        w, cam, frame = render_world(shot)
+        w, cam, frame, brightness = render_world(shot)
         if shot["id"] in needed_bases:
-            bases[shot["id"]] = (w, cam, frame)
+            bases[shot["id"]] = (w, cam, frame, brightness)
         if run:
             options = dict(shot.get("hud", {}))
             options.pop("hour_override", None)
             state = hud(**options)
             check_items(state)
-            image = HUD.compose(frame, state, world=w, cam=cam)
+            image = HUD.compose(frame, state, world=w, cam=cam,
+                                brightness=brightness)
             path = OUT_DIR / f"{shot['id']}.png"
             image.convert("RGB").save(path)
             print(f"  {shot['id']:<24} {time.time() - start:5.1f}s  -> {path.name}")

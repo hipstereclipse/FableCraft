@@ -102,9 +102,22 @@ LIGHT_SOURCES = {
 # vector helpers
 # ---------------------------------------------------------------------------
 
-def _norm(v):
+def norm(v):
     length = math.sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]) or 1.0
     return (v[0] / length, v[1] / length, v[2] / length)
+
+
+def dot(a, b):
+    return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]
+
+
+def cross(a, b):
+    return (a[1] * b[2] - a[2] * b[1],
+            a[2] * b[0] - a[0] * b[2],
+            a[0] * b[1] - a[1] * b[0])
+
+
+_norm = norm          # the private spelling predates the view model
 
 
 # ---------------------------------------------------------------------------
@@ -1112,3 +1125,73 @@ def find_viewpoint(world, target, distances=(6, 8, 10, 13), headings=24,
     if best is None:
         return None
     return best[1], best[2], best[3]
+
+
+# ---------------------------------------------------------------------------
+# camera-space geometry (the view model)
+# ---------------------------------------------------------------------------
+#
+# The held item and the player's arm are not in the world: they are pinned to
+# the camera, and Minecraft renders them through the same projection as
+# everything else. Compositing them as flat 2D sprites is what makes a frame
+# look assembled rather than captured — a rotated pixel sprite has no thickness,
+# no foreshortening and ragged non-axis-aligned edges that nothing else in the
+# frame has.
+#
+# These take quads already expressed in camera space (X right, Y up, Z forward)
+# and put them through the same near-clip, projection and fill path the world
+# uses, so the view model shares the frame's perspective exactly.
+
+def paint_camera_quads(img, cam, quads):
+    """Draw (corners, rgb, alpha) camera-space quads over a rendered frame."""
+    prepared = []
+    for corners, rgb, alpha in quads:
+        if max(c[2] for c in corners) < NEAR:
+            continue
+        clipped = clip_near(list(corners))
+        if len(clipped) < 3:
+            continue
+        depth = sum(c[2] for c in corners) / len(corners)
+        prepared.append((depth, [cam.project(c) for c in clipped], rgb, alpha))
+    prepared.sort(key=lambda q: -q[0])            # painter: far first
+
+    layer = Image.new("RGBA", cam.size, (0, 0, 0, 0))
+    draw = ImageDraw.Draw(layer, "RGBA")
+    for _d, pts, rgb, alpha in prepared:
+        draw.polygon(_expand(pts), fill=tuple(rgb) + (alpha,))
+    img.alpha_composite(layer)
+    return img
+
+
+def box_quads(centre, size, basis, faces):
+    """Six shaded faces of an oriented box.
+
+    `basis` is (right, up, forward) unit vectors in camera space; `faces` maps
+    each face name to (rgb, alpha) or to a callable (u, v) -> (rgb, alpha) for
+    textured faces sampled across the face.
+    """
+    r, u, f = basis
+    hx, hy, hz = size[0] / 2, size[1] / 2, size[2] / 2
+
+    def corner(sx, sy, sz):
+        return (centre[0] + r[0] * sx * hx + u[0] * sy * hy + f[0] * sz * hz,
+                centre[1] + r[1] * sx * hx + u[1] * sy * hy + f[1] * sz * hz,
+                centre[2] + r[2] * sx * hx + u[2] * sy * hy + f[2] * sz * hz)
+
+    # (name, corner signs in winding order, outward normal in basis terms)
+    plan = (
+        ("up", ((-1, 1, -1), (-1, 1, 1), (1, 1, 1), (1, 1, -1)), (0, 1, 0)),
+        ("down", ((-1, -1, 1), (-1, -1, -1), (1, -1, -1), (1, -1, 1)), (0, -1, 0)),
+        ("front", ((-1, -1, -1), (-1, 1, -1), (1, 1, -1), (1, -1, -1)), (0, 0, -1)),
+        ("back", ((1, -1, 1), (1, 1, 1), (-1, 1, 1), (-1, -1, 1)), (0, 0, 1)),
+        ("left", ((-1, -1, 1), (-1, 1, 1), (-1, 1, -1), (-1, -1, -1)), (-1, 0, 0)),
+        ("right", ((1, -1, -1), (1, 1, -1), (1, 1, 1), (1, -1, 1)), (1, 0, 0)),
+    )
+    out = []
+    for name, signs, _n in plan:
+        spec = faces.get(name)
+        if spec is None:
+            continue
+        corners = [corner(*s) for s in signs]
+        out.append((corners, spec[0], spec[1]))
+    return out

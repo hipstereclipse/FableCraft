@@ -21,6 +21,7 @@ from dataclasses import dataclass, field
 from PIL import Image, ImageDraw
 
 import fc_pixelfont as PF
+import fc_viewmodel as VM
 from audit_hud import HUD_TEXTURES, HUD_JSON, UI_SCALE, CANVAS, anchor_rect, controls
 from fc_lib import RP
 from gen_hud_font import clock_glyph
@@ -89,6 +90,7 @@ class Hud:
     radar: list = None                    # 11x11 of §-code chars, or None
     crosshair: bool = True
     show_hand: bool = True                # false while a form is open
+    sleeve: str = "apprentice"           # armour set the arm wears
 
     def in_hand(self):
         """What the player is actually holding.
@@ -289,65 +291,22 @@ def draw_crosshair(canvas, scale=UI_SCALE):
     canvas.alpha_composite(layer)
 
 
-def draw_held_item(canvas, item_id, scale=UI_SCALE):
-    """The first-person held item in the lower right, with a sleeved arm.
-
-    Minecraft always draws the equipped item there, angled into frame, and its
-    absence is the other giveaway (after the font) that a frame was rendered
-    from outside the player rather than through their eyes. The arm is built as
-    a tapered quad running in from the bottom-right corner to the hand, which is
-    how it reads on screen once the model is foreshortened.
-    """
-    W, H = canvas.size
-    layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    d = ImageDraw.Draw(layer, "RGBA")
-
-    corner = (W * 1.04, H * 1.10)
-    hand = (W * 0.770, H * 0.760)
-    dx, dy = hand[0] - corner[0], hand[1] - corner[1]
-    length = math.hypot(dx, dy) or 1.0
-    ux, uy = dx / length, dy / length
-    px, py = -uy, ux                                  # across the arm
-    half = H * 0.058
-
-    def band(t0, t1, w0, w1, colour):
-        a = (corner[0] + ux * length * t0, corner[1] + uy * length * t0)
-        b = (corner[0] + ux * length * t1, corner[1] + uy * length * t1)
-        d.polygon([(a[0] + px * w0, a[1] + py * w0), (b[0] + px * w1, b[1] + py * w1),
-                   (b[0] - px * w1, b[1] - py * w1), (a[0] - px * w0, a[1] - py * w0)],
-                  fill=colour)
-
-    band(0.00, 0.72, half * 1.15, half * 0.97, (86, 62, 42, 255))       # sleeve
-    band(0.72, 0.80, half * 0.97, half * 1.02, (146, 108, 64, 255))     # cuff
-    band(0.80, 1.00, half * 0.96, half * 0.86, (216, 172, 134, 255))    # hand
-    # A darker edge down one side gives the arm a readable silhouette against
-    # bright walls without needing a real light model for it.
-    d.line([(corner[0] - px * half * 1.15, corner[1] - py * half * 1.15),
-            (hand[0] - px * half * 0.86, hand[1] - py * half * 0.86)],
-           fill=(0, 0, 0, 70), width=max(2, scale))
-
-    canvas.alpha_composite(layer)
-
-    if item_id:
-        art = item_icon(item_id, round(H * 0.26))
-        if art is not None:
-            art = art.rotate(18, resample=Image.Resampling.NEAREST, expand=True)
-            canvas.alpha_composite(art, (round(hand[0] - art.width * 0.52),
-                                         round(hand[1] - art.height * 0.66)))
-
-
 # ---------------------------------------------------------------------------
 # assembly
 # ---------------------------------------------------------------------------
 
-def compose(frame, state, world=None, cam=None):
-    """Lay the full HUD over a rendered POV frame."""
+def compose(frame, state, world=None, cam=None, brightness=1.0):
+    """Lay the view model and the full HUD over a rendered POV frame."""
     canvas = frame.convert("RGBA").copy()
     if canvas.size != CANVAS:
         canvas = canvas.resize(CANVAS, Image.Resampling.LANCZOS)
 
-    if state.in_hand():
-        draw_held_item(canvas, state.in_hand())
+    # The hand and item go through the same camera as the world (see
+    # fc_viewmodel), so they share the frame's perspective instead of sitting
+    # on top of it as flat art.
+    if cam is not None and (state.show_hand or state.in_hand()):
+        VM.draw(canvas, cam, state.in_hand(), brightness=brightness,
+                set_name=state.sleeve)
     if state.crosshair:
         draw_crosshair(canvas)
 

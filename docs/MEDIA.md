@@ -55,6 +55,11 @@ this look like to play?*
 - Hotbar contents are validated against the real item textures; a shot
   referencing an item that does not exist fails the build rather than rendering
   an empty slot.
+- The held item and the arm go through the *same* camera as the world. The item
+  is extruded from its 16x16 texture the way Minecraft extrudes one — a slab per
+  opaque texel, side walls along the silhouette — and the arm is a pair of boxes
+  wearing the pack's own apprentice armour layer, lit by the light level where
+  the player is standing. Nothing in the frame is a flat 2D overlay.
 
 **What is not**
 
